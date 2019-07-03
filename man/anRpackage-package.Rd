@@ -1,20 +1,20 @@
-\name{anRpackage-package}
-\alias{anRpackage-package}
-\alias{anRpackage}
+\name{tidysq-package}
+\alias{tidysq-package}
+\alias{tidysq}
 \docType{package}
-\title{\packageTitle{anRpackage}}
-\description{\packageDescription{anRpackage}}
+\title{\packageTitle{tidysq}}
+\description{\packageDescription{tidysq}}
 \details{
-  The DESCRIPTION file: \packageDESCRIPTION{anRpackage}
-  \packageIndices{anRpackage}
+  The DESCRIPTION file: \packageDESCRIPTION{tidysq}
+  \packageIndices{tidysq}
 
   This section should provide a more detailed overview of how to use the
   package, including the most important functions.
 }
 \author{
-  \packageAuthor{anRpackage}
+  \packageAuthor{tidysq}
   
-  Maintainer: \packageMaintainer{anRpackage}
+  Maintainer: \packageMaintainer{tidysq}
 }
 \references{
   This optional section can contain literature or other references for
