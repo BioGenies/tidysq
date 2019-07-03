@@ -1,10 +1,15 @@
-Package: anRpackage
+Package: tidysq
 Type: Package
-Title: What the Package Does Using Title Case
+Title: Tidy analysis of biological sequences.
 Version: 1.0
 Date: 2019-07-03
-Author: Your Name
-Maintainer: Your Name <your@email.com>
+Authors@R: c(person("Michal", "Burdukiewicz", 
+           email = "michalburdukiewicz@gmail.com", 
+           comment = c(ORCID = "0000-0001-8926-582X"),
+           role = c("cre", "aut")),
+           person("Dominik", "Rafacz", 
+           email = "d.rafacz@student.mini.pw.edu.pl",
+           role = c("ctb")))
 Description: More details about what the package does. See
             <http://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file> for details
             on how to write this part.
