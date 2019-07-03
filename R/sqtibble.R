@@ -1,4 +1,4 @@
-#' @import tibble::tiblle
+#' @import tibble::tibble
 #' @exportClass sqtibble
 #' @export
 construct_sqtibble <- function(name, sq) {
@@ -12,11 +12,11 @@ construct_sqtibble <- function(name, sq) {
   # }
   if (any(isClass("aasq")) && any(isClass("nucsq"))) {
     #later it could be a option of package:
-    warning("sq contains both nuc and aa sequences - not all functions support that")
+    warning("sq contains both nuc and aa sequences - not all functions can handle that")
   }
   if (any(isClass("ambsq"))) {
     #later it could be a option of package:
-    warning("sq contains at least one amb sequence - not all functions support that")
+    warning("sq contains at least one amb sequence - not all functions can handle that")
   }
   object <- tibble(name = name, sq = sq)
   class(object) <- c("sqtibble", class(object))
