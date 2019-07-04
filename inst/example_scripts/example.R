@@ -1,8 +1,3 @@
-#temporary
-
-load("data/aminoacids_df.rda")
-load("data/nucleotides_df.rda")
-
 #constructing and validating sq
 
 ex_sq1 <- construct_sq("aACccDaaa")
@@ -35,3 +30,5 @@ ex_tb3 <- tidysq:::construct_sqtibble(c("name1", "name3", "name4"), list(ex_sq1,
 tidysq:::validate_sqtibble(ex_tb1)
 tidysq:::validate_sqtibble(ex_tb2)
 tidysq:::validate_sqtibble(ex_tb3)
+
+read_fasta("inst/example_aa.fasta", type = "aa")

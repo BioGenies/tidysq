@@ -1,5 +1,6 @@
-#' @importFrom tibble tibble
+#' @import tibble 
 #' @exportClass sqtbl
+#' @exportClass sqcol
 #' @export
 construct_sqtibble <- function(name, sq) {
   if (!is.character(name)) {
@@ -9,6 +10,7 @@ construct_sqtibble <- function(name, sq) {
     stop("sq should be list of 'sq' objects")
   }
   sapply(sq, validate_sq)
+  class(sq) <- c("sqcol")
   if (any(sapply(sq, function(obj) "aasq" %in% class(obj))) && 
       any(sapply(sq, function(obj) "nucsq" %in% class(obj)))) {
     #later it could be a option of package:
@@ -23,8 +25,7 @@ construct_sqtibble <- function(name, sq) {
   object
 }
 
-#'@importFrom tibble has_name
-#'@importFrom tibble validate_tibble
+#'@import tibble 
 validate_sqtibble <- function(object) {
   if (!"sqtbl" %in% class(object)) {
     stop("object doesn't inherit class 'sqtbl'")
@@ -44,6 +45,9 @@ validate_sqtibble <- function(object) {
   }
   if (!is.list(object$sq)) {
     stop("column 'sq' is not a list")
+  }
+  if (!is.list(object$sq)) {
+    stop("column 'sq' is not kept as 'sqvec'")
   }
   sapply(object$sq, validate_sq)
   invisible(object)

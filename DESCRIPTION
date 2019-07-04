@@ -1,6 +1,6 @@
 Package: tidysq
 Type: Package
-Title: Tidy analysis of biological sequences.
+Title: Tidy analysis of biological sequences
 Version: 1.0
 Date: 2019-07-03
 Authors@R: c(person("Michal", "Burdukiewicz", 
@@ -8,10 +8,12 @@ Authors@R: c(person("Michal", "Burdukiewicz",
            comment = c(ORCID = "0000-0001-8926-582X"),
            role = c("cre", "aut")),
            person("Dominik", "Rafacz", 
-           email = "d.rafacz@student.mini.pw.edu.pl",
+           email = "dominikrafacz@gmail.com",
            role = c("ctb")))
 Description: More details about what the package does. See
             <http://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file> for details
             on how to write this part.
+Depends: tibble (>= 2.1.3)
+Imports: pillar (>= 1.4.2)
 License: GPL (>= 2)
 RoxygenNote: 6.1.1
