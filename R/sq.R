@@ -14,7 +14,7 @@ construct_nucsq <- function(sq) {
   }
   is_nuc_sq <- all(sq %in% nucleotides_df[,"one"])
   if (!is_nuc_sq) {
-    stop("each of sequence elements should be in nucleotide alphabet (one of nucleotides_df['one'])", call. = FALSE)
+    stop("each of sequence elements should be in nucleotide alphabet (one of nucleotides_df[,'one'])", call. = FALSE)
   }
   
   object <- factor(sq, levels = nucleotides_df[,"one"])

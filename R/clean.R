@@ -10,8 +10,8 @@ clean <- function(x, only_elements = FALSE) {
     }
     x[!indicies_remove,]
   } else {
-    x$sq[types == "aa"] <- lapply(x$sq[types == "aa"], function(sq) (sq[!(sq %in% aminoacids_df[aminoacids_df$amb, "one"])]))
-    x$sq[types == "nuc"] <- lapply(x$sq[types == "nuc"], function(sq) (sq[!(sq %in% nucleotides_df[nucleotides_df$amb, "one"])]))
+    x$sq[types == "aa"] <- lapply(x$sq[types == "aa"], function(sq) sq[!(sq %in% aminoacids_df[aminoacids_df$amb, "one"])])
+    x$sq[types == "nuc"] <- lapply(x$sq[types == "nuc"], function(sq) sq[!(sq %in% nucleotides_df[nucleotides_df$amb, "one"])])
     if (any(types == "unt")) {
       warning("there are 'unt' sequences in sqtibble - they weren't changed")
     }
@@ -25,6 +25,6 @@ extract_sq_types <- function(x) {
   if (!all(ret %in% c("aasq", "nucsq", "untsq"))) {
     stop("not every sequence has a type (each should have subclass 'aasq', 'nucsq', 'untsq')")
   }
-  dict <- c(aasq = "aa", nucsq = "nucsq", ambsq = "unt")
+  dict <- c(aasq = "aa", nucsq = "nuc", ambsq = "unt")
   dict[ret]
 }

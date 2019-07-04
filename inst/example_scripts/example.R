@@ -32,3 +32,13 @@ tidysq:::validate_sqtibble(ex_tb2)
 tidysq:::validate_sqtibble(ex_tb3)
 
 ex_tb4 <- read_fasta("inst/example_aa.fasta", type = "aa")
+tidysq:::validate_sqtibble(ex_tb4)
+
+main_tbaa <- read_fasta("inst/small_example_aa.fasta", type = "aa")
+main_tbnuc <- read_fasta("inst/small_example_nuc.fasta", type = "nuc")
+
+clean(main_tbaa)
+clean(main_tbaa, only_elements = TRUE)
+
+clean(main_tbnuc)
+clean(main_tbnuc, only_elements = TRUE)
