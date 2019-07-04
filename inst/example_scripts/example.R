@@ -31,4 +31,4 @@ tidysq:::validate_sqtibble(ex_tb1)
 tidysq:::validate_sqtibble(ex_tb2)
 tidysq:::validate_sqtibble(ex_tb3)
 
-read_fasta("inst/example_aa.fasta", type = "aa")
+ex_tb4 <- read_fasta("inst/example_aa.fasta", type = "aa")
