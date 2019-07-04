@@ -27,8 +27,11 @@ pillar_shaft.sqcol <- function(x, ...) {
   longest_str <- get_max_extent(x)
   min_str_width <- ifelse(longest_str >= 6, 6, longest_str)
   
+  opt <- get_print_length()
+  
   new_pillar_shaft(x,
-                   width = longest_str + nchar(longest_str) + 3,
+                   width = min(longest_str + nchar(longest_str) + 3, 
+                               opt + nchar(longest_str) + 6),
                    min_width = nchar(longest_str) + min_str_width + 3,
                    class = "pillar_shaft_sqcol",
                    align = "left")
@@ -59,3 +62,8 @@ format.pillar_shaft_sqcol <- function(x, width, ...) {
   new_ornament(row, width = width, align = "left")
 }
 
+get_print_length <- function() {
+  opt <- getOption("tidysq_max_sq_print_width")
+  
+  ifelse (!is.null(opt) || !is.numeric(opt) || ! (opt > 0), opt, 15)
+}
