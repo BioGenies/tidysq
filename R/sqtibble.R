@@ -14,11 +14,11 @@ construct_sqtibble <- function(name, sq) {
   if (any(sapply(sq, function(obj) "aasq" %in% class(obj))) && 
       any(sapply(sq, function(obj) "nucsq" %in% class(obj)))) {
     #later it could be a option of package:
-    warning("column sq contains both nuc and aa sequences - not all functions can handle that", call. = FALSE)
+    warning("column 'sq' contains both 'nuc' and 'aa' types sequences - not all functions can handle that", call. = FALSE)
   }
   if (any(sapply(sq, function(obj) "ambsq" %in% class(obj)))) {
     #later it could be a option of package:
-    warning("column sq contains at least one amb sequence - not all functions can handle that", call. = FALSE)
+    warning("column 'sq' contains at least one 'unt' sequence - not all functions can handle that", call. = FALSE)
   }
   object <- tibble(name = name, sq = sq)
   class(object) <- c("sqtbl", class(object))

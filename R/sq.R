@@ -47,9 +47,9 @@ construct_aasq <- function(sq) {
   object
 }
 
-#' @exportClass ambsq
+#' @exportClass untsq
 #' @export
-construct_ambsq <- function(sq) {
+construct_untsq <- function(sq) {
   if (!is.character(sq)) {
     stop("'sq' has to be a character vector", call. = FALSE)
   }
@@ -62,16 +62,16 @@ construct_ambsq <- function(sq) {
     }
   }
   
-  object <- factor(sq, levels = c(LETTERS, "-", "."))
-  class(object) <- c("ambsq", "sq", class(object))
+  object <- factor(sq, levels = sort(unique(sq)))
+  class(object) <- c("untsq", "sq", class(object))
   object
 }
 
 #' @exportClass nucsq
 #' @export
-construct_sq <- function(sq, type = "amb") {
-  if (!type %in% c("amb", "aa", "nuc")) {
-    stop("'type' has to be one of 'amb', 'aa', 'nuc'", call. = FALSE)
+construct_sq <- function(sq, type = "unt") {
+  if (!type %in% c("unt", "aa", "nuc")) {
+    stop("'type' has to be one of 'unt', 'aa', 'nuc'", call. = FALSE)
   }
   
   if (type == "aa") {
@@ -79,7 +79,7 @@ construct_sq <- function(sq, type = "amb") {
   } else if (type =="nuc") {
     construct_nucsq(sq)
   } else {
-    construct_ambsq(sq)
+    construct_untsq(sq)
   }
 }
 
@@ -107,10 +107,10 @@ validate_aasq <- function(object) {
 }
 
 #'
-validate_ambsq <- function(object) {
+validate_untsq <- function(object) {
   validate_sq(object)
-  if (!"ambsq" %in% class(object)) {
-    stop("'object' doesn't inherit class 'ambsq'")
+  if (!"untsq" %in% class(object)) {
+    stop("'object' doesn't inherit class 'untsq'")
   } 
   invisible(object)
 }
