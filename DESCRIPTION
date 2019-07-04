@@ -9,10 +9,11 @@ Authors@R: c(person("Michal", "Burdukiewicz",
            role = c("cre", "aut")),
            person("Dominik", "Rafacz", 
            email = "dominikrafacz@gmail.com",
+           role = c("ctb")),
+           person("Leon Eyrich", "Jessen", 
+           email = "ljess@dtu.dk",
            role = c("ctb")))
-Description: More details about what the package does. See
-            <http://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file> for details
-            on how to write this part.
+Description: A tidy approach to analysis of biological sequences.
 Depends: tibble (>= 2.1.3)
 Imports: pillar (>= 1.4.2)
 License: GPL (>= 2)
