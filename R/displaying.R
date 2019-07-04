@@ -34,17 +34,6 @@ pillar_shaft.sqcol <- function(x, ...) {
                    align = "left")
 }
 
-sq_trunc <- function(x, ...) {
-  
-}
-
-# sqcol_formatter <- function(x, pm) {
-#   out <- 
-#   
-#   ret <- sprintf("%s", deg, pm[ifelse(sign >= 0, 1, 2)])
-#   format(ret, justify = "left")
-# }
-
 #' @importFrom pillar new_ornament
 #' @exportMethod format pillar_shaft_sqcol
 #' @export
