@@ -9,7 +9,7 @@ clean <- function(sqtbl, only_elements = FALSE) {
   if (!only_elements) {
     inds_remove <- (sapply(sqcol, function(sq) any(sq %in% aminoacids_df[aminoacids_df[["amb"]], "one"])) & types == "aa") |
       (sapply(sqcol, function(sq) any(sq %in% nucleotides_df[nucleotides_df[["amb"]], "one"])) & types == "nuc") |
-      (sapply(sqcol, function(sq) any(is.na(sq)) & types != "unt"))
+      (sapply(sqcol, function(sq) any(is.na(sq))) & types != "unt")
     sqtbl <- sqtbl[!inds_remove, ]
   } else {
     sqtbl[["sq"]][types == "aa"] <- lapply(sqcol[types == "aa"], function(sq) sq[!(sq %in% aminoacids_df[aminoacids_df[["amb"]], "one"])])

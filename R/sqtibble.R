@@ -16,7 +16,7 @@ construct_sqtibble <- function(name, sq) {
     #later it could be a option of package:
     warning("column 'sq' contains both 'nuc' and 'aa' types sequences - not all functions can handle that", call. = FALSE)
   }
-  if (any(sapply(sq, function(s) "ambsq" %in% class(s)))) {
+  if (any(sapply(sq, function(s) "untsq" %in% class(s)))) {
     #later it could be a option of package:
     warning("column 'sq' contains at least one 'unt' sequence - not all functions can handle that", call. = FALSE)
   }
