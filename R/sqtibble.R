@@ -40,15 +40,15 @@ validate_sqtibble <- function(object) {
   if (!has_name(object, "sq")) {
     stop("there's no column named 'sq'")
   }
-  if (!is.character(object$name)) {
+  if (!is.character(object[["name"]])) {
     stop("column 'name' is not a character column")
   }
-  if (!is.list(object$sq)) {
+  if (!is.list(object[["sq"]])) {
     stop("column 'sq' is not a list")
   }
-  if (!is.list(object$sq)) {
+  if (!is.list(object[["sq"]])) {
     stop("column 'sq' is not kept as 'sqvec'")
   }
-  sapply(object$sq, validate_sq)
+  sapply(object[["sq"]], validate_sq)
   invisible(object)
 }
