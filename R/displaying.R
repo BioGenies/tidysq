@@ -20,7 +20,7 @@ type_sum.sqcol <- function(x) {
 #' @exportMethod pillar_shaft sqcol
 #' @export
 pillar_shaft.sqcol <- function(x, ...) {
-  x <- as.character(sapply(x, function(i) paste(as.character(i), collapse = "")))
+  x <- as.character(sapply(x, function(i) paste(as.character(ifelse(is.na(i), "*", as.character(i))), collapse = "")))
   # # x <- format(x, formatter = sqcol_formatter)
   # inds_too_long <- (nchar(x) > 20)
   # x[inds_too_long] <- paste0(strtrim(x[inds_too_long], 17), "...")
