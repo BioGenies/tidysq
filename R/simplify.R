@@ -1,3 +1,4 @@
+#' @exportClass simsq
 #' @export
 simplify <- function(sqtbl, encoding) {
   validate_sqtibble(sqtbl)

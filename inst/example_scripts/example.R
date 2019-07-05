@@ -55,6 +55,10 @@ bite(sqtbl_aa, 1:3)
 bite(sqtbl_nuc, 1:5)
 bite(sqtbl_4, 1:20)
 
+get_sq_types(sqtbl_1)
+get_sq_types(sqtbl_aa)
+get_sq_types(sqtbl_nuc)
+
 ####encoding
 enc <- c(A = "a", B = "a", C = "a", D = "a", E = "a", F = "b", G = "b", 
          H = "b", I = "c", J = "c", K = "c", L = "c", M = "c", N = "c", 
@@ -62,4 +66,5 @@ enc <- c(A = "a", B = "a", C = "a", D = "a", E = "a", F = "b", G = "b",
          V = "d", W = "d", X = "d", Y = "d", Z = "d", `-` = "d")
 
 simplify(sqtbl_2, enc)
+get_sq_types(simplify(sqtbl_2, enc))
 simplify(sqtbl_4, enc)
