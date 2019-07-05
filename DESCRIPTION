@@ -15,6 +15,7 @@ Authors@R: c(person("Michal", "Burdukiewicz",
            role = c("ctb")))
 Description: A tidy approach to analysis of biological sequences.
 Depends: tibble (>= 2.1.3)
-Imports: pillar (>= 1.4.2)
+Imports: pillar (>= 1.4.2),
+         crayon (>= 1.3.4)
 License: GPL (>= 2)
 RoxygenNote: 6.1.1
