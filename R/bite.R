@@ -4,7 +4,7 @@ bite <- function(sqtbl, indices) {
 
   if (!(is.numeric(indices) && 
         floor(indices) == indices)) {
-    stop("'index' has to be an integer vector")
+    stop("'indicies' has to be an integer vector")
   }
   
   had_na <- any(sapply(sqtbl[["sq"]], function(sq) any(is.na(sq))))

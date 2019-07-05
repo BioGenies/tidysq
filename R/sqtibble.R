@@ -11,12 +11,13 @@ construct_sqtibble <- function(name, sq) {
   }
   sapply(sq, validate_sq)
   class(sq) <- c("sqcol")
-  if (any(sapply(sq, function(s) "aasq" %in% class(s))) && 
-      any(sapply(sq, function(s) "nucsq" %in% class(s)))) {
+  sqtypes <- sapply(sq, function(s) intersect(class(s), c("aasq", "nucsq", "simsq", "untsq")))
+  sqtypes <- unlist(sqtypes)
+  if (length(setdiff(sqtypes, "untsq")) > 1) {
     handle_opt_txt("tidysq_constr_mtype_action",
-                   "column 'sq' contains both 'nuc' and 'aa' types sequences - not all functions can handle that")
+                   "column 'sq' contains more than one type of sequences among 'nuc', 'aa' and 'sim' - not all functions can handle that")
   }
-  if (any(sapply(sq, function(s) "untsq" %in% class(s)))) {
+  if (any(sqtypes == "untsq")) {
     handle_opt_txt("tidysq_constr_unt_action",
                    "column 'sq' contains at least one 'unt' sequence - not all functions can handle that")
   }
@@ -46,8 +47,8 @@ validate_sqtibble <- function(object) {
   if (!is.list(object[["sq"]])) {
     stop("column 'sq' is not a list")
   }
-  if (!is.list(object[["sq"]])) {
-    stop("column 'sq' is not kept as 'sqvec'")
+  if (class(object[["sq"]]) != "sqcol") {
+    stop("column 'sq' is not kept as 'sqcol'")
   }
   sapply(object[["sq"]], validate_sq)
   invisible(object)

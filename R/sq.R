@@ -37,6 +37,7 @@ construct_aasq <- function(sq) {
       stop("'sq' should have one element with whole sequence or many elements of length 1", call. = FALSE)
     }
   }
+  sq[sq == "."] <- "-"
   is_aa_sq <- all(sq %in% aminoacids_df[,"one"])
   if (!is_aa_sq) {
     stop("each of sequence elements should be in aminoacids alphabet (latin letters with - or .)", call. = FALSE)
@@ -88,6 +89,10 @@ validate_sq <- function(object) {
   if (!"sq" %in% class(object)) {
     stop("'object' doesn't inherit class 'sq'")
   } 
+  sqtype <- intersect(class(object), c("aasq", "nucsq", "untsq", "simsq"))
+  if (!(length(sqtype) == 1)) {
+    stop("'object' should have exactly one of types: 'aa', 'nuc', 'unt', 'sim'")
+  }
   if (!"factor" %in% class(object)) {
     stop("'object' doesn't inherit class 'factor'")
   }
@@ -123,6 +128,18 @@ validate_nucsq <- function(object) {
   } 
   if (!all(levels(object) == nucleotides_df[,"one"])) {
     stop("'object' levels aren't identical to standard nucleotides alphabet")
+  }
+  invisible(object)
+}
+
+#'
+validate_simsq <- function(object) {
+  validate_sq(object)
+  if (!"simsq" %in% class(object)) {
+    stop("'object' doesn't inherit class 'simsq'")
+  } 
+  if (!all(levels(object) %in% c(letters, "-"))) {
+    stop("'object' levels aren't in supposed groups convention (lower latin letters and symbol '-')")
   }
   invisible(object)
 }

@@ -85,11 +85,14 @@ format.pillar_shaft_sqcol <- function(x, width, ...) {
 #' @exportMethod print sq
 #' @export
 print.sq <- function(x, ...) {
-  sqtype <- intersect(class(x), c("aasq", "nucsq", "untsq"))
-  if (length(sqtype) == 0 || length(sqtype) > 1) {
-    sqtype <- "sq (improper subtype):\n"
+  sqtype <- intersect(class(x), c("aasq", "nucsq", "untsq", "simsq"))
+  if (length(sqtype) != 1) {
+    sqtype <- "sq (improper subtype!):\n"
   } else {
-    sqtype <- paste0(c(aasq = "aa", nucsq = "nuc", untsq = "unt")[sqtype], " sequence:\n")
+    sqtype <- paste0(c(aasq = "aa", 
+                       nucsq = "nuc", 
+                       untsq = "unt", 
+                       simsq = "sim")[sqtype], " sequence:\n")
   }
   cat(paste0(sqtype, paste0(x, collapse = ""), "\n"))
 }

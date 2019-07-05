@@ -1,6 +1,6 @@
 #' @export
 clean <- function(sqtbl, only_elements = FALSE) {
-  #this function for sure can be vastly improved
+  #this function for sure can be written way more efficiently
   validate_sqtibble(sqtbl)
   types <- extract_sq_types(sqtbl)
 
@@ -17,7 +17,7 @@ clean <- function(sqtbl, only_elements = FALSE) {
     sqtbl[["sq"]][types != "unt"] <- lapply(sqcol[types != "unt"], function(sq) sq[!is.na(sq)])
   }
   if (any(types == "unt")) {
-    warning("there are 'unt' sequences in sqtibble - they weren't changed")
+    warning("there are 'unt' or 'sim' sequences in sqtibble - they weren't changed")
   }
   sqtbl
 }
