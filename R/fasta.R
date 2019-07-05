@@ -11,5 +11,5 @@ read_fasta <- function(file, type = "unt") {
   names_vec <- sub(">", "", sapply(all_prots, function(prot) prot[1]), fixed = TRUE)
   
   sq_list <- lapply(sq_list, function(sq) construct_sq(sq, type))
-  construct_sqtibble(names_vec, sq_list)
+  construct_sqtibble(names_vec, unname(sq_list))
 }

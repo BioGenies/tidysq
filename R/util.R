@@ -15,6 +15,6 @@ extract_sq_types <- function(sqtbl) {
   if (!all(classes_list %in% c("aasq", "nucsq", "untsq"))) {
     stop("not every sequence in sqtibble has appropriate type (each should have exactly one of subclasses: 'aasq', 'nucsq', 'untsq')")
   }
-  dict <- c(aasq = "aa", nucsq = "nuc", ambsq = "unt")
+  dict <- c(aasq = "aa", nucsq = "nuc", untsq = "unt")
   dict[classes_list]
 }
