@@ -13,12 +13,12 @@ construct_sqtibble <- function(name, sq) {
   class(sq) <- c("sqcol")
   if (any(sapply(sq, function(s) "aasq" %in% class(s))) && 
       any(sapply(sq, function(s) "nucsq" %in% class(s)))) {
-    #later it could be a option of package:
-    warning("column 'sq' contains both 'nuc' and 'aa' types sequences - not all functions can handle that", call. = FALSE)
+    handle_opt_txt("tidysq_constr_mtype_action",
+                   "column 'sq' contains both 'nuc' and 'aa' types sequences - not all functions can handle that")
   }
   if (any(sapply(sq, function(s) "untsq" %in% class(s)))) {
-    #later it could be a option of package:
-    warning("column 'sq' contains at least one 'unt' sequence - not all functions can handle that", call. = FALSE)
+    handle_opt_txt("tidysq_constr_unt_action",
+                   "column 'sq' contains at least one 'unt' sequence - not all functions can handle that")
   }
   object <- tibble(name = name, sq = sq)
   class(object) <- c("sqtbl", class(object))

@@ -11,7 +11,8 @@ bite <- function(sqtbl, indices) {
   sqtbl[["sq"]] <- lapply(sqtbl[["sq"]], function(sq) sq[indices])
   has_na <- any(sapply(sqtbl[["sq"]], function(sq) any(is.na(sq))))
   if (has_na & !had_na) {
-    warning("some sequences are subsetted with index bigger than lengh - NA's introduced")
+    handle_opt_txt("tidysq_bite_na_action",
+                   "some sequences are subsetted with index bigger than length - NA's introduced")
   }
   set_sqcol(sqtbl)
 }

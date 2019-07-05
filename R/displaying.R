@@ -80,14 +80,3 @@ format.pillar_shaft_sqcol <- function(x, width, ...) {
   new_ornament(row, width = width, align = "left")
 }
 
-get_print_length <- function() {
-  opt <- getOption("tidysq_max_sq_print_width")
-  
-  ifelse (is.null(opt) || !is.numeric(opt) || is.na(opt) || is.nan(opt) || is.infinite(opt) || !(opt > 0), 15, opt)
-}
-
-get_color_opt <- function() {
-  opt <- getOption("tidysq_colorful_sq_print")
-  
-  ifelse (is.null(opt) || !is.logical(opt) || is.na(opt), FALSE, opt)
-}
