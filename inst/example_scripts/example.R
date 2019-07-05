@@ -54,3 +54,12 @@ reverse(sqtbl_nuc)
 bite(sqtbl_aa, 1:3)
 bite(sqtbl_nuc, 1:5)
 bite(sqtbl_4, 1:20)
+
+####encoding
+enc <- c(A = "a", B = "a", C = "a", D = "a", E = "a", F = "b", G = "b", 
+         H = "b", I = "c", J = "c", K = "c", L = "c", M = "c", N = "c", 
+         O = "c", P = "d", Q = "d", R = "d", S = "d", T = "d", U = "d", 
+         V = "d", W = "d", X = "d", Y = "d", Z = "d", `-` = "d")
+
+simplify(sqtbl_2, enc)
+simplify(sqtbl_4, enc)
