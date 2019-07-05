@@ -1,7 +1,9 @@
 #' @exportMethod tbl_sum sqtbl
 #' @export
 tbl_sum.sqtbl <- function(x) {
-  c("A sqtibble" = dim_desc(x))
+  ret <- NextMethod()
+  names(ret) <- "A sqtibble"
+  ret
 }
 
 #' @importFrom pillar type_sum
