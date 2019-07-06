@@ -11,3 +11,20 @@ extract_sq_types <- function(sqtbl) {
   dict <- c(aasq = "aa", nucsq = "nuc", untsq = "unt", simsq = "sim")
   dict[sqclasses]
 }
+
+set_clean <- function(sqtbl) {
+  sqtbl[["sq"]] <- lapply(sqtbl[["sq"]], function(sq) {
+    if (!("clnsq" %in% class(sq)) &&
+        any(c("aasq", "nucsq") %in% class(sq))) {
+      class(sq) <- c("clnsq", class(sq))
+      sq
+    } else {
+      sq
+    }
+  })
+  set_sqcol(sqtbl)
+}
+
+extract_is_clean <- function(sqtbl) {
+  sapply(sqtbl[["sq"]], function(sq) "clnsq" %in% class(sq))
+}

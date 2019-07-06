@@ -105,9 +105,16 @@ validate_aasq <- function(object) {
   if (!"aasq" %in% class(object)) {
     stop("'object' doesn't inherit class 'aasq'")
   } 
-  if (!all(levels(object) == aminoacids_df[,"one"])) {
-    stop("'object' levels aren't identical to standard aminoacids alphabet")
+  if (!("clnsq" %in% class(object))) {
+    if (!identical(levels(object), aminoacids_df[,"one"])) {
+      stop("'object' levels aren't identical to standard aminoacids alphabet")
+    }
+  } else {
+    if (!identical(levels(object), aminoacids_df[!aminoacids_df[["amb"]],"one"])) {
+      stop("'object' levels aren't identical to cleaned aminoacids alphabet")
+    }
   }
+  
   invisible(object)
 }
 
@@ -126,8 +133,14 @@ validate_nucsq <- function(object) {
   if (!"nucsq" %in% class(object)) {
     stop("'object' doesn't inherit class 'nucsq'")
   } 
-  if (!all(levels(object) == nucleotides_df[,"one"])) {
-    stop("'object' levels aren't identical to standard nucleotides alphabet")
+  if (!("clnsq" %in% class(object))) {
+    if (!identical(levels(object), nucleotides_df[,"one"])) {
+      stop("'object' levels aren't identical to standard nucleotides alphabet")
+    }
+  } else {
+    if (!identical(levels(object), nucleotides_df[nucleotides_df[["amb"]],"one"])) {
+      stop("'object' levels aren't identical to cleaned nucleotides alphabet")
+    }
   }
   invisible(object)
 }

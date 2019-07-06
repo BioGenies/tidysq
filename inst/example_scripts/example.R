@@ -41,7 +41,7 @@ sqtbl_nuc <- read_fasta("inst/small_example_nuc.fasta", type = "nuc")
 
 ####testing simple functions
 
-clean(sqtbl_aa)
+sqtbl_c1 <- clean(sqtbl_aa)
 clean(sqtbl_aa, only_elements = TRUE)
 
 clean(sqtbl_nuc)
@@ -53,7 +53,11 @@ reverse(sqtbl_nuc)
 #third example should give warning
 bite(sqtbl_aa, 1:3)
 bite(sqtbl_nuc, 1:5)
-bite(sqtbl_4, 1:20)
+sqtbl_b1 <- bite(sqtbl_4, 1:20)
+
+remove_na(sqtbl_1)
+remove_na(sqtbl_b1)
+remove_na(sqtbl_b1, only_elements = TRUE)
 
 get_sq_types(sqtbl_1)
 get_sq_types(sqtbl_aa)
@@ -68,3 +72,16 @@ enc <- c(A = "a", B = "a", C = "a", D = "a", E = "a", F = "b", G = "b",
 simplify(sqtbl_2, enc)
 get_sq_types(simplify(sqtbl_2, enc))
 simplify(sqtbl_4, enc)
+simplify(rbind(sqtbl_2, clean(sqtbl_2, only_elements = TRUE)), enc)
+
+
+####kmers
+
+#this example should give error
+count_kmers(sqtbl_2, 
+            c(1, rep(2, 4), rep(3, 4)),
+            list(0, 0, 1, 2, 3, c(0, 0), c(0, 1), c(1, 0), c(1, 1)))
+kmers_matrix <- count_kmers(bite(simplify(sqtbl_2, enc), 1:6), 
+            c(1, rep(2, 4), rep(3, 4)),
+            list(0, 0, 1, 2, 3, c(0, 0), c(0, 1), c(1, 0), c(1, 1)))
+
