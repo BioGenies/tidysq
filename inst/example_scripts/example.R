@@ -78,10 +78,10 @@ simplify(rbind(sqtbl_2, clean(sqtbl_2, only_elements = TRUE)), enc)
 ####kmers
 
 #this example should give error
-count_kmers(sqtbl_2, 
+count_kmers(sqtbl_2,
             c(1, rep(2, 4), rep(3, 4)),
             list(0, 0, 1, 2, 3, c(0, 0), c(0, 1), c(1, 0), c(1, 1)))
-kmers_matrix <- count_kmers(bite(simplify(sqtbl_2, enc), 1:6), 
+kmers_matrix <- count_kmers(bite(simplify(sqtbl_2, enc), 1:6),
             c(1, rep(2, 4), rep(3, 4)),
             list(0, 0, 1, 2, 3, c(0, 0), c(0, 1), c(1, 0), c(1, 1)))
 
