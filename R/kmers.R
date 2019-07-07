@@ -234,3 +234,12 @@ d_create_single_pattern <- function(dsts) {
   }
 }
 
+d_create_all_ngrams <- function(dsts, alphabet) {
+  unlist(lapply(dsts, function(dst) {
+    ngrams <- vector("list", length(dst) + 1) 
+    inds <- if (length(dst) == 0) 1 else c(1, cumsum(dst) + 2:(length(dst) + 1))
+    ngrams[inds] <- lapply(1:length(inds), function(ind) alphabet)
+    ngrams[setdiff(1:length(ngrams), inds)] <- "_"
+    apply(do.call(expand.grid, c(ngrams, stringsAsFactors = FALSE)), 1, function(row) paste(row, collapse = ""))
+  }))
+}
