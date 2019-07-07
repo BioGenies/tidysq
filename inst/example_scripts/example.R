@@ -39,31 +39,47 @@ tidysq:::validate_sqtibble(sqtbl_4)
 sqtbl_aa <- read_fasta("inst/small_example_aa.fasta", type = "aa")
 sqtbl_nuc <- read_fasta("inst/small_example_nuc.fasta", type = "nuc")
 
-####testing simple functions
+####getting invalid levels
+sq_inv1 <- construct_sq("abcdefgh!@#$$%^&&*")
+sq_inv2 <- construct_sq("fkdajflka*7^#@")
+sqtbl_unt <- construct_sqtibble(c("name1", "name2"), list(sq_inv1, sq_inv2))
+
+get_invalid_levels(sqtbl_unt, "aa")
+get_invalid_levels(sqtbl_unt, "aa", only_levels = FALSE)
+
+####cleaning
 
 sqtbl_c1 <- clean(sqtbl_aa)
 clean(sqtbl_aa, only_elements = TRUE)
-
 clean(sqtbl_nuc)
 clean(sqtbl_nuc, only_elements = TRUE)
 
+####reversing
+
 reverse(sqtbl_aa)
 reverse(sqtbl_nuc)
+
+####subsetting sequences
 
 #third example should give warning
 bite(sqtbl_aa, 1:3)
 bite(sqtbl_nuc, 1:5)
 sqtbl_b1 <- bite(sqtbl_4, 1:20)
 
+####removing NA's
+
 remove_na(sqtbl_1)
 remove_na(sqtbl_b1)
 remove_na(sqtbl_b1, only_elements = TRUE)
+
+####getting sequences types
 
 get_sq_types(sqtbl_1)
 get_sq_types(sqtbl_aa)
 get_sq_types(sqtbl_nuc)
 
 ####encoding
+
 enc <- c(A = "a", B = "a", C = "a", D = "a", E = "a", F = "b", G = "b", 
          H = "b", I = "c", J = "c", K = "c", L = "c", M = "c", N = "c", 
          O = "c", P = "d", Q = "d", R = "d", S = "d", T = "d", U = "d", 

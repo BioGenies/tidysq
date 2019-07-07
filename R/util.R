@@ -28,3 +28,11 @@ set_clean <- function(sqtbl) {
 extract_is_clean <- function(sqtbl) {
   sapply(sqtbl[["sq"]], function(sq) "clnsq" %in% class(sq))
 }
+
+extract_inv_lvls <- function(sqtbl, dest_type, sqtypes) {
+  inv_levels <- vector("list", nrow(sqtbl))
+  dest_alph <- if (dest_type == "aa") aminoacids_df[, "one"] else nucleotides_df[, "one"]
+  
+  inv_levels[sqtypes != dest_type] <- lapply(sqtbl[["sq"]][sqtypes != dest_type], 
+                                             function(sq) setdiff(levels(sq), dest_alph))
+}
