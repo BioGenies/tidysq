@@ -8,7 +8,7 @@ get_invalid_levels <- function(sqtbl, dest_type, only_levels = TRUE) {
   if (!is.logical(only_levels) ||
       (length(only_levels) != 1) ||
       is.na(only_levels)) {
-    stop("'as_vector' has to be either TRUE or FALSE")
+    stop("'only_levels' has to be either TRUE or FALSE")
   }
   
   sqtypes <- extract_sq_types(sqtbl)

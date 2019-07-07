@@ -59,6 +59,9 @@ drop_invalid_levels(sqtbl_unt, "aa")
 
 remove_na(sqtbl_1)
 
+get_sq_types(set_sq_types(drop_invalid_levels(sqtbl_unt, "aa"), "aa"))
+
+
 ####cleaning
 
 sqtbl_c1 <- clean(sqtbl_aa)
@@ -93,6 +96,28 @@ get_sq_types(simplify(sqtbl_2, enc))
 simplify(sqtbl_4, enc)
 simplify(rbind(sqtbl_2, clean(sqtbl_2, only_elements = TRUE)), enc)
 
+#example of reading invalid file, dealing with invalid levels, then cleaning and reducing
+## (it was generated with following code):
+# paste0(">aa", 1:1000, "\n", sapply(1:1000, function(x)
+#   paste0(sample(c(sample(list(c(LETTERS[-24], "#", "-"),
+#                               aminoacids_df[!aminoacids_df[["amb"]], "one"]), 1)[[1]],"+"),
+#                 sample(4:50, 1), replace = TRUE), collapse = "")), collapse = "\n")
+
+# assume we have fasta file with aa sequences, where - for some unexplainable reason - somebody
+# used '#' instead of 'X'; there are also '+' in some sequences, but we don't know, what does it mean
+
+# we want to read file, change '#' to 'X', drop all sequences with '+' (by changing them to NA's
+# and then removing them) and reducing alphabet
+
+# here - and only here - we use magrittr's %>% operator for simplicity of code
+library(magrittr)
+
+read_fasta("inst/unt_example.fasta") %>%
+  substitue_invalid_levels("aa", c(`#` = 'X')) %>%
+  drop_invalid_levels("aa") %>%
+  remove_na() %>%
+  set_sq_types("aa") %>%
+  simplify(enc)
 
 ####kmers
 
