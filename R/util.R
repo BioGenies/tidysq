@@ -1,6 +1,11 @@
 #this functions are internal (at least by now) and are used only on sqtibbles we know are corect
 #so theres no need to validate
 
+.get_alph <- function(sq) {
+  attr(sq, "alphabet")
+}
+
+
 set_sqcol <- function(sqtbl) {
   class(sqtbl[["sq"]]) <- "sqcol"
   sqtbl

@@ -1,80 +1,15 @@
-#' @exportClass nucsq
-#' @export
-construct_nucsq <- function(sq) {
-  if (!is.character(sq)) {
-    stop("'sq' has to be a character vector", call. = FALSE)
-  }
-  sq <- toupper(sq)
-  if(length(sq) == 1) {
-    sq <- strsplit(sq, "")[[1]]
-  } else {
-    if (!all(nchar(sq) == 1)) {
-      stop("'sq' should have one element with whole sequence or many elements of length 1", call. = FALSE)
-    }
-  }
-  is_nuc_sq <- all(sq %in% nucleotides_df[,"one"])
-  if (!is_nuc_sq) {
-    stop("each of sequence elements should be in nucleotide alphabet (one of nucleotides_df[,'one'])", call. = FALSE)
-  }
-  
-  object <- factor(sq, levels = nucleotides_df[,"one"])
-  class(object) <- c("nucsq", "sq", class(object))
-  object
-}
-
-#' @exportClass aasq
-construct_aasq <- function(sq) {
-  # TO DO: what if user gives list of aminoacids three letter names
-  if (!is.character(sq)) {
-    stop("'sq' has to be a character vector", call. = FALSE)
-  }
-  sq <- toupper(sq)
-  if(length(sq) == 1) {
-    sq <- strsplit(sq, "")[[1]]
-  } else {
-    if (!all(nchar(sq) == 1)) {
-      stop("'sq' should have one element with whole sequence or many elements of length 1", call. = FALSE)
-    }
-  }
-  sq[sq == "."] <- "-"
-  is_aa_sq <- all(sq %in% aminoacids_df[,"one"])
-  if (!is_aa_sq) {
-    stop("each of sequence elements should be in aminoacids alphabet (latin letters with - or .)", call. = FALSE)
-  }
-  
-  object <- factor(sq, levels = aminoacids_df[,"one"])
-  class(object) <- c("aasq", "sq", class(object))
-  object
-}
-
-#' @exportClass untsq
-construct_untsq <- function(sq) {
-  if (!is.character(sq)) {
-    stop("'sq' has to be a character vector", call. = FALSE)
-  }
-  sq <- toupper(sq)
-  if(length(sq) == 1) {
-    sq <- strsplit(sq, "")[[1]]
-  } else {
-    if (!all(nchar(sq) == 1)) {
-      stop("'sq' should have one element with whole sequence or many elements of length 1", call. = FALSE)
-    }
-  }
-  
-  object <- factor(sq, levels = sort(unique(sq)))
-  class(object) <- c("untsq", "sq", class(object))
-  object
-}
-
-#' @exportClass nucsq
+#' @exportClass sq
 #' @export
 construct_sq <- function(sq, type = "unt") {
-  if (!type %in% c("unt", "aa", "nuc")) {
-    stop("'type' has to be one of 'unt', 'aa', 'nuc'", call. = FALSE)
+  if (!type %in% c("unt", "ami", "nuc")) {
+    stop("'type' has to be one of 'unt', 'ami', 'nuc'")
+  }
+  if (!is.character(sq)) {
+    stop("'sq' has to be a vector of strings", call. = FALSE)
   }
   
-  if (type == "aa") {
-    construct_aasq(sq)
+  if (type == "ami") {
+    construct_amisq(sq)
   } else if (type =="nuc") {
     construct_nucsq(sq)
   } else {
@@ -82,34 +17,117 @@ construct_sq <- function(sq, type = "unt") {
   }
 }
 
+#' @exportClass nucsq
+construct_nucsq <- function(sq) {
+  sq <- toupper(sq)
+  alph <- nucleotides_df[,"one"]
+  sq <- strsplit(sq, "")
+  is_nuc_sq <- all(unlist(sq) %in% alph)
+  if (!is_nuc_sq) {
+    stop("each of letters should be in nucleotide alphabet (one of nucleotides_df[,'one'])")
+  }
+  
+  object <- lapply(sq, function(s) match(s, alph))
+  attr(object, "alphabet") <- alph
+  class(object) <- c("nucsq", "sq")
+  object
+}
+
+#' @exportClass amisq
+construct_amisq <- function(sq) {
+  sq <- toupper(sq)
+  alph <- aminoacids_df[,"one"]
+  sq <- strsplit(sq, "")
+  is_ami_sq <- all(unlist(sq) %in% alph)
+  if (!is_ami_sq) {
+    stop("each of letters should be in aminoacids alphabet (one of aminoacids_df[,'one'])")
+  }
+  
+  object <- lapply(sq, function(s) match(s, alph))
+  attr(object, "alphabet") <- alph
+  class(object) <- c("amisq", "sq")
+  object
+}
+
+#' @exportClass untsq
+construct_untsq <- function(sq) {
+  sq <- strsplit(sq, "")
+  alph <- unique(unlist(sq))
+
+  object <- lapply(sq, function(s) match(s, alph))
+  attr(object, "alphabet") <- alph
+  class(object) <- c("untsq", "sq")
+  object
+}
+
 #'
 validate_sq <- function(object) {
   if (!"sq" %in% class(object)) {
     stop("'object' doesn't inherit class 'sq'")
   } 
-  sqtype <- intersect(class(object), c("aasq", "nucsq", "untsq", "simsq"))
+  sqtype <- intersect(class(object), c("amisq", "nucsq", "untsq", "simsq", "atpsq"))
   if (!(length(sqtype) == 1)) {
-    stop("'object' should have exactly one of types: 'aa', 'nuc', 'unt', 'sim'")
+    stop("'object' should have exactly one of types: 'ami', 'nuc', 'unt', 'sim', 'atp")
   }
-  if (!"factor" %in% class(object)) {
-    stop("'object' doesn't inherit class 'factor'")
+  if (is.null(attr(object, "alphabet"))) {
+    stop("'object' doesn't 'alphabet' attribute")
+  }
+  if (is.null(attr(object, "alphabet"))) {
+    stop("'object' doesn't 'alphabet' attribute")
+  }
+  alph <- .get_alph(object)
+  if (!is.character(alph)) {
+    stop("attribute 'alphabet' isn't character vector")
+  }
+  #assumption about length of one of each character - this can be changed in future
+  if (!all(sapply(alph, length) == 1)) {
+    stop("attribute 'alphabet' have elements, that aren't one character long")
+  }
+  if (!is.list(object)) {
+    stop("'object' isn't a list")
+  }
+  if (!all(sapply(object, is.integer))) {
+    stop("'object' isn't a list of integer vectors")
+  }
+  if (max(unlist(object)) > length(alph)) {
+    stop("'alphabet' attribute has less elements than are different values in 'object'")
   }
   invisible(object)
 }
 
 #'
-validate_aasq <- function(object) {
+validate_nucsq <- function(object) {
   validate_sq(object)
-  if (!"aasq" %in% class(object)) {
-    stop("'object' doesn't inherit class 'aasq'")
+  if (!"nucsq" %in% class(object)) {
+    stop("'object' doesn't inherit class 'nucsq'")
   } 
+  alph <- .get_alph(object)
   if (!("clnsq" %in% class(object))) {
-    if (!identical(levels(object), aminoacids_df[,"one"])) {
-      stop("'object' levels aren't identical to standard aminoacids alphabet")
+    if (!identical(alph, nucleotides_df[,"one"])) {
+      stop("attribute 'alphabet' isn't identical to standard nucleotides alphabet")
     }
   } else {
-    if (!identical(levels(object), aminoacids_df[!aminoacids_df[["amb"]],"one"])) {
-      stop("'object' levels aren't identical to cleaned aminoacids alphabet")
+    if (!identical(alph, nucleotides_df[!nucleotides_df[["amb"]],"one"])) {
+      stop("attribute 'alphabet' isn't identical to cleaned nucleotides alphabet")
+    }
+  }
+  invisible(object)
+}
+
+#'
+validate_amisq <- function(object) {
+  validate_sq(object)
+  if (!"amisq" %in% class(object)) {
+    stop("'object' doesn't inherit class 'amisq'")
+  } 
+  alph <- .get_alph(object)
+  if (!("clnsq" %in% class(object))) {
+    if (!identical(alph, aminoacids_df[,"one"])) {
+      stop("attribute 'alphabet' isn't identical to standard aminoacids alphabet")
+    }
+  } else {
+    if (!identical(alph, aminoacids_df[!aminoacids_df[["amb"]],"one"])) {
+      stop("attribute 'alphabet' isn't identical to cleaned aminoacids alphabet")
     }
   }
   
@@ -126,31 +144,14 @@ validate_untsq <- function(object) {
 }
 
 #'
-validate_nucsq <- function(object) {
-  validate_sq(object)
-  if (!"nucsq" %in% class(object)) {
-    stop("'object' doesn't inherit class 'nucsq'")
-  } 
-  if (!("clnsq" %in% class(object))) {
-    if (!identical(levels(object), nucleotides_df[,"one"])) {
-      stop("'object' levels aren't identical to standard nucleotides alphabet")
-    }
-  } else {
-    if (!identical(levels(object), nucleotides_df[nucleotides_df[["amb"]],"one"])) {
-      stop("'object' levels aren't identical to cleaned nucleotides alphabet")
-    }
-  }
-  invisible(object)
-}
-
-#'
 validate_simsq <- function(object) {
   validate_sq(object)
   if (!"simsq" %in% class(object)) {
     stop("'object' doesn't inherit class 'simsq'")
   } 
-  if (!all(levels(object) %in% c(letters, "-"))) {
-    stop("'object' levels aren't in supposed groups convention (lower latin letters and symbol '-')")
+  alph <- .get_alph(object)
+  if (!all(alph %in% c(letters, "-"))) {
+    stop("attribute 'alphabet' doesn't follow groups naming convention (lower latin letters and symbol '-')")
   }
   invisible(object)
 }
