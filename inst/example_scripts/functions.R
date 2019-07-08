@@ -90,13 +90,13 @@ remove_na(drop_invalid_levels(sqtbl_unt, "aa"))
 remove_na(drop_invalid_levels(sqtbl_unt, "aa"), only_elements = TRUE)
 #QUESTION: what about the name? should this be just an alias for overloaded na.omit()?
 
-set_sq_types(drop_invalid_levels(sqtbl_unt, "aa"), "aa")
+set_sq_types(remove_na(drop_invalid_levels(sqtbl_unt, "aa"), only_elements = TRUE), "aa")
 
 #example:
 library(magrittr)
 
 read_fasta("inst/unt_example.fasta") %>%
-  substitue_invalid_levels("aa", c(`#` = 'X')) %>%
+  substitue_invalid_levels("aa", c(`#` = 'X', `+`="S")) %>%
   drop_invalid_levels("aa") %>%
   remove_na() %>%
   set_sq_types("aa")
@@ -117,6 +117,7 @@ reverse(sqtbl_nuc)
 
 #biting:
 bite(sqtbl_aa, 1:3)
+bite(sqtbl_aa, -2)
 bite(sqtbl_nuc, 1:5)
 bite(sqtbl_long, 1:20)
 #QUESTION: what about the name?
@@ -127,8 +128,8 @@ enc <- c(A = "a", B = "a", C = "a", D = "a", E = "a", F = "b", G = "b",
          O = "c", P = "d", Q = "d", R = "d", S = "d", T = "d", U = "d", 
          V = "d", W = "d", X = "d", Y = "d", Z = "d", `-` = "d")
 
-simplify(sqtbl_2, enc) #new sq subclass: sqsim (type: sim)
-get_sq_types(simplify(sqtbl_2, enc))
+simplify(sqtbl_aa, enc) #new sq subclass: sqsim (type: sim)
+get_sq_types(simplify(sqtbl_aa, enc))
 simplify(sqtbl_long, enc)
 #warning expected due to cleaned and uncleaned sequences at once; 
 # >> if we won't allow it, it won't be necessary
@@ -138,9 +139,9 @@ simplify(rbind(sqtbl_2, clean(sqtbl_2, only_elements = TRUE)), enc)
 #encoded sequences?
 
 #####################################################################
-count_kmers(sqtbl_2,
+count_kmers(sqtbl_aa,
             c(1, rep(2, 4), rep(3, 4)),
             list(0, 0, 1, 2, 3, c(0, 0), c(0, 1), c(1, 0), c(1, 1)))
-kmers_matrix <- count_kmers(bite(simplify(sqtbl_2, enc), 1:6),
+kmers_matrix <- count_kmers(bite(simplify(sqtbl_aa, enc), 1:6),
                             c(1, rep(2, 4), rep(3, 4)),
                             list(0, 0, 1, 2, 3, c(0, 0), c(0, 1), c(1, 0), c(1, 1)))
