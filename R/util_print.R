@@ -6,19 +6,13 @@ tbl_sum.sqtbl <- function(x) {
   ret
 }
 
+# TO REWORK:
+
 #' @importFrom pillar type_sum
-#' @exportMethod type_sum sqcol
+#' @exportMethod type_sum sq
 #' @export
 type_sum.sqcol <- function(x) {
   "sq"
-}
-
-#' @exportMethod `[` sqcol
-#' @export
-`[.sqcol` <- function(i, ...) {
-  ret <- NextMethod()
-  class(ret) <- "sqcol"
-  ret
 }
 
 #' @importFrom crayon col_nchar
@@ -85,20 +79,21 @@ format.pillar_shaft_sqcol <- function(x, width, ...) {
 #' @exportMethod print sq
 #' @export
 print.sq <- function(x, ...) {
-  sqtype <- intersect(class(x), c("aasq", "nucsq", "untsq", "simsq"))
-  if ("clnsq" %in% class(x)) {
-    cln_msg <- " (cleaned)"
+  sqclass <- .get_sq_subclass(x)
+  cln_msg <- if ("clnsq" %in% class(x)) " (cleaned)" else ""
+  
+  if (length(sqclass) != 1) {
+    sqclass <- "sq (improper subtype!):\n"
   } else {
-    cln_msg <- ""
-  }
-  if (length(sqtype) != 1) {
-    sqtype <- "sq (improper subtype!):\n"
-  } else {
-    sqtype <- paste0(c(aasq = "aa", 
-                       nucsq = "nuc", 
-                       untsq = "unt", 
-                       simsq = "sim")[sqtype], cln_msg, " sequence:\n")
+    sqclass <- paste0(c(amisq = "ami (amino acids)", 
+                        nucsq = "nuc (nucleotides)", 
+                        untsq = "unt (unspecified type)", 
+                        simsq = "sim (simplified alphabet)",
+                        atpsq = "atp (atypical alphabet)")[sqclass], cln_msg, " sequences vector:\n")
   }
   
-  cat(paste0(sqtype, paste0(x, collapse = ""), "\n"))
+  dict <- .get_alph(x)
+  names(dict) <- 1:length(dict)
+  decoded <- sapply(x, function(s) paste(dict[s], collapse = ""))
+  cat(paste0(sqclass, paste0("[", 1:length(x), "]  ", decoded, collapse = "\n")))
 }
