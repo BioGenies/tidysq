@@ -10,8 +10,7 @@ count_kmers <- function(sqtbl, lens, dsts, position = FALSE) {
     stop("'sqtbl' should contain only sequences of the same type - either 'aa', 'nuc' or 'sim'")
   } 
   
-  if (length(unique(lengths(sqtbl[["sq"]]))) != 1 ||
-      any(sqtypes == "unt")) {
+  if (length(sqtbl[["sq"]]) < 1) {
     stop("'sqtbl' should have at least one sequence")
   } 
   if (!sqtypes[1] == "sim" &&

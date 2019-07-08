@@ -20,7 +20,7 @@ clean <- function(sqtbl, only_elements = FALSE) {
     })
     sqtbl[["sq"]][types == "nuc"] <- lapply(sqtbl[["sq"]][types == "nuc"], function(sq) {
       sq <- factor(as.character(sq), levels = nucleotides_df[!nucleotides_df[["amb"]], "one"])
-      class(sq) <- c("aasq", "sq", "factor")
+      class(sq) <- c("nucsq", "sq", "factor")
       sq
     })
     

@@ -117,6 +117,7 @@ read_fasta("inst/unt_example.fasta") %>%
   drop_invalid_levels("aa") %>%
   remove_na() %>%
   set_sq_types("aa") %>%
+  clean()
   simplify(enc)
 
 ####kmers

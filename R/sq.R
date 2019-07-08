@@ -23,7 +23,6 @@ construct_nucsq <- function(sq) {
 }
 
 #' @exportClass aasq
-#' @export
 construct_aasq <- function(sq) {
   # TO DO: what if user gives list of aminoacids three letter names
   if (!is.character(sq)) {
@@ -49,7 +48,6 @@ construct_aasq <- function(sq) {
 }
 
 #' @exportClass untsq
-#' @export
 construct_untsq <- function(sq) {
   if (!is.character(sq)) {
     stop("'sq' has to be a character vector", call. = FALSE)
