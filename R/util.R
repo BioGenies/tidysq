@@ -5,6 +5,17 @@
   attr(sq, "alphabet")
 }
 
+.get_sq_subclass <- function(sq) {
+  intersect(class(sq), c("amisq", "nucsq", "untsq", "simsq", "atpsq"))
+}
+
+.get_sq_type <- function(sq) {
+  sqclasses <- intersect(class(sq), c("amisq", "nucsq", "untsq", "simsq", "atpsq"))
+  dict <- c(amisq = "aa", nucsq = "nuc", untsq = "unt", simsq = "sim", atpsq = "atp")
+  dict[sqclasses]
+}
+
+#####
 
 set_sqcol <- function(sqtbl) {
   class(sqtbl[["sq"]]) <- "sqcol"

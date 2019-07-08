@@ -61,11 +61,11 @@ construct_untsq <- function(sq) {
 }
 
 #'
-validate_sq <- function(object) {
+validate_sq <- function(object, type = NULL) {
   if (!"sq" %in% class(object)) {
     stop("'object' doesn't inherit class 'sq'")
   } 
-  sqtype <- intersect(class(object), c("amisq", "nucsq", "untsq", "simsq", "atpsq"))
+  sqtype <- .get_sq_subclass(object)
   if (!(length(sqtype) == 1)) {
     stop("'object' should have exactly one of types: 'ami', 'nuc', 'unt', 'sim', 'atp")
   }
@@ -91,6 +91,15 @@ validate_sq <- function(object) {
   }
   if (max(unlist(object)) > length(alph)) {
     stop("'alphabet' attribute has less elements than are different values in 'object'")
+  }
+  if (!is.null(type)) {
+    switch (type,
+      ami = validate_amisq(object),
+      nuc = validate_nucsq(object),
+      unt = validate_untsq(object),
+      sim = validate_simsq(object),
+      atp = validate_atpsq(object)  #not yet implemented!
+    )
   }
   invisible(object)
 }
