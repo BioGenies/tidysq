@@ -14,7 +14,7 @@ handle_opt_txt <- function(option_name, txt) {
          none = invisible())
 }
 
-get_print_length <- function() {
+.get_print_length <- function() {
   opt <- getOption("tidysq_max_sq_print_width")
   
   ifelse (is.null(opt) || 
@@ -25,7 +25,7 @@ get_print_length <- function() {
             !(opt > 0), 15, opt)
 }
 
-get_color_opt <- function() {
+.get_color_opt <- function() {
   opt <- getOption("tidysq_colorful_sq_print")
   
   ifelse (is.null(opt) || 

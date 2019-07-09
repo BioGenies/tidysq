@@ -11,8 +11,12 @@
 
 .get_sq_type <- function(sq) {
   sqclasses <- intersect(class(sq), c("amisq", "nucsq", "untsq", "simsq", "atpsq"))
-  dict <- c(amisq = "aa", nucsq = "nuc", untsq = "unt", simsq = "sim", atpsq = "atp")
+  dict <- c(amisq = "ami", nucsq = "nuc", untsq = "unt", simsq = "sim", atpsq = "atp")
   dict[sqclasses]
+}
+
+.is_cleaned <- function(sq) {
+  "clnsq" %in% class(sq)
 }
 
 #####

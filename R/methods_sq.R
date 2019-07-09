@@ -2,8 +2,9 @@
 
 #' @exportMethod `[` sq
 #' @export
-`[.sq` <- function(i, ...) {
+`[.sq` <- function(x, i, j, ...) {
   ret <- NextMethod()
-  class(ret) <- "sq"
+  class(ret) <- class(x)
+  attr(ret, "alphabet") <- .get_alph(x)
   ret
 }
