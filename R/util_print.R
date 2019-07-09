@@ -114,7 +114,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   whitespace_lenghts[whitespace_lenghts < 0] <- 0
   whitespace_vec <- sapply(whitespace_lenghts, 
                            function(n) paste(rep(" ", n), collapse = ""))
-  row <- paste0(row, whitespace_vec, b_opt(" ["), b_opt(seq_lengths), b_opt("]"))
+  row <- paste0(row, whitespace_vec, b_opt(" <"), b_opt(seq_lengths), b_opt(">"))
   
   new_ornament(row, width = width, align = "left")
 }

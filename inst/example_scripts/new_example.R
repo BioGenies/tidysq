@@ -1,3 +1,5 @@
+library(dplyr)
+
 ### sq object - creating, printing and validation
 
 sq_1 <- construct_sq("ACTAGAGTGATAGTAGGAGTAGA", type = "nuc")
@@ -62,4 +64,15 @@ sqtbl_long <- read_fasta("inst/example_aa.fasta", type = "ami")
 tidysq:::validate_sqtibble(sqtbl_ami)
 tidysq:::validate_sqtibble(sqtbl_nuc)
 tidysq:::validate_sqtibble(sqtbl_long)
+
+### clean function
+
+sqtbl_ami %>%
+  mutate(cleaned = clean(sq))
+sqtbl_ami %>%
+  mutate(cleaned = clean(sq, only_elements = TRUE))
+sqtbl_nuc %>%
+  mutate(cleaned = clean(sq))
+sqtbl_nuc %>%
+  mutate(cleaned = clean(sq, only_elements = TRUE))
 
