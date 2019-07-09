@@ -74,6 +74,13 @@ sqtbl_nuc %>% mutate(cleaned = clean(sq, only_elements = TRUE))
 
 ### reverse function
 
+reverse(sq_4)
 sqtbl_ami %>% mutate(reversed = reverse(sq))
 sqtbl_nuc %>% mutate(reversed = reverse(sq))
 
+### bite function
+
+bite(sq_4, 1:4)
+sqtbl_ami %>% mutate(bitten = bite(sq, 1:3))
+sqtbl_ami %>% mutate(bitten = bite(sq, -5:-8))
+sqtbl_ami %>% mutate(bitten = bite(sq, 1:20))
