@@ -1,5 +1,5 @@
 #internal functions for accessing options of package
-handle_opt_txt <- function(option_name, txt) {
+.handle_opt_txt <- function(option_name, txt) {
   opt <- getOption(option_name)
   
   opt <- ifelse(is.null(opt) || 
@@ -8,8 +8,8 @@ handle_opt_txt <- function(option_name, txt) {
             !(opt %in% c("error", "warning", "message", "none")), "warning", opt)
   
   switch(opt,
-         error = stop(txt, call. = FALSE),
-         warning = warning(txt, call. = FALSE),
+         error = stop(txt),
+         warning = warning(txt),
          message = message(txt),
          none = invisible())
 }

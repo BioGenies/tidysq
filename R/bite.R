@@ -11,8 +11,8 @@ bite <- function(sq, indices) {
   ret <- lapply(sq, function(s) s[indices])
   has_na <- any(sapply(ret, function(s) any(is.na(s))))
   if (has_na & !had_na) {
-    handle_opt_txt("tidysq_bite_na_action",
-                   "some sequences are subsetted with index bigger than length - NA's introduced")
+    .handle_opt_txt("tidysq_bite_na_action",
+                    "some sequences are subsetted with index bigger than length - NA's introduced")
   }
   .set_class_alph(ret, sq)
 }
