@@ -1,6 +1,6 @@
 #' @export
-reverse <- function(sqtbl) {
-  validate_sqtibble(sqtbl)
-  sqtbl[["sq"]] <- lapply(sqtbl[["sq"]], rev)
-  set_sqcol(sqtbl)
+reverse <- function(sq) {
+  validate_sq(sq)
+  ret <- lapply(sq, rev)
+  .set_class_alph(ret, sq)
 }

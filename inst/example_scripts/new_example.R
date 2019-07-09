@@ -67,12 +67,13 @@ tidysq:::validate_sqtibble(sqtbl_long)
 
 ### clean function
 
-sqtbl_ami %>%
-  mutate(cleaned = clean(sq))
-sqtbl_ami %>%
-  mutate(cleaned = clean(sq, only_elements = TRUE))
-sqtbl_nuc %>%
-  mutate(cleaned = clean(sq))
-sqtbl_nuc %>%
-  mutate(cleaned = clean(sq, only_elements = TRUE))
+sqtbl_ami %>% mutate(cleaned = clean(sq))
+sqtbl_ami %>% mutate(cleaned = clean(sq, only_elements = TRUE))
+sqtbl_nuc %>% mutate(cleaned = clean(sq))
+sqtbl_nuc %>% mutate(cleaned = clean(sq, only_elements = TRUE))
+
+### reverse function
+
+sqtbl_ami %>% mutate(reversed = reverse(sq))
+sqtbl_nuc %>% mutate(reversed = reverse(sq))
 
