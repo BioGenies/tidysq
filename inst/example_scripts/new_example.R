@@ -52,3 +52,14 @@ tidysq:::validate_sqtibble(sqtbl_5)
 tidysq:::validate_sqtibble(sqtbl_6)
 tidysq:::validate_sqtibble(sqtbl_7)
 tidysq:::validate_sqtibble(sqtbl_8)
+
+### reading fasta
+
+sqtbl_ami <- read_fasta("inst/small_example_aa.fasta", type = "ami")
+sqtbl_nuc <- read_fasta("inst/small_example_nuc.fasta", type = "nuc")
+sqtbl_long <- read_fasta("inst/example_aa.fasta", type = "ami")
+
+tidysq:::validate_sqtibble(sqtbl_ami)
+tidysq:::validate_sqtibble(sqtbl_nuc)
+tidysq:::validate_sqtibble(sqtbl_long)
+
