@@ -89,7 +89,7 @@ validate_sq <- function(object, type = NULL) {
   if (!all(sapply(object, is.integer))) {
     stop("'object' isn't a list of integer vectors")
   }
-  if (max(unlist(object)) > length(alph)) {
+  if (max(unlist(object), na.rm = TRUE) > length(alph)) {
     stop("'alphabet' attribute has less elements than are different values in 'object'")
   }
   if (!is.null(type)) {

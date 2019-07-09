@@ -1,14 +1,18 @@
 #' @export
-remove_na <- function(sqtbl, only_elements = FALSE) {
-  validate_sqtibble(sqtbl)
+remove_na <- function(sq, only_elements = FALSE) {
+  validate_sq(sq)
   
-  sqcol <- sqtbl[["sq"]]
-  if (!only_elements) {
-    inds_remove <- sapply(sqcol, function(sq) any(is.na(sq)))
-    sqtbl <- sqtbl[!inds_remove, ]
+  if (only_elements) {
+    ret <- lapply(sq, function(s) s[!is.na(s)])
   } else {
-    sqtbl[["sq"]] <- lapply(sqcol, function(sq) sq[!is.na(sq)])
-    sqtbl <- set_sqcol(sqtbl)
+    ret <- lapply(sq, function(s) if (any(is.na(s))) integer(0) else s)
   }
-  sqtbl
+  
+  .set_class_alph(ret, sq)
+}
+
+#' @exportMethod na.omit sq
+#' @export
+na.omit.sq <- function(object, ...) {
+  remove_na(object, ...)
 }

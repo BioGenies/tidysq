@@ -84,3 +84,15 @@ bite(sq_4, 1:4)
 sqtbl_ami %>% mutate(bitten = bite(sq, 1:3))
 sqtbl_ami %>% mutate(bitten = bite(sq, -5:-8))
 sqtbl_ami %>% mutate(bitten = bite(sq, 1:20))
+
+### remove_na function a.k.a. na.omit method
+
+na.omit(sq_4)
+na.omit(sq_4, only_elements = TRUE)
+remove_na(sq_4)
+remove_na(sq_4, only_elements = TRUE)
+sqtbl_ami %>% mutate(bitten = na.omit(bite(sq, 1:20), only_elements = TRUE))
+sqtbl_ami %>% mutate(bitten = remove_na(bite(sq, 1:20), only_elements = TRUE))
+sqtbl_ami %>% mutate(bitten = bite(sq, 1:15),
+                     na_removed = remove_na(bitten),
+                     reveresed = reverse(na_removed))
