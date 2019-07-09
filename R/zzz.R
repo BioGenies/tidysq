@@ -3,6 +3,7 @@
   
   new_options <- list(
     tidysq_bite_na_action = "warning",
+    tidysq_subsitute_letters_cln = "warning",
     tidysq_max_sq_print_width = 15,
     tidysq_colorful_sq_print = TRUE
   )

@@ -96,3 +96,11 @@ sqtbl_ami %>% mutate(bitten = remove_na(bite(sq, 1:20), only_elements = TRUE))
 sqtbl_ami %>% mutate(bitten = bite(sq, 1:15),
                      na_removed = remove_na(bitten),
                      reveresed = reverse(na_removed))
+
+### substitute_letters
+
+substitute_letters(sq_4, c(F = "D", A = ";", D = ";"))
+substitute_letters(sq_4, c(F = "D", A = "NA", D = "NA"))
+sqtbl_ami %>% mutate(subs_1 = substitute_letters(sq, c(G = "L", V = ";")),
+                     subs_2 = substitute_letters(sq, c(P = "G", K = NA, X = NA, V = NA)),
+                     subs_3 = remove_na(subs_2, only_elements = TRUE))
