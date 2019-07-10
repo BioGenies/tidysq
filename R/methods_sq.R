@@ -51,3 +51,21 @@ is.simsq <- function(x) {
 is.atpsq <- function(x) {
   tryCatch({validate_atpsq(x); TRUE}, error = function(e) FALSE)
 }
+
+#' @exportMethod `==` sq
+#' @export
+`==.sq` <- function(e1, e2) {
+  #TODO make it faster and lighter, maybe?
+  if (is.sq(e2)) {
+    e2 <- as.character(e2)
+  } else if (!is.character(e2)) {
+    stop ("you cannot compare 'sq' object to object that is not character vector or 'sq' object")
+  }
+  
+  type <- .get_sq_type(e1)
+  if (type %in% c("ami", "nuc")) {
+    e2 <- toupper(e2)
+  }
+  
+  as.character(e1) == e2
+}

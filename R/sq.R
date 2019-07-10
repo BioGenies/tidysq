@@ -98,7 +98,7 @@ validate_sq <- function(object, type = NULL) {
       nuc = validate_nucsq(object),
       unt = validate_untsq(object),
       sim = validate_simsq(object),
-      atp = validate_atpsq(object)  #not yet implemented!
+      atp = validate_atpsq(object)
     )
   }
   invisible(object)

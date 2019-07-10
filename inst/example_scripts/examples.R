@@ -179,3 +179,20 @@ is.simsq(simplify(sqtbl_ami %>% pull(sq), enc))
 
 is.atpsq(sq_1)
 is.atpsq(substitute_letters(sq_1, c(A = 'F')))
+
+### ==
+
+sq_1 == "ACTAGAGTGATAGTAGGAGTAGA"
+sq_2 == c("CCCCC","TTT", "ACTG", "ACTC")
+sq_3 == "AajsfdjLKFAJkajd"
+sq_4 == c("fafasfasfFSA", "ygagayagfa", "adsDaf")
+sq_5 == c("afsfd", "q243faadfa", "afsw34gesfv", "adfq2", "fasfas", "g'qp9u2r3'b;")
+
+# for 'ami' and 'nuc' sequences it's size-agnostic, for others - not
+sq_1 == tolower("ACTAGAGTGATAGTAGGAGTAGA")
+sq_4 == tolower(c("fafasfasfFSA", "ygagayagfa", "adsDaf"))
+sq_5 == toupper(c("afsfd", "q243faadfa", "afsw34gesfv", "adfq2", "fasfas", "g'qp9u2r3'b;"))
+
+sq_1 == sq_1
+sq_1 == sq_2
+sqtbl_ami[["sq"]][-3] == clean(sqtbl_ami[["sq"]])[-3]
