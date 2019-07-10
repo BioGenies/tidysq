@@ -8,3 +8,10 @@
   attr(ret, "alphabet") <- .get_alph(x)
   ret
 }
+
+#' @exportMethod as.character sq
+#' @export
+as.character.sq <- function(x, ...) {
+  dict <- .get_alph(x)
+  sapply(x, function(s) paste(ifelse(!is.na(dict[s]), dict[s], "*"), collapse = ""))
+}
