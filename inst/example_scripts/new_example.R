@@ -118,3 +118,13 @@ typify(substitute_letters(sq_5, c(`2` = "A", `4` = "B", `3` = "X",`;` = "X", `'`
 sqtbl_5 %>% mutate(subst = substitute_letters(sq, c(`2` = "A", `4` = "B", `3` = NA,`;` = NA, `'` = NA, `9` = NA)),
                    removed = remove_na(subst),
                    typed = typify(removed, "ami"))
+
+
+### 
+enc <- c(A = "a", B = "a", C = "a", D = "a", E = "a", F = "b", G = "b", 
+         H = "b", I = "c", J = "c", K = "c", L = "c", M = "c", N = "c", 
+         O = "c", P = "d", Q = "d", R = "d", S = "d", T = "d", U = "d", 
+         V = "d", W = "d", X = "d", Y = "d", Z = "d", `-` = "d")
+
+simplify(sqtbl_ami[["sq"]], enc)
+sqtbl_ami %>% mutate(simpl = simplify(sq, enc))
