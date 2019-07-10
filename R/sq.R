@@ -164,3 +164,12 @@ validate_simsq <- function(object) {
   }
   invisible(object)
 }
+
+#'
+validate_atpsq <- function(object) {
+  validate_sq(object)
+  if (!"atpsq" %in% class(object)) {
+    stop("'object' doesn't inherit class 'atpsq'")
+  } 
+  invisible(object)
+}

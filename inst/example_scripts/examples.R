@@ -140,3 +140,42 @@ sqtbl_nuc %>% mutate(rnaed = substitute_letters(sq, c(T = "U")),
                      compl_2 = complement(cleaned, is_dna = FALSE)) #as well here
 construct_sqtibble(c("TGCGCGT", "TGC", "CTG"), type = "nuc") %>%
   mutate(sq_2 = complement(clean(sq))) #here, as there is no 'A' in sequences, you don't need specification
+
+### as.character
+
+as.character(sq_1)
+as.character(sq_2)
+as.character(sq_5)
+as.character(bite(sqtbl_nuc[["sq"]], 1:20))
+
+### is.sq
+
+is.sq(sq_1)
+is.sq(sq_2)
+is.sq(sq_3)
+is.sq(sq_4)
+is.sq(sq_5)
+
+is.amisq(sq_1)
+is.amisq(sq_2)
+is.amisq(sq_3)
+is.amisq(sq_4)
+is.amisq(sq_5)
+
+is.nucsq(sq_1)
+is.nucsq(sq_2)
+is.nucsq(sq_3)
+is.nucsq(sq_4)
+is.nucsq(sq_5)
+
+is.untsq(sq_1)
+is.untsq(sq_2)
+is.untsq(sq_3)
+is.untsq(sq_4)
+is.untsq(sq_5)
+
+is.simsq(sqtbl_ami %>% pull(sq))
+is.simsq(simplify(sqtbl_ami %>% pull(sq), enc))
+
+is.atpsq(sq_1)
+is.atpsq(substitute_letters(sq_1, c(A = 'F')))
