@@ -115,12 +115,13 @@ sqtbl_5 %>% mutate(inv = get_invalid_letters(sq, "nuc"))
 ### typify
 
 typify(substitute_letters(sq_5, c(`2` = "A", `4` = "B", `3` = "X",`;` = "X", `'` = "X", `9` = "X")), "ami")
-sqtbl_5 %>% mutate(subst = substitute_letters(sq, c(`2` = "A", `4` = "B", `3` = NA,`;` = NA, `'` = NA, `9` = NA)),
+sqtbl_5 %>% mutate(subst = substitute_letters(sq, c(`2` = "A", `4` = "B", `3` = NA,
+                                                    `;` = NA, `'` = NA, `9` = NA)),
                    removed = remove_na(subst),
                    typed = typify(removed, "ami"))
 
 
-### 
+### simplfy
 enc <- c(A = "a", B = "a", C = "a", D = "a", E = "a", F = "b", G = "b", 
          H = "b", I = "c", J = "c", K = "c", L = "c", M = "c", N = "c", 
          O = "c", P = "d", Q = "d", R = "d", S = "d", T = "d", U = "d", 
