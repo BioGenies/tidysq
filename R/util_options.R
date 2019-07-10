@@ -8,8 +8,8 @@
             !(opt %in% c("error", "warning", "message", "none")), "warning", opt)
   
   switch(opt,
-         error = stop(txt),
-         warning = warning(txt),
+         error = stop(txt, call. = FALSE),
+         warning = warning(txt, call. = FALSE),
          message = message(txt),
          none = invisible())
 }

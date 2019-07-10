@@ -107,5 +107,14 @@ sqtbl_ami %>% mutate(subs_1 = substitute_letters(sq, c(G = "L", V = ";")),
 
 ### get_invalid_letters
 
-get_invalid_levels(sq_5, "ami")
+get_invalid_letters(sq_5, "ami")
 sqtbl_5 %>% mutate(inv = get_invalid_letters(sq, "ami")) 
+sqtbl_5 %>% mutate(inv = get_invalid_letters(sq, "nuc")) 
+
+
+### typify
+
+typify(substitute_letters(sq_5, c(`2` = "A", `4` = "B", `3` = "X",`;` = "X", `'` = "X", `9` = "X")), "ami")
+sqtbl_5 %>% mutate(subst = substitute_letters(sq, c(`2` = "A", `4` = "B", `3` = NA,`;` = NA, `'` = NA, `9` = NA)),
+                   removed = remove_na(subst),
+                   typed = typify(removed, "ami"))
