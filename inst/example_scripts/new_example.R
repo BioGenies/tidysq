@@ -100,7 +100,7 @@ sqtbl_ami %>% mutate(bitten = bite(sq, 1:15),
 ### substitute_letters
 
 substitute_letters(sq_4, c(F = "D", A = ";", D = ";"))
-substitute_letters(sq_4, c(F = "D", A = "NA", D = "NA"))
+substitute_letters(sq_4, c(F = "D", A = NA, D = NA))
 sqtbl_ami %>% mutate(subs_1 = substitute_letters(sq, c(G = "L", V = ";")),
                      subs_2 = substitute_letters(sq, c(P = "G", K = NA, X = NA, V = NA)),
                      subs_3 = remove_na(subs_2, only_elements = TRUE))
@@ -127,5 +127,16 @@ enc <- c(A = "a", B = "a", C = "a", D = "a", E = "a", F = "b", G = "b",
          O = "c", P = "d", Q = "d", R = "d", S = "d", T = "d", U = "d", 
          V = "d", W = "d", X = "d", Y = "d", Z = "d", `-` = "d")
 
-simplify(sqtbl_ami[["sq"]], enc)
+simplify(sqtbl_ami %>% pull(sq), enc)
 sqtbl_ami %>% mutate(simpl = simplify(sq, enc))
+
+### complement
+complement(clean(sqtbl_nuc %>% pull(sq)))  #don't need to specify if is_dna
+complement(clean(sqtbl_nuc %>% pull(sq)), is_dna = TRUE) #it is optional in this case
+sqtbl_nuc %>% mutate(rnaed = substitute_letters(sq, c(T = "U")),
+                     nuced = typify(rnaed, "nuc"),
+                     cleaned = clean(nuced, only_elements = TRUE),
+                     compl_1 = complement(cleaned),
+                     compl_2 = complement(cleaned, is_dna = FALSE)) #as well here
+construct_sqtibble(c("TGCGCGT", "TGC", "CTG"), type = "nuc") %>%
+  mutate(sq_2 = complement(clean(sq))) #here, as there is no 'A' in sequences, you don't need specification
