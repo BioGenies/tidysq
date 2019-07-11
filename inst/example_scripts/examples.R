@@ -196,3 +196,29 @@ sq_5 == toupper(c("afsfd", "q243faadfa", "afsw34gesfv", "adfq2", "fasfas", "g'qp
 sq_1 == sq_1
 sq_1 == sq_2
 sqtbl_ami[["sq"]][-3] == clean(sqtbl_ami[["sq"]])[-3]
+
+### operator %has%
+
+# for ami and nuc sq it translates some letters accordingly to standard; it also treats all like uppers
+
+(sqtbl_ami %>% pull("sq")) %has% "GG"
+(sqtbl_ami %>% pull("sq")) %has% "n"
+(sqtbl_ami %>% pull("sq")) %has% "J" # translates J into L, I or J
+(sqtbl_ami %>% pull("sq")) %has% c("K", "P", "Q")
+(sqtbl_ami %>% pull("sq")) %has% "IVYKpvdLSKVT"
+
+(sqtbl_nuc %>% pull("sq")) %has% "GG"
+(sqtbl_nuc %>% pull("sq")) %has% "GtaTGCT"
+(sqtbl_nuc %>% pull("sq")) %has% "CN" # translates N into any aminoacid
+(sqtbl_nuc %>% pull("sq")) %has% c("GC", "at")
+construct_sq(c("CTGA-N", "ACTGH", "SD"), type = "nuc") %has% "AN"
+construct_sq(c("CTGA-N", "ACTGH", "SD"), type = "nuc") %has% "A-" # N is any but gap
+
+sq_5 %has% "faa"
+sq_5 %has% "af"
+sq_5 %has% c("a", "2")
+
+(sqtbl_long %>% pull("sq") %>% simplify(enc)) %has% "acda"
+
+sqtbl_long %>%
+  filter(sq %has% c("KLV", "A", "HxxxxxF"))
