@@ -16,7 +16,7 @@ read_fasta <- function(file, type = "unt") {
   prot_id <- cumsum(grepl("^>", all_lines))
   all_prots <- split(all_lines, prot_id)
   
-  sq_list <- sapply(all_prots, function(prot) prot[-1])
+  sq_list <- unname(sapply(all_prots, function(prot) prot[-1]))
   
   names_vec <- sub(">", "", sapply(all_prots, function(prot) prot[1]), fixed = TRUE)
   
