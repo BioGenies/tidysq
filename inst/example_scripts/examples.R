@@ -222,3 +222,7 @@ sq_5 %has% c("a", "2")
 
 sqtbl_long %>%
   filter(sq %has% c("KLV", "A", "HxxxxxF"))
+
+### is_null_sq
+
+is_null_sq(clean(sqtbl_ami %>% pull("sq")))

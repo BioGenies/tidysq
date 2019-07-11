@@ -119,30 +119,3 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   new_ornament(row, width = width, align = "left")
 }
 
-#' @exportMethod print sq
-#' @export
-print.sq <- function(x, ...) {
-  sqclass <- .get_sq_subclass(x)
-  cln_msg <- if (.is_cleaned(x)) " (cleaned)" else ""
-  
-  if (length(sqclass) != 1) {
-    sqclass <- "sq (improper subtype!):\n"
-  } else {
-    sqclass <- paste0(c(amisq = "ami (amino acids)", 
-                        nucsq = "nuc (nucleotides)", 
-                        untsq = "unt (unspecified type)", 
-                        simsq = "sim (simplified alphabet)",
-                        atpsq = "atp (atypical alphabet)")[sqclass], cln_msg, " sequences vector:\n")
-  }
-  
-  dict <- .get_alph(x)
-  names(dict) <- 1:length(dict)
-  decoded <- sapply(x, function(s) paste(ifelse(!is.na(dict[s]), dict[s], "*"), collapse = ""))
-  decoded <- sapply(decoded, function(s) ifelse(s == "", "<NULL sq>", s))
-  max_width <- max(nchar(1:length(x)))
-  inds <- paste0("[", 1:length(x), "] ")
-  cat(sqclass, paste0(format(inds, width = max_width + 3, justify = "right"), 
-                      decoded, 
-                      collapse = "\n"), 
-      "\n", sep = "")
-}
