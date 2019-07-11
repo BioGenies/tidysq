@@ -138,5 +138,11 @@ print.sq <- function(x, ...) {
   dict <- .get_alph(x)
   names(dict) <- 1:length(dict)
   decoded <- sapply(x, function(s) paste(ifelse(!is.na(dict[s]), dict[s], "*"), collapse = ""))
-  cat(sqclass, paste0("[", 1:length(x), "]  ", decoded, collapse = "\n"), "\n", sep = "")
+  decoded <- sapply(decoded, function(s) ifelse(s == "", "<NULL sq>", s))
+  max_width <- max(nchar(1:length(x)))
+  inds <- paste0("[", 1:length(x), "] ")
+  cat(sqclass, paste0(format(inds, width = max_width + 3, justify = "right"), 
+                      decoded, 
+                      collapse = "\n"), 
+      "\n", sep = "")
 }
