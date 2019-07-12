@@ -22,9 +22,8 @@
   if (!all(unlist(strsplit(y, "")) %in% c(alph, "^", "$"))) {
     stop("motifs that you're searching for in 'sq' object needs to consist of letters from alphabet of 'sq'")
   }
-  if (any(unlist(strsplit(y, "") %in% c("^", "$"))) &&
-      any(alph %in% c("^", "$"))) {
-    stop("you cannot search for motifs using '^' or '$' if they are elements of 'sq' alphabet; if you want to use them, please substitute those letters with some other using 'substitute_letters'")
+  if (any(alph %in% c("^", "$", "?", "(", "=", ")", "\\", ".", "|", "+", "*", "{", "}", "[", "]"))) {
+    stop("you cannot search for motifs if any of those characters: ^$?=()\\.|+*{}[] are elements of 'sq' alphabet; if you want to use them, please substitute those letters with some other using 'substitute_letters'")
   }
   
   

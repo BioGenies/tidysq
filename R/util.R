@@ -24,3 +24,11 @@
   attr(new_sq, "alphabet") <- .get_alph(sq)
   new_sq
 }
+
+.construct_sq_s <- function(sq, alph, classes) {
+  sq <- strsplit(sq, "")
+  sq <- lapply(sq, function(s) match(s, alph))
+  attr(sq, "alphabet") <- alph
+  class(sq) <- classes
+  sq
+}

@@ -238,6 +238,10 @@ sqtbl_long %>%
 sqtbl_long %>%
   filter(sq %has% c("^D", "A$"))
 
+### find_motifs
+
+find_motifs(sqtbl_long[["sq"]], sqtbl_long[["name"]], c("AS"))
+
 ### is_null_sq
 
 is_null_sq(clean(sq_ami))
