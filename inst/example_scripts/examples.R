@@ -65,6 +65,8 @@ tidysq:::validate_sqtibble(sqtbl_ami)
 tidysq:::validate_sqtibble(sqtbl_nuc)
 tidysq:::validate_sqtibble(sqtbl_long)
 
+write_fasta(sqtbl_long[["sq"]], sqtbl_long[["name"]], "inst/temp/save.fasta")
+
 ### clean function
 
 sqtbl_ami %>% mutate(cleaned = clean(sq))
