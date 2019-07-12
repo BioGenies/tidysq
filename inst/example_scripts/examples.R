@@ -65,7 +65,7 @@ tidysq:::validate_sqtibble(sqtbl_ami)
 tidysq:::validate_sqtibble(sqtbl_nuc)
 tidysq:::validate_sqtibble(sqtbl_long)
 
-write_fasta(sqtbl_long[["sq"]], sqtbl_long[["name"]], "inst/temp/save.fasta")
+write_fasta(sqtbl_long[["sq"]], sqtbl_long[["name"]], "inst/save.fasta")
 
 ### clean function
 
@@ -203,31 +203,44 @@ sqtbl_ami[["sq"]][-3] == clean(sqtbl_ami[["sq"]])[-3]
 
 # for ami and nuc sq it translates some letters accordingly to standard; it also treats all like uppers
 
-(sqtbl_ami %>% pull("sq")) %has% "GG"
-(sqtbl_ami %>% pull("sq")) %has% "n"
-(sqtbl_ami %>% pull("sq")) %has% "J" # translates J into L, I or J
-(sqtbl_ami %>% pull("sq")) %has% c("K", "P", "Q")
-(sqtbl_ami %>% pull("sq")) %has% "IVYKpvdLSKVT"
+sq_ami <- (sqtbl_ami %>% pull("sq"))
+
+sq_ami %has% "GG"
+sq_ami %has% "n"
+sq_ami %has% "J" # translates J into L, I or J
+
+sq_ami %has% c("K", "P", "Q")
+sq_ami %has% "K" ||
+  sq_ami %has% "P" ||
+  sq_ami %has% "Q"
+sq_ami %has% "KPQ"
+
+sq_ami %has% "IVYKpvdLSKVT"
 
 (sqtbl_nuc %>% pull("sq")) %has% "GG"
 (sqtbl_nuc %>% pull("sq")) %has% "GtaTGCT"
 (sqtbl_nuc %>% pull("sq")) %has% "CN" # translates N into any aminoacid
 (sqtbl_nuc %>% pull("sq")) %has% c("GC", "at")
+
 construct_sq(c("CTGA-N", "ACTGH", "SD"), type = "nuc") %has% "AN"
 construct_sq(c("CTGA-N", "ACTGH", "SD"), type = "nuc") %has% "A-" # N is any but gap
 
 sq_5 %has% "faa"
 sq_5 %has% "af"
 sq_5 %has% c("a", "2")
+sq_5 %has% c("^a", "s")
 
 (sqtbl_long %>% pull("sq") %>% simplify(enc)) %has% "acda"
 
 sqtbl_long %>%
-  filter(sq %has% c("KLV", "A", "HxxxxxF"))
+  filter(sq %has% c("KLV", "^D", "HxxxxxF"))
+
+sqtbl_long %>%
+  filter(sq %has% c("^D", "A$"))
 
 ### is_null_sq
 
-is_null_sq(clean(sqtbl_ami %>% pull("sq")))
+is_null_sq(clean(sq_ami))
 
 ### more advanced example:
 
