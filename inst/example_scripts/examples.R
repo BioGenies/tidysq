@@ -226,3 +226,20 @@ sqtbl_long %>%
 ### is_null_sq
 
 is_null_sq(clean(sqtbl_ami %>% pull("sq")))
+
+### more advanced example:
+
+read_fasta("inst/unt_example.fasta") %>%
+  mutate(sq = sq %>% 
+           substitute_letters(c(`#` = "X", `+` = NA)) %>% 
+           remove_na()) %>%
+  mutate(sq = sq %>% 
+           typify("ami") %>%
+           clean()) %>%
+  filter(!is_null_sq(sq)) %>%
+  filter(lengths(sq) > 6) %>%
+  mutate(sq = sq %>% 
+           simplify(enc) %>%
+           bite(1:18) %>%
+           remove_na(only_elements = TRUE)) %>%
+  filter(sq %has% "cccc")
