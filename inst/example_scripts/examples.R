@@ -241,6 +241,10 @@ sqtbl_long %>%
 ### find_motifs
 
 find_motifs(sqtbl_long[["sq"]], sqtbl_long[["name"]], c("AS"))
+find_motifs(sqtbl_long[["sq"]], sqtbl_long[["name"]], c("X", "DF"))
+find_motifs(sqtbl_long[["sq"]], sqtbl_long[["name"]], c("XXX"))
+find_motifs(sqtbl_long[["sq"]], sqtbl_long[["name"]], c("^D"))
+
 
 ### is_null_sq
 
