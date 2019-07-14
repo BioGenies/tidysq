@@ -1,4 +1,4 @@
-#' @importFrom stringi stri_sub stri_locate_all_regex
+#' @importFrom stringi stri_sub stri_locate_all_regex stri_count_regex
 #' @export
 find_motifs <- function(sq, name, motifs) {
   validate_sq(sq)
