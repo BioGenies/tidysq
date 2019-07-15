@@ -16,19 +16,22 @@ reverse(sq)
 Reverse given list of sequences.
 }
 \examples{
-# Reverse just one sequence
+# reverse just one sequence:
 reverse(construct_sq("ACTAGAGTGATAGA", type = "nuc"))
 
-# Reverse list of sequences
+# reverse list of sequences:
 reverse(construct_sq(c("fafasfasfFSA", "ygagayagfa", "adsDaf"), type = "ami"))
 
-# Reverse list of uncleaned sequences
+# reverse list of uncleaned sequences:
 reverse(construct_sq(c("PASJIFEHF", "hvfisxxx", "xxxer")))
 
-# Reverse list of cleaned sequences - only_elements = FALSE
+# reverse list of cleaned sequences - only_elements = FALSE:
 reverse(clean(construct_sq(c("fafasfasfFSA", "ygagayagfa", "adxxaf", "xxx"), type = "ami")))
 
-# Reverse list of cleaned sequences - only_elements = TRUE
+# reverse list of cleaned sequences - only_elements = TRUE:
 reverse(clean(construct_sq(c("fafasfasfFSA", "ygagayagfa", "adxxaf", "xxx"), type = "ami"), only_elements = TRUE))
 
+}
+\seealso{
+sq
 }
