@@ -13,8 +13,8 @@
 #'  \item{amb}{Logical indicating if abbreviation is ambiguous, i.e., matches 
 #'  more than one amino acid}
 #'  }
-#' @source Johnson, A.D. (2010). An extended IUPAC nomenclature code 
-#' for polymorphic nucleic acids. Bioinformatics 26, 1386–1389.
+#' @source Johnson, A.D. (2010). An extended IUPAC nomenclature code for 
+#' polymorphic nucleic acids. Bioinformatics 26, 1386–1389.
 #' @keywords datasets
 #' @examples 
 #' data(aminoacids_df)
