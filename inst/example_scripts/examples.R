@@ -266,7 +266,7 @@ find_motifs(sqtbl_long[["sq"]], sqtbl_long[["name"]], c("AS"))
 find_motifs(sqtbl_long[["sq"]], sqtbl_long[["name"]], c("X", "DF"))
 find_motifs(sqtbl_long[["sq"]], sqtbl_long[["name"]], c("XXX"))
 find_motifs(sqtbl_long[["sq"]], sqtbl_long[["name"]], c("^D"))
-#TODO: FEATURE - allow not passing name parameter
+#QUESTION: is name required?
 
 ### more advanced example:
 
