@@ -7,16 +7,25 @@
 reverse(sq)
 }
 \arguments{
-\item{sq}{sq object}
+\item{sq}{\code{\link{sq}} object}
 }
 \value{
-reversed sq object (with preserved type)
+\code{\link{sq}} object of the same type as input sq, where each element is reversed.
 }
 \description{
-Reverse given list of sequences.
+Reverse given list of sequences - without other modifications.
 }
 \examples{
+# Reverse just one sequence
 reverse(construct_sq("ACTAGAGTGATAGA", type = "nuc"))
+
+# Reverse list of sequences
 reverse(construct_sq(c("fafasfasfFSA", "ygagayagfa", "adsDaf"), type = "ami"))
+
+# Reverse list of uncleaned sequences
+reverse(construct_sq(c("PASJIFEHF", "hvfisxxx", "xxxer"), type = "nuc"))
+
+# Reverse list of cleaned sequences
+reverse(clean(construct_sq(c("PASJIFEHF", "hvfisxxx", "xxxer"), type = "nuc")))
 
 }
