@@ -14,7 +14,7 @@
 #' 
 #' @details This function follows the normal R conventions, thus extracting 
 #' indices not present in the sequence results in introducing NA values. 
-#' Information about it is printed on cosole depending on value of option 
+#' Information about it is printed on console depending on value of option 
 #' 'tidysq_bite_na_action' - it can be either a warning (default), error, 
 #' message or no information (you can check details in \link{sq-options}). 
 #' NA values can be removed by using \link{remove_na} function.
@@ -29,7 +29,7 @@
 #' # extracting first three letters from each sequence:
 #' bite(sq, 1:3)
 #' 
-#' # extracting second, fourht, third and second letters:
+#' # extracting second, fourth, third and second letters:
 #' bite(sq, c(2,4,3,2))
 #' 
 #' # extracting second to fifth letter - NA introduced:

@@ -12,7 +12,10 @@ Authors@R: c(person("Michal", "Burdukiewicz",
            role = c("ctb")),
            person("Leon Eyrich", "Jessen", 
            email = "ljess@dtu.dk",
-           role = c("ctb")))
+           role = c("ctb")),
+           person("Stefan", "Roediger", 
+           email = "stefan.roediger@b-tu.de", 
+           comment = c(ORCID = "0000-0002-1441-6512")))
 Description: A tidy approach to analysis of biological sequences.
 Depends: tibble (>= 2.1.3)
 Imports: pillar (>= 1.4.2),

@@ -1,6 +1,6 @@
 #' Normalized amino acids properties
 #' 
-#' Normalized (0-1) 554 amino acid properties as retreived from AAIndex database 
+#' Normalized (0-1) 554 amino acid properties as retrieved from AAIndex database 
 #' (release 9.1) enriched with contactivity of amino acids.
 #' 
 #' @name aaprop
