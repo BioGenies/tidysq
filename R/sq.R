@@ -21,13 +21,12 @@ construct_sq <- function(sq, type = "unt") {
 construct_nucsq <- function(sq) {
   sq <- toupper(sq)
   alph <- nucleotides_df[,"one"]
-  sq <- strsplit(sq, "")
-  is_nuc_sq <- all(unlist(sq) %in% alph)
+  is_nuc_sq <- all(unlist(strsplit(sq, "")) %in% alph)
   if (!is_nuc_sq) {
     stop("each of letters should be in nucleotide alphabet (one of nucleotides_df[,'one'])")
   }
   
-  object <- lapply(sq, function(s) match(s, alph))
+  object <- .bitify_sq(sq, alph)
   attr(object, "alphabet") <- alph
   class(object) <- c("nucsq", "sq")
   object
@@ -37,13 +36,12 @@ construct_nucsq <- function(sq) {
 construct_amisq <- function(sq) {
   sq <- toupper(sq)
   alph <- aminoacids_df[,"one"]
-  sq <- strsplit(sq, "")
-  is_ami_sq <- all(unlist(sq) %in% alph)
+  is_ami_sq <- all(unlist(strsplit(sq, "")) %in% alph)
   if (!is_ami_sq) {
     stop("each of letters should be in aminoacids alphabet (one of aminoacids_df[,'one'])")
   }
   
-  object <- lapply(sq, function(s) match(s, alph))
+  object <- .bitify_sq(sq, alph)
   attr(object, "alphabet") <- alph
   class(object) <- c("amisq", "sq")
   object
@@ -51,10 +49,9 @@ construct_amisq <- function(sq) {
 
 #' @exportClass untsq
 construct_untsq <- function(sq) {
-  sq <- strsplit(sq, "")
-  alph <- unique(unlist(sq))
+  alph <- unique(unlist(strsplit(sq, "")))
 
-  object <- lapply(sq, function(s) match(s, alph))
+  object <- .bitify_sq(sq, alph)
   attr(object, "alphabet") <- alph
   class(object) <- c("untsq", "sq")
   object
@@ -86,12 +83,12 @@ validate_sq <- function(object, type = NULL) {
   if (!is.list(object)) {
     stop("'object' isn't a list")
   }
-  if (!all(sapply(object, is.integer))) {
-    stop("'object' isn't a list of integer vectors")
+  if (!all(sapply(object, is.raw))) {
+    stop("'object' isn't a list of raw vectors")
   }
-  if (max(unlist(object), na.rm = TRUE) > length(alph)) {
-    stop("'alphabet' attribute has less elements than are different values in 'object'")
-  }
+  # if (???) {
+  #   stop("'alphabet' attribute has less elements than are different values in 'object'")
+  # } - quite long step, is it necessary?
   if (!is.null(type)) {
     switch (type,
       ami = validate_amisq(object),
