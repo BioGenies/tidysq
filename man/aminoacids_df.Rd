@@ -9,13 +9,16 @@
  \item{one}{One-letter codes of amino acids}
  \item{three}{Three-letter codes of amino acids}
  \item{full}{Full name of the amino acid}
- \item{amb}{Logical indicating if abbreviation is ambiguous, i.e., matches more than one amino acid}
+ \item{amb}{Logical indicating if abbreviation is ambiguous, i.e., matches 
+ more than one amino acid}
  }}
 \source{
-IUPAC
+Johnson, A.D. (2010). An extended IUPAC nomenclature code for 
+polymorphic nucleic acids. Bioinformatics 26, 1386–1389.
 }
 \description{
-A dataset containing the one- and three-letter codes, and full names of amino acids according to the IUPAC nomenclature.
+A dataset containing the one- and three-letter codes, and full names of 
+amino acids according to the IUPAC nomenclature.
 }
 \examples{
 data(aminoacids_df)
