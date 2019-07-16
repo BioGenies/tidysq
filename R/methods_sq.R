@@ -12,8 +12,8 @@
 #' @exportMethod as.character sq
 #' @export
 as.character.sq <- function(x, ...) {
-  dict <- .get_alph(x)
-  sapply(x, function(s) paste(ifelse(!is.na(dict[s]), dict[s], "*"), collapse = ""))
+  alph <- .get_alph(x)
+  sapply(.debitify_sq(x, alph), function(s) paste(ifelse(is.na(s), "*", s), collapse = ""))
 }
 
 #' @exportMethod is sq

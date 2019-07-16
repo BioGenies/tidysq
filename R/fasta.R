@@ -47,8 +47,9 @@ write_fasta <- function(sq, name, file, nchar = 80) {
   }
   
   alph <- .get_alph(sq)
+  sq <- .debitify_sq(sq, alph)
   char_vec <- unlist(lapply(1L:length(sq), function(i) {
-    s <- alph[sq[[i]]]
+    s <- sq[[i]]
     s <- lapply(split(s, floor((0:(length(s)-1))/nchar)), function(l) paste(l, collapse=""))
     paste0(">", name[i], "\n", paste(s, collapse = "\n"), "\n")
   }))

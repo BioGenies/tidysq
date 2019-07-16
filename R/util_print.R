@@ -59,7 +59,7 @@ type_sum.clnsq <- function(x) {
 #' @export
 pillar_shaft.sq <- function(x, ...) {
   alph <- .get_alph(x)
-  x <- lapply(x, function(s) alph[s])
+  x <- .debitify_sq(x, alph)
   x <- if (.get_color_opt()) {
     lapply(x, function(s) paste(
       as.character(ifelse(is.na(s), 

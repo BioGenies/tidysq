@@ -24,18 +24,23 @@
       n < 2) {
     as.raw(s)
   } else {
-    s <- s * rep(2 ^ (0:(8 / alph_size - 1) * alph_size), length.out = n)
+    #s <- s * rep(2 ^ (0:(8 / alph_size - 1) * alph_size), length.out = n)
     
     if (alph_size == 4) {
-      as.raw(s[seq(1, n, by = 2)] + s[seq(2, n, by = 2)])
+      if (n %% 2 == 1) {
+        s <- c(s, 0)
+        n <- n + 1
+      }
+      as.raw(s[seq(1, n, by = 2)] + 16 * s[seq(2, n, by = 2)])
     } else if (alph_size == 8 &&
                n < 4) {
       as.raw(sum(s))
     } else {
-      as.raw(s[seq(1, n, by = 2)] + 
-               s[seq(2, n, by = 2)] +
-               s[seq(3, n, by = 2)] +
-               s[seq(4, n, by = 2)])
+      # WIP
+      # as.raw(s[seq(1, n, by = 2)] + 
+      #          s[seq(2, n, by = 2)] +
+      #          s[seq(3, n, by = 2)] +
+      #          s[seq(4, n, by = 2)])
     }
     
   }
@@ -83,7 +88,7 @@
     if (is.na(tail_beg)) {
       alph[s]
     } else {
-      alph[s[n - 8 / alph_size + tail_beg - 1]]
+      alph[s[1:(n - 8 / alph_size + tail_beg - 1)]]
     }
   })
 }
