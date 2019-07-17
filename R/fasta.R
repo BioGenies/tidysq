@@ -17,10 +17,11 @@ read_fasta <- function(file, type = "unt") {
   all_s <- split(all_lines, s_id)
   
   s_list <- unname(sapply(all_s, function(s) paste(s[2:length(s)], collapse = "")))
+  sq <- construct_sq(s_list, type)
   
   names_vec <- sub(">", "", sapply(all_s, function(s) s[1]), fixed = TRUE)
   
-  construct_sqtibble(s_list, names_vec, type)
+  construct_sqtibble(sq, names_vec, type)
 }
 
 #' @export
