@@ -18,7 +18,7 @@ simplify <- function(sq, encoding) {
   inds_func <- match(encoding, new_alph)
   names(inds_func) <- as.character(match(names(encoding), alph))
   
-  ret <- lapply(sq, function(s) inds_func[s])
+  ret <- .recode_sq(sq, alph, new_alph, inds_func)
   class(ret) <- c("simsq", "sq")
   attr(ret, "alphabet") <- new_alph
   ret

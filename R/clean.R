@@ -18,6 +18,7 @@ clean <- function(sq, only_elements = FALSE) {
   }
   
   alph <- .get_alph(sq)
+  alph_size <- .get_alph_size(alph)
   alph_cln <- if (type == "ami") 
     aminoacids_df[!aminoacids_df[["amb"]], "one"] 
   else
@@ -26,12 +27,21 @@ clean <- function(sq, only_elements = FALSE) {
   inds_uncln <- (1:length(alph))[!(alph %in% alph_cln)]
   
   if (only_elements) {
-    ret <- lapply(sq, function(s) s[!(s %in% inds_uncln)])
+    ret <- lapply(sq, function(s) {
+      s <- .bit_to_int(s, alph_size)
+      .int_to_bit(s[!(s %in% inds_uncln)], alph_size)
+    })
   } else {
-    ret <- lapply(sq, function(s) if (any(s %in% inds_uncln)) integer(0) else s)
+    ret <- lapply(sq, function(s) {
+      st <- .bit_to_int(s, alph_size)
+      if (any(st %in% inds_uncln)) raw(1) else s
+    })
   }
   
-  ret <- lapply(ret, function(s) match(alph[s], alph_cln))
+  inds_func <- 1:length(alph_cln)
+  names(inds_func) <- as.character((1:length(alph))[-inds_uncln])
+  
+  ret <- .recode_sq(ret, alph, alph_cln, inds_func)
   
   class(ret) <- c("clnsq", class(sq))
   attr(ret, "alphabet") <- alph_cln

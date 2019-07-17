@@ -55,10 +55,20 @@ bite <- function(sq, indices) {
     stop("'indices' has to be an integer vector")
   }
   
-  had_na <- any(sapply(sq, function(s) any(is.na(s))))
-  ret <- lapply(sq, function(s) s[indices])
-  has_na <- any(sapply(ret, function(s) any(is.na(s))))
-  if (has_na & !had_na) {
+  na_introduced <- FALSE
+  alph <- .get_alph(sq)
+  alph_size <- .get_alph_size(alph)
+  na_val <- .get_na_val(alph)
+  
+  ret <- list(length(sq))
+  for (i in 1:length(sq)) {
+    s <- .bit_to_int(sq[[i]], alph_size)
+    s <- s[indices]
+    if (any(is.na(s))) na_introduced <- TRUE
+    s[is.na(s)] <- na_val
+    ret[[i]] <- .int_to_bit(s, alph_size)
+  }
+  if (na_introduced) {
     .handle_opt_txt("tidysq_bite_na_action",
                     "some sequences are subsetted with index bigger than length - NA introduced")
   }

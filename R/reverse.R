@@ -27,6 +27,9 @@
 #' @export
 reverse <- function(sq) {
   validate_sq(sq)
-  ret <- lapply(sq, rev)
+  alph_size <- .get_alph_size(.get_alph(sq))
+  ret <- lapply(sq, function(s) {
+    .int_to_bit(rev(.bit_to_int(s, alph_size)), alph_size)
+  })
   .set_class_alph(ret, sq)
 }

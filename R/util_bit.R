@@ -62,13 +62,18 @@
     n <- 2 * length(s)
     ret <- integer(n)
     s <- as.integer(s)
-    ret[seq(1, n, by = 2)] <- s %% 16
-    ret[seq(2, n, by = 2)] <- s %/% 16
-    ret
+    if (n == 0) {
+      integer(0)
+    } else {
+      ret[seq(1, n, by = 2)] <- s %% 16
+      ret[seq(2, n, by = 2)] <- s %/% 16
+      ret
+    }
   } else if (alph_size == 2) {
     n <- 4 * length(s)
     ret <- integer(n)
     s <- as.integer(s)
+    # there would be problems with s shoreter than 2
     ret[seq(1, n, by = 4)] <- s %% 4
     ret[seq(2, n, by = 4)] <- (s %/% 4) %% 4
     ret[seq(3, n, by = 4)] <- (s %/% 16) %% 4
@@ -90,5 +95,28 @@
     } else {
       alph[s[1:(n - 8 / alph_size + tail_beg - 1)]]
     }
+  })
+}
+
+.recode_sq <- function(sq, alph, new_alph, inds_func) {
+  alph_size <- .get_alph_size(alph)
+  new_alph_size <- .get_alph_size(new_alph)
+  na_val <- .get_na_val(alph)
+  new_na_val <- .get_na_val(new_alph)
+  lapply(sq, function(s) {
+    s <- .bit_to_int(s, alph_size)
+    n <- length(s)
+    s[s == na_val] <- NA
+    tail_beg <- match(TRUE, (s[(n - 8 / alph_size + 1):n] == 0)) 
+    if (!is.na(tail_beg)) {
+      if (n == 1) {
+        return(as.raw(0))
+      } else {
+        s <- s[1:(n - 8 / alph_size + tail_beg - 1)]
+      }
+    } 
+    s <- inds_func[as.character(s)]  
+    s[is.na(s)] <- new_na_val
+    .int_to_bit(s, new_alph_size)
   })
 }
