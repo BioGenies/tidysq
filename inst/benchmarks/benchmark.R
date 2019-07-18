@@ -48,12 +48,20 @@ results <- do.call(rbind, lapply(ns, function(n) {
   }))
 }))
 
-write.csv(results, "results.csv", row.names = FALSE)
+write.csv(results, "./inst/benchmarks/results.csv", row.names = FALSE)
 
 library(ggplot2)
-
-ggplot(results, 
-       aes(x = sq_len, y = reading_time, color = package, shape = as.factor(alph_size))) +
-  geom_point()
+library(reshape2)
 
 
+ggplot(results, aes(x = as.factor(num_sq), y = log(obj_size), fill = package)) +
+  geom_col(position = "dodge") +
+  facet_grid(alph_size ~ sq_len, labeller = label_both)
+
+ggplot(results, aes(x = as.factor(num_sq), y = log(reading_time), fill = package)) +
+  geom_col(position = "dodge") +
+  facet_grid(alph_size ~ sq_len, labeller = label_both)
+
+ggplot(results, aes(x = as.factor(num_sq), y = as.factor(sq_len), fill = reading_time)) +
+  geom_tile() +
+  facet_grid(alph_size ~ package)

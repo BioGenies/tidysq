@@ -12,6 +12,6 @@ pep_dat_sq %>% filter(label_chr=='SB') %>% pull(peptide) %>% as.character %>% gg
 pep_dat %>% filter(label_chr=='SB') %>% head(1) %>% pull(peptide) %>% pep_plot_images
 pep_dat_sq %>% filter(label_chr=='SB') %>% head(1) %>% pull(peptide) %>% as.character %>% pep_plot_images
 
-x_train <- pep_dat %>% filter(data_type == 'train') %>% pull(peptide) %>% pep_encode
-x_train <- pep_dat %>% filter(data_type == 'train') %>% pull(peptide) %>% as.character %>% pep_encode
+pep_dat %>% filter(data_type == 'train') %>% pull(peptide) %>% pep_encode
+pep_dat %>% filter(data_type == 'train') %>% pull(peptide) %>% as.character %>% pep_encode
 
