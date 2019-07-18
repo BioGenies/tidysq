@@ -38,7 +38,14 @@
   if (length(s) == 1 && s == 0) {
     0L
   } else {
-    as.integer(unpack(s, alph_size))
+    s <- as.integer(unpack(s, alph_size))
+    n <- length(s)
+    tail_beg <- match(TRUE, (s[(n - floor(8 / alph_size) + 1):n] == 0)) 
+    if (is.na(tail_beg)) {
+      s
+    } else {
+      s[1:(n - floor(8 / alph_size) + tail_beg - 1)]
+    }
   }
 }
 
@@ -47,14 +54,7 @@
   na_val <- .get_na_val(alph)
   lapply(sq, function(s) {
     s <- .bit_to_int(s, alph_size)
-    n <- length(s)
-    s[s == na_val] <- NA
-    tail_beg <- match(TRUE, (s[(n - ceiling(8 / alph_size) + 1):n] == 0)) 
-    if (is.na(tail_beg)) {
-      alph[s]
-    } else {
-      alph[s[1:(n - ceiling(8 / alph_size) + tail_beg - 1)]]
-    }
+    alph[s]
   })
 }
 
@@ -67,12 +67,12 @@
     s <- .bit_to_int(s, alph_size)
     n <- length(s)
     s[s == na_val] <- NA
-    tail_beg <- match(TRUE, (s[(n - 8 / alph_size + 1):n] == 0)) 
+    tail_beg <- match(TRUE, (s[(n - floor(8 / alph_size) + 1):n] == 0)) 
     if (!is.na(tail_beg)) {
       if (n == 1) {
         return(as.raw(0))
       } else {
-        s <- s[1:(n - 8 / alph_size + tail_beg - 1)]
+        s <- s[1:(n - floor(8 / alph_size) + tail_beg - 1)]
       }
     } 
     s <- inds_func[as.character(s)]  
