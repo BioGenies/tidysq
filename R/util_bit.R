@@ -1,5 +1,5 @@
 .get_alph_size <- function(alph) {
-  2 ^ ceiling(log(length(alph) + 2, 4))
+  ceiling(log2(length(alph) + 2))
 }
 
 .get_na_val <- function(alph) {
@@ -22,9 +22,7 @@
   if (length(s) == 1 && s == 0) {
     as.raw(0)
   } else {
-    s_len <- ceiling(length(s) * alph_size / 8)
-    s_packed <- charToRaw(pack(as.raw(s), alph_size))
-    if (s_len < length(s_packed)) s_packed[1:s_len] else s_packed
+    pack(s, alph_size)
   }
 }
 
@@ -37,29 +35,10 @@
 }
 
 .bit_to_int <- function(s, alph_size) {
-  if (alph_size == 8) {
-    as.integer(s)
-  } else if (alph_size == 4) {
-    n <- 2 * length(s)
-    ret <- integer(n)
-    s <- as.integer(s)
-    if (n == 0) {
-      integer(0)
-    } else {
-      ret[seq(1, n, by = 2)] <- s %% 16
-      ret[seq(2, n, by = 2)] <- s %/% 16
-      ret
-    }
-  } else if (alph_size == 2) {
-    n <- 4 * length(s)
-    ret <- integer(n)
-    s <- as.integer(s)
-    # there would be problems with s shoreter than 2
-    ret[seq(1, n, by = 4)] <- s %% 4
-    ret[seq(2, n, by = 4)] <- (s %/% 4) %% 4
-    ret[seq(3, n, by = 4)] <- (s %/% 16) %% 4
-    ret[seq(4, n, by = 4)] <- s %/% 64
-    ret
+  if (length(s) == 1 && s == 0) {
+    0L
+  } else {
+    as.integer(unpack(s, alph_size))
   }
 }
 
@@ -70,11 +49,11 @@
     s <- .bit_to_int(s, alph_size)
     n <- length(s)
     s[s == na_val] <- NA
-    tail_beg <- match(TRUE, (s[(n - 8 / alph_size + 1):n] == 0)) 
+    tail_beg <- match(TRUE, (s[(n - ceiling(8 / alph_size) + 1):n] == 0)) 
     if (is.na(tail_beg)) {
       alph[s]
     } else {
-      alph[s[1:(n - 8 / alph_size + tail_beg - 1)]]
+      alph[s[1:(n - ceiling(8 / alph_size) + tail_beg - 1)]]
     }
   })
 }

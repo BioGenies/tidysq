@@ -6,7 +6,7 @@
 using namespace Rcpp;
 
 // pack
-Rcpp::CharacterVector pack(Rcpp::RawVector UNPACKED, const unsigned short ALPH_SIZE);
+Rcpp::RawVector pack(Rcpp::RawVector UNPACKED, const unsigned short ALPH_SIZE);
 RcppExport SEXP _tidysq_pack(SEXP UNPACKEDSEXP, SEXP ALPH_SIZESEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -18,7 +18,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // unpack
-Rcpp::CharacterVector unpack(Rcpp::RawVector PACKED, const unsigned short ALPH_SIZE);
+Rcpp::RawVector unpack(Rcpp::RawVector PACKED, const unsigned short ALPH_SIZE);
 RcppExport SEXP _tidysq_unpack(SEXP PACKEDSEXP, SEXP ALPH_SIZESEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

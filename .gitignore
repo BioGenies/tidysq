@@ -3,5 +3,5 @@
 .RData
 .Ruserdata
 tidysq.Rproj
-.o
-.so
+*.o
+*.so
