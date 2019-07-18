@@ -20,7 +20,8 @@ Description: A tidy approach to analysis of biological sequences.
 Depends: tibble (>= 2.1.3)
 Imports: pillar (>= 1.4.2),
          crayon (>= 1.3.4),
-         stringi (>= 1.4.3)
+         stringi (>= 1.4.3),
+         Rcpp (>= 1.0.1)
 License: GPL (>= 2)
 URL: https://github.com/michbur/tidysq
 BugReports: https://github.com/michbur/tidysq/issues
@@ -28,3 +29,4 @@ NeedsCompilation: no
 Repository: CRAN
 Encoding: UTF-8
 RoxygenNote: 6.1.1
+LinkingTo: Rcpp

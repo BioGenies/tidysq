@@ -7,3 +7,7 @@
 #' @name tidysq-package
 #' @aliases tidysq
 NULL
+
+#' @useDynLib tidysq
+#' @importFrom Rcpp sourceCpp
+NULL

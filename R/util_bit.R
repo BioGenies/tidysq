@@ -19,32 +19,13 @@
 }
 
 .int_to_bit <- function(s, alph_size) {
-  n <- length(s)
-  if (alph_size == 8 || 
-      n < 2) {
-    as.raw(s)
+  if (length(s) == 1 && s == 0) {
+    as.raw(0)
   } else {
-    #s <- s * rep(2 ^ (0:(8 / alph_size - 1) * alph_size), length.out = n)
-    
-    if (alph_size == 4) {
-      if (n %% 2 == 1) {
-        s <- c(s, 0)
-        n <- n + 1
-      }
-      as.raw(s[seq(1, n, by = 2)] + 16 * s[seq(2, n, by = 2)])
-    } else if (alph_size == 8 &&
-               n < 4) {
-      as.raw(sum(s))
-    } else {
-      # WIP
-      # as.raw(s[seq(1, n, by = 2)] + 
-      #          s[seq(2, n, by = 2)] +
-      #          s[seq(3, n, by = 2)] +
-      #          s[seq(4, n, by = 2)])
-    }
-    
+    s_len <- ceiling(length(s) * alph_size / 8)
+    s_packed <- charToRaw(pack(as.raw(s), alph_size))
+    if (s_len < length(s_packed)) s_packed[1:s_len] else s_packed
   }
-  
 }
 
 .bitify_sq <- function(sq, alph) {
