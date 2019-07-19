@@ -98,3 +98,21 @@ print.sq <- function(x, ...) {
                       collapse = "\n"), 
       "\n", sep = "")
 }
+
+#' @exportMethod print encsq
+#' @export
+print.encsq <- function(x, ...) {
+  sqclass <- "enc (encoded values) sequences vector:\n"
+
+  alph <- .get_alph(x)
+  decoded <- .debitify_sq(x, alph)
+  decoded <- sapply(decoded, function(s) ifelse(length(s) == 0, 
+                                                "<NULL sq>", 
+                                                paste(ifelse(is.na(s), "*", s), collapse = " ")))
+  max_width <- max(nchar(1:length(x)))
+  inds <- paste0("[", 1:length(x), "] ")
+  cat(sqclass, paste0(format(inds, width = max_width + 3, justify = "right"), 
+                      decoded, 
+                      collapse = "\n"), 
+      "\n", sep = "")
+}

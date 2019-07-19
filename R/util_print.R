@@ -42,6 +42,13 @@ type_sum.atpsq <- function(x) {
 }
 
 #' @importFrom pillar type_sum
+#' @exportMethod type_sum encsq
+#' @export
+type_sum.encsq <- function(x) {
+  "enc"
+}
+
+#' @importFrom pillar type_sum
 #' @exportMethod type_sum clnsq
 #' @export
 type_sum.clnsq <- function(x) {

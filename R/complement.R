@@ -1,6 +1,6 @@
 #' @export
 complement <- function(nucsq, is_dna = NULL) {
-  validate_nucsq(nucsq)
+  validate_sq(nucsq, "nuc")
   if (!.is_cleaned(nucsq)) {
     stop("'nucsq' needs to be cleaned")
   }

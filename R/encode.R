@@ -1,3 +1,4 @@
+#' @exportClass encsq
 #' @export
 encode <- function(sq, encoding) {
   validate_sq(sq)
