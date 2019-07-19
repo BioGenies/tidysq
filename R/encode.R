@@ -19,7 +19,7 @@ encode <- function(sq, encoding) {
   
   alph <- .get_alph(sq)
   if (!all(alph %in% names(encoding))) {
-    if (lenght(encoding) == length(alph)) {
+    if (length(encoding) == length(alph)) {
       names(encoding) <- alph
       .handle_opt_txt("tidysq_encode_noname_action",
                       "'encoding' is unnamed, assuming values corresponds to letters in order")
