@@ -37,7 +37,7 @@ complement <- function(nucsq, is_dna = NULL) {
   
   inds_func <- match(dict[alph], alph)
   names(inds_func) <- as.character(1:length(alph))
-  ret <- lapply(sq, function(s) .bit_to_int(inds_func[s], alph_size))
+  ret <- lapply(sq, function(s) .int_to_bit(inds_func[s], alph_size))
   
   class(ret) <- c("clnsq", "nucsq", "sq")
   attr(ret, "alphabet") <- alph

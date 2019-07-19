@@ -36,7 +36,7 @@ Rcpp::RawVector pack(Rcpp::RawVector UNPACKED,
 // [[Rcpp::export]]
 Rcpp::RawVector unpack(Rcpp::RawVector PACKED, 
                            const unsigned short ALPH_SIZE) {
-  const unsigned int OUT_LEN = (PACKED.size() * BYTE_SIZE + ALPH_SIZE - 1) / ALPH_SIZE;
+  const unsigned int OUT_LEN = (PACKED.size() * BYTE_SIZE) / ALPH_SIZE;
   Rcpp::RawVector ret(OUT_LEN);
   const char MASK = (1u << ALPH_SIZE) - 1;
   unsigned int in_byte = ZERO;
