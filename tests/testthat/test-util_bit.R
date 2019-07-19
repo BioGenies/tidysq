@@ -168,7 +168,27 @@ test_that("integers are unpacked correctly with alph_size = 2", {
 })
 
 test_that("integers are unpacked correctly with alph_size = 3", {
-  expect_equal(unpack(as.raw(c(41, 128)), 3), as.raw(c(1, 2, 3, 0, 0, 0)))
-  expect_equal(unpack(as.raw(c(61, 166)), 3), as.raw(c(1, 7, 3, 2, 3, 0)))
-  expect_equal(unpack(as.raw(c(208, 128)), 3), as.raw(c(6, 4, 1, 0, 0, 0)))
+  expect_equal(unpack(as.raw(c(41, 128)), 3), as.raw(c(1, 2, 3, 0, 0)))
+  expect_equal(unpack(as.raw(c(61, 166)), 3), as.raw(c(1, 7, 3, 2, 3)))
+  expect_equal(unpack(as.raw(c(208, 128)), 3), as.raw(c(6, 4, 1, 0, 0)))
+})
+
+test_that(".int_to_bit and .bit_to_int reverse each other", {
+  expect_equal(.bit_to_int(.int_to_bit(c(1), 2), 2), 1)
+  expect_equal(.bit_to_int(.int_to_bit(c(1), 3), 3), 1)
+  expect_equal(.bit_to_int(.int_to_bit(c(1), 4), 4), 1)
+  expect_equal(.bit_to_int(.int_to_bit(c(1), 5), 5), 1)
+  expect_equal(.bit_to_int(.int_to_bit(c(1), 8), 8), 1)
+  
+  expect_equal(.bit_to_int(.int_to_bit(c(1, 1), 2), 2), c(1, 1))
+  expect_equal(.bit_to_int(.int_to_bit(c(1, 1), 3), 3), c(1, 1))
+  expect_equal(.bit_to_int(.int_to_bit(c(1, 1), 4), 4), c(1, 1))
+  expect_equal(.bit_to_int(.int_to_bit(c(1, 1), 5), 5), c(1, 1))
+  expect_equal(.bit_to_int(.int_to_bit(c(1, 1), 8), 8), c(1, 1))
+  
+  expect_equal(.bit_to_int(.int_to_bit(c(1, 1, 1), 2), 2), c(1, 1, 1))
+  expect_equal(.bit_to_int(.int_to_bit(c(1, 1, 1), 3), 3), c(1, 1, 1))
+  expect_equal(.bit_to_int(.int_to_bit(c(1, 1, 1), 4), 4), c(1, 1, 1))
+  expect_equal(.bit_to_int(.int_to_bit(c(1, 1, 1), 5), 5), c(1, 1, 1))
+  expect_equal(.bit_to_int(.int_to_bit(c(1, 1, 1), 8), 8), c(1, 1, 1))
 })

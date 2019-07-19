@@ -26,8 +26,7 @@
 }
 
 .construct_sq_s <- function(sq, alph, classes) {
-  sq <- strsplit(sq, "")
-  sq <- lapply(sq, function(s) match(s, alph))
+  sq <- .bitify_sq(sq, alph)
   attr(sq, "alphabet") <- alph
   class(sq) <- classes
   sq
