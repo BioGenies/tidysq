@@ -32,7 +32,7 @@ NA values can be removed by using \link{remove_na} function.
 }
 \examples{
 # creating object to work on:
-sq <- construct_sq("ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT")
+sq <- construct_sq(c("ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"), type = "nuc")
 
 # extracting first letter from each sequence:
 bite(sq, 1)
