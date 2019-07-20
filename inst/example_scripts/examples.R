@@ -154,6 +154,14 @@ simplify(sqtbl_ami %>% pull(sq), enc)
 sqtbl_ami %>% mutate(simpl = simplify(sq, enc))
 #TODO: FEATURE - find a better way to write encodings
 
+### encode
+data("aaprop")
+enc <- aaprop[1,]
+
+sqtbl_ami[["sq"]] %>% clean(only_elements = TRUE) %>% encode(enc)
+sqtbl_ami %>% mutate(enc = encode(clean(sq, only_elements = TRUE), enc))
+sqtbl_long %>% mutate(enc = encode(clean(sq, only_elements = TRUE), enc))
+
 ###### ----- overloaded methods for sq class ----- ######
 #########################################################
 

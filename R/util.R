@@ -1,17 +1,17 @@
-#this functions are internal (at least by now) and are used only on sqtibbles we know are corect
-#so theres no need to validate
+#this functions are internal (at least by now) and are used only on sq objects that we know are corect
+#so there's no need to validate
 
 .get_alph <- function(sq) {
   attr(sq, "alphabet")
 }
 
 .get_sq_subclass <- function(sq) {
-  intersect(class(sq), c("amisq", "nucsq", "untsq", "simsq", "atpsq"))
+  intersect(class(sq), c("amisq", "nucsq", "untsq", "simsq", "atpsq", "encsq"))
 }
 
 .get_sq_type <- function(sq) {
-  sqclasses <- intersect(class(sq), c("amisq", "nucsq", "untsq", "simsq", "atpsq"))
-  dict <- c(amisq = "ami", nucsq = "nuc", untsq = "unt", simsq = "sim", atpsq = "atp")
+  sqclasses <- intersect(class(sq), c("amisq", "nucsq", "untsq", "simsq", "atpsq", "encsq"))
+  dict <- c(amisq = "ami", nucsq = "nuc", untsq = "unt", simsq = "sim", atpsq = "atp", encsq = "encsq")
   dict[sqclasses]
 }
 
@@ -26,8 +26,7 @@
 }
 
 .construct_sq_s <- function(sq, alph, classes) {
-  sq <- strsplit(sq, "")
-  sq <- lapply(sq, function(s) match(s, alph))
+  sq <- .bitify_sq(sq, alph)
   attr(sq, "alphabet") <- alph
   class(sq) <- classes
   sq

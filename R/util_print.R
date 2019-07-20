@@ -42,6 +42,13 @@ type_sum.atpsq <- function(x) {
 }
 
 #' @importFrom pillar type_sum
+#' @exportMethod type_sum encsq
+#' @export
+type_sum.encsq <- function(x) {
+  "enc"
+}
+
+#' @importFrom pillar type_sum
 #' @exportMethod type_sum clnsq
 #' @export
 type_sum.clnsq <- function(x) {
@@ -119,3 +126,48 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   new_ornament(row, width = width, align = "left")
 }
 
+#' @importFrom pillar pillar_shaft
+#' @importFrom pillar new_pillar_shaft
+#' @importFrom pillar get_max_extent
+#' @exportMethod pillar_shaft encsq
+#' @export
+pillar_shaft.encsq <- function(x, ...) {
+  alph <- .get_alph(x)
+  x <- .debitify_sq(x, alph)
+  
+  x_min <- sapply(x, function(x) paste(format(x, digits = 1, nsmall = 1, scientific = FALSE), collapse = ""))
+  
+  longest_str <- get_max_extent(x_min)
+  
+  opt <- .get_print_length()
+  
+  new_pillar_shaft(x,
+                   width = min(longest_str, 
+                               opt + 3),
+                   min_width = 7,
+                   class = "pillar_shaft_encsq",
+                   align = "left")
+}
+
+#' @importFrom crayon cyan
+#' @importFrom crayon silver
+#' @importFrom pillar new_ornament
+#' @exportMethod format pillar_shaft_encsq
+#' @export
+format.pillar_shaft_encsq <- function(x, width, ...) {
+  if (width < attr(x, "min_width")) {
+    stop("need at least width ", attr(x, "min_width"), ", requested ", 
+         width, ".", call. = FALSE)
+  } 
+  
+  s_opt <- if (.get_color_opt()) cyan else identity
+  
+  x_t <- sapply(x, function(xth) paste(format(xth, digits = 1, nsmall = 1, scientific = FALSE), collapse = " "))
+  if (max(nchar(x_t)) > width) {
+    x_t <- paste0(substr(x_t, 1, width - 3), silver("..."))
+  }
+  
+  row <- s_opt(x_t)
+  
+  new_ornament(row, width = width, align = "left")
+}

@@ -7,8 +7,8 @@
 tidysq package
 ------------
 
-This package contains tools for analysis of biological sequences (proteins
-or nucleic acids). 
+This package contains tools for analysis of biological sequences amino acids (e.g., 
+peptides, proteins) or nucleic acids (e.g., RNA, DNA). 
 
 Installation
 ------------
@@ -32,4 +32,4 @@ citation("tidysq")
 ```
 
 or use:
-Michal Burdukiewicz, Dominik Rafacz and Leon Eyrich Jessen (2019). tidysq: N-Gram Analysis of Biological Sequences. R package version 1.0. https://cran.r-project.org/package=tidysq
+Michal Burdukiewicz, Dominik Rafacz, Stefan Roediger and Leon Eyrich Jessen (2019). tidysq: N-Gram Analysis of Biological Sequences. R package version 1.0. https://cran.r-project.org/package=tidysq

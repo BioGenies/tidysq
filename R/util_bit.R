@@ -40,11 +40,11 @@
   } else {
     s <- as.integer(unpack(s, alph_size))
     n <- length(s)
-    tail_beg <- match(TRUE, (s[(n - floor(8 / alph_size) + 1):n] == 0)) 
+    tail_beg <- match(TRUE, (s == 0)) #this way of finding tail is sub-optimal, but works at least
     if (is.na(tail_beg)) {
       s
     } else {
-      s[1:(n - floor(8 / alph_size) + tail_beg - 1)]
+      s[1:(tail_beg - 1)]
     }
   }
 }
@@ -67,12 +67,12 @@
     s <- .bit_to_int(s, alph_size)
     n <- length(s)
     s[s == na_val] <- NA
-    tail_beg <- match(TRUE, (s[(n - floor(8 / alph_size) + 1):n] == 0)) 
+    tail_beg <- match(TRUE, (s == 0)) 
     if (!is.na(tail_beg)) {
       if (n == 1) {
         return(as.raw(0))
       } else {
-        s <- s[1:(n - floor(8 / alph_size) + tail_beg - 1)]
+        s <- s[1:(tail_beg-1)]
       }
     } 
     s <- inds_func[as.character(s)]  
