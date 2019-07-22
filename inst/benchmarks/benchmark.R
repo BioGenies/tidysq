@@ -16,8 +16,8 @@ generate_dna_ex <- function(n, len, alph) {
 }
 
 alphs <- list(c("C", "T", "A", "G"), LETTERS)
-ns <- 10^(2:3)
-lens <- 10^(1:4)
+ns <- 10^(2:5)
+lens <- 10^(1:5)
 
 invisible(lapply(ns, function(n) {
   lapply(lens, function(len) {
@@ -32,7 +32,7 @@ library(dplyr)
 f_read <- list(tidysq = function(x) tidysq::read_fasta(x, type = "unt"),
                seqinr = function(x) seqinr::read.fasta(x), 
                ape = function(x) ape::read.FASTA(x), 
-               Biostrings = function(x) Biostrings::readDNAStringSet(x))
+               Biostrings = function(x) Biostrings::readBStringSet(x))
 
 results <- do.call(rbind, lapply(ns, function(n) {
   do.call(rbind, lapply(lens, function(len) {
@@ -50,18 +50,19 @@ results <- do.call(rbind, lapply(ns, function(n) {
 
 write.csv(results, "./inst/benchmarks/results.csv", row.names = FALSE)
 
-library(ggplot2)
-library(reshape2)
-
-
-ggplot(results, aes(x = as.factor(num_sq), y = log(obj_size), fill = package)) +
-  geom_col(position = "dodge") +
-  facet_grid(alph_size ~ sq_len, labeller = label_both)
-
-ggplot(results, aes(x = as.factor(num_sq), y = log(reading_time), fill = package)) +
-  geom_col(position = "dodge") +
-  facet_grid(alph_size ~ sq_len, labeller = label_both)
-
-ggplot(results, aes(x = as.factor(num_sq), y = as.factor(sq_len), fill = reading_time)) +
-  geom_tile() +
-  facet_grid(alph_size ~ package)
+# library(ggplot2)
+# library(reshape2)
+# 
+# results <- read.csv("./inst/benchmarks/results.csv")
+# 
+# ggplot(dplyr::filter(results, package != "seqinr"), aes(x = as.factor(num_sq), y = obj_size, fill = package)) +
+#   geom_col(position = "dodge") +
+#   facet_wrap(~ alph_size + sq_len, labeller = label_both, scales = "free_y")
+# 
+# ggplot(results, aes(x = as.factor(num_sq), y = reading_time, fill = package)) +
+#   geom_col(position = "dodge") +
+#   facet_grid(alph_size ~ sq_len, labeller = label_both)
+# 
+# ggplot(results, aes(x = as.factor(num_sq), y = as.factor(sq_len), fill = reading_time)) +
+#   geom_tile() +
+#   facet_grid(alph_size ~ package)
