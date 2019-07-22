@@ -1,13 +1,7 @@
 #' Subset sequences from sq objects
 #' 
-#' Amino acids and nucleic acid sequences are represented as \code{\link{sq}} 
-#' object in the \code{\link{tidysq}} package. Often one needs to get only a 
-#' single letter or the sequence of a defined range from the original sequences. 
-#' A subsequence is a sequence that can be derived from the original sequence 
-#' by trimming some elements (letters) without changing the order of the 
-#' remaining elements. To obtain a subsequence from each sequence contained in 
-#' the \code{\link{sq}} object with the same indices. This is for example 
-#' useful to extract user defined region from a sequence. 
+#' @description Extract a defined range of elements (amino acids or nucleotides) 
+#' from a sequence.
 #' 
 #' @param sq \code{\link{sq}} object
 #' @param indices \code{numeric} vector of subsequence indices to extract from
@@ -18,14 +12,24 @@
 #' element is a subsequence created by indexing corresponding sequence from 
 #' input sq object with input indices.
 #' 
-#' @details The usage of function follows the normal R conventions. For details 
-#' refer to the R documentation (see \url{https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Index-vectors}). 
+#' @details Amino acids and nucleic acid sequences are represented as \code{\link{sq}} 
+#' object in the \code{\link{tidysq}} package. Often one needs to get only a 
+#' single letter or the sequence of a defined range from the original sequences. 
+#' A subsequence is a sequence that can be derived from the original sequence 
+#' by trimming some elements (letters) without changing the order of the 
+#' remaining elements. To obtain a subsequence from each sequence contained in 
+#' the \code{\link{sq}} object with the same indices. This is for example 
+#' useful to extract an user-defined region from a sequence. 
+#' 
+#' The usage of \code{bite} follows the normal R conventions. For details 
+#' refer to the R documentation (see 
+#' \url{https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Index-vectors}). 
 #' Extracting indices not present in the sequence results in introducing 
 #' \code{\link{NA}} (‘Not Available’ / Missing Values) values. 
 #' Information about it is printed on console depending on value of option 
 #' 'tidysq_bite_na_action' - it can be either a warning (default), error, 
-#' message or no information (you can check details in \link{sq-options}). 
-#' NA values can be removed by using \link{remove_na} function.
+#' message or no information (you can check details in \code{\link{sq-options})}. 
+#' \code{NA} values can be removed by using \code{\link{remove_na}} function.
 #' 
 #' @examples 
 #' # Creating object, called sq to work on:
