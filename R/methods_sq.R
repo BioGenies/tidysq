@@ -10,7 +10,7 @@
 }
 
 #' @exportMethod as.character sq
-#' @exportB
+#' @export
 as.character.sq <- function(x, ...) {
   alph <- .get_alph(x)
   sapply(.debitify_sq(x, alph), function(s) paste(ifelse(is.na(s), "*", s), collapse = ""))
