@@ -85,11 +85,9 @@ sqtbl_ami %>% mutate(subs_1 = substitute_letters(sq, c(G = "L", V = ";")),
                      subs_2 = substitute_letters(sq, c(P = "G", K = NA, X = NA, V = NA)))
 #QUESTION: which character would be best for printing NA's?
 
-### remove_na function a.k.a. na.omit
+### remove_na function
 remove_na(sq_4)
 remove_na(sq_4, only_elements = TRUE)
-na.omit(sq_4)
-na.omit(sq_4, only_elements = TRUE)
 
 ### typify
 
@@ -127,7 +125,6 @@ sqtbl_ami %>% mutate(bitten = bite(sq, 1:20))
 
 ### remove_na comes back
 
-sqtbl_ami %>% mutate(bitten = na.omit(bite(sq, 1:20), only_elements = TRUE))
 sqtbl_ami %>% mutate(bitten = remove_na(bite(sq, 1:20), only_elements = TRUE))
 sqtbl_ami %>% mutate(bitten = bite(sq, 1:15),
                      na_removed = remove_na(bitten),

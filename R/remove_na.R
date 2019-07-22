@@ -20,9 +20,3 @@ remove_na <- function(sq, only_elements = FALSE) {
   
   .set_class_alph(ret, sq)
 }
-
-#' @exportMethod na.omit sq
-#' @export
-na.omit.sq <- function(object, ...) {
-  remove_na(object, ...)
-}
