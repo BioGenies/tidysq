@@ -3,6 +3,7 @@ library(seqinr)
 library(tidysq)
 library(Biostrings)
 
+### reading fasta format benchmark
 
 generate_dna_ex <- function(n, len, alph) {
   name <- paste0(1:n, "dna")
@@ -16,8 +17,8 @@ generate_dna_ex <- function(n, len, alph) {
 }
 
 alphs <- list(c("C", "T", "A", "G"), LETTERS)
-ns <- 10^(2:5)
-lens <- 10^(1:5)
+ns <- 10^(2:4)
+lens <- 10^(1:6)
 
 invisible(lapply(ns, function(n) {
   lapply(lens, function(len) {
@@ -66,3 +67,41 @@ write.csv(results, "./inst/benchmarks/results.csv", row.names = FALSE)
 # ggplot(results, aes(x = as.factor(num_sq), y = as.factor(sq_len), fill = reading_time)) +
 #   geom_tile() +
 #   facet_grid(alph_size ~ package)
+
+
+### converting strings to sequence internal objects
+
+f_cons <- list(tidysq = function(x) tidysq::construct_sq(x, type = "unt"),
+##            seqinr = function(x) seqinr::as.SeqFastadna(x), 
+               ape = function(x) ape::as.DNAbin(strsplit(x, "")), 
+               Biostrings = function(x) Biostrings::DNAStringSet(x))
+
+f_char <- list(tidysq = function(x) as.character(x),
+##             seqinr = function(x) seqinr::as.SeqFastadna(x), 
+               ape = function(x) as.character(x), 
+               Biostrings = function(x) sapply(x, toString))
+
+results <- do.call(rbind, lapply(ns, function(n) {
+  do.call(rbind, lapply(lens, function(len) {
+    #do.call(rbind, lapply(alphs, function(alph) {
+      dna <- sapply(1:n, 
+                    function(x) paste0(sample(c("C", "T", "G", "A"), len, replace = TRUE), collapse = ""))
+      do.call(rbind, lapply(1:length(f_cons), function(i) {
+        fc <- f_cons[[i]]
+        fr <- f_char[[i]]
+        t0 <- Sys.time()
+        s <- fc(dna)
+        t1 <- Sys.time()
+        s2 <- fr(s)
+        t2 <- Sys.time()
+        data.frame(package = names(f_cons)[i], 
+###                alph_size = length(alph), 
+                   sq_len = len, 
+                   num_sq = n, 
+                   obj_size = as.numeric(object.size(s)), 
+                   char_to_seq_time = t1 - t0,
+                   seq_to_char_time = t2 - t1)
+      }))
+##  }))
+  }))
+}))
