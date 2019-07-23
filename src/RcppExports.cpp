@@ -29,10 +29,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// pack3
+Rcpp::RawVector pack3(Rcpp::RawVector UNPACKED, const unsigned short ALPH_SIZE);
+RcppExport SEXP _tidysq_pack3(SEXP UNPACKEDSEXP, SEXP ALPH_SIZESEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type UNPACKED(UNPACKEDSEXP);
+    Rcpp::traits::input_parameter< const unsigned short >::type ALPH_SIZE(ALPH_SIZESEXP);
+    rcpp_result_gen = Rcpp::wrap(pack3(UNPACKED, ALPH_SIZE));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_pack", (DL_FUNC) &_tidysq_pack, 2},
     {"_tidysq_unpack", (DL_FUNC) &_tidysq_unpack, 2},
+    {"_tidysq_pack3", (DL_FUNC) &_tidysq_pack3, 2},
     {NULL, NULL, 0}
 };
 

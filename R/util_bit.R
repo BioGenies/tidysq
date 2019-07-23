@@ -37,6 +37,16 @@
   }
 }
 
+.int_to_bit3 <- function(s, alph_size) {
+  if (length(s) == 1 && s == 0) {
+    as.raw(0)
+  } else {
+    ne <- length(s) / 8
+    if (floor(ne) != ceiling(ne)) s[(length(s) + 1):(ceiling(ne) * 8)] <- 0
+    pack(s, alph_size)
+  }
+}
+
 .bitify_sq <- function(sq, alph) {
   sq <- .char_to_int(sq, alph) 
   alph_size <- .get_alph_size(alph)
@@ -53,6 +63,13 @@
   })
 }
 
+.bitify_sq3 <- function(sq, alph) {
+  sq <- .char_to_int(sq, alph) 
+  alph_size <- .get_alph_size(alph)
+  lapply(sq, function(s) {
+    .int_to_bit3(s, alph_size)
+  })
+}
 
 .bit_to_int <- function(s, alph_size) {
   if (length(s) == 1 && s == 0) {

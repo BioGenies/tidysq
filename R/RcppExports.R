@@ -17,3 +17,11 @@ unpack <- function(PACKED, ALPH_SIZE) {
     .Call('_tidysq_unpack', PACKAGE = 'tidysq', PACKED, ALPH_SIZE)
 }
 
+#' Pack raw bytes, but better
+#' 
+#' @param UNPACKED \code{raw} vector
+#' @param ALPH_SIZE \code{integer}
+pack3 <- function(UNPACKED, ALPH_SIZE) {
+    .Call('_tidysq_pack3', PACKAGE = 'tidysq', UNPACKED, ALPH_SIZE)
+}
+
