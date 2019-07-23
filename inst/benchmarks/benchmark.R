@@ -33,16 +33,19 @@ invisible(lapply(ns, function(n) {
 }))
 
 f_read <- list(tidysq = function(x) tidysq::read_fasta(x, type = "unt"),
+               tidysq2 = function(x) tidysq::read_fasta(x, type = "unt"),
                seqinr = function(x) seqinr::read.fasta(x), 
                ape = function(x) ape::read.FASTA(x), 
                Biostrings = function(x) Biostrings::readBStringSet(x))
 
 f_cons <- list(tidysq = function(x) tidysq::construct_sq(x, type = "unt"),
+               tidysq2 = function(x) tidysq::construct_sq2(x, type = "unt"),
                seqinr = function(x) seqinr::as.SeqFastadna(x), 
                ape = function(x) ape::as.DNAbin(x), 
                Biostrings = function(x) Biostrings::DNAStringSet(x))
 
 f_char <- list(tidysq = function(x) as.character(x[["sq"]]),
+               tidysq2 = function(x) as.character(x[["sq"]]),
                seqinr = function(x) seqinr::getSequence(x), 
                ape = function(x) as.character(x), 
                Biostrings = function(x) sapply(x, toString))
