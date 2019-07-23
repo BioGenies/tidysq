@@ -31,9 +31,9 @@
     as.raw(0)
   } else {
     ne <- length(s) / 8
-    eights <- lapply(1:floor(ne), function(ind) (8 * (ind - 1)):(8 * ind - 1))
-    if (floor(ne) != ceiling(ne)) eights[[ceiling(ne)]] <- (floor(ne) * 8):length(s) 
-    do.call(c, lapply(0:(eights - 1), function(i) pack(s[(8 * i):(8 * i + 7)], alph_size)))
+    eights <- lapply(1:floor(ne), function(ind) (8 * (ind - 1) + 1):(8 * ind))
+    if (floor(ne) != ceiling(ne)) eights[[ceiling(ne)]] <- (floor(ne) * 8 + 1):length(s) 
+    do.call(c, lapply(eights, function(eight) pack(s[eight], alph_size)))
   }
 }
 
