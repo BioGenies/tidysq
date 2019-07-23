@@ -21,8 +21,8 @@ generate_dna_ex <- function(n, len, alph) {
 }
 
 alphs <- list(c("C", "T", "A", "G"))
-ns <- round(seq(10, 1000, length.out = 6), 0)
-lens <- round(seq(10, 1000, length.out = 6), 0)
+ns <- round(seq(10, 5000, length.out = 6), 0)
+lens <- round(seq(10, 5000, length.out = 6), 0)
 
 invisible(lapply(ns, function(n) {
   lapply(lens, function(len) {
@@ -52,20 +52,21 @@ results <- do.call(rbind, pblapply(1:20, function(dummy) {
     do.call(rbind, lapply(lens, function(len) {
       do.call(rbind, lapply(alphs, function(alph) {
         do.call(rbind, lapply(names(f_read), function(i) {
-          elapsed_time_r <- system.time(seq_from_fasta <-f_read[[i]](paste0("dna_ex_n", n, "_l", len, "_a", 
-                                                                            length(alph),".fasta")))
+          elapsed_time_r <- system.time(seq_from_fasta <- f_read[[i]](paste0("dna_ex_n", n, "_l", len, "_a", 
+                                                                             length(alph),".fasta")))
           elapsed_time_char <- system.time(seq_string <- f_char[[i]](seq_from_fasta))
           elapsed_time_cons <- system.time(seq_from_string <- f_cons[[i]](seq_string))
           
           data.frame(package = i, alph_size = length(alph), 
                      sq_len = len, num_sq = n, 
                      type = c("read", "char", "cons"),
+                     file_size = c(paste0("dna_ex_n", n, "_l", len, "_a", length(alph), ".fasta")),
                      obj_size = c(as.numeric(object.size(seq_from_fasta)),
                                   as.numeric(object.size(seq_string)),
                                   as.numeric(object.size(seq_from_string))),
                      time_value = c(unname(elapsed_time_r[3]),
-                                      unname(elapsed_time_char[3]),
-                                      unname(elapsed_time_cons[3]))
+                                    unname(elapsed_time_char[3]),
+                                    unname(elapsed_time_cons[3]))
           )
         }))
       }))
