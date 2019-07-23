@@ -1,11 +1,3 @@
-#' @exportMethod tbl_sum sqtbl
-#' @export
-tbl_sum.sqtbl <- function(x) {
-  ret <- NextMethod()
-  names(ret) <- "A sqtibble"
-  ret
-}
-
 #' @importFrom pillar type_sum
 #' @exportMethod type_sum amisq
 #' @export

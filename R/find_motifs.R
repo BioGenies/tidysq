@@ -84,16 +84,16 @@ find_motifs <- function(sq, name, motifs) {
   matched_inds <- cbind(do.call(rbind, match_inds)) 
   sought <-  unlist(lapply(1:m, function(j) rep(motifs_c[j], nrow(match_inds[[j]]))))
   
-  sq_col <- sq[matched_inds[, "s_ind"]]
+  sq_col <- sq_c[matched_inds[, "s_ind"]]
   nm_col <- name[matched_inds[, "s_ind"]]
-  found <- stri_sub(sq_col, from = matched_inds[, "start"], to = matched_inds[, "end"])
+  found <- stri_sub(sq[matched_inds[, "s_ind"]], from = matched_inds[, "start"], to = matched_inds[, "end"])
   
+  sq_col <- .set_class_alph(sq_col, sq_c)
   
-  
-  ret <- construct_sqtibble(.set_class_alph(sq_col, sq_c), nm_col)
-  ret <- add_column(ret, sought = sought, 
-                    found = .construct_sq_s(found, alph, class(sq_c)), 
-                    start = matched_inds[, "start"], 
-                    end = matched_inds[, "end"])
-  ret
+  tibble(name = nm_col, 
+         sq = sq_col, 
+         sought = sought, 
+         found = .construct_sq_s(found, alph, class(sq_c)), 
+         start = matched_inds[, "start"], 
+         end = matched_inds[, "end"])
 }

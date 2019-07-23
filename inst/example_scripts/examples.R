@@ -29,35 +29,6 @@ tidysq:::validate_amisq(sq_3)
 tidysq:::validate_amisq(sq_4)
 tidysq:::validate_untsq(sq_5)
 
-### sqtibble object - creating, printing and validation
-
-sqtbl_1 <- construct_sqtibble(sq_1)
-sqtbl_2 <- construct_sqtibble(sq_2)
-sqtbl_3 <- construct_sqtibble(sq_3)
-sqtbl_4 <- construct_sqtibble(sq_4)
-sqtbl_5 <- construct_sqtibble(sq_5)
-sqtbl_6 <- construct_sqtibble(c("asfawfaf", "kifachbjhj", "jasfbfka"), type = "ami")
-sqtbl_7 <- construct_sqtibble(c(nuc1 = "CCTGAGTA", nuc2 = "TAGTCTAGTAGA"), type = "nuc")
-sqtbl_8 <- construct_sqtibble(c("akuu", "2q43hor", "A981O  hkJA"), name = c("n1", "n2", "n3"))
-
-sqtbl_1
-sqtbl_2
-sqtbl_3
-sqtbl_4
-sqtbl_5
-sqtbl_6
-sqtbl_7
-sqtbl_8
-
-tidysq:::validate_sqtibble(sqtbl_1)
-tidysq:::validate_sqtibble(sqtbl_2)
-tidysq:::validate_sqtibble(sqtbl_3)
-tidysq:::validate_sqtibble(sqtbl_4)
-tidysq:::validate_sqtibble(sqtbl_5)
-tidysq:::validate_sqtibble(sqtbl_6)
-tidysq:::validate_sqtibble(sqtbl_7)
-tidysq:::validate_sqtibble(sqtbl_8)
-
 ### reading and writing fasta
 
 sqtbl_ami <- read_fasta("inst/small_example_aa.fasta", type = "ami")
@@ -95,7 +66,7 @@ typify(substitute_letters(sq_5,
                           c(`2` = "A", `4` = "B", `3` = "X",`;` = "X", `'` = "X", `9` = "X")), 
        "ami")
 
-sqtbl_5 %>% mutate(subst = substitute_letters(sq, c(`2` = "A", `4` = "B", `3` = NA,
+tibble(sq = sq_5) %>% mutate(subst = substitute_letters(sq, c(`2` = "A", `4` = "B", `3` = NA,
                                                     `;` = NA, `'` = NA, `9` = NA)),
                    removed = remove_na(subst),
                    typed = typify(removed, "ami"))
@@ -153,11 +124,11 @@ sqtbl_ami %>% mutate(simpl = simplify(sq, enc))
 
 ### encode
 data("aaprop")
-enc <- aaprop[1,]
+enc2 <- aaprop[1,]
 
-sqtbl_ami[["sq"]] %>% clean(only_elements = TRUE) %>% encode(enc)
-sqtbl_ami %>% mutate(enc = encode(clean(sq, only_elements = TRUE), enc))
-sqtbl_long %>% mutate(enc = encode(clean(sq, only_elements = TRUE), enc))
+sqtbl_ami[["sq"]] %>% clean(only_elements = TRUE) %>% encode(enc2)
+sqtbl_ami %>% mutate(enc = encode(clean(sq, only_elements = TRUE), enc2))
+sqtbl_long %>% mutate(enc = encode(clean(sq, only_elements = TRUE), enc2))
 
 ###### ----- overloaded methods for sq class ----- ######
 #########################################################

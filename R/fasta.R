@@ -34,7 +34,7 @@ read_fasta <- function(file, type = "unt") {
   
   names_vec <- sub(">", "", sapply(all_s, function(s) s[1]), fixed = TRUE)
   
-  construct_sqtibble(sq, names_vec, type)
+  tibble(name = names_vec, sq = sq)
 }
 
 #' @export
