@@ -26,6 +26,17 @@
   }
 }
 
+.int_to_bit2 <- function(s, alph_size) {
+  if (length(s) == 1 && s == 0) {
+    as.raw(0)
+  } else {
+    ne <- length(s) / 8
+    eights <- lapply(1:floor(ne), function(ind) (8 * (ind - 1)):(8 * ind - 1))
+    if (floor(ne) != ceiling(ne)) eights[[ceiling(ne)]] <- (floor(ne) * 8):length(s) 
+    do.call(c, lapply(0:(eights - 1), function(i) pack(s[(8 * i):(8 * i + 7)], alph_size)))
+  }
+}
+
 .bitify_sq <- function(sq, alph) {
   sq <- .char_to_int(sq, alph) 
   alph_size <- .get_alph_size(alph)
@@ -33,6 +44,15 @@
     .int_to_bit(s, alph_size)
   })
 }
+
+.bitify_sq <- function(sq, alph) {
+  sq <- .char_to_int(sq, alph) 
+  alph_size <- .get_alph_size(alph)
+  lapply(sq, function(s) {
+    .int_to_bit2(s, alph_size)
+  })
+}
+
 
 .bit_to_int <- function(s, alph_size) {
   if (length(s) == 1 && s == 0) {
