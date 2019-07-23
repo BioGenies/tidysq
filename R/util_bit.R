@@ -45,7 +45,7 @@
   })
 }
 
-.bitify_sq <- function(sq, alph) {
+.bitify_sq2 <- function(sq, alph) {
   sq <- .char_to_int(sq, alph) 
   alph_size <- .get_alph_size(alph)
   lapply(sq, function(s) {
