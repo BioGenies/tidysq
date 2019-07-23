@@ -1,3 +1,35 @@
+#' Clean sequences containing ambiguous elements
+#' 
+#' Remove sequences containing ambiguous elements or remove ambiguous 
+#' elements from sequences in sq object.
+#' 
+#' @param sq \code{\link{sq}} object of type 'ami' or 'nuc'
+#' @param only_elements logical indicating if only ambiguous elements
+#' (i.e., matching more than one amino acid/nucleotide) of sequences should
+#' be removed. If \code{FALSE} (default) whole sequences containing ambiguous 
+#' elements are removed.
+#'  
+#' @return \code{\link{clnsq}} object of the same type as input sq. 
+#' 
+#' @details This function allows cleaning of sequences containing ambiguous
+#' elements. By default, sequences containing ambiguous elements are removed 
+#' and \code{NULL sq} values are introduced in their place. If \code{only_elements = TRUE} 
+#' then only ambiguous elements are removed from sequences in sq object.
+#' 
+#' @examples 
+#' # creating objects to work on:
+#' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"), type = "ami")
+#' sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", "TGACGAGCTTA", "ACTNNAGCN"), type = "nuc")
+#' 
+#' # removing sequences with ambiguous elements:
+#' clean(sq_ami)
+#' clean(sq_nuc)
+#' 
+#' # removing ambiguous elements from sequences:
+#' clean(sq_ami, only_elements = TRUE)
+#' clean(sq_nuc, only_elements = TRUE)
+#' 
+#' @seealso sq clnsq
 #' @exportClass clnsq
 #' @export
 clean <- function(sq, only_elements = FALSE) {
@@ -11,7 +43,7 @@ clean <- function(sq, only_elements = FALSE) {
     stop("'only_elements' has to be either TRUE or FALSE")
   }
   if (!(type %in% c("ami", "nuc"))) {
-    stop("function 'clean' is meant to be used only with 'ami' or 'unt' sequences")
+    stop("function 'clean' is meant to be used only with 'ami' or 'nuc' sequences")
   }
   if (is_clean) {
     return(sq)
