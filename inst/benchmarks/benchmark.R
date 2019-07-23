@@ -21,8 +21,8 @@ generate_dna_ex <- function(n, len, alph) {
 }
 
 alphs <- list(c("C", "T", "A", "G"))
-ns <- round(seq(10, 1000, length.out = 5), 0)
-lens <- round(seq(10, 1000, length.out = 5), 0)
+ns <- round(seq(10, 1000, length.out = 6), 0)
+lens <- round(seq(10, 1000, length.out = 6), 0)
 
 invisible(lapply(ns, function(n) {
   lapply(lens, function(len) {
@@ -63,7 +63,7 @@ results <- do.call(rbind, pblapply(1:20, function(dummy) {
                      obj_size = c(as.numeric(object.size(seq_from_fasta)),
                                   as.numeric(object.size(seq_string)),
                                   as.numeric(object.size(seq_from_string))),
-                     time_value_r = c(unname(elapsed_time_r[3]),
+                     time_value = c(unname(elapsed_time_r[3]),
                                       unname(elapsed_time_char[3]),
                                       unname(elapsed_time_cons[3]))
           )
