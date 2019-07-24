@@ -70,3 +70,32 @@ write_fasta <- function(sq, name, file, nchar = 80) {
   
   writeLines(text = char_vec, con = file)
 }
+
+read_fasta_nc <- function(file, type, is_clean = TRUE) {
+  if (missing(type) ||
+      !type %in% c("nuc", "ami")) {
+    stop("in no_check mode 'type' needs to be one of 'nuc', 'ami'")
+  }
+  if (!is.character(file) ||
+      !(length(file) == 1)) {
+    stop("'file' has to be a string giving file to read from")
+  }
+  if (!file.exists(file)) {
+    stop("'file' doesn't exists")
+  }
+  if (!is_clean %in% c(TRUE, FALSE)) {
+    stop("'is_clean' has to be TRUE or FALSE")
+  }
+  
+  #used from biogram
+  all_lines <- readLines(file)
+  s_id <- cumsum(grepl("^>", all_lines))
+  all_s <- split(all_lines, s_id)
+  
+  s_list <- unname(sapply(all_s, function(s) paste(s[2:length(s)], collapse = "")))
+  sq <- construct_sq_nc(s_list, type, is_clean)
+  
+  names_vec <- sub(">", "", sapply(all_s, function(s) s[1]), fixed = TRUE)
+  
+  construct_sqtibble(sq, names_vec, type)
+}

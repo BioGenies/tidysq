@@ -62,3 +62,13 @@ filter(melt_res, type == "char") %>%
   theme_bw() +
   theme(legend.position = "bottom")
 ```
+```{r}
+filter(melt_res, type == "cons") %>% 
+  ggplot(aes(x = sq_len, y = time_value, color = package)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
+  ggtitle("as.character time") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```

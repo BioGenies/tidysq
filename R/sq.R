@@ -55,6 +55,34 @@ construct_sq3 <- function(sq, type = "unt") {
   }
 }
 
+#' @export
+construct_sq_nc <- function(sq, type, is_clean = TRUE) {
+  if (missing(type) ||
+      !type %in% c("nuc", "ami")) {
+    stop("in no_check mode 'type' needs to be one of 'nuc', 'ami'")
+  }
+  if (!is.character(sq)) {
+    stop("'sq' has to be a vector of strings", call. = FALSE)
+  }
+  if (!is_clean %in% c(TRUE, FALSE)) {
+    stop("'is_clean' has to be TRUE or FALSE")
+  }
+  
+  if (type == "ami") {
+    stop("not implemented!")
+  } else if (type == "nuc") {
+    if (is_clean) {
+      sq <- .bitify_sq_cnuc(sq)
+      class(sq) <- c("clnsq", "nucsq", "sq")
+      attr(sq, "alphabet") <- c("A", "C", "G", "T", "U", "-")
+      sq
+    } else {
+      stop("not implemened!")
+    }
+  } 
+}
+
+
 #' @exportClass nucsq
 construct_nucsq <- function(sq) {
   sq <- toupper(sq)

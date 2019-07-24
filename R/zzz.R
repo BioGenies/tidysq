@@ -8,7 +8,8 @@
     tidysq_encode_nogap_action = "none",
     tidysq_encode_noname_action = "warning",
     tidysq_max_sq_print_width = 15,
-    tidysq_colorful_sq_print = TRUE
+    tidysq_colorful_sq_print = TRUE,
+    tidysq_no_check_mode = FALSE
   )
   
   unset_inds <- !(names(new_options) %in% names(prev_options))

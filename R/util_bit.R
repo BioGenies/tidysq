@@ -117,3 +117,16 @@
     .int_to_bit(s, new_alph_size)
   })
 }
+
+.bitify_sq_cnuc <- function(sq) {
+  lapply(sq, function(s) {
+    pack_nc_cnuc(charToRaw(s))
+  })
+}
+
+.debitify_sq_cnuc <- function(sq) {
+  na_char <- .get_na_char()
+  sapply(sq, function(s) {
+    rawToChar(unpack_nc_cnuc(s, na_char))
+  })
+}

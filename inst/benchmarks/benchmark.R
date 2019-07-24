@@ -21,8 +21,8 @@ generate_dna_ex <- function(n, len, alph) {
 }
 
 alphs <- list(c("C", "T", "A", "G"))
-ns <- round(seq(10, 5000, length.out = 6), 0)
-lens <- round(seq(10, 5000, length.out = 6), 0)
+ns <- round(seq(10, 10000, length.out = 6), 0)
+lens <- round(seq(10, 10000, length.out = 6), 0)
 
 invisible(lapply(ns, function(n) {
   lapply(lens, function(len) {
@@ -32,23 +32,17 @@ invisible(lapply(ns, function(n) {
   })
 }))
 
-f_read <- list(tidysq = function(x) tidysq::read_fasta(x, type = "unt"),
-               tidysq2 = function(x) tidysq::read_fasta(x, type = "unt"),
-               tidysq3 = function(x) tidysq::read_fasta(x, type = "unt"),
+f_read <- list(tidysq = function(x) tidysq:::read_fasta_nc(x, type = "nuc"),
                seqinr = function(x) seqinr::read.fasta(x), 
                ape = function(x) ape::read.FASTA(x), 
                Biostrings = function(x) Biostrings::readBStringSet(x))
 
-f_cons <- list(tidysq = function(x) tidysq::construct_sq(x, type = "unt"),
-               tidysq2 = function(x) tidysq::construct_sq2(x, type = "unt"),
-               tidysq3 = function(x) tidysq::construct_sq3(x, type = "unt"),
+f_cons <- list(tidysq = function(x) tidysq::construct_sq_nc(x, type = "nuc"),
                seqinr = function(x) seqinr::as.SeqFastadna(x), 
                ape = function(x) ape::as.DNAbin(x), 
                Biostrings = function(x) Biostrings::DNAStringSet(x))
 
 f_char <- list(tidysq = function(x) as.character(x[["sq"]]),
-               tidysq2 = function(x) as.character(x[["sq"]]),
-               tidysq3 = function(x) as.character(x[["sq"]]),
                seqinr = function(x) seqinr::getSequence(x), 
                ape = function(x) as.character(x), 
                Biostrings = function(x) sapply(x, toString))
