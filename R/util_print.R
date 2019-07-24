@@ -59,16 +59,17 @@ type_sum.clnsq <- function(x) {
 pillar_shaft.sq <- function(x, ...) {
   alph <- .get_alph(x)
   x <- .debitify_sq(x, alph)
+  na_char <- .get_na_char()
   x <- if (.get_color_opt()) {
     lapply(x, function(s) paste(
       as.character(ifelse(is.na(s), 
-                          silver("*"), 
+                          silver(na_char), 
                           green(s))), 
       collapse = ""))
   } else {
     lapply(x, function(s) paste(
       as.character(ifelse(is.na(s), 
-                          "*", 
+                          na_char, 
                           s)), 
       collapse = ""))
   }
