@@ -9,10 +9,6 @@ find_motifs <- function(sq, name, motifs) {
     stop("'name' has to be a non-NULL character vector without NA's, of lenght equal to length of sq")
   }
   
-  if (any(sapply(sq, function(s) any(is.na(s))))) {
-    stop("you cannot find motifs in 'sq' object with NA's")
-  }
-  
   if (!is.character(motifs) ||
       any(is.na(motifs)) ||
       length(motifs) < 1) {
