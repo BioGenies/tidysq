@@ -17,9 +17,7 @@ substitute_letters <- function(sq, encoding) {
   inds_func <- match(transl_table, new_alph)
   names(inds_func) <- names(transl_table)
   
-  ret <- lapply(sq, function(s) {
-    unname(inds_func[as.character(s)])
-    })
+  ret <- .recode_sq(sq, alph, new_alph, inds_func)
   if (.is_cleaned(sq)) {
     .handle_opt_txt("tidysq_subsitute_letters_cln",
                     "column passed to muatting had 'cln' subtype, output column doesn't have it")

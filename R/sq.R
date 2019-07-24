@@ -21,13 +21,12 @@ construct_sq <- function(sq, type = "unt") {
 construct_nucsq <- function(sq) {
   sq <- toupper(sq)
   alph <- nucleotides_df[,"one"]
-  sq <- strsplit(sq, "")
-  is_nuc_sq <- all(unlist(sq) %in% alph)
+  is_nuc_sq <- all(unlist(strsplit(sq, "")) %in% alph)
   if (!is_nuc_sq) {
     stop("each of letters should be in nucleotide alphabet (one of nucleotides_df[,'one'])")
   }
   
-  object <- lapply(sq, function(s) match(s, alph))
+  object <- .bitify_sq(sq, alph)
   attr(object, "alphabet") <- alph
   class(object) <- c("nucsq", "sq")
   object
@@ -37,13 +36,12 @@ construct_nucsq <- function(sq) {
 construct_amisq <- function(sq) {
   sq <- toupper(sq)
   alph <- aminoacids_df[,"one"]
-  sq <- strsplit(sq, "")
-  is_ami_sq <- all(unlist(sq) %in% alph)
+  is_ami_sq <- all(unlist(strsplit(sq, "")) %in% alph)
   if (!is_ami_sq) {
     stop("each of letters should be in aminoacids alphabet (one of aminoacids_df[,'one'])")
   }
   
-  object <- lapply(sq, function(s) match(s, alph))
+  object <- .bitify_sq(sq, alph)
   attr(object, "alphabet") <- alph
   class(object) <- c("amisq", "sq")
   object
@@ -51,16 +49,14 @@ construct_amisq <- function(sq) {
 
 #' @exportClass untsq
 construct_untsq <- function(sq) {
-  sq <- strsplit(sq, "")
-  alph <- unique(unlist(sq))
+  alph <- unique(unlist(strsplit(sq, "")))
 
-  object <- lapply(sq, function(s) match(s, alph))
+  object <- .bitify_sq(sq, alph)
   attr(object, "alphabet") <- alph
   class(object) <- c("untsq", "sq")
   object
 }
 
-#'
 validate_sq <- function(object, type = NULL) {
   if (!"sq" %in% class(object)) {
     stop("'object' doesn't inherit class 'sq'")
@@ -76,37 +72,37 @@ validate_sq <- function(object, type = NULL) {
     stop("'object' doesn't 'alphabet' attribute")
   }
   alph <- .get_alph(object)
-  if (!is.character(alph)) {
-    stop("attribute 'alphabet' isn't character vector")
+  if (!is.character(alph) &&
+      !is.numeric(alph)) {
+    stop("attribute 'alphabet' is neither a character nor a numeric vector")
   }
   #assumption about length of one of each character - this can be changed in future
   if (!all(sapply(alph, length) == 1)) {
-    stop("attribute 'alphabet' have elements, that aren't one character long")
+    stop("attribute 'alphabet' have elements that aren't one element long")
   }
   if (!is.list(object)) {
     stop("'object' isn't a list")
   }
-  if (!all(sapply(object, is.integer))) {
-    stop("'object' isn't a list of integer vectors")
+  if (!all(sapply(object, is.raw))) {
+    stop("'object' isn't a list of raw vectors")
   }
-  if (max(unlist(object), na.rm = TRUE) > length(alph)) {
-    stop("'alphabet' attribute has less elements than are different values in 'object'")
-  }
+  # if (???) {
+  #   stop("'alphabet' attribute has less elements than are different values in 'object'")
+  # } - quite long step, is it necessary?
   if (!is.null(type)) {
     switch (type,
       ami = validate_amisq(object),
       nuc = validate_nucsq(object),
       unt = validate_untsq(object),
       sim = validate_simsq(object),
-      atp = validate_atpsq(object)
+      atp = validate_atpsq(object),
+      enc = validate_encsq(object)
     )
   }
   invisible(object)
 }
 
-#'
 validate_nucsq <- function(object) {
-  validate_sq(object)
   if (!"nucsq" %in% class(object)) {
     stop("'object' doesn't inherit class 'nucsq'")
   } 
@@ -123,9 +119,7 @@ validate_nucsq <- function(object) {
   invisible(object)
 }
 
-#'
 validate_amisq <- function(object) {
-  validate_sq(object)
   if (!"amisq" %in% class(object)) {
     stop("'object' doesn't inherit class 'amisq'")
   } 
@@ -143,18 +137,18 @@ validate_amisq <- function(object) {
   invisible(object)
 }
 
-#'
 validate_untsq <- function(object) {
-  validate_sq(object)
+  alph <- .get_alph(object)
+  if (!is.character(alph)) {
+    stop("attribute 'alphabet' isn't a character vector")
+  }
   if (!"untsq" %in% class(object)) {
     stop("'object' doesn't inherit class 'untsq'")
   } 
   invisible(object)
 }
 
-#'
 validate_simsq <- function(object) {
-  validate_sq(object)
   if (!"simsq" %in% class(object)) {
     stop("'object' doesn't inherit class 'simsq'")
   } 
@@ -165,11 +159,24 @@ validate_simsq <- function(object) {
   invisible(object)
 }
 
-#'
 validate_atpsq <- function(object) {
-  validate_sq(object)
   if (!"atpsq" %in% class(object)) {
     stop("'object' doesn't inherit class 'atpsq'")
   } 
+  alph <- .get_alph(object)
+  if (!is.character(alph)) {
+    stop("attribute 'alphabet' isn't a character vector")
+  }
+  invisible(object)
+}
+
+validate_encsq <- function(object) {
+  if (!"encsq" %in% class(object)) {
+    stop("'object' doesn't inherit class 'encsq'")
+  } 
+  alph <- .get_alph(object)
+  if (!is.numeric(alph)) {
+    stop("attribute 'alphabet' isn't a numeric vector")
+  }
   invisible(object)
 }

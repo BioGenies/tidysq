@@ -13,15 +13,19 @@
 #' @export
 `%has%.sq` <- function(x, y) {
   if (any(sapply(x, function(s) any(is.na(s))))) {
-    stop("you cannot find subsequences in 'sq' object with NA's")
+    stop("you cannot find motifs in 'sq' object with NA's")
   }
   if (!is.character(y)) {
     stop("object which you're looking for in 'sq' object needs to be a character vector")
   }
   alph <- .get_alph(x)
-  if (!all(unlist(strsplit(y, "")) %in% alph)) {
-    stop("subsequences that you're searching for in 'sq' object needs to consist of letters from alphabet of 'sq'")
+  if (!all(unlist(strsplit(y, "")) %in% c(alph, "^", "$"))) {
+    stop("motifs that you're searching for in 'sq' object needs to consist of letters from alphabet of 'sq'")
   }
+  if (any(alph %in% c("^", "$", "?", "(", "=", ")", "\\", ".", "|", "+", "*", "{", "}", "[", "]"))) {
+    stop("you cannot search for motifs if any of those characters: ^$?=()\\.|+*{}[] are elements of 'sq' alphabet; if you want to use them, please substitute those letters with some other using 'substitute_letters'")
+  }
+  
   
   x <- as.character(x)
   
@@ -34,14 +38,14 @@
 #' @export
 `%has%.amisq` <- function(x, y) {
   if (any(sapply(x, function(s) any(is.na(s))))) {
-    stop("you cannot find subsequences in 'sq' object with NA's")
+    stop("you cannot find motifs in 'sq' object with NA's")
   }
   if (!is.character(y)) {
     stop("object which you're looking for in 'sq' object needs to be a character vector")
   }
   y <- strsplit(toupper(y), "")
-  if (!all(unlist(y) %in% aminoacids_df[, "one"])) {
-    stop("subsequences that you're searching for in 'sq' object needs to consist of letters from aminoacids alphabet")
+  if (!all(unlist(y) %in% c(aminoacids_df[, "one"], "^", "$"))) {
+    stop("motifs that you're searching for in 'sq' object needs to consist of letters from aminoacids alphabet and optionally '^' or '$' characters")
   }
   y <- lapply(y, function(s) replace(s, s == "B", "[BDN]"))
   y <- lapply(y, function(s) replace(s, s == "J", "[JIL]"))
@@ -61,14 +65,14 @@
 #' @export
 `%has%.nucsq` <- function(x, y) {
   if (any(sapply(x, function(s) any(is.na(s))))) {
-    stop("you cannot find subsequences in 'sq' object with NA's")
+    stop("you cannot find motifs in 'sq' object with NA's")
   }
   if (!is.character(y)) {
     stop("object which you're looking for in 'sq' object needs to be a character vector")
   }
   y <- strsplit(toupper(y), "")
-  if (!all(unlist(y) %in% nucleotides_df[, "one"])) {
-    stop("subsequences that you're searching for in 'sq' object needs to consist of letters from nucleotides alphabet")
+  if (!all(unlist(y) %in% c(nucleotides_df[, "one"], "^", "$"))) {
+    stop("motifs that you're searching for in 'sq' object needs to consist of letters from nucleotides alphabet and optionally '^' or '$' characters")
   }
   y <- lapply(y, function(s) replace(s, s == "W", "[WATU]"))
   y <- lapply(y, function(s) replace(s, s == "S", "[SCG]"))

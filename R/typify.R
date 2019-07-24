@@ -27,9 +27,7 @@ typify <- function(sq, dest_type) {
   inds_func <- match(toupper(alph), dest_alph)
   names(inds_func) <- as.character(1:length(alph))
   
-  ret <- lapply(sq, function(s) {
-    unname(inds_func[as.character(s)])
-  })
+  ret <- .recode_sq(sq, alph, dest_alph, inds_func)
   
   class(ret) <- c(paste0(dest_type, "sq"), "sq")
   attr(ret, "alphabet") <- dest_alph

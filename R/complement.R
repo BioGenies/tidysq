@@ -36,14 +36,17 @@
 #' 
 #' @export
 complement <- function(nucsq, is_dna = NULL) {
-  validate_nucsq(nucsq)
+  validate_sq(nucsq, "nuc")
   if (!.is_cleaned(nucsq)) {
     stop("'nucsq' needs to be cleaned")
   }
   alph <- .get_alph(nucsq)
-  has_U <- any(unlist(nucsq) == match("U", alph))
-  has_T <- any(unlist(nucsq) == match("T", alph))
-  has_A <- any(unlist(nucsq) == match("A", alph))
+  alph_size <- .get_alph_size(alph)
+  sq <- lapply(nucsq, function(s) .bit_to_int(s, alph_size))
+  
+  has_U <- any(unlist(sq) == match("U", alph))
+  has_T <- any(unlist(sq) == match("T", alph))
+  has_A <- any(unlist(sq) == match("A", alph))
   
   if (has_U && has_T) {
     stop("'nucsq' sequences contains both 'U' and 'T' letters - should contain only one of them")
@@ -70,7 +73,7 @@ complement <- function(nucsq, is_dna = NULL) {
   
   inds_func <- match(dict[alph], alph)
   names(inds_func) <- as.character(1:length(alph))
-  ret <- lapply(nucsq, function(s) inds_func[s])
+  ret <- lapply(sq, function(s) .int_to_bit(inds_func[s], alph_size))
   
   class(ret) <- c("clnsq", "nucsq", "sq")
   attr(ret, "alphabet") <- alph
