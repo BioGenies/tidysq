@@ -10,6 +10,7 @@
     tidysq_max_sq_print_width = 15,
     tidysq_colorful_sq_print = TRUE,
     tidysq_na_print_char = "!"
+    tidysq_no_check_mode = FALSE
   )
   
   unset_inds <- !(names(new_options) %in% names(prev_options))

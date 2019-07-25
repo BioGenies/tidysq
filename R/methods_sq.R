@@ -14,7 +14,18 @@
 as.character.sq <- function(x, ...) {
   na_char <- .get_na_char()
   alph <- .get_alph(x)
-  sapply(.debitify_sq(x, alph), function(s) paste(ifelse(is.na(s), na_char, s), collapse = ""))
+  if (.is_no_check_mode()) {
+    type <- .get_sq_type(x)
+    if (type == "nuc") {
+      if (.is_cleaned(x)) {
+        .debitify_sq_cnuc(x)
+      } else {
+        stop("not implemented!")
+      }
+    } else {
+      stop("not implemented!")
+    }
+  } else sapply(.debitify_sq(x, alph), function(s) paste(ifelse(is.na(s), "*", s), collapse = ""))
 }
 
 #' @exportMethod is sq

@@ -17,6 +17,72 @@ construct_sq <- function(sq, type = "unt") {
   }
 }
 
+#' @exportClass sq
+#' @export
+construct_sq2 <- function(sq, type = "unt") {
+  if (!type %in% c("unt", "ami", "nuc")) {
+    stop("'type' has to be one of 'unt', 'ami', 'nuc'")
+  }
+  if (!is.character(sq)) {
+    stop("'sq' has to be a vector of strings", call. = FALSE)
+  }
+  
+  if (type == "ami") {
+    construct_amisq2(sq)
+  } else if (type =="nuc") {
+    construct_nucsq2(sq)
+  } else {
+    construct_untsq2(sq)
+  }
+}
+
+#' @exportClass sq
+#' @export
+construct_sq3 <- function(sq, type = "unt") {
+  if (!type %in% c("unt", "ami", "nuc")) {
+    stop("'type' has to be one of 'unt', 'ami', 'nuc'")
+  }
+  if (!is.character(sq)) {
+    stop("'sq' has to be a vector of strings", call. = FALSE)
+  }
+  
+  if (type == "ami") {
+    construct_amisq3(sq)
+  } else if (type =="nuc") {
+    construct_nucsq3(sq)
+  } else {
+    construct_untsq3(sq)
+  }
+}
+
+#' @export
+construct_sq_nc <- function(sq, type, is_clean = TRUE) {
+  if (missing(type) ||
+      !type %in% c("nuc", "ami")) {
+    stop("in no_check mode 'type' needs to be one of 'nuc', 'ami'")
+  }
+  if (!is.character(sq)) {
+    stop("'sq' has to be a vector of strings", call. = FALSE)
+  }
+  if (!is_clean %in% c(TRUE, FALSE)) {
+    stop("'is_clean' has to be TRUE or FALSE")
+  }
+  
+  if (type == "ami") {
+    stop("not implemented!")
+  } else if (type == "nuc") {
+    if (is_clean) {
+      sq <- .bitify_sq_cnuc(sq)
+      class(sq) <- c("clnsq", "nucsq", "sq")
+      attr(sq, "alphabet") <- c("A", "C", "G", "T", "U", "-")
+      sq
+    } else {
+      stop("not implemened!")
+    }
+  } 
+}
+
+
 #' @exportClass nucsq
 construct_nucsq <- function(sq) {
   sq <- toupper(sq)
@@ -52,6 +118,27 @@ construct_untsq <- function(sq) {
   alph <- unique(unlist(strsplit(sq, "")))
 
   object <- .bitify_sq(sq, alph)
+  attr(object, "alphabet") <- alph
+  class(object) <- c("untsq", "sq")
+  object
+}
+
+#' @exportClass untsq
+construct_untsq2 <- function(sq) {
+  alph <- unique(unlist(strsplit(sq, "")))
+  
+  object <- .bitify_sq2(sq, alph)
+  attr(object, "alphabet") <- alph
+  class(object) <- c("untsq", "sq")
+  object
+}
+
+
+#' @exportClass untsq
+construct_untsq3 <- function(sq) {
+  alph <- unique(unlist(strsplit(sq, "")))
+  
+  object <- .bitify_sq3(sq, alph)
   attr(object, "alphabet") <- alph
   class(object) <- c("untsq", "sq")
   object
