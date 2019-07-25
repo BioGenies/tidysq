@@ -68,7 +68,7 @@ filter(melt_res, type == "cons") %>%
   geom_point() +
   geom_line() +
   facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
-  ggtitle("as.character time") +
+  ggtitle("from character to class time") +
   theme_bw() +
   theme(legend.position = "bottom")
 ```
