@@ -1,4 +1,55 @@
+#' Substitute default amino acid or nucleic acid alphabet with a custom encoding
+#' 
+#' @description Replace default amino acid or nucleic acid letters in a sequence, 
+#' stored in \code{\link{sq}} object, with a custom encoding.
+#' 
+#' @param sq \code{\link{sq}} object.
+#' @param indices \code{encoding} vector of letters to be replaced together with their replacements.
+#' 
+#' @return \code{\link{atpsq}} object of the same type as input sq with substituted alphabet.
+#' 
+#' @details Function allows to replace default alphabet encoding with letters desired by the user.
+#' One letter of the alphabet may be replaced by a string of characters.
+#' 
+#' @examples 
+#' # Creating object, called sq to work on:
+#'
+#' sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", "CTTTGGTTATCTAGCTGTATGA", 
+#'                         "TATCTAGCTGTATG", "CTGCTG", "CTTAGA", "CCCT", "CTGAATGT"), type = "nuc")
+#' 
+#' sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", "TIAALGNIIYRAIE", "NYERTGHLI", 
+#'                         "MAYNNNIALN", "MN", "NAAAT"), type = "ami")
+#'                      
+#' 
+#' # Replace single letter of alphabet with single character encoding:
+#' 
+#' substitute_letters(sq_nuc, c(T = "t", A = "a", C = "H", G = "Z"))
+#' substitute_letters(sq_nuc, c(T = 1, A = 2, C = 3, G = 4))
+#' 
+#' substitute_letters(sq_ami, c(M = "m", Q = "g", R = "#", D = "$"))
+#' substitute_letters(sq_ami, c(M = "2", Q = "5", R = "9", D = "7"))
+#' 
+#' 
+#' # Replace single letter of alphabet with multiple character encoding:
+#' 
+#' substitute_letters(sq_nuc, c(T = "th", A = "ad", C = "cy", G = "gu"))
+#' substitute_letters(sq_nuc, c(T = 111, A = 222, C = 333, G = 444))
+#' 
+#' substitute_letters(sq_ami, c(M = "Met", Q = "Gln", R = "Arg", D = "Asp"))
+#' substitute_letters(sq_ami, c(M = "222", Q = "555", R = "999", D = "777"))
+#' 
+#' 
+#' # Use created encoding
+#' 
+#' enc_nuc <- c(T = "t", A = "a", C = "c", G = "g")
+#' enc_ami <- c(M = "Met", Q = "Gln", R = "Arg", D = "Asp", H = "His", K = "Lys", A = "Ala")
+#' 
+#' substitute_letters(sq_nuc, enc_nuc)
+#' substitute_letters(sq_ami, enc_ami)
+#' 
+#' @seealso sq atpsq
 #' @export
+
 substitute_letters <- function(sq, encoding) {
   validate_sq(sq)
   
