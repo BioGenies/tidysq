@@ -32,3 +32,12 @@
             !is.logical(opt) || 
             is.na(opt), FALSE, opt)
 }
+
+.get_na_char <- function() {
+  opt <- getOption("tidysq_na_print_char")
+
+  ifelse (is.null(opt) ||
+            !is.character(opt) ||
+            is.na(opt) ||
+            (length(opt) != 1), "!", opt)  
+}

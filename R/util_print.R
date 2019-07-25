@@ -1,11 +1,3 @@
-#' @exportMethod tbl_sum sqtbl
-#' @export
-tbl_sum.sqtbl <- function(x) {
-  ret <- NextMethod()
-  names(ret) <- "A sqtibble"
-  ret
-}
-
 #' @importFrom pillar type_sum
 #' @exportMethod type_sum amisq
 #' @export
@@ -67,16 +59,17 @@ type_sum.clnsq <- function(x) {
 pillar_shaft.sq <- function(x, ...) {
   alph <- .get_alph(x)
   x <- .debitify_sq(x, alph)
+  na_char <- .get_na_char()
   x <- if (.get_color_opt()) {
     lapply(x, function(s) paste(
       as.character(ifelse(is.na(s), 
-                          silver("*"), 
+                          silver(na_char), 
                           green(s))), 
       collapse = ""))
   } else {
     lapply(x, function(s) paste(
       as.character(ifelse(is.na(s), 
-                          "*", 
+                          na_char, 
                           s)), 
       collapse = ""))
   }

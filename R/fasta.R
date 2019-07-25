@@ -1,3 +1,16 @@
+#' Read a FASTA file
+#'
+#' Reads a FASTA file of nucleotides or amino acids file and returns
+#' a sqtibble with number of rows corresponding to the number of sequences and two
+#' columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
+#' @param file a \code{\link[base]{connection}} object or a \code{character} string.
+#' @param type of the sequence (one of \code{ami}, \code{nuc} or \code{unt}).
+#' @examples
+#' \dontrun{
+#' read_fasta(file = 'https://www.ncbi.nlm.nih.gov/WebSub/html/help/sample_files/nucleotide-sample.txt')
+#' read_fasta("https://www.uniprot.org/uniprot/P28307.fasta")
+#' }
+#' @seealso \code{\link[base]{readLines}}
 #' @export
 read_fasta <- function(file, type = "unt") {
   if (!is.character(file) ||
@@ -21,7 +34,7 @@ read_fasta <- function(file, type = "unt") {
   
   names_vec <- sub(">", "", sapply(all_s, function(s) s[1]), fixed = TRUE)
   
-  construct_sqtibble(sq, names_vec, type)
+  tibble(name = names_vec, sq = sq)
 }
 
 #' @export
