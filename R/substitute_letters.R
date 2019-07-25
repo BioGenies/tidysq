@@ -6,7 +6,7 @@
 #' @param sq \code{\link{sq}} object.
 #' @param indices \code{encoding} vector of letters to be replaced together with their replacements.
 #' 
-#' @return \code{\link{atpsq}} object of the same type as input sq with substituted alphabet.
+#' @return \code{\link{atpsq}} object of the same type as input sq with replaced alphabet.
 #' 
 #' @details Function allows to replace default alphabet encoding with letters desired by the user.
 #' One letter of the alphabet may be replaced by a string of characters.
