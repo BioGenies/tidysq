@@ -118,9 +118,9 @@
   })
 }
 
-.bitify_sq_cnuc <- function(sq) {
+.nc_bitify_sq_cnuc <- function(sq) {
   lapply(sq, function(s) {
-    pack_nc_cnuc(charToRaw(s))
+    nc_pack_cnuc(charToRaw(s))
   })
 }
 

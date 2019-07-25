@@ -29,8 +29,8 @@ pack3 <- function(UNPACKED, ALPH_SIZE) {
 #' 
 #' @param UNPACKED \code{raw} vector
 #' @param ALPH_SIZE \code{integer}
-pack_nc_cnuc <- function(UNPACKED) {
-    .Call('_tidysq_pack_nc_cnuc', PACKAGE = 'tidysq', UNPACKED)
+nc_pack_cnuc <- function(UNPACKED) {
+    .Call('_tidysq_nc_pack_cnuc', PACKAGE = 'tidysq', UNPACKED)
 }
 
 #' Unpack raw bytes of clean nucleotides sequence

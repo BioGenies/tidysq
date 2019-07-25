@@ -41,14 +41,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// pack_nc_cnuc
-Rcpp::RawVector pack_nc_cnuc(Rcpp::RawVector UNPACKED);
-RcppExport SEXP _tidysq_pack_nc_cnuc(SEXP UNPACKEDSEXP) {
+// nc_pack_cnuc
+Rcpp::RawVector nc_pack_cnuc(Rcpp::RawVector UNPACKED);
+RcppExport SEXP _tidysq_nc_pack_cnuc(SEXP UNPACKEDSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type UNPACKED(UNPACKEDSEXP);
-    rcpp_result_gen = Rcpp::wrap(pack_nc_cnuc(UNPACKED));
+    rcpp_result_gen = Rcpp::wrap(nc_pack_cnuc(UNPACKED));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -69,7 +69,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_pack", (DL_FUNC) &_tidysq_pack, 2},
     {"_tidysq_unpack", (DL_FUNC) &_tidysq_unpack, 2},
     {"_tidysq_pack3", (DL_FUNC) &_tidysq_pack3, 2},
-    {"_tidysq_pack_nc_cnuc", (DL_FUNC) &_tidysq_pack_nc_cnuc, 1},
+    {"_tidysq_nc_pack_cnuc", (DL_FUNC) &_tidysq_nc_pack_cnuc, 1},
     {"_tidysq_unpack_nc_cnuc", (DL_FUNC) &_tidysq_unpack_nc_cnuc, 2},
     {NULL, NULL, 0}
 };

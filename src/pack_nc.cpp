@@ -21,7 +21,7 @@ inline char translate_cnuc(char letter) {
 //' @param UNPACKED \code{raw} vector
 //' @param ALPH_SIZE \code{integer}
 // [[Rcpp::export]]
-Rcpp::RawVector pack_nc_cnuc(Rcpp::RawVector UNPACKED) {
+Rcpp::RawVector nc_pack_cnuc(Rcpp::RawVector UNPACKED) {
   const unsigned int ALPH_SIZE = 3;
   unsigned int in_len = UNPACKED.size();
   

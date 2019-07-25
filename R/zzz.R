@@ -9,7 +9,7 @@
     tidysq_encode_noname_action = "warning",
     tidysq_max_sq_print_width = 15,
     tidysq_colorful_sq_print = TRUE,
-    tidysq_na_print_char = "!"
+    tidysq_na_print_char = "!",
     tidysq_no_check_mode = FALSE
   )
   
