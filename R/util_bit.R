@@ -20,38 +20,6 @@
   }
 }
 
-.bitify_sq <- function(sq, alph) {
-  sq <- .char_to_int(sq, alph) 
-  alph_size <- .get_alph_size(alph)
-  lapply(sq, function(s) {
-    .int_to_bit(s, alph_size)
-  })
-}
-
-.bit_to_int <- function(s, alph_size) {
-  if (length(s) == 1 && s == 0) {
-    0L
-  } else {
-    s <- as.integer(unpack(s, alph_size))
-    n <- length(s)
-    tail_beg <- match(TRUE, (s == 0)) #this way of finding tail is sub-optimal, but works at least
-    if (is.na(tail_beg)) {
-      s
-    } else {
-      s[1:(tail_beg - 1)]
-    }
-  }
-}
-
-.debitify_sq <- function(sq, alph) {
-  alph_size <- .get_alph_size(alph)
-  na_val <- .get_na_val(alph)
-  lapply(sq, function(s) {
-    s <- .bit_to_int(s, alph_size)
-    alph[s]
-  })
-}
-
 .recode_sq <- function(sq, alph, new_alph, inds_func) {
   alph_size <- .get_alph_size(alph)
   new_alph_size <- .get_alph_size(new_alph)
@@ -75,15 +43,43 @@
   })
 }
 
-.nc_bitify_sq_cnuc <- function(sq) {
-  lapply(sq, function(s) {
-    nc_pack_cnuc(charToRaw(s))
-  })
+.bitify_sq <- function(sq, type = NULL, is_clean = NULL, alph = NULL) {
+  if (is.null(alph)) {
+    pack_fun <- if (type == "ami") {
+      if (is_clean) pack_cami else pack_ami
+    } else if (type == "nuc") {
+      if (is_clean) pack_cnuc else pack_nuc
+    }
+    lapply(sq, function(s) {
+      pack_fun(charToRaw(s))
+    })
+  } else {
+    alph <- charToRaw(paste(alph, collapse = ""))
+    alph_size <- .get_alph_size(alph)
+    lapply(sq, function(s) {
+      pack_unt(charToRaw(s), alph, alph_size)
+    })
+  }
 }
 
-.debitify_sq_cnuc <- function(sq) {
+.debitify_sq <- function(sq) {
   na_char <- .get_na_char()
-  sapply(sq, function(s) {
-    rawToChar(unpack_nc_cnuc(s, na_char))
-  })
+  type <- .get_sq_type(sq)
+  if (type %in% c("ami", "nuc")) {
+    is_clean <- .is_cleaned(sq)
+    unpack_fun <- if (type == "ami") {
+      if (is_clean) unpack_cami else unpack_ami
+    } else if (type == "nuc") {
+      if (is_clean) unpack_cnuc else unpack_nuc
+    }
+    sapply(sq, function(s) {
+      rawToChar(unpack_fun(s, na_char))
+    })
+  } else {
+    alph <- charToRaw(paste(.get_alph(sq), collapse = ""))
+    alph_size <- .get_alph_size(alph)
+    sapply(sq, function(s) {
+      rawToChar(unpack_unt(s, na_char, alph, alph_size))
+    })
+  }
 }

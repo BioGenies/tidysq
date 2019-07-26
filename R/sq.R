@@ -9,37 +9,33 @@ construct_sq <- function(sq, type = "unt", is_clean = NULL) {
     .check_is_clean_in_TRUE_FALSE_NULL(is_clean)
     
     switch (type,
-            ami = construct_amisq(sq),
-            nuc = construct_nucsq(sq),
+            ami = construct_amisq(sq, is_clean),
+            nuc = construct_nucsq(sq, is_clean),
             unt = construct_untsq(sq))
   }
 }
 
-#' @export
 .nc_construct_sq <- function(sq, type, is_clean) {
   .check_nc_type_in_ami_nuc(type)
   .check_nc_is_clean_in_TRUE_FALSE(is_clean)
   
+  sq <- .bitify_sq(sq, type, is_clean)
   if (type == "ami") {
     if (is_clean) {
-      sq <- .nc_bitify_sq_cami(sq)
       class(sq) <- c("clnsq", "amisq", "sq")
       attr(sq, "alphabet") <- aminoacids_df[!aminoacids_df[["amb"]], "one"]
       sq
     } else {
-      sq <- .nc_bitify_sq_ami(sq)
       class(sq) <- c("amisq", "sq")
       attr(sq, "alphabet") <- aminoacids_df[["one"]]
       sq
     }
   } else if (type == "nuc") {
     if (is_clean) {
-      sq <- .nc_bitify_sq_cnuc(sq)
       class(sq) <- c("clnsq", "nucsq", "sq")
       attr(sq, "alphabet") <- nucleotides_df[!nucleotides_df[["amb"]], "one"]
       sq
     } else {
-      sq <- .nc_bitify_sq_nuc(sq)
       class(sq) <- c("nucsq", "sq")
       attr(sq, "alphabet") <- nucleotides_df[["one"]]
       sq
@@ -47,47 +43,49 @@ construct_sq <- function(sq, type = "unt", is_clean = NULL) {
   } 
 }
 
-
 #' @exportClass amisq
-construct_amisq <- function(sq) {
-  stop("not implemented!")
+construct_amisq <- function(sq, is_clean) {
   sq <- toupper(sq)
   real_alph <- .get_real_alph(sq)
-  alph <- aminoacids_df[,"one"]
-  is_ami_sq <- all(real_alph %in% alph)
-  if (!is_ami_sq) {
-    stop("each of letters should be in aminoacids alphabet (one of aminoacids_df[,'one'])")
+  if (!is.null(is_clean) &&
+      is_clean == TRUE &&
+      !all(real_alph %in% aminoacids_df[!aminoacids_df[["amb"]], "one"])) {
+    stop("'is_clean' is given TRUE, but sequences contain at least one ambiguous aminoacid")
   }
-  
-  object <- .bitify_sq(sq, alph)
-  attr(object, "alphabet") <- alph
-  class(object) <- c("amisq", "sq")
-  object
+  if (is.null(is_clean)) {
+    is_clean <- .guess_ami_is_clean(real_alph)
+  }
+  sq <- .bitify_sq(sq, "ami", is_clean)
+  attr(sq, "alphabet") <- if (is_clean) aminoacids_df[!aminoacids_df[["amb"]], "one"] else aminoacids_df[,"one"]
+  class(sq) <- c("amisq", "sq")
+  if (is_clean) class(sq) <- c("clnsq", class(sq))
+  sq
 }
 
 #' @exportClass nucsq
-construct_nucsq <- function(sq) {
-  stop("not implemented!")
+construct_nucsq <- function(sq, is_clean) {
   sq <- toupper(sq)
   real_alph <- .get_real_alph(sq)
-  alph <- nucleotides_df[,"one"]
-  is_nuc_sq <- all(real_alph %in% alph)
-  if (!is_nuc_sq) {
-    stop("each of letters should be in nucleotide alphabet (one of nucleotides_df[,'one'])")
+  if (!is.null(is_clean) &&
+      is_clean == TRUE &&
+      !all(real_alph %in% nucleotides_df[!nucleotides_df[["amb"]], "one"])) {
+    stop("'is_clean' is given TRUE, but sequences contain at least one ambiguous nucleotide")
   }
-  
-  object <- .bitify_sq(sq, alph)
-  attr(object, "alphabet") <- alph
-  class(object) <- c("nucsq", "sq")
-  object
+  if (is.null(is_clean)) {
+    is_clean <- .guess_nuc_is_clean(real_alph)
+  }
+  sq <- .bitify_sq(sq, "nuc", is_clean)
+  attr(sq, "alphabet") <- if (is_clean) nucleotides_df[!nucleotides_df[["amb"]], "one"] else nucleotides_df[,"one"]
+  class(sq) <- c("nucsq", "sq")
+  if (is_clean) class(sq) <- c("clnsq", class(sq))
+  sq
 }
 
 #' @exportClass untsq
 construct_untsq <- function(sq) {
-  stop("not implemented!")
   alph <- .get_real_alph(sq)
   
-  object <- .bitify_sq(sq, alph)
+  object <- .bitify_sq(sq, alph = alph)
   attr(object, "alphabet") <- alph
   class(object) <- c("untsq", "sq")
   object

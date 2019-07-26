@@ -18,7 +18,8 @@
 }
 
 .check_is_clean_in_TRUE_FALSE_NULL <- function(is_clean) {
-  if (!is_clean %in% c(TRUE, FALSE, NULL)) 
+  if (!is.null(is_clean) &&
+      !is_clean %in% c(TRUE, FALSE)) 
     stop("'is_clean' has to be TRUE, FALSE or NULL")
 }
 

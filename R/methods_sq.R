@@ -12,20 +12,7 @@
 #' @exportMethod as.character sq
 #' @export
 as.character.sq <- function(x, ...) {
-  na_char <- .get_na_char()
-  alph <- .get_alph(x)
-  if (.is_no_check_mode()) {
-    type <- .get_sq_type(x)
-    if (type == "nuc") {
-      if (.is_cleaned(x)) {
-        .debitify_sq_cnuc(x)
-      } else {
-        stop("not implemented!")
-      }
-    } else {
-      stop("not implemented!")
-    }
-  } else sapply(.debitify_sq(x, alph), function(s) paste(ifelse(is.na(s), "*", s), collapse = ""))
+  .debitify_sq(x)
 }
 
 #' @exportMethod is sq
@@ -100,10 +87,8 @@ print.sq <- function(x, ...) {
   }
   
   alph <- .get_alph(x)
-  decoded <- .debitify_sq(x, alph)
-  decoded <- sapply(decoded, function(s) ifelse(length(s) == 0, 
-                                                "<NULL sq>", 
-                                                paste(ifelse(is.na(s), na_char, s), collapse = "")))
+  decoded <- .debitify_sq(x)
+  decoded <- sapply(decoded, function(s) ifelse(length(s) == 0, "<NULL sq>", s))
   max_width <- max(nchar(1:length(x)))
   inds <- paste0("[", 1:length(x), "] ")
   cat(sqclass, paste0(format(inds, width = max_width + 3, justify = "right"), 

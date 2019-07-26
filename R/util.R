@@ -43,3 +43,19 @@
   class(sq) <- classes
   sq
 }
+
+.guess_ami_is_clean <- function(real_alph) {
+  if (all(real_alph %in% aminoacids_df[!aminoacids_df[["amb"]], "one"]))
+    TRUE
+  else if (all(real_alph %in% aminoacids_df[, "one"]))
+    FALSE
+  else stop("there are letters that aren't in IUPAC standard! (see: aminoacids_df)")
+}
+
+.guess_nuc_is_clean <- function(real_alph) {
+  if (all(real_alph %in% nucleotides_df[!nucleotides_df[["amb"]], "one"]))
+    TRUE
+  else if (all(real_alph %in% nucleotides_df[, "one"]))
+    FALSE
+  else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
+}
