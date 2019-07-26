@@ -21,14 +21,6 @@ unpack <- function(PACKED, ALPH_SIZE) {
 #' 
 #' @param UNPACKED \code{raw} vector
 #' @param ALPH_SIZE \code{integer}
-pack3 <- function(UNPACKED, ALPH_SIZE) {
-    .Call('_tidysq_pack3', PACKAGE = 'tidysq', UNPACKED, ALPH_SIZE)
-}
-
-#' Pack raw bytes, but better
-#' 
-#' @param UNPACKED \code{raw} vector
-#' @param ALPH_SIZE \code{integer}
 nc_pack_cnuc <- function(UNPACKED) {
     .Call('_tidysq_nc_pack_cnuc', PACKAGE = 'tidysq', UNPACKED)
 }

@@ -64,24 +64,3 @@ Rcpp::RawVector unpack(Rcpp::RawVector PACKED,
   } while (i < OUT_LEN);
   return ret;
 }
-
-//' Pack raw bytes, but better
-//' 
-//' @param UNPACKED \code{raw} vector
-//' @param ALPH_SIZE \code{integer}
-// [[Rcpp::export]]
-Rcpp::RawVector pack3(Rcpp::RawVector UNPACKED, 
-                      const unsigned short ALPH_SIZE) {
-  const unsigned int IN_LEN = UNPACKED.size();
-  Rcpp::RawVector ret(ALPH_SIZE * IN_LEN  / 8);
-  unsigned int out_byte = 0;
-  if (ALPH_SIZE == 3) {
-    for(int i = 0; i < IN_LEN; i += 8) {
-      ret[out_byte    ] = (UNPACKED[i]         ) | (UNPACKED[i + 1] << 3) | (UNPACKED[i + 2] << 6);
-      ret[out_byte + 1] = (UNPACKED[i + 2] >> 2) | (UNPACKED[i + 3] << 1) | (UNPACKED[i + 4] << 4) | (UNPACKED[i + 5] << 7);
-      ret[out_byte + 2] = (UNPACKED[i + 5] >> 1) | (UNPACKED[i + 6] << 2) | (UNPACKED[i + 7] << 5);
-      out_byte += 3;
-    }
-  }
-  return ret;
-}

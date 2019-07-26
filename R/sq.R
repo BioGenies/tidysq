@@ -21,42 +21,40 @@ construct_sq <- function(sq, type = "unt", is_clean = NULL) {
   .check_nc_is_clean_in_TRUE_FALSE(is_clean)
   
   if (type == "ami") {
-    stop("not implemented!")
+    if (is_clean) {
+      sq <- .nc_bitify_sq_cami(sq)
+      class(sq) <- c("clnsq", "amisq", "sq")
+      attr(sq, "alphabet") <- aminoacids_df[!aminoacids_df[["amb"]], "one"]
+      sq
+    } else {
+      sq <- .nc_bitify_sq_ami(sq)
+      class(sq) <- c("amisq", "sq")
+      attr(sq, "alphabet") <- aminoacids_df[["one"]]
+      sq
+    }
   } else if (type == "nuc") {
     if (is_clean) {
       sq <- .nc_bitify_sq_cnuc(sq)
       class(sq) <- c("clnsq", "nucsq", "sq")
-      attr(sq, "alphabet") <- c("A", "C", "G", "T", "U", "-")
+      attr(sq, "alphabet") <- nucleotides_df[!nucleotides_df[["amb"]], "one"]
       sq
     } else {
-      stop("not implemened!")
+      sq <- .nc_bitify_sq_nuc(sq)
+      class(sq) <- c("nucsq", "sq")
+      attr(sq, "alphabet") <- nucleotides_df[["one"]]
+      sq
     }
   } 
 }
 
 
-#' @exportClass nucsq
-construct_nucsq <- function(sq) {
-  stop("not implemented!")
-  sq <- toupper(sq)
-  alph <- nucleotides_df[,"one"]
-  is_nuc_sq <- all(unlist(strsplit(sq, "")) %in% alph)
-  if (!is_nuc_sq) {
-    stop("each of letters should be in nucleotide alphabet (one of nucleotides_df[,'one'])")
-  }
-  
-  object <- .bitify_sq(sq, alph)
-  attr(object, "alphabet") <- alph
-  class(object) <- c("nucsq", "sq")
-  object
-}
-
 #' @exportClass amisq
 construct_amisq <- function(sq) {
   stop("not implemented!")
   sq <- toupper(sq)
+  real_alph <- .get_real_alph(sq)
   alph <- aminoacids_df[,"one"]
-  is_ami_sq <- all(unlist(strsplit(sq, "")) %in% alph)
+  is_ami_sq <- all(real_alph %in% alph)
   if (!is_ami_sq) {
     stop("each of letters should be in aminoacids alphabet (one of aminoacids_df[,'one'])")
   }
@@ -67,12 +65,29 @@ construct_amisq <- function(sq) {
   object
 }
 
+#' @exportClass nucsq
+construct_nucsq <- function(sq) {
+  stop("not implemented!")
+  sq <- toupper(sq)
+  real_alph <- .get_real_alph(sq)
+  alph <- nucleotides_df[,"one"]
+  is_nuc_sq <- all(real_alph %in% alph)
+  if (!is_nuc_sq) {
+    stop("each of letters should be in nucleotide alphabet (one of nucleotides_df[,'one'])")
+  }
+  
+  object <- .bitify_sq(sq, alph)
+  attr(object, "alphabet") <- alph
+  class(object) <- c("nucsq", "sq")
+  object
+}
+
 #' @exportClass untsq
 construct_untsq <- function(sq) {
   stop("not implemented!")
-  alph <- unique(unlist(strsplit(sq, "")))
+  alph <- .get_real_alph(sq)
   
-  object <- .bitify_sq3(sq, alph)
+  object <- .bitify_sq(sq, alph)
   attr(object, "alphabet") <- alph
   class(object) <- c("untsq", "sq")
   object
