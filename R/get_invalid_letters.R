@@ -13,5 +13,5 @@ get_invalid_letters <- function(sq, dest_type) {
   dest_alph <- if (dest_type == "ami") aminoacids_df[, "one"] else nucleotides_df[, "one"]
   dest_alph <- c(dest_alph, tolower(dest_alph))
   
-  .apply_sq(sq, "chars", function(s) setdiff(s, dest_alph))
+  .apply_sq(sq, "char", "none", function(s) setdiff(s, dest_alph))
 }

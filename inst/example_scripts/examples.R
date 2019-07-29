@@ -66,7 +66,7 @@ typify(substitute_letters(sq_5,
                           c(`2` = "A", `4` = "B", `3` = "X",`;` = "X", `'` = "X", `9` = "X")), 
        "ami")
 
-tibble(sq = sq_5) %>% mutate(subst = substitute_letters(sq, c(`2` = "A", `4` = "B", `3` = NA,
+tibble(sq = sq_5[-1]) %>% mutate(subst = substitute_letters(sq, c(`2` = "A", `4` = "B", `3` = NA,
                                                     `;` = NA, `'` = NA, `9` = NA)),
                    removed = remove_na(subst),
                    typed = typify(removed, "ami"))

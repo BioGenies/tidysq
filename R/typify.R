@@ -24,10 +24,10 @@ typify <- function(sq, dest_type) {
                     "in 'alphabet' attribute of 'sq' some letters show up as both lower and capital")
   }
   
-  inds_func <- match(toupper(alph), dest_alph)
-  names(inds_func) <- as.character(1:length(alph))
-  
-  ret <- .recode_sq(sq, alph, dest_alph, inds_func)
+  ret <- .apply_sq(sq, "char", "none", function(s) {
+    s <- toupper(s)
+    pack_chars(s, dest_alph)
+  })
   
   class(ret) <- c(paste0(dest_type, "sq"), "sq")
   attr(ret, "alphabet") <- dest_alph
