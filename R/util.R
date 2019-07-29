@@ -21,10 +21,6 @@
   intersect(class(sq), c("amisq", "nucsq", "untsq", "simsq", "atpsq", "encsq"))
 }
 
-.rawize_alph <- function(alph) {
-  charToRaw(paste(alph, collapse = ""))
-}
-
 .get_sq_type <- function(sq) {
   sqclasses <- intersect(class(sq), c("amisq", "nucsq", "untsq", "simsq", "atpsq", "encsq"))
   dict <- c(amisq = "ami", nucsq = "nuc", untsq = "unt", simsq = "sim", atpsq = "atp", encsq = "encsq")

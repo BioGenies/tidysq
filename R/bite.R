@@ -91,10 +91,7 @@
 bite <- function(sq, indices) {
   validate_sq(sq)
 
-  if (!(is.numeric(indices) && 
-        floor(indices) == indices)) {
-    stop("'indices' has to be an integer vector")
-  }
+  .check_inds_are_numeric(indices)
   
   na_introduced <- FALSE
   alph <- .get_alph(sq)
@@ -103,11 +100,11 @@ bite <- function(sq, indices) {
   
   ret <- list(length(sq))
   for (i in 1:length(sq)) {
-    s <- .bit_to_int(sq[[i]], alph_size)
+    s <- unpack_ints(sq[[i]], alph_size)
     s <- s[indices]
     if (any(is.na(s))) na_introduced <- TRUE
     s[is.na(s)] <- na_val
-    ret[[i]] <- .int_to_bit(s, alph_size)
+    ret[[i]] <- pack_ints(s, alph_size)
   }
   if (na_introduced) {
     .handle_opt_txt("tidysq_bite_na_action",

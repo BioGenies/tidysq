@@ -27,3 +27,10 @@
   if (!is_clean %in% c(TRUE, FALSE)) 
     stop("'is_clean' has to be TRUE, FALSE in no_ceck mode")
 }
+
+.check_inds_are_numeric <- function(indices) {
+  if (!(is.numeric(indices) && 
+        floor(indices) == indices)) {
+    stop("'indices' has to be an integer vector")
+  }
+}
