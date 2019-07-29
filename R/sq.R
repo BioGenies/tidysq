@@ -19,7 +19,7 @@ construct_sq <- function(sq, type = "unt", is_clean = NULL) {
   .check_nc_type_in_ami_nuc(type)
   .check_nc_is_clean_in_TRUE_FALSE(is_clean)
   
-  sq <- .bitify_sq(sq, type, is_clean)
+  sq <- .nc_bitify_sq(sq, type, is_clean)
   if (type == "ami") {
     if (is_clean) {
       class(sq) <- c("clnsq", "amisq", "sq")
@@ -55,7 +55,7 @@ construct_amisq <- function(sq, is_clean) {
   if (is.null(is_clean)) {
     is_clean <- .guess_ami_is_clean(real_alph)
   }
-  sq <- .bitify_sq(sq, "ami", is_clean)
+  sq <- .nc_bitify_sq(sq, "ami", is_clean)
   attr(sq, "alphabet") <- if (is_clean) aminoacids_df[!aminoacids_df[["amb"]], "one"] else aminoacids_df[,"one"]
   class(sq) <- c("amisq", "sq")
   if (is_clean) class(sq) <- c("clnsq", class(sq))
@@ -74,7 +74,7 @@ construct_nucsq <- function(sq, is_clean) {
   if (is.null(is_clean)) {
     is_clean <- .guess_nuc_is_clean(real_alph)
   }
-  sq <- .bitify_sq(sq, "nuc", is_clean)
+  sq <- .nc_bitify_sq(sq, "nuc", is_clean)
   attr(sq, "alphabet") <- if (is_clean) nucleotides_df[!nucleotides_df[["amb"]], "one"] else nucleotides_df[,"one"]
   class(sq) <- c("nucsq", "sq")
   if (is_clean) class(sq) <- c("clnsq", class(sq))
@@ -85,7 +85,7 @@ construct_nucsq <- function(sq, is_clean) {
 construct_untsq <- function(sq) {
   alph <- .get_real_alph(sq)
   
-  object <- .bitify_sq(sq, alph = alph)
+  object <- .bitify_sq(sq, alph)
   attr(object, "alphabet") <- alph
   class(object) <- c("untsq", "sq")
   object

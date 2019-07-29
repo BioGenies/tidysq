@@ -57,7 +57,7 @@ type_sum.clnsq <- function(x) {
 #' @exportMethod pillar_shaft sq
 #' @export
 pillar_shaft.sq <- function(x, ...) {
-  x <- .debitify_sq(x)
+  x <- .debitify_sq(x, "string")
   if (.get_color_opt()) {
     na_char <- .get_na_char()
     x <- gsub(na_char, silver(na_char), x)
