@@ -4,7 +4,7 @@
 #' according to complementarity.
 #' 
 #' @param nucsq \code{\link{nucsq}} object of type 'nuc'.
-#' @param is_dna logical indicating if entered sequence is dna or rna. If 
+#' @param is_dna logical indicating if entered sequence is DNA or RNA. If 
 #' 'is_dna' is \code{TRUE}, sequences cannot contain 'U' (uracil);
 #' if is \code{FALSE}, sequences cannot contain 'T' (thymine). If 
 #' \code{NULL} (default) the sequence type is not specified.
@@ -14,15 +14,15 @@
 #' 
 #' @details This function allows obtaining  complement sequence which is created by 
 #' matching elements (nucleotides) with complementarity to input nucsq object. If 
-#' \code{is_dna = TRUE} entered sequence is dna. If \code{is_dna = FALSE} entered 
-#' sequence is rna. By default the sequence type is not specified and function
+#' \code{is_dna = TRUE} entered sequence is DNA. If \code{is_dna = FALSE} entered 
+#' sequence is RNA. By default the sequence type is not specified and function
 #' needs to guess which type of sequence was entered. If sequence contain 'U' without 
-#' 'T' the type will be set to rna. If sequence contain 'T' without 'U' the type will 
+#' 'T' the type will be set to RNA. If sequence contain 'T' without 'U' the type will 
 #' be set to dna. If both 'U' and 'T' are present in the sequence
 #' or sequence contains 'A' (adenine), but doesn't contain neither 'T' nor 'U'
 #' or logical indicating is typed wrong (i.e., when sequence contain 'U' and logical 
-#' indicating is set to dna) error will appear.
-#' Both rna and dna sequences can be rewritten to complementary sequence. 
+#' indicating is set to DNA) error will appear.
+#' Both RNA and DNA sequences can be rewritten to complementary sequence. 
 #' 
 #' 
 #' @examples 
@@ -31,7 +31,8 @@
 #'                                    "CCCT", "CTGAATGT"), type = "nuc")
 #' nuc_rna_sequence <- construct_sq(c("ACUGCUG", "CUUAGA", 
 #'                                    "CCCU", "CUGAAUGU"), type = "nuc")
-#' 
+#'                                    
+#' Sequences are now ready to be used as matrice for creating complementary sequence. 
 #' 
 #' #creating complementary sequences with defined sequence type:
 #' complement(nuc_dna_sequence, is_dna = TRUE)
@@ -40,6 +41,9 @@
 #' #creating complementary sequences without defined sequence type:
 #' complement(nuc_dna_sequence)
 #' complement(nuc_rna_sequence)
+#' 
+#' Created complementary sequence might be useful as help for e.g. during designing 
+#' PCR (Polymerase Chain Reaction) primers. 
 #' 
 #' @seealso sq clnsq nucsq
 #' 
