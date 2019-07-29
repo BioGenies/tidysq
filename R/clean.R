@@ -9,16 +9,18 @@
 #' be removed. If \code{FALSE} (default) whole sequences containing ambiguous 
 #' elements are removed.
 #'  
-#' @return a \code{\link{sq}} object with the \code{\link{clnsq}} type. 
+#' @return a \code{\link{sq}} object with the \code{\link{clnsq}} subtype. 
 #' 
 #' @details This function allows cleaning of sequences containing ambiguous
 #' elements. By default, sequences containing ambiguous elements are removed 
 #' and \code{NULL sq} values are introduced in their place. If 
 #' \code{only_elements = TRUE} then only ambiguous elements are removed 
-#' from sequences in sq object.
+#' from sequences in sq object. Ambiguous letters of the amino acid alphabet 
+#' are: B, J, O, U, X, Z, and of the nucleotide alphabet: W, S, M, K, R, 
+#' Y, B, D, H, V, N. They are marked as 'amb' in \code{\link{aminoacids_df}} 
+#' and \code{\link{nucleotides_df}} respectively.
 #' 
-#' describe which element are ambiguous
-#' 
+#'
 #' @examples 
 #' # creating objects to work on:
 #' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
@@ -34,7 +36,7 @@
 #' clean(sq_ami, only_elements = TRUE)
 #' clean(sq_nuc, only_elements = TRUE)
 #' 
-#' @seealso sq clnsq
+#' @seealso sq clnsq aminoacids_df nucleotides_df
 #' @exportClass clnsq
 #' @export
 clean <- function(sq, only_elements = FALSE) {

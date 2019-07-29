@@ -15,7 +15,7 @@ be removed. If \code{FALSE} (default) whole sequences containing ambiguous
 elements are removed.}
 }
 \value{
-a \code{\link{sq}} object with the \code{\link{clnsq}} type.
+a \code{\link{sq}} object with the \code{\link{clnsq}} subtype.
 }
 \description{
 Remove sequences containing ambiguous elements or remove ambiguous 
@@ -26,9 +26,10 @@ This function allows cleaning of sequences containing ambiguous
 elements. By default, sequences containing ambiguous elements are removed 
 and \code{NULL sq} values are introduced in their place. If 
 \code{only_elements = TRUE} then only ambiguous elements are removed 
-from sequences in sq object.
-
-describe which element are ambiguous
+from sequences in sq object. Ambiguous letters of the amino acid alphabet 
+are: B, J, O, U, X, Z, and of the nucleotide alphabet: W, S, M, K, R, 
+Y, B, D, H, V, N. They are marked as 'amb' in \code{\link{aminoacids_df}} 
+and \code{\link{nucleotides_df}} respectively.
 }
 \examples{
 # creating objects to work on:
@@ -47,5 +48,5 @@ clean(sq_nuc, only_elements = TRUE)
 
 }
 \seealso{
-sq clnsq
+sq clnsq aminoacids_df nucleotides_df
 }
