@@ -20,26 +20,6 @@
 #' The simplification preserves the informative character of the alphabet while reducing the 
 #' number of required operations when using it in futher steps of pipeline, such as machine learning.
 #' 
-#' 
-#' #' @details Amino acids and nucleic acid sequences are represented as \code{\link{sq}} 
-#' object in the \code{\link{tidysq}} package. Often one needs to get only a 
-#' single letter or the sequence of a defined range from the original sequences. 
-#' A subsequence is a sequence that can be derived from the original sequence 
-#' by trimming some elements (letters) without changing the order of the 
-#' remaining elements. To obtain a subsequence from each sequence contained in 
-#' the \code{\link{sq}} object with the same indices. This is for example 
-#' useful to extract an user-defined region from a sequence. 
-#' 
-#' The usage of \code{bite} follows the normal R conventions. For details 
-#' refer to the R documentation (see 
-#' \url{https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Index-vectors}). 
-#' Extracting indices not present in the sequence results in introducing 
-#' \code{\link{NA}} (‘Not Available’ / Missing Values) values. 
-#' Information about it is printed on console depending on value of option 
-#' 'tidysq_bite_na_action' - it can be either a warning (default), error, 
-#' message or no information (you can check details in \code{\link{sq-options})}. 
-#' \code{NA} values can be removed by using \code{\link{remove_na}} function.
-#' 
 #' @examples 
 #' # Creating object, called sq to work on:
 #'
