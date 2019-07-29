@@ -1,7 +1,7 @@
 #' Clean sequences containing ambiguous elements
 #' 
 #' Remove sequences containing ambiguous elements or remove ambiguous 
-#' elements from sequences in sq object.
+#' elements from sequences in a sq object.
 #' 
 #' @param sq \code{\link{sq}} object of type 'ami' or 'nuc'
 #' @param only_elements logical indicating if only ambiguous elements
@@ -9,17 +9,22 @@
 #' be removed. If \code{FALSE} (default) whole sequences containing ambiguous 
 #' elements are removed.
 #'  
-#' @return \code{\link{clnsq}} object of the same type as input sq. 
+#' @return a \code{\link{sq}} object with the \code{\link{clnsq}} type. 
 #' 
 #' @details This function allows cleaning of sequences containing ambiguous
 #' elements. By default, sequences containing ambiguous elements are removed 
-#' and \code{NULL sq} values are introduced in their place. If \code{only_elements = TRUE} 
-#' then only ambiguous elements are removed from sequences in sq object.
+#' and \code{NULL sq} values are introduced in their place. If 
+#' \code{only_elements = TRUE} then only ambiguous elements are removed 
+#' from sequences in sq object.
+#' 
+#' describe which element are ambiguous
 #' 
 #' @examples 
 #' # creating objects to work on:
-#' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"), type = "ami")
-#' sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", "TGACGAGCTTA", "ACTNNAGCN"), type = "nuc")
+#' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
+#'                          "NYERTGHLI", "MAYXXXIALN"), type = "ami")
+#' sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
+#'                          "TGACGAGCTTA", "ACTNNAGCN"), type = "nuc")
 #' 
 #' # removing sequences with ambiguous elements:
 #' clean(sq_ami)
