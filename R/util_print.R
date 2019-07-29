@@ -116,7 +116,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
 #' @export
 pillar_shaft.encsq <- function(x, ...) {
   alph <- .get_alph(x)
-  x <- .debitify_sq(x, alph)
+  x <- .apply_sq(x, "int", "none", function(s) alph[s])
   
   x_min <- sapply(x, function(x) paste(format(x, digits = 1, nsmall = 1, scientific = FALSE), collapse = ""))
   

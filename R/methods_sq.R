@@ -104,7 +104,7 @@ print.encsq <- function(x, ...) {
   na_char <- .get_na_char()
 
   alph <- .get_alph(x)
-  decoded <- .debitify_sq(x, alph)
+  decoded <- .apply_sq(x, "int", "none", function(s) alph[s])
   decoded <- sapply(decoded, function(s) ifelse(length(s) == 0, 
                                                 "<NULL sq>", 
                                                 paste(ifelse(is.na(s), na_char, s), collapse = " ")))

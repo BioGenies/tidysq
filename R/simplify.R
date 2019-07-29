@@ -15,10 +15,14 @@ simplify <- function(sq, encoding) {
   }
   
   new_alph <- sort(unique(encoding))
-  inds_func <- match(encoding, new_alph)
-  names(inds_func) <- as.character(match(names(encoding), alph))
+  inds_fun <- match(encoding, new_alph)
+  names(inds_fun) <- as.character(match(names(encoding), alph))
   
-  ret <- .recode_sq(sq, alph, new_alph, inds_func)
+  new_alph_size <- .get_alph_size(new_alph)
+  
+  ret <- .apply_sq(sq, "int", "none", function(s) {
+    pack_ints(inds_fun[s], new_alph_size)
+  })
   class(ret) <- c("simsq", "sq")
   attr(ret, "alphabet") <- new_alph
   ret
