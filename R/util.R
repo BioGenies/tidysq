@@ -1,8 +1,20 @@
 #this functions are internal (at least by now) and are used only on sq objects that we know are corect
 #so there's no need to validate
 
+.get_alph_size <- function(alph) {
+  ceiling(log2(length(alph) + 2))
+}
+
+.get_na_val <- function(alph) {
+  2 ^ .get_alph_size(alph) - 1
+}
+
 .get_alph <- function(sq) {
   attr(sq, "alphabet")
+}
+
+.get_real_alph <- function(sq) {
+  unique(unlist(strsplit(sq, "")))
 }
 
 .get_sq_subclass <- function(sq) {
@@ -30,4 +42,20 @@
   attr(sq, "alphabet") <- alph
   class(sq) <- classes
   sq
+}
+
+.guess_ami_is_clean <- function(real_alph) {
+  if (all(real_alph %in% aminoacids_df[!aminoacids_df[["amb"]], "one"]))
+    TRUE
+  else if (all(real_alph %in% aminoacids_df[, "one"]))
+    FALSE
+  else stop("there are letters that aren't in IUPAC standard! (see: aminoacids_df)")
+}
+
+.guess_nuc_is_clean <- function(real_alph) {
+  if (all(real_alph %in% nucleotides_df[!nucleotides_df[["amb"]], "one"]))
+    TRUE
+  else if (all(real_alph %in% nucleotides_df[, "one"]))
+    FALSE
+  else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
 }

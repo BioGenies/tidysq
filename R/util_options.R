@@ -30,6 +30,14 @@
   
   ifelse (is.null(opt) || 
             !is.logical(opt) || 
+            is.na(opt), TRUE, opt)
+}
+
+.is_no_check_mode <- function() {
+  opt <- getOption("tidysq_no_check_mode")
+  
+  ifelse (is.null(opt) || 
+            !is.logical(opt) || 
             is.na(opt), FALSE, opt)
 }
 

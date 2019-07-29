@@ -2,5 +2,6 @@
 
 is_null_sq <- function(sq) {
   validate_sq(sq)
-  sapply(sq, function(s) identical(s, as.raw(0)))
+  unlist(.apply_sq(sq, "char", "none", function(s) length(s) == 0 || 
+                     length(s) == 1 && identical(s, "")))
 }

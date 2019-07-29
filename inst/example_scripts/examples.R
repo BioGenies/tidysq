@@ -66,7 +66,7 @@ typify(substitute_letters(sq_5,
                           c(`2` = "A", `4` = "B", `3` = "X",`;` = "X", `'` = "X", `9` = "X")), 
        "ami")
 
-tibble(sq = sq_5) %>% mutate(subst = substitute_letters(sq, c(`2` = "A", `4` = "B", `3` = NA,
+tibble(sq = sq_5[-1]) %>% mutate(subst = substitute_letters(sq, c(`2` = "A", `4` = "B", `3` = NA,
                                                     `;` = NA, `'` = NA, `9` = NA)),
                    removed = remove_na(subst),
                    typed = typify(removed, "ami"))
@@ -109,7 +109,7 @@ sqtbl_nuc %>% mutate(rnaed = substitute_letters(sq, c(T = "U")),
                      cleaned = clean(nuced, only_elements = TRUE),
                      compl_1 = complement(cleaned),
                      compl_2 = complement(cleaned, is_dna = FALSE)) #as well here
-construct_sqtibble(c("TGCGCGT", "TGC", "CTG"), type = "nuc") %>%
+tibble(sq = construct_sq(c("TGCGCGT", "TGC", "CTG"), type = "nuc")) %>%
   mutate(sq_2 = complement(clean(sq))) #here, as there is no 'A' in sequences, you don't need specification
 
 ### simplfy

@@ -57,22 +57,12 @@ type_sum.clnsq <- function(x) {
 #' @exportMethod pillar_shaft sq
 #' @export
 pillar_shaft.sq <- function(x, ...) {
-  alph <- .get_alph(x)
-  x <- .debitify_sq(x, alph)
-  na_char <- .get_na_char()
-  x <- if (.get_color_opt()) {
-    lapply(x, function(s) paste(
-      as.character(ifelse(is.na(s), 
-                          silver(na_char), 
-                          green(s))), 
-      collapse = ""))
-  } else {
-    lapply(x, function(s) paste(
-      as.character(ifelse(is.na(s), 
-                          na_char, 
-                          s)), 
-      collapse = ""))
+  x <- .debitify_sq(x, "string")
+  if (.get_color_opt()) {
+    na_char <- .get_na_char()
+    x <- gsub(na_char, silver(na_char), x)
   }
+  if (.get_color_opt()) x <- green(x)
     
   longest_str <- get_max_extent(x)
   min_str_width <- if (longest_str >= 6) 6 else longest_str
@@ -126,7 +116,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
 #' @export
 pillar_shaft.encsq <- function(x, ...) {
   alph <- .get_alph(x)
-  x <- .debitify_sq(x, alph)
+  x <- .apply_sq(x, "int", "none", function(s) alph[s])
   
   x_min <- sapply(x, function(x) paste(format(x, digits = 1, nsmall = 1, scientific = FALSE), collapse = ""))
   

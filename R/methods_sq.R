@@ -12,9 +12,7 @@
 #' @exportMethod as.character sq
 #' @export
 as.character.sq <- function(x, ...) {
-  na_char <- .get_na_char()
-  alph <- .get_alph(x)
-  sapply(.debitify_sq(x, alph), function(s) paste(ifelse(is.na(s), na_char, s), collapse = ""))
+  .debitify_sq(x, "string")
 }
 
 #' @exportMethod is sq
@@ -89,10 +87,8 @@ print.sq <- function(x, ...) {
   }
   
   alph <- .get_alph(x)
-  decoded <- .debitify_sq(x, alph)
-  decoded <- sapply(decoded, function(s) ifelse(length(s) == 0, 
-                                                "<NULL sq>", 
-                                                paste(ifelse(is.na(s), na_char, s), collapse = "")))
+  decoded <- .debitify_sq(x, "string")
+  decoded <- sapply(decoded, function(s) ifelse(s == "" , "<NULL sq>", s))
   max_width <- max(nchar(1:length(x)))
   inds <- paste0("[", 1:length(x), "] ")
   cat(sqclass, paste0(format(inds, width = max_width + 3, justify = "right"), 
@@ -108,7 +104,7 @@ print.encsq <- function(x, ...) {
   na_char <- .get_na_char()
 
   alph <- .get_alph(x)
-  decoded <- .debitify_sq(x, alph)
+  decoded <- .apply_sq(x, "int", "none", function(s) alph[s])
   decoded <- sapply(decoded, function(s) ifelse(length(s) == 0, 
                                                 "<NULL sq>", 
                                                 paste(ifelse(is.na(s), na_char, s), collapse = " ")))

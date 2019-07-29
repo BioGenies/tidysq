@@ -5,34 +5,228 @@
 
 using namespace Rcpp;
 
-// pack
-Rcpp::RawVector pack(Rcpp::RawVector UNPACKED, const unsigned short ALPH_SIZE);
-RcppExport SEXP _tidysq_pack(SEXP UNPACKEDSEXP, SEXP ALPH_SIZESEXP) {
+// pack_raws
+Rcpp::RawVector pack_raws(Rcpp::RawVector unpacked, const unsigned short alph_size);
+RcppExport SEXP _tidysq_pack_raws(SEXP unpackedSEXP, SEXP alph_sizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type unpacked(unpackedSEXP);
+    Rcpp::traits::input_parameter< const unsigned short >::type alph_size(alph_sizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(pack_raws(unpacked, alph_size));
+    return rcpp_result_gen;
+END_RCPP
+}
+// pack_ints
+Rcpp::RawVector pack_ints(Rcpp::IntegerVector unpacked, const unsigned short alph_size);
+RcppExport SEXP _tidysq_pack_ints(SEXP unpackedSEXP, SEXP alph_sizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type unpacked(unpackedSEXP);
+    Rcpp::traits::input_parameter< const unsigned short >::type alph_size(alph_sizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(pack_ints(unpacked, alph_size));
+    return rcpp_result_gen;
+END_RCPP
+}
+// pack_chars
+Rcpp::RawVector pack_chars(Rcpp::CharacterVector unpacked, Rcpp::CharacterVector alph);
+RcppExport SEXP _tidysq_pack_chars(SEXP unpackedSEXP, SEXP alphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type unpacked(unpackedSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
+    rcpp_result_gen = Rcpp::wrap(pack_chars(unpacked, alph));
+    return rcpp_result_gen;
+END_RCPP
+}
+// pack_string
+Rcpp::RawVector pack_string(Rcpp::RawVector unpacked, Rcpp::CharacterVector alph);
+RcppExport SEXP _tidysq_pack_string(SEXP unpackedSEXP, SEXP alphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type unpacked(unpackedSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
+    rcpp_result_gen = Rcpp::wrap(pack_string(unpacked, alph));
+    return rcpp_result_gen;
+END_RCPP
+}
+// nc_pack_cnuc
+Rcpp::RawVector nc_pack_cnuc(Rcpp::RawVector UNPACKED);
+RcppExport SEXP _tidysq_nc_pack_cnuc(SEXP UNPACKEDSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type UNPACKED(UNPACKEDSEXP);
-    Rcpp::traits::input_parameter< const unsigned short >::type ALPH_SIZE(ALPH_SIZESEXP);
-    rcpp_result_gen = Rcpp::wrap(pack(UNPACKED, ALPH_SIZE));
+    rcpp_result_gen = Rcpp::wrap(nc_pack_cnuc(UNPACKED));
     return rcpp_result_gen;
 END_RCPP
 }
-// unpack
-Rcpp::RawVector unpack(Rcpp::RawVector PACKED, const unsigned short ALPH_SIZE);
-RcppExport SEXP _tidysq_unpack(SEXP PACKEDSEXP, SEXP ALPH_SIZESEXP) {
+// nc_pack_nuc
+Rcpp::RawVector nc_pack_nuc(Rcpp::RawVector UNPACKED);
+RcppExport SEXP _tidysq_nc_pack_nuc(SEXP UNPACKEDSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::RawVector >::type PACKED(PACKEDSEXP);
-    Rcpp::traits::input_parameter< const unsigned short >::type ALPH_SIZE(ALPH_SIZESEXP);
-    rcpp_result_gen = Rcpp::wrap(unpack(PACKED, ALPH_SIZE));
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type UNPACKED(UNPACKEDSEXP);
+    rcpp_result_gen = Rcpp::wrap(nc_pack_nuc(UNPACKED));
+    return rcpp_result_gen;
+END_RCPP
+}
+// nc_pack_cami
+Rcpp::RawVector nc_pack_cami(Rcpp::RawVector UNPACKED);
+RcppExport SEXP _tidysq_nc_pack_cami(SEXP UNPACKEDSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type UNPACKED(UNPACKEDSEXP);
+    rcpp_result_gen = Rcpp::wrap(nc_pack_cami(UNPACKED));
+    return rcpp_result_gen;
+END_RCPP
+}
+// nc_pack_ami
+Rcpp::RawVector nc_pack_ami(Rcpp::RawVector UNPACKED);
+RcppExport SEXP _tidysq_nc_pack_ami(SEXP UNPACKEDSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type UNPACKED(UNPACKEDSEXP);
+    rcpp_result_gen = Rcpp::wrap(nc_pack_ami(UNPACKED));
+    return rcpp_result_gen;
+END_RCPP
+}
+// unpack_raws
+Rcpp::RawVector unpack_raws(Rcpp::RawVector packed, const unsigned short alph_size);
+RcppExport SEXP _tidysq_unpack_raws(SEXP packedSEXP, SEXP alph_sizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type packed(packedSEXP);
+    Rcpp::traits::input_parameter< const unsigned short >::type alph_size(alph_sizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(unpack_raws(packed, alph_size));
+    return rcpp_result_gen;
+END_RCPP
+}
+// unpack_ints
+Rcpp::IntegerVector unpack_ints(Rcpp::RawVector packed, const unsigned short alph_size);
+RcppExport SEXP _tidysq_unpack_ints(SEXP packedSEXP, SEXP alph_sizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type packed(packedSEXP);
+    Rcpp::traits::input_parameter< const unsigned short >::type alph_size(alph_sizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(unpack_ints(packed, alph_size));
+    return rcpp_result_gen;
+END_RCPP
+}
+// unpack_chars
+Rcpp::CharacterVector unpack_chars(Rcpp::RawVector packed, Rcpp::CharacterVector alph, const char na_char);
+RcppExport SEXP _tidysq_unpack_chars(SEXP packedSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type packed(packedSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
+    Rcpp::traits::input_parameter< const char >::type na_char(na_charSEXP);
+    rcpp_result_gen = Rcpp::wrap(unpack_chars(packed, alph, na_char));
+    return rcpp_result_gen;
+END_RCPP
+}
+// unpack_string
+Rcpp::RawVector unpack_string(Rcpp::RawVector packed, Rcpp::CharacterVector alph, const char na_char);
+RcppExport SEXP _tidysq_unpack_string(SEXP packedSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type packed(packedSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
+    Rcpp::traits::input_parameter< const char >::type na_char(na_charSEXP);
+    rcpp_result_gen = Rcpp::wrap(unpack_string(packed, alph, na_char));
+    return rcpp_result_gen;
+END_RCPP
+}
+// get_alph_size
+unsigned short get_alph_size(Rcpp::CharacterVector alph);
+RcppExport SEXP _tidysq_get_alph_size(SEXP alphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_alph_size(alph));
+    return rcpp_result_gen;
+END_RCPP
+}
+// match_chars
+Rcpp::RawVector match_chars(Rcpp::CharacterVector letters, Rcpp::CharacterVector alph);
+RcppExport SEXP _tidysq_match_chars(SEXP lettersSEXP, SEXP alphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type letters(lettersSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
+    rcpp_result_gen = Rcpp::wrap(match_chars(letters, alph));
+    return rcpp_result_gen;
+END_RCPP
+}
+// match_char
+Rcpp::RawVector match_char(Rcpp::RawVector letters, Rcpp::CharacterVector alph);
+RcppExport SEXP _tidysq_match_char(SEXP lettersSEXP, SEXP alphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type letters(lettersSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
+    rcpp_result_gen = Rcpp::wrap(match_char(letters, alph));
+    return rcpp_result_gen;
+END_RCPP
+}
+// match_raws
+Rcpp::CharacterVector match_raws(Rcpp::RawVector letters, Rcpp::CharacterVector alph, const char na_char);
+RcppExport SEXP _tidysq_match_raws(SEXP lettersSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type letters(lettersSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
+    Rcpp::traits::input_parameter< const char >::type na_char(na_charSEXP);
+    rcpp_result_gen = Rcpp::wrap(match_raws(letters, alph, na_char));
+    return rcpp_result_gen;
+END_RCPP
+}
+// match_raw
+Rcpp::RawVector match_raw(Rcpp::RawVector letters, Rcpp::CharacterVector alph, const char na_char);
+RcppExport SEXP _tidysq_match_raw(SEXP lettersSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type letters(lettersSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
+    Rcpp::traits::input_parameter< const char >::type na_char(na_charSEXP);
+    rcpp_result_gen = Rcpp::wrap(match_raw(letters, alph, na_char));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_tidysq_pack", (DL_FUNC) &_tidysq_pack, 2},
-    {"_tidysq_unpack", (DL_FUNC) &_tidysq_unpack, 2},
+    {"_tidysq_pack_raws", (DL_FUNC) &_tidysq_pack_raws, 2},
+    {"_tidysq_pack_ints", (DL_FUNC) &_tidysq_pack_ints, 2},
+    {"_tidysq_pack_chars", (DL_FUNC) &_tidysq_pack_chars, 2},
+    {"_tidysq_pack_string", (DL_FUNC) &_tidysq_pack_string, 2},
+    {"_tidysq_nc_pack_cnuc", (DL_FUNC) &_tidysq_nc_pack_cnuc, 1},
+    {"_tidysq_nc_pack_nuc", (DL_FUNC) &_tidysq_nc_pack_nuc, 1},
+    {"_tidysq_nc_pack_cami", (DL_FUNC) &_tidysq_nc_pack_cami, 1},
+    {"_tidysq_nc_pack_ami", (DL_FUNC) &_tidysq_nc_pack_ami, 1},
+    {"_tidysq_unpack_raws", (DL_FUNC) &_tidysq_unpack_raws, 2},
+    {"_tidysq_unpack_ints", (DL_FUNC) &_tidysq_unpack_ints, 2},
+    {"_tidysq_unpack_chars", (DL_FUNC) &_tidysq_unpack_chars, 3},
+    {"_tidysq_unpack_string", (DL_FUNC) &_tidysq_unpack_string, 3},
+    {"_tidysq_get_alph_size", (DL_FUNC) &_tidysq_get_alph_size, 1},
+    {"_tidysq_match_chars", (DL_FUNC) &_tidysq_match_chars, 2},
+    {"_tidysq_match_char", (DL_FUNC) &_tidysq_match_char, 2},
+    {"_tidysq_match_raws", (DL_FUNC) &_tidysq_match_raws, 3},
+    {"_tidysq_match_raw", (DL_FUNC) &_tidysq_match_raw, 3},
     {NULL, NULL, 0}
 };
 
