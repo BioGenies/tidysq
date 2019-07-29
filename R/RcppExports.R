@@ -21,6 +21,18 @@ pack_unt <- function(UNPACKED, alph, ALPH_SIZE) {
     .Call('_tidysq_pack_unt', PACKAGE = 'tidysq', UNPACKED, alph, ALPH_SIZE)
 }
 
+repack <- function(PACKED, na_char, alph, new_alph, alph_size, new_alph_size, letters_fun) {
+    .Call('_tidysq_repack', PACKAGE = 'tidysq', PACKED, na_char, alph, new_alph, alph_size, new_alph_size, letters_fun)
+}
+
+integerize <- function(raw_vec) {
+    .Call('_tidysq_integerize', PACKAGE = 'tidysq', raw_vec)
+}
+
+rawize <- function(int_vec) {
+    .Call('_tidysq_rawize', PACKAGE = 'tidysq', int_vec)
+}
+
 unpack_cnuc <- function(PACKED, na_char) {
     .Call('_tidysq_unpack_cnuc', PACKAGE = 'tidysq', PACKED, na_char)
 }

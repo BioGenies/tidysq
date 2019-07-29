@@ -62,6 +62,45 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// repack
+Rcpp::RawVector repack(Rcpp::RawVector PACKED, char na_char, Rcpp::RawVector alph, Rcpp::RawVector new_alph, unsigned short int alph_size, unsigned short int new_alph_size, Rcpp::RawVector letters_fun);
+RcppExport SEXP _tidysq_repack(SEXP PACKEDSEXP, SEXP na_charSEXP, SEXP alphSEXP, SEXP new_alphSEXP, SEXP alph_sizeSEXP, SEXP new_alph_sizeSEXP, SEXP letters_funSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type PACKED(PACKEDSEXP);
+    Rcpp::traits::input_parameter< char >::type na_char(na_charSEXP);
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type alph(alphSEXP);
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type new_alph(new_alphSEXP);
+    Rcpp::traits::input_parameter< unsigned short int >::type alph_size(alph_sizeSEXP);
+    Rcpp::traits::input_parameter< unsigned short int >::type new_alph_size(new_alph_sizeSEXP);
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type letters_fun(letters_funSEXP);
+    rcpp_result_gen = Rcpp::wrap(repack(PACKED, na_char, alph, new_alph, alph_size, new_alph_size, letters_fun));
+    return rcpp_result_gen;
+END_RCPP
+}
+// integerize
+Rcpp::IntegerVector integerize(Rcpp::RawVector raw_vec);
+RcppExport SEXP _tidysq_integerize(SEXP raw_vecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type raw_vec(raw_vecSEXP);
+    rcpp_result_gen = Rcpp::wrap(integerize(raw_vec));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rawize
+Rcpp::RawVector rawize(Rcpp::IntegerVector int_vec);
+RcppExport SEXP _tidysq_rawize(SEXP int_vecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type int_vec(int_vecSEXP);
+    rcpp_result_gen = Rcpp::wrap(rawize(int_vec));
+    return rcpp_result_gen;
+END_RCPP
+}
 // unpack_cnuc
 Rcpp::RawVector unpack_cnuc(Rcpp::RawVector PACKED, const char na_char);
 RcppExport SEXP _tidysq_unpack_cnuc(SEXP PACKEDSEXP, SEXP na_charSEXP) {
@@ -131,6 +170,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_pack_cami", (DL_FUNC) &_tidysq_pack_cami, 1},
     {"_tidysq_pack_ami", (DL_FUNC) &_tidysq_pack_ami, 1},
     {"_tidysq_pack_unt", (DL_FUNC) &_tidysq_pack_unt, 3},
+    {"_tidysq_repack", (DL_FUNC) &_tidysq_repack, 7},
+    {"_tidysq_integerize", (DL_FUNC) &_tidysq_integerize, 1},
+    {"_tidysq_rawize", (DL_FUNC) &_tidysq_rawize, 1},
     {"_tidysq_unpack_cnuc", (DL_FUNC) &_tidysq_unpack_cnuc, 2},
     {"_tidysq_unpack_nuc", (DL_FUNC) &_tidysq_unpack_nuc, 2},
     {"_tidysq_unpack_cami", (DL_FUNC) &_tidysq_unpack_cami, 2},
