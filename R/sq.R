@@ -1,12 +1,16 @@
 #' @exportClass sq
 #' @export
-construct_sq <- function(sq, type = "unt", is_clean = NULL) {
+construct_sq <- function(sq, type = NULL, is_clean = NULL) {
   .check_sqstr_proper_char(sq)
   if (getOption("tidysq_no_check_mode") == TRUE) {
     .nc_construct_sq(sq, type, is_clean)
   } else {
-    .check_type_in_ami_nuc_unt(type)
     .check_is_clean_in_TRUE_FALSE_NULL(is_clean)
+    
+    if (is.null(type)) {
+      type <- .guess_sq_type(sq)
+    }
+    .check_type_in_ami_nuc_unt(type)
     
     switch (type,
             ami = construct_amisq(sq, is_clean),
