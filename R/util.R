@@ -59,3 +59,10 @@
     FALSE
   else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
 }
+
+.guess_sq_type <- function(sq) {
+  real_alph <- toupper(.get_real_alph(sq))
+  if (all(real_alph %in% nucleotides_df[, "one"])) "nuc"
+  else if (all(real_alph %in% aminoacids_df[, "one"])) "ami"
+  else "unt"
+}
