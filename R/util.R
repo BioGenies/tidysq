@@ -27,6 +27,13 @@
   dict[sqclasses]
 }
 
+.get_proper_alph <- function(type, is_clean) {
+       if (type == "ami" &&  is_clean) aminoacids_df[!aminoacids_df[["amb"]], "one"]
+  else if (type == "ami" && !is_clean) aminoacids_df[, "one"]
+  else if (type == "nuc" &&  is_clean) nucleotides_df[!nucleotides_df[["amb"]], "one"]
+  else if (type == "nuc" && !is_clean) nucleotides_df[, "one"]
+}
+
 .is_cleaned <- function(sq) {
   "clnsq" %in% class(sq)
 }

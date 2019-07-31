@@ -34,3 +34,10 @@
     stop("'indices' has to be an integer vector")
   }
 }
+
+.check_file_is_char <- function(file) {
+  if (!is.character(file) ||
+      !(length(file) == 1)) {
+    stop("'file' has to be a string giving file to read from")
+  }
+}
