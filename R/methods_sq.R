@@ -12,19 +12,7 @@
 #' @exportMethod as.character sq
 #' @export
 as.character.sq <- function(x, ...) {
-  alph <- .get_alph(x)
-  if (.is_no_check_mode()) {
-    type <- .get_sq_type(x)
-    if (type == "nuc") {
-      if (.is_cleaned(x)) {
-        .debitify_sq_cnuc(x)
-      } else {
-        stop("not implemented!")
-      }
-    } else {
-      stop("not implemented!")
-    }
-  } else sapply(.debitify_sq(x, alph), function(s) paste(ifelse(is.na(s), "*", s), collapse = ""))
+  .debitify_sq(x, "string")
 }
 
 #' @exportMethod is sq
@@ -86,6 +74,7 @@ is.atpsq <- function(x) {
 print.sq <- function(x, ...) {
   sqclass <- .get_sq_subclass(x)
   cln_msg <- if (.is_cleaned(x)) " (cleaned)" else ""
+  na_char <- .get_na_char()
   
   if (length(sqclass) != 1) {
     sqclass <- "sq (improper subtype!):\n"
@@ -98,10 +87,8 @@ print.sq <- function(x, ...) {
   }
   
   alph <- .get_alph(x)
-  decoded <- .debitify_sq(x, alph)
-  decoded <- sapply(decoded, function(s) ifelse(length(s) == 0, 
-                                                "<NULL sq>", 
-                                                paste(ifelse(is.na(s), "*", s), collapse = "")))
+  decoded <- .debitify_sq(x, "string")
+  decoded <- sapply(decoded, function(s) ifelse(s == "" , "<NULL sq>", s))
   max_width <- max(nchar(1:length(x)))
   inds <- paste0("[", 1:length(x), "] ")
   cat(sqclass, paste0(format(inds, width = max_width + 3, justify = "right"), 
@@ -114,12 +101,13 @@ print.sq <- function(x, ...) {
 #' @export
 print.encsq <- function(x, ...) {
   sqclass <- "enc (encoded values) sequences vector:\n"
+  na_char <- .get_na_char()
 
   alph <- .get_alph(x)
-  decoded <- .debitify_sq(x, alph)
+  decoded <- .apply_sq(x, "int", "none", function(s) alph[s])
   decoded <- sapply(decoded, function(s) ifelse(length(s) == 0, 
                                                 "<NULL sq>", 
-                                                paste(ifelse(is.na(s), "*", s), collapse = " ")))
+                                                paste(ifelse(is.na(s), na_char, s), collapse = " ")))
   max_width <- max(nchar(1:length(x)))
   inds <- paste0("[", 1:length(x), "] ")
   cat(sqclass, paste0(format(inds, width = max_width + 3, justify = "right"), 

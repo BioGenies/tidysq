@@ -12,9 +12,6 @@
 #' @exportMethod `%has%` sq
 #' @export
 `%has%.sq` <- function(x, y) {
-  if (any(sapply(x, function(s) any(is.na(s))))) {
-    stop("you cannot find motifs in 'sq' object with NA's")
-  }
   if (!is.character(y)) {
     stop("object which you're looking for in 'sq' object needs to be a character vector")
   }
@@ -37,9 +34,6 @@
 #' @exportMethod `%has%` amisq
 #' @export
 `%has%.amisq` <- function(x, y) {
-  if (any(sapply(x, function(s) any(is.na(s))))) {
-    stop("you cannot find motifs in 'sq' object with NA's")
-  }
   if (!is.character(y)) {
     stop("object which you're looking for in 'sq' object needs to be a character vector")
   }
@@ -64,9 +58,6 @@
 #' @exportMethod `%has%` nucsq
 #' @export
 `%has%.nucsq` <- function(x, y) {
-  if (any(sapply(x, function(s) any(is.na(s))))) {
-    stop("you cannot find motifs in 'sq' object with NA's")
-  }
   if (!is.character(y)) {
     stop("object which you're looking for in 'sq' object needs to be a character vector")
   }
