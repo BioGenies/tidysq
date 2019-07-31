@@ -56,6 +56,19 @@
 #' substitute_letters(sq_nuc, enc_nuc)
 #' substitute_letters(sq_ami, enc_ami)
 #' 
+#' 
+#' # Use created encoding from other package (ex. \code{\link[AmyloGram]{myloGram_model}})
+#' 
+#' AG_enc_raw <- unlist(AmyloGram_model[["enc"]])
+#' 
+#' enc_AG <- substr(names(AG_enc_raw), 1, 1)
+#' names(enc_AG) <- toupper(AG_enc_raw)
+#' enc_AG 
+#' 
+#' sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", "TIAALGNIIYRAIE", "NYERTGHLI", 
+#'                         "MAYNNNIALN", "MN", "NAAAT"), type = "ami")
+#' substitute_letters(sq_ami, enc_AG)
+#' 
 #' @seealso sq atpsq
 #' @export
 
