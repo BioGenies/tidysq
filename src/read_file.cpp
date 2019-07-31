@@ -6,44 +6,38 @@
 #include <fstream>
 #include <limits>
 
-class sq_obj {
-public :
-  std::vector<char> rawsq;
-  sq_obj() {
-    rawsq = std::vector<char>();
-  }
-  void append(std::vector<char> unpacked, unsigned short alph_size) {
-    sq_obj packed = pack(unpacked, alph_size);
-    this->rawsq.insert(this->rawsq.end(), packed.rawsq.begin(), packed.rawsq.end());
-  }
-  static sq_obj pack(std::vector<char> unpacked, unsigned short alph_size) {
-    auto ret = sq_obj();
-    ret.rawsq = unpacked;
-    return ret;
-  }
-};
+Rcpp::RawVector nc_pack_cnuc(Rcpp::RawVector UNPACKED);
+Rcpp::RawVector nc_pack_nuc(Rcpp::RawVector UNPACKED);
+Rcpp::RawVector nc_pack_cami(Rcpp::RawVector UNPACKED);
+Rcpp::RawVector nc_pack_ami(Rcpp::RawVector UNPACKED);
 
-class sqtibble {
-public :
-  std::vector<sq_obj> sq;
-  std::vector<std::string> name;
-  sqtibble() {
-    sq = std::vector<sq_obj>();
-    name = std::vector<std::string>();
-  }
-};
-
-
+Rcpp::RawVector append_raw(Rcpp::RawVector already_packed, 
+                           std::vector<char> unpacked, 
+                           Rcpp::RawVector (*packing_function)(Rcpp::RawVector)) {
+  Rcpp::RawVector converted = Rcpp::RawVector(unpacked.size());
+  std::copy(unpacked.begin(), unpacked.end(), converted.begin());
+  Rcpp::RawVector packed = packing_function(converted);
+  Rcpp::RawVector ret = Rcpp::RawVector(already_packed.size() + packed.size());
+  std::copy(already_packed.begin(), already_packed.end(), ret.begin());
+  std::copy(packed.begin(), packed.end(), ret.begin() + already_packed.size());
+  return ret;
+}
 
 const unsigned int NAME_MAX_SIZE = 1025;
-const unsigned int SQ_BUFFER_SIZE = 9;
-const unsigned short ALPH_SIZE = 3;
+const unsigned int SQ_BUFFER_SIZE = 800001;
 
-//' @export
 // [[Rcpp::export]]
-sqtibble nc_read_fasta_file(std::string file,
-                            bool is_ami,
-                            bool is_clean) {
+Rcpp::List nc_read_fasta_file(std::string file,
+                              bool is_ami,
+                              bool is_clean) {
+  
+  Rcpp::RawVector (*packing_function)(Rcpp::RawVector);
+  
+       if ( is_ami and  is_clean) packing_function = nc_pack_cami;
+  else if ( is_ami and !is_clean) packing_function = nc_pack_ami;
+  else if (!is_ami and  is_clean) packing_function = nc_pack_cnuc;
+  else if (!is_ami and !is_clean) packing_function = nc_pack_nuc;
+  
   std::ifstream in_fstream;                               //file hook
   in_fstream.open(file);
   
@@ -52,8 +46,10 @@ sqtibble nc_read_fasta_file(std::string file,
   char sq_buffer[SQ_BUFFER_SIZE];                         //array for reading sequences
   unsigned int buffer_offset = 0;                         //variable that keeps information how many letters have already been red
   bool open_sq = false;                                   //variable that informs if there is unfinished sq object
-  sqtibble ret = sqtibble();                              //a list to return
-  
+  //sqtibble ret = sqtibble();                              //a list to return
+  Rcpp::List sq = Rcpp::List();
+  Rcpp::CharacterVector name = Rcpp::CharacterVector();
+   
   while (in_fstream.good()) {                             //as long as the stream state is good
     next_char = in_fstream.peek();                          //we check the next char
     if (next_char == -1) {
@@ -63,18 +59,18 @@ sqtibble nc_read_fasta_file(std::string file,
       if (open_sq) {                                              //we check if there is unfinished sq object
         std::vector<char> in_char;                                  //if there is, we finish it by
         in_char.assign(sq_buffer, sq_buffer + buffer_offset);
-        ret.sq.back().append(in_char, ALPH_SIZE);                   //apending actual sq object by whole (probably not filled yet) buffer
+        sq[sq.size() - 1] = append_raw(sq[sq.size() - 1], in_char, packing_function); //we append actual sq object by whole buffer after packing it
         buffer_offset = 0;
       }
-      ret.sq.emplace_back();                                      //we create new sq object
+      sq.push_back(Rcpp::RawVector(0));                           //we create new raw sq object at the end of the list
       in_fstream.getline(name_buffer, NAME_MAX_SIZE);             //we read its name
-      ret.name.emplace_back(name_buffer);                         //and push it at the end of list
+      name.push_back(name_buffer);                                //and push it at the end of vector of names
       open_sq = true;                                             //now we have new sq unfinished
     } else if (isspace(next_char)) {                            //if it's whitespace
       if (open_sq) {                                              //we check if there is unfinished sq object
         std::vector<char> in_char;                                  //if there is, we finish it by
         in_char.assign(sq_buffer, sq_buffer + buffer_offset);
-        ret.sq.back().append(in_char, ALPH_SIZE);                   //apending actual sq object by whole (probably not filled yet) buffer
+        sq[sq.size() - 1] = append_raw(sq[sq.size() - 1], in_char, packing_function); //we append actual sq object by whole buffer after packing it
         open_sq = false;                                            //there is no open sq for now
         buffer_offset = 0;                                          //the sq buffer will be treated as empty
       }
@@ -84,11 +80,11 @@ sqtibble nc_read_fasta_file(std::string file,
       if (in_fstream.fail()) {                                    //if we filled the buffer
         std::vector<char> in_char(SQ_BUFFER_SIZE);
         in_char.assign(sq_buffer, sq_buffer + SQ_BUFFER_SIZE - 1);
-        ret.sq.back().append(in_char, ALPH_SIZE);                   //we append actual sq object by whole buffer
+        sq[sq.size() - 1] = append_raw(sq[sq.size() - 1], in_char, packing_function); //we append actual sq object by whole buffer after packing it
         in_fstream.clear();                                         //and reset stream state
         buffer_offset = 0;                                          //and reset buffer state
       } else {                                                    //if we haven't filled the buffer yet
-        buffer_offset += in_fstream.gcount() - 1;                       //we save information how many letters we red
+        buffer_offset += in_fstream.gcount() - 1;                   //we save information how many letters we red
       }
     }
     
@@ -97,20 +93,11 @@ sqtibble nc_read_fasta_file(std::string file,
   if (open_sq) {                                                  //in the end, we close last sq
     std::vector<char> in_char;
     in_char.assign(sq_buffer, sq_buffer + buffer_offset + 1);
-    ret.sq.back().append(in_char, ALPH_SIZE);
+    sq[sq.size() - 1] = append_raw(sq[sq.size() - 1], in_char, packing_function); //we append actual sq object by whole buffer after packing it
   }
   
-  for (int i = 0; i < ret.sq.size(); i++) {
-    std::cout << ret.name[i] << std::endl;
-    ret.sq[i].rawsq.push_back('\0');
-    std::cout << ret.sq[i].rawsq.data() << std::endl;
-  }
-  
-  // Rcpp::List sq = Rcpp::List();
-  // Rcpp::CharacterVector name = Rcpp::CharacterVector();
-  // 
-  // Rcpp::List sqtibble = Rcpp::List::create(Rcpp::_["sq"] = sq,
-  //                                          Rcpp::_["name"] = name);
+  Rcpp::List sqtibble = Rcpp::List::create(Rcpp::_["sq"] = sq,
+                                           Rcpp::_["name"] = name);
   
   return sqtibble;
   
