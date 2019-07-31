@@ -53,6 +53,7 @@ Rcpp::List nc_read_fasta_file(std::string file,
   while (in_fstream.good()) {                             //as long as the stream state is good
     next_char = in_fstream.peek();                          //we check the next char
     if (next_char == -1) {
+      buffer_offset--;
       break;
     }
     if (next_char == '>') {                                     //if it's '>' char
@@ -87,14 +88,15 @@ Rcpp::List nc_read_fasta_file(std::string file,
         buffer_offset += in_fstream.gcount() - 1;                   //we save information how many letters we red
       }
     }
-    
-    
   }
+  
   if (open_sq) {                                                  //in the end, we close last sq
     std::vector<char> in_char;
     in_char.assign(sq_buffer, sq_buffer + buffer_offset + 1);
+    Rcpp::Rcout << sq_buffer;
     sq[sq.size() - 1] = append_raw(sq[sq.size() - 1], in_char, packing_function); //we append actual sq object by whole buffer after packing it
   }
+  
   
   Rcpp::List sqtibble = Rcpp::List::create(Rcpp::_["sq"] = sq,
                                            Rcpp::_["name"] = name);
