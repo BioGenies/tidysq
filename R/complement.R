@@ -38,6 +38,7 @@
 #' # Sequences are now ready to be used as matrices for creating complementary sequences.
 #' # Get an overview of the sequences:
 #' summary(nuc_dna_sequence)
+#' summary(nuc_rna_sequence)
 #' 
 #' # In the following the complement function is used to make a PCR (Polymerase Chain Reaction)
 #' # primers. Every sequence will be rewritten to its complementary equivalent as 
