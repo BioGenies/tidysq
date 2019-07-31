@@ -108,6 +108,8 @@ Rcpp::RawVector nc_pack_cnuc(Rcpp::RawVector UNPACKED) {
   const unsigned int ALPH_SIZE = 3;
   unsigned int in_len = UNPACKED.size();
   
+  if (in_len == 0) return Rcpp::RawVector(0);
+  
   Rcpp::RawVector ret((ALPH_SIZE * in_len  + 7) / 8);
   unsigned int out_byte = 0;
   
@@ -184,6 +186,8 @@ Rcpp::RawVector nc_pack_cnuc(Rcpp::RawVector UNPACKED) {
 Rcpp::RawVector nc_pack_nuc(Rcpp::RawVector UNPACKED) {
   const unsigned int ALPH_SIZE = 5;
   unsigned int in_len = UNPACKED.size();
+  
+  if (in_len == 0) return Rcpp::RawVector(0);
   
   Rcpp::RawVector ret((ALPH_SIZE * in_len  + 7) / 8);
   unsigned int out_byte = 0;
@@ -271,6 +275,8 @@ Rcpp::RawVector nc_pack_cami(Rcpp::RawVector UNPACKED) {
   const unsigned int ALPH_SIZE = 5;
   unsigned int in_len = UNPACKED.size();
   
+  if (in_len == 0) return Rcpp::RawVector(0);
+  
   Rcpp::RawVector ret((ALPH_SIZE * in_len  + 7) / 8);
   unsigned int out_byte = 0;
   
@@ -356,6 +362,8 @@ Rcpp::RawVector nc_pack_cami(Rcpp::RawVector UNPACKED) {
 Rcpp::RawVector nc_pack_ami(Rcpp::RawVector UNPACKED) {
   const unsigned int ALPH_SIZE = 5;
   unsigned int in_len = UNPACKED.size();
+  
+  if (in_len == 0) return Rcpp::RawVector(0);
   
   Rcpp::RawVector ret((ALPH_SIZE * in_len  + 7) / 8);
   unsigned int out_byte = 0;
