@@ -35,22 +35,27 @@
 #'                                    "CCCU", "CUGAAUGU"), type = "nuc")
 #'                                    
 #'                                    
-#' #Sequences are now ready to be used as matrices for creating complementary sequences.
-#' #Get an overview of the sequences:
+#' # Sequences are now ready to be used as matrices for creating complementary sequences.
+#' # Get an overview of the sequences:
 #' summary(nuc_dna_sequence)
 #' summary(nuc_rna_sequence)
 #' 
-#' #In the following the complement function is used to make a PCR (Polymerase Chain Reaction)
-#' primers.
+#' # In the following the complement function is used to make a PCR (Polymerase Chain Reaction)
+#' # primers. Every sequence will be rewritten to its complementary equivalent as 
+#' # following example: AAATTTGGG to TTTAAACCC.
 #'  
-#' #creating complementary sequences with defined sequence type:
+#' # creating complementary sequences with defined sequence type:
 #' complement(nuc_dna_sequence, is_dna = TRUE)
 #' complement(nuc_rna_sequence, is_dna = FALSE)
 #' 
-#' #creating complementary sequences without defined sequence type:
+#' # creating complementary sequences without defined sequence type:
 #' complement(nuc_dna_sequence)
 #' complement(nuc_rna_sequence)
 #' 
+#' # Each sequence from  nuc_dna_sequence and nuc_rna_sequence object have now own 
+#' # complementary equivalent, which can be helpful during constructing PCR primers.
+#'  
+#'   
 #' 
 #' @seealso sq clnsq nucsq
 #' 
@@ -100,4 +105,3 @@ complement <- function(nucsq, is_dna = NULL) {
   ret
 }
 
-sekwencja <-c("ACTGCTG", "CTTAGA","CCCT", "CTGAATGT")
