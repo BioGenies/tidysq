@@ -36,24 +36,36 @@ indicating is set to DNA) error will appear.
 Both RNA and DNA sequences can be rewritten to complementary sequence.
 }
 \examples{
-# creating objects to work on:
+# Creating objects nuc_dna_sequence (with DNA sequences) and nuc_rna_sequence 
+# (with RNA sequences) to work on:
+
 nuc_dna_sequence <- construct_sq(c("ACTGCTG", "CTTAGA", 
                                    "CCCT", "CTGAATGT"), type = "nuc")
 nuc_rna_sequence <- construct_sq(c("ACUGCUG", "CUUAGA", 
                                    "CCCU", "CUGAAUGU"), type = "nuc")
                                    
-Sequences are now ready to be used as matrice for creating complementary sequence. 
+                                   
+# Sequences are now ready to be used as matrices for creating complementary sequences.
+# Get an overview of the sequences:
+summary(nuc_dna_sequence)
+summary(nuc_rna_sequence)
 
-#creating complementary sequences with defined sequence type:
+# In the following the complement function is used to make a PCR (Polymerase Chain Reaction)
+# primers. Every sequence will be rewritten to its complementary equivalent as 
+# following example: AAATTTGGG to TTTAAACCC.
+ 
+# creating complementary sequences with defined sequence type:
 complement(nuc_dna_sequence, is_dna = TRUE)
 complement(nuc_rna_sequence, is_dna = FALSE)
 
-#creating complementary sequences without defined sequence type:
+# creating complementary sequences without defined sequence type:
 complement(nuc_dna_sequence)
 complement(nuc_rna_sequence)
 
-Created complementary sequence might be useful as help for e.g. during designing 
-PCR (Polymerase Chain Reaction) primers. 
+# Each sequence from  nuc_dna_sequence and nuc_rna_sequence object have now own 
+# complementary equivalent, which can be helpful during constructing PCR primers.
+ 
+  
 
 }
 \seealso{

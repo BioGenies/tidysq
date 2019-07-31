@@ -26,14 +26,23 @@
 #' 
 #' 
 #' @examples 
-#' # creating objects to work on:
+#' # Creating objects nuc_dna_sequence (with DNA sequences) and nuc_rna_sequence 
+#' # (with RNA sequences) to work on:
+#' 
 #' nuc_dna_sequence <- construct_sq(c("ACTGCTG", "CTTAGA", 
 #'                                    "CCCT", "CTGAATGT"), type = "nuc")
 #' nuc_rna_sequence <- construct_sq(c("ACUGCUG", "CUUAGA", 
 #'                                    "CCCU", "CUGAAUGU"), type = "nuc")
 #'                                    
-#' Sequences are now ready to be used as matrice for creating complementary sequence. 
+#'                                    
+#' #Sequences are now ready to be used as matrices for creating complementary sequences.
+#' #Get an overview of the sequences:
+#' summary(nuc_dna_sequence)
+#' summary(nuc_rna_sequence)
 #' 
+#' #In the following the complement function is used to make a PCR (Polymerase Chain Reaction)
+#' primers.
+#'  
 #' #creating complementary sequences with defined sequence type:
 #' complement(nuc_dna_sequence, is_dna = TRUE)
 #' complement(nuc_rna_sequence, is_dna = FALSE)
@@ -42,8 +51,6 @@
 #' complement(nuc_dna_sequence)
 #' complement(nuc_rna_sequence)
 #' 
-#' Created complementary sequence might be useful as help for e.g. during designing 
-#' PCR (Polymerase Chain Reaction) primers. 
 #' 
 #' @seealso sq clnsq nucsq
 #' 
@@ -92,3 +99,5 @@ complement <- function(nucsq, is_dna = NULL) {
   attr(ret, "alphabet") <- alph
   ret
 }
+
+sekwencja <-c("ACTGCTG", "CTTAGA","CCCT", "CTGAATGT")
