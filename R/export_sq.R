@@ -5,7 +5,7 @@ export_sq <- function(sq, export_format, name) {
       (!is.character(name) ||
        any(is.null(name) | is.na(name)) ||
        (length(name) != length(sq)))) {
-    stop("'name' has to be a non-NULL character vector without NA's, of lenght equal to length of sq")
+    stop("'name' has to be a non-NULL character vector without NA's, of length equal to length of sq")
   }
   ami_formats <- c("seqinr::SeqFastaAA", "ape::AAbin", "Bioconductor::AAStringSet")
   nuc_formats <- c("seqinr::SeqFastadna", "ape::DNAbin", "Bioconductor::DNAStringSet")
