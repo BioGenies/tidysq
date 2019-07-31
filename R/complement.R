@@ -35,16 +35,9 @@
 #' nuc_rna_sequence <- construct_sq(c("ACUGCUG", "CUUAGA", 
 #'                                    "CCCU", "CUGAAUGU"), type = "nuc")
 #'                                    
-<<<<<<< HEAD
-#' 
-#' Sequences are now ready to be used as matrices for creating complementary sequence. 
-=======
-#'                                    
 #' # Sequences are now ready to be used as matrices for creating complementary sequences.
 #' # Get an overview of the sequences:
 #' summary(nuc_dna_sequence)
-#' summary(nuc_rna_sequence)
->>>>>>> a651b5bb7be73efe50d3022a409dba174e2227ff
 #' 
 #' # In the following the complement function is used to make a PCR (Polymerase Chain Reaction)
 #' # primers. Every sequence will be rewritten to its complementary equivalent as 
