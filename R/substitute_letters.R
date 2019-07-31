@@ -11,14 +11,14 @@
 #' 
 #' @return \code{\link{atpsq}} object of the same type as input sq with replaced alphabet, defined by user.
 #' 
-#' @details Function allows to replace default alphabet encoding with letters desired by the user.
+#' @details The function allows replacing default alphabet encoding with letters desired by the user.
 #' One letter of the alphabet may be replaced by a string of characters.
 #' 
 #' Sometimes one needs to replace default amino/nucleic acid alphabet with custom one. 
 #' Such an example could be the use of simplified amino acid alphabet, which take into account 
 #' different physicochemical properties of amino acids to cluster them into fewer groups.
 #' The simplification preserves the informative character of the alphabet while reducing the 
-#' number of required operations when using it in futher steps of pipeline, such as machine learning.
+#' number of required operations when using it in further steps of pipeline, such as machine learning.
 #' 
 #' @examples 
 #' # Creating object, called sq to work on:
