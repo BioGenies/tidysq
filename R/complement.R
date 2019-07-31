@@ -1,7 +1,7 @@
 #' Create complement sequence from nucseq object 
 #' 
-#' @description Create complementary sequence from given nucleoide sequence 
-#' according to complementarity.
+#' @description Creates the complementary sequence from a given RNA or DNA 
+#'  nucleotide sequence. The function differentiates between RNA and DNA sequences. 
 #' 
 #' @param nucsq \code{\link{nucsq}} object of type 'nuc'.
 #' @param is_dna logical indicating if entered sequence is DNA or RNA. If 
@@ -12,16 +12,17 @@
 #' @return \code{\link{nucsq}} object of the same type as input nucsq but 
 #' built of complementary nucleotides to entered sequence.
 #' 
-#' @details This function allows obtaining  complement sequence which is created by 
+#' @details This function allows obtaining complement sequence which is created by 
 #' matching elements (nucleotides) with complementarity to input nucsq object. If 
 #' \code{is_dna = TRUE} entered sequence is DNA. If \code{is_dna = FALSE} entered 
-#' sequence is RNA. By default the sequence type is not specified and function
-#' needs to guess which type of sequence was entered. If sequence contain 'U' without 
-#' 'T' the type will be set to RNA. If sequence contain 'T' without 'U' the type will 
-#' be set to dna. If both 'U' and 'T' are present in the sequence
-#' or sequence contains 'A' (adenine), but doesn't contain neither 'T' nor 'U'
-#' or logical indicating is typed wrong (i.e., when sequence contain 'U' and logical 
-#' indicating is set to DNA) error will appear.
+#' sequence is RNA. By default the sequence type is not specified and the function
+#' tries to guess which type of sequence was entered. If sequence contain 'U' without 
+#' 'T' the type will be set to RNA. If a sequence contains 'T' (thymine) without 
+#' 'U' (uracil), the type is set to dna. An error is displayed if both 'T' and 'U' 
+#' are present in the sequence or if the sequence contains 'A' (adenine). If the 
+#' sequence does not contain 'T' or 'U' or the logical specification is wrong 
+#' (i.e. if the sequence contains 'U' and the logical specification is set to DNA), 
+#' an error will also be returned
 #' Both RNA and DNA sequences can be rewritten to complementary sequence. 
 #' 
 #' 
@@ -32,7 +33,8 @@
 #' nuc_rna_sequence <- construct_sq(c("ACUGCUG", "CUUAGA", 
 #'                                    "CCCU", "CUGAAUGU"), type = "nuc")
 #'                                    
-#' Sequences are now ready to be used as matrice for creating complementary sequence. 
+#' 
+#' Sequences are now ready to be used as matrices for creating complementary sequence. 
 #' 
 #' #creating complementary sequences with defined sequence type:
 #' complement(nuc_dna_sequence, is_dna = TRUE)
@@ -68,7 +70,7 @@ complement <- function(nucsq, is_dna = NULL) {
   dict <- c(G = "C", C = "G", T = "A", U = "A", A = "T", `-` = "-")
   if (is.null(is_dna)) {
     if (!has_U && !has_T && has_A) {
-      stop("'nucsq' sequences contains 'A' elements, but doesn't contain neither 'T' nor 'U' - unable to guess if it's dna or rna")
+      stop("'nucsq' sequences contains 'A' elements, but does not contain 'T' nor 'U' - unable to guess if it's dna or rna")
     } 
     if (has_U) dict["A"] <- "U"
   } else {
