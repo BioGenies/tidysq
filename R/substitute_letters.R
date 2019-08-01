@@ -21,6 +21,7 @@
 #' others or ambiguous ones. 
 #' 
 #' The alphabet characters to be replaced need to be written in capital letters and must originate from default alphabets, otherwise error will be introduced.
+#' Multiple string of letters to be substituted (ex. \item{c(AHG = replacement)}) will also produce an error.
 #' This will occur even when the letter to be replaced won't occur in the sequence.
 #' 
 #' Created sequence will be deprived of \code{\link{cln})} subtype, if the original sequence possessed it.
