@@ -116,7 +116,7 @@ tibble(sq = construct_sq(c("TGCGCGT", "TGC", "CTG"), type = "nuc")) %>%
 enc <- c(A = "a", B = "a", C = "a", D = "a", E = "a", F = "b", G = "b", 
          H = "b", I = "c", J = "c", K = "c", L = "c", M = "c", N = "c", 
          O = "c", P = "d", Q = "d", R = "d", S = "d", T = "d", U = "d", 
-         V = "d", W = "d", X = "d", Y = "d", Z = "d", `-` = "d")
+         V = "d", W = "d", X = "d", Y = "d", Z = "d", `-` = "d", `*` = "d")
 
 simplify(sqtbl_ami %>% pull(sq), enc)
 sqtbl_ami %>% mutate(simpl = simplify(sq, enc))
@@ -260,3 +260,4 @@ read_fasta("inst/unt_example.fasta") %>%
            bite(1:18) %>%
            remove_na(only_elements = TRUE)) %>%
   filter(sq %has% "cccc")
+

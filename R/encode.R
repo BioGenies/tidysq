@@ -10,11 +10,15 @@ encode <- function(sq, encoding) {
   
   if (type %in% c("ami", "nuc")) {
     names(encoding) <- toupper(names(encoding))
-    if (!("-" %in% names(encoding))) {
-      encoding <- c(encoding, `-` = NA)
+    has_gap <- "-" %in% names(encoding)
+    has_end <- "*" %in% names(encoding)
+    
+    if (!(has_gap && has_end)) {
       .handle_opt_txt("tidysq_encode_nogap_action",
-                      "'encoding' don't contain '-', assuming NA")
+                      "'encoding' don't contain values for '-' or '*' or both, assuming NA")
     }
+    if (!has_gap) encoding <- c(encoding, `-` = NA)
+    if (!has_end) encoding <- c(encoding, `*` = NA)
   }
   
   alph <- .get_alph(sq)
