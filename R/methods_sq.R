@@ -15,6 +15,14 @@ as.character.sq <- function(x, ...) {
   .debitify_sq(x, "string")
 }
 
+#' @exportMethod as.matrix sq
+#' @export
+as.matrix.sq <- function(x, ...) {
+  x <- .debitify_sq(x, "char")
+  max_len <- max(lengths(x))
+  do.call(rbind, lapply(x, function(row) row[1:max_len]))
+}
+
 #' @exportMethod is sq
 #' @export
 is.sq <- function(x) {
