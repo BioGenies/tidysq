@@ -29,7 +29,7 @@
   else if (to == "string") 
     unpack_fun <- function(s) rawToChar(unpack_string(s, alph, .get_na_char()))
   
-  sapply(sq, function(s) unpack_fun(s))
+  lapply(sq, function(s) unpack_fun(s))
 }
 
 .apply_sq <- function(sq, ex_form, im_form, fun) {
