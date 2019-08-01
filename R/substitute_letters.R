@@ -21,8 +21,10 @@
 #' others or ambiguous ones. 
 #' 
 #' The alphabet characters to be replaced need to be written in capital letters and must originate from default alphabets, otherwise error will be introduced.
-#' Multiple string of letters to be substituted (ex. \item{c(AHG = replacement)}) will also produce an error.
+#' Multiple string of letters to be substituted (ex. \item{c(AHG = "replacement")}) will also produce an error.
 #' This will occur even when the letter to be replaced won't occur in the sequence.
+#' 
+#' Replacing multiple letters with the same symbol (ex. \item{c(A = "replacement1", H  = "replacement1", G = "replacement1")}) is allowed.
 #' 
 #' Created sequence will be deprived of \code{\link{cln})} subtype, if the original sequence possessed it.
 #' 
