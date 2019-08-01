@@ -27,7 +27,7 @@
   dict[sqclasses]
 }
 
-.get_proper_alph <- function(type, is_clean) {
+.get_standard_alph <- function(type, is_clean) {
        if (type == "ami" &&  is_clean) aminoacids_df[!aminoacids_df[["amb"]], "one"]
   else if (type == "ami" && !is_clean) aminoacids_df[, "one"]
   else if (type == "nuc" &&  is_clean) nucleotides_df[!nucleotides_df[["amb"]], "one"]
@@ -37,6 +37,17 @@
 .is_cleaned <- function(sq) {
   "clnsq" %in% class(sq)
 }
+
+.set_class <- function(sq, type, is_clean = FALSE) {
+  class(sq) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq")
+  sq
+}
+
+.set_alph <- function(sq, alph) {
+  attr(sq, "alphabet") <- alph
+  sq
+}
+
 
 .set_class_alph <- function(new_sq, sq) {
   class(new_sq) <-class(sq)
@@ -52,24 +63,24 @@
 }
 
 .guess_ami_is_clean <- function(real_alph) {
-  if (all(real_alph %in% aminoacids_df[!aminoacids_df[["amb"]], "one"]))
+  if (all(real_alph %in% .get_standard_alph("ami", TRUE)))
     TRUE
-  else if (all(real_alph %in% aminoacids_df[, "one"]))
+  else if (all(real_alph %in% .get_standard_alph("ami", FALSE)))
     FALSE
   else stop("there are letters that aren't in IUPAC standard! (see: aminoacids_df)")
 }
 
 .guess_nuc_is_clean <- function(real_alph) {
-  if (all(real_alph %in% nucleotides_df[!nucleotides_df[["amb"]], "one"]))
+  if (all(real_alph %in% .get_standard_alph("nuc", TRUE)))
     TRUE
-  else if (all(real_alph %in% nucleotides_df[, "one"]))
+  else if (all(real_alph %in% .get_standard_alph("nuc", FALSE)))
     FALSE
   else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
 }
 
 .guess_sq_type <- function(sq) {
   real_alph <- toupper(.get_real_alph(sq))
-  if (all(real_alph %in% nucleotides_df[, "one"])) "nuc"
-  else if (all(real_alph %in% aminoacids_df[, "one"])) "ami"
+  if (all(real_alph %in% .get_standard_alph("nuc", FALSE))) "nuc"
+  else if (all(real_alph %in% .get_standard_alph("ami", FALSE))) "ami"
   else "unt"
 }

@@ -26,7 +26,6 @@ encode <- function(sq, encoding) {
     } else stop("'encoding' should be a named vector which names are superset of alphabet of 'sq'")
   }
   
-  attr(sq, "alphabet") <- encoding[alph]
-  class(sq) <- c("encsq", "sq")
-  sq
+  sq <- .set_alph(sq, encoding[alph])
+  .set_class(sq, "enc", FALSE)
 }

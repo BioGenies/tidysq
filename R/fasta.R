@@ -19,7 +19,7 @@ read_fasta <- function(file, type = "unt", is_clean = NULL) {
     .check_nc_type_in_ami_nuc(type)
     sqtibble <- nc_read_fasta_file(normalizePath(file), type == "ami", is_clean)
     class(sqtibble[["sq"]]) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq")
-    attr(sqtibble[["sq"]], "alphabet") <- .get_proper_alph(type, is_clean)
+    attr(sqtibble[["sq"]], "alphabet") <- .get_standard_alph(type, is_clean)
     as_tibble(sqtibble)
   } else {
     .check_is_clean_in_TRUE_FALSE_NULL(is_clean)

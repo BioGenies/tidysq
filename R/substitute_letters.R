@@ -22,7 +22,7 @@ substitute_letters <- function(sq, encoding) {
     .handle_opt_txt("tidysq_subsitute_letters_cln",
                     "column passed to muatting had 'cln' subtype, output column doesn't have it")
   }
-  class(ret) <- c("atpsq", "sq")
-  attr(ret, "alphabet") <- new_alph
-  ret
+
+  ret <- .set_alph(ret, new_alph)
+  .set_class(ret, "atp")
 }

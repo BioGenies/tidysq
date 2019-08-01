@@ -18,11 +18,7 @@ clean <- function(sq, only_elements = FALSE) {
   }
   
   alph <- .get_alph(sq)
-  alph_size <- .get_alph_size(alph)
-  alph_cln <- if (type == "ami") 
-    aminoacids_df[!aminoacids_df[["amb"]], "one"] 
-  else
-    nucleotides_df[!nucleotides_df[["amb"]], "one"]
+  alph_cln <- .get_standard_alph(type, TRUE)
   
   
   if (only_elements) {
@@ -37,6 +33,5 @@ clean <- function(sq, only_elements = FALSE) {
   }
 
   class(ret) <- c("clnsq", class(sq))
-  attr(ret, "alphabet") <- alph_cln
-  ret
+  .set_alph(ret, alph_cln)
 }

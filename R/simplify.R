@@ -23,8 +23,8 @@ simplify <- function(sq, encoding) {
   ret <- .apply_sq(sq, "int", "none", function(s) {
     pack_ints(inds_fun[s], new_alph_size)
   })
-  class(ret) <- c("simsq", "sq")
-  attr(ret, "alphabet") <- new_alph
-  ret
+
+  ret <- .set_alph(ret, new_alph)
+  .set_class(ret, "sim")
 }
 
