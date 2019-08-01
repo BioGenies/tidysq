@@ -2,23 +2,29 @@
 #' 
 #' @description Replace default amino acid or nucleic acid letters in a sequence, 
 #' stored in \code{\link{sq}} object, with a custom encoding. 
-#' Selected letters in the amino acid or nucleic acid sequence are replaced 
+#' Selected letters in the amino/nucleic acid sequence are replaced 
 #' by a user-defined symbols.
 #' 
 #' 
 #' @param sq \code{\link{sq}} object.
 #' @param indices \code{encoding} vector of letters to be replaced together with their replacements.
+#' One letter can be replaced with multiple symbols. 
+#' To perform substitution create a named vector \item{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
 #' 
 #' @return \code{\link{atpsq}} object of the same type as input sq with replaced alphabet, defined by user.
 #' 
-#' @details The function allows replacing default alphabet encoding with letters desired by the user.
-#' One letter of the alphabet may be replaced by a string of characters.
+#' @details \code{substitute_letters} allows to replace desired letters in the amino acid or nucleic acid sequence.
+#' One letter of the alphabet may be replaced by a multiple characters. The function allows to replace single, 
+#' multiple letters or even a whole alphabet.
 #' 
-#' Sometimes one needs to replace default amino/nucleic acid alphabet with custom one. 
-#' Such an example could be the use of simplified amino acid alphabet, which take into account 
-#' different physicochemical properties of amino acids to cluster them into fewer groups.
-#' The simplification preserves the informative character of the alphabet while reducing the 
-#' number of required operations when using it in further steps of pipeline, such as machine learning.
+#' Sometimes one needs to introduce artificial amino acids or nucleotides into the sequence, replacing
+#' others or ambiguous ones. 
+#' 
+#' The alphabet characters to be replaced need to be written in capital letters and must originate from default alphabets, otherwise error will be introduced.
+#' This will occur even when the letter to be replaced won't occur in the sequence.
+#' 
+#' Created sequence will be deprived of \code{\link{cln})} subtype, if the original sequence possessed it.
+#' 
 #' 
 #' @examples 
 #' # Creating object, called sq to work on:
