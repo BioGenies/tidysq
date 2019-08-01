@@ -1,4 +1,4 @@
-#' Create complement sequence from nucseq object 
+#' Create complement sequence from nucsq object 
 #' 
 #' @description Creates the complementary sequence from a given RNA or DNA 
 #'  nucleotide sequence. The function differentiates between RNA and DNA sequences. 

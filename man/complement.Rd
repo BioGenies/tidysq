@@ -2,7 +2,7 @@
 % Please edit documentation in R/complement.R
 \name{complement}
 \alias{complement}
-\title{Create complement sequence from nucseq object}
+\title{Create complement sequence from nucsq object}
 \usage{
 complement(nucsq, is_dna = NULL)
 }
@@ -19,20 +19,21 @@ if is \code{FALSE}, sequences cannot contain 'T' (thymine). If
 built of complementary nucleotides to entered sequence.
 }
 \description{
-Create complementary sequence from given nucleoide sequence 
-according to complementarity.
+Creates the complementary sequence from a given RNA or DNA 
+ nucleotide sequence. The function differentiates between RNA and DNA sequences.
 }
 \details{
-This function allows obtaining  complement sequence which is created by 
+This function allows obtaining complement sequence which is created by 
 matching elements (nucleotides) with complementarity to input nucsq object. If 
 \code{is_dna = TRUE} entered sequence is DNA. If \code{is_dna = FALSE} entered 
-sequence is RNA. By default the sequence type is not specified and function
-needs to guess which type of sequence was entered. If sequence contain 'U' without 
-'T' the type will be set to RNA. If sequence contain 'T' without 'U' the type will 
-be set to dna. If both 'U' and 'T' are present in the sequence
-or sequence contains 'A' (adenine), but doesn't contain neither 'T' nor 'U'
-or logical indicating is typed wrong (i.e., when sequence contain 'U' and logical 
-indicating is set to DNA) error will appear.
+sequence is RNA. By default the sequence type is not specified and the function
+tries to guess which type of sequence was entered. If sequence contain 'U' without 
+'T' the type will be set to RNA. If a sequence contains 'T' (thymine) without 
+'U' (uracil), the type is set to dna. An error is displayed if both 'T' and 'U' 
+are present in the sequence or if the sequence contains 'A' (adenine). If the 
+sequence does not contain 'T' or 'U' or the logical specification is wrong 
+(i.e. if the sequence contains 'U' and the logical specification is set to DNA), 
+an error will also be returned
 Both RNA and DNA sequences can be rewritten to complementary sequence.
 }
 \examples{
@@ -43,7 +44,6 @@ nuc_dna_sequence <- construct_sq(c("ACTGCTG", "CTTAGA",
                                    "CCCT", "CTGAATGT"), type = "nuc")
 nuc_rna_sequence <- construct_sq(c("ACUGCUG", "CUUAGA", 
                                    "CCCU", "CUGAAUGU"), type = "nuc")
-                                   
                                    
 # Sequences are now ready to be used as matrices for creating complementary sequences.
 # Get an overview of the sequences:
