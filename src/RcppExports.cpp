@@ -97,6 +97,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// nc_read_fasta_file
+Rcpp::List nc_read_fasta_file(std::string file, bool is_ami, bool is_clean);
+RcppExport SEXP _tidysq_nc_read_fasta_file(SEXP fileSEXP, SEXP is_amiSEXP, SEXP is_cleanSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type file(fileSEXP);
+    Rcpp::traits::input_parameter< bool >::type is_ami(is_amiSEXP);
+    Rcpp::traits::input_parameter< bool >::type is_clean(is_cleanSEXP);
+    rcpp_result_gen = Rcpp::wrap(nc_read_fasta_file(file, is_ami, is_clean));
+    return rcpp_result_gen;
+END_RCPP
+}
 // unpack_raws
 Rcpp::RawVector unpack_raws(Rcpp::RawVector packed, const unsigned short alph_size);
 RcppExport SEXP _tidysq_unpack_raws(SEXP packedSEXP, SEXP alph_sizeSEXP) {
@@ -218,6 +231,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_nc_pack_nuc", (DL_FUNC) &_tidysq_nc_pack_nuc, 1},
     {"_tidysq_nc_pack_cami", (DL_FUNC) &_tidysq_nc_pack_cami, 1},
     {"_tidysq_nc_pack_ami", (DL_FUNC) &_tidysq_nc_pack_ami, 1},
+    {"_tidysq_nc_read_fasta_file", (DL_FUNC) &_tidysq_nc_read_fasta_file, 3},
     {"_tidysq_unpack_raws", (DL_FUNC) &_tidysq_unpack_raws, 2},
     {"_tidysq_unpack_ints", (DL_FUNC) &_tidysq_unpack_ints, 2},
     {"_tidysq_unpack_chars", (DL_FUNC) &_tidysq_unpack_chars, 3},
