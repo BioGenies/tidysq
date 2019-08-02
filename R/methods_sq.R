@@ -47,12 +47,6 @@ is.untsq <- function(x) {
   tryCatch({validate_untsq(x); TRUE}, error = function(e) FALSE)
 }
 
-#' @exportMethod is simsq
-#' @export
-is.simsq <- function(x) {
-  tryCatch({validate_simsq(x); TRUE}, error = function(e) FALSE)
-}
-
 #' @exportMethod is atpsq
 #' @export
 is.atpsq <- function(x) {
@@ -90,7 +84,6 @@ print.sq <- function(x, ...) {
     sqclass <- paste0(c(amisq = "ami (amino acids)", 
                         nucsq = "nuc (nucleotides)", 
                         untsq = "unt (unspecified type)", 
-                        simsq = "sim (simplified alphabet)",
                         atpsq = "atp (atypical alphabet)")[sqclass], cln_msg, " sequences vector:\n")
   }
   
