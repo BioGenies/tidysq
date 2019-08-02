@@ -148,14 +148,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // unpack_string
-Rcpp::CharacterVector unpack_string(Rcpp::RawVector packed, Rcpp::CharacterVector alph, const char na_char);
+Rcpp::CharacterVector unpack_string(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_char);
 RcppExport SEXP _tidysq_unpack_string(SEXP packedSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type packed(packedSEXP);
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
-    Rcpp::traits::input_parameter< const char >::type na_char(na_charSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type na_char(na_charSEXP);
     rcpp_result_gen = Rcpp::wrap(unpack_string(packed, alph, na_char));
     return rcpp_result_gen;
 END_RCPP

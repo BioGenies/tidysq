@@ -344,7 +344,7 @@ Rcpp::CharacterVector unpack_chars(Rcpp::RawVector packed,
 // [[Rcpp::export]]
 Rcpp::CharacterVector unpack_string(Rcpp::RawVector packed,
                               Rcpp::CharacterVector alph,
-                              const char na_char) {
+                              Rcpp::CharacterVector na_char) {
   Rcpp::CharacterVector unpacked = unpack_chars(packed, alph, na_char);
   std::string ret = Rcpp::collapse(unpacked);
   return ret;
