@@ -76,6 +76,7 @@ is.atpsq <- function(x) {
 #' @importFrom crayon blue
 #' @importFrom crayon silver
 #' @importFrom crayon green
+#' @importFrom crayon col_nchar
 #' @exportMethod print sq
 #' @export
 print.sq <- function(x,  
@@ -94,24 +95,43 @@ print.sq <- function(x,
   sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .debitify_sq(sq_cut, "char")
   
+  na_char <- .get_na_char()
+  if (use_color) sq_cut <- lapply(sq_cut, function(s) {s[s == na_char] <- silver(na_char); s})
+  
   inds_width <- nchar(num_lines) + 2
-  inds <- format(paste0("[", 1:num_lines, "]"),
+  p_inds <- format(paste0("[", 1:num_lines, "]"),
               
                     width = inds_width, justify = "right")
   
   lens <- .get_lens(sq)
   lens_width <- max(nchar(lens)) + 2
-  lens <- paste0("<", lens, ">")
+  p_lens <- paste0("<", lens, ">")
+  if (use_color) p_lens <- blue(p_lens)
   
-  sq_cut <- lapply(1:num_lines, function(i) {
+  needs_dots <- rep(FALSE, num_lines)
+  
+  for (i in 1:num_lines) {
     s <- sq_cut[[i]]
-    s[cumsum(nchar(s)) + (0:(length(s) - 1))*nchar(letters_sep) < p_width - nchar(lens[i]) - nchar(inds[i]) - 2]
-  })
-  p_body <- sapply(sq_cut, function(s) paste(s, collapse = letters_sep))
-  spaces <- sapply(p_width - nchar(p_body) - nchar(inds) - nchar(lens) - 2, function(l) paste0(rep(" ", l), collapse = ""))
-  p_body <- paste0(p_body, spaces, lens)
+    cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
+    res_lens <- p_width - col_nchar(p_lens[i]) - nchar(p_inds[i]) - 2
+    s <- s[cum_lens < res_lens]
+    n <- length(s)
+    if (n < lens[i]) {
+      s <- s[cum_lens[1:n] < res_lens - 3]
+      needs_dots[i] <- TRUE
+    }
+    sq_cut[[i]] <- s
+  }
   
-  p_body <- paste(inds, p_body, collapse = "\n")
+  p_body <- sapply(sq_cut, function(s) paste(s, collapse = letters_sep))
+  if (use_color) p_body <- green(p_body)
+  p_dots <- ifelse(needs_dots, "...", "")
+  if (use_color) p_dots <- silver(p_dots)
+  p_spaces <- sapply(p_width - col_nchar(p_body) - nchar(p_inds) - 
+                       col_nchar(p_lens) - col_nchar(p_dots) - 2, 
+                     function(l) paste0(rep(" ", l), collapse = ""))
+  
+  p_body <- paste0(p_inds, " ", p_body, p_dots, p_spaces, " ", p_lens, collapse = "\n")
   header <- .get_print_header(sq)
   footer <- .get_print_footer(x, num_lines)
   cat(header, p_body, footer, sep = "\n")
