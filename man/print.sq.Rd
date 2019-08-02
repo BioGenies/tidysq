@@ -49,14 +49,8 @@ print(construct_sq(c("afsfd", "", "adfq2", "fasfas", "")))
 # Explicit printing of the object with NA element:
 print(construct_sq(c("afsfd", NA, "adfq2", NA, "")))
 
-# Explicit printing of the simplified object:
-enc <- c(A = "a", B = "a", C = "a", D = "a", E = "a", F = "b", G = "b", 
-         H = "b", I = "c", J = "c", K = "c", L = "c", M = "c", N = "c", 
-         O = "c", P = "d", Q = "d", R = "d", S = "d", T = "d", U = "d", 
-V = "d", W = "d", X = "d", Y = "d", Z = "d", `-` = "d")
-print(simplify(sq, enc))
  
 }
 \seealso{
-\link{sq} \link{clean} \link{simplify}
+\link{sq} \link{clean}
 }
