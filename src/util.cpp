@@ -53,31 +53,14 @@ Rcpp::RawVector match_char(Rcpp::RawVector letters,
 // [[Rcpp::export]]
 Rcpp::CharacterVector match_raws(Rcpp::RawVector letters,
                                  Rcpp::CharacterVector alph,
-                                 const char na_char) {
+                                 Rcpp::CharacterVector na_char) {
   Rcpp::CharacterVector ret(letters.size());
   unsigned char na_val = get_na_val(get_alph_size(alph));
   for (int i = 0; i < letters.size(); i++) {
     if (letters[i] == na_val) {
-      ret[i] = (char) na_char;
+      ret[i] = na_char[0];
     } else {
       ret[i] = alph[letters[i] - 1];
-    }
-  }
-
-  return ret;
-}
-
-// [[Rcpp::export]]
-Rcpp::RawVector match_raw(Rcpp::RawVector letters,
-                                Rcpp::CharacterVector alph,
-                                const char na_char) {
-  Rcpp::RawVector ret(letters.size());
-  unsigned char na_val = get_na_val(get_alph_size(alph));
-  for (int i = 0; i < letters.size(); i++) {
-    if (letters[i] == na_val) {
-      ret[i] = na_char;
-    } else {
-      ret[i] = alph[letters[i] - 1][0];
     }
   }
 

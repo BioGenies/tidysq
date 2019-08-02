@@ -4,10 +4,7 @@
 unsigned short get_alph_size(Rcpp::CharacterVector alph);
 Rcpp::CharacterVector match_raws(Rcpp::RawVector letters,
                                  Rcpp::CharacterVector alph,
-                                 const char na_char);
-Rcpp::RawVector match_raw(Rcpp::RawVector letters,
-                          Rcpp::CharacterVector alph,
-                          const char na_char);
+                                 Rcpp::CharacterVector na_char);
 // [[Rcpp::export]]
 Rcpp::RawVector unpack_raws(Rcpp::RawVector packed, 
                             const unsigned short alph_size) {
@@ -332,11 +329,10 @@ Rcpp::IntegerVector unpack_ints(Rcpp::RawVector packed,
   return ret;
 }
 
-//doesn't return NA's correctly
 // [[Rcpp::export]]
 Rcpp::CharacterVector unpack_chars(Rcpp::RawVector packed,
                                    Rcpp::CharacterVector alph,
-                                   const char na_char) {
+                                   Rcpp::CharacterVector na_char) {
   if ((packed.size() == 0) or 
       ((packed.size() == 1) and 
          Rcpp::is_true(Rcpp::all(packed[0] == Rcpp::RawVector(1))))) return Rcpp::CharacterVector(0);

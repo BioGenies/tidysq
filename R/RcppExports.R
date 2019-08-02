@@ -69,7 +69,3 @@ match_raws <- function(letters, alph, na_char) {
     .Call('_tidysq_match_raws', PACKAGE = 'tidysq', letters, alph, na_char)
 }
 
-match_raw <- function(letters, alph, na_char) {
-    .Call('_tidysq_match_raw', PACKAGE = 'tidysq', letters, alph, na_char)
-}
-
