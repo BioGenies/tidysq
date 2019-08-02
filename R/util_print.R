@@ -154,3 +154,4 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   
   new_ornament(row, width = width, align = "left")
 }
+

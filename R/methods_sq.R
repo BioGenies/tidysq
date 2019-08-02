@@ -73,31 +73,48 @@ is.atpsq <- function(x) {
   as.character(e1) == e2
 }
 
+#' @importFrom crayon blue
+#' @importFrom crayon silver
+#' @importFrom crayon green
 #' @exportMethod print sq
 #' @export
-print.sq <- function(x, ...) {
-  sqclass <- .get_sq_subclass(x)
-  cln_msg <- if (.is_cleaned(x)) " (cleaned)" else ""
-  na_char <- .get_na_char()
-  
-  if (length(sqclass) != 1) {
-    sqclass <- "sq (improper subtype!):\n"
-  } else {
-    sqclass <- paste0(c(amisq = "ami (amino acids)", 
-                        nucsq = "nuc (nucleotides)", 
-                        untsq = "unt (unspecified type)", 
-                        atpsq = "atp (atypical alphabet)")[sqclass], cln_msg, " sequences vector:\n")
-  }
-  
+print.sq <- function(x,  
+                     max_length = NULL,
+                     max_sequences = getOption("tidysq_max_print_sequences"),
+                     use_color = getOption("tidysq_colorful_sq_print"), 
+                     letters_sep = NULL) {
   alph <- .get_alph(x)
-  decoded <- .debitify_sq(x, "string")
-  decoded <- sapply(decoded, function(s) ifelse(s == "" , "<NULL sq>", s))
-  max_width <- max(nchar(1:length(x)))
-  inds <- paste0("[", 1:length(x), "] ")
-  cat(sqclass, paste0(format(inds, width = max_width + 3, justify = "right"), 
-                      decoded, 
-                      collapse = "\n"), 
-      "\n", sep = "")
+  if (is.null(letters_sep)) {
+    letters_sep <- if (all(nchar(alph) == 1)) "" else " "
+  }
+  p_width <- getOption("width")
+  
+  num_lines <- min(max_sequences, length(x))
+  sq <- x[1:num_lines]
+  sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
+  sq_cut <- .debitify_sq(sq_cut, "char")
+  
+  inds_width <- nchar(num_lines) + 2
+  inds <- format(paste0("[", 1:num_lines, "]"),
+              
+                    width = inds_width, justify = "right")
+  
+  lens <- .get_lens(sq)
+  lens_width <- max(nchar(lens)) + 2
+  lens <- paste0("<", lens, ">")
+  
+  sq_cut <- lapply(1:num_lines, function(i) {
+    s <- sq_cut[[i]]
+    s[cumsum(nchar(s)) + (0:(length(s) - 1))*nchar(letters_sep) < p_width - nchar(lens[i]) - nchar(inds[i]) - 2]
+  })
+  p_body <- sapply(sq_cut, function(s) paste(s, collapse = letters_sep))
+  spaces <- sapply(p_width - nchar(p_body) - nchar(inds) - nchar(lens) - 2, function(l) paste0(rep(" ", l), collapse = ""))
+  p_body <- paste0(p_body, spaces, lens)
+  
+  p_body <- paste(inds, p_body, collapse = "\n")
+  header <- .get_print_header(sq)
+  footer <- .get_print_footer(x, num_lines)
+  cat(header, p_body, footer, sep = "\n")
 }
 
 #' @exportMethod print encsq
@@ -117,4 +134,32 @@ print.encsq <- function(x, ...) {
                       decoded, 
                       collapse = "\n"), 
       "\n", sep = "")
+}
+
+.cut_sq <- function(sq, num_oct) {
+  alph_size <- tidysq:::.get_alph_size(tidysq:::.get_alph(sq))
+  ret <- lapply(sq, function(s) if (length(s) < num_oct * alph_size) s 
+         else s[1:(num_oct * alph_size)])
+  .set_class_alph(ret, sq)
+}
+
+.get_print_header <- function(sq) {
+  type <- .get_sq_type(sq)
+  if (length(type) != 1) {
+    "sq (improper subtype!):"
+  } else {
+    type_msg <- switch(type,
+                       ami = "ami (amino acids)",
+                       nuc = "nuc (nucleotides)",
+                       unt = "unt (unspecified type)",
+                       atp = "atp (atypical alphabet)")
+    clean_msg <- if (.is_cleaned(sq)) ", cln (cleaned)" else ""
+    paste0(type_msg, clean_msg, " sequences list:")
+  }
+}
+
+.get_print_footer <- function(sq, num_lines) {
+  if (length(sq) > num_lines) 
+    paste0("printed ", num_lines, " out of ", length(sq), "")
+  else ""
 }
