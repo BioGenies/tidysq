@@ -20,7 +20,9 @@ as.character.sq <- function(x, ...) {
 as.matrix.sq <- function(x, ...) {
   x <- .debitify_sq(x, "char")
   max_len <- max(lengths(x))
-  do.call(rbind, lapply(x, function(row) row[1:max_len]))
+  ret <- do.call(rbind, lapply(x, function(row) row[1:max_len]))
+  ret[ret == .get_na_char()] <- NA
+  ret
 }
 
 #' @exportMethod is sq
