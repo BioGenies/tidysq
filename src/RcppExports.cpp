@@ -148,7 +148,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // unpack_string
-Rcpp::RawVector unpack_string(Rcpp::RawVector packed, Rcpp::CharacterVector alph, const char na_char);
+Rcpp::CharacterVector unpack_string(Rcpp::RawVector packed, Rcpp::CharacterVector alph, const char na_char);
 RcppExport SEXP _tidysq_unpack_string(SEXP packedSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

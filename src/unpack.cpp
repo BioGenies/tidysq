@@ -1,4 +1,5 @@
 #include <Rcpp.h>
+#include <string>
 
 unsigned short get_alph_size(Rcpp::CharacterVector alph);
 Rcpp::CharacterVector match_raws(Rcpp::RawVector letters,
@@ -345,13 +346,10 @@ Rcpp::CharacterVector unpack_chars(Rcpp::RawVector packed,
 }
 
 // [[Rcpp::export]]
-Rcpp::RawVector unpack_string(Rcpp::RawVector packed,
+Rcpp::CharacterVector unpack_string(Rcpp::RawVector packed,
                               Rcpp::CharacterVector alph,
                               const char na_char) {
-  if ((packed.size() == 0) or 
-      ((packed.size() == 1) and 
-         Rcpp::is_true(Rcpp::all(packed[0] == Rcpp::RawVector(1))))) return Rcpp::RawVector(0);
-  Rcpp::RawVector unpacked = unpack_raws(packed, get_alph_size(alph));
-  Rcpp::RawVector ret = match_raw(unpacked, alph, na_char);
+  Rcpp::CharacterVector unpacked = unpack_chars(packed, alph, na_char);
+  std::string ret = Rcpp::collapse(unpacked);
   return ret;
 }
