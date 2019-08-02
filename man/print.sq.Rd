@@ -16,9 +16,9 @@ Prints input \code{\link{sq}} object in a human-friendly form.
 }
 \details{
 \code{Print} checks if the input \code{\link{sq}} object is cleaned and includes this information alongside with type in the printed message. 
-This method is used by default in each case of calling the \code{\link{sq}} object.
-
 All \code{\link{NA}} values are replaced with '*' and empty sequences are distinguished.
+
+\code{Print} method is used by default in each case of calling the \code{\link{sq}} object.
 
 This is overloaded function from base package. It is selected when \code{\link{sq}} object is used as a parameter for print function. To see the generic function page, 
 check \link[here]{https://www.rdocumentation.org/packages/base/versions/3.6.1/topics/print}.
@@ -28,28 +28,28 @@ check \link[here]{https://www.rdocumentation.org/packages/base/versions/3.6.1/to
 # Creating sq object to work on:
 sq <- construct_sq(c("fafasfasfFSA", "ygagayagfa", "adsDaf"), type = "ami")
 
-# Printing without implicit function calling:
+# Printing without explicit function calling:
 sq
 
-# Printing with implicit function calling:
+# Printing with explicit function calling:
 print(sq)
 
-# Implicit printing of the uncleaned object:
+# Explicit printing of the uncleaned object:
 print(construct_sq("ACTAGAGTGATAGTAGGAGTAGA", type = "nuc"))
 
-# Implicit printing of the cleaned object:
+# Explicit printing of the cleaned object:
 print(clean(construct_sq("ACTAGAGTGATAGTAGGAGTAGA", type = "nuc")))
 
-# Implicit printing of the object without defined type:
+# Explicit printing of the object without defined type:
 print(construct_sq(c("afsfd", "q243faadfa", "afsw34gesfv", "adfq2", "fasfas", "g'qp9u2r3'b;")))
 
-# Implicit printing of the object with empty sequence:
+# Explicit printing of the object with empty sequence:
 print(construct_sq(c("afsfd", "", "adfq2", "fasfas", "")))
 
-# Implicit printing of the object with NA element:
+# Explicit printing of the object with NA element:
 print(construct_sq(c("afsfd", NA, "adfq2", NA, "")))
 
-# Implicit printing of the simplified object:
+# Explicit printing of the simplified object:
 enc <- c(A = "a", B = "a", C = "a", D = "a", E = "a", F = "b", G = "b", 
          H = "b", I = "c", J = "c", K = "c", L = "c", M = "c", N = "c", 
          O = "c", P = "d", Q = "d", R = "d", S = "d", T = "d", U = "d", 
