@@ -17,9 +17,6 @@
 #' One letter of the alphabet may be replaced by a multiple characters. The function allows to replace single, 
 #' multiple letters or even a whole alphabet.
 #' 
-#' Sometimes one needs to introduce artificial amino acids or nucleotides into the sequence, replacing
-#' others or ambiguous ones. 
-#' 
 #' The alphabet characters to be replaced need to be written in capital letters and must originate from default alphabets, otherwise error will be introduced.
 #' Multiple string of letters to be substituted (ex. \item{c(AHG = "replacement")}) will also produce an error.
 #' 
@@ -27,6 +24,8 @@
 #' 
 #' Created sequence will be deprived of \code{\link{cln})} subtype, if the original sequence possessed it.
 #' This will also occur when the letter to be replaced will not be found in the sequence. It remain unchanged but will lose subclass.
+#' 
+#' The newly constructed will have a new class \code{\link{cln})}, representing atypical alphabet.
 #' 
 #' 
 #' @examples 
