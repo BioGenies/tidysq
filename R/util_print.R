@@ -95,28 +95,34 @@ print.sq <- function(x,
   needs_dots <- rep(FALSE, num_lines)
   
   for (i in 1:num_lines) {
-    s <- sq_cut[[i]]
-    # we count how much characters can we print by counting cumulative extent
-    cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
-    
-    #max lenght of this line is p_width minus lenghts of lens and inds
-    res_lens <- p_width - col_nchar(p_lens[i]) - nchar(p_inds[i]) - 2
-    
-    #we remove characters we cannot print
-    s <- s[cum_lens < res_lens]
-    n <- length(s)
-    
-    #if printed sequence is shorter than original, we need also space for dots
-    if (n < lens[i]) {
-      s <- s[cum_lens[1:n] < res_lens - 3]
-      needs_dots[i] <- TRUE
+    if (lens[i] == 0) {
+      sq_cut[[i]] <- "<NULL sq>"
+    } else {
+      s <- sq_cut[[i]]
+      # we count how much characters can we print by counting cumulative extent
+      cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
+      
+      #max lenght of this line is p_width minus lenghts of lens and inds
+      res_lens <- p_width - col_nchar(p_lens[i]) - nchar(p_inds[i]) - 2
+      
+      #we remove characters we cannot print
+      s <- s[cum_lens < res_lens]
+      n <- length(s)
+      
+      #if printed sequence is shorter than original, we need also space for dots
+      if (n < lens[i]) {
+        s <- s[cum_lens[1:n] < res_lens - 3]
+        needs_dots[i] <- TRUE
+      }
+      sq_cut[[i]] <- s
     }
-    sq_cut[[i]] <- s
   }
   
   #paste sequene
   p_body <- sapply(sq_cut, function(s) paste(s, collapse = letters_sep))
-  if (use_color) p_body <- green(p_body)
+  if (use_color) p_body <- sapply(1:num_lines, function(i) {
+    if (lens[i] == 0) silver(p_body[i]) else green(p_body[i])
+  })
   
   #dots
   p_dots <- ifelse(needs_dots, "...", "")
