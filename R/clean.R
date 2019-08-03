@@ -18,25 +18,30 @@
 #' from sequences in sq object. Ambiguous letters of the amino acid alphabet 
 #' are: B, J, O, U, X, Z, and of the nucleotide alphabet: W, S, M, K, R, 
 #' Y, B, D, H, V, N. They are marked as 'amb' in \code{\link{aminoacids_df}} 
-#' and \code{\link{nucleotides_df}} respectively.
-#' 
+#' and \code{\link{nucleotides_df}} respectively. \code{NULL sq} values can
+#' be identified using \code{\link{is_null_sq}} function. 
 #'
 #' @examples 
-#' # creating objects to work on:
+#' # Creating objects to work on:
 #' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
 #'                          "NYERTGHLI", "MAYXXXIALN"), type = "ami")
 #' sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
 #'                          "TGACGAGCTTA", "ACTNNAGCN"), type = "nuc")
 #' 
-#' # removing sequences with ambiguous elements:
+#' # Removing sequences with ambiguous elements:
 #' clean(sq_ami)
 #' clean(sq_nuc)
 #' 
-#' # removing ambiguous elements from sequences:
+#' # Removing ambiguous elements from sequences:
 #' clean(sq_ami, only_elements = TRUE)
 #' clean(sq_nuc, only_elements = TRUE)
 #' 
-#' @seealso sq clnsq aminoacids_df nucleotides_df
+#' # Testing for presence of empty sequences after cleaning:
+#' cln_sq <- clean(sq_ami)
+#' is_null_sq(cln_sq)
+#' 
+#' 
+#' @seealso sq clnsq aminoacids_df nucleotides_df is_null_sq
 #' @exportClass clnsq
 #' @export
 clean <- function(sq, only_elements = FALSE) {
