@@ -89,7 +89,7 @@
 #' 
 #' @seealso sq atpsq
 #' @export
-#' 
+
 substitute_letters <- function(sq, encoding) {
   validate_sq(sq)
   
@@ -99,39 +99,21 @@ substitute_letters <- function(sq, encoding) {
     stop("all names of 'encoding' has to be letters from alphabet (elements of 'alphabet' attribute of 'sq')")
   }
   
-  inds_fun <- alph
-  inds_fun[match(names(encoding), alph)] <- encoding
-  new_alph <- na.omit(unique(inds_fun))
-  names(inds_fun) <- as.character(1:length(alph))
-  inds_fun <- match(inds_fun, new_alph)
-  inds_fun[is.na(inds_fun)] <- .get_na_val(new_alph)
+  names(alph) <- 1:length(alph)
+  alph_inds <- !(alph %in% names(encoding))
+  names(encoding) <- match(names(encoding), alph)
   
-  ret <- .apply_sq(sq, "int", "int", function(s) {
-    inds_fun[s]
-  })
+  transl_table <- c(alph[alph_inds], encoding)
+  new_alph <- na.omit(unique(transl_table))
+  inds_func <- match(transl_table, new_alph)
+  names(inds_func) <- names(transl_table)
+  
+  ret <- .recode_sq(sq, alph, new_alph, inds_func)
   if (.is_cleaned(sq)) {
     .handle_opt_txt("tidysq_subsitute_letters_cln",
                     "column passed to muatting had 'cln' subtype, output column doesn't have it")
   }
-  
-  ret <- .set_alph(ret, new_alph)
-  .set_class(ret, "atp")
+  class(ret) <- c("atpsq", "sq")
+  attr(ret, "alphabet") <- new_alph[!is.na(new_alph)]
+  ret
 }
-
-
-
-
-
-
-
-
-
-
-
-
-sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", "TIAALGNIIYRAIE", "NYERTGHLI", "MAYNNNIALN", "MN", "NAAAT"), type = "ami")
-enc_ami <- c(M = "Met", Q = "Gln", R = "Arg", D = "Asp", H = "His", K = "Lys", A = "Ala")
-substitute_letters(sq_ami, enc_ami)
-
-
-

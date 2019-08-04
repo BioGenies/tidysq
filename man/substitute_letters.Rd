@@ -2,7 +2,7 @@
 % Please edit documentation in R/substitute_letters.R
 \name{substitute_letters}
 \alias{substitute_letters}
-\title{Substitute default amino acid or nucleic acid alphabet with a custom encoding}
+\title{Substitute ambiguous/extraordinary letters in nucleic or amino acid sequence or replace default alphabet with a custom encoding}
 \usage{
 substitute_letters(sq, encoding)
 }
@@ -11,21 +11,32 @@ substitute_letters(sq, encoding)
 
 \item{indices}{\code{encoding} vector of letters to be replaced together with their replacements.
 One letter can be replaced with multiple symbols. 
-To perform substitution create a named vector \item{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.}
+To perform substitution create a named vector ex. \item{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.}
 }
 \value{
 \code{\link{atpsq}} object of the same type as input sq with replaced alphabet, defined by user.
 }
 \description{
-Replace default amino acid or nucleic acid letters in a sequence, 
-stored in \code{\link{sq}} object, with a custom encoding. 
-Selected letters in the amino/nucleic acid sequence are replaced 
-by a user-defined symbols.
+1) Replace ambigous/extraordinary letters in nucleic or amino acid sequence, 
+stored in \code{\link{sq}} object, with the ones that are compliant with 
+the IUPAC standard, ones that are user-defined or with \code{NA} values.
+
+2) Replace default amino acid letters in a sequence with a custom encoding 
+to create simplified alphabets.
+
+The function is only used to replace letters in the alphabet. 
+It cannot be used to merge surrounding characters.
 }
 \details{
-\code{substitute_letters} allows to replace desired letters in the amino acid or nucleic acid sequence.
-One letter of the alphabet may be replaced by a multiple characters. The function allows to replace single, 
-multiple letters or even a whole alphabet.
+\code{substitute_letters} allows to replace ambigous/extraordinary 
+letters in nucleic or amino acid sequence with user-defined or IUPAC symbols. 
+Letters can also be replaced with \code{NA} values, so that they can be later 
+removed, from the sequence, by \code{clean} function.
+
+\code{substitute_letters} can be used to replace default amino acid letters 
+with encodings. They can be user-defined or be derived from various simplified alphabets.
+
+One letter of the alphabet may be replaced by a multiple characters. 
 
 The alphabet characters to be replaced need to be written in capital letters and must originate from default alphabets, otherwise error will be introduced.
 Multiple string of letters to be substituted (ex. \item{c(AHG = "replacement")}) will also produce an error.
