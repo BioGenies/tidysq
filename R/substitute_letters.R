@@ -1,21 +1,31 @@
-#' Substitute default amino acid or nucleic acid alphabet with a custom encoding
+#' Substitute ambiguous/extraordinary letters in nucleic or amino acid sequence or replace default alphabet with a custom encoding
 #' 
-#' @description Replace default amino acid or nucleic acid letters in a sequence, 
-#' stored in \code{\link{sq}} object, with a custom encoding. 
-#' Selected letters in the amino/nucleic acid sequence are replaced 
-#' by a user-defined symbols.
+#' @description 1) Replace ambigous/extraordinary letters in nucleic or amino acid sequence, 
+#' stored in \code{\link{sq}} object, with the ones that are compliant with 
+#' the IUPAC standard, ones that are user-defined or with \code{NA} values.
 #' 
+#' 2) Replace default amino acid letters in a sequence with a custom encoding 
+#' to create simplified alphabets.
+#' 
+#' The function is only used to replace letters in the alphabet. 
+#' It cannot be used to merge surrounding characters.
 #' 
 #' @param sq \code{\link{sq}} object.
 #' @param indices \code{encoding} vector of letters to be replaced together with their replacements.
 #' One letter can be replaced with multiple symbols. 
-#' To perform substitution create a named vector \item{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
+#' To perform substitution create a named vector ex. \item{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
 #' 
 #' @return \code{\link{atpsq}} object of the same type as input sq with replaced alphabet, defined by user.
 #' 
-#' @details \code{substitute_letters} allows to replace desired letters in the amino acid or nucleic acid sequence.
-#' One letter of the alphabet may be replaced by a multiple characters. The function allows to replace single, 
-#' multiple letters or even a whole alphabet.
+#' @details \code{substitute_letters} allows to replace ambigous/extraordinary 
+#' letters in nucleic or amino acid sequence with user-defined or IUPAC symbols. 
+#' Letters can also be replaced with \code{NA} values, so that they can be later 
+#' removed, from the sequence, by \code{clean} function.
+#' 
+#' \code{substitute_letters} can be used to replace default amino acid letters 
+#' with encodings. They can be user-defined or be derived from various simplified alphabets.
+#' 
+#' One letter of the alphabet may be replaced by a multiple characters. 
 #' 
 #' The alphabet characters to be replaced need to be written in capital letters and must originate from default alphabets, otherwise error will be introduced.
 #' Multiple string of letters to be substituted (ex. \item{c(AHG = "replacement")}) will also produce an error.
@@ -79,7 +89,7 @@
 #' 
 #' @seealso sq atpsq
 #' @export
-
+#' 
 substitute_letters <- function(sq, encoding) {
   validate_sq(sq)
   
@@ -89,21 +99,39 @@ substitute_letters <- function(sq, encoding) {
     stop("all names of 'encoding' has to be letters from alphabet (elements of 'alphabet' attribute of 'sq')")
   }
   
-  names(alph) <- 1:length(alph)
-  alph_inds <- !(alph %in% names(encoding))
-  names(encoding) <- match(names(encoding), alph)
+  inds_fun <- alph
+  inds_fun[match(names(encoding), alph)] <- encoding
+  new_alph <- na.omit(unique(inds_fun))
+  names(inds_fun) <- as.character(1:length(alph))
+  inds_fun <- match(inds_fun, new_alph)
+  inds_fun[is.na(inds_fun)] <- .get_na_val(new_alph)
   
-  transl_table <- c(alph[alph_inds], encoding)
-  new_alph <- na.omit(unique(transl_table))
-  inds_func <- match(transl_table, new_alph)
-  names(inds_func) <- names(transl_table)
-  
-  ret <- .recode_sq(sq, alph, new_alph, inds_func)
+  ret <- .apply_sq(sq, "int", "int", function(s) {
+    inds_fun[s]
+  })
   if (.is_cleaned(sq)) {
     .handle_opt_txt("tidysq_subsitute_letters_cln",
                     "column passed to muatting had 'cln' subtype, output column doesn't have it")
   }
-  class(ret) <- c("atpsq", "sq")
-  attr(ret, "alphabet") <- new_alph[!is.na(new_alph)]
-  ret
+  
+  ret <- .set_alph(ret, new_alph)
+  .set_class(ret, "atp")
 }
+
+
+
+
+
+
+
+
+
+
+
+
+sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", "TIAALGNIIYRAIE", "NYERTGHLI", "MAYNNNIALN", "MN", "NAAAT"), type = "ami")
+enc_ami <- c(M = "Met", Q = "Gln", R = "Arg", D = "Asp", H = "His", K = "Lys", A = "Ala")
+substitute_letters(sq_ami, enc_ami)
+
+
+
