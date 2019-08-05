@@ -40,6 +40,50 @@ type_sum.clnsq <- function(x) {
   paste0("(c)", NextMethod())
 }
 
+#' Print sq object
+#' 
+#' @description Prints input \code{\link{sq}} object in a human-friendly form.  
+#' 
+#' @details \code{Print} checks if the input \code{\link{sq}} object is cleaned and includes this information alongside with type in the printed message. 
+#' All \code{\link{NA}} values are replaced with '*' and empty sequences are distinguished.
+#' 
+#' \code{Print} method is used by default in each case of calling the \code{\link{sq}} object.
+#' 
+#' This is overloaded function from base package. It is selected when \code{\link{sq}} object is used as a parameter for print function. To see the generic function page, 
+#' check \link[here]{https://www.rdocumentation.org/packages/base/versions/3.6.1/topics/print}.
+#' 
+#' @param x \code{\link{sq}} object.
+#' @param ... further arguments passed to or from other methods.
+#' 
+#' @examples
+#' 
+#' # Creating sq object to work on:
+#' sq <- construct_sq(c("fafasfasfFSA", "ygagayagfa", "adsDaf"), type = "ami")
+#' 
+#' # Printing without explicit function calling:
+#' sq
+#' 
+#' # Printing with explicit function calling:
+#' print(sq)
+#' 
+#' # Explicit printing of the uncleaned object:
+#' print(construct_sq("ACTAGAGTGATAGTAGGAGTAGA", type = "nuc"))
+#'
+#' # Explicit printing of the cleaned object:
+#' print(clean(construct_sq("ACTAGAGTGATAGTAGGAGTAGA", type = "nuc")))
+#' 
+#' # Explicit printing of the object without defined type:
+#' print(construct_sq(c("afsfd", "q243faadfa", "afsw34gesfv", "adfq2", "fasfas", "g'qp9u2r3'b;")))
+#' 
+#' # Explicit printing of the object with empty sequence:
+#' print(construct_sq(c("afsfd", "", "adfq2", "fasfas", "")))
+#' 
+#' # Explicit printing of the object with NA element:
+#' print(construct_sq(c("afsfd", NA, "adfq2", NA, "")))
+#' 
+#'  
+#' @seealso \link{sq} \link{clean} 
+#' 
 #' @importFrom crayon blue
 #' @importFrom crayon silver
 #' @importFrom crayon green
