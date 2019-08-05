@@ -31,6 +31,7 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
       .nonst_read_fasta(file, type, is_clean, non_standard)
     } else {
       alph <- find_alph(file)
+      if (!is.null(type) && type %in% c("ami", "nuc")) alph <- toupper(alph)
       .check_alph_matches_type(alph, type, is_clean)
       
       if (is.null(type)) type <- .guess_type_by_alph(alph)
