@@ -107,3 +107,11 @@
   ret[act_out:(n+m)] <- (act_res <= n)
   ret
 }
+
+.get_readable_file <- function(file) {
+  if (!file.exists(file)) {
+    tmp <- tempfile()
+    download.file(file, tmp)
+    tmp
+  } else normalizePath(file)
+}

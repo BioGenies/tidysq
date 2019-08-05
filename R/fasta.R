@@ -14,10 +14,12 @@
 #' @export
 read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) {
   .check_file_is_char(file)
+  file <- .get_readable_file(file)
+  
   if(.is_no_check_mode()) {
     .check_nc_is_clean_in_TRUE_FALSE(is_clean)
     .check_nc_type_in_ami_nuc(type)
-    sqtibble <- nc_read_fasta_file(normalizePath(file), type == "ami", is_clean)
+    sqtibble <- nc_read_fasta_file(file, type == "ami", is_clean)
     class(sqtibble[["sq"]]) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq")
     attr(sqtibble[["sq"]], "alphabet") <- .get_standard_alph(type, is_clean)
     as_tibble(sqtibble)
