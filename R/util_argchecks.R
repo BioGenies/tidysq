@@ -4,6 +4,11 @@
     stop("'type' has to be NULL or one of 'unt', 'ami', 'nuc'")
 }
 
+.check_type_in_ami_nuc_unt <- function(type) {
+  if (!type %in% c("unt", "ami", "nuc")) 
+    stop("'type' has to be one of 'unt', 'ami', 'nuc'")
+}
+
 .check_nc_type_in_ami_nuc <- function(type) {
   if (missing(type) ||
       !type %in% c("nuc", "ami"))
@@ -76,4 +81,29 @@
       !(length(file) == 1)) {
     stop("'file' has to be a string giving file to read from")
   }
+}
+
+.check_name_proper_char <- function(name) {
+  if (missing(name) ||
+      is.null(name) ||
+      !is.character(name) ||
+      any(is.na(name))) {
+    stop("'name' has to be a non-NULL character vector without NA's")
+  }
+}
+
+.check_nchar_proper_int <- function(nchar) {
+  if (!is.numeric(nchar) ||
+      (floor(nchar) != nchar) ||
+      (length(nchar) != 1) ||
+      is.na(nchar) || 
+      is.nan(nchar)|| 
+      !is.finite(nchar) ||
+      nchar <= 0) 
+    stop("'nchar' has to be positive integer indicating max number of elements of sequence in single line in file")
+}
+
+.check_eq_lens <- function(sq, name) {
+  if (length(sq) != length(name)) 
+    sstop("'name' has to have length equal to 'sq'")
 }

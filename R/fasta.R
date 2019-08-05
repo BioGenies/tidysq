@@ -52,28 +52,12 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
 #' @export
 write_fasta <- function(sq, name, file, nchar = 80) {
   validate_sq(sq)
-  if (missing(name) ||
-      !is.character(name) ||
-      any(is.null(name) | is.na(name)) ||
-      (length(name) != length(sq))) {
-    stop("'name' has to be a non-NULL character vector without NA's, of lenght equal to length of sq")
-  }
-  if (!is.character(file) ||
-      !(length(file) == 1)) {
-    stop("'file' has to be a string giving file to read from")
-  }
-  if (!is.numeric(nchar) ||
-      (floor(nchar) != nchar) ||
-      (length(nchar) != 1) ||
-      is.na(nchar) || 
-      is.nan(nchar)|| 
-      !is.finite(nchar) ||
-      nchar <= 0) {
-    stop("'nchar' has to be positive integer indicating max number of characters in single line in file")
-  }
+  .check_name_proper_char(name)
+  .check_file_is_char(file)
+  .check_nchar_proper_int(nchar)
+  .check_eq_lens(sq, name)
   
-  alph <- .get_alph(sq)
-  sq <- .debitify_sq(sq, alph)
+  sq <- .debitify_sq(sq, "char")
   char_vec <- unlist(lapply(1L:length(sq), function(i) {
     s <- sq[[i]]
     s <- lapply(split(s, floor((0:(length(s)-1))/nchar)), function(l) paste(l, collapse=""))
