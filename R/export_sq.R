@@ -7,8 +7,10 @@ export_sq <- function(sq, export_format, name) {
        (length(name) != length(sq)))) {
     stop("'name' has to be a non-NULL character vector without NA's, of length equal to length of sq")
   }
-  ami_formats <- c("seqinr::SeqFastaAA", "ape::AAbin", "Bioconductor::AAStringSet")
-  nuc_formats <- c("seqinr::SeqFastadna", "ape::DNAbin", "Bioconductor::DNAStringSet")
+  if (missing(name)) name = NULL
+  
+  ami_formats <- c("seqinr::SeqFastaAA", "ape::AAbin", "Biostrings::AAStringSet")
+  nuc_formats <- c("seqinr::SeqFastadna", "ape::DNAbin", "Biostrings::DNAStringSet")
   if (missing(export_format) ||
       !(export_format %in% c(ami_formats, nuc_formats))) {
     stop("you need to specify proper 'export_format'; check manual for possible formats")
@@ -23,39 +25,38 @@ export_sq <- function(sq, export_format, name) {
   }
   
   if (export_format %in% c("seqinr::SeqFastaAA", "seqinr::SeqFastadna")) {
-    if (!("seqinr" %in% installed.packages()[["Package"]])) {
-      stop("you need to install 'ape' package to export object to its formats")
+    if (!("seqinr" %in% rownames(installed.packages()))) {
+      stop("you need to install 'seqinr' package to export object to its formats")
     }
     if (type == "ami") {
-      seqinr::as.SeqFastaAA(strsplit(as.character(sq)), name = name)
+      ret <- lapply(.debitify_sq(sq, .get_alph(sq)), seqinr::as.SeqFastaAA)
+    } else if (type == "nuc") {
+      ret <- lapply(.debitify_sq(sq, .get_alph(sq)), seqinr::as.SeqFastadna)
     }
-    if (type == "nuc") {
-      seqinr::as.SeqFastadna(strsplit(as.character(sq)), name = name)
-    }
-  }
-  
-  if (export_format %in% c("ape::AAbin", "ape::DNAbin")) {
-    if (!("ape" %in% installed.packages()[["Package"]])) {
+    
+    if (!is.null(name)) {
+      setNames(lapply(1:length(ret), function(i) {
+        attr(ret[[i]], "name") <- name[i]
+        ret[[i]]
+      }), name)
+    } else ret
+  } else if (export_format %in% c("ape::AAbin", "ape::DNAbin")) {
+    if (!("ape" %in% rownames(installed.packages()))) {
       stop("you need to install 'ape' package to export object to its formats")
     } 
     if (type == "ami") {
-      ape::as.AAbin(setNames(as.list(as.character(sq)), name))
+      ape::as.AAbin(setNames(.debitify_sq(sq, .get_alph(sq)), name))
+    } else if (type == "nuc") {
+      ape::as.DNAbin(setNames(.debitify_sq(sq, .get_alph(sq)), name))
     }
-    if (type == "nuc") {
-      ape::as.DNAbin(setNames(as.list(as.character(sq)), name))
-    }
-  }
-  
-  if (export_format %in% c("ape::AAbin", "ape::DNAbin")) {
-    if (!("Biostrings" %in% installed.packages()[["Package"]])) {
-      stop("you need to install 'ape' package to export object to its formats")
+  } else if (export_format %in% c("Biostrings::AAStringSet", "Biostrings::DNAStringSet")) {
+    if (!("Biostrings" %in% rownames(installed.packages()))) {
+      stop("you need to install 'Biostrings' package to export object to its formats")
     } 
     if (type == "ami") {
       Biostrings::AAStringSet(setNames(sq, name))
-    }
-    if (type == "nuc") {
+    } else if (type == "nuc") {
       Biostrings::DNAStringSet(setNames(sq, name))
     }
   }
-  
 }

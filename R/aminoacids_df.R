@@ -1,7 +1,8 @@
 #' Amino acid abbreviations
 #' 
 #' A dataset containing the one- and three-letter codes, and full names of 
-#' amino acids according to the IUPAC nomenclature.
+#' amino acids according to the IUPAC nomenclature and HGVS Recommendations 
+#' for the Description of Sequence Variants.
 #' 
 #' @name aminoacids_df
 #' @docType data
@@ -13,8 +14,17 @@
 #'  \item{amb}{Logical indicating if abbreviation is ambiguous, i.e., matches 
 #'  more than one amino acid}
 #'  }
-#' @source Johnson, A.D. (2010). An extended IUPAC nomenclature code for 
-#' polymorphic nucleic acids. Bioinformatics 26, 1386–1389.
+#' @details
+#' The dataset contains an amino acid alphabet of one-letter codes with the
+#' corresponding three-letter codes and full names of the amino acids. It 
+#' also includes a gap symbol '-' that can be found in sequence alignments
+#' and termination symbol '*' used to indicate the end of translation.
+#' 
+#' @source (1984), Nomenclature and Symbolism for Amino Acids and Peptides. 
+#' European Journal of Biochemistry 138, 9-37; Dunnen et al. (2016), HGVS 
+#' Recommendations for the Description of Sequence Variants: 2016 Update. 
+#' Human Mutation 37, 564-569.
+#' 
 #' @keywords datasets
 #' @examples 
 #' data(aminoacids_df)

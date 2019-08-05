@@ -1,66 +1,296 @@
 #include <Rcpp.h>
-#define BYTE_SIZE 8
-#define ZERO 0
 
-//' Pack raw bytes
-//' 
-//' @param UNPACKED \code{raw} vector
-//' @param ALPH_SIZE \code{integer}
+unsigned short get_alph_size(Rcpp::CharacterVector alph);
+Rcpp::RawVector match_chars(Rcpp::CharacterVector letters, 
+                            Rcpp::CharacterVector alph);
+Rcpp::RawVector match_char(Rcpp::RawVector letters, 
+                           Rcpp::CharacterVector alph);
+
 // [[Rcpp::export]]
-Rcpp::RawVector pack(Rcpp::RawVector UNPACKED, 
-                     const unsigned short ALPH_SIZE) {
-  const unsigned int IN_LEN = UNPACKED.size();
-  Rcpp::RawVector ret((ALPH_SIZE * IN_LEN + BYTE_SIZE - 1) / BYTE_SIZE);
-  unsigned int out_byte = ZERO;
-  unsigned short bits_left = BYTE_SIZE;
-
-  for (int i = ZERO; i < IN_LEN; i++) {
-    if (bits_left >= ALPH_SIZE) {
-      ret[out_byte] |= (UNPACKED[i] << (bits_left - ALPH_SIZE));
-      bits_left -= ALPH_SIZE;
-    } else {
-      ret[out_byte] |= (UNPACKED[i] >> (ALPH_SIZE - bits_left));
-      bits_left = ALPH_SIZE - bits_left;
-      out_byte++;
-      ret[out_byte] |= (UNPACKED[i] << (BYTE_SIZE - bits_left));
-      bits_left = BYTE_SIZE - bits_left;
+Rcpp::RawVector pack_raws(Rcpp::RawVector unpacked, 
+                          const unsigned short alph_size) {
+  unsigned int in_len = unpacked.size();
+  
+  Rcpp::RawVector ret((alph_size * in_len  + 7) / 8);
+  unsigned int out_byte = 0;
+  
+  int i = 0;
+  
+  if (alph_size == 2) {
+    for (; i + 8 <= in_len; i += 8) {
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 2) | 
+                          (unpacked[i + 2] << 4) | 
+                          (unpacked[i + 3] << 6);
+      ret[out_byte + 1] = (unpacked[i + 4]     ) | 
+                          (unpacked[i + 5] << 2) | 
+                          (unpacked[i + 6] << 4) | 
+                          (unpacked[i + 7] << 6);
+      out_byte += 2;
     }
-  }
+    switch (in_len - i) {
+    case 7:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 2) | 
+                          (unpacked[i + 2] << 4) | 
+                          (unpacked[i + 3] << 6);
+      ret[out_byte + 1] = (unpacked[i + 4]     ) | 
+                          (unpacked[i + 5] << 2) | 
+                          (unpacked[i + 6] << 4);
+      break;
+    case 6:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 2) | 
+                          (unpacked[i + 2] << 4) | 
+                          (unpacked[i + 3] << 6);
+      ret[out_byte + 1] = (unpacked[i + 4]     ) | 
+                          (unpacked[i + 5] << 2);
+      break;
+    case 5:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 2) | 
+                          (unpacked[i + 2] << 4) | 
+                          (unpacked[i + 3] << 6);
+      ret[out_byte + 1] = (unpacked[i + 4]     );
+      break;
+    case 4:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 2) | 
+                          (unpacked[i + 2] << 4) | 
+                          (unpacked[i + 3] << 6);
+      break;
+    case 3:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 2) | 
+                          (unpacked[i + 2] << 4); 
+      break;
+    case 2:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 2);
+      break;
+    case 1:
+      ret[out_byte    ] = (unpacked[i]         );
+      break;
+    }
+  } else if (alph_size == 3) {
+    for (; i + 8 <= in_len; i += 8) {
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 3) | 
+                          (unpacked[i + 2] << 6);
+      ret[out_byte + 1] = (unpacked[i + 2] >> 2) | 
+                          (unpacked[i + 3] << 1) | 
+                          (unpacked[i + 4] << 4) | 
+                          (unpacked[i + 5] << 7);
+      ret[out_byte + 2] = (unpacked[i + 5] >> 1) | 
+                          (unpacked[i + 6] << 2) | 
+                          (unpacked[i + 7] << 5);
+      out_byte += 3;
+    }
+    switch (in_len - i) {
+    case 7:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 3) | 
+                          (unpacked[i + 2] << 6);
+      ret[out_byte + 1] = (unpacked[i + 2] >> 2) | 
+                          (unpacked[i + 3] << 1) | 
+                          (unpacked[i + 4] << 4) | 
+                          (unpacked[i + 5] << 7);
+      ret[out_byte + 2] = (unpacked[i + 5] >> 1) | 
+                          (unpacked[i + 6] << 2);
+      break;
+    case 6:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 3) | 
+                          (unpacked[i + 2] << 6);
+      ret[out_byte + 1] = (unpacked[i + 2] >> 2) | 
+                          (unpacked[i + 3] << 1) | 
+                          (unpacked[i + 4] << 4) | 
+                          (unpacked[i + 5] << 7);
+      ret[out_byte + 2] = (unpacked[i + 5] >> 1);
+      break;
+    case 5:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 3) | 
+                          (unpacked[i + 2] << 6);
+      ret[out_byte + 1] = (unpacked[i + 2] >> 2) | 
+                          (unpacked[i + 3] << 1) | 
+                          (unpacked[i + 4] << 4);
+      break;
+    case 4:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 3) | 
+                          (unpacked[i + 2] << 6);
+      ret[out_byte + 1] = (unpacked[i + 2] >> 2) | 
+                          (unpacked[i + 3] << 1);
+      break;
+    case 3:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 3) | 
+                          (unpacked[i + 2] << 6);
+      ret[out_byte + 1] = (unpacked[i + 2] >> 2); 
+      break;
+    case 2:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 3);
+      break;
+    case 1:
+      ret[out_byte    ] = (unpacked[i]         );
+      break;
+    }
+  } else if (alph_size == 4) {
+    for (; i + 8 <= in_len; i += 8) {
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 4); 
+      ret[out_byte + 1] = (unpacked[i + 2]     ) | 
+                          (unpacked[i + 3] << 4); 
+      ret[out_byte + 2] = (unpacked[i + 4]     ) | 
+                          (unpacked[i + 5] << 4); 
+      ret[out_byte + 3] = (unpacked[i + 6]     ) | 
+                          (unpacked[i + 7] << 4); 
+      out_byte += 4;
+    }
+    switch (in_len - i) {
+    case 7:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 4); 
+      ret[out_byte + 1] = (unpacked[i + 2]     ) | 
+                          (unpacked[i + 3] << 4); 
+      ret[out_byte + 2] = (unpacked[i + 4]     ) | 
+                          (unpacked[i + 5] << 4); 
+      ret[out_byte + 3] = (unpacked[i + 6]     );
+      break;
+    case 6:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 4); 
+      ret[out_byte + 1] = (unpacked[i + 2]     ) | 
+                          (unpacked[i + 3] << 4); 
+      ret[out_byte + 2] = (unpacked[i + 4]     ) | 
+                          (unpacked[i + 5] << 4);
+      break;
+    case 5:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 4); 
+      ret[out_byte + 1] = (unpacked[i + 2]     ) | 
+                          (unpacked[i + 3] << 4); 
+      ret[out_byte + 2] = (unpacked[i + 4]     );
+      break;
+    case 4:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 4); 
+      ret[out_byte + 1] = (unpacked[i + 2]     ) | 
+                          (unpacked[i + 3] << 4);
+      break;
+    case 3:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 4); 
+      ret[out_byte + 1] = (unpacked[i + 2]     );
+      break;
+    case 2:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 4);
+        break;
+    case 1:
+      ret[out_byte    ] = (unpacked[i]         );
+      break;
+    }
+  } else if (alph_size == 5) {
+    for (; i + 8 <= in_len; i += 8) {
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 5); 
+      ret[out_byte + 1] = (unpacked[i + 1] >> 3) | 
+                          (unpacked[i + 2] << 2) | 
+                          (unpacked[i + 3] << 7); 
+      ret[out_byte + 2] = (unpacked[i + 3] >> 1) | 
+                          (unpacked[i + 4] << 4); 
+      ret[out_byte + 3] = (unpacked[i + 4] >> 4) |
+                          (unpacked[i + 5] << 1) |
+                          (unpacked[i + 6] << 6);
+      ret[out_byte + 4] = (unpacked[i + 6] >> 2) |
+                          (unpacked[i + 7] << 3);
+      out_byte += 5;
+    }
+    switch (in_len - i) {
+    case 7:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 5); 
+      ret[out_byte + 1] = (unpacked[i + 1] >> 3) | 
+                          (unpacked[i + 2] << 2) | 
+                          (unpacked[i + 3] << 7); 
+      ret[out_byte + 2] = (unpacked[i + 3] >> 1) | 
+                          (unpacked[i + 4] << 4); 
+      ret[out_byte + 3] = (unpacked[i + 4] >> 4) |
+                          (unpacked[i + 5] << 1) |
+                          (unpacked[i + 6] << 6);
+      ret[out_byte + 4] = (unpacked[i + 6] >> 2);
+      break;
+    case 6:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 5); 
+      ret[out_byte + 1] = (unpacked[i + 1] >> 3) | 
+                          (unpacked[i + 2] << 2) | 
+                          (unpacked[i + 3] << 7); 
+      ret[out_byte + 2] = (unpacked[i + 3] >> 1) | 
+                          (unpacked[i + 4] << 4); 
+      ret[out_byte + 3] = (unpacked[i + 4] >> 4) |
+                          (unpacked[i + 5] << 1);
+      break;
+    case 5:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 5); 
+      ret[out_byte + 1] = (unpacked[i + 1] >> 3) | 
+                          (unpacked[i + 2] << 2) | 
+                          (unpacked[i + 3] << 7); 
+      ret[out_byte + 2] = (unpacked[i + 3] >> 1) | 
+                          (unpacked[i + 4] << 4); 
+      ret[out_byte + 3] = (unpacked[i + 4] >> 4);
+      break;
+    case 4:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 5); 
+      ret[out_byte + 1] = (unpacked[i + 1] >> 3) | 
+                          (unpacked[i + 2] << 2) | 
+                          (unpacked[i + 3] << 7); 
+      ret[out_byte + 2] = (unpacked[i + 3] >> 1);
+      break;
+    case 3:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 5); 
+      ret[out_byte + 1] = (unpacked[i + 1] >> 3) | 
+                          (unpacked[i + 2] << 2);
+      break;
+    case 2:
+      ret[out_byte    ] = (unpacked[i]         ) | 
+                          (unpacked[i + 1] << 5); 
+      ret[out_byte + 1] = (unpacked[i + 1] >> 3);
+        break;
+    case 1:
+      ret[out_byte    ] = (unpacked[i]         );
+      break;
+    }
+  } 
+  
   return ret;
 }
 
-//' Unpack raw bytes
-//' 
-//' @param PACKED \code{raw} vector
-//' @param ALPH_SIZE \code{integer}
 // [[Rcpp::export]]
-Rcpp::RawVector unpack(Rcpp::RawVector PACKED, 
-                           const unsigned short ALPH_SIZE) {
-  const unsigned int OUT_LEN = (PACKED.size() * BYTE_SIZE) / ALPH_SIZE;
-  Rcpp::RawVector ret(OUT_LEN);
-  const char MASK = (1u << ALPH_SIZE) - 1;
-  unsigned int in_byte = ZERO;
-  unsigned short bits_left = BYTE_SIZE;
-  
-  unsigned int i = ZERO;
-  do {
-    if (bits_left >= ALPH_SIZE) {
-      ret[i] = ((PACKED[in_byte] >> (bits_left - ALPH_SIZE)) & MASK);
-      if (ret[i] == 0) {
-        for (int j = i; j < OUT_LEN; j++) {
-          ret[j] = 0;
-        }
-        break;
-      }
-      bits_left -= ALPH_SIZE;
-    } else {
-      bits_left = ALPH_SIZE - bits_left;
-      ret[i] = ((PACKED[in_byte] << bits_left) & MASK);
-      in_byte++;
-      ret[i] |= ((PACKED[in_byte] >> (BYTE_SIZE - bits_left)) & ((1u << bits_left) - 1));
-      bits_left = BYTE_SIZE - bits_left;
-    }
-    i++;
-  } while (i < OUT_LEN);
-  return ret;
+Rcpp::RawVector pack_ints(Rcpp::IntegerVector unpacked, 
+                          const unsigned short alph_size) {
+  Rcpp::RawVector ret(unpacked);
+  return pack_raws(ret, alph_size);
+}
+
+//[[Rcpp::export]]
+Rcpp::RawVector pack_chars(Rcpp::CharacterVector unpacked,
+                           Rcpp::CharacterVector alph) {
+  unsigned short alph_size = get_alph_size(alph);
+  Rcpp::RawVector ret = match_chars(unpacked, alph);
+  return pack_raws(ret, alph_size);
+}
+
+//[[Rcpp::export]]
+Rcpp::RawVector pack_string(Rcpp::RawVector unpacked,
+                            Rcpp::CharacterVector alph) {
+  unsigned short alph_size = get_alph_size(alph);
+  Rcpp::RawVector ret = match_char(unpacked, alph);
+  return pack_raws(ret, alph_size);
 }
