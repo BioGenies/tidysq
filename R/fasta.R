@@ -12,7 +12,7 @@
 #' }
 #' @seealso \code{\link[base]{readLines}}
 #' @export
-read_fasta <- function(file, type = "unt", is_clean = NULL) {
+read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) {
   .check_file_is_char(file)
   if(.is_no_check_mode()) {
     .check_nc_is_clean_in_TRUE_FALSE(is_clean)
@@ -23,7 +23,6 @@ read_fasta <- function(file, type = "unt", is_clean = NULL) {
     as_tibble(sqtibble)
   } else {
     .check_is_clean_in_TRUE_FALSE_NULL(is_clean)
-    .check_type_in_ami_nuc_unt(type)
     
     #used from biogram
     all_lines <- readLines(file)
@@ -31,7 +30,7 @@ read_fasta <- function(file, type = "unt", is_clean = NULL) {
     all_s <- split(all_lines, s_id)
     
     s_list <- unname(sapply(all_s, function(s) paste(s[2:length(s)], collapse = "")))
-    sq <- construct_sq(s_list, type)
+    sq <- construct_sq(s_list, type, is_clean, non_standard)
     
     names_vec <- sub(">", "", sapply(all_s, function(s) s[1]), fixed = TRUE)
     
