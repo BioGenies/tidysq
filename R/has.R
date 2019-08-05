@@ -1,3 +1,55 @@
+#' Test sq object for presence of a given motif
+#' 
+#' @description Test if elements of a sq object contain a given motif
+#' 
+#' @param x \code{\link{sq}} object to be tested
+#' @param y \code{character} vector of a motif to be searched for
+#' 
+#' @return a logical vector of the same length as input sq, indicating 
+#' which elements contain a given motif
+#' 
+#' @details This function allows testing if elements of a sq object contain 
+#' a given motif. It returns a logical for every element of the sq object - 
+#' \code{TRUE} if it contains the motif and \code{FALSE} otherwise. 
+#' 
+#' Note if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
+#' search for motifs cannot be performed and an error will be displayed. 
+#' To search for motifs with those characters, you have to replace them 
+#' first using \code{\link{substitute_letters}}. 
+#' 
+#' In case of sq objects of type 'ami' and 'nuc', motifs have to consist 
+#' of letters from amino acid and nucleotide alphabet respectively. 
+#' However, two additional characters are allowed: '^' and '$' indicating
+#' the beginning and the end of a sequence respectively. If a motif contains
+#' ambiguous letters, all possible matches will be tested, e.g., amino acid 
+#' motif "MAJ" (where "J" is an ambiguous letter indicating L or I) will return
+#' \code{TRUE} for sequences containing "MAJ", "MAL" and "MAI". 
+#' 
+#' This function only indicates if a motif is present within a sequence, to 
+#' find all motifs and their positions within sequences use 
+#' \code{\link{find_motifs}}.
+#' 
+#' @examples 
+#' # Creating objects to work on:
+#' sq_nuc <- construct_sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", 
+#'                          "CAGACCANNNATAG"), type = 'nuc')
+#' sq_ami <- construct_sq(c("AGNTYIKFGGAYTI", "MATEGILIAADAGYTWIL", 
+#'                          "MIPADHICAANGIENAGIK"), type = 'ami')
+#'                          
+#' # Test if nucleotide sequences contain start codon 'ATG':
+#' sq_nuc %has% 'ATG'
+#' 
+#' # Test if nucleotide sequences begin with start codon 'ATG'
+#' sq_nuc %has% '^ATG'
+#' 
+#' # Test if nucleotide sequences end with 'TAG' (one of the stop codons):
+#' sq_nuc %has% 'TAG$'
+#' 
+#' # Test if amino acid sequences contain motif of two alanines followed by
+#' # aspartic acid or asparagine ('AAB' motif will match 'AAB', 'AAD' and 'AAN'):
+#' sq_ami %has% 'AAB'
+#' 
+#' @seealso sq substitute_letters find_motifs
 #' @export
 `%has%` <- function(x, y) {
   UseMethod("%has%")
