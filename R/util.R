@@ -85,3 +85,25 @@
   else if (all(real_alph %in% .get_standard_alph("ami", FALSE))) "ami"
   else "unt"
 }
+
+.merge_ind <- function(res_ind, begs) {
+  n <- length(res_ind)
+  m <- length(begs)
+  ret <- logical(n + m)
+  act_res <- 1
+  act_beg <- 1
+  act_out <- 1
+  while (act_res <= n &&
+         act_beg <= m) {
+    if (res_ind[act_res] < begs[act_beg]) {
+      ret[act_out] <- TRUE
+      act_res = act_res + 1
+    } else {
+      ret[act_out] <- FALSE
+      act_beg = act_beg + 1
+    }
+    act_out = act_out + 1
+  }
+  ret[act_out:(n+m)] <- (act_res <= n)
+  ret
+}

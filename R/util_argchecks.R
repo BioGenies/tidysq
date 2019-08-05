@@ -28,6 +28,31 @@
     stop("'is_clean' has to be TRUE, FALSE in no_ceck mode")
 }
 
+.check_type_or_nonst_alph <- function(type, is_clean, non_standard) {
+  if (!(is.null(type) && 
+        is.null(is_clean)) &&
+      !is.null(non_standard))
+    stop("if you specify 'non_standard', you cannot specify neither 'type' nor 'is_clean'")
+}
+
+.check_nonst_proper_char <- function(non_standard) {
+  if (!is.character(sq) ||
+      length(sq) == 0 ||
+      any(is.na(sq)) ||
+      any(is.null(sq))) 
+    stop("'non_standard' has to be a positive-length character vector without NA")
+}
+
+.check_nonst_nchar <- function(non_standard) {
+  if (any(nchar(non_standard) < 2)) 
+    stop("non standard letters specified in 'non_standard' parameter have to have more than one character")
+}
+
+.check_alph_length <- function(alph) {
+  if (length(alph) > 30) 
+    stop("max length of alphabet is 30 letters")
+}
+
 .check_inds_are_numeric <- function(indices) {
   if (!(is.numeric(indices) && 
         floor(indices) == indices)) {
