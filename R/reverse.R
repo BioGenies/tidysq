@@ -28,8 +28,6 @@
 reverse <- function(sq) {
   validate_sq(sq)
   alph_size <- .get_alph_size(.get_alph(sq))
-  ret <- lapply(sq, function(s) {
-    .int_to_bit(rev(.bit_to_int(s, alph_size)), alph_size)
-  })
+  ret <- .apply_sq(sq, "int", "int", rev)
   .set_class_alph(ret, sq)
 }
