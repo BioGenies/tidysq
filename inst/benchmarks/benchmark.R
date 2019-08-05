@@ -2,22 +2,27 @@ library(ape)
 library(seqinr)
 library(tidysq)
 library(Biostrings)
+library(dplyr)
+library(pbapply)
 
+set.seed(981099)
+
+### reading fasta format benchmark
 
 generate_dna_ex <- function(n, len, alph) {
   name <- paste0(1:n, "dna")
-
+  
   char_vec <- unlist(lapply(1L:n, function(i) {
-    s <- paste0(sample(alph, len, replace = TRUE), collapse = "")
+    s <- paste0(sample(alph, len + round(rnorm(1, sd = 0.1*len), 0), replace = TRUE), collapse = "")
     paste0(">", name[i], "\n", s, "\n")
   }))
-
+  
   writeLines(text = char_vec, con = paste0("dna_ex_n", n, "_l", len, "_a", length(alph), ".fasta"))
 }
 
-alphs <- list(c("C", "T", "A", "G"), LETTERS)
-ns <- 10^(2:3)
-lens <- 10^(1:4)
+alphs <- list(c("C", "T", "A", "G"))
+ns <- round(seq(10, 10000, length.out = 6), 0)
+lens <- round(seq(10, 10000, length.out = 6), 0)
 
 invisible(lapply(ns, function(n) {
   lapply(lens, function(len) {
@@ -27,41 +32,47 @@ invisible(lapply(ns, function(n) {
   })
 }))
 
-library(dplyr)
-
-f_read <- list(tidysq = function(x) tidysq::read_fasta(x, type = "unt"),
+f_read <- list(tidysq = function(x) tidysq:::read_fasta_nc(x, type = "nuc"),
                seqinr = function(x) seqinr::read.fasta(x), 
                ape = function(x) ape::read.FASTA(x), 
-               Biostrings = function(x) Biostrings::readDNAStringSet(x))
+               Biostrings = function(x) Biostrings::readBStringSet(x))
 
-results <- do.call(rbind, lapply(ns, function(n) {
-  do.call(rbind, lapply(lens, function(len) {
-    do.call(rbind, lapply(alphs, function(alph) {
-      do.call(rbind, lapply(1:length(f_read), function(i) {
-        f <- f_read[[i]]
-        t0 <- Sys.time()
-        s <- f(paste0("dna_ex_n", n, "_l", len, "_a", length(alph),".fasta"))
-        t1 <- Sys.time()
-        data.frame(package = names(f_read)[i], alph_size = length(alph), sq_len = len, num_sq = n, obj_size = as.numeric(object.size(s)), reading_time = t1-t0)
+f_cons <- list(tidysq = function(x) tidysq::construct_sq_nc(x, type = "nuc"),
+               seqinr = function(x) seqinr::as.SeqFastadna(x), 
+               ape = function(x) ape::as.DNAbin(x), 
+               Biostrings = function(x) Biostrings::DNAStringSet(x))
+
+f_char <- list(tidysq = function(x) as.character(x[["sq"]]),
+               seqinr = function(x) seqinr::getSequence(x), 
+               ape = function(x) as.character(x), 
+               Biostrings = function(x) sapply(x, toString))
+
+results <- do.call(rbind, pblapply(1:20, function(dummy) {
+  do.call(rbind, lapply(ns, function(n) {
+    do.call(rbind, lapply(lens, function(len) {
+      do.call(rbind, lapply(alphs, function(alph) {
+        do.call(rbind, lapply(names(f_read), function(i) {
+          elapsed_time_r <- system.time(seq_from_fasta <- f_read[[i]](paste0("dna_ex_n", n, "_l", len, "_a", 
+                                                                             length(alph),".fasta")))
+          elapsed_time_char <- system.time(seq_string <- f_char[[i]](seq_from_fasta))
+          elapsed_time_cons <- system.time(seq_from_string <- f_cons[[i]](seq_string))
+          
+          data.frame(package = i, alph_size = length(alph), 
+                     sq_len = len, num_sq = n, 
+                     type = c("read", "char", "cons"),
+                     file_size = file.size(c(paste0("dna_ex_n", n, "_l", len, "_a", 
+                                                    length(alph), ".fasta"))),
+                     obj_size = c(as.numeric(object.size(seq_from_fasta)),
+                                  as.numeric(object.size(seq_string)),
+                                  as.numeric(object.size(seq_from_string))),
+                     time_value = c(unname(elapsed_time_r[3]),
+                                    unname(elapsed_time_char[3]),
+                                    unname(elapsed_time_cons[3]))
+          )
+        }))
       }))
     }))
   }))
 }))
 
 write.csv(results, "./inst/benchmarks/results.csv", row.names = FALSE)
-
-library(ggplot2)
-library(reshape2)
-
-
-ggplot(results, aes(x = as.factor(num_sq), y = log(obj_size), fill = package)) +
-  geom_col(position = "dodge") +
-  facet_grid(alph_size ~ sq_len, labeller = label_both)
-
-ggplot(results, aes(x = as.factor(num_sq), y = log(reading_time), fill = package)) +
-  geom_col(position = "dodge") +
-  facet_grid(alph_size ~ sq_len, labeller = label_both)
-
-ggplot(results, aes(x = as.factor(num_sq), y = as.factor(sq_len), fill = reading_time)) +
-  geom_tile() +
-  facet_grid(alph_size ~ package)

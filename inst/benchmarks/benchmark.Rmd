@@ -1,0 +1,90 @@
+---
+title: "Benchmark"
+author: "Michał Burdukiewicz"
+date: "23 07 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(dplyr)
+library(ggplot2)
+melt_res <- read.csv("results.csv") %>% 
+  group_by(package, sq_len, num_sq, type) %>% 
+  summarise(obj_size = median(obj_size),
+            time_value = median(time_value))
+
+```
+
+## Object size
+
+### read_fasta and analogues
+
+```{r}
+# ggplot(melt_res, aes(x = sq_len, y = obj_size, color = type)) +
+#   geom_point() +
+#   geom_line() +
+#   facet_grid(package ~ num_sq, labeller = label_both)
+# what biostrings are doing?
+
+filter(melt_res, type == "read") %>% 
+  ggplot(aes(x = sq_len, y = obj_size, color = package)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
+  ggtitle("read_fasta output size") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+## Speed
+
+```{r}
+filter(melt_res, type == "read") %>% 
+  ggplot(aes(x = sq_len, y = time_value, color = package)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
+  ggtitle("read_fasta time") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+
+```
+
+
+```{r}
+filter(melt_res, type == "char") %>% 
+  ggplot(aes(x = sq_len, y = time_value, color = package)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
+  ggtitle("as.character time") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+
+```{r}
+filter(melt_res, type == "cons") %>% 
+  ggplot(aes(x = sq_len, y = time_value, color = package)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
+  ggtitle("from character to class time") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+### Only tidysq and Biostrings
+
+```{r}
+filter(melt_res, type == "cons") %>% 
+  filter(package %in% c("Biostrings", "tidysq")) %>% 
+  ggplot(aes(x = sq_len, y = time_value, color = package)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
+  ggtitle("from character to class time") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
