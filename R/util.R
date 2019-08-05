@@ -81,8 +81,12 @@
 
 .guess_sq_type <- function(sq) {
   real_alph <- toupper(.get_real_alph(sq))
-  if (all(real_alph %in% .get_standard_alph("nuc", FALSE))) "nuc"
-  else if (all(real_alph %in% .get_standard_alph("ami", FALSE))) "ami"
+  .guess_type_by_alph(real_alph)
+}
+
+.guess_type_by_alph <- function(alph) {
+  if (all(alph %in% .get_standard_alph("nuc", FALSE))) "nuc"
+  else if (all(alph %in% .get_standard_alph("ami", FALSE))) "ami"
   else "unt"
 }
 

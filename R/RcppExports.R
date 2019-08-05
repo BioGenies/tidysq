@@ -37,6 +37,14 @@ nc_read_fasta_file <- function(file, is_ami, is_clean) {
     .Call('_tidysq_nc_read_fasta_file', PACKAGE = 'tidysq', file, is_ami, is_clean)
 }
 
+read_fasta_file <- function(file, alph) {
+    .Call('_tidysq_read_fasta_file', PACKAGE = 'tidysq', file, alph)
+}
+
+find_alph <- function(file) {
+    .Call('_tidysq_find_alph', PACKAGE = 'tidysq', file)
+}
+
 unpack_raws <- function(packed, alph_size) {
     .Call('_tidysq_unpack_raws', PACKAGE = 'tidysq', packed, alph_size)
 }

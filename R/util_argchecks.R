@@ -1,6 +1,7 @@
-.check_type_in_ami_nuc_unt <- function(type) {
-  if (!type %in% c("unt", "ami", "nuc")) 
-    stop("'type' has to be one of 'unt', 'ami', 'nuc'")
+.check_type_in_ami_nuc_unt_NULL <- function(type) {
+  if (!is.null(type) &&
+      !type %in% c("unt", "ami", "nuc")) 
+    stop("'type' has to be NULL or one of 'unt', 'ami', 'nuc'")
 }
 
 .check_nc_type_in_ami_nuc <- function(type) {
@@ -46,6 +47,16 @@
 .check_nonst_nchar <- function(non_standard) {
   if (any(nchar(non_standard) < 2)) 
     stop("non standard letters specified in 'non_standard' parameter have to have more than one character")
+}
+
+.check_alph_matches_type <- function(alph, type, is_clean) {
+  if (!is.null(type) && 
+      !(type == "unt")) {
+    if (is.null(is_clean)) is_clean <- FALSE
+    if (!all(alph %in% .get_standard_alph(type, is_clean))) {
+      stop("there are letters in alphabet in file that aren't suit for given 'type' or 'is_clean' parameters")
+    }
+  }
 }
 
 .check_alph_length <- function(alph) {
