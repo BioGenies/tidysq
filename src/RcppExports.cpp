@@ -110,6 +110,29 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// read_fasta_file
+Rcpp::List read_fasta_file(std::string file, Rcpp::CharacterVector alph);
+RcppExport SEXP _tidysq_read_fasta_file(SEXP fileSEXP, SEXP alphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type file(fileSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
+    rcpp_result_gen = Rcpp::wrap(read_fasta_file(file, alph));
+    return rcpp_result_gen;
+END_RCPP
+}
+// find_alph
+std::list<char> find_alph(std::string file);
+RcppExport SEXP _tidysq_find_alph(SEXP fileSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type file(fileSEXP);
+    rcpp_result_gen = Rcpp::wrap(find_alph(file));
+    return rcpp_result_gen;
+END_RCPP
+}
 // unpack_raws
 Rcpp::RawVector unpack_raws(Rcpp::RawVector packed, const unsigned short alph_size);
 RcppExport SEXP _tidysq_unpack_raws(SEXP packedSEXP, SEXP alph_sizeSEXP) {
@@ -219,6 +242,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_nc_pack_cami", (DL_FUNC) &_tidysq_nc_pack_cami, 1},
     {"_tidysq_nc_pack_ami", (DL_FUNC) &_tidysq_nc_pack_ami, 1},
     {"_tidysq_nc_read_fasta_file", (DL_FUNC) &_tidysq_nc_read_fasta_file, 3},
+    {"_tidysq_read_fasta_file", (DL_FUNC) &_tidysq_read_fasta_file, 2},
+    {"_tidysq_find_alph", (DL_FUNC) &_tidysq_find_alph, 1},
     {"_tidysq_unpack_raws", (DL_FUNC) &_tidysq_unpack_raws, 2},
     {"_tidysq_unpack_ints", (DL_FUNC) &_tidysq_unpack_ints, 2},
     {"_tidysq_unpack_chars", (DL_FUNC) &_tidysq_unpack_chars, 3},
