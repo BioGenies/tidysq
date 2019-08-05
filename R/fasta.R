@@ -38,6 +38,8 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
         is_clean <- if (type == "ami") .guess_ami_is_clean(alph) else .guess_nuc_is_clean(alph) 
         .nc_read_fasta(file, type, is_clean)
       } else {
+        .check_alph_length(alph)
+        
         sqtibble <- read_fasta_file(file, alph)
         class(sqtibble[["sq"]]) <- c("untsq", "sq")
         attr(sqtibble[["sq"]], "alphabet") <- alph

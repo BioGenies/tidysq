@@ -50,8 +50,8 @@
 }
 
 .check_alph_matches_type <- function(alph, type, is_clean) {
-  if (!is.null(type) && 
-      !(type == "unt")) {
+  if (!is.null(type) && !(type == "unt")) {
+    alph <- toupper(alph)
     if (is.null(is_clean)) is_clean <- FALSE
     if (!all(alph %in% .get_standard_alph(type, is_clean))) {
       stop("there are letters in alphabet in file that aren't suit for given 'type' or 'is_clean' parameters")
