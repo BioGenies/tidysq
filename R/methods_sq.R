@@ -12,8 +12,17 @@
 #' @exportMethod as.character sq
 #' @export
 as.character.sq <- function(x, ...) {
-  alph <- .get_alph(x)
-  sapply(.debitify_sq(x, alph), function(s) paste(ifelse(is.na(s), "*", s), collapse = ""))
+  .debitify_sq(x, "string")
+}
+
+#' @exportMethod as.matrix sq
+#' @export
+as.matrix.sq <- function(x, ...) {
+  x <- .debitify_sq(x, "char")
+  max_len <- max(lengths(x))
+  ret <- do.call(rbind, lapply(x, function(row) row[1:max_len]))
+  ret[ret == .get_na_char()] <- NA
+  ret
 }
 
 #' @exportMethod is sq
@@ -38,12 +47,6 @@ is.nucsq <- function(x) {
 #' @export
 is.untsq <- function(x) {
   tryCatch({validate_untsq(x); TRUE}, error = function(e) FALSE)
-}
-
-#' @exportMethod is simsq
-#' @export
-is.simsq <- function(x) {
-  tryCatch({validate_simsq(x); TRUE}, error = function(e) FALSE)
 }
 
 #' @exportMethod is atpsq
@@ -93,51 +96,4 @@ is.atpsq <- function(x) {
   }
   
   as.character(e1) == e2
-}
-
-#' @exportMethod print sq
-#' @export
-print.sq <- function(x, ...) {
-  sqclass <- .get_sq_subclass(x)
-  cln_msg <- if (.is_cleaned(x)) " (cleaned)" else ""
-  
-  if (length(sqclass) != 1) {
-    sqclass <- "sq (improper subtype!):\n"
-  } else {
-    sqclass <- paste0(c(amisq = "ami (amino acids)", 
-                        nucsq = "nuc (nucleotides)", 
-                        untsq = "unt (unspecified type)", 
-                        simsq = "sim (simplified alphabet)",
-                        atpsq = "atp (atypical alphabet)")[sqclass], cln_msg, " sequences vector:\n")
-  }
-  
-  alph <- .get_alph(x)
-  decoded <- .debitify_sq(x, alph)
-  decoded <- sapply(decoded, function(s) ifelse(length(s) == 0, 
-                                                "<NULL sq>", 
-                                                paste(ifelse(is.na(s), "*", s), collapse = "")))
-  max_width <- max(nchar(1:length(x)))
-  inds <- paste0("[", 1:length(x), "] ")
-  cat(sqclass, paste0(format(inds, width = max_width + 3, justify = "right"), 
-                      decoded, 
-                      collapse = "\n"), 
-      "\n", sep = "")
-}
-
-#' @exportMethod print encsq
-#' @export
-print.encsq <- function(x, ...) {
-  sqclass <- "enc (encoded values) sequences vector:\n"
-
-  alph <- .get_alph(x)
-  decoded <- .debitify_sq(x, alph)
-  decoded <- sapply(decoded, function(s) ifelse(length(s) == 0, 
-                                                "<NULL sq>", 
-                                                paste(ifelse(is.na(s), "*", s), collapse = " ")))
-  max_width <- max(nchar(1:length(x)))
-  inds <- paste0("[", 1:length(x), "] ")
-  cat(sqclass, paste0(format(inds, width = max_width + 3, justify = "right"), 
-                      decoded, 
-                      collapse = "\n"), 
-      "\n", sep = "")
 }

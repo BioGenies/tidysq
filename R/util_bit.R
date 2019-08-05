@@ -1,82 +1,56 @@
-.get_alph_size <- function(alph) {
-  ceiling(log2(length(alph) + 2))
-}
-
-.get_na_val <- function(alph) {
-  2 ^ .get_alph_size(alph) - 1
-}
-
-.char_to_int <- function(sq, alph) {
-  sq <- strsplit(sq, "")
-  na_val <- .get_na_val(alph)
-  sq <- lapply(sq, function(s) {
-    s <- match(s, alph)
-    if (length(s) == 0) s <- 0
-    s[is.na(s)] <- na_val
-    s
-  })
-  sq
-}
-
-.int_to_bit <- function(s, alph_size) {
-  if (length(s) == 1 && s == 0) {
-    as.raw(0)
-  } else {
-    pack(s, alph_size)
-  }
-}
-
 .bitify_sq <- function(sq, alph) {
-  sq <- .char_to_int(sq, alph) 
+  if (is.numeric(sq[[1]])) 
+    pack_fun <- pack_ints
+  else if (any(lengths(sq) > 1)) 
+    pack_fun <- pack_chars
+  else pack_fun <- function(s, alph) pack_string(charToRaw(s), alph)
+  
   alph_size <- .get_alph_size(alph)
   lapply(sq, function(s) {
-    .int_to_bit(s, alph_size)
+    pack_fun(s, alph)
   })
 }
 
-.bit_to_int <- function(s, alph_size) {
-  if (length(s) == 1 && s == 0) {
-    0L
-  } else {
-    s <- as.integer(unpack(s, alph_size))
-    n <- length(s)
-    tail_beg <- match(TRUE, (s == 0)) #this way of finding tail is sub-optimal, but works at least
-    if (is.na(tail_beg)) {
-      s
-    } else {
-      s[1:(tail_beg - 1)]
-    }
-  }
+.nc_bitify_sq <- function(sq, type, is_clean) {
+  if      (type == "ami" &&  is_clean) pack_fun <- nc_pack_cami
+  else if (type == "ami" && !is_clean) pack_fun <- nc_pack_ami
+  else if (type == "nuc" &&  is_clean) pack_fun <- nc_pack_cnuc
+  else if (type == "nuc" && !is_clean) pack_fun <- nc_pack_nuc
+  
+  lapply(sq, function(s) pack_fun(charToRaw(s)))
 }
 
-.debitify_sq <- function(sq, alph) {
-  alph_size <- .get_alph_size(alph)
-  na_val <- .get_na_val(alph)
-  lapply(sq, function(s) {
-    s <- .bit_to_int(s, alph_size)
-    alph[s]
-  })
+.debitify_sq <- function(sq, to) {
+  alph <- .get_alph(sq)
+  if (to == "char") 
+    unpack_fun <- function(s) unpack_chars(s, alph, .get_na_char())
+  else if (to == "int") 
+    unpack_fun <- function(s) unpack_ints(s, .get_alph_size(alph))
+  else if (to == "string") 
+    unpack_fun <- function(s) unpack_string(s, alph, .get_na_char())
+  
+  lapply(sq, function(s) unpack_fun(s))
 }
 
-.recode_sq <- function(sq, alph, new_alph, inds_func) {
-  alph_size <- .get_alph_size(alph)
-  new_alph_size <- .get_alph_size(new_alph)
-  na_val <- .get_na_val(alph)
-  new_na_val <- .get_na_val(new_alph)
+.apply_sq <- function(sq, ex_form, im_form, fun) {
+  alph <- .get_alph(sq)
+  if (ex_form == "char") 
+    unpack_fun <- function(s) unpack_chars(s, alph, .get_na_char())
+  else if (ex_form == "int") 
+    unpack_fun <- function(s) unpack_ints(s, .get_alph_size(alph))
+  else if (ex_form == "string") 
+    unpack_fun <- function(x) unpack_string(s, alph, .get_na_char())
+ 
+  if (im_form == "char")
+    pack_fun <- function(s) pack_chars(s, alph)
+  else if (im_form == "int")
+    pack_fun <- function(s) pack_ints(s, .get_alph_size(alph))
+  else if (im_form == "string")
+    pack_fun <- function(s) pack_string(charToRaw(s), alph)
+  else if (im_form == "none")
+    pack_fun <- identity
+
   lapply(sq, function(s) {
-    s <- .bit_to_int(s, alph_size)
-    n <- length(s)
-    s[s == na_val] <- NA
-    tail_beg <- match(TRUE, (s == 0)) 
-    if (!is.na(tail_beg)) {
-      if (n == 1) {
-        return(as.raw(0))
-      } else {
-        s <- s[1:(tail_beg-1)]
-      }
-    } 
-    s <- inds_func[as.character(s)]  
-    s[is.na(s)] <- new_na_val
-    .int_to_bit(s, new_alph_size)
+    s <- pack_fun(fun(unpack_fun(s)))
   })
 }

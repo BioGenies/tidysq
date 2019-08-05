@@ -67,7 +67,7 @@ complement <- function(nucsq, is_dna = NULL) {
   }
   alph <- .get_alph(nucsq)
   alph_size <- .get_alph_size(alph)
-  sq <- lapply(nucsq, function(s) .bit_to_int(s, alph_size))
+  sq <- .debitify_sq(nucsq, "int")
   
   has_U <- any(unlist(sq) == match("U", alph))
   has_T <- any(unlist(sq) == match("T", alph))
@@ -96,12 +96,11 @@ complement <- function(nucsq, is_dna = NULL) {
     if (!is_dna) dict["A"] <- "U"
   }
   
-  inds_func <- match(dict[alph], alph)
-  names(inds_func) <- as.character(1:length(alph))
-  ret <- lapply(sq, function(s) .int_to_bit(inds_func[s], alph_size))
+  inds_fun <- match(dict[alph], alph)
+  names(inds_fun) <- as.character(1:length(alph))
+  ret <- lapply(sq, function(s) pack_ints(inds_fun[s], alph_size))
   
-  class(ret) <- c("clnsq", "nucsq", "sq")
-  attr(ret, "alphabet") <- alph
-  ret
+  ret <- .set_alph(ret, alph)
+  .set_class(ret, "nuc", TRUE)
 }
 
