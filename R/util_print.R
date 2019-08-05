@@ -96,7 +96,7 @@ print.sq <- function(x,
   
   for (i in 1:num_lines) {
     if (lens[i] == 0) {
-      sq_cut[[i]] <- "<NULL sq>"
+      sq_cut[[i]] <- "<NULL>"
     } else {
       s <- sq_cut[[i]]
       # we count how much characters can we print by counting cumulative extent
@@ -199,7 +199,7 @@ print.encsq <- function(x,
   
   for (i in 1:num_lines) {
     if (lens[i] == 0) {
-      sq_cut[[i]] <- "<NULL sq>"
+      sq_cut[[i]] <- "<NULL>"
     } else {
       s <- sq_cut[[i]]
       # we count how much characters can we print by counting cumulative extent
@@ -272,13 +272,13 @@ pillar_shaft.sq <- function(x, ...) {
   max_len_width <- max(nchar(lens))
   
   max_str_width <- max(sapply(sq_cut, function(s) sum(col_nchar(s))))
-  min_str_width <- if (max_str_width >= 6) 6 else max_str_width
+  min_str_width <- if (max_str_width >= 6) 6 else max_str_width + 1
   
   opt <- .get_print_length()
   
   new_pillar_shaft(list(sq = sq_cut, lens = lens),
-                   width = min(max_str_width + max_len_width + 3, 
-                               opt + max_len_width + 6),
+                   width = min(max_str_width + max_len_width + 4, 
+                               opt + max_len_width + 7),
                    min_width = max_len_width + min_str_width + 3,
                    class = "pillar_shaft_sq",
                    align = "left")
@@ -318,7 +318,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   
   for (i in 1:num_lines) {
     if (lens[i] == 0) {
-      x[[i]] <- "<NULL sq>"
+      x[[i]] <- "<NULL>"
     } else {
       s <- x[[i]]
       # we count how much characters can we print by counting cumulative extent
@@ -432,7 +432,7 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   
   for (i in 1:num_lines) {
     if (lens[i] == 0) {
-      x[[i]] <- "<NULL sq>"
+      x[[i]] <- "<NULL>"
     } else {
       s <- x[[i]]
       # we count how much characters can we print by counting cumulative extent
