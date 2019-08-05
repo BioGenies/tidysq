@@ -13,7 +13,7 @@ typify <- function(sq, dest_type) {
   
   alph <- .get_alph(sq)
   up_alph <- unique(toupper(alph))
-  dest_alph <- if (dest_type == "ami") aminoacids_df[, "one"] else nucleotides_df[, "one"]
+  dest_alph <- .get_standard_alph(dest_type, FALSE)
   
   if (!all(up_alph %in% dest_alph)) {
     stop("some sequences have levels that are invalid for given 'dest_type'; you can check them with 'get_invalid_letters' function and fix them with 'substitute_letters'")
@@ -29,7 +29,6 @@ typify <- function(sq, dest_type) {
     pack_chars(s, dest_alph)
   })
   
-  class(ret) <- c(paste0(dest_type, "sq"), "sq")
-  attr(ret, "alphabet") <- dest_alph
-  ret
+  ret <- .set_alph(ret, dest_alph)
+  .set_class(ret, dest_type)
 }

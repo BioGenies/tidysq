@@ -12,29 +12,31 @@
 #' }
 #' @seealso \code{\link[base]{readLines}}
 #' @export
-read_fasta <- function(file, type = "unt") {
-  if (!is.character(file) ||
-      !(length(file) == 1)) {
-    stop("'file' has to be a string giving file to read from")
+read_fasta <- function(file, type = "unt", is_clean = NULL) {
+  .check_file_is_char(file)
+  if(.is_no_check_mode()) {
+    .check_nc_is_clean_in_TRUE_FALSE(is_clean)
+    .check_nc_type_in_ami_nuc(type)
+    sqtibble <- nc_read_fasta_file(normalizePath(file), type == "ami", is_clean)
+    class(sqtibble[["sq"]]) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq")
+    attr(sqtibble[["sq"]], "alphabet") <- .get_standard_alph(type, is_clean)
+    as_tibble(sqtibble)
+  } else {
+    .check_is_clean_in_TRUE_FALSE_NULL(is_clean)
+    .check_type_in_ami_nuc_unt(type)
+    
+    #used from biogram
+    all_lines <- readLines(file)
+    s_id <- cumsum(grepl("^>", all_lines))
+    all_s <- split(all_lines, s_id)
+    
+    s_list <- unname(sapply(all_s, function(s) paste(s[2:length(s)], collapse = "")))
+    sq <- construct_sq(s_list, type)
+    
+    names_vec <- sub(">", "", sapply(all_s, function(s) s[1]), fixed = TRUE)
+    
+    tibble(name = names_vec, sq = sq)
   }
-  if (!file.exists(file)) {
-    stop("'file' doesn't exists")
-  }
-  if (!(type %in% c("ami", "nuc", "unt"))) {
-    stop("'type' needs to be one of 'ami', 'nuc', 'unt' ('unt' is default)")
-  }
-  
-  #used from biogram
-  all_lines <- readLines(file)
-  s_id <- cumsum(grepl("^>", all_lines))
-  all_s <- split(all_lines, s_id)
-  
-  s_list <- unname(sapply(all_s, function(s) paste(s[2:length(s)], collapse = "")))
-  sq <- construct_sq(s_list, type)
-  
-  names_vec <- sub(">", "", sapply(all_s, function(s) s[1]), fixed = TRUE)
-  
-  tibble(name = names_vec, sq = sq)
 }
 
 #' @export

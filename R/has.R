@@ -38,7 +38,7 @@
     stop("object which you're looking for in 'sq' object needs to be a character vector")
   }
   y <- strsplit(toupper(y), "")
-  if (!all(unlist(y) %in% c(aminoacids_df[, "one"], "^", "$"))) {
+  if (!all(unlist(y) %in% c(.get_standard_alph("ami", FALSE), "^", "$"))) {
     stop("motifs that you're searching for in 'sq' object needs to consist of letters from aminoacids alphabet and optionally '^' or '$' characters")
   }
   y <- lapply(y, function(s) replace(s, s == "B", "[BDN]"))
@@ -62,7 +62,7 @@
     stop("object which you're looking for in 'sq' object needs to be a character vector")
   }
   y <- strsplit(toupper(y), "")
-  if (!all(unlist(y) %in% c(nucleotides_df[, "one"], "^", "$"))) {
+  if (!all(unlist(y) %in% c(.get_standard_alph("nuc", FALSE), "^", "$"))) {
     stop("motifs that you're searching for in 'sq' object needs to consist of letters from nucleotides alphabet and optionally '^' or '$' characters")
   }
   y <- lapply(y, function(s) replace(s, s == "W", "[WATU]"))

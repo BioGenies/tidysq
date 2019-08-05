@@ -33,6 +33,10 @@ nc_pack_ami <- function(UNPACKED) {
     .Call('_tidysq_nc_pack_ami', PACKAGE = 'tidysq', UNPACKED)
 }
 
+nc_read_fasta_file <- function(file, is_ami, is_clean) {
+    .Call('_tidysq_nc_read_fasta_file', PACKAGE = 'tidysq', file, is_ami, is_clean)
+}
+
 unpack_raws <- function(packed, alph_size) {
     .Call('_tidysq_unpack_raws', PACKAGE = 'tidysq', packed, alph_size)
 }
@@ -63,9 +67,5 @@ match_char <- function(letters, alph) {
 
 match_raws <- function(letters, alph, na_char) {
     .Call('_tidysq_match_raws', PACKAGE = 'tidysq', letters, alph, na_char)
-}
-
-match_raw <- function(letters, alph, na_char) {
-    .Call('_tidysq_match_raw', PACKAGE = 'tidysq', letters, alph, na_char)
 }
 
