@@ -76,9 +76,13 @@ is.atpsq <- function(x) {
 #' summary(sq)
 #' summary(nuc_dna_sequence)
 #' 
-#' Comparing object nuc_dna_sequence to \code{\link{sq}}:
+#' # Comparing object nuc_dna_sequence to \code{\link{sq}}:
 #' 
 #' `==`(\code{\link{sq}},nuc_dna_sequence)
+#' 
+#' # Also comparing object nuc_dna_sequence to \code{\link{sq}}:
+#'
+#'  \code{\link{sq}} == nuc_dna_sequence
 #'                                                                     
 #' @exportMethod `==` sq
 #' @export
