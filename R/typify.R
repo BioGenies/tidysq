@@ -13,7 +13,7 @@ typify <- function(sq, dest_type) {
   
   alph <- .get_alph(sq)
   up_alph <- unique(toupper(alph))
-  dest_alph <- if (dest_type == "ami") aminoacids_df[, "one"] else nucleotides_df[, "one"]
+  dest_alph <- .get_standard_alph(dest_type, FALSE)
   
   if (!all(up_alph %in% dest_alph)) {
     stop("some sequences have levels that are invalid for given 'dest_type'; you can check them with 'get_invalid_letters' function and fix them with 'substitute_letters'")
@@ -24,12 +24,11 @@ typify <- function(sq, dest_type) {
                     "in 'alphabet' attribute of 'sq' some letters show up as both lower and capital")
   }
   
-  inds_func <- match(toupper(alph), dest_alph)
-  names(inds_func) <- as.character(1:length(alph))
+  ret <- .apply_sq(sq, "char", "none", function(s) {
+    s <- toupper(s)
+    pack_chars(s, dest_alph)
+  })
   
-  ret <- .recode_sq(sq, alph, dest_alph, inds_func)
-  
-  class(ret) <- c(paste0(dest_type, "sq"), "sq")
-  attr(ret, "alphabet") <- dest_alph
-  ret
+  ret <- .set_alph(ret, dest_alph)
+  .set_class(ret, dest_type)
 }

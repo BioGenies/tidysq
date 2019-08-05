@@ -12,9 +12,6 @@
 #' @exportMethod `%has%` sq
 #' @export
 `%has%.sq` <- function(x, y) {
-  if (any(sapply(x, function(s) any(is.na(s))))) {
-    stop("you cannot find motifs in 'sq' object with NA's")
-  }
   if (!is.character(y)) {
     stop("object which you're looking for in 'sq' object needs to be a character vector")
   }
@@ -37,14 +34,11 @@
 #' @exportMethod `%has%` amisq
 #' @export
 `%has%.amisq` <- function(x, y) {
-  if (any(sapply(x, function(s) any(is.na(s))))) {
-    stop("you cannot find motifs in 'sq' object with NA's")
-  }
   if (!is.character(y)) {
     stop("object which you're looking for in 'sq' object needs to be a character vector")
   }
   y <- strsplit(toupper(y), "")
-  if (!all(unlist(y) %in% c(aminoacids_df[, "one"], "^", "$"))) {
+  if (!all(unlist(y) %in% c(.get_standard_alph("ami", FALSE), "^", "$"))) {
     stop("motifs that you're searching for in 'sq' object needs to consist of letters from aminoacids alphabet and optionally '^' or '$' characters")
   }
   y <- lapply(y, function(s) replace(s, s == "B", "[BDN]"))
@@ -64,14 +58,11 @@
 #' @exportMethod `%has%` nucsq
 #' @export
 `%has%.nucsq` <- function(x, y) {
-  if (any(sapply(x, function(s) any(is.na(s))))) {
-    stop("you cannot find motifs in 'sq' object with NA's")
-  }
   if (!is.character(y)) {
     stop("object which you're looking for in 'sq' object needs to be a character vector")
   }
   y <- strsplit(toupper(y), "")
-  if (!all(unlist(y) %in% c(nucleotides_df[, "one"], "^", "$"))) {
+  if (!all(unlist(y) %in% c(.get_standard_alph("nuc", FALSE), "^", "$"))) {
     stop("motifs that you're searching for in 'sq' object needs to consist of letters from nucleotides alphabet and optionally '^' or '$' characters")
   }
   y <- lapply(y, function(s) replace(s, s == "W", "[WATU]"))
