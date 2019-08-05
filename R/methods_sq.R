@@ -51,7 +51,32 @@ is.simsq <- function(x) {
 is.atpsq <- function(x) {
   tryCatch({validate_atpsq(x); TRUE}, error = function(e) FALSE)
 }
-
+#' Compare sq object 
+#' @description Compares input \code{\link{sq}} object with another given.
+#'   
+#' @details \code{`==``} checks if the input object is sequence, if yes, converts
+#' it to chracters and checks whether given object can be compared with
+#' \code{\link{sq}} object. If given sequence consists lowercase, the function
+#' rewrites them into capital ones.
+#' 
+#' @param x1 \code{\link{sq}} object.
+#' @param x2 an object to compare with \code{\link{sq}}.
+#' 
+#' @examples 
+#' 
+#' # Creating sq object to work on:
+#' sq <- construct_sq(c("ACTGCTG", "CTTAGA", 
+#'                      "CCCT", "CTGAATGT"), type = "nuc")
+#' nuc_dna_sequence <- construct_sq(c("ACTGCTG", "CTTAGA", 
+#'                                    "GGAA", "ATGAACGT"), type = "nuc")                              
+#' # Get an overview of the sequences:
+#' summary(sq)
+#' summary(nuc_dna_sequence)
+#' 
+#' Comparing object nuc_dna_sequence to \code{\link{sq}}:
+#' 
+#' `==`(\code{\link{sq}},nuc_dna_sequence)
+#'                                                                     
 #' @exportMethod `==` sq
 #' @export
 `==.sq` <- function(e1, e2) {
