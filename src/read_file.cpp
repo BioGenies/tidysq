@@ -64,6 +64,7 @@ Rcpp::List nc_read_fasta_file(std::string file,
         buffer_offset = 0;
       }
       sq.push_back(Rcpp::RawVector(0));                           //we create new raw sq object at the end of the list
+      in_fstream.get();                                           //we read `>` char to remove it from the name
       in_fstream.getline(name_buffer, NAME_MAX_SIZE);             //we read its name
       name.push_back(name_buffer);                                //and push it at the end of vector of names
       open_sq = true;                                             //now we have new sq unfinished
@@ -93,13 +94,12 @@ Rcpp::List nc_read_fasta_file(std::string file,
   if (open_sq) {                                                  //in the end, we close last sq
     std::vector<char> in_char;
     in_char.assign(sq_buffer, sq_buffer + buffer_offset + 1);
-    Rcpp::Rcout << sq_buffer;
     sq[sq.size() - 1] = append_raw(sq[sq.size() - 1], in_char, packing_function); //we append actual sq object by whole buffer after packing it
   }
   
   
-  Rcpp::List sqtibble = Rcpp::List::create(Rcpp::_["sq"] = sq,
-                                           Rcpp::_["name"] = name);
+  Rcpp::List sqtibble = Rcpp::List::create(Rcpp::_["name"] = name,
+                                           Rcpp::_["sq"] = sq);
   
   return sqtibble;
   
