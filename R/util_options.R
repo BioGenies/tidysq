@@ -15,7 +15,7 @@
 }
 
 .get_print_length <- function() {
-  opt <- getOption("tidysq_max_sq_print_width")
+  opt <- getOption("tidysq_max_pillar_sq_width")
   
   ifelse (is.null(opt) || 
             !is.numeric(opt) || 
@@ -24,6 +24,7 @@
             is.infinite(opt) || 
             !(opt > 0), 15, opt)
 }
+
 
 .get_color_opt <- function() {
   opt <- getOption("tidysq_colorful_sq_print")

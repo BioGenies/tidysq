@@ -1,6 +1,3 @@
-#this functions are internal (at least by now) and are used only on sq objects that we know are corect
-#so there's no need to validate
-
 .get_alph_size <- function(alph) {
   ceiling(log2(length(alph) + 2))
 }
@@ -13,17 +10,21 @@
   attr(sq, "alphabet")
 }
 
+.get_lens <- function(sq) {
+  unlist(.apply_sq(sq, "int", "none", function(s) length(s)))
+}
+
 .get_real_alph <- function(sq) {
   unique(unlist(strsplit(sq, "")))
 }
 
 .get_sq_subclass <- function(sq) {
-  intersect(class(sq), c("amisq", "nucsq", "untsq", "simsq", "atpsq", "encsq"))
+  intersect(class(sq), c("amisq", "nucsq", "untsq", "atpsq", "encsq"))
 }
 
 .get_sq_type <- function(sq) {
-  sqclasses <- intersect(class(sq), c("amisq", "nucsq", "untsq", "simsq", "atpsq", "encsq"))
-  dict <- c(amisq = "ami", nucsq = "nuc", untsq = "unt", simsq = "sim", atpsq = "atp", encsq = "encsq")
+  sqclasses <- intersect(class(sq), c("amisq", "nucsq", "untsq", "atpsq", "encsq"))
+  dict <- c(amisq = "ami", nucsq = "nuc", untsq = "unt", atpsq = "atp", encsq = "encsq")
   dict[sqclasses]
 }
 

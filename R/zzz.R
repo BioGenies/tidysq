@@ -7,7 +7,8 @@
     tidysq_typify_small_cap_let = "warning",
     tidysq_encode_nogap_action = "none",
     tidysq_encode_noname_action = "warning",
-    tidysq_max_sq_print_width = 15,
+    tidysq_max_pillar_sq_width = 15,
+    tidysq_max_print_sequences = 10,
     tidysq_colorful_sq_print = TRUE,
     tidysq_na_print_char = "!",
     tidysq_no_check_mode = FALSE

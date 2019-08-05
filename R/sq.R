@@ -85,9 +85,6 @@ validate_sq <- function(object, type = NULL) {
   if (!is.character(alph) &&
       !is.numeric(alph))
     stop("attribute 'alphabet' is neither a character nor a numeric vector")
-  #assumption about length of one of each character - this can be changed in future
-  if (!all(sapply(alph, length) == 1))
-    stop("attribute 'alphabet' have elements that aren't one element long")
   if (!is.list(object))
     stop("'object' isn't a list")
   if (!all(sapply(object, is.raw))) 
@@ -142,16 +139,6 @@ validate_untsq <- function(object) {
     stop("attribute 'alphabet' isn't a character vector")
   if (!"untsq" %in% class(object))
     stop("'object' doesn't inherit class 'untsq'")
-  
-  invisible(object)
-}
-
-validate_simsq <- function(object) {
-  if (!"simsq" %in% class(object))
-    stop("'object' doesn't inherit class 'simsq'")
-  alph <- .get_alph(object)
-  if (!all(alph %in% c(letters, "-"))) 
-    stop("attribute 'alphabet' doesn't follow groups naming convention (lower latin letters and symbol '-')")
   
   invisible(object)
 }
