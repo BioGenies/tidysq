@@ -159,3 +159,32 @@
   if (length(unique(.get_lens(sq))) != 1) 
     stop("all sequences in 'sq' have to have the same length")
 }
+
+.check_is_pssm <- function(pssm) {
+  if (!is.numeric(pssm) || 
+      !is.matrix(pssm) ||
+      (colnames(pssm) != setdiff(.get_standard_alph("ami", TRUE), "*") &&
+       colnames(pssm) != .get_standard_alph("nuc", TRUE)))
+    stop("'pssm' has to be pssm matrix (result of compute_pssm function)")
+}
+
+.check_is_pssm_or_numeric <- function(pssm) {
+  if (!is.numeric(pssm) ||
+      (!is.matrix(pssm) ||
+       (colnames(pssm) != setdiff(.get_standard_alph("ami", TRUE), "*") &&
+        colnames(pssm) != .get_standard_alph("nuc", TRUE))))
+    stop("'pssm' has to be pssm matrix (result of compute_pssm function) or numeric vector")
+}
+
+.check_types_match <- function(sq, pssm) {
+  type <- .get_sq_type(sq)
+  alph <- .get_alph(sq)
+  if (type == "ami" && !identical(colnames(pssm), setdiff(alph, "*")) ||
+      type == "nuc" && !identical(colnames(pssm), alph))
+    stop("alphabet of 'sq' object doesn't match 'pssm' alphabet")
+}
+
+.check_lens_eq_num_pos <- function(len, num_pos) {
+  if (len != num_pos) 
+    stop("length of sequences in 'sq' has to be the same as number of rows of 'pssm'")
+}
