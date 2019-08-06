@@ -1,28 +1,34 @@
 #' Reverse sequence
 #' 
-#' Reverse given list of sequences.
+#' @description Reverse given list of sequences.
 #' 
 #' @param sq \code{\link{sq}} object
 #' 
-#' @return \code{\link{sq}} object of the same type as input sq, where each element is reversed.
+#' @details The \code{reverse} function reverses each sequence in supplied \code{\link{sq}} object (e.q. transforms "MIAANYTWIL" to "LIWTYNAAIM"). Empty sequences
+#' are left with no effect. This operation does not change the type of the input object nor its alphabet.
+#' 
+#' Since the function \code{reverse} returns a \code{\link{sq}} object, the \code{\link{print.sq}} function is implicitly called.
+#' 
+#' @return \code{\link{sq}} object of the same type as input object but each sequence is reversed.
 #' 
 #' @examples 
-#' # reverse just one sequence:
-#' reverse(construct_sq("ACTAGAGTGATAGA", type = "nuc"))
+#' # Creating sq objects using construct_sq:
+#' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
+#'                          "NYERTGHLI", "MAYXXXIALN"), type = "ami")
+#' sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
+#'                          ""), type = "nuc")
+#' sq_unt <- construct_sq(c("ATGCAGGA!", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
 #' 
-#' # reverse list of sequences:
-#' reverse(construct_sq(c("fafasfasfFSA", "ygagayagfa", "adsDaf"), type = "ami"))
+#' # Reverse sequences:
+#' reverse(sq_ami)
+#' reverse(sq_nuc)
+#' reverse(sq_unt)
 #' 
-#' # reverse list of uncleaned sequences:
-#' reverse(construct_sq(c("PASJIFEHF", "hvfisxxx", "xxxer")))
+#' # Reverse cleaned sequences:
+#' reverse(clean(sq_ami))
+#' reverse(clean(sq_nuc))
 #' 
-#' # reverse list of cleaned sequences - only_elements = FALSE:
-#' reverse(clean(construct_sq(c("fafasfasfFSA", "ygagayagfa", "adxxaf", "xxx"), type = "ami")))
-#'
-#' # reverse list of cleaned sequences - only_elements = TRUE:
-#' reverse(clean(construct_sq(c("fafasfasfFSA", "ygagayagfa", "adxxaf", "xxx"), type = "ami"), only_elements = TRUE))
-#' 
-#' @seealso sq
+#' @seealso \code{\link{sq}} \code{\link{clean}} \code{\link{print.sq}}
 #' 
 #' @export
 reverse <- function(sq) {
