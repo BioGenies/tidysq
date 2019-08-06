@@ -9,8 +9,10 @@
 #' which elements contain a given motif
 #' 
 #' @details This function allows testing if elements of a sq object contain 
-#' a given motif. It returns a logical for every element of the sq object - 
-#' \code{TRUE} if it contains the motif and \code{FALSE} otherwise. 
+#' a given motif or motifs. It returns a logical for every element of the sq 
+#' object - \code{TRUE} if it contains the motif and \code{FALSE} otherwise. 
+#' In case of search for multiple motifs, \code{TRUE} will be returned only 
+#' for sequences that contain all of the given motifs. 
 #' 
 #' Note if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
 #' search for motifs cannot be performed and an error will be displayed. 
@@ -20,10 +22,13 @@
 #' In case of sq objects of type 'ami' and 'nuc', motifs have to consist 
 #' of letters from amino acid and nucleotide alphabet respectively. 
 #' However, two additional characters are allowed: '^' and '$' indicating
-#' the beginning and the end of a sequence respectively. If a motif contains
-#' ambiguous letters, all possible matches will be tested, e.g., amino acid 
-#' motif "MAJ" (where "J" is an ambiguous letter indicating L or I) will return
-#' \code{TRUE} for sequences containing "MAJ", "MAL" and "MAI". 
+#' the beginning and the end of a sequence respectively. Moreover, notice
+#' that '*' character may be used in amino acid motifs, as it is a part of 
+#' the amino acid alphabet. If a motif contains ambiguous letters, all 
+#' possible matches will be tested, e.g., amino acid motif "MAJ" (where "J" 
+#' is an ambiguous letter indicating L or I) will return \code{TRUE} for 
+#' sequences containing "MAJ", "MAL" and "MAI". If a motif contains lower 
+#' case letters, they will be converted to upper case.  
 #' 
 #' This function only indicates if a motif is present within a sequence, to 
 #' find all motifs and their positions within sequences use 
@@ -33,7 +38,7 @@
 #' # Creating objects to work on:
 #' sq_nuc <- construct_sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", 
 #'                          "CAGACCANNNATAG"), type = 'nuc')
-#' sq_ami <- construct_sq(c("AGNTYIKFGGAYTI", "MATEGILIAADAGYTWIL", 
+#' sq_ami <- construct_sq(c("AGNTYIKFGGAYTI", "MATEGILIAADGYTWIL", 
 #'                          "MIPADHICAANGIENAGIK"), type = 'ami')
 #'                          
 #' # Test if nucleotide sequences contain start codon 'ATG':
@@ -48,6 +53,9 @@
 #' # Test if amino acid sequences contain motif of two alanines followed by
 #' # aspartic acid or asparagine ('AAB' motif will match 'AAB', 'AAD' and 'AAN'):
 #' sq_ami %has% 'AAB'
+#' 
+#' # Test if amino acid sequences contain two motifs:
+#' sq_ami %has% c("AAXG", "mat")
 #' 
 #' @seealso sq substitute_letters find_motifs
 #' @export
