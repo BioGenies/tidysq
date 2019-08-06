@@ -15,6 +15,17 @@
     stop("in no_check mode 'type' needs to be one of 'nuc', 'ami'")
 }
 
+.check_type_in_ami_nuc <- function(type) {
+  if (is.null(type) ||
+      !type %in% c("nuc", "ami"))
+    stop("'type' has to be one of 'nuc', 'ami'")
+}
+
+.check_sq_type_in_ami_nuc <- function(type) {
+  if (!type %in% c("nuc", "ami"))
+    stop("'sq' type has to be one of 'nuc', 'ami'")
+}
+
 .check_sqstr_proper_char <- function(sq) {
   if (!is.character(sq) ||
       length(sq) == 0 ||
@@ -42,10 +53,10 @@
 }
 
 .check_nonst_proper_char <- function(non_standard) {
-  if (!is.character(sq) ||
-      length(sq) == 0 ||
-      any(is.na(sq)) ||
-      any(is.null(sq))) 
+  if (!is.character(non_standard) ||
+      length(non_standard) == 0 ||
+      any(is.na(non_standard)) ||
+      any(is.null(non_standard))) 
     stop("'non_standard' has to be a positive-length character vector without NA")
 }
 
@@ -61,6 +72,11 @@
       stop("there are letters in alphabet in file that aren't suit for given 'type' or 'is_clean' parameters")
     }
   }
+}
+
+.check_sq_is_clean <- function(sq) {
+  if (!.is_cleaned(sq))
+    stop("'sq' object has to be clean")
 }
 
 .check_alph_length <- function(alph) {
@@ -96,7 +112,7 @@
       (floor(nchar) != nchar) ||
       (length(nchar) != 1) ||
       is.na(nchar) || 
-      is.nan(nchar)|| 
+      is.nan(nchar) || 
       !is.finite(nchar) ||
       nchar <= 0) 
     stop("'nchar' has to be positive integer indicating max number of elements of sequence in single line in file")
@@ -104,5 +120,42 @@
 
 .check_eq_lens <- function(sq, name) {
   if (length(sq) != length(name)) 
-    sstop("'name' has to have length equal to 'sq'")
+    stop("'name' has to have length equal to 'sq'")
+}
+
+.check_matrix_no_na <- function(matrix) {
+  if (any(is.na(matrix)))
+    stop("there can't be any NA in 'sq' object")
+}
+
+.check_matrix_no_star <- function(matrix) {
+  if (any(matrix == "*"))
+    stop("'sq' object cannot contain '*'; you can remove them using substitute_letters and remove_na")    
+}
+
+.check_num_pos_proper_int <- function(num_pos) {
+  if (!is.numeric(num_pos) ||
+      (floor(num_pos) != num_pos) ||
+      (length(nchar) != 1) ||
+      is.na(num_pos) || 
+      is.nan(num_pos) || 
+      !is.finite(num_pos) ||
+      num_pos <= 0) 
+    stop("'nchar' has to be positive integer indicating number of rows (number of positions, sequence lenghts) in PSSM")
+}
+
+.check_mode_is_proper <- function(mode) {
+  if (missing(mode) ||
+      !mode %in% c("counts", "freqs", "shannon", "information", "kullback-leibler"))
+    stop("'mode' has to be one of 'counts', 'freqs', 'shannon', 'information', 'kullback-leibler'")
+}
+
+.check_back_dist_is_proper <- function(background_dist) {
+  if (!background_dist %in% rownames(BGFREQS))
+    stop("'background_dist' has to be in rownames of BGFREQS dataframe")
+}
+
+.check_sq_lens_eq <- function(sq) {
+  if (length(unique(.get_lens(sq))) != 1) 
+    stop("all sequences in 'sq' have to have the same length")
 }

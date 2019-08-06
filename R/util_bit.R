@@ -39,7 +39,7 @@
   else if (ex_form == "int") 
     unpack_fun <- function(s) unpack_ints(s, .get_alph_size(alph))
   else if (ex_form == "string") 
-    unpack_fun <- function(x) unpack_string(s, alph, .get_na_char())
+    unpack_fun <- function(s) unpack_string(s, alph, .get_na_char())
  
   if (im_form == "char")
     pack_fun <- function(s) pack_chars(s, alph)
