@@ -15,7 +15,7 @@
 Compares input \code{\link{sq}} object with another given.
 }
 \details{
-\code{`==``} checks if the input object is sequence, if yes, converts
+\code{`==`} checks if the input object is sequence, if yes, converts
 it to chracters and checks whether given object can be compared with
 \code{\link{sq}} object. If given sequence consists lowercase, the function
 rewrites them into capital ones.
