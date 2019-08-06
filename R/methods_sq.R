@@ -57,33 +57,58 @@ is.atpsq <- function(x) {
 #' Compare sq object 
 #' @description Compares input \code{\link{sq}} object with another given.
 #'   
-#' @details \code{`==`} checks if the input object is sequence, if yes, converts
-#' it to chracters and checks whether given object can be compared with
-#' \code{\link{sq}} object. If given sequence consists lowercase, the function
-#' rewrites them into capital ones.
+#' @details \code{`==`} checks if given object is \code{\link{sq}}, if yes, converts
+#' it to chracters vectors using \code{\link{as.character}} and checks whether 
+#' given object can be compared with \code{\link{sq}} object. Function also check 
+#' the type of \code{\link{sq}} object with which given object will be compared.
+#' If the type of \code{\link{sq}} object is ami or nuc and given sequence  is 
+#' character vector consisting lowercase, the function rewrites it into capital ones
+#' with usage \code{\link{toupper}}. The \code{\link{sq}} object is converted to
+#' character vector using also \code{\link{as.character}} function.
+#' Comparing sequences as characters vectors cause that various types of sequences
+#' can be compared for example aminoacids with nucleotides sequences
+#' (comparision is done with standard R rules) so attention should be paid
+#' which sequences types are compared. 
 #' 
 #' @param x1 \code{\link{sq}} object.
-#' @param x2 an object to compare with \code{\link{sq}}.
+#' @param x2 an object (character vector or sq object) to compare with \code{\link{sq}}.
 #' 
 #' @examples 
 #' 
 #' # Creating sq object to work on:
 #' sq <- construct_sq(c("ACTGCTG", "CTTAGA", 
 #'                      "CCCT", "CTGAATGT"), type = "nuc")
-#' nuc_dna_sequence <- construct_sq(c("ACTGCTG", "CTTAGA", 
-#'                                    "GGAA", "ATGAACGT"), type = "nuc")                              
+#'                      
+#' sq_different_len <- construct_sq(c("ACTGCTG", "CTTAGA", 
+#'                                    "GGAA"), type = "nuc")
+#'                                    
+#' sq_the_same_len <- construct_sq(c("ACTGCTG", "CTTAGA", 
+#'                                  "CCCT", "CTGAATGT"), type = "nuc")
+#'                                                                                        
 #' # Get an overview of the sequences:
 #' summary(sq)
-#' summary(nuc_dna_sequence)
-#' 
-#' # Comparing object nuc_dna_sequence to \code{\link{sq}}:
-#' 
-#' `==`(\code{\link{sq}},nuc_dna_sequence)
-#' 
-#' # Also comparing object nuc_dna_sequence to \code{\link{sq}}:
+#' summary(sq_the_same_len)
+#' summary(sq_different_len)
 #'
-#'  \code{\link{sq}} == nuc_dna_sequence
-#'                                                                     
+#' # Comparing sq object with an object of the same length :
+#' sq == sq_the_same_len
+#' 
+#' # Comparing object sq object with an object of a different length : 
+#' sq == sq_different_len
+#'  
+#' # Comparing sq object to given character vector of a different length:
+#' sq == c('AAA','CCC')
+#' 
+#' # Comparing sq object to given character vector of a the same length:
+#' sq == c("ACTGCTG", "CTTAGA",'CCCT', 'CTGAATGT')
+#' 
+#' # Comparing sq object to given nucleotide element 'ATGTGA':
+#' sq == 'ATGTGA'
+#' 
+#' # Comparing sq object to given amino acids vector:
+#' sq == c('RISGQQD','RISGQQD')
+#'  
+#' @seealso sq as.character is.sq                                                                    
 #' @exportMethod `==` sq
 #' @export
 `==.sq` <- function(e1, e2) {
