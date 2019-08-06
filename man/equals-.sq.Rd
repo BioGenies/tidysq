@@ -21,8 +21,22 @@ it to chracters and checks whether given object can be compared with
 rewrites them into capital ones.
 }
 \examples{
+
 # Creating sq object to work on:
+sq <- construct_sq(c("ACTGCTG", "CTTAGA", 
+                     "CCCT", "CTGAATGT"), type = "nuc")
+nuc_dna_sequence <- construct_sq(c("ACTGCTG", "CTTAGA", 
+                                   "GGAA", "ATGAACGT"), type = "nuc")                              
+# Get an overview of the sequences:
+summary(sq)
+summary(nuc_dna_sequence)
 
-  
+# Comparing object nuc_dna_sequence to \\code{\\link{sq}}:
 
+`==`(\\code{\\link{sq}},nuc_dna_sequence)
+
+# Also comparing object nuc_dna_sequence to \\code{\\link{sq}}:
+
+ \\code{\\link{sq}} == nuc_dna_sequence
+                                                                    
 }
