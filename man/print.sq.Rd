@@ -26,6 +26,7 @@ Prints input \code{\link{sq}} object in a human-friendly form.
 the \code{print} method parameters can be changed. 
  
 \code{Print} checks if the input \code{\link{sq}} object is cleaned and includes this information alongside with type in the printed message. 
+On the right side of the sequence, in angle brackets, the length of each sequence is printed (e.q. "<9>").
 
 If the \code{max_sequences} parameter is supplied, the desired number of sequences is printed and this information is included in message 
 (e.q. "printed 1 out of 3"). Only \code{max_sequences} value smaller then the number of sequences in object affects the function. The default value 
