@@ -7,7 +7,7 @@ empty_pssm <- function(num_pos, type) {
 
 
 #' @export
-compute_pssm <- function(sq, mode, background_dist = "All") {
+compute_pssm <- function(sq, mode = "freqs", background_dist = "All") {
   validate_sq(sq)
   .check_sq_type_in_ami_nuc(.get_sq_type(sq))
   .check_sq_is_clean(sq)
@@ -35,9 +35,8 @@ score_pssm <- function(sq, pssm) {
   sq <- as.matrix(sq)
   .check_matrix_no_na(sq)
   .check_matrix_no_star(sq)
-  sq_long  <- as.character(sq)
-  pssm_long <- pssm[, sq_long]
-  s_vec <- colSums(pssm_long * matrix(rep(diag(len), n), nrow = len))
+  sq_long  <- as.character(t(sq))
+  s_vec <- pssm[cbind(rep(1:len, n), sq_long)]
   s_mat <- matrix(s_vec, ncol = len, byrow = TRUE)
   rowSums(s_mat)
 }
