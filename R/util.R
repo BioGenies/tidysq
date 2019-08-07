@@ -24,7 +24,7 @@
 
 .get_sq_type <- function(sq) {
   sqclasses <- intersect(class(sq), c("amisq", "nucsq", "untsq", "atpsq", "encsq"))
-  dict <- c(amisq = "ami", nucsq = "nuc", untsq = "unt", atpsq = "atp", encsq = "encsq")
+  dict <- c(amisq = "ami", nucsq = "nuc", untsq = "unt", atpsq = "atp", encsq = "enc")
   dict[sqclasses]
 }
 
