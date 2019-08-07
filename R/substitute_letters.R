@@ -13,7 +13,7 @@
 #' @param sq \code{\link{sq}} object.
 #' @param indices \code{encoding} vector of letters to be replaced together with their replacements.
 #' One letter can be replaced with multiple symbols. 
-#' To perform substitution create a named vector ex. \item{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
+#' To perform substitution create a named vector ex. \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
 #' 
 #' @return \code{\link{atpsq}} object of the same type as input sq with replaced alphabet, defined by user.
 #' 
@@ -28,9 +28,9 @@
 #' One letter of the alphabet may be replaced by a multiple characters. 
 #' 
 #' The alphabet characters to be replaced need to be written in capital letters and must originate from default alphabets, otherwise error will be introduced.
-#' Multiple string of letters to be substituted (ex. \item{c(AHG = "replacement")}) will also produce an error.
+#' Multiple string of letters to be substituted (ex. \code{c(AHG = "replacement")}) will also produce an error.
 #' 
-#' Replacing multiple letters with the same symbol (ex. \item{c(A = "replacement1", H  = "replacement1", G = "replacement1")}) is allowed.
+#' Replacing multiple letters with the same symbol (ex. \code{c(A = "replacement1", H  = "replacement1", G = "replacement1")}) is allowed.
 #' 
 #' Created sequence will be deprived of \code{\link{cln})} subtype, if the original sequence possessed it.
 #' This will also occur when the letter to be replaced will not be found in the sequence. It remain unchanged but will lose subclass.
@@ -75,7 +75,7 @@
 #' substitute_letters(sq_ami, enc_ami)
 #' 
 #' 
-#' # Use created encoding from other package (ex. \code{\link[AmyloGram]{myloGram_model}})
+#' # Use created encoding from other package (ex. \code{\link[AmyloGram]{AmyloGram_model}})
 #' 
 #' library(AmyloGram)
 #' 
