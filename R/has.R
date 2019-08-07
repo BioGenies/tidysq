@@ -1,12 +1,12 @@
-#' Test sq object for presence of a given motif
+#' Test sq object for presence of given motifs
 #' 
-#' @description Test if elements of a sq object contain a given motif
+#' @description Test if elements of a sq object contain given motifs
 #' 
 #' @param x \code{\link{sq}} object to be tested
-#' @param y \code{character} vector of a motif to be searched for
+#' @param y \code{character} vector of motifs to be searched for
 #' 
 #' @return a logical vector of the same length as input sq, indicating 
-#' which elements contain a given motif
+#' which elements contain all of given motifs
 #' 
 #' @details This function allows testing if elements of a sq object contain 
 #' a given motif or motifs. It returns a logical for every element of the sq 
@@ -15,9 +15,11 @@
 #' for sequences that contain all of the given motifs. 
 #' 
 #' Note if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
-#' search for motifs cannot be performed and an error will be displayed. 
-#' To search for motifs with those characters, you have to replace them 
-#' first using \code{\link{substitute_letters}}. 
+#' search for motifs cannot be performed and an error will be displayed (with 
+#' exception of sq objects of type ami - in their alphabet there is "*" letter 
+#' and it can be contained in sought motif"). To search for motifs with those 
+#' characters, you have to replace them first using 
+#' \code{\link{substitute_letters}}. 
 #' 
 #' In case of sq objects of type 'ami' and 'nuc', motifs have to consist 
 #' of letters from amino acid and nucleotide alphabet respectively. 

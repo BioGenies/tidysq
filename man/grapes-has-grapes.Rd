@@ -2,21 +2,21 @@
 % Please edit documentation in R/has.R
 \name{\%has\%}
 \alias{\%has\%}
-\title{Test sq object for presence of a given motif}
+\title{Test sq object for presence of given motifs}
 \usage{
 x \%has\% y
 }
 \arguments{
 \item{x}{\code{\link{sq}} object to be tested}
 
-\item{y}{\code{character} vector of a motif to be searched for}
+\item{y}{\code{character} vector of motifs to be searched for}
 }
 \value{
 a logical vector of the same length as input sq, indicating 
-which elements contain a given motif
+which elements contain all of given motifs
 }
 \description{
-Test if elements of a sq object contain a given motif
+Test if elements of a sq object contain given motifs
 }
 \details{
 This function allows testing if elements of a sq object contain 
@@ -26,9 +26,11 @@ In case of search for multiple motifs, \code{TRUE} will be returned only
 for sequences that contain all of the given motifs. 
 
 Note if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
-search for motifs cannot be performed and an error will be displayed. 
-To search for motifs with those characters, you have to replace them 
-first using \code{\link{substitute_letters}}. 
+search for motifs cannot be performed and an error will be displayed (with 
+exception of sq objects of type ami - in their alphabet there is "*" letter 
+and it can be contained in sought motif"). To search for motifs with those 
+characters, you have to replace them first using 
+\code{\link{substitute_letters}}. 
 
 In case of sq objects of type 'ami' and 'nuc', motifs have to consist 
 of letters from amino acid and nucleotide alphabet respectively. 
