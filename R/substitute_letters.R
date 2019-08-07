@@ -99,6 +99,13 @@ substitute_letters <- function(sq, encoding) {
     stop("all names of 'encoding' has to be letters from alphabet (elements of 'alphabet' attribute of 'sq')")
   }
   
+  if (is.numeric(encoding)) {
+    .check_enc_proper_int(encoding)
+    name <- names(encoding)
+    encoding <- as.character(encoding)
+    names(encoding) <- name
+  } else .check_enc_proper_char(encoding)
+  
   inds_fun <- alph
   inds_fun[match(names(encoding), alph)] <- encoding
   new_alph <- na.omit(unique(inds_fun))
@@ -108,10 +115,10 @@ substitute_letters <- function(sq, encoding) {
   
   ret <- .apply_sq(sq, "int", "int", function(s) {
     inds_fun[s]
-  })
+  }, new_alph)
   if (.is_cleaned(sq)) {
     .handle_opt_txt("tidysq_subsitute_letters_cln",
-                    "column passed to muatting had 'cln' subtype, output column doesn't have it")
+                    "'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it")
   }
 
   ret <- .set_alph(ret, new_alph)

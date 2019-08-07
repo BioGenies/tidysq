@@ -24,7 +24,7 @@
 
 .get_sq_type <- function(sq) {
   sqclasses <- intersect(class(sq), c("amisq", "nucsq", "untsq", "atpsq", "encsq"))
-  dict <- c(amisq = "ami", nucsq = "nuc", untsq = "unt", atpsq = "atp", encsq = "encsq")
+  dict <- c(amisq = "ami", nucsq = "nuc", untsq = "unt", atpsq = "atp", encsq = "enc")
   dict[sqclasses]
 }
 
@@ -81,7 +81,41 @@
 
 .guess_sq_type <- function(sq) {
   real_alph <- toupper(.get_real_alph(sq))
-  if (all(real_alph %in% .get_standard_alph("nuc", FALSE))) "nuc"
-  else if (all(real_alph %in% .get_standard_alph("ami", FALSE))) "ami"
+  .guess_type_by_alph(real_alph)
+}
+
+.guess_type_by_alph <- function(alph) {
+  if (all(alph %in% .get_standard_alph("nuc", FALSE))) "nuc"
+  else if (all(alph %in% .get_standard_alph("ami", FALSE))) "ami"
   else "unt"
+}
+
+.merge_ind <- function(res_ind, begs) {
+  n <- length(res_ind)
+  m <- length(begs)
+  ret <- logical(n + m)
+  act_res <- 1
+  act_beg <- 1
+  act_out <- 1
+  while (act_res <= n &&
+         act_beg <= m) {
+    if (res_ind[act_res] < begs[act_beg]) {
+      ret[act_out] <- TRUE
+      act_res = act_res + 1
+    } else {
+      ret[act_out] <- FALSE
+      act_beg = act_beg + 1
+    }
+    act_out = act_out + 1
+  }
+  ret[act_out:(n+m)] <- (act_res <= n)
+  ret
+}
+
+.get_readable_file <- function(file) {
+  if (!file.exists(file)) {
+    tmp <- tempfile()
+    download.file(file, tmp)
+    tmp
+  } else normalizePath(file)
 }

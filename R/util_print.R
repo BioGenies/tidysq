@@ -40,6 +40,76 @@ type_sum.clnsq <- function(x) {
   paste0("(c)", NextMethod())
 }
 
+#' Print sq object
+#' 
+#' @description Prints input \code{\link{sq}} object in a human-friendly form.  
+#' 
+#' @details \code{Print} method is used by default in each case of calling the 
+#' \code{\link{sq}} object with default parameters. 
+#' Only by explicit calling the \code{print} method parameters can be changed. 
+#'  
+#' \code{Print} checks if the input \code{\link{sq}} object is cleaned and includes 
+#' this information alongside with type in the printed message. On the right side of 
+#' the sequence, in angle brackets, the length of each sequence is printed (e.q. "<9>").
+#' 
+#' If the \code{max_sequences} parameter is supplied, the desired number of sequences 
+#' is printed and this information is included in message (e.q. "printed 1 out of 3"). 
+#' Only \code{max_sequences} value smaller then the number of sequences in object 
+#' affects the function. The default value indicating how many sequences should 
+#' be printed is 10, but it can be changed in \code{\link[sq-options]{package options}}. 
+#' 
+#' Default value of \code{use_color} parameter is \code{TRUE} - sequences are printed
+#' in green and empty sequences, NA character and dots in grey. If this option is disabled, 
+#' all sequences are in default color of console.
+#' 
+#' The \code{letters_sep} parameter indicates how the letters should be separated 
+#' (they are not by default). Any character string can be supplied but 
+#' \code{\link{NA_character_}}.
+#' 
+#' If sequences are too long, only leading characters are printed (as many as possible
+#' in single line) and following dots indicating that sequence is trunctated.
+#' 
+#' If sequences contain \code{\link{NA}} (‘Not Available’ / Missing Values) values, they 
+#' are printed as "!" character, but it can be changed in 
+#' \code{\link[sq-options]{package options}}.
+#' 
+#' This is overloaded function from base package. It is selected when \code{\link{sq}} 
+#' object is used as a parameter for print function. To see the generic function 
+#' page, check \code{\link[base:print]{here}}.
+#' 
+#' @param x \code{\link{sq}} object
+#' @param max_sequences \code{numeric} value indicating how many sequences 
+#' should be printed
+#' @param use_color \code{logical} value indicating if sequences should 
+#' be colored
+#' @param letters_sep \code{character} value indicating how the letters 
+#' should be separated
+#' 
+#' @examples
+#' 
+#' Creating sq objects using construct_sq:
+#' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
+#'                          "NYERTGHLI", "MAYXXXIALN"), type = "ami")
+#' sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
+#'                          "TGACGAGCTTA"), type = "nuc")
+#' sq_unt <- construct_sq(c("ATGCAGGA!", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
+#' 
+#' # Printing without explicit function calling with default parameters:
+#' sq_ami
+#' sq_nuc
+#' sq_unt
+#' 
+#' # Printing with explicit function calling and specific parameters:
+#' print(sq_ami)
+#' print(sq_nuc, max_sequences = 1, use_color = FALSE)
+#' print(sq_unt, letters_sep = ":")
+#' 
+#' # Printing of the cleaned object:
+#' clean(sq_nuc)
+#' print(clean(sq_nuc), letters_sep = "-", use_color = FALSE)
+#' 
+#' @seealso \link{sq} \link{clean} \link{sq-options}
+#' 
 #' @importFrom crayon blue
 #' @importFrom crayon silver
 #' @importFrom crayon green
@@ -96,7 +166,7 @@ print.sq <- function(x,
   
   for (i in 1:num_lines) {
     if (lens[i] == 0) {
-      sq_cut[[i]] <- "<NULL sq>"
+      sq_cut[[i]] <- "<NULL>"
     } else {
       s <- sq_cut[[i]]
       # we count how much characters can we print by counting cumulative extent
@@ -199,7 +269,7 @@ print.encsq <- function(x,
   
   for (i in 1:num_lines) {
     if (lens[i] == 0) {
-      sq_cut[[i]] <- "<NULL sq>"
+      sq_cut[[i]] <- "<NULL>"
     } else {
       s <- sq_cut[[i]]
       # we count how much characters can we print by counting cumulative extent
@@ -272,13 +342,13 @@ pillar_shaft.sq <- function(x, ...) {
   max_len_width <- max(nchar(lens))
   
   max_str_width <- max(sapply(sq_cut, function(s) sum(col_nchar(s))))
-  min_str_width <- if (max_str_width >= 6) 6 else max_str_width
+  min_str_width <- if (max_str_width >= 6) 6 else max_str_width + 1
   
   opt <- .get_print_length()
   
   new_pillar_shaft(list(sq = sq_cut, lens = lens),
-                   width = min(max_str_width + max_len_width + 3, 
-                               opt + max_len_width + 6),
+                   width = min(max_str_width + max_len_width + 4, 
+                               opt + max_len_width + 7),
                    min_width = max_len_width + min_str_width + 3,
                    class = "pillar_shaft_sq",
                    align = "left")
@@ -318,7 +388,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   
   for (i in 1:num_lines) {
     if (lens[i] == 0) {
-      x[[i]] <- "<NULL sq>"
+      x[[i]] <- "<NULL>"
     } else {
       s <- x[[i]]
       # we count how much characters can we print by counting cumulative extent
@@ -432,7 +502,7 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   
   for (i in 1:num_lines) {
     if (lens[i] == 0) {
-      x[[i]] <- "<NULL sq>"
+      x[[i]] <- "<NULL>"
     } else {
       s <- x[[i]]
       # we count how much characters can we print by counting cumulative extent
