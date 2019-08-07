@@ -205,3 +205,51 @@
       any(nchar(encoding) == 0))
     stop("'encoding' has to be either integer or character vector of positive lenght")
 }
+
+.check_n_is_int <- function(n) {
+  if (!is.numeric(n) ||
+      (floor(n) != n) ||
+      (length(n) != 1) ||
+      is.na(n) || 
+      is.nan(n) || 
+      !is.finite(n) ||
+      n <= 0) 
+    stop("'n' has to positive, finite, non-NA, non-NaN integer")
+}
+
+.check_len_is_int <- function(len) {
+  if (!is.numeric(len) ||
+      (floor(len) != len) ||
+      (length(len) != 1) ||
+      is.na(len) || 
+      is.nan(len) || 
+      !is.finite(len) ||
+      len <= 0) 
+    stop("'len' has to positive, finite, non-NA, non-NaN integer")
+}
+  
+.check_is_clean_in_TRUE_FALSE <- function(is_clean) {
+  if (is.null(is_clean) ||
+      length(is_clean) != 1 ||
+      !is_clean %in% c(TRUE, FALSE))
+    stop("'is_clean' has to be either TRUE or FALSE")
+}
+
+.check_sd_is_numeric_or_NULL <- function(sd) {
+  if (!is.null(sd) &&
+      (!is.numeric(sd) ||
+       (floor(sd) != sd) ||
+       (length(sd) != 1) ||
+       is.na(sd) || 
+       is.nan(sd) || 
+       !is.finite(sd) ||
+       sd <= 0))
+    stop("'sd' has to be NULL or positive, finite, non-NA, non-NaN integer")
+}
+
+.check_use_gap_in_TRUE_FALSE <- function(use_gap) {
+  if (is.null(use_gap) ||
+      length(use_gap) != 1 ||
+      !use_gap %in% c(TRUE, FALSE))
+    stop("'is_clean' has to be either TRUE or FALSE")
+}
