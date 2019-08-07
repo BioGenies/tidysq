@@ -29,9 +29,9 @@ export_sq <- function(sq, export_format, name) {
       stop("you need to install 'seqinr' package to export object to its formats")
     }
     if (type == "ami") {
-      ret <- lapply(.debitify_sq(sq, .get_alph(sq)), seqinr::as.SeqFastaAA)
+      ret <- lapply(.debitify_sq(sq, "char"), seqinr::as.SeqFastaAA)
     } else if (type == "nuc") {
-      ret <- lapply(.debitify_sq(sq, .get_alph(sq)), seqinr::as.SeqFastadna)
+      ret <- lapply(.debitify_sq(sq, "char"), seqinr::as.SeqFastadna)
     }
     
     if (!is.null(name)) {
@@ -45,18 +45,18 @@ export_sq <- function(sq, export_format, name) {
       stop("you need to install 'ape' package to export object to its formats")
     } 
     if (type == "ami") {
-      ape::as.AAbin(setNames(.debitify_sq(sq, .get_alph(sq)), name))
+      ape::as.AAbin(setNames(.debitify_sq(sq, "char"), name))
     } else if (type == "nuc") {
-      ape::as.DNAbin(setNames(.debitify_sq(sq, .get_alph(sq)), name))
+      ape::as.DNAbin(setNames(.debitify_sq(sq, "char"), name))
     }
   } else if (export_format %in% c("Biostrings::AAStringSet", "Biostrings::DNAStringSet")) {
     if (!("Biostrings" %in% rownames(installed.packages()))) {
       stop("you need to install 'Biostrings' package to export object to its formats")
     } 
     if (type == "ami") {
-      Biostrings::AAStringSet(setNames(sq, name))
+      Biostrings::AAStringSet(setNames(unlist(.debitify_sq(sq, "string")), name))
     } else if (type == "nuc") {
-      Biostrings::DNAStringSet(setNames(sq, name))
+      Biostrings::DNAStringSet(setNames(unlist(.debitify_sq(sq, "string")), name))
     }
   }
 }
