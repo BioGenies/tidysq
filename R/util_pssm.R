@@ -35,7 +35,7 @@
     q <- 1 / if (.get_sq_type(sq) == "ami") 20 else 4
   else {
     .check_back_dist_is_proper(background_dist)
-    background_dist <- c(as.numeric(BGFREQS[background_dist, ]), 0)
+    background_dist <- c(as.numeric(bg_freqs[background_dist, ]), 0)
     q <- matrix(rep(background_dist, each = nrow(pssm)), nrow(pssm), ncol(pssm))
   }
   ifelse(pssm == 0, 0, pssm * log2(pssm / q))

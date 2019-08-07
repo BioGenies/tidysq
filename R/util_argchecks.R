@@ -151,7 +151,7 @@
 }
 
 .check_back_dist_is_proper <- function(background_dist) {
-  if (!background_dist %in% rownames(BGFREQS))
+  if (!background_dist %in% rownames(bg_freqs))
     stop("'background_dist' has to be in rownames of BGFREQS dataframe")
 }
 
