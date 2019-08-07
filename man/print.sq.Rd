@@ -12,34 +12,44 @@
 \arguments{
 \item{x}{\code{\link{sq}} object}
 
-\item{max_sequences}{\code{numeric} value indicating how many sequences should be printed}
+\item{max_sequences}{\code{numeric} value indicating how many sequences 
+should be printed}
 
-\item{use_color}{\code{logical} value indicating if sequences should be colored}
+\item{use_color}{\code{logical} value indicating if sequences should 
+be colored}
 
-\item{letters_sep}{\code{character} value indicating how the letters should be separated}
+\item{letters_sep}{\code{character} value indicating how the letters 
+should be separated}
 }
 \description{
 Prints input \code{\link{sq}} object in a human-friendly form.
 }
 \details{
-\code{Print} method is used by default in each case of calling the \code{\link{sq}} object with default parameters. Only by explicit calling 
-the \code{print} method parameters can be changed. 
+\code{Print} method is used by default in each case of calling the 
+\code{\link{sq}} object with default parameters. 
+Only by explicit calling the \code{print} method parameters can be changed. 
  
-\code{Print} checks if the input \code{\link{sq}} object is cleaned and includes this information alongside with type in the printed message. 
-On the right side of the sequence, in angle brackets, the length of each sequence is printed (e.q. "<9>").
+\code{Print} checks if the input \code{\link{sq}} object is cleaned and includes 
+this information alongside with type in the printed message. On the right side of 
+the sequence, in angle brackets, the length of each sequence is printed (e.q. "<9>").
 
-If the \code{max_sequences} parameter is supplied, the desired number of sequences is printed and this information is included in message 
-(e.q. "printed 1 out of 3"). Only \code{max_sequences} value smaller then the number of sequences in object affects the function. The default value 
-indicating how many sequences should be printed is 10. 
+If the \code{max_sequences} parameter is supplied, the desired number of sequences 
+is printed and this information is included in message (e.q. "printed 1 out of 3"). 
+Only \code{max_sequences} value smaller then the number of sequences in object 
+affects the function. The default value indicating how many sequences should 
+be printed is 10. 
 
-Default value of \code{use_color} parameter is \code{TRUE} - sequences are printed in green and empty sequences in grey. If this option is disabled, 
-all sequences are in grey.
+Default value of \code{use_color} parameter is \code{TRUE} - sequences are printed
+in green and empty sequences in grey. If this option is disabled, all sequences 
+are in grey.
 
-The \code{letters_sep} parameter indicates how the letters should be separated (they are not by default). Any character string can be supplied but 
+The \code{letters_sep} parameter indicates how the letters should be separated 
+(they are not by default). Any character string can be supplied but 
 \code{\link{NA_character_}}.
 
-This is overloaded function from base package. It is selected when \code{\link{sq}} object is used as a parameter for print function. To see the generic 
-function page, check \code{\link[base:print]{here}}.
+This is overloaded function from base package. It is selected when \code{\link{sq}} 
+object is used as a parameter for print function. To see the generic function 
+page, check \code{\link[base:print]{here}}.
 }
 \examples{
 

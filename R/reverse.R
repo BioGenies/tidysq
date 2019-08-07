@@ -4,12 +4,16 @@
 #' 
 #' @param sq \code{\link{sq}} object
 #' 
-#' @details The \code{reverse} function reverses each sequence in supplied \code{\link{sq}} object (e.q. transforms "MIAANYTWIL" to "LIWTYNAAIM"). Empty sequences
-#' are left with no effect. This operation does not change the type of the input object nor its alphabet.
+#' @details The \code{reverse} function reverses each sequence in supplied 
+#' \code{\link{sq}} object (e.q. transforms "MIAANYTWIL" to "LIWTYNAAIM"). 
+#' Empty sequences are left with no effect. This operation does not change 
+#' the type of the input object nor its alphabet.
 #' 
-#' Since the function \code{reverse} returns a \code{\link{sq}} object, the \code{\link{print.sq}} function is implicitly called.
+#' Since the function \code{reverse} returns a \code{\link{sq}} object, the 
+#' \code{\link{print.sq}} function is implicitly called.
 #' 
-#' @return \code{\link{sq}} object of the same type as input object but each sequence is reversed.
+#' @return \code{\link{sq}} object of the same type as input object but 
+#' each sequence is reversed.
 #' 
 #' @examples 
 #' # Creating sq objects using construct_sq:
