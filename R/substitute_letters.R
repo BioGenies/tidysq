@@ -77,6 +77,8 @@
 #' 
 #' # Use created encoding from other package (ex. \code{\link[AmyloGram]{myloGram_model}})
 #' 
+#' library(AmyloGram)
+#' 
 #' AG_enc_raw <- unlist(AmyloGram_model[["enc"]])
 #' 
 #' enc_AG <- substr(names(AG_enc_raw), 1, 1)
