@@ -19,10 +19,10 @@
 #' tries to guess which type of sequence was entered. If sequence contain 'U' without 
 #' 'T' the type will be set to RNA. If a sequence contains 'T' (thymine) without 
 #' 'U' (uracil), the type is set to dna. An error is displayed if both 'T' and 'U' 
-#' are present in the sequence or if the sequence contains 'A' (adenine). If the 
+#' are present in the sequence or if the sequence contains only 'A' (adenine). If the 
 #' sequence does not contain 'T' or 'U' or the logical specification is wrong 
 #' (i.e. if the sequence contains 'U' and the logical specification is set to DNA), 
-#' an error will also be returned
+#' an error will also be returned.
 #' Both RNA and DNA sequences can be rewritten to complementary sequence. 
 #' 
 #' 
