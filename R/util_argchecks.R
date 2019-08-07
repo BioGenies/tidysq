@@ -188,3 +188,20 @@
   if (len != num_pos) 
     stop("length of sequences in 'sq' has to be the same as number of rows of 'pssm'")
 }
+
+.check_enc_proper_int <- function(encoding) {
+  if (length(encoding) == 0 ||
+      (floor(encoding) != encoding) ||
+      any(is.nan(encoding)) || 
+      any(!is.finite(encoding)) ||
+      any(encoding < 0)) 
+    stop("if 'encoding' is numeric, it has to be non-negative integer vector, with no NaN's or non-finite values")
+}
+
+.check_enc_proper_char <- function(encoding) {
+  if (is.null(encoding) ||
+      length(encoding) == 0 ||
+      !is.character(encoding) ||
+      any(nchar(encoding) == 0))
+    stop("'encoding' has to be either integer or character vector of positive lenght")
+}
