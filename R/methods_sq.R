@@ -26,6 +26,23 @@ c.sq <- function(...) {
   .set_class_alph(ret, args[[1]])
 }
 
+#' @export
+as.sq <- function(x, ...) {
+  UseMethod("as.sq")
+}
+
+#' @exportMethod as.sq default
+#' @export
+as.sq.default <- function(x, ...) {
+  stop("'as.sq' cannot handle objects with this class")
+}
+
+#' @exportMethod as.sq character
+#' @export
+as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL) {
+  construct_sq(x, type, is_clean, non_standard)
+}
+
 #' @exportMethod as.character sq
 #' @export
 as.character.sq <- function(x, ...) {
