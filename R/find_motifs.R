@@ -19,8 +19,8 @@ find_motifs <- function(sq, name, motifs) {
   
   sq_c <- sq
   motifs_c <- motifs
-  motifs_l <- nchar(motifs) - stri_count_regex(motifs, "[\\\\^\\\\$]")
-  motifs <- ifelse(motifs_l == 1, 
+  motifs_l <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
+  motifs <- ifelse(motifs_l == 1,
                    motifs, 
                    paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
   motifs <- strsplit(motifs, "")
@@ -32,6 +32,8 @@ find_motifs <- function(sq, name, motifs) {
     if (!all(unlist(strsplit(motifs_c, "")) %in% c(.get_standard_alph("ami", FALSE), "^", "$"))) {
       stop("motifs that you're searching for in 'sq' object needs to consist of letters from aminoacids alphabet and optionally '^' or '$' characters")
     }
+    
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "*", "\\*"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "B", "[BDN]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "J", "[JIL]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "X", "[A-Z]"))
