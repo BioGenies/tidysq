@@ -10,6 +10,22 @@
   ret
 }
 
+#' @exportMethod c sq
+#' @export
+c.sq <- function(...) {
+  args <- list(...)
+  if (!all(sapply(args, is.sq)))
+    stop("not all elements passed to function are 'sq' objects")
+  types <- sapply(args, .get_sq_type)
+  if (length(unique(unlist(types))) != 1)
+    stop("not all sq objects have the same type")
+  ret <- unlist(args, recursive = FALSE)
+  alphs <- lapply(args, .get_alph)
+  if (!all(sapply(alphs[-1], function(alph) identical(alphs[[1]], alph))))
+    stop("all of sq objects should have identical alphabets")
+  .set_class_alph(ret, args[[1]])
+}
+
 #' @exportMethod as.character sq
 #' @export
 as.character.sq <- function(x, ...) {
