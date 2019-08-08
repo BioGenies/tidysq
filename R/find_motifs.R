@@ -1,3 +1,67 @@
+#' Find given motifs
+#' 
+#' @description Find all given motifs in all sequences and return their 
+#' positions 
+#' 
+#' @param sq \code{\link{sq}} object to be tested
+#' @param name non-NULL \code{character} vector without NA's, containing
+#' names of the sequences in the sq. It have to be of the same length 
+#' as the sq. 
+#' @param motifs \code{character} vector of motifs to be searched for
+#' 
+#' @return a tibble with number of rows the same as the length of sq and
+#' following columns:
+#'  \item{name}{name of the sequence}
+#'  \item{sq}{sequence}
+#'  \item{sought}{sought motif}
+#'  \item{found}{motif found in a sequence, may differ from sought if a motif
+#'  contained ambiguous letters}
+#'  \item{start}{position of motif start}
+#'  \item{end}{position of motif end}
+#' 
+#' @details This function allows search of a given motif or motifs in the sq 
+#' object. It returns all found motifs with their start and end positions 
+#' within a sequence.
+#' 
+#' Note if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
+#' search for motifs cannot be performed and an error will be displayed (with 
+#' exception of sq objects of type ami - in their alphabet there is "*" letter 
+#' and it can be contained in sought motif). To search for motifs with those 
+#' characters, you have to replace them first using 
+#' \code{\link{substitute_letters}}. 
+#' 
+#' In case of sq objects of type 'ami' and 'nuc', motifs have to consist of 
+#' upper case letters from amino acid and nucleotide alphabet respectively. 
+#' Use of lower case letters will return an error. Two additional characters 
+#' are allowed: '^' and '$' indicating the beginning and the end of a sequence 
+#' respectively. Moreover, notice that '*' character may be used in amino acid 
+#' motifs, as it is a part of the amino acid alphabet. If a motif contains 
+#' ambiguous letters, all possible matches will be searched for, e.g., amino 
+#' acid motif "MAJ" (where "J" is an ambiguous letter indicating L or I) will 
+#' find motifs: "MAJ", "MAL" and "MAI". 
+#' 
+#' @examples 
+#' # Creating objects to work on:
+#' sq_ami <- construct_sq(c("AGNTYIKFGGAYTI", "MATEGILIAADGYTWIL", 
+#'                          "MIPADHICAANGIENAGIK"), type = 'ami')
+#' sqtbl <- read_fasta(system.file(package = "tidysq", "example_aa.fasta"), 
+#'                     type = "ami")
+#' 
+#' # Find motif of two alanines followed by aspartic acid or asparagine 
+#' # ('AAB' motif will match 'AAB', 'AAD' and 'AAN'):
+#' find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "AAB")
+#' 
+#' # Find motif 'VHH' at the beginning of sequences:
+#' find_motifs(sqtbl[["sq"]], sqtbl[["name"]], "^VHH")
+#' 
+#' # Find motif 'DPGS' at the end of sequences:
+#' find_motifs(sqtbl[["sq"]], sqtbl[["name"]], "DPGS$")
+#' 
+#' # Find multiple motifs:
+#' find_motifs(sqtbl[["sq"]], sqtbl[["name"]], c("^LIV", "XXKK", "EN$"))
+#' 
+#' @seealso sq substitute_letters \%has\%
+#' 
 #' @importFrom stringi stri_sub stri_locate_all_regex stri_count_regex
 #' @export
 find_motifs <- function(sq, name, motifs) {
@@ -30,7 +94,7 @@ find_motifs <- function(sq, name, motifs) {
   if (type == "ami") {
     motifs <- lapply(motifs, toupper)
     if (!all(unlist(strsplit(motifs_c, "")) %in% c(.get_standard_alph("ami", FALSE), "^", "$"))) {
-      stop("motifs that you're searching for in 'sq' object needs to consist of letters from aminoacids alphabet and optionally '^' or '$' characters")
+      stop("motifs that you're searching for in 'sq' object need to consist of letters from aminoacids alphabet and optionally '^' or '$' characters")
     }
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "B", "[BDN]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "J", "[JIL]"))
@@ -40,7 +104,7 @@ find_motifs <- function(sq, name, motifs) {
   } else if (type == "nuc") {
     motifs <- lapply(motifs, toupper)
     if (!all(unlist(strsplit(motifs_c, "")) %in% c(.get_standard_alph("nuc", FALSE), "^", "$"))) {
-      stop("motifs that you're searching for in 'sq' object needs to consist of letters from nucleotides alphabet and optionally '^' or '$' characters")
+      stop("motifs that you're searching for in 'sq' object need to consist of letters from nucleotides alphabet and optionally '^' or '$' characters")
     }
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "W", "[WATU]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "S", "[SCG]"))
