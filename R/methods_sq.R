@@ -4,6 +4,7 @@
 #' @export
 `[.sq` <- function(x, i, j, ...) {
   ret <- NextMethod()
+  ret <- lapply(ret, function(s) if (is.null(s)) raw(0) else s)
   class(ret) <- class(x)
   attr(ret, "alphabet") <- .get_alph(x)
   ret

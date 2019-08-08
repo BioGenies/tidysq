@@ -131,6 +131,10 @@ print.sq <- function(x,
   
   #select at most max_sequences to print
   num_lines <- min(max_sequences, length(x))
+  if (num_lines == 0) {
+    cat(.get_print_empty_sq(x))
+    return()
+  }  
   sq <- x[1:num_lines]
   
   #cut sq object so that we don't need to debitify long sequences
@@ -572,4 +576,20 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   if (length(sq) > num_lines) 
     paste0("printed ", num_lines, " out of ", length(sq), "")
   else ""
+}
+
+.get_print_empty_sq <- function(sq) {
+  type <- .get_sq_type(sq)
+  if (length(type) != 1) {
+    "sq (improper subtype!):"
+  } else {
+    type_msg <- switch(type,
+                       ami = "ami (amino acids)",
+                       nuc = "nuc (nucleotides)",
+                       unt = "unt (unspecified type)",
+                       atp = "atp (atypical alphabet)",
+                       enc = "enc (encoded values)")
+    clean_msg <- if (.is_cleaned(sq)) ", cln (cleaned)" else ""
+    paste0(type_msg, clean_msg, " sequences list of length 0")
+  }
 }
