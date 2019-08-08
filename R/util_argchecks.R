@@ -45,12 +45,7 @@
     stop("'is_clean' has to be TRUE, FALSE in no_ceck mode")
 }
 
-.check_type_or_nonst_alph <- function(type, is_clean, non_standard) {
-  if (!(is.null(type) && 
-        is.null(is_clean)) &&
-      !is.null(non_standard))
-    stop("if you specify 'non_standard', you cannot specify neither 'type' nor 'is_clean'")
-}
+
 
 .check_nonst_proper_char <- function(non_standard) {
   if (!is.character(non_standard) ||
@@ -77,11 +72,6 @@
 .check_sq_is_clean <- function(sq) {
   if (!.is_cleaned(sq))
     stop("'sq' object has to be clean")
-}
-
-.check_alph_length <- function(alph) {
-  if (length(alph) > 30) 
-    stop("max length of alphabet is 30 letters")
 }
 
 .check_inds_are_numeric <- function(indices) {
@@ -252,4 +242,114 @@
       length(use_gap) != 1 ||
       !use_gap %in% c(TRUE, FALSE))
     stop("'is_clean' has to be either TRUE or FALSE")
+}
+
+
+
+
+
+
+
+.check_simple <- function(check, argname, msg) {
+  if (check) stop(argname, " ", msg, call. = FALSE)
+}
+
+.check_all_elem <- function(check, argname, msg) {
+  if (check) stop("all elements of ", argname, " ", msg, call. = FALSE)
+}
+
+
+.check_is_missing <- function(obj, argname) {
+  .check_simple(missing(obj), argname, "is missing")
+}
+
+.check_is_null <- function(obj, argname) {
+  .check_simple(is.null(obj), argname, "cannot be NULL")
+}
+
+.check_isnt_single_elem <- function(obj, argname) {
+  .check_simple(length(obj) != 1, argname, "should have length 1")
+}
+
+.check_is_zero_len <- function(obj, argname) {
+  .check_simple(length(obj) == 0, argname, "cannot have length 0")
+}
+
+.check_has_na <- function(obj, argname) {
+  .check_simple(any(is.na(obj)), argname, "cannot contain NA")
+}
+
+.check_class_character <- function(obj, argname) {
+  .check_simple(!is.character(obj), argname, "has to be character")
+}
+
+.check_class_logical <- function(obj, argname) {
+  .check_simple(!is.logical(obj), argname, "has to be logical")
+}
+
+.standard_checks <- function(obj, argname,
+                             allow_null = FALSE, 
+                             single_elem = FALSE, 
+                             allow_zero_len = FALSE,
+                             allow_na = FALSE) {
+  
+                       .check_is_missing(obj, argname)
+  if (!allow_null    ) .check_is_null(obj, argname) else if (is.null(obj)) return()
+  if (single_elem    ) .check_isnt_single_elem(obj, argname)
+  if (!allow_zero_len) .check_is_zero_len(obj, argname)
+  if (!allow_na      ) .check_has_na(obj, argname)
+}
+
+.check_character <- function(obj, argname, ...) {
+  .standard_checks(obj, argname, ...)
+  if (!is.null(obj)) .check_class_character(obj, argname)
+}
+
+.check_logical <- function(obj, argname, ...) {
+  .standard_checks(obj, argname, ...)
+  if (!is.null(obj)) .check_class_logical(obj, argname)
+}
+
+.check_type <- function(obj, argname = "'type'", allow_null = FALSE, allow_unt = FALSE) {
+  if (!allow_null) .check_is_null(obj, argname)
+  else if (!is.null(obj)) {
+    allowed <- c("ami", "nuc", if (allow_unt) "unt")
+    .check_simple(obj %in% allowed, argname, "has to be one of 'nuc', 'ami', 'unt'") 
+  }
+}
+
+.check_nchar <- function(obj, argname, allow_zero_nchar = FALSE, requested_nchar = NULL,
+                         demand_eq_len = FALSE, minimal_nchar = NULL) {
+  if (!is.null(requested_nchar)) 
+    .check_all_elem(!all(nchar(obj) == requested_nchar), argname, 
+                    paste0("have to have length of ", requested_nchar))
+  else if (!is.null(minimal_nchar)) 
+    .check_all_elem(!all(nchar(obj) >= requested_nchar), argname, 
+                    paste0("have to have length at least equal to ", minimal_nchar))
+  if (!allow_zero_nchar) 
+    .check_all_elem(!all(nchar(obj) != 0), argname, "have to have positive length")
+  if (demand_eq_len) {
+    lens <- nchar()
+    .check_all_elem(length(unique(lens)) == 1, argname, "have to have equal length")
+  }
+}
+
+.check_type_or_nonst_alph <- function(type, is_clean, non_standard) {
+  if (!(is.null(type) && 
+        is.null(is_clean)) &&
+      !is.null(non_standard))
+    stop("if you specify 'non_standard', you cannot specify neither 'type' nor 'is_clean'", call. = FALSE)
+}
+
+.check_alph_length <- function(alph) {
+  if (length(alph) > 30) 
+    stop("max length of alphabet is 30 letters, sequences that are being constructed exceed this limit", call. = FALSE)
+}
+
+.check_real_alph_clean <- function(real_alph, type, is_clean) {
+  if (!is.null(is_clean) &&
+      is_clean == TRUE &&
+      !all(real_alph %in% .get_standard_alph(type, TRUE))) {
+    stop("'is_clean' is given TRUE, but sequences contain at least one ambiguous element", call. = FALSE)
+  }
 }

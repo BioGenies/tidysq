@@ -68,25 +68,31 @@ is.sq <- function(x) {
 #' @exportMethod is amisq
 #' @export
 is.amisq <- function(x) {
-  tryCatch({validate_amisq(x); TRUE}, error = function(e) FALSE)
+  tryCatch({validate_sq(x, type = "ami"); TRUE}, error = function(e) FALSE)
 }
 
 #' @exportMethod is nucsq
 #' @export
 is.nucsq <- function(x) {
-  tryCatch({validate_nucsq(x); TRUE}, error = function(e) FALSE)
+  tryCatch({validate_sq(x, type = "nuc"); TRUE}, error = function(e) FALSE)
 }
 
 #' @exportMethod is untsq
 #' @export
 is.untsq <- function(x) {
-  tryCatch({validate_untsq(x); TRUE}, error = function(e) FALSE)
+  tryCatch({validate_sq(x, type = "unt"); TRUE}, error = function(e) FALSE)
 }
 
 #' @exportMethod is atpsq
 #' @export
 is.atpsq <- function(x) {
-  tryCatch({validate_atpsq(x); TRUE}, error = function(e) FALSE)
+  tryCatch({validate_sq(x, type = "atp"); TRUE}, error = function(e) FALSE)
+}
+
+#' @exportMethod is encsq
+#' @export
+is.encsq <- function(x) {
+  tryCatch({validate_sq(x, type = "enc"); TRUE}, error = function(e) FALSE)
 }
 #' Compare sq object 
 #' @description Compares input \code{\link{sq}} object with another given.

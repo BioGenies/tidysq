@@ -23,11 +23,11 @@ tidysq:::validate_sq(sq_3)
 tidysq:::validate_sq(sq_4)
 tidysq:::validate_sq(sq_5)
 
-tidysq:::validate_nucsq(sq_1)
-tidysq:::validate_nucsq(sq_2)
-tidysq:::validate_amisq(sq_3)
-tidysq:::validate_amisq(sq_4)
-tidysq:::validate_untsq(sq_5)
+tidysq:::validate_sq(sq_1, type = "nuc")
+tidysq:::validate_sq(sq_2, type = "nuc")
+tidysq:::validate_sq(sq_3, type = "ami")
+tidysq:::validate_sq(sq_4, type = "ami")
+tidysq:::validate_sq(sq_5, type = "unt")
 
 ### reading and writing fasta
 
