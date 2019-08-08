@@ -23,6 +23,47 @@ count_kmers <- function(sq, dsts, position = FALSE) {
   }))
 }
 
+#' @export
+extract_kmers <- function(sq, len, dsts, position = FALSE) {
+  validate_sq(sq)
+  .check_sq_lens_eq(sq)
+  .check_len_is_int(len)
+  #.check_dsts_is_numeric(dsts)
+  #.check_dsts_aprop_length(dsts)
+  
+  if (!is.logical(position) ||
+      is.na(position)) {
+    stop("'position' should be either TRUE or FALSE")
+  }
+  
+  sqmatrix <- as.matrix(sq)
+  # length of sequence
+  len_seq <- ncol(sqmatrix)
+  # number of sequences
+  n_seqs <- nrow(sqmatrix)
+  
+  # look for n-gram indices for d
+  ngram_ind <- get_ngrams_ind(len_seq, len, dsts)
+  
+  max_grams <- calc_max_grams(len_seq, len, ngram_ind)
+  
+  # extract n-grams from sequene
+  res <- t(vapply(1L:n_seqs, function(i) {
+    grams <- seq2ngrams_helper(sqmatrix[i, ], ind = ngram_ind, max_grams)
+    paste(grams, paste0(attr(ngram_ind, "d"), collapse = "."), 
+          sep = "_")
+  }, rep("a", max_grams)))
+  if (max_grams == 1)
+    res <- t(res)
+  
+  # add position information if requested
+  if (position)
+    res <- do.call(cbind, lapply(1L:ncol(res), function(pos_id)
+      paste0(pos_id, "_", res[, pos_id])))
+  
+  res
+} 
+
 #' @import slam
 count_pattern_kmers <- function(sqmatrix, dst, position, alph) {
   len_sq <- ncol(sqmatrix)
@@ -102,6 +143,14 @@ calc_max_ngrams <- function(len_sq, len, ngram_ind) {
    if (max_grams < 1) {
     stop("n-gram too long.")
   }
+  max_grams
+}
+
+calc_max_grams <- function(len_seq, len, ngram_ind){
+  # use attr(ngram_ind, "d") instead of d because of distance recycling
+  max_grams <- len_seq - len - sum(attr(ngram_ind, "d")) + 1
+  if (max_grams < 1)
+    stop("n-gram too long.")
   max_grams
 }
 seq2ngrams_helper <- function(sq, ind, max_grams) {
