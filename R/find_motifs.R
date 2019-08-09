@@ -19,8 +19,8 @@ find_motifs <- function(sq, name, motifs) {
   
   sq_c <- sq
   motifs_c <- motifs
-  motifs_l <- nchar(motifs) - stri_count_regex(motifs, "[\\\\^\\\\$]")
-  motifs <- ifelse(motifs_l == 1, 
+  motifs_l <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
+  motifs <- ifelse(motifs_l == 1,
                    motifs, 
                    paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
   motifs <- strsplit(motifs, "")
@@ -29,9 +29,11 @@ find_motifs <- function(sq, name, motifs) {
   
   if (type == "ami") {
     motifs <- lapply(motifs, toupper)
-    if (!all(unlist(strsplit(motifs_c, "")) %in% c(aminoacids_df[, "one"], "^", "$"))) {
+    if (!all(unlist(strsplit(motifs_c, "")) %in% c(.get_standard_alph("ami", FALSE), "^", "$"))) {
       stop("motifs that you're searching for in 'sq' object needs to consist of letters from aminoacids alphabet and optionally '^' or '$' characters")
     }
+    
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "*", "\\*"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "B", "[BDN]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "J", "[JIL]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "X", "[A-Z]"))
@@ -39,11 +41,11 @@ find_motifs <- function(sq, name, motifs) {
     motifs <- sapply(motifs, function(motif) paste(motif, collapse = ""))
   } else if (type == "nuc") {
     motifs <- lapply(motifs, toupper)
-    if (!all(unlist(strsplit(motifs_c, "")) %in% c(nucleotides_df[, "one"], "^", "$"))) {
+    if (!all(unlist(strsplit(motifs_c, "")) %in% c(.get_standard_alph("nuc", FALSE), "^", "$"))) {
       stop("motifs that you're searching for in 'sq' object needs to consist of letters from nucleotides alphabet and optionally '^' or '$' characters")
     }
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "W", "[WATU]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "motif", "[SCG]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "S", "[SCG]"))
     
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "M", "[MAC]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "K", "[KGTU]"))

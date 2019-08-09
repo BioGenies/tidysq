@@ -63,6 +63,7 @@ inline char translate_cami(char letter) {
   case 'w': case 'W': ret = 19; break;
   case 'y': case 'Y': ret = 20; break;
   case '-':           ret = 21; break;
+  case '*':           ret = 22; break;
   default:            ret = 31;
   }
   return ret;
@@ -98,6 +99,7 @@ inline char translate_ami(char letter) {
   case 'y': case 'Y': ret = 25; break;
   case 'z': case 'Z': ret = 26; break;
   case '-':           ret = 27; break;
+  case '*':           ret = 28; break;
   default:            ret = 31;
   }
   return ret;

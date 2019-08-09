@@ -4,7 +4,7 @@
 \alias{read_fasta}
 \title{Read a FASTA file}
 \usage{
-read_fasta(file, type = "unt", is_clean = NULL)
+read_fasta(file, type = NULL, is_clean = NULL, non_standard = NULL)
 }
 \arguments{
 \item{file}{a \code{\link[base]{connection}} object or a \code{character} string.}

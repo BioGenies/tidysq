@@ -1,21 +1,26 @@
 #' @exportClass sq
 #' @export
-construct_sq <- function(sq, type = NULL, is_clean = NULL) {
+construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) {
   .check_sqstr_proper_char(sq)
   if (getOption("tidysq_no_check_mode") == TRUE) {
     .nc_construct_sq(sq, type, is_clean)
   } else {
-    .check_is_clean_in_TRUE_FALSE_NULL(is_clean)
-    
-    if (is.null(type)) {
-      type <- .guess_sq_type(sq)
+    .check_type_or_nonst_alph(type, is_clean, non_standard)
+    if (!is.null(non_standard)) {
+      .nonst_construct_sq(sq, non_standard)
+    } else {
+      .check_is_clean_in_TRUE_FALSE_NULL(is_clean)
+      
+      if (is.null(type)) {
+        type <- .guess_sq_type(sq)
+      }
+      .check_type_in_ami_nuc_unt(type)
+      
+      switch (type,
+              ami = construct_amisq(sq, is_clean),
+              nuc = construct_nucsq(sq, is_clean),
+              unt = construct_untsq(sq))
     }
-    .check_type_in_ami_nuc_unt(type)
-    
-    switch (type,
-            ami = construct_amisq(sq, is_clean),
-            nuc = construct_nucsq(sq, is_clean),
-            unt = construct_untsq(sq))
   }
 }
 
@@ -24,27 +29,45 @@ construct_sq <- function(sq, type = NULL, is_clean = NULL) {
   .check_nc_is_clean_in_TRUE_FALSE(is_clean)
   
   sq <- .nc_bitify_sq(sq, type, is_clean)
-  if (type == "ami") {
-    if (is_clean) {
-      class(sq) <- c("clnsq", "amisq", "sq")
-      attr(sq, "alphabet") <- aminoacids_df[!aminoacids_df[["amb"]], "one"]
-      sq
+  sq <- .set_class(sq, type, is_clean)
+  .set_alph(sq, .get_standard_alph(type, is_clean))
+}
+
+
+#' @importFrom stringi stri_sub
+#' @importFrom stringi stri_locate_all_regex
+.nonst_construct_sq <- function(sq, non_standard) {
+  .check_nonst_proper_char(non_standard)
+  .check_nonst_nchar(non_standard)
+  
+  sq <- lapply(sq, function(s) {
+    pos <- stri_locate_all_regex(s, non_standard)
+    binded <- apply(na.omit(do.call(rbind, pos)), 2, sort)
+    if (length(binded) == 0) {
+      strsplit(s, "")[[1]]
     } else {
-      class(sq) <- c("amisq", "sq")
-      attr(sq, "alphabet") <- aminoacids_df[["one"]]
-      sq
+      if (length(binded) == 2) {
+        binded <- t(as.matrix(binded))
+        res_ind <- binded[1]:binded[2]
+      } else res_ind <- as.integer(binded, 1, function(row) row[1]:row[2])
+      sin_ind <- setdiff(1:nchar(s), res_ind)
+      ind <- .merge_ind(sin_ind, binded[,1])
+      n <- nrow(binded) + length(sin_ind)
+      begs <- integer(n)
+      ends <- integer(n)
+      begs[(1:n)[ind]] <- sin_ind
+      ends[(1:n)[ind]] <- sin_ind
+      begs[(1:n)[!ind]] <- binded[,1]
+      ends[(1:n)[!ind]] <- binded[,2]
+      stri_sub(s, begs, ends)
     }
-  } else if (type == "nuc") {
-    if (is_clean) {
-      class(sq) <- c("clnsq", "nucsq", "sq")
-      attr(sq, "alphabet") <- nucleotides_df[!nucleotides_df[["amb"]], "one"]
-      sq
-    } else {
-      class(sq) <- c("nucsq", "sq")
-      attr(sq, "alphabet") <- nucleotides_df[["one"]]
-      sq
-    }
-  } 
+  })
+  
+  alph <- unique(unlist(sq))
+  .check_alph_length(alph)
+  sq <- .bitify_sq(sq, alph)
+  sq <- .set_alph(sq, alph)
+  .set_class(sq, "atp")
 }
 
 #' @exportClass amisq
@@ -53,17 +76,15 @@ construct_amisq <- function(sq, is_clean) {
   real_alph <- .get_real_alph(sq)
   if (!is.null(is_clean) &&
       is_clean == TRUE &&
-      !all(real_alph %in% aminoacids_df[!aminoacids_df[["amb"]], "one"])) {
+      !all(real_alph %in% .get_standard_alph("ami", TRUE))) {
     stop("'is_clean' is given TRUE, but sequences contain at least one ambiguous aminoacid")
   }
   if (is.null(is_clean)) {
     is_clean <- .guess_ami_is_clean(real_alph)
   }
   sq <- .nc_bitify_sq(sq, "ami", is_clean)
-  attr(sq, "alphabet") <- if (is_clean) aminoacids_df[!aminoacids_df[["amb"]], "one"] else aminoacids_df[,"one"]
-  class(sq) <- c("amisq", "sq")
-  if (is_clean) class(sq) <- c("clnsq", class(sq))
-  sq
+  sq <- .set_alph(sq, .get_standard_alph("ami", is_clean))
+  .set_class(sq, "ami", is_clean)
 }
 
 #' @exportClass nucsq
@@ -72,27 +93,25 @@ construct_nucsq <- function(sq, is_clean) {
   real_alph <- .get_real_alph(sq)
   if (!is.null(is_clean) &&
       is_clean == TRUE &&
-      !all(real_alph %in% nucleotides_df[!nucleotides_df[["amb"]], "one"])) {
+      !all(real_alph %in% .get_standard_alph("nuc", TRUE))) {
     stop("'is_clean' is given TRUE, but sequences contain at least one ambiguous nucleotide")
   }
   if (is.null(is_clean)) {
     is_clean <- .guess_nuc_is_clean(real_alph)
   }
   sq <- .nc_bitify_sq(sq, "nuc", is_clean)
-  attr(sq, "alphabet") <- if (is_clean) nucleotides_df[!nucleotides_df[["amb"]], "one"] else nucleotides_df[,"one"]
-  class(sq) <- c("nucsq", "sq")
-  if (is_clean) class(sq) <- c("clnsq", class(sq))
-  sq
+  sq <- .set_alph(sq, .get_standard_alph("nuc", is_clean))
+  .set_class(sq, "nuc", is_clean)
 }
 
 #' @exportClass untsq
 construct_untsq <- function(sq) {
   alph <- .get_real_alph(sq)
+  .check_alph_length(alph)
   
-  object <- .bitify_sq(sq, alph)
-  attr(object, "alphabet") <- alph
-  class(object) <- c("untsq", "sq")
-  object
+  sq <- .bitify_sq(sq, alph)
+  sq <- .set_alph(sq, alph)
+  .set_class(sq, "unt", FALSE)
 }
 
 validate_sq <- function(object, type = NULL) {
@@ -109,9 +128,6 @@ validate_sq <- function(object, type = NULL) {
   if (!is.character(alph) &&
       !is.numeric(alph))
     stop("attribute 'alphabet' is neither a character nor a numeric vector")
-  #assumption about length of one of each character - this can be changed in future
-  if (!all(sapply(alph, length) == 1))
-    stop("attribute 'alphabet' have elements that aren't one element long")
   if (!is.list(object))
     stop("'object' isn't a list")
   if (!all(sapply(object, is.raw))) 
@@ -138,9 +154,9 @@ validate_nucsq <- function(object) {
     stop("'object' doesn't inherit class 'nucsq'")
   alph <- .get_alph(object)
   if (!("clnsq" %in% class(object))) {
-    if (!identical(alph, nucleotides_df[,"one"]))
+    if (!identical(alph, .get_standard_alph("nuc", FALSE)))
       stop("attribute 'alphabet' isn't identical to standard nucleotides alphabet")
-  } else if (!identical(alph, nucleotides_df[!nucleotides_df[["amb"]],"one"]))
+  } else if (!identical(alph, .get_standard_alph("nuc", TRUE)))
       stop("attribute 'alphabet' isn't identical to cleaned nucleotides alphabet")
   
   invisible(object)
@@ -151,9 +167,9 @@ validate_amisq <- function(object) {
     stop("'object' doesn't inherit class 'amisq'")
   alph <- .get_alph(object)
   if (!("clnsq" %in% class(object))) {
-    if (!identical(alph, aminoacids_df[,"one"]))
+    if (!identical(alph, .get_standard_alph("ami", FALSE)))
       stop("attribute 'alphabet' isn't identical to standard aminoacids alphabet")
-  } else if (!identical(alph, aminoacids_df[!aminoacids_df[["amb"]],"one"])) 
+  } else if (!identical(alph, .get_standard_alph("ami", TRUE))) 
       stop("attribute 'alphabet' isn't identical to cleaned aminoacids alphabet")
   
   
@@ -166,16 +182,6 @@ validate_untsq <- function(object) {
     stop("attribute 'alphabet' isn't a character vector")
   if (!"untsq" %in% class(object))
     stop("'object' doesn't inherit class 'untsq'")
-  
-  invisible(object)
-}
-
-validate_simsq <- function(object) {
-  if (!"simsq" %in% class(object))
-    stop("'object' doesn't inherit class 'simsq'")
-  alph <- .get_alph(object)
-  if (!all(alph %in% c(letters, "-"))) 
-    stop("attribute 'alphabet' doesn't follow groups naming convention (lower latin letters and symbol '-')")
   
   invisible(object)
 }

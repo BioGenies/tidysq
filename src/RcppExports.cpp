@@ -110,6 +110,29 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// read_fasta_file
+Rcpp::List read_fasta_file(std::string file, Rcpp::CharacterVector alph);
+RcppExport SEXP _tidysq_read_fasta_file(SEXP fileSEXP, SEXP alphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type file(fileSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
+    rcpp_result_gen = Rcpp::wrap(read_fasta_file(file, alph));
+    return rcpp_result_gen;
+END_RCPP
+}
+// find_alph
+std::list<char> find_alph(std::string file);
+RcppExport SEXP _tidysq_find_alph(SEXP fileSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type file(fileSEXP);
+    rcpp_result_gen = Rcpp::wrap(find_alph(file));
+    return rcpp_result_gen;
+END_RCPP
+}
 // unpack_raws
 Rcpp::RawVector unpack_raws(Rcpp::RawVector packed, const unsigned short alph_size);
 RcppExport SEXP _tidysq_unpack_raws(SEXP packedSEXP, SEXP alph_sizeSEXP) {
@@ -135,27 +158,27 @@ BEGIN_RCPP
 END_RCPP
 }
 // unpack_chars
-Rcpp::CharacterVector unpack_chars(Rcpp::RawVector packed, Rcpp::CharacterVector alph, const char na_char);
+Rcpp::CharacterVector unpack_chars(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_char);
 RcppExport SEXP _tidysq_unpack_chars(SEXP packedSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type packed(packedSEXP);
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
-    Rcpp::traits::input_parameter< const char >::type na_char(na_charSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type na_char(na_charSEXP);
     rcpp_result_gen = Rcpp::wrap(unpack_chars(packed, alph, na_char));
     return rcpp_result_gen;
 END_RCPP
 }
 // unpack_string
-Rcpp::RawVector unpack_string(Rcpp::RawVector packed, Rcpp::CharacterVector alph, const char na_char);
+Rcpp::CharacterVector unpack_string(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_char);
 RcppExport SEXP _tidysq_unpack_string(SEXP packedSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type packed(packedSEXP);
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
-    Rcpp::traits::input_parameter< const char >::type na_char(na_charSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type na_char(na_charSEXP);
     rcpp_result_gen = Rcpp::wrap(unpack_string(packed, alph, na_char));
     return rcpp_result_gen;
 END_RCPP
@@ -196,28 +219,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // match_raws
-Rcpp::CharacterVector match_raws(Rcpp::RawVector letters, Rcpp::CharacterVector alph, const char na_char);
+Rcpp::CharacterVector match_raws(Rcpp::RawVector letters, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_char);
 RcppExport SEXP _tidysq_match_raws(SEXP lettersSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type letters(lettersSEXP);
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
-    Rcpp::traits::input_parameter< const char >::type na_char(na_charSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type na_char(na_charSEXP);
     rcpp_result_gen = Rcpp::wrap(match_raws(letters, alph, na_char));
-    return rcpp_result_gen;
-END_RCPP
-}
-// match_raw
-Rcpp::RawVector match_raw(Rcpp::RawVector letters, Rcpp::CharacterVector alph, const char na_char);
-RcppExport SEXP _tidysq_match_raw(SEXP lettersSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::RawVector >::type letters(lettersSEXP);
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
-    Rcpp::traits::input_parameter< const char >::type na_char(na_charSEXP);
-    rcpp_result_gen = Rcpp::wrap(match_raw(letters, alph, na_char));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -232,6 +242,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_nc_pack_cami", (DL_FUNC) &_tidysq_nc_pack_cami, 1},
     {"_tidysq_nc_pack_ami", (DL_FUNC) &_tidysq_nc_pack_ami, 1},
     {"_tidysq_nc_read_fasta_file", (DL_FUNC) &_tidysq_nc_read_fasta_file, 3},
+    {"_tidysq_read_fasta_file", (DL_FUNC) &_tidysq_read_fasta_file, 2},
+    {"_tidysq_find_alph", (DL_FUNC) &_tidysq_find_alph, 1},
     {"_tidysq_unpack_raws", (DL_FUNC) &_tidysq_unpack_raws, 2},
     {"_tidysq_unpack_ints", (DL_FUNC) &_tidysq_unpack_ints, 2},
     {"_tidysq_unpack_chars", (DL_FUNC) &_tidysq_unpack_chars, 3},
@@ -240,7 +252,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_match_chars", (DL_FUNC) &_tidysq_match_chars, 2},
     {"_tidysq_match_char", (DL_FUNC) &_tidysq_match_char, 2},
     {"_tidysq_match_raws", (DL_FUNC) &_tidysq_match_raws, 3},
-    {"_tidysq_match_raw", (DL_FUNC) &_tidysq_match_raw, 3},
     {NULL, NULL, 0}
 };
 

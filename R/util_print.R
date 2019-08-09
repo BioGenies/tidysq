@@ -20,13 +20,6 @@ type_sum.untsq <- function(x) {
 }
 
 #' @importFrom pillar type_sum
-#' @exportMethod type_sum simsq
-#' @export
-type_sum.simsq <- function(x) {
-  "sim"
-}
-
-#' @importFrom pillar type_sum
 #' @exportMethod type_sum atpsq
 #' @export
 type_sum.atpsq <- function(x) {
@@ -47,6 +40,283 @@ type_sum.clnsq <- function(x) {
   paste0("(c)", NextMethod())
 }
 
+#' Print sq object
+#' 
+#' @description Prints input \code{\link{sq}} object in a human-friendly form.  
+#' 
+#' @details \code{Print} method is used by default in each case of calling the 
+#' \code{\link{sq}} object with default parameters. 
+#' Only by explicit calling the \code{print} method parameters can be changed. 
+#'  
+#' \code{Print} checks if the input \code{\link{sq}} object is cleaned and includes 
+#' this information alongside with type in the printed message. On the right side of 
+#' the sequence, in angle brackets, the length of each sequence is printed (e.q. "<9>").
+#' 
+#' If the \code{max_sequences} parameter is supplied, the desired number of sequences 
+#' is printed and this information is included in message (e.q. "printed 1 out of 3"). 
+#' Only \code{max_sequences} value smaller then the number of sequences in object 
+#' affects the function. The default value indicating how many sequences should 
+#' be printed is 10, but it can be changed in \code{\link[sq-options]{package options}}. 
+#' 
+#' Default value of \code{use_color} parameter is \code{TRUE} - sequences are printed
+#' in green and empty sequences, NA character and dots in grey. If this option is disabled, 
+#' all sequences are in default color of console.
+#' 
+#' The \code{letters_sep} parameter indicates how the letters should be separated 
+#' (they are not by default). Any character string can be supplied but 
+#' \code{\link{NA_character_}}.
+#' 
+#' If sequences are too long, only leading characters are printed (as many as possible
+#' in single line) and following dots indicating that sequence is trunctated.
+#' 
+#' If sequences contain \code{\link{NA}} (‘Not Available’ / Missing Values) values, they 
+#' are printed as "!" character, but it can be changed in 
+#' \code{\link[sq-options]{package options}}.
+#' 
+#' This is overloaded function from base package. It is selected when \code{\link{sq}} 
+#' object is used as a parameter for print function. To see the generic function 
+#' page, check \code{\link[base:print]{here}}.
+#' 
+#' @param x \code{\link{sq}} object
+#' @param max_sequences \code{numeric} value indicating how many sequences 
+#' should be printed
+#' @param use_color \code{logical} value indicating if sequences should 
+#' be colored
+#' @param letters_sep \code{character} value indicating how the letters 
+#' should be separated
+#' 
+#' @examples
+#' 
+#' Creating sq objects using construct_sq:
+#' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
+#'                          "NYERTGHLI", "MAYXXXIALN"), type = "ami")
+#' sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
+#'                          "TGACGAGCTTA"), type = "nuc")
+#' sq_unt <- construct_sq(c("ATGCAGGA!", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
+#' 
+#' # Printing without explicit function calling with default parameters:
+#' sq_ami
+#' sq_nuc
+#' sq_unt
+#' 
+#' # Printing with explicit function calling and specific parameters:
+#' print(sq_ami)
+#' print(sq_nuc, max_sequences = 1, use_color = FALSE)
+#' print(sq_unt, letters_sep = ":")
+#' 
+#' # Printing of the cleaned object:
+#' clean(sq_nuc)
+#' print(clean(sq_nuc), letters_sep = "-", use_color = FALSE)
+#' 
+#' @seealso \link{sq} \link{clean} \link{sq-options}
+#' 
+#' @importFrom crayon blue
+#' @importFrom crayon silver
+#' @importFrom crayon green
+#' @importFrom crayon col_nchar
+#' @exportMethod print sq
+#' @export
+print.sq <- function(x,  
+                     max_sequences = getOption("tidysq_max_print_sequences"),
+                     use_color = getOption("tidysq_colorful_sq_print"), 
+                     letters_sep = NULL) {
+  
+  alph <- .get_alph(x)
+  
+  #if parameter is NULL and all letters are lenght one, no space
+  if (is.null(letters_sep)) {
+    letters_sep <- if (all(nchar(alph) == 1)) "" else " "
+  }
+  p_width <- getOption("width")
+  
+  #select at most max_sequences to print
+  num_lines <- min(max_sequences, length(x))
+  if (num_lines == 0) {
+    cat(.get_print_empty_sq(x))
+    return()
+  }  
+  sq <- x[1:num_lines]
+  
+  #cut sq object so that we don't need to debitify long sequences
+  # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
+  sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
+  sq_cut <- .debitify_sq(sq_cut, "char")
+  
+  #color NA's
+  na_char <- .get_na_char()
+  if (use_color) sq_cut <- lapply(sq_cut, function(s) {
+    s[s == na_char] <- silver(na_char)
+    s
+  })
+  
+  #max index number width
+  inds_width <- nchar(num_lines) + 2
+  
+  #indices to print
+  p_inds <- format(paste0("[", 1:num_lines, "]"), 
+                   width = inds_width, justify = "right")
+  
+  #lengths of sequences
+  lens <- .get_lens(sq)
+  
+  #max lenght number width
+  lens_width <- max(nchar(lens)) + 2
+  
+  #lengths to print
+  p_lens <- paste0("<", lens, ">")
+  if (use_color) p_lens <- blue(p_lens)
+  
+  needs_dots <- rep(FALSE, num_lines)
+  
+  for (i in 1:num_lines) {
+    if (lens[i] == 0) {
+      sq_cut[[i]] <- "<NULL>"
+    } else {
+      s <- sq_cut[[i]]
+      # we count how much characters can we print by counting cumulative extent
+      cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
+      
+      #max lenght of this line is p_width minus lenghts of lens and inds
+      res_lens <- p_width - col_nchar(p_lens[i]) - nchar(p_inds[i]) - 2
+      
+      #we remove characters we cannot print
+      s <- s[cum_lens < res_lens]
+      n <- length(s)
+      
+      #if printed sequence is shorter than original, we need also space for dots
+      if (n < lens[i]) {
+        s <- s[cum_lens[1:n] < res_lens - 3]
+        needs_dots[i] <- TRUE
+      }
+      sq_cut[[i]] <- s
+    }
+  }
+  
+  #paste sequene
+  p_body <- sapply(sq_cut, function(s) paste(s, collapse = letters_sep))
+  if (use_color) p_body <- sapply(1:num_lines, function(i) {
+    if (lens[i] == 0) silver(p_body[i]) else green(p_body[i])
+  })
+  
+  #dots
+  p_dots <- ifelse(needs_dots, "...", "")
+  if (use_color) p_dots <- silver(p_dots)
+  
+  #spaces between sequence and lens
+  p_spaces <- sapply(p_width - col_nchar(p_body) - nchar(p_inds) - 
+                       col_nchar(p_lens) - col_nchar(p_dots) - 2, 
+                     function(l) paste0(rep(" ", l), collapse = ""))
+  
+  #paste and cat everything
+  p_body <- paste0(p_inds, " ", p_body, p_dots, p_spaces, " ", p_lens, collapse = "\n")
+  header <- .get_print_header(sq)
+  footer <- .get_print_footer(x, num_lines)
+  cat(header, p_body, footer, sep = "\n")
+}
+
+#' @importFrom crayon blue
+#' @importFrom crayon silver
+#' @importFrom crayon cyan
+#' @importFrom crayon col_nchar
+#' @exportMethod print encsq
+#' @export
+print.encsq <- function(x,
+                        max_sequences = getOption("tidysq_max_print_sequences"),
+                        use_color = getOption("tidysq_colorful_sq_print"), 
+                        letters_sep = NULL,
+                        digits = 2) {
+  alph <- .get_alph(x)
+  
+  #if parameter is NULL default sep is space
+  if (is.null(letters_sep)) {
+    letters_sep <-  " "
+  }
+  p_width <- getOption("width")
+  
+  #select at most max_sequences to print
+  num_lines <- min(max_sequences, length(x))
+  sq <- x[1:num_lines]
+  
+  #format alphabet accordingly to passed params
+  sq <- .set_alph(sq, format(alph, digits = digits, scientific = FALSE))
+  
+  #cut sq object so that we don't need to debitify long sequences
+  # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
+  sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
+  sq_cut <- .debitify_sq(sq_cut, "char")
+  
+  #color NA's
+  na_char <- .get_na_char()
+  if (use_color) sq_cut <- lapply(sq_cut, function(s) {
+    s[s == na_char] <- silver(na_char)
+    s
+  })
+  
+  #max index number width
+  inds_width <- nchar(num_lines) + 2
+  
+  #indices to print
+  p_inds <- format(paste0("[", 1:num_lines, "]"), 
+                   width = inds_width, justify = "right")
+  
+  #lengths of sequences
+  lens <- .get_lens(sq)
+  
+  #max lenght number width
+  lens_width <- max(nchar(lens)) + 2
+  
+  #lengths to print
+  p_lens <- paste0("<", lens, ">")
+  if (use_color) p_lens <- blue(p_lens)
+  
+  needs_dots <- rep(FALSE, num_lines)
+  
+  for (i in 1:num_lines) {
+    if (lens[i] == 0) {
+      sq_cut[[i]] <- "<NULL>"
+    } else {
+      s <- sq_cut[[i]]
+      # we count how much characters can we print by counting cumulative extent
+      cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
+      
+      #max lenght of this line is p_width minus lenghts of lens and inds
+      res_lens <- p_width - col_nchar(p_lens[i]) - nchar(p_inds[i]) - 2
+      
+      #we remove characters we cannot print
+      s <- s[cum_lens < res_lens]
+      n <- length(s)
+      
+      #if printed sequence is shorter than original, we need also space for dots
+      if (n < lens[i]) {
+        s <- s[cum_lens[1:n] < res_lens - 3]
+        needs_dots[i] <- TRUE
+      }
+      sq_cut[[i]] <- s
+    }
+  }
+  
+  #paste sequene
+  p_body <- sapply(sq_cut, function(s) paste(s, collapse = letters_sep))
+  if (use_color) p_body <- sapply(1:num_lines, function(i) {
+    if (lens[i] == 0) silver(p_body[i]) else cyan(p_body[i])
+  })
+  
+  #dots
+  p_dots <- ifelse(needs_dots, "...", "")
+  if (use_color) p_dots <- silver(p_dots)
+  
+  #spaces between sequence and lens
+  p_spaces <- sapply(p_width - col_nchar(p_body) - nchar(p_inds) - 
+                       col_nchar(p_lens) - col_nchar(p_dots) - 2, 
+                     function(l) paste0(rep(" ", l), collapse = ""))
+  
+  #paste and cat everything
+  p_body <- paste0(p_inds, " ", p_body, p_dots, p_spaces, " ", p_lens, collapse = "\n")
+  header <- .get_print_header(sq)
+  footer <- .get_print_footer(x, num_lines)
+  cat(header, p_body, footer, sep = "\n")
+}
+
 #' @importFrom crayon col_nchar
 #' @importFrom crayon green
 #' @importFrom crayon silver
@@ -57,22 +327,33 @@ type_sum.clnsq <- function(x) {
 #' @exportMethod pillar_shaft sq
 #' @export
 pillar_shaft.sq <- function(x, ...) {
-  x <- .debitify_sq(x, "string")
-  if (.get_color_opt()) {
-    na_char <- .get_na_char()
-    x <- gsub(na_char, silver(na_char), x)
-  }
-  if (.get_color_opt()) x <- green(x)
-    
-  longest_str <- get_max_extent(x)
-  min_str_width <- if (longest_str >= 6) 6 else longest_str
+  p_width <- getOption("width")
+  letters_sep <- ""
+  
+  #cut sq object so that we don't need to debitify long sequences
+  # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
+  sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
+  sq_cut <- .debitify_sq(sq_cut, "char")
+  
+  #color NA's
+  na_char <- .get_na_char()
+  if (.get_color_opt()) sq_cut <- lapply(sq_cut, function(s) {
+    s[s == na_char] <- silver(na_char)
+    s
+  })
+  
+  lens <- .get_lens(x)
+  max_len_width <- max(nchar(lens))
+  
+  max_str_width <- max(sapply(sq_cut, function(s) sum(col_nchar(s))))
+  min_str_width <- if (max_str_width >= 6) 6 else max_str_width + 1
   
   opt <- .get_print_length()
   
-  new_pillar_shaft(x,
-                   width = min(longest_str + col_nchar(longest_str) + 3, 
-                               opt + col_nchar(longest_str) + 6),
-                   min_width = col_nchar(longest_str) + min_str_width + 3,
+  new_pillar_shaft(list(sq = sq_cut, lens = lens),
+                   width = min(max_str_width + max_len_width + 4, 
+                               opt + max_len_width + 7),
+                   min_width = max_len_width + min_str_width + 3,
                    class = "pillar_shaft_sq",
                    align = "left")
 }
@@ -90,23 +371,68 @@ format.pillar_shaft_sq <- function(x, width, ...) {
          width, ".", call. = FALSE)
   } 
   
-  s_opt <- if (.get_color_opt()) silver else identity
-  b_opt <- if (.get_color_opt()) blue else identity
+  lens <- x[["lens"]]
+  x <- x[["sq"]]
   
-  seq_lengths <- col_nchar(x)
-  nums_lengths <- nchar(seq_lengths)
-  available_seq_space <- width - nums_lengths - 3
-  inds_need_dots <- available_seq_space < seq_lengths
-  available_seq_space[inds_need_dots] <- available_seq_space[inds_need_dots] - 3
-  row <- col_substring(x, 1, available_seq_space)
-  row[inds_need_dots] <- paste0(row[inds_need_dots], s_opt("..."))
-  whitespace_lenghts <- available_seq_space - seq_lengths
-  whitespace_lenghts[whitespace_lenghts < 0] <- 0
-  whitespace_vec <- sapply(whitespace_lenghts, 
-                           function(n) paste(rep(" ", n), collapse = ""))
-  row <- paste0(row, whitespace_vec, b_opt(" <"), b_opt(seq_lengths), b_opt(">"))
+  use_color <- .get_color_opt()
   
-  new_ornament(row, width = width, align = "left")
+  #max lenght number width
+  lens_width <- max(nchar(lens)) + 2
+    
+  #default letters_sep here is NULL
+  letters_sep <- ""
+  
+  num_lines <- length(x)
+  
+  #lengths to print
+  p_lens <- paste0("<", lens, ">")
+  if (use_color) p_lens <- blue(p_lens)
+  
+  needs_dots <- rep(FALSE, num_lines)
+  
+  for (i in 1:num_lines) {
+    if (lens[i] == 0) {
+      x[[i]] <- "<NULL>"
+    } else {
+      s <- x[[i]]
+      # we count how much characters can we print by counting cumulative extent
+      cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
+      
+      #max lenght of this line is width minus lenghts of lens 
+      res_lens <- width - col_nchar(p_lens[i]) - 1
+      
+      #we remove characters we cannot print
+      s <- s[cum_lens < res_lens]
+      n <- length(s)
+      
+      #if printed sequence is shorter than original, we need also space for dots
+      if (n < lens[i]) {
+        s <- s[cum_lens[1:n] < res_lens - 3]
+        needs_dots[i] <- TRUE
+      }
+      x[[i]] <- s
+    }
+  }
+  
+  #paste sequene
+  p_body <- sapply(x, function(s) paste(s, collapse = letters_sep))
+  if (use_color) p_body <- sapply(1:num_lines, function(i) {
+    if (lens[i] == 0) silver(p_body[i]) else green(p_body[i])
+  })
+  
+  #dots
+  p_dots <- ifelse(needs_dots, "...", "")
+  if (use_color) p_dots <- silver(p_dots)
+  
+  #spaces between sequence and lens
+  p_spaces <- sapply(width - col_nchar(p_body) - 
+                       col_nchar(p_lens) - col_nchar(p_dots) - 1, 
+                     function(l) paste0(rep(" ", l), collapse = ""))
+  
+  #paste and cat everything
+  p_body <- paste0(p_body, p_dots, p_spaces, " ", p_lens)
+  
+  new_ornament(p_body, width = width, align = "left")
 }
 
 #' @importFrom pillar pillar_shaft
@@ -115,19 +441,35 @@ format.pillar_shaft_sq <- function(x, width, ...) {
 #' @exportMethod pillar_shaft encsq
 #' @export
 pillar_shaft.encsq <- function(x, ...) {
-  alph <- .get_alph(x)
-  x <- .apply_sq(x, "int", "none", function(s) alph[s])
+  p_width <- getOption("width")
+  letters_sep <- " "
   
-  x_min <- sapply(x, function(x) paste(format(x, digits = 1, nsmall = 1, scientific = FALSE), collapse = ""))
+  x <- .set_alph(x, format(.get_alph(x), digits = 1, scientific = FALSE))
   
-  longest_str <- get_max_extent(x_min)
+  #cut sq object so that we don't need to debitify long sequences
+  # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
+  sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
+  sq_cut <- .debitify_sq(sq_cut, "char")
+  
+  #color NA's
+  na_char <- .get_na_char()
+  if (.get_color_opt()) sq_cut <- lapply(sq_cut, function(s) {
+    s[s == na_char] <- silver(na_char)
+    s
+  })
+  
+  lens <- .get_lens(x)
+  max_len_width <- max(nchar(lens))
+  
+  max_str_width <- max(sapply(sq_cut, function(s) sum(col_nchar(s))))
+  min_str_width <- if (max_str_width >= 6) 6 else max_str_width
   
   opt <- .get_print_length()
   
-  new_pillar_shaft(x,
-                   width = min(longest_str, 
-                               opt + 3),
-                   min_width = 7,
+  new_pillar_shaft(list(sq = sq_cut, lens = lens),
+                   width = min(max_str_width + max_len_width + 3, 
+                               opt + max_len_width + 6),
+                   min_width = max_len_width + min_str_width + 3,
                    class = "pillar_shaft_encsq",
                    align = "left")
 }
@@ -143,14 +485,111 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
          width, ".", call. = FALSE)
   } 
   
-  s_opt <- if (.get_color_opt()) cyan else identity
+  lens <- x[["lens"]]
+  x <- x[["sq"]]
   
-  x_t <- sapply(x, function(xth) paste(format(xth, digits = 1, nsmall = 1, scientific = FALSE), collapse = " "))
-  if (max(nchar(x_t)) > width) {
-    x_t <- paste0(substr(x_t, 1, width - 3), silver("..."))
+  use_color <- .get_color_opt()
+  
+  #max lenght number width
+  lens_width <- max(nchar(lens)) + 2
+    
+  #default letters_sep here is NULL
+  letters_sep <- " "
+  
+  num_lines <- length(x)
+  
+  #lengths to print
+  p_lens <- paste0("<", lens, ">")
+  if (use_color) p_lens <- blue(p_lens)
+  
+  needs_dots <- rep(FALSE, num_lines)
+  
+  for (i in 1:num_lines) {
+    if (lens[i] == 0) {
+      x[[i]] <- "<NULL>"
+    } else {
+      s <- x[[i]]
+      # we count how much characters can we print by counting cumulative extent
+      cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
+      
+      #max lenght of this line is width minus lenghts of lens 
+      res_lens <- width - col_nchar(p_lens[i]) - 1
+      
+      #we remove characters we cannot print
+      s <- s[cum_lens < res_lens]
+      n <- length(s)
+      
+      #if printed sequence is shorter than original, we need also space for dots
+      if (n < lens[i]) {
+        s <- s[cum_lens[1:n] < res_lens - 3]
+        needs_dots[i] <- TRUE
+      }
+      x[[i]] <- s
+    }
   }
   
-  row <- s_opt(x_t)
+  #paste sequene
+  p_body <- sapply(x, function(s) paste(s, collapse = letters_sep))
+  if (use_color) p_body <- sapply(1:num_lines, function(i) {
+    if (lens[i] == 0) silver(p_body[i]) else cyan(p_body[i])
+  })
   
-  new_ornament(row, width = width, align = "left")
+  #dots
+  p_dots <- ifelse(needs_dots, "...", "")
+  if (use_color) p_dots <- silver(p_dots)
+  
+  #spaces between sequence and lens
+  p_spaces <- sapply(width - col_nchar(p_body) - 
+                       col_nchar(p_lens) - col_nchar(p_dots) - 1, 
+                     function(l) paste0(rep(" ", l), collapse = ""))
+  
+  #paste and cat everything
+  p_body <- paste0(p_body, p_dots, p_spaces, " ", p_lens)
+  
+  new_ornament(p_body, width = width, align = "left")
+}
+
+.cut_sq <- function(sq, num_oct) {
+  alph_size <- .get_alph_size(.get_alph(sq))
+  ret <- lapply(sq, function(s) if (length(s) < num_oct * alph_size) s 
+         else s[1:(num_oct * alph_size)])
+  .set_class_alph(ret, sq)
+}
+
+.get_print_header <- function(sq) {
+  type <- .get_sq_type(sq)
+  if (length(type) != 1) {
+    "sq (improper subtype!):"
+  } else {
+    type_msg <- switch(type,
+                       ami = "ami (amino acids)",
+                       nuc = "nuc (nucleotides)",
+                       unt = "unt (unspecified type)",
+                       atp = "atp (atypical alphabet)",
+                       enc = "enc (encoded values)")
+    clean_msg <- if (.is_cleaned(sq)) ", cln (cleaned)" else ""
+    paste0(type_msg, clean_msg, " sequences list:")
+  }
+}
+
+.get_print_footer <- function(sq, num_lines) {
+  if (length(sq) > num_lines) 
+    paste0("printed ", num_lines, " out of ", length(sq), "")
+  else ""
+}
+
+.get_print_empty_sq <- function(sq) {
+  type <- .get_sq_type(sq)
+  if (length(type) != 1) {
+    "sq (improper subtype!):"
+  } else {
+    type_msg <- switch(type,
+                       ami = "ami (amino acids)",
+                       nuc = "nuc (nucleotides)",
+                       unt = "unt (unspecified type)",
+                       atp = "atp (atypical alphabet)",
+                       enc = "enc (encoded values)")
+    clean_msg <- if (.is_cleaned(sq)) ", cln (cleaned)" else ""
+    paste0(type_msg, clean_msg, " sequences list of length 0")
+  }
 }

@@ -4,15 +4,59 @@
 #' @export
 `[.sq` <- function(x, i, j, ...) {
   ret <- NextMethod()
+  ret <- lapply(ret, function(s) if (is.null(s)) raw(0) else s)
   class(ret) <- class(x)
   attr(ret, "alphabet") <- .get_alph(x)
   ret
+}
+
+#' @exportMethod c sq
+#' @export
+c.sq <- function(...) {
+  args <- list(...)
+  if (!all(sapply(args, is.sq)))
+    stop("not all elements passed to function are 'sq' objects")
+  types <- sapply(args, .get_sq_type)
+  if (length(unique(unlist(types))) != 1)
+    stop("not all sq objects have the same type")
+  ret <- unlist(args, recursive = FALSE)
+  alphs <- lapply(args, .get_alph)
+  if (!all(sapply(alphs[-1], function(alph) identical(alphs[[1]], alph))))
+    stop("all of sq objects should have identical alphabets")
+  .set_class_alph(ret, args[[1]])
+}
+
+#' @export
+as.sq <- function(x, ...) {
+  UseMethod("as.sq")
+}
+
+#' @exportMethod as.sq default
+#' @export
+as.sq.default <- function(x, ...) {
+  stop("'as.sq' cannot handle objects with this class")
+}
+
+#' @exportMethod as.sq character
+#' @export
+as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL) {
+  construct_sq(x, type, is_clean, non_standard)
 }
 
 #' @exportMethod as.character sq
 #' @export
 as.character.sq <- function(x, ...) {
   .debitify_sq(x, "string")
+}
+
+#' @exportMethod as.matrix sq
+#' @export
+as.matrix.sq <- function(x, ...) {
+  x <- .debitify_sq(x, "char")
+  max_len <- max(lengths(x))
+  ret <- do.call(rbind, lapply(x, function(row) row[1:max_len]))
+  ret[ret == .get_na_char()] <- NA
+  ret
 }
 
 #' @exportMethod is sq
@@ -39,18 +83,72 @@ is.untsq <- function(x) {
   tryCatch({validate_untsq(x); TRUE}, error = function(e) FALSE)
 }
 
-#' @exportMethod is simsq
-#' @export
-is.simsq <- function(x) {
-  tryCatch({validate_simsq(x); TRUE}, error = function(e) FALSE)
-}
-
 #' @exportMethod is atpsq
 #' @export
 is.atpsq <- function(x) {
   tryCatch({validate_atpsq(x); TRUE}, error = function(e) FALSE)
 }
-
+#' Compare sq object 
+#' @description Compares input \code{\link{sq}} object with another given.
+#'   
+#' @details \code{`==`} converts left hand side of comparision (x1) to chracters 
+#' vector using \code{\link{as.character}} and checks whether given on the right side 
+#' object can be compared with \code{\link{sq}} object. Function also check 
+#' the type of \code{\link{sq}} object with which given object will be compared.
+#' If the type of \code{\link{sq}} object is ami or nuc and given sequence  is 
+#' character vector consisting lowercase, the function rewrites it into capital ones
+#' with usage \code{\link{toupper}}. If right hand side object (x2) is \code{\link{sq}}
+#' it is converted to character vector using also \code{\link{as.character}} function.
+#' 
+#' When both objects are already converted to character vectors, comparision is done 
+#' elementwise with standard R rules, (e.g. recycling is used). You can check details 
+#' \code{\link[Compare]{here}}.
+#' 
+#' Comparing sequences as characters vectors cause that various types of sequences
+#' can be compared for example aminoacids with nucleotides sequences so attention 
+#' should be paid which sequences types are compared. 
+#' 
+#' @param x1 \code{\link{sq}} object.
+#' @param x2 an object (character vector or sq object) to compare with \code{\link{sq}}.
+#' 
+#' @return logical vector indicating on which positions objects are the same
+#' 
+#' @examples 
+#' 
+#' # Creating sq object to work on:
+#' sq <- construct_sq(c("ACTGCTG", "CTTAGA", 
+#'                      "CCCT", "CTGAATGT"), type = "nuc")
+#'                      
+#' sq_different_len <- construct_sq(c("ACTGCTG", "CTTAGA", 
+#'                                    "GGAA"), type = "nuc")
+#'                                    
+#' sq_the_same_len <- construct_sq(c("ACTGCTG", "CTTAGA", 
+#'                                  "CCCT", "CTGAATGT"), type = "nuc")
+#'                                                                                        
+#' # Get an overview of the sequences:
+#' summary(sq)
+#' summary(sq_the_same_len)
+#' summary(sq_different_len)
+#'
+#' # Comparing sq object with an object of the same length :
+#' sq == sq_the_same_len
+#' 
+#' # Comparing object sq object with an object of a different length : 
+#' sq == sq_different_len
+#'  
+#' # Comparing sq object to given character vector of a different length:
+#' sq == c('AAA','CCC')
+#' 
+#' # Comparing sq object to given character vector of a the same length:
+#' sq == c("ACTGCTG", "CTTAGA",'CCCT', 'CTGAATGT')
+#' 
+#' # Comparing sq object to given nucleotide element 'ATGTGA':
+#' sq == 'ATGTGA'
+#' 
+#' # Comparing sq object to given amino acids vector:
+#' sq == c('RISGQQD','RISGQQD')
+#'  
+#' @seealso sq as.character is.sq                                                          
 #' @exportMethod `==` sq
 #' @export
 `==.sq` <- function(e1, e2) {
@@ -67,51 +165,4 @@ is.atpsq <- function(x) {
   }
   
   as.character(e1) == e2
-}
-
-#' @exportMethod print sq
-#' @export
-print.sq <- function(x, ...) {
-  sqclass <- .get_sq_subclass(x)
-  cln_msg <- if (.is_cleaned(x)) " (cleaned)" else ""
-  na_char <- .get_na_char()
-  
-  if (length(sqclass) != 1) {
-    sqclass <- "sq (improper subtype!):\n"
-  } else {
-    sqclass <- paste0(c(amisq = "ami (amino acids)", 
-                        nucsq = "nuc (nucleotides)", 
-                        untsq = "unt (unspecified type)", 
-                        simsq = "sim (simplified alphabet)",
-                        atpsq = "atp (atypical alphabet)")[sqclass], cln_msg, " sequences vector:\n")
-  }
-  
-  alph <- .get_alph(x)
-  decoded <- .debitify_sq(x, "string")
-  decoded <- sapply(decoded, function(s) ifelse(s == "" , "<NULL sq>", s))
-  max_width <- max(nchar(1:length(x)))
-  inds <- paste0("[", 1:length(x), "] ")
-  cat(sqclass, paste0(format(inds, width = max_width + 3, justify = "right"), 
-                      decoded, 
-                      collapse = "\n"), 
-      "\n", sep = "")
-}
-
-#' @exportMethod print encsq
-#' @export
-print.encsq <- function(x, ...) {
-  sqclass <- "enc (encoded values) sequences vector:\n"
-  na_char <- .get_na_char()
-
-  alph <- .get_alph(x)
-  decoded <- .apply_sq(x, "int", "none", function(s) alph[s])
-  decoded <- sapply(decoded, function(s) ifelse(length(s) == 0, 
-                                                "<NULL sq>", 
-                                                paste(ifelse(is.na(s), na_char, s), collapse = " ")))
-  max_width <- max(nchar(1:length(x)))
-  inds <- paste0("[", 1:length(x), "] ")
-  cat(sqclass, paste0(format(inds, width = max_width + 3, justify = "right"), 
-                      decoded, 
-                      collapse = "\n"), 
-      "\n", sep = "")
 }
