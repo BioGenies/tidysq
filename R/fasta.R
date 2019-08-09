@@ -11,93 +11,76 @@
 #' read_fasta("https://www.uniprot.org/uniprot/P28307.fasta")
 #' }
 #' @seealso \code{\link[base]{readLines}}
+#' @importFrom stringi stri_detect_regex
+#' @importFrom stringi stri_join
 #' @export
-read_fasta <- function(file, type = "unt", is_clean = NULL) {
-  .check_file_is_char(file)
-  if(.is_no_check_mode()) {
-    .check_nc_is_clean_in_TRUE_FALSE(is_clean)
-    .check_nc_type_in_ami_nuc(type)
-    sqtibble <- nc_read_fasta_file(normalizePath(file), type == "ami", is_clean)
-    class(sqtibble[["sq"]]) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq")
-    attr(sqtibble[["sq"]], "alphabet") <- .get_standard_alph(type, is_clean)
-    as_tibble(sqtibble)
+read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) {
+  .check_character(file, "'file'", single_elem = TRUE)
+  file <- .get_readable_file(file)
+  
+  if (.is_no_check_mode()) {
+    .check_logical(is_clean, "'is_clean'", single_elem = TRUE)
+    .check_type(type)
+    .nc_read_fasta(file, type, is_clean)
   } else {
-    .check_is_clean_in_TRUE_FALSE_NULL(is_clean)
-    .check_type_in_ami_nuc_unt(type)
+    .check_logical(is_clean, "'is_clean'", single_elem = TRUE, allow_null = TRUE)
+    .check_type(type, allow_unt = TRUE, allow_null = TRUE)
     
-    #used from biogram
-    all_lines <- readLines(file)
-    s_id <- cumsum(grepl("^>", all_lines))
-    all_s <- split(all_lines, s_id)
-    
-    s_list <- unname(sapply(all_s, function(s) paste(s[2:length(s)], collapse = "")))
-    sq <- construct_sq(s_list, type)
-    
-    names_vec <- sub(">", "", sapply(all_s, function(s) s[1]), fixed = TRUE)
-    
-    tibble(name = names_vec, sq = sq)
+    if (!is.null(non_standard)) {
+      .nonst_read_fasta(file, type, is_clean, non_standard)
+    } else {
+      alph <- find_alph(file)
+      if (!is.null(type) && type %in% c("ami", "nuc")) alph <- toupper(alph)
+      .check_alph_matches_type(alph, type, is_clean)
+      
+      if (is.null(type)) type <- .guess_type_by_alph(alph)
+      if (type != "unt" && is.null(is_clean)) {
+        is_clean <- if (type == "ami") .guess_ami_is_clean(alph) else .guess_nuc_is_clean(alph) 
+        .nc_read_fasta(file, type, is_clean)
+      } else {
+        .check_alph_length(alph)
+        
+        sqtibble <- read_fasta_file(file, alph)
+        class(sqtibble[["sq"]]) <- c("untsq", "sq")
+        attr(sqtibble[["sq"]], "alphabet") <- alph
+        as_tibble(sqtibble)
+      }
+    }
   }
 }
 
 #' @export
 write_fasta <- function(sq, name, file, nchar = 80) {
   validate_sq(sq)
-  if (missing(name) ||
-      !is.character(name) ||
-      any(is.null(name) | is.na(name)) ||
-      (length(name) != length(sq))) {
-    stop("'name' has to be a non-NULL character vector without NA's, of lenght equal to length of sq")
-  }
-  if (!is.character(file) ||
-      !(length(file) == 1)) {
-    stop("'file' has to be a string giving file to read from")
-  }
-  if (!is.numeric(nchar) ||
-      (floor(nchar) != nchar) ||
-      (length(nchar) != 1) ||
-      is.na(nchar) || 
-      is.nan(nchar)|| 
-      !is.finite(nchar) ||
-      nchar <= 0) {
-    stop("'nchar' has to be positive integer indicating max number of characters in single line in file")
-  }
+  .check_character(name, "'name'")
+  .check_character(file, "'file'", single_elem = TRUE)
+  .check_integer(nchar, "'nchar'", single_elem = TRUE, allow_negative = FALSE, allow_zero = FALSE)
+  .check_eq_lens(sq, name, "'sq'", "'name'")
   
-  alph <- .get_alph(sq)
-  sq <- .debitify_sq(sq, alph)
+  sq <- .debitify_sq(sq, "char")
   char_vec <- unlist(lapply(1L:length(sq), function(i) {
     s <- sq[[i]]
-    s <- lapply(split(s, floor((0:(length(s)-1))/nchar)), function(l) paste(l, collapse=""))
+    s <- lapply(split(s, floor((0:(length(s) - 1))/nchar)), function(l) paste(l, collapse = ""))
     paste0(">", name[i], "\n", paste(s, collapse = "\n"), "\n")
   }))
   
   writeLines(text = char_vec, con = file)
 }
 
-read_fasta_nc <- function(file, type, is_clean = TRUE) {
-  if (missing(type) ||
-      !type %in% c("nuc", "ami")) {
-    stop("in no_check mode 'type' needs to be one of 'nuc', 'ami'")
-  }
-  if (!is.character(file) ||
-      !(length(file) == 1)) {
-    stop("'file' has to be a string giving file to read from")
-  }
-  if (!file.exists(file)) {
-    stop("'file' doesn't exists")
-  }
-  if (!is_clean %in% c(TRUE, FALSE)) {
-    stop("'is_clean' has to be TRUE or FALSE")
-  }
-  
-  #used from biogram
+.nc_read_fasta <- function(file, type, is_clean) {
+  sqtibble <- nc_read_fasta_file(file, type == "ami", is_clean)
+  class(sqtibble[["sq"]]) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq")
+  attr(sqtibble[["sq"]], "alphabet") <- .get_standard_alph(type, is_clean)
+  as_tibble(sqtibble)
+}
+
+.nonst_read_fasta <- function(file, type, is_clean, non_standard) {
   all_lines <- readLines(file)
-  s_id <- cumsum(grepl("^>", all_lines))
+  s_id <- cumsum(stri_detect_regex(all_lines, "^>"))
   all_s <- split(all_lines, s_id)
+  s_list <- unname(sapply(all_s, function(s) stri_join(s[-1], collapse = "")))
+  sq <- construct_sq(s_list, type, is_clean, non_standard)
+  names_vec <- stri_sub(sapply(all_s, function(s) s[1]), 2)
   
-  s_list <- unname(sapply(all_s, function(s) paste(s[2:length(s)], collapse = "")))
-  sq <- construct_sq_nc(s_list, type, is_clean)
-  
-  names_vec <- sub(">", "", sapply(all_s, function(s) s[1]), fixed = TRUE)
-  
-  construct_sqtibble(sq, names_vec, type)
+  tibble(name = names_vec, sq = sq)
 }

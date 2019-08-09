@@ -19,10 +19,10 @@
 #' tries to guess which type of sequence was entered. If sequence contain 'U' without 
 #' 'T' the type will be set to RNA. If a sequence contains 'T' (thymine) without 
 #' 'U' (uracil), the type is set to dna. An error is displayed if both 'T' and 'U' 
-#' are present in the sequence or if the sequence contains 'A' (adenine). If the 
+#' are present in the sequence or if the sequence contains only 'A' (adenine). If the 
 #' sequence does not contain 'T' or 'U' or the logical specification is wrong 
 #' (i.e. if the sequence contains 'U' and the logical specification is set to DNA), 
-#' an error will also be returned
+#' an error will also be returned.
 #' Both RNA and DNA sequences can be rewritten to complementary sequence. 
 #' 
 #' 
@@ -62,9 +62,8 @@
 #' @export
 complement <- function(nucsq, is_dna = NULL) {
   validate_sq(nucsq, "nuc")
-  if (!.is_cleaned(nucsq)) {
-    stop("'nucsq' needs to be cleaned")
-  }
+  
+  .check_is_clean(nucsq, "'nucsq'")
   alph <- .get_alph(nucsq)
   alph_size <- .get_alph_size(alph)
   sq <- .debitify_sq(nucsq, "int")
@@ -72,27 +71,15 @@ complement <- function(nucsq, is_dna = NULL) {
   has_U <- any(unlist(sq) == match("U", alph))
   has_T <- any(unlist(sq) == match("T", alph))
   has_A <- any(unlist(sq) == match("A", alph))
-  
-  if (has_U && has_T) {
-    stop("'nucsq' sequences contains both 'U' and 'T' letters - should contain only one of them")
-  }
-  
+  .check_has_both_UT(has_U, has_T)
   dict <- c(G = "C", C = "G", T = "A", U = "A", A = "T", `-` = "-")
+  
   if (is.null(is_dna)) {
-    if (!has_U && !has_T && has_A) {
-      stop("'nucsq' sequences contains 'A' elements, but does not contain 'T' nor 'U' - unable to guess if it's dna or rna")
-    } 
+    .check_has_A_no_UT(has_U, has_T, has_A) 
     if (has_U) dict["A"] <- "U"
   } else {
-    if (!is.logical(is_dna) ||
-        is.na(is_dna) ||
-        (length(is_dna) != 1)) {
-      stop("'is_dna' should be TRUE, FALSE or NULL")
-    }
-    if ((is_dna && has_U) ||
-        (!is_dna && has_T)) {
-      stop("if 'is_dna' is TRUE, sequences cannot contain 'U'; if is FALSE, sequences cannot contain 'T'")
-    }
+    .check_logical(is_dna, "'is_dna'", allow_null = TRUE)
+    .check_is_dna_matches(is_dna, has_U, has_T) 
     if (!is_dna) dict["A"] <- "U"
   }
   

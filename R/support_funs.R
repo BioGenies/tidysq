@@ -69,14 +69,10 @@ is_null_sq <- function(sq) {
 #' @export
 get_invalid_letters <- function(sq, dest_type) {
   validate_sq(sq)
-  if (missing(dest_type) || 
-     !(dest_type %in% c("ami", "nuc"))) {
-    stop("'dest_type' should be either 'ami' or 'nuc'")
-  }
+  .check_type(dest_type, "'dest_type'")
   
   alph <- .get_alph(sq)
   alph_size <- .get_alph_size(alph)
-  na_char <- .get_na_char()
   dest_alph <- .get_standard_alph(dest_type, FALSE)
   dest_alph <- c(dest_alph, tolower(dest_alph))
   
