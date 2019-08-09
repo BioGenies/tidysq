@@ -12,7 +12,7 @@
 #' @details Each position in the sequence is being replaced by assigned to the letter numeric value.
 #' 
 #' Sometimes for research purposes one wants to replace letters by various values, described by physio-chemical properties of amino or nucleic acids. 
-#' It can be a residue hydrophobicity scale, heat capacities, entropies, chemical shift index or even various probability matrix (BLOSUM, PAM).
+#' It can be a residue hydrophobicity scale, heat capacities, entropies, chemical shift index or probability matrix (BLOSUM, PAM).
 #' 
 #' The newly constructed sequence will have a new class \code{\link{encsq})}, representing sequence encoded with custom alphabet.
 #' 
