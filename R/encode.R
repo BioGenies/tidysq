@@ -1,7 +1,6 @@
-#' Encode sequences using simplified or custom alphabets into numeric values
+#' Encode sequences into numeric values
 #' 
-#' @description Function allows to encode whole sequences using simplified or user-defined alphabets.
-#' Each letter must be must be assigned to it's numeric value. 
+#' @description Function encodes sequences using numeric values defined by user in named vector.
 #' 
 #' @param sq \code{\link{sq}} object.
 #' @param indices \code{encoding} a named vector, that consists of nucleic or amino acid letters with their numeric encoding.
@@ -10,15 +9,16 @@
 #' 
 #' @return \code{\link{encsq}} object of the same type as input sq with encoded alphabet.
 #' 
-#' @details Sometimes for research purposes one wants to use simplified alphabet. It allows to reduce the number of combinations and subsequent calculations 
-#' without changing the information they carry. 
+#' @details Each position in the sequence is being replaced by assigned to the letter numeric value.
 #' 
-#' Each reduced/simplified alphabet should be created to study specific task/group of proteins. 
-#' The function is used to encode the sequence with user-created simplified alphabet. 
+#' Sometimes for research purposes one wants to replace letters by various values, described by physio-chemical properties of amino or nucleic acids. 
+#' It can be a residue hydrophobicity scale, heat capacities, entropies, chemical shift index.
 #' 
 #' The newly constructed sequence will have a new class \code{\link{encsq})}, representing sequence encoded with custom alphabet.
 #' 
 #' The named vector (ex. \code{c(G = 1, K = 2, P = 2)}) should have all letters assigned, otherwise unasigned letters will be shown as \code{NA}.
+#' 
+#' All replaced letters will have the numeric type.
 #' 
 #' 
 #' @examples 
@@ -80,15 +80,14 @@
 #' encode(sq_nuc, c(A = 1, G = 2))
 #' encode(sq_ami, c(A = 5, H = 5, I = 3, K = 2, L = 3, M = 5, N = 6))
 #' 
-#' # Use created encoding from other packages (ex. \code{\link[AmyloGram]{AmyloGram_model}})
 #' 
-#' library(AmyloGram)
+#' # Use created encoding from \code{AAindex}
 #' 
-#' AG_enc_raw <- unlist(AmyloGram_model[["enc"]])
-#' enc_AG <- as.numeric(substr(names(AG_enc_raw), 1, 1))
-#' names(enc_AG) <- toupper(AG_enc_raw)
+#' data("aaprop")
+#' enc_aa <- aaprop[20,]
 #' 
-#' encode(sq_ami, enc_AG) 
+#' encode(sq_ami, enc_aa)
+#' 
 #' 
 #' @seealso sq encsq
 #' 

@@ -47,6 +47,8 @@ Created sequence will be deprived of \code{\link{cln})} subtype, if the original
 This will also occur when the letter to be replaced will not be found in the sequence. It remain unchanged but will lose subclass.
 
 The newly constructed will have a new class \code{\link{cln})}, representing atypical alphabet.
+
+All replaced letters will have the character type.
 }
 \examples{
 # Creating object, called sq to work on:

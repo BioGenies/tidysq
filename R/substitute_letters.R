@@ -10,6 +10,7 @@
 #' The function is only used to replace letters in the alphabet. 
 #' It cannot be used to merge surrounding characters.
 #' 
+#' 
 #' @param sq \code{\link{sq}} object.
 #' @param indices \code{encoding} vector of letters to be replaced together with their replacements.
 #' One letter can be replaced with multiple symbols. 
@@ -37,6 +38,7 @@
 #' 
 #' The newly constructed will have a new class \code{\link{cln})}, representing atypical alphabet.
 #' 
+#' All replaced letters will have the character type.
 #' 
 #' @examples 
 #' # Creating object, called sq to work on:
