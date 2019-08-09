@@ -226,7 +226,7 @@ sq_5 %has% c("^a", "s")
 (sqtbl_long %>% pull("sq") %>% simplify(enc)) %has% "acda"
 
 sqtbl_long %>%
-  filter(sq %has% c("KLV", "^D", "HxxxxxF"))
+  filter(sq %has% c("KLV", "^S", "HxxxxxF"))
 
 sqtbl_long %>%
   filter(sq %has% c("^D", "A$"))

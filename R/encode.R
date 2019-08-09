@@ -6,7 +6,7 @@ encode <- function(sq, encoding) {
   .check_isnt_missing(encoding, "'encoding'")
   .check_is_named(encoding, "'encoding'")
   .check_numeric(encoding, "'encoding'")
-  .check_is_unique(encoding, "'encoding'")
+  .check_is_unique(names(encoding), "'encoding'")
   if (type %in% c("ami", "nuc"))
     names(encoding) <- toupper(names(encoding))
   

@@ -16,10 +16,10 @@ typify <- function(sq, dest_type) {
                     "in 'alphabet' attribute of 'sq' some letters appear as both lower and capital")
   }
   
-  pack_fun <- if (dest_alph == "ami") nc_pack_ami else nc_pack_nuc
-  ret <- .apply_sq(sq, "char", "none", function(s) {
-    pack_fun(s)
-  })
+  pack_fun <- if (dest_type == "ami") nc_pack_ami else nc_pack_nuc
+  ret <- .apply_sq(sq, "char", "char", function(s) {
+    toupper(s)
+  }, im_alph = dest_alph)
   
   ret <- .set_alph(ret, dest_alph)
   .set_class(ret, dest_type)

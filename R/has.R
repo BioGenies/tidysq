@@ -88,8 +88,9 @@
 #' @export
 `%has%.amisq` <- function(x, y) {
   .check_character(y, "'y', right hand side object,")
-  y <- strsplit(toupper(y), "")
+  y <- toupper(y)
   .check_motifs_proper_alph(y, "ami")
+  y <- strsplit(y, "")
   y <- lapply(y, function(s) replace(s, s == "*", "\\*"))
   y <- lapply(y, function(s) replace(s, s == "B", "[BDN]"))
   y <- lapply(y, function(s) replace(s, s == "J", "[JIL]"))
@@ -109,8 +110,9 @@
 #' @export
 `%has%.nucsq` <- function(x, y) {
   .check_character(y, "'y', right hand side object,")
-  y <- strsplit(toupper(y), "")
+  y <- toupper(y)
   .check_motifs_proper_alph(y, "nuc")
+  y <- strsplit(y, "")
   y <- lapply(y, function(s) replace(s, s == "W", "[WATU]"))
   y <- lapply(y, function(s) replace(s, s == "S", "[SCG]"))
   

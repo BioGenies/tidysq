@@ -325,7 +325,6 @@
     .check_class_numeric(obj, argname)
     if (!allow_nan )     .check_simple(any(is.nan(obj)),       argname, "cannot contain NaN values")
     if (!allow_inf )     .check_simple(any(is.infinite(obj)),  argname, "cannot contain infinite values")
-                         .check_simple(any(floor(obj) != obj), argname, "has to be integer")
     if (!allow_zero)     .check_simple(any(obj == 0),          argname, "cannot be equal to 0")
     if (!allow_negative) .check_simple(any(obj < 0),           argname, "cannot be negative")
   }
@@ -342,7 +341,7 @@
   if (!allow_null) .check_isnt_null(obj, argname)
   else if (!is.null(obj)) {
     allowed <- c("ami", "nuc", if (allow_unt) "unt")
-    .check_simple(obj %in% allowed, argname, paste0("has to be one of '", allowed, "'", collapse = "', '")) 
+    .check_simple(!obj %in% allowed, argname, paste0("has to be one of '", paste(allowed, collapse = "', '"), "'")) 
   }
 }
 
