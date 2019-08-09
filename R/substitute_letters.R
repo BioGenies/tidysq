@@ -1,4 +1,4 @@
-#' Substitute ambiguous/extraordinary letters in nucleic or amino acid sequence or replace default alphabet with a custom encoding
+#' Substitute letters in a sequence
 #' 
 #' @description 1) Replace ambigous/extraordinary letters in nucleic or amino acid sequence, 
 #' stored in \code{\link{sq}} object, with the ones that are compliant with 

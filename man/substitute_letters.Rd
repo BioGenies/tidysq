@@ -2,7 +2,7 @@
 % Please edit documentation in R/substitute_letters.R
 \name{substitute_letters}
 \alias{substitute_letters}
-\title{Substitute ambiguous/extraordinary letters in nucleic or amino acid sequence or replace default alphabet with a custom encoding}
+\title{Substitute letters in a sequence}
 \usage{
 substitute_letters(sq, encoding)
 }

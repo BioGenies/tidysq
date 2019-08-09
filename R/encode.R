@@ -1,4 +1,4 @@
-#' Encode sequences into numeric values
+#' Encode sequences
 #' 
 #' @description Function encodes sequences using numeric values defined by user in named vector.
 #' 
@@ -9,10 +9,10 @@
 #' 
 #' @return \code{\link{encsq}} object of the same type as input sq with encoded alphabet.
 #' 
-#' @details Each position in the sequence is being replaced by assigned to the letter numeric value.
+#' @details Each position in a sequence is replaced by a numeric value assigned to that letter. 
 #' 
-#' Sometimes for research purposes one wants to replace letters by various values, described by physio-chemical properties of amino or nucleic acids. 
-#' It can be a residue hydrophobicity scale, heat capacities, entropies, chemical shift index or probability matrix (BLOSUM, PAM).
+#' Sometimes for research purposes one wants to replace letters by various values, described by physio-chemical properties of nucleic or amino acids. 
+#' It can be a hydrophobicity scale, heat capacities, entropies, chemical shift index or probability matrix (BLOSUM, PAM).
 #' 
 #' The newly constructed sequence will have a new class \code{\link{encsq})}, representing sequence encoded with custom alphabet.
 #' 
