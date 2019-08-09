@@ -3,15 +3,10 @@
 encode <- function(sq, encoding) {
   validate_sq(sq)
   type <- .get_sq_type(sq)
-  
-  if (!is.numeric(encoding) ||
-      is.null(names(encoding))) {
-    stop("'encoding' should be a named numeric vector")
-  }
-  
-  if (length(unique(names(encoding))) != length(encoding))
-    stop("there are non-unique names in 'encoding' vector")
-  
+  .check_isnt_missing(encoding, "'encoding'")
+  .check_is_named(encoding, "'encoding'")
+  .check_numeric(encoding, "'encoding'")
+  .check_is_unique(encoding, "'encoding'")
   if (type %in% c("ami", "nuc"))
     names(encoding) <- toupper(names(encoding))
   

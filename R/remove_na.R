@@ -1,6 +1,7 @@
 #' @export
 remove_na <- function(sq, only_elements = FALSE) {
   validate_sq(sq)
+  .check_logical(only_elements, "'only_elements'", single_elem = TRUE)
   
   alph <- .get_alph(sq)
   alph_size <- .get_alph_size(alph)
@@ -13,7 +14,7 @@ remove_na <- function(sq, only_elements = FALSE) {
   } else {
     ret <- lapply(sq, function(s) {
       st <- unpack_ints(s, alph_size)
-      if (any(st == na_val)) raw(1) else s
+      if (any(st == na_val)) raw(0) else s
     })
   }
   

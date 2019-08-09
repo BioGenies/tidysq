@@ -126,7 +126,7 @@ sqtbl_ami %>% mutate(simpl = simplify(sq, enc))
 data("aaprop")
 enc2 <- aaprop[1,]
 
-sqtbl_ami[["sq"]] %>% clean(only_elements = TRUE) %>% encode(enc2)
+sqtbl_ami[["sq"]] %>% clean(only_elements = TRUE) %>% encode(enc2) %>% as.matrix
 sqtbl_ami %>% mutate(enc = encode(clean(sq, only_elements = TRUE), enc2))
 sqtbl_long %>% mutate(enc = encode(clean(sq, only_elements = TRUE), enc2))
 

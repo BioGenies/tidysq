@@ -74,20 +74,11 @@
 #' @exportMethod `%has%` sq
 #' @export
 `%has%.sq` <- function(x, y) {
-  if (!is.character(y)) {
-    stop("object which you're looking for in 'sq' object needs to be a character vector")
-  }
+  .check_character(y, "'y', right hand side object,")
   alph <- .get_alph(x)
-  if (!all(unlist(strsplit(y, "")) %in% c(alph, "^", "$"))) {
-    stop("motifs that you're searching for in 'sq' object needs to consist of letters from alphabet of 'sq'")
-  }
-  if (any(alph %in% c("^", "$", "?", "(", "=", ")", "\\", ".", "|", "+", "*", "{", "}", "[", "]"))) {
-    stop("you cannot search for motifs if any of those characters: ^$?=()\\.|+*{}[] are elements of 'sq' alphabet; if you want to use them, please substitute those letters with some other using 'substitute_letters'")
-  }
-  
-  
+  type <- .get_sq_type(x)
+  .check_motifs_proper_alph(y, type, alph)
   x <- as.character(x)
-  
   ret <- sapply(y, function(s) grepl(s, x))
   ret <- apply(ret, 1, all)
   ret
@@ -96,13 +87,9 @@
 #' @exportMethod `%has%` amisq
 #' @export
 `%has%.amisq` <- function(x, y) {
-  if (!is.character(y)) {
-    stop("object which you're looking for in 'sq' object needs to be a character vector")
-  }
+  .check_character(y, "'y', right hand side object,")
   y <- strsplit(toupper(y), "")
-  if (!all(unlist(y) %in% c(.get_standard_alph("ami", FALSE), "^", "$"))) {
-    stop("motifs that you're searching for in 'sq' object needs to consist of letters from aminoacids alphabet and optionally '^' or '$' characters")
-  }
+  .check_motifs_proper_alph(y, "ami")
   y <- lapply(y, function(s) replace(s, s == "*", "\\*"))
   y <- lapply(y, function(s) replace(s, s == "B", "[BDN]"))
   y <- lapply(y, function(s) replace(s, s == "J", "[JIL]"))
@@ -121,13 +108,9 @@
 #' @exportMethod `%has%` nucsq
 #' @export
 `%has%.nucsq` <- function(x, y) {
-  if (!is.character(y)) {
-    stop("object which you're looking for in 'sq' object needs to be a character vector")
-  }
+  .check_character(y, "'y', right hand side object,")
   y <- strsplit(toupper(y), "")
-  if (!all(unlist(y) %in% c(.get_standard_alph("nuc", FALSE), "^", "$"))) {
-    stop("motifs that you're searching for in 'sq' object needs to consist of letters from nucleotides alphabet and optionally '^' or '$' characters")
-  }
+  .check_motifs_proper_alph(y, "nuc")
   y <- lapply(y, function(s) replace(s, s == "W", "[WATU]"))
   y <- lapply(y, function(s) replace(s, s == "S", "[SCG]"))
   

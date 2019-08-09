@@ -60,14 +60,7 @@
     stop("non standard letters specified in 'non_standard' parameter have to have more than one character")
 }
 
-.check_alph_matches_type <- function(alph, type, is_clean) {
-  if (!is.null(type) && !(type == "unt")) {
-    if (is.null(is_clean)) is_clean <- FALSE
-    if (!all(alph %in% .get_standard_alph(type, is_clean))) {
-      stop("there are letters in alphabet in file that aren't suit for given 'type' or 'is_clean' parameters")
-    }
-  }
-}
+
 
 .check_sq_is_clean <- function(sq) {
   if (!.is_cleaned(sq))
@@ -259,25 +252,35 @@
 }
 
 
-.check_is_missing <- function(obj, argname) {
+
+.check_isnt_missing <- function(obj, argname) {
   .check_simple(missing(obj), argname, "is missing")
 }
 
-.check_is_null <- function(obj, argname) {
+.check_isnt_null <- function(obj, argname) {
   .check_simple(is.null(obj), argname, "cannot be NULL")
 }
 
-.check_isnt_single_elem <- function(obj, argname) {
+.check_is_single_elem <- function(obj, argname) {
   .check_simple(length(obj) != 1, argname, "should have length 1")
 }
 
-.check_is_zero_len <- function(obj, argname) {
+.check_isnt_zero_len <- function(obj, argname) {
   .check_simple(length(obj) == 0, argname, "cannot have length 0")
 }
 
-.check_has_na <- function(obj, argname) {
+.check_has_no_na <- function(obj, argname) {
   .check_simple(any(is.na(obj)), argname, "cannot contain NA")
 }
+
+.check_is_unique <- function(obj, argname) {
+  .check_simple(length(unique(obj)) != length(obj), argname, "has to have unique elements")
+}
+
+.check_is_named <- function(obj, argname) {
+  .check_simple(is.null(names(obj)), argname, "should be named")
+}
+
 
 .check_class_character <- function(obj, argname) {
   .check_simple(!is.character(obj), argname, "has to be character")
@@ -287,17 +290,21 @@
   .check_simple(!is.logical(obj), argname, "has to be logical")
 }
 
+.check_class_numeric <- function(obj, argname) {
+  .check_simple(!is.numeric(obj), argname, "has to be numeric")
+}
+
 .standard_checks <- function(obj, argname,
                              allow_null = FALSE, 
                              single_elem = FALSE, 
                              allow_zero_len = FALSE,
                              allow_na = FALSE) {
   
-                       .check_is_missing(obj, argname)
-  if (!allow_null    ) .check_is_null(obj, argname) else if (is.null(obj)) return()
-  if (single_elem    ) .check_isnt_single_elem(obj, argname)
-  if (!allow_zero_len) .check_is_zero_len(obj, argname)
-  if (!allow_na      ) .check_has_na(obj, argname)
+                       .check_isnt_missing(obj, argname)
+  if (!allow_null    ) .check_isnt_null(obj, argname) else if (is.null(obj)) return()
+  if (single_elem    ) .check_is_single_elem(obj, argname)
+  if (!allow_zero_len) .check_isnt_zero_len(obj, argname)
+  if (!allow_na      ) .check_has_no_na(obj, argname)
 }
 
 .check_character <- function(obj, argname, ...) {
@@ -310,13 +317,39 @@
   if (!is.null(obj)) .check_class_logical(obj, argname)
 }
 
-.check_type <- function(obj, argname = "'type'", allow_null = FALSE, allow_unt = FALSE) {
-  if (!allow_null) .check_is_null(obj, argname)
-  else if (!is.null(obj)) {
-    allowed <- c("ami", "nuc", if (allow_unt) "unt")
-    .check_simple(obj %in% allowed, argname, "has to be one of 'nuc', 'ami', 'unt'") 
+.check_numeric <- function(obj, argname, ..., 
+                           allow_nan = FALSE, allow_inf = FALSE, allow_negative = FALSE,
+                           allow_zero = TRUE) {
+  .standard_checks(obj, argname, ...)
+  if (!is.null(obj)) {
+    .check_class_numeric(obj, argname)
+    if (!allow_nan )     .check_simple(any(is.nan(obj)),       argname, "cannot contain NaN values")
+    if (!allow_inf )     .check_simple(any(is.infinite(obj)),  argname, "cannot contain infinite values")
+                         .check_simple(any(floor(obj) != obj), argname, "has to be integer")
+    if (!allow_zero)     .check_simple(any(obj == 0),          argname, "cannot be equal to 0")
+    if (!allow_negative) .check_simple(any(obj < 0),           argname, "cannot be negative")
   }
 }
+
+.check_integer <- function(obj, argname, ...) {
+  .check_numeric(obj, argname, ...)
+  if (!is.null(obj)) 
+    .check_simple(any(floor(obj) != obj), argname, "has to be integer")
+}
+
+.check_type <- function(obj, argname = "'type'", allow_null = FALSE, allow_unt = FALSE) {
+  .check_isnt_missing(obj)
+  if (!allow_null) .check_isnt_null(obj, argname)
+  else if (!is.null(obj)) {
+    allowed <- c("ami", "nuc", if (allow_unt) "unt")
+    .check_simple(obj %in% allowed, argname, paste0("has to be one of '", allowed, "'", collapse = "', '")) 
+  }
+}
+
+.check_is_clean <- function(sq, argname) {
+  .check_simple(!.is_cleaned(sq), argname, "has to be clean (has to have 'cln' subtype)")
+}
+
 
 .check_nchar <- function(obj, argname, allow_zero_nchar = FALSE, requested_nchar = NULL,
                          demand_eq_len = FALSE, minimal_nchar = NULL) {
@@ -346,10 +379,78 @@
     stop("max length of alphabet is 30 letters, sequences that are being constructed exceed this limit", call. = FALSE)
 }
 
+.check_eq_lens <- function(obj_1, obj_2, name_1, name_2){
+  .check_simple(length(obj_1) != length(obj_2), paste0(name_1, " and ", name_2), "have to have equal lenghts")
+}
+
+
+
+### specific checks - used mainly once
+
 .check_real_alph_clean <- function(real_alph, type, is_clean) {
   if (!is.null(is_clean) &&
       is_clean == TRUE &&
       !all(real_alph %in% .get_standard_alph(type, TRUE))) {
     stop("'is_clean' is given TRUE, but sequences contain at least one ambiguous element", call. = FALSE)
   }
+}
+
+.check_alph_matches_type <- function(alph, type, is_clean = NULL) {
+  if (!is.null(type) && !(type == "unt")) {
+    if (is.null(is_clean)) is_clean <- FALSE
+    if (!all(alph %in% .get_standard_alph(type, is_clean))) {
+      stop("there are letters in alphabet that aren't suitable for given 'type' or 'is_clean' parameters")
+    }
+  }
+}
+
+.check_is_installed <- function(package) {
+  if (!package %in% rownames(installed.packages()))
+      stop("you need to install '", package, "' package to export object to its formats", call. = FALSE)
+}
+
+.check_export_format <- function(export_format, ami_formats, nuc_formats) {
+  if (missing(export_format) ||
+      !(export_format %in% c(ami_formats, nuc_formats))) {
+    stop("you need to specify proper 'export_format'; check manual for possible formats", call. = FALSE)
+  }
+}
+
+.check_type_matches_format <- function(type, export_format, ami_formats, nuc_formats) {
+  if (type == "ami" && !(export_format %in% ami_formats) ||
+      type == "nuc" && !(export_format %in% nuc_formats)) 
+    stop("'sq' object type doesn't match 'export_format'", call. = FALSE)
+}
+
+.check_enc_names_in_alph <- function(encoding, alph) {
+  if (!all(names(encoding) %in% alph)) 
+    stop("all names of 'encoding' has to be letters from alphabet (elements of 'alphabet' attribute of 'sq')")
+}
+  
+.check_has_both_UT <- function(has_U, has_T) {
+  if (has_U && has_T)
+    stop("'nucsq' sequences contains both 'U' and 'T' letters - should contain only one of them")
+}
+
+.check_has_A_no_UT <- function(has_U, has_T, has_A) {
+  if (!has_U && !has_T && has_A)
+    stop("'nucsq' sequences contains 'A' elements, but does not contain 'T' nor 'U' - unable to guess if it's dna or rna")
+}
+
+.check_is_dna_matches <- function(is_dna, has_U, has_T) {
+  if ((is_dna && has_U) || (!is_dna && has_T)) 
+    stop("if 'is_dna' is TRUE, sequences cannot contain 'U'; if is FALSE, sequences cannot contain 'T'")
+}
+
+.check_motifs_proper_alph <- function(motifs, type, alph = NULL) {
+  if (type %in% c("ami", "nuc")) {
+    if (!all(unlist(strsplit(motifs, "")) %in% c(.get_standard_alph(type, FALSE), "^", "$"))) 
+      stop("motifs that you're searching for in the 'sq' object needs to consist of letters from its alphabet and optionally '^' or '$' characters")
+  } else if (any(alph %in% c("^", "$", "?", "(", "=", ")", "\\", ".", "|", "+", "*", "{", "}", "[", "]"))) 
+    stop("you cannot search for motifs if any of those characters: ^$?=()\\.|+*{}[] are elements of 'sq' alphabet; if you want to use them, please substitute those letters with some other using 'substitute_letters'")
+}
+
+.check_all_up_alph_proper <- function(up_alph, dest_alph) {
+  if (!all(up_alph %in% dest_alph)) 
+    stop("some sequences have levels that are invalid for given 'dest_type'; you can check them with 'get_invalid_letters' function and fix them with 'substitute_letters'")
 }
