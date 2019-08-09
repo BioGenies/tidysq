@@ -1,67 +1,55 @@
 #' @export
-count_kmers <- function(sq, dsts, position = FALSE) {
+count_kmers <- function(sq, dists, alph = NULL, position = FALSE) {
   validate_sq(sq)
-  
-  if (!is.list(dsts) ||
-      !all(sapply(dsts, function(dst) is.numeric(dst))) ||
-      any(sapply(dsts, function(dst) any(floor(dst) != dst)))) {
-    stop("'dsts' has to be a list of integer vector with non-negative values")
+  .check_isnt_missing(dists, "'dists'")
+  .check_isnt_null(dists, "'dists'")
+  if (is.list(dists)) 
+    .check_list_dists(dists)
+  else  {
+    .check_integer(dists, "'dists'", allow_zero_len = TRUE, allow_zero = TRUE)
+    dists <- list(dists)
   }
-  
-  if (!is.logical(position) ||
-      is.na(position)) {
-    stop("'position' should be either TRUE or FALSE")
-  }
-  
-  alph <- .get_alph(sq)
-  
+  .check_dists_prop_len(sq, dists)
+  .check_isnt_missing(alph, "'alph'")
+  if (is.null(alph)) alph <- .get_alph(sq)
+  else .check_alph_is_subset(sq, alph)
+  .check_logical(position, "'position'", single_elem = TRUE)
   sqmatrix <- as.matrix(sq)
-  
-  n_patterns <- length(dsts)
+  n_patterns <- length(dists)
   do.call(cbind, lapply(1:n_patterns, function(i) {
-    count_pattern_kmers(sqmatrix, dsts[[i]], position, alph)
+    count_pattern_kmers(sqmatrix, dists[[i]], position, alph)
   }))
 }
 
 #' @export
-extract_kmers <- function(sq, len, dsts, position = FALSE) {
+extract_kmers <- function(sq, dists) {
   validate_sq(sq)
-  .check_sq_lens_eq(sq)
-  .check_len_is_int(len)
-  #.check_dsts_is_numeric(dsts)
-  #.check_dsts_aprop_length(dsts)
+  .check_integer(dists, "'dists'", allow_zero_len = TRUE, allow_zero = TRUE)
+  .check_dists_prop_len(sq, dists)
   
-  if (!is.logical(position) ||
-      is.na(position)) {
-    stop("'position' should be either TRUE or FALSE")
-  }
+  lens <- .get_lens(sq)
+  n <- length(sq)
+  kmers_len <- sum(dists) + length(dists) + 1
   
   sqmatrix <- as.matrix(sq)
-  # length of sequence
-  len_seq <- ncol(sqmatrix)
-  # number of sequences
-  n_seqs <- nrow(sqmatrix)
   
-  # look for n-gram indices for d
-  ngram_ind <- get_ngrams_ind(len_seq, len, dsts)
+  kmers <- do.call(c, lapply(1:n, function(i) {
+    do.call(c, lapply(1:(lens[i] - kmers_len + 1), function(ind) 
+      paste(sqmatrix[i, ind:(ind + kmers_len - 1)], collapse = "")))
+  }))
   
-  max_grams <- calc_max_grams(len_seq, len, ngram_ind)
+  ret_sq <- sq[do.call(c, lapply(1:n, function(i) rep(i, lens[i] - kmers_len + 1)))]
   
-  # extract n-grams from sequene
-  res <- t(vapply(1L:n_seqs, function(i) {
-    grams <- seq2ngrams_helper(sqmatrix[i, ], ind = ngram_ind, max_grams)
-    paste(grams, paste0(attr(ngram_ind, "d"), collapse = "."), 
+  ngram_ind <- lapply(lens, get_ngrams_ind, len = kmers_len, dst = dists)
+  max_grams <- sapply(1:n, function(i) calc_max_grams(lens[i], kmers_len, ngram_ind[i]))
+  
+  ret_ids <- do.call(c, lapply(1:n, function(i) {
+    grams <- na.omit(seq2ngrams_helper(sqmatrix[i, ], ind = ngram_ind[[i]], max_grams[i]))
+    paste(grams, paste0(attr(ngram_ind[[i]], "d"), collapse = "."),
           sep = "_")
-  }, rep("a", max_grams)))
-  if (max_grams == 1)
-    res <- t(res)
+  }))
   
-  # add position information if requested
-  if (position)
-    res <- do.call(cbind, lapply(1L:ncol(res), function(pos_id)
-      paste0(pos_id, "_", res[, pos_id])))
-  
-  res
+  tibble(sq = ret_sq, kmer_id = ret_ids, kmer = construct_sq(kmers))
 } 
 
 #' @import slam
@@ -137,6 +125,7 @@ get_ngrams_ind <- function(len_seq, len, dst) {
   }
   ind
 }
+
 calc_max_ngrams <- function(len_sq, len, ngram_ind) {
   max_grams <- len_sq - len - sum(attr(ngram_ind, "dst")) + 1
   #this check should be moved to validation of input data 
