@@ -80,26 +80,26 @@ substitute_letters(sq_ami, c(M = "222", Q = "555", R = "999", D = "777"))
 
 # Use created encoding
 
-enc_nuc <- c(T = "t", A = "a", C = "c", G = "g")
-enc_ami <- c(M = "Met", Q = "Gln", R = "Arg", D = "Asp", H = "His", K = "Lys", A = "Ala")
+sub_nuc <- c(T = "t", A = "a", C = "c", G = "g")
+sub_ami <- c(M = "Met", Q = "Gln", R = "Arg", D = "Asp", H = "His", K = "Lys", A = "Ala")
 
-substitute_letters(sq_nuc, enc_nuc)
-substitute_letters(sq_ami, enc_ami)
+substitute_letters(sq_nuc, sub_nuc)
+substitute_letters(sq_ami, sub_ami)
 
 
 # Use created encoding from other package (ex. \\code{\\link[AmyloGram]{AmyloGram_model}})
 
 library(AmyloGram)
 
-AG_enc_raw <- unlist(AmyloGram_model[["enc"]])
+AG_sub_raw <- unlist(AmyloGram_model[["enc"]])
 
-enc_AG <- substr(names(AG_enc_raw), 1, 1)
-names(enc_AG) <- toupper(AG_enc_raw)
-enc_AG 
+sub_AG <- substr(names(AG_sub_raw), 1, 1)
+names(sub_AG) <- toupper(AG_sub_raw)
+sub_AG 
 
 sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", "TIAALGNIIYRAIE", "NYERTGHLI", 
                         "MAYNNNIALN", "MN", "NAAAT"), type = "ami")
-substitute_letters(sq_ami, enc_AG)
+substitute_letters(sq_ami, sub_AG)
 
 }
 \seealso{

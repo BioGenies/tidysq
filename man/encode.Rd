@@ -60,11 +60,11 @@ enc_ami <- c(A = 5, C = 5, D = 6, E = 6, F = 4,
 # Create encoding for extended alphabet  
 
 enc_nuc_ex <- c(A = 1, C = 2, G = 2, T = 2, U = 3)
-enc_ami <- c(A = 5, C = 5, D = 6, E = 6, F = 4, 
+enc_ami_ex <- c(A = 5, C = 5, D = 6, E = 6, F = 4, 
              G = 1, H = 5, I = 3, K = 2, L = 3, 
              M = 5, N = 6, P = 2, Q = 6, R = 2, 
              S = 6, T = 6, V = 3, W = 4, Y = 4, 
-             U = 7, O = 7, X = 7, B = 7, Z = 7)
+             U = -0.1, O = 0.753, X = -53.95, B = 7.77, Z = 0)
                      
                                               
 # Encode with simplified standard alphabet sequences without non-standard letters
@@ -93,8 +93,8 @@ encode(sq_ami_ex, enc_ami_ex)
 
 # Encode without assigning all letters
 
-encode(sq_nuc, c(A = 1, G = 2))
-encode(sq_ami, c(A = 5, H = 5, I = 3, K = 2, L = 3, M = 5, N = 6))
+encode(sq_nuc, c(A = 1, G = 0.02))
+encode(sq_ami, c(A = 5, H = 5, I = 0.3, K = -2, L = -3.1, M = 5, N = 6))
 
 
 # Use created encoding from \\code{AAindex database}

@@ -84,8 +84,8 @@
 #' 
 #' # Encode without assigning all letters
 #' 
-#' encode(sq_nuc, c(A = 1, G = 2))
-#' encode(sq_ami, c(A = 5, H = 5, I = 3, K = 2, L = 3, M = 5, N = 6))
+#' encode(sq_nuc, c(A = 1, G = 0.02))
+#' encode(sq_ami, c(A = 5, H = 5, I = 0.3, K = -2, L = -3.1, M = 5, N = 6))
 #' 
 #' 
 #' # Use created encoding from \code{AAindex database}
@@ -133,33 +133,3 @@ encode <- function(sq, encoding) {
   sq <- .set_alph(sq, encoding[alph])
   .set_class(sq, "enc", FALSE)
 }
-
-
-
-
-
-
-sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", "CTGCTG", "CTTAGA", "CCCT", "CTGAATGT"), type = "nuc")
-
-sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", "TIAALGNIIYRAIE", "NYERTGHLI", "MAYNNNIALN", "MN", "NAAAT"), type = "ami")
-
-sq_nuc_ex <- construct_sq(c("TATCTAGCTGTATG", "CUGCUG", "CUUAGA", "CCCT", "CUGAAUGU"))
-
-sq_ami_ex <- construct_sq(c("MAYUOUONNNIALN", "UUMXBZONO", "NAAGAT"))  
-
- enc_nuc <- c(A = 1, C = 2, G = 2, T = 2)
- enc_ami <- c(A = 5, C = 5, D = 6, E = 6, F = 4, 
-              G = 1, H = 5, I = 3, K = 2, L = 3, 
-              M = 5, N = 6, P = 2, Q = 6, R = 2, 
-             S = 6, T = 6, V = 3, W = 4, Y = 4)                   
-                         
-              
- # Create encoding for extended alphabet  
- 
- enc_nuc_ex <- c(A = 1, C = 2, G = 2, T = 2, U = 3)
- enc_ami_ex <- c(A = 5, C = 5, D = 6, E = 6, F = 4, 
-              G = 1, H = 5, I = 3, K = 2, L = 3, 
-             M = 5, N = 6, P = 2, Q = 6, R = 2, 
-             S = 6, T = 6, V = 3, W = 4, Y = 4, 
-              U = -0.1, O = 0.753, X = -53.95, B = 7.77, Z = 0)
-
