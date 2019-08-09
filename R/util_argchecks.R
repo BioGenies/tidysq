@@ -453,3 +453,8 @@
   if (!all(up_alph %in% dest_alph)) 
     stop("some sequences have levels that are invalid for given 'dest_type'; you can check them with 'get_invalid_letters' function and fix them with 'substitute_letters'")
 }
+
+.check_paste_or_na <- function(paste_char, use_na_char) {
+  if (paste_char && !use_na_char) 
+    stop("'paste_char' can be TRUE if and only if 'use_na_char' is FALSE")
+}
