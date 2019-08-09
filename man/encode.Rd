@@ -22,7 +22,7 @@ Function encodes sequences using numeric values defined by user in named vector.
 Each position in the sequence is being replaced by assigned to the letter numeric value.
 
 Sometimes for research purposes one wants to replace letters by various values, described by physio-chemical properties of amino or nucleic acids. 
-It can be a residue hydrophobicity scale, heat capacities, entropies, chemical shift index.
+It can be a residue hydrophobicity scale, heat capacities, entropies, chemical shift index or even various probability matrix (BLOSUM, PAM).
 
 The newly constructed sequence will have a new class \code{\link{encsq})}, representing sequence encoded with custom alphabet.
 
@@ -51,13 +51,20 @@ sq_ami_ex <- construct_sq(c("MAYUOUONNNIALN", "UUMXBZONO", "NAAGAT"))
 # Create encoding for standard alphabet 
 
 enc_nuc <- c(A = 1, C = 2, G = 2, T = 2)
-enc_ami <- c(A = 5, C = 5, D = 6, E = 6, F = 4, G = 1, H = 5, I = 3, K = 2, L = 3, M = 5, N = 6, P = 2, Q = 6, R = 2, S = 6, T = 6, V = 3, W = 4, Y = 4)                   
+enc_ami <- c(A = 5, C = 5, D = 6, E = 6, F = 4, 
+             G = 1, H = 5, I = 3, K = 2, L = 3, 
+             M = 5, N = 6, P = 2, Q = 6, R = 2, 
+             S = 6, T = 6, V = 3, W = 4, Y = 4)                   
                         
              
 # Create encoding for extended alphabet  
 
 enc_nuc_ex <- c(A = 1, C = 2, G = 2, T = 2, U = 3)
-enc_ami_ex <- c(A = 5, C = 5, D = 6, E = 6, F = 4, G = 1, H = 5, I = 3, K = 2, L = 3, M = 5, N = 6, P = 2, Q = 6, R = 2, S = 6, T = 6, V = 3, W = 4, Y = 4, U = 7, O = 7, X = 7, B = 7, Z = 7)
+enc_ami <- c(A = 5, C = 5, D = 6, E = 6, F = 4, 
+             G = 1, H = 5, I = 3, K = 2, L = 3, 
+             M = 5, N = 6, P = 2, Q = 6, R = 2, 
+             S = 6, T = 6, V = 3, W = 4, Y = 4, 
+             U = 7, O = 7, X = 7, B = 7, Z = 7)
                      
                                               
 # Encode with simplified standard alphabet sequences without non-standard letters
@@ -90,7 +97,7 @@ encode(sq_nuc, c(A = 1, G = 2))
 encode(sq_ami, c(A = 5, H = 5, I = 3, K = 2, L = 3, M = 5, N = 6))
 
 
-# Use created encoding from \\code{AAindex}
+# Use created encoding from \\code{AAindex database}
 
 data("aaprop")
 enc_aa <- aaprop[20,]
