@@ -59,6 +59,15 @@ as.matrix.sq <- function(x, ...) {
   ret
 }
 
+
+#' @exportMethod as.matrix encsq
+#' @export
+as.matrix.encsq <- function(x, ...) {
+  ret <- NextMethod()
+  storage.mode(ret) <- "numeric"
+  ret
+}
+
 #' @exportMethod is sq
 #' @export
 is.sq <- function(x) {
