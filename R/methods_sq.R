@@ -1,5 +1,69 @@
 #methods other than print of class sq
-
+#' Extract parts of a sq object
+#' 
+#' @description Operator to extract subsets of sq objects.
+#' 
+#' @param x sq object from which to extract element(s)
+#' @param i,j,... indices specifying elements to extract. They may be 
+#' \code{numeric}, \code{character} or \code{logical} vectors or empty. 
+#' This function follows normal R conventions for indexing vectors, including 
+#' negative indices.
+#' 
+#' @return \code{\link{sq}} object of the same type as input sq, containing
+#' extracted elements
+#' 
+#' @details This function allows extracting specified sequences from the 
+#' sq object and follows the normal R conventions. For details refer to the 
+#' R documentation (see 
+#' \url{https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Index-vectors}). 
+#' Subsetting of the sq object will not drop its attributes (class and alphabet 
+#' of the object). Numeric values are coerced to integer as by 
+#' \code{\link{as.integer}} and hence truncated towards zero. In case of 
+#' logical vectors indicating elements/slices to select, they are recycled if 
+#' necessary to match the length of the sq object. Attempt to extract elements 
+#' using indices not present in the object will return an error.  
+#' 
+#' @examples 
+#' # Creating objects to work on:
+#' sq_unt <- construct_sq(c("AHSNLVSCTK$SH%&VS", "YQTVKA&#BSKJGY", 
+#'                          "IAKVGDCTWCTY&GT", "AVYI#VSV&*DVGDJCFA"))
+#' sq_ami <- construct_sq(c(s1 = "MAIATNCEPILLKNYAS", s2 = "YASDGLIPAKNTEWYTV", 
+#'                          s3 = "TIKSNAALIETRY"), type = "ami")
+#' 
+#' # Subsetting using numeric vectors
+#' # Extracting second element of the object:
+#' sq_unt[2]
+#' 
+#' # Extracting elements from second to fourth:
+#' sq_unt[2:4]
+#' 
+#' # Extracting all elements except the third:
+#' sq_unt[-3]
+#' 
+#' # Extracting first and third element:
+#' sq_unt[c(1,3)]
+#' 
+#' # Extracting using non-integer indices - truncation:
+#' i <- 2.754
+#' sq_unt[i]
+#' 
+#' # Subsetting using character vectors
+#' # Extracting elements named 's1' and 's3':
+#' sq_ami[c('s1', 's3')]
+#' 
+#' # Subsetting using logical vectors
+#' # Extracing first and third element:
+#' sq_ami[c(TRUE, FALSE, TRUE)]
+#'
+#' # Extracting every other element - vector will be recycled:
+#' sq_unt[c(FALSE, TRUE)]
+#' 
+#' # Subsetting using empty vector
+#' # Empty index will return all values:
+#' sq_unt[]
+#' 
+#' seealso sq bite
+#'   
 #' @exportMethod `[` sq
 #' @export
 `[.sq` <- function(x, i, j, ...) {
