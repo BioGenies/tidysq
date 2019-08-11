@@ -1,3 +1,158 @@
+#' sq: class for keeping sequences in a tidy format
+#' 
+#' Object of class \strong{sq} represents list of biological sequences. It is main
+#' internal format of \strong{tidysq} package and most functions operate on them. 
+#' Storage method is memory-optimized so that objects require as little memory
+#' as possible (details below).
+#' 
+#' @section Construction/reading/import of sq objects:
+#' There are multiple ways of obtaining \code{sq} objects:
+#' \itemize{
+#' \item constructing from character vector with \code{\link{construct_sq}},
+#' \item constructing from character vector with \code{\link{as.sq}} method,
+#' \item reading from fasta file with \code{\link{read_fasta}},
+#' \item exporting from format of other package like \code{ape} or
+#' \code{Biostrings} with \code{\link{import_sq}}.
+#' }
+#'
+#' \strong{Important note:} Manual assignment of a class \code{sq} to an object is
+#' \strong{strongly discouraged} - due to usage of low-level functions for
+#' bit packing such assignment may lead to calling one of those functions during
+#' operating on object or even printing it which can cause crash of R session and,
+#' in consequence, loss of data.
+#'
+#' @section Types of sq:
+#' This package is meant to handle both amino acids and nucleotides sequences 
+#' thus there is need to differentiate \code{sq} objects that keep them. In 
+#' addition, there are special types for handling non-standard sequence 
+#' formats and encodings.
+#' 
+#' Each \strong{sq} object has exactly one of \strong{types}:
+#' \itemize{
+#' \item \strong{ami} - (\emph{amino acids}) represents list of amino acids residues 
+#' sequences
+#' \item \strong{nuc} - (\emph{nucleotides}) represents list of nucleotides sequences
+#' \item \strong{unt} - (\emph{untyped}) represents list of sequences that don't have 
+#' specified type. They are mainly result of reading sequences from a file that 
+#' contains some letters that aren't in standard alphabets and user hasn't 
+#' specified them explicitly. They should be converted to \strong{ami} or \strong{nuc} 
+#' sequences before beggining of work with them (using functions like 
+#' \code{\link{substitute_letters}} or \code{\link{typify}}).
+#' \item \strong{atp} - (\emph{atypical}) represents sequences that have alphabet
+#' different from standard \strong{ami} or \strong{nuc} alphabets - similarly to 
+#' \strong{unt}, but user has explicitly informed about it. They are
+#' result of constructing sequences or reading from file with specifying 
+#' \code{non_standard} parameter (for details see \code{\link{read_fasta}}
+#' and \code{\link{construct_sq}}). They are also result of using function
+#' \code{\link{substitute_letters}} - user can use this to for example simplify 
+#' alphabet and replace a few letters with one.
+#' \item \strong{enc} - (\emph{encoded}) represents list of sequences that have been
+#' encoded with function \code{\link{encode}} where each letter is assigned with 
+#' numeric value.
+#' }
+#' 
+#' Additionally, there is special subtype \strong{cln} (standing for \emph{clean}).
+#' Only \strong{ami} and \strong{nuc} \code{sq} objects may have this subtype. It indicates
+#' that sequences don't contain ambiguous letters (see "alphabets" section below).
+#' 
+#' \code{sq} object type is printed when using overloaded method 
+#' \code{\link[print.sq]{print}}. It can be also checked by using \code{\link{get_sq_type}}
+#' @section Alphabet:
+#' Each \code{sq} object have an \strong{alphabet} associated with it. Alphabet is
+#' a set of possible \strong{letters} that can appear in sequences contained in object.
+#' Alphabet is kept mostly as a character vector, where each element represents one
+#' \strong{letter}.
+#'
+#' \code{sq} obejcts of type \strong{ami} or \strong{nuc} have fixed alphabets (depending
+#' also if object has \strong{cln} subtype). In other words, if two \code{sq} objects have
+#' exactly the same type - \strong{ami} or \strong{nuc} - and either both have or both don't
+#' have \strong{cln} subtype, they are ensured to have the same alphabets.
+#'
+#' Here are listed alphabets for these types:
+#' \itemize{
+#' \item \strong{ami} (not \strong{cln}) - ACDEFGHIKLMNPQRSTVWY-*
+#' \item \strong{ami}, \strong{cln} - ABCDEFGHIJKLMNOPQRSTUVWXYZ-*
+#' \item \strong{nuc} (not \strong{cln}) - ACGTU-
+#' \item \strong{nuc}, \strong{cln} - ACGTUWSMKRYBDHVN-
+#' }
+#'
+#' To see details of these alphabets or find out how to obtain them through code, see
+#' \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}}.
+#'
+#' Other types of \code{sq} objects are allowed to have other alphabets. Having alphabet
+#' exactly identical to one of those above don't automatically indicates that type of
+#' sequence is one of those - e.g. there might be \strong{unt} \code{sq} that has alphabet
+#' identical to \strong{ami} \strong{cln} alphabet. To set the type, you should use
+#' \code{\link{typify}} function.
+#'
+#' Purpose of existing \strong{unt} and \strong{atp} alphabets is the fact that although
+#' there is a standard for format of \emph{fasta} files, sometimes there are another types
+#' of symbols which doesn't fit the standard. Thanks to these types, files with customized
+#' alphabets can be red. What's more, user may want to group amino acids with simillar
+#' properties (e.g. for machine learning) and replace them with symbols of groups.
+#' To check details, see \code{\link{read_fasta}}, \code{\link{construct_sq}} and
+#' \code{\link{substitute_letters}}.
+#'
+#' All of types: \strong{ami}, \strong{nuc}, \strong{atp}, \strong{unt} have alphabets
+#' that are character vectors while \strong{enc} objects have alphabets that are numeric
+#' vectors. They are result of \code{\link{encode}} function, see its manual for details.
+#'
+#' \strong{Important note:} in \strong{atp} alphabets there is possibility of appearance of
+#' letters that consists of more than one character - this functionality is provided in
+#' order to handle situations like, for example, using "mA" to indicating methylated
+#' alanine.
+#'
+#' \strong{Important note:} alphabets of \strong{atp} and \strong{unt} \code{sq} objects
+#' are case sensitive. That means, in their alphabets there can appear both lowercase and
+#' uppercase letters simultaneously and they are treated as different. Alphabets of
+#' \strong{nuc} and \strong{ami} objects are uppercase and all functions converts
+#' other parameters to uppercase when working with \strong{ami} or \strong{nuc} - e.g.
+#' \link{`\%has\%`} operator converts lower letters to upper when searching for motifs in
+#' \strong{ami} or \strong{nuc} object.
+#'
+#' You can obtain alphabet of \code{sq} object using \code{\link{get_sq_alphabet}}. You can
+#' check which letters are invalid (aren't in standard amino acids or nucleotides alphabet)
+#' in each sequence of given \code{sq} object of type \strong{unt} or \strong{atp} by using
+#' \code{\link{get_invalid_letters}}. You can substitute one letter with another using
+#' \code{\link{substitute_letters}}
+#'
+#' @section Missing/Not Available values:
+#' There is a possibility of introducing \code{NA} values into sequences. \code{NA} value
+#' represents element of sequence that is unknown, missing or invalid for some reason.
+#' It isn't letter of any alphabet (with exception of \strong{enc} objects where some of
+#' letters might be \code{NA}, see \code{\link{encode}} for details). It is printed as
+#' "!" and, thus, it is highly unrecommended to use "!" as special letter in \strong{atp}
+#' sequences (but print character can be changed in options, see \code{\link{sq-options}}).
+#'
+#' Missing values might be caused by:
+#' \itemize{
+#' \item reading fasta file with non standard letters in
+#' \code{\link[no-check-mode]{no-check mode}} with \code{\link{read_fasta}},
+#' \item replacing a letter with \code{NA} value with \code{\link{substitute_letters}},
+#' \item subsetting sequences out of their lengths with \code{\link{bite}}.
+#' }
+#'
+#' User shouldn't operate on sequences with \code{NA} values and should get rid of them
+#' if possible. You can convert sequences that contain \code{NA} values into \code{NULL}
+#' sequences with \code{\link{remove_na}}.
+#' 
+#' @section NULL (empty) sequences:
+#' There is a possibility of appearance of \code{NULL} sequences in \code{sq} object.
+#' \code{NULL} sequence is a sequence of length 0.
+#'
+#' \code{NULL} sequences might be caused by:
+#' \itemize{
+#' \item constructing \code{sq} object from character string of length zero with
+#' \code{\link{construct_sq}},
+#' \item using \code{\link{clean}} function,
+#' \item using \code{\link{remove_na}} function,
+#' \item subsetting \code{sq} object with \link[sq]{extract operator}
+#' }
+#'
+#' @name sq
+NULL
+
+
 #' @exportClass sq
 #' @export
 construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) {
