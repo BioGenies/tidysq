@@ -1,3 +1,19 @@
+#' Create empty Position Specific Scoring Matrix
+#'
+#' @description Create an empty Position Specific Scoring Matrix 
+#' for a specified alphabet.
+#'
+#' @param num_pos the number of positions in a sequence.
+#' @param type \code{character} type of a sequence
+#' @return A numeric matrix with rows equal to \code{num_pos}
+#' and number of columns equal to the number of characters in the specified 
+#' alphabet.
+#' @examples
+#' # empty nucleotide PSSM
+#' pssm_empty(num_pos = 9, type = "nuc")
+#' 
+#' # empty aminoacid PSSM
+#' pssm_empty(num_pos = 9, type = "ami")
 #' @export
 empty_pssm <- function(num_pos, type) {
   .check_type_in_ami_nuc(type)
@@ -22,6 +38,15 @@ compute_pssm <- function(sq, mode = "freqs", background_dist = "All") {
          `kullback-leibler` = .compute_pssm_kl(sq, background_dist))
 }
 
+#' Score a sequence against a PSSM using sum of positional scores.
+#'
+#' @inheritParams bite
+#' @inheritParams flatten_pssm
+#' @return A vector of scores, one for each input sequence.
+#' @examples
+#' pssm1 <- empty_pssm(num_pos = 9, type = "nuc")
+#' pssm1[1:9, 1:6] <- rnorm(54)
+#' score_pssm(as.sq(c("GGGCTGGCG","CTTCAGACT")), pssm1)
 #' @export
 score_pssm <- function(sq, pssm) {
   validate_sq(sq)
@@ -47,6 +72,14 @@ scale_pssm <- function(pssm) {
   (pssm - min(pssm, na.rm = TRUE)) / (max(pssm, na.rm = TRUE) - min(pssm, na.rm = TRUE))
 }
 
+#' 'Flatten' PSSM to a single row
+#'
+#' 'Flatten' PSSM to a single row, such that e.g. m x n = 9 x 20 becomes 1 x 180
+#'
+#' @param pssm a position specific scoring matrix
+#' @return A numeric matrix with 1 row and m * n columns
+#' @examples
+#' flatten_pssm(empty_pssm(num_pos = 9, type = "nuc"))
 #' @export
 flatten_pssm <- function(pssm) {
   .check_is_pssm(pssm)
