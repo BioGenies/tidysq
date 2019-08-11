@@ -21,8 +21,8 @@ generate_dna_ex <- function(n, len, alph) {
 }
 
 alphs <- list(c("C", "T", "A", "G"))
-ns <- round(seq(10, 10000, length.out = 6), 0)
-lens <- round(seq(10, 10000, length.out = 6), 0)
+ns <- c(10, 1000, 10000, 50000)
+lens <- c(10, 1000, 10000, 50000)
 
 invisible(lapply(ns, function(n) {
   lapply(lens, function(len) {
