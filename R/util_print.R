@@ -40,6 +40,50 @@ type_sum.clnsq <- function(x) {
   paste0("(c)", NextMethod())
 }
 
+#' Print sq object
+#' 
+#' @description Prints input \code{\link{sq}} object in a human-friendly form.  
+#' 
+#' @details \code{Print} checks if the input \code{\link{sq}} object is cleaned and includes this information alongside with type in the printed message. 
+#' All \code{\link{NA}} values are replaced with '*' and empty sequences are distinguished.
+#' 
+#' \code{Print} method is used by default in each case of calling the \code{\link{sq}} object.
+#' 
+#' This is overloaded function from base package. It is selected when \code{\link{sq}} object is used as a parameter for print function. To see the generic function page, 
+#' check \link[here]{https://www.rdocumentation.org/packages/base/versions/3.6.1/topics/print}.
+#' 
+#' @param x \code{\link{sq}} object.
+#' @param ... further arguments passed to or from other methods.
+#' 
+#' @examples
+#' 
+#' # Creating sq object to work on:
+#' sq <- construct_sq(c("fafasfasfFSA", "ygagayagfa", "adsDaf"), type = "ami")
+#' 
+#' # Printing without explicit function calling:
+#' sq
+#' 
+#' # Printing with explicit function calling:
+#' print(sq)
+#' 
+#' # Explicit printing of the uncleaned object:
+#' print(construct_sq("ACTAGAGTGATAGTAGGAGTAGA", type = "nuc"))
+#'
+#' # Explicit printing of the cleaned object:
+#' print(clean(construct_sq("ACTAGAGTGATAGTAGGAGTAGA", type = "nuc")))
+#' 
+#' # Explicit printing of the object without defined type:
+#' print(construct_sq(c("afsfd", "q243faadfa", "afsw34gesfv", "adfq2", "fasfas", "g'qp9u2r3'b;")))
+#' 
+#' # Explicit printing of the object with empty sequence:
+#' print(construct_sq(c("afsfd", "", "adfq2", "fasfas", "")))
+#' 
+#' # Explicit printing of the object with NA element:
+#' print(construct_sq(c("afsfd", NA, "adfq2", NA, "")))
+#' 
+#'  
+#' @seealso \link{sq} \link{clean} 
+#' 
 #' @importFrom crayon blue
 #' @importFrom crayon silver
 #' @importFrom crayon green
@@ -96,7 +140,7 @@ print.sq <- function(x,
   
   for (i in 1:num_lines) {
     if (lens[i] == 0) {
-      sq_cut[[i]] <- "<NULL sq>"
+      sq_cut[[i]] <- "<NULL>"
     } else {
       s <- sq_cut[[i]]
       # we count how much characters can we print by counting cumulative extent
@@ -199,7 +243,7 @@ print.encsq <- function(x,
   
   for (i in 1:num_lines) {
     if (lens[i] == 0) {
-      sq_cut[[i]] <- "<NULL sq>"
+      sq_cut[[i]] <- "<NULL>"
     } else {
       s <- sq_cut[[i]]
       # we count how much characters can we print by counting cumulative extent
@@ -272,13 +316,13 @@ pillar_shaft.sq <- function(x, ...) {
   max_len_width <- max(nchar(lens))
   
   max_str_width <- max(sapply(sq_cut, function(s) sum(col_nchar(s))))
-  min_str_width <- if (max_str_width >= 6) 6 else max_str_width
+  min_str_width <- if (max_str_width >= 6) 6 else max_str_width + 1
   
   opt <- .get_print_length()
   
   new_pillar_shaft(list(sq = sq_cut, lens = lens),
-                   width = min(max_str_width + max_len_width + 3, 
-                               opt + max_len_width + 6),
+                   width = min(max_str_width + max_len_width + 4, 
+                               opt + max_len_width + 7),
                    min_width = max_len_width + min_str_width + 3,
                    class = "pillar_shaft_sq",
                    align = "left")
@@ -318,7 +362,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   
   for (i in 1:num_lines) {
     if (lens[i] == 0) {
-      x[[i]] <- "<NULL sq>"
+      x[[i]] <- "<NULL>"
     } else {
       s <- x[[i]]
       # we count how much characters can we print by counting cumulative extent
@@ -432,7 +476,7 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   
   for (i in 1:num_lines) {
     if (lens[i] == 0) {
-      x[[i]] <- "<NULL sq>"
+      x[[i]] <- "<NULL>"
     } else {
       s <- x[[i]]
       # we count how much characters can we print by counting cumulative extent

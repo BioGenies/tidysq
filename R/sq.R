@@ -1,21 +1,26 @@
 #' @exportClass sq
 #' @export
-construct_sq <- function(sq, type = NULL, is_clean = NULL) {
+construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) {
   .check_sqstr_proper_char(sq)
   if (getOption("tidysq_no_check_mode") == TRUE) {
     .nc_construct_sq(sq, type, is_clean)
   } else {
-    .check_is_clean_in_TRUE_FALSE_NULL(is_clean)
-    
-    if (is.null(type)) {
-      type <- .guess_sq_type(sq)
+    .check_type_or_nonst_alph(type, is_clean, non_standard)
+    if (!is.null(non_standard)) {
+      .nonst_construct_sq(sq, non_standard)
+    } else {
+      .check_is_clean_in_TRUE_FALSE_NULL(is_clean)
+      
+      if (is.null(type)) {
+        type <- .guess_sq_type(sq)
+      }
+      .check_type_in_ami_nuc_unt(type)
+      
+      switch (type,
+              ami = construct_amisq(sq, is_clean),
+              nuc = construct_nucsq(sq, is_clean),
+              unt = construct_untsq(sq))
     }
-    .check_type_in_ami_nuc_unt(type)
-    
-    switch (type,
-            ami = construct_amisq(sq, is_clean),
-            nuc = construct_nucsq(sq, is_clean),
-            unt = construct_untsq(sq))
   }
 }
 
@@ -26,6 +31,43 @@ construct_sq <- function(sq, type = NULL, is_clean = NULL) {
   sq <- .nc_bitify_sq(sq, type, is_clean)
   sq <- .set_class(sq, type, is_clean)
   .set_alph(sq, .get_standard_alph(type, is_clean))
+}
+
+
+#' @importFrom stringi stri_sub
+#' @importFrom stringi stri_locate_all_regex
+.nonst_construct_sq <- function(sq, non_standard) {
+  .check_nonst_proper_char(non_standard)
+  .check_nonst_nchar(non_standard)
+  
+  sq <- lapply(sq, function(s) {
+    pos <- stri_locate_all_regex(s, non_standard)
+    binded <- apply(na.omit(do.call(rbind, pos)), 2, sort)
+    if (length(binded) == 0) {
+      strsplit(s, "")[[1]]
+    } else {
+      if (length(binded) == 2) {
+        binded <- t(as.matrix(binded))
+        res_ind <- binded[1]:binded[2]
+      } else res_ind <- as.integer(binded, 1, function(row) row[1]:row[2])
+      sin_ind <- setdiff(1:nchar(s), res_ind)
+      ind <- .merge_ind(sin_ind, binded[,1])
+      n <- nrow(binded) + length(sin_ind)
+      begs <- integer(n)
+      ends <- integer(n)
+      begs[(1:n)[ind]] <- sin_ind
+      ends[(1:n)[ind]] <- sin_ind
+      begs[(1:n)[!ind]] <- binded[,1]
+      ends[(1:n)[!ind]] <- binded[,2]
+      stri_sub(s, begs, ends)
+    }
+  })
+  
+  alph <- unique(unlist(sq))
+  .check_alph_length(alph)
+  sq <- .bitify_sq(sq, alph)
+  sq <- .set_alph(sq, alph)
+  .set_class(sq, "atp")
 }
 
 #' @exportClass amisq
@@ -65,6 +107,7 @@ construct_nucsq <- function(sq, is_clean) {
 #' @exportClass untsq
 construct_untsq <- function(sq) {
   alph <- .get_real_alph(sq)
+  .check_alph_length(alph)
   
   sq <- .bitify_sq(sq, alph)
   sq <- .set_alph(sq, alph)

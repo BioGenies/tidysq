@@ -41,6 +41,7 @@
   if (!all(unlist(y) %in% c(.get_standard_alph("ami", FALSE), "^", "$"))) {
     stop("motifs that you're searching for in 'sq' object needs to consist of letters from aminoacids alphabet and optionally '^' or '$' characters")
   }
+  y <- lapply(y, function(s) replace(s, s == "*", "\\*"))
   y <- lapply(y, function(s) replace(s, s == "B", "[BDN]"))
   y <- lapply(y, function(s) replace(s, s == "J", "[JIL]"))
   y <- lapply(y, function(s) replace(s, s == "X", "[A-Z]"))
