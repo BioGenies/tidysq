@@ -84,10 +84,12 @@ type_sum.clnsq <- function(x) {
 #' be colored
 #' @param letters_sep \code{character} value indicating how the letters 
 #' should be separated
+#' @param ... 	further arguments passed to or from other methods. 
+#' Unused.
 #' 
 #' @examples
 #' 
-#' Creating sq objects using construct_sq:
+#' # Creating sq objects using construct_sq:
 #' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
 #'                          "NYERTGHLI", "MAYXXXIALN"), type = "ami")
 #' sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
@@ -119,7 +121,7 @@ type_sum.clnsq <- function(x) {
 print.sq <- function(x,  
                      max_sequences = getOption("tidysq_max_print_sequences"),
                      use_color = getOption("tidysq_colorful_sq_print"), 
-                     letters_sep = NULL) {
+                     letters_sep = NULL, ...) {
   .check_integer(max_sequences, "'max_sequences'")
   .check_logical(use_color, "'use_color'")
   .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
@@ -228,7 +230,7 @@ print.encsq <- function(x,
                         max_sequences = getOption("tidysq_max_print_sequences"),
                         use_color = getOption("tidysq_colorful_sq_print"), 
                         letters_sep = NULL,
-                        digits = 2) {
+                        digits = 2, ...) {
   .check_integer(max_sequences, "'max_sequences'")
   .check_logical(use_color, "'use_color'")
   .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 

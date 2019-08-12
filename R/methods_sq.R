@@ -1,6 +1,7 @@
 #methods other than print of class sq
 #' Extract parts of a sq object
 #' 
+#' @rdname sqextract
 #' @description Operator to extract subsets of sq objects.
 #' 
 #' @param x sq object from which to extract element(s)
@@ -62,7 +63,7 @@
 #' # Empty index will return all values:
 #' sq_unt[]
 #' 
-#' seealso sq bite
+#' @seealso sq bite
 #'   
 #' @exportMethod `[` sq
 #' @export
@@ -103,7 +104,7 @@ as.sq.default <- function(x, ...) {
 
 #' @exportMethod as.sq character
 #' @export
-as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL) {
+as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL, ...) {
   construct_sq(x, type, is_clean, non_standard)
 }
 
@@ -230,18 +231,18 @@ is.encsq <- function(x) {
 #' @seealso sq as.character is.sq                                                          
 #' @exportMethod `==` sq
 #' @export
-`==.sq` <- function(e1, e2) {
+`==.sq` <- function(x1, x2) {
   #TODO make it faster and lighter, maybe?
-  if (is.sq(e2)) {
-    e2 <- as.character(e2)
-  } else if (!is.character(e2)) {
+  if (is.sq(x2)) {
+    x2 <- as.character(x2)
+  } else if (!is.character(x2)) {
     stop ("you cannot compare 'sq' object to object that is not character vector or 'sq' object")
   }
   
-  type <- .get_sq_type(e1)
+  type <- .get_sq_type(x1)
   if (type %in% c("ami", "nuc")) {
-    e2 <- toupper(e2)
+    x2 <- toupper(x2)
   }
   
-  as.character(e1) == e2
+  as.character(x1) == x2
 }

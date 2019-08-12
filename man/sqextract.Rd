@@ -72,6 +72,7 @@ sq_unt[c(FALSE, TRUE)]
 # Empty index will return all values:
 sq_unt[]
 
-seealso sq bite
-  
+}
+\seealso{
+sq bite
 }
