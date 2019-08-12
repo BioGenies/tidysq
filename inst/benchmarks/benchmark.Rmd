@@ -10,15 +10,27 @@ knitr::opts_chunk$set(echo = FALSE)
 library(dplyr)
 library(ggplot2)
 melt_res <- read.csv("results.csv") %>% 
-  group_by(package, sq_len, num_sq, type) %>% 
+  group_by(package, sq_len, num_sq, type, file_size) %>% 
   summarise(obj_size = median(obj_size),
             time_value = median(time_value))
 
 ```
 
+Software compared:
+
+ - seqinr: the oldest (check it!) **R** package for sequence analysis.
+ - ape: the main CRAN package for sequence analysis, especially phylogeny. Parts of the code is compiled and the pre-compiled version is unavailable.
+ - Biostrings: the Bioconductor staple package for sequence analysis. 
+
+We include seqinr only due to its sheer popularity as in all aspects it is less efficient than any other tool.
+
 ## Object size
 
 ### read_fasta and analogues
+
+Thanks to the bit-wise encoding, **sq** objects are the smallest - even smaller than files on the hard drive.
+
+Black triangles denotes object size on the hard drive.
 
 ```{r}
 # ggplot(melt_res, aes(x = sq_len, y = obj_size, color = type)) +
@@ -29,13 +41,29 @@ melt_res <- read.csv("results.csv") %>%
 
 filter(melt_res, type == "read") %>% 
   ggplot(aes(x = sq_len, y = obj_size, color = package)) +
+  geom_point(aes(y = file_size), color = "black", size = 4, shape = 17) +
   geom_point() +
-  geom_line() +
+  geom_line(linetype = "dashed") +
   facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
   ggtitle("read_fasta output size") +
   theme_bw() +
   theme(legend.position = "bottom")
 ```
+
+Without seqinr.
+
+```{r}
+filter(melt_res, type == "read", package != "seqinr") %>% 
+  ggplot(aes(x = sq_len, y = obj_size, color = package)) +
+  geom_point() +
+  geom_line(linetype = "dashed") +
+  facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
+  ggtitle("read_fasta output size") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+
+```
+
 
 ## Speed
 
@@ -51,6 +79,19 @@ filter(melt_res, type == "read") %>%
 
 ```
 
+Without seqinr.
+
+```{r}
+filter(melt_res, type == "read", package != "seqinr") %>% 
+  ggplot(aes(x = sq_len, y = time_value, color = package)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
+  ggtitle("read_fasta time") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+
+```
 
 ```{r}
 filter(melt_res, type == "char") %>% 
