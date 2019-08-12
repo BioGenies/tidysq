@@ -110,7 +110,7 @@ as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL
 #' @exportMethod as.character sq
 #' @export
 as.character.sq <- function(x, ...) {
-  .debitify_sq(x, "string")
+  unlist(.debitify_sq(x, "string"))
 }
 
 #' @exportMethod as.matrix sq
