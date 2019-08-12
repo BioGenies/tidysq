@@ -18,8 +18,8 @@ Letters without assigned encoding will be shown as \code{NA}.}
 with encoded alphabet.
 }
 \description{
-Encode sequences using numeric values defined by user 
-in named vector.
+Encode sequences, stored in \code{\link{sq}} object, with 
+numeric values defined by user in named vector.
 }
 \details{
 Each position in a sequence is replaced by a numeric value 

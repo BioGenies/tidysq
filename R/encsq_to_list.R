@@ -1,16 +1,18 @@
+#' Transform encoded sequence to a list
 #' 
+#' @description Transform encoded by \code{\link{encode}} sequence, stored in
+#' \code{\link{sq}} object, to a list.
 #' 
-#' @description 
+#' @param indices \code{encsq} a \code{\link{sq}} object which was encoded 
+#' using \code{\link{encode}} function.
 #' 
-#' @param 
-#' 
-#' @return  
+#' @return A named lists with sequences and theirs encoding.
 #' 
 #' @details 
 #' 
 #' @examples 
 #' 
-#' @seealso 
+#' @seealso sq encsq encode
 #' 
 #' @export
 encsq_to_list <- function(encsq) {
@@ -19,3 +21,54 @@ encsq_to_list <- function(encsq) {
   alph <- .get_alph(encsq)
   .apply_sq(encsq, "int", "none", function(s) alph[s])
 }
+
+
+# library(tidysq)
+# sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", "CTGCTG", "CTTAGA", "CCCT", "CTGAATGT"), type = "nuc")
+# sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", "TIAALGNIIYRAIE", "NYERTGHLI", "MAYNNNIALN", "MN", "NAAAT"), type = "ami")
+# sq_nuc_ex <- construct_sq(c("TATCTAGCTGTATG", "CUGCUG", "CUUAGA", "CCCT", "CUGAAUGU"))
+# sq_ami_ex <- construct_sq(c("MAYUOUONNNIALN", "UUMXBZONO", "NAAGAT")) 
+# enc_nuc <- c(A = 1, C = 2, G = 2, T = 2)
+# enc_ami <- c(A = 5, C = 5, D = 6, E = 6, F = 4, G = 1, H = 5, I = 3, K = 2, L = 3, M = 5, N = 6, P = 2, Q = 6, R = 2, S = 6, T = 6, V = 3, W = 4, Y = 4)
+# enc_nuc_ex <- c(A = 1, C = 2, G = 2, T = 2, U = 3)
+# enc_ami_ex <- c(A = 5, C = 5, D = 6, E = 6, F = 4, G = 1, H = 5, I = 3, K = 2, L = 3, M = 5, N = 6, P = 2, Q = 6, R = 2, S = 6, T = 6, V = 3, W = 4, Y = 4, U = -0.1, O = 0.753, X = -53.95, B = 7.77, Z = 0)
+# 
+# data("aaprop")
+# enc_aa <- aaprop[20,]
+# 
+# # an_en
+# e1 <- encode(sq_nuc, enc_nuc)
+# e2 <- encode(sq_ami, enc_ami)
+# # an_ex
+# e3 <- encode(sq_nuc, enc_nuc_ex)
+# e4 <- encode(sq_ami, enc_ami_ex)
+# # ax_en
+# e5 <- encode(sq_nuc_ex, enc_nuc)
+# e6 <- encode(sq_ami_ex, enc_ami)
+# # ax_ex
+# e7 <- encode(sq_nuc_ex, enc_nuc_ex)
+# e8 <- encode(sq_ami_ex, enc_ami_ex)
+# # ax_el
+# e9 <- encode(sq_nuc, c(A = 1, G = 0.02))
+# e10 <- encode(sq_ami, c(A = 5, H = 5, I = 0.3, K = -2, L = -3.1, M = 5, N = 6))
+# # test
+# e_aa <- encode(sq_ami, enc_aa)
+# 
+# zz <- encsq_to_list(e1)
+# encsq_to_list(e2)
+# encsq_to_list(e3)
+# encsq_to_list(e4)
+# encsq_to_list(e5)
+# encsq_to_list(e6)
+# encsq_to_list(e7)
+# encsq_to_list(e8)
+# encsq_to_list(e9)
+# encsq_to_list(e10)
+# encsq_to_list(e_aa)
+# 
+# 
+# zz[[1]]["T"]
+
+
+
+

@@ -1,7 +1,7 @@
 #' Encode sequences
 #' 
-#' @description Encode sequences using numeric values defined by user 
-#' in named vector.
+#' @description Encode sequences, stored in \code{\link{sq}} object, with 
+#' numeric values defined by user in named vector.
 #' 
 #' @param sq \code{\link{sq}} object.
 #' @param indices \code{encoding} a named vector, that consists of nucleic or 
