@@ -15,17 +15,16 @@
 #' @importFrom stringi stri_join
 #' @export
 read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) {
-  .check_file_is_char(file)
+  .check_character(file, "'file'", single_elem = TRUE)
   file <- .get_readable_file(file)
   
-  if(.is_no_check_mode()) {
-    .check_nc_is_clean_in_TRUE_FALSE(is_clean)
-    .check_nc_type_in_ami_nuc(type)
-    
+  if (.is_no_check_mode()) {
+    .check_logical(is_clean, "'is_clean'", single_elem = TRUE)
+    .check_type(type)
     .nc_read_fasta(file, type, is_clean)
   } else {
-    .check_is_clean_in_TRUE_FALSE_NULL(is_clean)
-    .check_type_in_ami_nuc_unt_NULL(type)
+    .check_logical(is_clean, "'is_clean'", single_elem = TRUE, allow_null = TRUE)
+    .check_type(type, allow_unt = TRUE, allow_null = TRUE)
     
     if (!is.null(non_standard)) {
       .nonst_read_fasta(file, type, is_clean, non_standard)
@@ -53,15 +52,15 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
 #' @export
 write_fasta <- function(sq, name, file, nchar = 80) {
   validate_sq(sq)
-  .check_name_proper_char(name)
-  .check_file_is_char(file)
-  .check_nchar_proper_int(nchar)
-  .check_eq_lens(sq, name)
+  .check_character(name, "'name'")
+  .check_character(file, "'file'", single_elem = TRUE)
+  .check_integer(nchar, "'nchar'", single_elem = TRUE, allow_negative = FALSE, allow_zero = FALSE)
+  .check_eq_lens(sq, name, "'sq'", "'name'")
   
   sq <- .debitify_sq(sq, "char")
   char_vec <- unlist(lapply(1L:length(sq), function(i) {
     s <- sq[[i]]
-    s <- lapply(split(s, floor((0:(length(s)-1))/nchar)), function(l) paste(l, collapse=""))
+    s <- lapply(split(s, floor((0:(length(s) - 1))/nchar)), function(l) paste(l, collapse = ""))
     paste0(">", name[i], "\n", paste(s, collapse = "\n"), "\n")
   }))
   

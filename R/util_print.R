@@ -120,7 +120,10 @@ print.sq <- function(x,
                      max_sequences = getOption("tidysq_max_print_sequences"),
                      use_color = getOption("tidysq_colorful_sq_print"), 
                      letters_sep = NULL) {
-  
+  .check_integer(max_sequences, "'max_sequences'")
+  .check_logical(use_color, "'use_color'")
+  .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
+                   allow_zero_len = TRUE, allow_null = TRUE)
   alph <- .get_alph(x)
   
   #if parameter is NULL and all letters are lenght one, no space
@@ -225,6 +228,11 @@ print.encsq <- function(x,
                         use_color = getOption("tidysq_colorful_sq_print"), 
                         letters_sep = NULL,
                         digits = 2) {
+  .check_integer(max_sequences, "'max_sequences'")
+  .check_logical(use_color, "'use_color'")
+  .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
+                   allow_zero_len = TRUE, allow_null = TRUE)
+  .check_integer(digits, "'digits'", allow_zero = TRUE)
   alph <- .get_alph(x)
   
   #if parameter is NULL default sep is space

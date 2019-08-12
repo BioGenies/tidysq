@@ -92,19 +92,18 @@
 
 substitute_letters <- function(sq, encoding) {
   validate_sq(sq)
-  
   alph <- .get_alph(sq)
-  
-  if (!all(names(encoding) %in% alph)) {
-    stop("all names of 'encoding' has to be letters from alphabet (elements of 'alphabet' attribute of 'sq')")
-  }
-  
+  .check_isnt_missing(encoding, "'encoding'")
+  .check_isnt_null(encoding, "'encoding'")
+  .check_is_named(encoding, "'encoding'")
+  .check_enc_names_in_alph(encoding, alph)
+  .check_is_unique(names(encoding), "names of 'encoding'")
   if (is.numeric(encoding)) {
-    .check_enc_proper_int(encoding)
+    .check_integer(encoding, "if is numeric, 'encoding'", allow_na = TRUE)
     name <- names(encoding)
     encoding <- as.character(encoding)
     names(encoding) <- name
-  } else .check_enc_proper_char(encoding)
+  } else .check_character(encoding, "if is character, 'encoding'", allow_na = TRUE)
   
   inds_fun <- alph
   inds_fun[match(names(encoding), alph)] <- encoding

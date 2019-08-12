@@ -23,11 +23,11 @@ tidysq:::validate_sq(sq_3)
 tidysq:::validate_sq(sq_4)
 tidysq:::validate_sq(sq_5)
 
-tidysq:::validate_nucsq(sq_1)
-tidysq:::validate_nucsq(sq_2)
-tidysq:::validate_amisq(sq_3)
-tidysq:::validate_amisq(sq_4)
-tidysq:::validate_untsq(sq_5)
+tidysq:::validate_sq(sq_1, type = "nuc")
+tidysq:::validate_sq(sq_2, type = "nuc")
+tidysq:::validate_sq(sq_3, type = "ami")
+tidysq:::validate_sq(sq_4, type = "ami")
+tidysq:::validate_sq(sq_5, type = "unt")
 
 ### reading and writing fasta
 
@@ -126,7 +126,7 @@ sqtbl_ami %>% mutate(simpl = simplify(sq, enc))
 data("aaprop")
 enc2 <- aaprop[1,]
 
-sqtbl_ami[["sq"]] %>% clean(only_elements = TRUE) %>% encode(enc2)
+sqtbl_ami[["sq"]] %>% clean(only_elements = TRUE) %>% encode(enc2) %>% as.matrix
 sqtbl_ami %>% mutate(enc = encode(clean(sq, only_elements = TRUE), enc2))
 sqtbl_long %>% mutate(enc = encode(clean(sq, only_elements = TRUE), enc2))
 
@@ -226,7 +226,7 @@ sq_5 %has% c("^a", "s")
 (sqtbl_long %>% pull("sq") %>% simplify(enc)) %has% "acda"
 
 sqtbl_long %>%
-  filter(sq %has% c("KLV", "^D", "HxxxxxF"))
+  filter(sq %has% c("KLV", "^S", "HxxxxxF"))
 
 sqtbl_long %>%
   filter(sq %has% c("^D", "A$"))
