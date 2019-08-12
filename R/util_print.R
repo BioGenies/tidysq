@@ -143,13 +143,14 @@ print.sq <- function(x,
   #cut sq object so that we don't need to debitify long sequences
   # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
   sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
-  sq_cut <- .debitify_sq(sq_cut, "char")
+  sq_cut <- .debitify_sq(sq_cut, "int")
   
   #color NA's
-  na_char <- .get_na_char()
-  if (use_color) sq_cut <- lapply(sq_cut, function(s) {
-    s[s == na_char] <- silver(na_char)
-    s
+  na_char <- if (use_color) silver(.get_na_char()) else .get_na_char()
+  na_val <- .get_na_val(alph)
+  alph[na_val] <- na_char
+  sq_cut <- lapply(sq_cut, function(s) {
+    alph[s]
   })
   
   #max index number width
@@ -251,13 +252,14 @@ print.encsq <- function(x,
   #cut sq object so that we don't need to debitify long sequences
   # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
   sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
-  sq_cut <- .debitify_sq(sq_cut, "char")
+  sq_cut <- .debitify_sq(sq_cut, "int")
   
   #color NA's
-  na_char <- .get_na_char()
-  if (use_color) sq_cut <- lapply(sq_cut, function(s) {
-    s[s == na_char] <- silver(na_char)
-    s
+  na_char <- if (use_color) silver(.get_na_char()) else .get_na_char()
+  na_val <- .get_na_val(alph)
+  alph[na_val] <- na_char
+  sq_cut <- lapply(sq_cut, function(s) {
+    alph[s]
   })
   
   #max index number width
@@ -337,17 +339,20 @@ print.encsq <- function(x,
 pillar_shaft.sq <- function(x, ...) {
   p_width <- getOption("width")
   letters_sep <- ""
+  use_color <- .get_color_opt()
+  alph <- .get_alph(x)
   
   #cut sq object so that we don't need to debitify long sequences
   # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
   sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
-  sq_cut <- .debitify_sq(sq_cut, "char")
+  sq_cut <- .debitify_sq(sq_cut, "int")
   
   #color NA's
-  na_char <- .get_na_char()
-  if (.get_color_opt()) sq_cut <- lapply(sq_cut, function(s) {
-    s[s == na_char] <- silver(na_char)
-    s
+  na_char <- if (use_color) silver(.get_na_char()) else .get_na_char()
+  na_val <- .get_na_val(alph)
+  alph[na_val] <- na_char
+  sq_cut <- lapply(sq_cut, function(s) {
+    alph[s]
   })
   
   lens <- .get_lens(x)
@@ -451,19 +456,22 @@ format.pillar_shaft_sq <- function(x, width, ...) {
 pillar_shaft.encsq <- function(x, ...) {
   p_width <- getOption("width")
   letters_sep <- " "
+  use_color <- .get_color_opt()
   
   x <- .set_alph(x, format(.get_alph(x), digits = 1, scientific = FALSE))
+  alph <- .get_alph(x)
   
   #cut sq object so that we don't need to debitify long sequences
   # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
   sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
-  sq_cut <- .debitify_sq(sq_cut, "char")
+  sq_cut <- .debitify_sq(sq_cut, "int")
   
   #color NA's
-  na_char <- .get_na_char()
-  if (.get_color_opt()) sq_cut <- lapply(sq_cut, function(s) {
-    s[s == na_char] <- silver(na_char)
-    s
+  na_char <- if (use_color) silver(.get_na_char()) else .get_na_char()
+  na_val <- .get_na_val(alph)
+  alph[na_val] <- na_char
+  sq_cut <- lapply(sq_cut, function(s) {
+    alph[s]
   })
   
   lens <- .get_lens(x)
