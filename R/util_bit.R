@@ -1,4 +1,5 @@
 .bitify_sq <- function(sq, alph) {
+  if (length(sq) == 0) return(sq)
   if (is.numeric(sq[[1]])) 
     pack_fun <- pack_ints
   else if (any(lengths(sq) > 1)) 
@@ -21,6 +22,7 @@
 }
 
 .debitify_sq <- function(sq, to) {
+  if (length(sq) == 0) return(sq)
   alph <- .get_alph(sq)
   if (to == "char") 
     unpack_fun <- function(s) unpack_chars(s, alph, .get_na_char())
@@ -33,6 +35,7 @@
 }
 
 .apply_sq <- function(sq, ex_form, im_form, fun, im_alph = .get_alph(sq)) {
+  if (length(sq) == 0) return(sq)
   ex_alph <- .get_alph(sq)
   if (ex_form == "char") 
     unpack_fun <- function(s) unpack_chars(s, ex_alph, .get_na_char())

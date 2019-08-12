@@ -21,8 +21,8 @@ generate_dna_ex <- function(n, len, alph) {
 }
 
 alphs <- list(c("C", "T", "A", "G"))
-ns <- round(seq(10, 10000, length.out = 6), 0)
-lens <- round(seq(10, 10000, length.out = 6), 0)
+ns <- c(10, 1000, 10000, 50000)
+lens <- c(10, 1000, 10000, 50000)
 
 invisible(lapply(ns, function(n) {
   lapply(lens, function(len) {
@@ -32,12 +32,15 @@ invisible(lapply(ns, function(n) {
   })
 }))
 
-f_read <- list(tidysq = function(x) tidysq:::read_fasta_nc(x, type = "nuc"),
+prev_opt <- getOption("tidysq_no_check_mode")
+options(tidysq_no_check_mode = TRUE)
+
+f_read <- list(tidysq = function(x) tidysq:::read_fasta(x, type = "nuc", TRUE),
                seqinr = function(x) seqinr::read.fasta(x), 
                ape = function(x) ape::read.FASTA(x), 
                Biostrings = function(x) Biostrings::readBStringSet(x))
 
-f_cons <- list(tidysq = function(x) tidysq::construct_sq_nc(x, type = "nuc"),
+f_cons <- list(tidysq = function(x) tidysq::construct_sq(x, type = "nuc", TRUE),
                seqinr = function(x) seqinr::as.SeqFastadna(x), 
                ape = function(x) ape::as.DNAbin(x), 
                Biostrings = function(x) Biostrings::DNAStringSet(x))
@@ -74,5 +77,7 @@ results <- do.call(rbind, pblapply(1:20, function(dummy) {
     }))
   }))
 }))
+
+options(tidysq_no_check_mode = prev_opt)
 
 write.csv(results, "./inst/benchmarks/results.csv", row.names = FALSE)

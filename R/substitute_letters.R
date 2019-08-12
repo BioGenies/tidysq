@@ -1,4 +1,4 @@
-#' Substitute ambiguous/extraordinary letters in nucleic or amino acid sequence or replace default alphabet with a custom encoding
+#' Substitute letters in a sequence
 #' 
 #' @description 1) Replace ambigous/extraordinary letters in nucleic or amino acid sequence, 
 #' stored in \code{\link{sq}} object, with the ones that are compliant with 
@@ -10,10 +10,11 @@
 #' The function is only used to replace letters in the alphabet. 
 #' It cannot be used to merge surrounding characters.
 #' 
+#' 
 #' @param sq \code{\link{sq}} object.
 #' @param indices \code{encoding} vector of letters to be replaced together with their replacements.
 #' One letter can be replaced with multiple symbols. 
-#' To perform substitution create a named vector ex. \item{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
+#' To perform substitution create a named vector ex. \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
 #' 
 #' @return \code{\link{atpsq}} object of the same type as input sq with replaced alphabet, defined by user.
 #' 
@@ -28,15 +29,16 @@
 #' One letter of the alphabet may be replaced by a multiple characters. 
 #' 
 #' The alphabet characters to be replaced need to be written in capital letters and must originate from default alphabets, otherwise error will be introduced.
-#' Multiple string of letters to be substituted (ex. \item{c(AHG = "replacement")}) will also produce an error.
+#' Multiple string of letters to be substituted (ex. \code{c(AHG = "replacement")}) will also produce an error.
 #' 
-#' Replacing multiple letters with the same symbol (ex. \item{c(A = "replacement1", H  = "replacement1", G = "replacement1")}) is allowed.
+#' Replacing multiple letters with the same symbol (ex. \code{c(A = "replacement1", H  = "replacement1", G = "replacement1")}) is allowed.
 #' 
 #' Created sequence will be deprived of \code{\link{cln})} subtype, if the original sequence possessed it.
 #' This will also occur when the letter to be replaced will not be found in the sequence. It remain unchanged but will lose subclass.
 #' 
 #' The newly constructed will have a new class \code{\link{cln})}, representing atypical alphabet.
 #' 
+#' All replaced letters will have the character type.
 #' 
 #' @examples 
 #' # Creating object, called sq to work on:
@@ -68,43 +70,44 @@
 #' 
 #' # Use created encoding
 #' 
-#' enc_nuc <- c(T = "t", A = "a", C = "c", G = "g")
-#' enc_ami <- c(M = "Met", Q = "Gln", R = "Arg", D = "Asp", H = "His", K = "Lys", A = "Ala")
+#' sub_nuc <- c(T = "t", A = "a", C = "c", G = "g")
+#' sub_ami <- c(M = "Met", Q = "Gln", R = "Arg", D = "Asp", H = "His", K = "Lys", A = "Ala")
 #' 
-#' substitute_letters(sq_nuc, enc_nuc)
-#' substitute_letters(sq_ami, enc_ami)
+#' substitute_letters(sq_nuc, sub_nuc)
+#' substitute_letters(sq_ami, sub_ami)
 #' 
 #' 
-#' # Use created encoding from other package (ex. \code{\link[AmyloGram]{myloGram_model}})
+#' # Use created encoding from other package (ex. \code{\link[AmyloGram]{AmyloGram_model}})
 #' 
-#' AG_enc_raw <- unlist(AmyloGram_model[["enc"]])
+#' library(AmyloGram)
 #' 
-#' enc_AG <- substr(names(AG_enc_raw), 1, 1)
-#' names(enc_AG) <- toupper(AG_enc_raw)
-#' enc_AG 
+#' AG_sub_raw <- unlist(AmyloGram_model[["enc"]])
+#' 
+#' sub_AG <- substr(names(AG_sub_raw), 1, 1)
+#' names(sub_AG) <- toupper(AG_sub_raw)
+#' sub_AG 
 #' 
 #' sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", "TIAALGNIIYRAIE", "NYERTGHLI", 
 #'                         "MAYNNNIALN", "MN", "NAAAT"), type = "ami")
-#' substitute_letters(sq_ami, enc_AG)
+#' substitute_letters(sq_ami, sub_AG)
 #' 
 #' @seealso sq atpsq
 #' @export
 
 substitute_letters <- function(sq, encoding) {
   validate_sq(sq)
-  
   alph <- .get_alph(sq)
-  
-  if (!all(names(encoding) %in% alph)) {
-    stop("all names of 'encoding' has to be letters from alphabet (elements of 'alphabet' attribute of 'sq')")
-  }
-  
+  .check_isnt_missing(encoding, "'encoding'")
+  .check_isnt_null(encoding, "'encoding'")
+  .check_is_named(encoding, "'encoding'")
+  .check_enc_names_in_alph(encoding, alph)
+  .check_is_unique(names(encoding), "names of 'encoding'")
   if (is.numeric(encoding)) {
-    .check_enc_proper_int(encoding)
+    .check_integer(encoding, "if is numeric, 'encoding'", allow_na = TRUE)
     name <- names(encoding)
     encoding <- as.character(encoding)
     names(encoding) <- name
-  } else .check_enc_proper_char(encoding)
+  } else .check_character(encoding, "if is character, 'encoding'", allow_na = TRUE)
   
   inds_fun <- alph
   inds_fun[match(names(encoding), alph)] <- encoding

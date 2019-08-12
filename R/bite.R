@@ -90,8 +90,7 @@
 #' @export
 bite <- function(sq, indices) {
   validate_sq(sq)
-
-  .check_inds_are_numeric(indices)
+  .check_numeric(indices, "'indices'", allow_negative = TRUE)
   
   na_introduced <- FALSE
   alph <- .get_alph(sq)

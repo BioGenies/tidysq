@@ -120,7 +120,10 @@ print.sq <- function(x,
                      max_sequences = getOption("tidysq_max_print_sequences"),
                      use_color = getOption("tidysq_colorful_sq_print"), 
                      letters_sep = NULL) {
-  
+  .check_integer(max_sequences, "'max_sequences'")
+  .check_logical(use_color, "'use_color'")
+  .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
+                   allow_zero_len = TRUE, allow_null = TRUE)
   alph <- .get_alph(x)
   
   #if parameter is NULL and all letters are lenght one, no space
@@ -131,6 +134,10 @@ print.sq <- function(x,
   
   #select at most max_sequences to print
   num_lines <- min(max_sequences, length(x))
+  if (num_lines == 0) {
+    cat(.get_print_empty_sq(x))
+    return()
+  }  
   sq <- x[1:num_lines]
   
   #cut sq object so that we don't need to debitify long sequences
@@ -221,6 +228,11 @@ print.encsq <- function(x,
                         use_color = getOption("tidysq_colorful_sq_print"), 
                         letters_sep = NULL,
                         digits = 2) {
+  .check_integer(max_sequences, "'max_sequences'")
+  .check_logical(use_color, "'use_color'")
+  .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
+                   allow_zero_len = TRUE, allow_null = TRUE)
+  .check_integer(digits, "'digits'", allow_zero = TRUE)
   alph <- .get_alph(x)
   
   #if parameter is NULL default sep is space
@@ -572,4 +584,20 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   if (length(sq) > num_lines) 
     paste0("printed ", num_lines, " out of ", length(sq), "")
   else ""
+}
+
+.get_print_empty_sq <- function(sq) {
+  type <- .get_sq_type(sq)
+  if (length(type) != 1) {
+    "sq (improper subtype!):"
+  } else {
+    type_msg <- switch(type,
+                       ami = "ami (amino acids)",
+                       nuc = "nuc (nucleotides)",
+                       unt = "unt (unspecified type)",
+                       atp = "atp (atypical alphabet)",
+                       enc = "enc (encoded values)")
+    clean_msg <- if (.is_cleaned(sq)) ", cln (cleaned)" else ""
+    paste0(type_msg, clean_msg, " sequences list of length 0")
+  }
 }
