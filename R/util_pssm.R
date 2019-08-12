@@ -9,8 +9,8 @@
   ret <- .create_empty_pssm(num_pos, .get_sq_type(sq))
   
   sq <- as.matrix(sq)
-  .check_matrix_no_na(sq)
-  .check_matrix_no_star(sq)
+  #.check_matrix_no_na(sq)
+  #.check_matrix_no_star(sq)
   
   for (let in alph) {
     ret[, let] <- colSums(sq == let)
@@ -34,7 +34,7 @@
   if (is.null(background_dist)) 
     q <- 1 / if (.get_sq_type(sq) == "ami") 20 else 4
   else {
-    .check_back_dist_is_proper(background_dist)
+    #.check_back_dist_is_proper(background_dist)
     background_dist <- c(as.numeric(bg_freqs[background_dist, ]), 0)
     q <- matrix(rep(background_dist, each = nrow(pssm)), nrow(pssm), ncol(pssm))
   }

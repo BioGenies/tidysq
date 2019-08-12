@@ -16,8 +16,8 @@
 #' pssm_empty(num_pos = 9, type = "ami")
 #' @export
 empty_pssm <- function(num_pos, type) {
-  .check_type_in_ami_nuc(type)
-  .check_num_pos_proper_int(num_pos)
+  .check_type(type)
+  .check_integer(num_pos, "'num_pos'", single_elem = TRUE)
   .create_empty_pssm(num_pos, type)
 }
 
@@ -25,10 +25,10 @@ empty_pssm <- function(num_pos, type) {
 #' @export
 compute_pssm <- function(sq, mode = "freqs", background_dist = "All") {
   validate_sq(sq)
-  .check_sq_type_in_ami_nuc(.get_sq_type(sq))
-  .check_sq_is_clean(sq)
-  .check_sq_lens_eq(sq)
-  .check_mode_is_proper(mode)
+  .check_type(.get_sq_type(sq), "type of 'sq'")
+  .check_is_clean(sq)
+  .check_all_elem(length(unique(.get_lens(sq))) != 1, "'sq'", "have to have equal length")
+  # add mode checking
   
   switch(mode,
          counts = .compute_pssm_counts(sq),
@@ -50,16 +50,16 @@ compute_pssm <- function(sq, mode = "freqs", background_dist = "All") {
 #' @export
 score_pssm <- function(sq, pssm) {
   validate_sq(sq)
-  .check_is_pssm(pssm)
-  .check_sq_type_in_ami_nuc(.get_sq_type(sq))
-  .check_types_match(sq, pssm)
-  .check_sq_lens_eq(sq)
+  #.check_is_pssm(pssm)
+  #.check_sq_type_in_ami_nuc(.get_sq_type(sq))
+  #.check_types_match(sq, pssm)
+  #.check_sq_lens_eq(sq)
   len <- .get_lens(sq[1])
   n <- length(sq)
-  .check_lens_eq_num_pos(len, nrow(pssm))
+  #.check_lens_eq_num_pos(len, nrow(pssm))
   sq <- as.matrix(sq)
-  .check_matrix_no_na(sq)
-  .check_matrix_no_star(sq)
+  #.check_matrix_no_na(sq)
+  #.check_matrix_no_star(sq)
   sq_long  <- as.character(t(sq))
   s_vec <- pssm[cbind(rep(1:len, n), sq_long)]
   s_mat <- matrix(s_vec, ncol = len, byrow = TRUE)
@@ -68,7 +68,7 @@ score_pssm <- function(sq, pssm) {
 
 #' @export
 scale_pssm <- function(pssm) {
-  .check_is_pssm_or_numeric(pssm)
+  #.check_is_pssm_or_numeric(pssm)
   (pssm - min(pssm, na.rm = TRUE)) / (max(pssm, na.rm = TRUE) - min(pssm, na.rm = TRUE))
 }
 
@@ -82,7 +82,7 @@ scale_pssm <- function(pssm) {
 #' flatten_pssm(empty_pssm(num_pos = 9, type = "nuc"))
 #' @export
 flatten_pssm <- function(pssm) {
-  .check_is_pssm(pssm)
+  #.check_is_pssm(pssm)
   out_col_names <- sapply(colnames(pssm), 
                           function(name) paste(rownames(pssm), name, sep = "_")) 
   ret <- as.numeric(pssm)
