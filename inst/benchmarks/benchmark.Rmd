@@ -9,6 +9,10 @@ output: html_document
 knitr::opts_chunk$set(echo = FALSE)
 library(dplyr)
 library(ggplot2)
+
+package_colors <- c(ape = "#66c2a5", Biostrings = "#fc8d62", 
+            tidysq = "#8da0cb", seqinr = "#e78ac3")
+
 melt_res <- read.csv("results.csv") %>% 
   group_by(package, sq_len, num_sq, type, file_size) %>% 
   summarise(obj_size = median(obj_size),
@@ -47,7 +51,8 @@ filter(melt_res, type == "read") %>%
   facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
   ggtitle("read_fasta output size") +
   theme_bw() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") +
+  scale_color_manual(values = package_colors)
 ```
 
 Without seqinr.
@@ -58,9 +63,10 @@ filter(melt_res, type == "read", package != "seqinr") %>%
   geom_point() +
   geom_line(linetype = "dashed") +
   facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
-  ggtitle("read_fasta output size") +
+  ggtitle("read_fasta output size") + 
   theme_bw() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") +
+  scale_color_manual(values = package_colors)
 
 ```
 
