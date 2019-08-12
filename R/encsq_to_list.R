@@ -1,3 +1,17 @@
+#' 
+#' 
+#' @description 
+#' 
+#' @param 
+#' 
+#' @return  
+#' 
+#' @details 
+#' 
+#' @examples 
+#' 
+#' @seealso 
+#' 
 #' @export
 encsq_to_list <- function(encsq) {
   validate_encsq(encsq)
