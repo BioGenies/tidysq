@@ -1,0 +1,6 @@
+test_that("cleaning doesn't affect clean ami sq")
+test_that("cleaning doesn't affect clean nuc sq")
+test_that("cleaning ami sq with parameter only_elements = FALSE")
+test_that("cleaning nuc sq with parameter only_elements = TRUE")
+test_that("cleaning ami sq with parameter only_elements = FALSE")
+test_that("cleaning nuc sq with parameter only_elements = TRUE")
