@@ -3,14 +3,15 @@
 #' Reads a FASTA file of nucleotides or amino acids file and returns
 #' a sqtibble with number of rows corresponding to the number of sequences and two
 #' columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
-#' @param file a \code{\link[base]{connection}} object or a \code{character} string.
-#' @param type of the sequence (one of \code{ami}, \code{nuc} or \code{unt}).
+#' @param file a \code{character} string indicating path to file or url
+#' @inheritParams construct_sq
+#' @details 
+#' All rules of creating sq objects are the same as in \code{\link{construct_sq}}
 #' @examples
 #' \dontrun{
-#' read_fasta(file = 'https://www.ncbi.nlm.nih.gov/WebSub/html/help/sample_files/nucleotide-sample.txt')
 #' read_fasta("https://www.uniprot.org/uniprot/P28307.fasta")
 #' }
-#' @seealso \code{\link[base]{readLines}}
+#' @seealso \code{\link[base]{readLines}}, \code{\link{construct_sq}}
 #' @importFrom stringi stri_detect_regex
 #' @importFrom stringi stri_join
 #' @export
@@ -55,6 +56,14 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
   }
 }
 
+#' Save sq to fasta file
+#' 
+#' Writes \code{\link{sq}} objects with their names to a fasta file.
+#' @param sq \code{\link{sq}} object
+#' @param name a \code{\link{character}} vector of length equal to \code{sq} length
+#' @param file a \code{\link{character}} string indicating path to file to write into
+#' @param nchar a posiitive \code{\link{integer}} value informing about maximum number of 
+#' characters to put in each line of file
 #' @export
 write_fasta <- function(sq, name, file, nchar = 80) {
   validate_sq(sq)
