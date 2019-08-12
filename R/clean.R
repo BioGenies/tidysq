@@ -63,7 +63,7 @@ clean <- function(sq, only_elements = FALSE) {
     })
   } else {
     ret <- .apply_sq(sq, "char", "none", function(s) {
-      if (!all(s %in% alph_cln)) raw(1) else
+      if (!all(s %in% alph_cln)) raw(0) else
         pack_chars(s, alph_cln)
     }) 
   }
