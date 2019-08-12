@@ -9,7 +9,7 @@ encode(sq, encoding)
 \arguments{
 \item{sq}{\code{\link{sq}} object.}
 
-\item{indices}{\code{encoding} a named vector, that consists of nucleic or amino acid letters with their numeric encoding.
+\item{encoding}{\code{encoding} a named vector, that consists of nucleic or amino acid letters with their numeric encoding.
 Letters without assigned encoding will be shown as \code{NA}.}
 }
 \value{

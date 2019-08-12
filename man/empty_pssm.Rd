@@ -22,8 +22,8 @@ for a specified alphabet.
 }
 \examples{
 # empty nucleotide PSSM
-pssm_empty(num_pos = 9, type = "nuc")
+empty_pssm(num_pos = 9, type = "nuc")
 
 # empty aminoacid PSSM
-pssm_empty(num_pos = 9, type = "ami")
+empty_pssm(num_pos = 9, type = "ami")
 }

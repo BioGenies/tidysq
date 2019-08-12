@@ -7,7 +7,7 @@
 \method{print}{sq}(x,
   max_sequences = getOption("tidysq_max_print_sequences"),
   use_color = getOption("tidysq_colorful_sq_print"),
-  letters_sep = NULL)
+  letters_sep = NULL, ...)
 }
 \arguments{
 \item{x}{\code{\link{sq}} object}
@@ -20,6 +20,9 @@ be colored}
 
 \item{letters_sep}{\code{character} value indicating how the letters 
 should be separated}
+
+\item{...}{further arguments passed to or from other methods. 
+Unused.}
 }
 \description{
 Prints input \code{\link{sq}} object in a human-friendly form.
@@ -60,7 +63,7 @@ page, check \code{\link[base:print]{here}}.
 }
 \examples{
 
-Creating sq objects using construct_sq:
+# Creating sq objects using construct_sq:
 sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
                          "NYERTGHLI", "MAYXXXIALN"), type = "ami")
 sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 

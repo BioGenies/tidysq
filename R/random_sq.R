@@ -1,11 +1,11 @@
 #' @export
 random_sq <- function(n, len, type, is_clean, sd = NULL, use_gap = FALSE) {
-  .check_n_is_int(n)
-  .check_len_is_int(len)
-  .check_type_in_ami_nuc(type)
-  .check_is_clean_in_TRUE_FALSE(is_clean)
-  .check_sd_is_numeric_or_NULL(sd)
-  .check_use_gap_in_TRUE_FALSE(use_gap)
+  .check_integer(n, "'n'", single_elem = TRUE)
+  .check_integer(len, "'len'", single_elem = TRUE)
+  .check_type(type)
+  .check_logical(is_clean, "'is_clean'", single_elem = TRUE)
+  .check_numeric(sd, "'sd'", allow_null = TRUE, single_elem = TRUE)
+  .check_logical(use_gap, "'use_gap'", single_elem = TRUE)
   
   alph <- .get_standard_alph(type, is_clean)
   if (!use_gap) alph <- setdiff(alph, "-")

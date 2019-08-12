@@ -40,7 +40,7 @@ NULL
 #' @format  A data frame with 17 rows and 3 columns:
 #' \describe{
 #'  \item{one}{One-letter codes of nucleotides}
-#'  \item{item}{Full name of the nucleotide}
+#'  \item{full}{Full name of the nucleotide}
 #'  \item{amb}{Logical indicating if abbreviation is ambiguous, i.e., matches more than one nucleotide}
 #'  }
 #' @details The dataset contains a nucleotide alphabet of one-letter codes 

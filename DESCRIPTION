@@ -46,7 +46,9 @@ Repository: CRAN
 Encoding: UTF-8
 RoxygenNote: 6.1.1
 LinkingTo: Rcpp
-Suggests: testthat (>= 2.1.0),
+Suggests: AmyloGram (>= 1.0),
+          testthat (>= 2.1.0),
           ape (>= 5.3),
           Biostrings (>= 2.52.0),
           seqinr (>= 3.4-5)
+          

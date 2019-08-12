@@ -84,10 +84,12 @@ type_sum.clnsq <- function(x) {
 #' be colored
 #' @param letters_sep \code{character} value indicating how the letters 
 #' should be separated
+#' @param ... 	further arguments passed to or from other methods. 
+#' Unused.
 #' 
 #' @examples
 #' 
-#' Creating sq objects using construct_sq:
+#' # Creating sq objects using construct_sq:
 #' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
 #'                          "NYERTGHLI", "MAYXXXIALN"), type = "ami")
 #' sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
@@ -119,7 +121,7 @@ type_sum.clnsq <- function(x) {
 print.sq <- function(x,  
                      max_sequences = getOption("tidysq_max_print_sequences"),
                      use_color = getOption("tidysq_colorful_sq_print"), 
-                     letters_sep = NULL) {
+                     letters_sep = NULL, ...) {
   .check_integer(max_sequences, "'max_sequences'")
   .check_logical(use_color, "'use_color'")
   .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
@@ -144,6 +146,7 @@ print.sq <- function(x,
   # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
   sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .debitify_sq(sq_cut, "int")
+  
   
   #color NA's
   na_char <- if (use_color) silver(.get_na_char()) else .get_na_char()
@@ -228,7 +231,7 @@ print.encsq <- function(x,
                         max_sequences = getOption("tidysq_max_print_sequences"),
                         use_color = getOption("tidysq_colorful_sq_print"), 
                         letters_sep = NULL,
-                        digits = 2) {
+                        digits = 2, ...) {
   .check_integer(max_sequences, "'max_sequences'")
   .check_logical(use_color, "'use_color'")
   .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
@@ -251,16 +254,15 @@ print.encsq <- function(x,
   
   #cut sq object so that we don't need to debitify long sequences
   # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
-  sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
+   sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .debitify_sq(sq_cut, "int")
   
-  #color NA's
-  na_char <- if (use_color) silver(.get_na_char()) else .get_na_char()
-  na_val <- .get_na_val(alph)
-  alph[na_val] <- na_char
   sq_cut <- lapply(sq_cut, function(s) {
-    alph[s]
+    s <- alph[s]
+    s[is.na(s)] <- "NA"
+    s
   })
+  
   
   #max index number width
   inds_width <- nchar(num_lines) + 2
@@ -466,12 +468,10 @@ pillar_shaft.encsq <- function(x, ...) {
   sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .debitify_sq(sq_cut, "int")
   
-  #color NA's
-  na_char <- if (use_color) silver(.get_na_char()) else .get_na_char()
-  na_val <- .get_na_val(alph)
-  alph[na_val] <- na_char
   sq_cut <- lapply(sq_cut, function(s) {
-    alph[s]
+    s <- alph[s]
+    s[is.na(s)] <- "NA"
+    s
   })
   
   lens <- .get_lens(x)

@@ -3,7 +3,7 @@
 #' @description Function encodes sequences using numeric values defined by user in named vector.
 #' 
 #' @param sq \code{\link{sq}} object.
-#' @param indices \code{encoding} a named vector, that consists of nucleic or amino acid letters with their numeric encoding.
+#' @param encoding \code{encoding} a named vector, that consists of nucleic or amino acid letters with their numeric encoding.
 #' Letters without assigned encoding will be shown as \code{NA}.
 #' 
 #' 
