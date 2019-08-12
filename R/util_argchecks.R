@@ -91,7 +91,7 @@
 }
 
 .check_type <- function(obj, argname = "'type'", allow_null = FALSE, allow_unt = FALSE) {
-  .check_isnt_missing(obj)
+  .check_isnt_missing(obj, argname)
   if (!allow_null) .check_isnt_null(obj, argname)
   else if (!is.null(obj)) {
     allowed <- c("ami", "nuc", if (allow_unt) "unt")
