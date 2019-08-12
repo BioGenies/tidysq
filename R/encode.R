@@ -105,7 +105,8 @@ encode <- function(sq, encoding) {
   type <- .get_sq_type(sq)
   .check_isnt_missing(encoding, "'encoding'")
   .check_is_named(encoding, "'encoding'")
-  .check_numeric(encoding, "'encoding'")
+  .check_numeric(encoding, "'encoding'", allow_zero = TRUE, allow_negative = TRUE, 
+                 allow_na = TRUE, allow_nan = TRUE, allow_inf = TRUE)
   .check_is_unique(names(encoding), "'encoding'")
   if (type %in% c("ami", "nuc"))
     names(encoding) <- toupper(names(encoding))
