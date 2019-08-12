@@ -79,15 +79,19 @@
   else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
 }
 
-.guess_sq_type <- function(sq) {
+.guess_sq_type_subtype <- function(sq) {
   real_alph <- toupper(.get_real_alph(sq))
-  .guess_type_by_alph(real_alph)
+  .guess_type_subtype_by_alph(real_alph)
 }
 
-.guess_type_by_alph <- function(alph) {
-  if (all(alph %in% .get_standard_alph("nuc", FALSE))) "nuc"
-  else if (all(alph %in% .get_standard_alph("ami", FALSE))) "ami"
-  else "unt"
+.guess_type_subtype_by_alph <- function(alph) {
+  possib_rets <- list(list(type = "nuc", is_clean = TRUE),
+                      list(type = "ami", is_clean = TRUE),
+                      list(type = "nuc", is_clean = FALSE),
+                      list(type = "ami", is_clean = FALSE))
+  for (ret in possib_rets)
+    if (all(alph %in% .get_standard_alph(ret[["type"]], ret[["is_clean"]]))) return(ret)
+  list(type = "unt", is_clean = NULL)  
 }
 
 .merge_ind <- function(res_ind, begs) {

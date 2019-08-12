@@ -169,7 +169,9 @@ construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) 
     } else {
       .check_logical(is_clean, "'is_clean'", allow_null = TRUE, single_elem = TRUE)
       if (is.null(type)) {
-        type <- .guess_sq_type(sq)
+        type_clean <- .guess_sq_type_subtype(sq)
+        type <- type_clean[["type"]]
+        if (is.null(is_clean) && type != "unt") is_clean <- type_clean[["is_clean"]]
       }
       .check_type(type, allow_unt = TRUE)
       switch(type,

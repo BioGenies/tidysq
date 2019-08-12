@@ -33,9 +33,15 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
       if (!is.null(type) && type %in% c("ami", "nuc")) alph <- toupper(alph)
       .check_alph_matches_type(alph, type, is_clean)
       
-      if (is.null(type)) type <- .guess_type_by_alph(alph)
-      if (type != "unt" && is.null(is_clean)) {
+      if (is.null(type)) {
+        type_clean <- .guess_type_subtype_by_alph(alph)
+        type <- type_clean[["type"]]
+        if (is.null(is_clean) && type != "unt") is_clean <- type_clean[["is_clean"]]
+      } else if (type != "unt" && is.null(is_clean)) {
         is_clean <- if (type == "ami") .guess_ami_is_clean(alph) else .guess_nuc_is_clean(alph) 
+        
+      } 
+      if (type != "unt") {
         .nc_read_fasta(file, type, is_clean)
       } else {
         .check_alph_length(alph)
