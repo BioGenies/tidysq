@@ -1,6 +1,6 @@
 #' Encode sequences
 #' 
-#' @description Function encodes sequences using numeric values defined by user in named vector.
+#' @description Encode sequences using numeric values defined by user in named vector.
 #' 
 #' @param sq \code{\link{sq}} object.
 #' @param indices \code{encoding} a named vector, that consists of nucleic or amino acid letters with their numeric encoding.
@@ -11,14 +11,14 @@
 #' 
 #' @details Each position in a sequence is replaced by a numeric value assigned to that letter. 
 #' 
-#' Sometimes for research purposes one wants to replace letters by various values, described by physio-chemical properties of nucleic or amino acids. 
-#' It can be a hydrophobicity scale, heat capacities, entropies, chemical shift index or probability matrix (BLOSUM, PAM).
+#' Sometimes for research purposes one wants to replace letters by values, described by various properties of nucleic or amino acids. 
+#' It can be a sparse encoding, hydrophobicity scale, heat capacities, entropies, chemical shift index, probability matrix (BLOSUM, PAM), sequence profile or reduced alphabet.
 #' 
-#' The newly constructed sequence will have a new class \code{\link{encsq})}, representing sequence encoded with custom alphabet.
+#' The newly constructed sequence will have a new class \code{\link{encsq})}, which represents encoded sequences.
 #' 
 #' The named vector (ex. \code{c(G = 1, K = 2, P = 2)}) should have all letters assigned, otherwise unasigned letters will be shown as \code{NA}.
 #' 
-#' All replaced letters will have the numeric type.
+#' All replaced values will have the numeric type.
 #' 
 #' 
 #' @examples 

@@ -10,7 +10,7 @@ substitute_letters(sq, encoding)
 \item{sq}{\code{\link{sq}} object.}
 
 \item{indices}{\code{encoding} vector of letters to be replaced together with their replacements.
-One letter can be replaced with multiple symbols. 
+One letter can be replaced with multiple symbols.
 To perform substitution create a named vector ex. \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.}
 }
 \value{
@@ -46,9 +46,10 @@ Replacing multiple letters with the same symbol (ex. \code{c(A = "replacement1",
 Created sequence will be deprived of \code{\link{cln})} subtype, if the original sequence possessed it.
 This will also occur when the letter to be replaced will not be found in the sequence. It remain unchanged but will lose subclass.
 
-The newly constructed will have a new class \code{\link{cln})}, representing atypical alphabet.
+The newly constructed will have a new class \code{\link{atpsq})}, representing atypical alphabet.
 
-All replaced letters will have the character type.
+All replaced letters will have the character type. 
+Multiple symbol replacement will be recognized as one letter and cannot be separated in future operations into single letters.
 }
 \examples{
 # Creating object, called sq to work on:
