@@ -12,7 +12,7 @@
 #' 
 #' 
 #' @param sq \code{\link{sq}} object.
-#' @param indices \code{encoding} vector of letters to be replaced together with their replacements.
+#' @param encoding a vector of letters to be replaced together with their replacements.
 #' One letter can be replaced with multiple symbols. 
 #' To perform substitution create a named vector ex. \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
 #' 
