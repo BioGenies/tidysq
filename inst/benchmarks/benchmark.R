@@ -32,8 +32,8 @@ invisible(lapply(ns, function(n) {
   })
 }))
 
-prev_opt <- getOption("tidysq_no_check_mode")
-options(tidysq_no_check_mode = TRUE)
+prev_opt <- getOption("tidysq_fast_mode")
+options(tidysq_fast_mode = TRUE)
 
 f_read <- list(tidysq = function(x) tidysq:::read_fasta(x, type = "nuc", TRUE),
                seqinr = function(x) seqinr::read.fasta(x), 
@@ -78,6 +78,6 @@ results <- do.call(rbind, pblapply(1:20, function(dummy) {
   }))
 }))
 
-options(tidysq_no_check_mode = prev_opt)
+options(tidysq_fast_mode = prev_opt)
 
 write.csv(results, "./inst/benchmarks/results.csv", row.names = FALSE)

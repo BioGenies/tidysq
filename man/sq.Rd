@@ -166,7 +166,7 @@ sequences (but print character can be changed in options, see \code{\link{sq-opt
 \code{NA} might be introduced by:
 \itemize{
 \item reading fasta file with non standard letters in
-\code{\link[no-check-mode]{no-check mode}} with \code{\link{read_fasta}},
+\code{\link[fast-mode]{fast mode}} with \code{\link{read_fasta}},
 \item replacing a letter with \code{NA} value with \code{\link{substitute_letters}},
 \item subsetting sequences out of their lengths with \code{\link{bite}}.
 }

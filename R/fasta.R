@@ -18,7 +18,7 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
   .check_character(file, "'file'", single_elem = TRUE)
   file <- .get_readable_file(file)
   
-  if (.is_no_check_mode()) {
+  if (.is_fast_mode()) {
     .check_logical(is_clean, "'is_clean'", single_elem = TRUE)
     .check_type(type)
     .nc_read_fasta(file, type, is_clean)
