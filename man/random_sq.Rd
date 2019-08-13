@@ -15,14 +15,21 @@ specified and mean length of sequences if \code{sd} spedified}
 \item{type}{type of generated sq object; possible values are "ami" and "nuc" (see section
 \emph{sq types} in \code{\link[sq]{sq class}} documentation for details)}
 
-\item{is_clean}{a \code{\link(logical)} value - if \code{TRUE}, letters will be drawn from
+\item{is_clean}{a \code{\link{logical}} value - if \code{TRUE}, letters will be drawn from
 clean alphabet, if \code{FALSE} - ambiguous letters might be also generated}
 
 \item{sd}{a positive \code{\link{numeric}} value; if specified, gives standard deviation of
 length of generated sequences}
 
-\item{use_gap}{- a \code{\value{logical}} value; if \code{TRUE}, sequences will be generated
+\item{use_gap}{- a \code{\link{logical}} value; if \code{TRUE}, sequences will be generated
 with random gaps inside}
+}
+\value{
+object of class \code{sq} with type as specified
+
+Sequences are generated using \code{\link{sample}} function. There is no possibility of 
+generating sequence of 0 length, even if \code{sd} is given. Letter '*' is not used 
+in generating \strong{ami} sequences.
 }
 \description{
 Generates \code{\link{sq}} object with specified number of sequences of given lenght 
