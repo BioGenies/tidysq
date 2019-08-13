@@ -29,7 +29,7 @@ a sqtibble with number of rows corresponding to the number of sequences and two
 columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
 }
 \details{
-All rules of creating sq objects are the same as in \code{\link{cosntruct_sq}}
+All rules of creating sq objects are the same as in \code{\link{construct_sq}}
 }
 \examples{
 \dontrun{
