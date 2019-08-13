@@ -294,12 +294,13 @@ NULL
 #' 
 NULL
 
-#' Normalized amino acids properties
+#' Amino acids properties
 #' 
-#' Normalized (0-1) 554 amino acid properties as retrieved from AAIndex database 
-#' (release 9.1) enriched with contactivity of amino acids.
+#' Raw and normalized (0-1) 554 amino acid properties as retrieved from AAIndex database 
+#' (release 9.1).
 #' 
-#' @name aaprop
+#' @name AAindex
+#' @aliases AAindex_norm
 #' @docType data
 #' @format A data frames with 20 columns and 600 rows.
 #' @details 
@@ -1200,6 +1201,7 @@ NULL
 #' @source AAIndex database.
 #' @keywords datasets
 #' @examples 
-#' data(aaprop)
+#' data(AAindex)
+#' data(AAindex_norm)
 #' 
 NULL

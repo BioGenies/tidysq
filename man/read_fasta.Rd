@@ -10,6 +10,11 @@ read_fasta(file, type = NULL, is_clean = NULL, non_standard = NULL)
 \item{file}{a \code{\link[base]{connection}} object or a \code{character} string.}
 
 \item{type}{of the sequence (one of \code{ami}, \code{nuc} or \code{unt}).}
+
+\item{is_clean}{\code{logical}, if \code{TRUE}, it is assumed that all 
+sequences do not contain ambiguous letters.}
+
+\item{non_standard}{\code{character} vector of non-standard letters/}
 }
 \description{
 Reads a FASTA file of nucleotides or amino acids file and returns
@@ -17,8 +22,9 @@ a sqtibble with number of rows corresponding to the number of sequences and two
 columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
 }
 \examples{
+read_fasta(system.file(package = "tidysq", 
+                     "sample_fasta/sample_ami.fasta"))
 \dontrun{
-read_fasta(file = 'https://www.ncbi.nlm.nih.gov/WebSub/html/help/sample_files/nucleotide-sample.txt')
 read_fasta("https://www.uniprot.org/uniprot/P28307.fasta")
 }
 }

@@ -8,7 +8,7 @@ alph_cln_ami <- c("A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "P
 
 
 test_that("single short ambiguous nucleotides sequences constructing", {
-  expect_identical(construct_sq("ATGN"),
+  expect_identical(construct_sq("ATGN", type = "nuc"),
                    structure(list(as.raw(c(0x81, 0x0c, 0x08))), 
                              alphabet = alph_amb_nuc, 
                              class = c("nucsq", "sq")))

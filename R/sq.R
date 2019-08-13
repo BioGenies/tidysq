@@ -54,7 +54,7 @@
 #' 
 #' Additionally, there is a special subtype \strong{cln} (standing for \emph{clean}).
 #' Only \strong{ami} and \strong{nuc} \code{sq} objects may have this subtype. It indicates
-#' that sequences don't contain ambiguous letters (see "alphabets" section below).
+#' that sequences do not contain ambiguous letters (see "alphabets" section below).
 #' 
 #' \code{sq} object type is printed when using overloaded method 
 #' \code{\link[print.sq]{print}}. It can be also checked by using \code{\link{get_sq_type}}
