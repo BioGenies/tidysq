@@ -9,41 +9,57 @@ encode(sq, encoding)
 \arguments{
 \item{sq}{\code{\link{sq}} object.}
 
-\item{encoding}{\code{encoding} a named vector, that consists of nucleic or amino acid letters with their numeric encoding.
+\item{indices}{\code{encoding} a named vector, that consists of nucleic or 
+amino acid letters with their numeric encoding.
 Letters without assigned encoding will be shown as \code{NA}.}
 }
 \value{
-\code{\link{encsq}} object of the same type as input sq with encoded alphabet.
+\code{\link{encsq}} object of the same type as input sq 
+with encoded alphabet.
 }
 \description{
-Function encodes sequences using numeric values defined by user in named vector.
+Encode sequences, stored in \code{\link{sq}} object, with 
+numeric values defined by user in named vector.
 }
 \details{
-Each position in a sequence is replaced by a numeric value assigned to that letter. 
+Each position in a sequence is replaced by a numeric value 
+assigned to that letter. 
 
-Sometimes for research purposes one wants to replace letters by various values, described by physio-chemical properties of nucleic or amino acids. 
-It can be a hydrophobicity scale, heat capacities, entropies, chemical shift index or probability matrix (BLOSUM, PAM).
+Sometimes for research purposes one wants to replace letters by values, 
+described by various properties of nucleic or amino acids. It can be a 
+sparse encoding, hydrophobicity scale, heat capacities, entropies, chemical 
+shift index, probability matrix (BLOSUM, PAM), 
+sequence profile or reduced alphabet.
 
-The newly constructed sequence will have a new class \code{\link{encsq})}, representing sequence encoded with custom alphabet.
+The newly constructed sequence will have a new class \code{\link{encsq})}, 
+which represents encoded sequences.
 
-The named vector (ex. \code{c(G = 1, K = 2, P = 2)}) should have all letters assigned, otherwise unasigned letters will be shown as \code{NA}.
+The named vector (ex. \code{c(G = 1, K = 2, P = 2)}) should have all letters 
+assigned, otherwise unasigned letters will be shown as \code{NA}.
 
-All replaced letters will have the numeric type.
+All replaced values will have the numeric type.
 }
 \examples{
 
-# Create object, called sq, with sequences containing letters from stadard alphabet to work on:
+# Create sq object with sequences containing letters from 
+stadard alphabet to work on:
 
-sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", "CTTTGGTTATCTAGCTGTATGA", 
-                        "TATCTAGCTGTATG", "CTGCTG", "CTTAGA", "CCCT", "CTGAATGT"), type = "nuc")
+sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
+                         "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", 
+                         "CTGCTG", "CTTAGA", "CCCT", "CTGAATGT"), 
+                       type = "nuc")
 
-sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", "TIAALGNIIYRAIE", "NYERTGHLI", 
-                        "MAYNNNIALN", "MN", "NAAAT"), type = "ami")
+sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", 
+                        "TIAALGNIIYRAIE", "NYERTGHLI", 
+                        "MAYNNNIALN", "MN", "NAAAT"), 
+                        type = "ami")
 
                
-# Create object, called sq, with sequences containing letters from stadard and extended alphabet to work on:
+# Create object, called sq, with sequences containing letters from 
+stadard and extended alphabet to work on:
    
-sq_nuc_ex <- construct_sq(c("TATCTAGCTGTATG", "CUGCUG", "CUUAGA", "CCCT", "CUGAAUGU"))
+sq_nuc_ex <- construct_sq(c("TATCTAGCTGTATG", "CUGCUG", "CUUAGA", "CCCT", 
+                            "CUGAAUGU"))
 
 sq_ami_ex <- construct_sq(c("MAYUOUONNNIALN", "UUMXBZONO", "NAAGAT"))       
 
@@ -67,25 +83,29 @@ enc_ami_ex <- c(A = 5, C = 5, D = 6, E = 6, F = 4,
              U = -0.1, O = 0.753, X = -53.95, B = 7.77, Z = 0)
                      
                                               
-# Encode with simplified standard alphabet sequences without non-standard letters
+# Encode with simplified standard alphabet sequences without 
+non-standard letters
 
 encode(sq_nuc, enc_nuc)
 encode(sq_ami, enc_ami)
 
 
-# Encode with simplified extended alphabet sequences without non-standard letters
+# Encode with simplified extended alphabet sequences without 
+non-standard letters
 
 encode(sq_nuc, enc_nuc_ex)
 encode(sq_ami, enc_ami_ex)
 
 
-# Encode with simplified standard alphabet sequences with non-standard letters
+# Encode with simplified standard alphabet sequences with 
+non-standard letters
 
 encode(sq_nuc_ex, enc_nuc)
 encode(sq_ami_ex, enc_ami)
 
 
-# Encode with simplified extended alphabet sequences with non-standard letters
+# Encode with simplified extended alphabet sequences with 
+non-standard letters
 
 encode(sq_nuc_ex, enc_nuc_ex)
 encode(sq_ami_ex, enc_ami_ex)
@@ -97,7 +117,7 @@ encode(sq_nuc, c(A = 1, G = 0.02))
 encode(sq_ami, c(A = 5, H = 5, I = 0.3, K = -2, L = -3.1, M = 5, N = 6))
 
 
-# Use created encoding from the \\code{AAindex database}
+# Import encoding from \\code{AAindex database}
 
 data("AAindex_norm")
 enc_aa <- AAindex_norm[20,]
