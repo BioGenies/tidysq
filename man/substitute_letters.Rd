@@ -66,7 +66,7 @@ Multiple symbol replacement will be recognized as one letter and
 cannot be separated in future operations into single letters.
 }
 \examples{
-# Creating object, called sq to work on:
+# Creating sq object to work on:
 
 sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
                          "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", 

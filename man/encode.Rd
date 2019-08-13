@@ -41,7 +41,7 @@ All replaced values will have the numeric type.
 }
 \examples{
 
-# Create object, called sq, with sequences containing letters from 
+# Create sq object with sequences containing letters from 
 stadard alphabet to work on:
 
 sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
@@ -117,7 +117,7 @@ encode(sq_nuc, c(A = 1, G = 0.02))
 encode(sq_ami, c(A = 5, H = 5, I = 0.3, K = -2, L = -3.1, M = 5, N = 6))
 
 
-# Use created encoding from \\code{AAindex database}
+# Import encoding from \\code{AAindex database}
 
 data("aaprop")
 enc_aa <- aaprop[20,]
