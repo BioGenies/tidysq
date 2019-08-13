@@ -2,41 +2,49 @@
 % Please edit documentation in R/support_funs.R
 \name{get_sq_type}
 \alias{get_sq_type}
-\title{Checks type of the sequence}
+\title{Get type of a sq object}
 \usage{
 get_sq_type(sq)
 }
 \arguments{
-\item{sq}{\code{\link{sq}} object to be checked.}
+\item{sq}{a \code{\link{sq}} object to be checked.}
 }
 \value{
-a type string and its name defined in \code{\link{sq}} object.
+a \code{\link{character}} string, type of\code{\link{sq}} object - can be one of
+"ami", "nuc", "unt", "atp" or "enc".
 }
 \description{
-Function is checking which type of sequence contains \code{\link{sq}} object.
+Function checks which type of sequences are contained in \code{\link{sq}} object.
 }
 \details{
 This function returns type of sequence from \code{\link{sq}} object.
-If the type of sequence is "nuc", "ami" or "unt"  function returns 
-(nucsq) "nuc", (amisq) "ami" or (untsq) "unt" respectivetly.
+If the type of sequence is \strong{nuc}, \strong{ami}, \strong{unt}, \strong{atp} or 
+\strong{enc} function returns "nuc", "ami", "unt", "atp" or "enc" respectivetly.
 }
 \examples{
 # Creating an object to work on:
 sq_nucleotides <- construct_sq(c("ACGATTAGACG","GGATA"), type = "nuc")
 sq_amino_acids <- construct_sq(c("MMVTAAV"), type = "ami")
 sq_unt <- construct_sq(c("MMVTAAVXX"), type = "unt")
+sq_atp <- substitute_letters(sq_amino_acids, c(M = "g1", V = "g2", T = "g1", A = "g3"))
+sq_encoded <- encode(sq_nucleotides, c(A = 2.3, C = 1.56, T = 0.23, G = 0.28))
 
-# Gettig sequence type from nucleotide sq object:
+# Getting sq type from nucleotide sq object:
 get_sq_type(sq_nucleotides)
 
-# Gettig sequence type from amino acid  sq object:
+# Getting sq type from amino acid  sq object:
 get_sq_type(sq_amino_acids)
 
-# Gettig sequence type from unt sq object:
+# Getting sq type from untyped sq object:
 get_sq_type(sq_unt)
 
+# Getting sq type from atypical sq object:
+get_sq_type(sq_atp)
+
+# Getting sq type from encoded sq object:
+get_sq_type(sq_encoded)
 
 }
 \seealso{
-sq construct_sq
+\code{\link{sq}} \code{\link{construct_sq}}
 }

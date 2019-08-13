@@ -2,31 +2,30 @@
 % Please edit documentation in R/support_funs.R
 \name{get_sq_lengths}
 \alias{get_sq_lengths}
-\title{Checks how long the given sequence is.}
+\title{Get lengths of sequences in sq object}
 \usage{
 get_sq_lengths(sq)
 }
 \arguments{
-\item{sq}{\code{\link{sq}} object to be counted.}
+\item{sq}{a \code{\link{sq}} object.}
 }
 \value{
-a numeric vector of counted elements for every sequence from \code{\link{sq}} object.
+a \code{\link{numeric}} vector, where each element gives length of according 
+sequence from \code{\link{sq}} object.
 }
 \description{
-Function is counting number of elements from given sequence.
+Function counts number of elements in each sequence in given \code{\link{sq}} object.
 }
 \details{
-This function allows returning numeric vector of counted elements from
-\code{\link{sq}} object. Function counts elements for every sequence from \code{\link{sq}} object.
-The numeric vector is long as number of sequences present in \code{\link{sq}} object.
-The function counts elements in nucleotide as well as amino acid sequences.
+This function allows returning numeric vector of lengths of sequences from
+\code{\link{sq}} object. The numeric vector is as long as number of sequences present 
+in \code{\link{sq}} object.
+The function counts elements in all types of sequences.
 }
 \examples{
 # Creating an object to work on:
 sq_nucleotides <- construct_sq(c("ACGATTAGACG","GGATA"), type = "nuc")
 sq_amino_acids <- construct_sq(c("MMVTAAV"), type = "ami")
-sq_unt <- construct_sq(c("MMVTAAVXX"), type = "unt")
-sq_without_type <- construct_sq(c("ACGATTAGACG"))
 
 # Counting number of elements in nucleotide sq object with defined type:
 get_sq_lenghts(sq_nucleotides)
@@ -34,14 +33,7 @@ get_sq_lenghts(sq_nucleotides)
 # Counting number of elements in amino acid sq object with defined type:
 get_sq_lenghts(sq_amino_acids)
 
-# Counting number of elements in unt sq object with defined type:
-get_sq_lenghts(sq_unt)
-
-# Counting number of elements in nucleotide sq object without defined type:
-get_sq_lenghtst(sq_without_type)
-
-
 }
 \seealso{
-sq construct_sq
+\code{\link{sq}} \code{\link{construct_sq}}
 }

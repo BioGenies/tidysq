@@ -2,15 +2,15 @@
 % Please edit documentation in R/support_funs.R
 \name{get_invalid_letters}
 \alias{get_invalid_letters}
-\title{Finds elements which are not present in nucleotide or amino acid alphabet.}
+\title{Find elements which are not suitable for specified type.}
 \usage{
 get_invalid_letters(sq, dest_type)
 }
 \arguments{
-\item{sq}{\code{\link{sq}} object to be checked.}
+\item{sq}{a \code{\link{sq}} object to be checked.}
 
-\item{dest_type}{indices specifying alphabet. Its may be 
-\code{nuc} for nucleotide alphabet or \code{ami} for amino acid alphabet.}
+\item{dest_type}{a \code{\link{character}} string denoting destination type - it may be 
+"nuc" for \strong{nuc} type (nucleotides) or "ami" for \strong{ami} type (amino acids).}
 }
 \value{
 a list of mismatched elements for every sequence from \code{\link{sq}} object.
@@ -20,21 +20,33 @@ Function finds elements in given sequence not matching to amino acid or nucleoti
 alphabet.
 }
 \details{
-This function allows returning list of mismatched elements from  
-\code{\link{sq}} object to amino acid or nucleotide alphabet. Function creates list
-for each sequence from \code{\link{sq}} object and append to each list  element not 
-matching to any alphabet.
+This function allows obtaining list of mismatched elements of sequences from  
+\code{\link{sq}} object to amino acid or nucleotide alphabet. Output list has number of
+elements equal to length of \code{sq} object and each element is a character vector 
+of elements that appear in according sequence that does not fit destination type. This 
+function might be used to find specificly which sequences have which letters - user
+may want to use this information for example to check input sequeces.
+
+You can check which letters are valid for specified type in \code{\link{sq}} class 
+documentation.
+
+Mismatched elements might be replaced with other letters or \code{NA} using 
+\code{\link{substitute_letters}} and then, after removal of all non-standard letters,
+set type to destinated using \code{\link{typify}}.
+
+Returned lists for \strong{ami} and \strong{nuc} \code{sq} objects, if \code{des_type}
+is specified respectively "ami" and "nuc", will contain only \code{NULL} elements.
 }
 \examples{
 # Creating an object to work on:       
-sq_nucleotides <- construct_sq(c("ACGPOIUATTAGACG","GGATFGHA"), type = "nuc")
-sq_amino_acids <- construct_sq(c("QWERTYUIZXCVBNM","LKJHGFDSAZXCVBN"), type = "ami")
+sq_nucleotides <- construct_sq(c("ACGPOIUATTAGACG","GGATFGHA"))
+sq_amino_acids <- construct_sq(c("QWERTYUIZXCVBNM","LKJHGFDSAZXCVBN"))
 
 # Creating lists of mismatched elements from nucleotide sq object:
-get_invalid_letters(sq_nucleotides)
+get_invalid_letters(sq_nucleotides, "nuc")
 
 # Creating lists of mismatched elements from amino acid sq object:
-get_invalid_letters(sq_amino_acids)
+get_invalid_letters(sq_amino_acids, "ami")
 
 }
 \seealso{
