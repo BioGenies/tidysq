@@ -1,4 +1,4 @@
-sq_ami <- construct_sq(c("AGNTYIKFGGAYTI", "MATEGILIAADGYTWIL", "MIPADHICAANGIENAGIK"), type = 'ami')
+sq_ami <- construct_sq(c("AGNTYIKFGGAYTIB", "MATEGILIAADGYTWIL", "MIPADHICAANGIENAGIK"), type = 'ami')
 sq_nuc <- construct_sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", "CAGACCANNNATAG"), type = 'nuc')
 
 test_that("%has% detects correctly motif that is single unambiguous amino acid in sequences", {
@@ -16,21 +16,17 @@ test_that("%has% detects correctly motif that is single unambiguous nucleotide i
 })
 
 test_that("%has% detects correctly motif that is single ambiguous amino acid in sequences", {
-  skip("doubts about method")
   expect_equal(sum(sq_ami %has% "B"), 
-               0)
-  skip("doubts about method")
+               3)
   expect_equal(sum(sq_ami %has% "J"), 
-               0)
+               3)
 })
 
 test_that("%has% detects correctly motif that is single ambiguous nucleotide in sequences", {
-  skip("doubts about method")
   expect_equal(sum(sq_nuc %has% "W"),
-               0)
-  skip("doubts about method")
+               3)
   expect_equal(sum(sq_nuc %has% "K"),
-               0)
+               3)
 })
 
 test_that("%has% detects correctly leading letters of amino acid sequences using '^'", {
@@ -52,7 +48,7 @@ test_that("%has% detects correctly letters at the end of amino acid sequences us
                1)
   expect_equal(sum(sq_ami %has% "L$"), 
                1)
-  expect_equal(sum(sq_ami %has% "I$"), 
+  expect_equal(sum(sq_ami %has% "B$"), 
                1)
 })
           
