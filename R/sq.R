@@ -11,7 +11,7 @@
 #' \item constructing from a character vector with \code{\link{construct_sq}},
 #' \item constructing from a character vector with \code{\link{as.sq}} method,
 #' \item reading from the fasta file with \code{\link{read_fasta}},
-#' \item exporting from format of other package like \code{ape} or
+#' \item importing from a format of other package like \code{ape} or
 #' \code{Biostrings} with \code{\link{import_sq}}.
 #' }
 #'
@@ -20,6 +20,20 @@
 #' bit packing such assignment may lead to calling one of those functions during
 #' operating on object or even printing it which can cause crash of R session and,
 #' in consequence, loss of data.
+#'
+#' @section Export/writing of sq objects:
+#' There are multiple ways of saving \code{sq} objects or converting them into
+#' other formats:
+#' \itemize{
+#' \item converting into a character vector with \code{\link[as.character.sq]{as.character}} method,
+#' \item converting into a character matrix (or numeric matrix, in case of \strong{enc}) 
+#' with \code{\link[as.matrix.sq]{as.matrix}} method,
+#' \item converting into a list of numerics with \code{\link{encsq_to_list}} (only
+#' for \strong{enc} \code{sq}),
+#' \item saving into the fasta file with \code{\link{write_fasta}},
+#' \item exporting into a format of other package like \code{ape} or
+#' \code{Biostrings} with \code{\link{export_sq}}.
+#' }
 #'
 #' @section Types of sq:
 #' This package is meant to handle both amino acids and nucleotides sequences 
@@ -110,13 +124,19 @@
 #' other parameters to uppercase when working with \strong{ami} or \strong{nuc} - e.g.
 #' \link{`\%has\%`} operator converts lower letters to upper when searching for motifs in
 #' \strong{ami} or \strong{nuc} object.
+#' 
+#' \strong{Important note:} maximum length of an alphabet is \strong{30 letters}. You are
+#' not allowed to read fasta files or construct from character vectros that have more
+#' than 30 distinct characters in sequences (with exception of reading or constructing
+#' \strong{ami} or \strong{nuc} objects - during their construction lowercase letters
+#' are automatically converted to uppercase).
 #'
 #' You can obtain an alphabet of the \code{sq} object using the \code{\link{get_sq_alphabet}}
 #' function. You can
 #' check which letters are invalid (are not represented in standard amino acids or nucleotides alphabet)
 #' in each sequence of given \code{sq} object of type \strong{unt} or \strong{atp} by using
 #' \code{\link{get_invalid_letters}}. You can substitute one letter with another using
-#' \code{\link{substitute_letters}}
+#' \code{\link{substitute_letters}}.
 #'
 #' @section Missing/Not Available values:
 #' There is a possibility of introducing \code{NA} values into sequences. \code{NA} value
@@ -132,7 +152,7 @@
 #' \code{NA} might be introduced by:
 #' \itemize{
 #' \item reading fasta file with non standard letters in
-#' \code{\link[no-check-mode]{no-check mode}} with \code{\link{read_fasta}},
+#' \code{\link[fast-mode]{fast mode}} with \code{\link{read_fasta}},
 #' \item replacing a letter with \code{NA} value with \code{\link{substitute_letters}},
 #' \item subsetting sequences out of their lengths with \code{\link{bite}}.
 #' }
@@ -149,18 +169,236 @@
 #' \code{\link{construct_sq}},
 #' \item using the \code{\link{clean}} function,
 #' \item using the \code{\link{remove_na}} function,
-#' \item subsetting \code{sq} object with \link[sq]{extract operator}
+#' \item subsetting \code{sq} object with \link[extract]{extract operator}
 #' }
+#'
+#' @section Storage format:
+#' \code{sq} object is, in fact, \strong{list of raw vectors}. The fact that it is list
+#' implies that an user can concatenate \code{sq} objects using \code{\link[c.sq]{c}} method
+#' and subset them using \code{\link[extract]{extract operator}}. Alphabet is kept
+#' as an attribute of the object. 
+#' 
+#' Raw vectors are the most efficient way of storage - each letter of sequece has asigned
+#' an integer (its index in alphabet of \code{sq} object). Those integers in binary format
+#' fit in less than 8 bits, but normally are stored on 16 bits. However, thanks to bit
+#' packing it is possible to remove unused bits and store numbers more tightly. This 
+#' operations result in a little time overhead in all operations, because most of them 
+#' require unpacking and repacking sequences, but this cost is relatively low in comparision
+#' to amount of saved memory.
+#' 
+#' For example - \strong{nuc} \strong{cln} alphabet consist of 6 values: ACGTU-. They are 
+#' asigned numbers 1 to 6 respectively. Those numbers in binary format take form: \code{001},
+#' \code{010}, \code{011}, \code{100}, \code{101}, \code{110}. Each of the letters can 
+#' be coded with just 3 bits instead of 8 which is demanded by \code{char} - this allows
+#' us to save more than 60\% of memory spent on storage of nucleotides sequences.
+#' 
+#' @section tibble compatibility:
+#' \code{sq} objects are compatible with \code{tibble} class - that means you can have
+#' \code{sq} object as a column of \code{tibble}. There are overloaded print methods, so
+#' that it is printed in pretty format.
 #'
 #' @name sq
 NULL
 
-
+#' Construct sq object from character vector
+#' 
+#' @description This function allows the user to construct objects of 
+#' \code{\link[sq]{class sq}} from a character vector.
+#' 
+#' @param sq \code{\link{character}} vector 
+#' @param type \code{\link{character}} string indicating type of \code{sq} object that
+#' is going to be constructed; supported values are "ami" for amino acid sequences,
+#' "nuc" for nucleotide sequences, "unt" for and \code{NULL} for type guessing (see details)
+#' @param is_clean \code{\link{logical}} value indicating if sequences are clean,
+#' or in other words - they don't contain ambiguous values; supported values are \code{TRUE} 
+#' for clean sequences, \code{FALSE} for unclean sequences and \code{NULL} for auto detecting
+#' (see details)
+#' @param non_standard \code{\link{character}} vector indicating non-standard letters
+#' contained in sequences. If \code{NULL}, sequences won't be searched for non-standard letters
+#' of length more than one. Each element of this parameter should be at least two characters 
+#' long
+#' @return object of \code{\link[sq]{class sq}} with appropriate type (one of: \strong{ami},
+#' \strong{nuc}, \strong{unt}, \strong{atp}).
+#' 
+#' @details 
+#' Function covers all possibilities of standard and non-standard types and alphabets.
+#' You can check what 'type' and 'alphabet' exactly is in \code{\link{sq class}} documentation.
+#' Below there is a guide how function operates and how the program behaves according to the given 
+#' arguments and the letters in the sequences.
+#' 
+#' \code{sq} parameter should be a character vector. Each element of this vector is a biological 
+#' sequence. If this parameter has length 0, object of class \code{sq} with 0 sequences will be 
+#' created (if not specified, it will have \strong{nuc} \strong{cln} type, which is a result of 
+#' rules written below). If it contains sequences of length 0, \code{\link{NULL}} sequences
+#' will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[sq]{sq class}}).
+#' 
+#' \strong{Important note:} in all below cases word 'letter' stands for an element of an alphabet.
+#' Letter might consist of more than one character, for example "Ala" might be a single letter.
+#' However, if you want to construct or read sequences with multi-character letters, you have 
+#' to specify \code{non_standard} parameter. Details of letters, alphabets and types can be 
+#' found in \code{\link[sq]{sq class}} documentation.
+#' 
+#' @section Simple guide to constructing:
+#' In most cases, all you need to do is just specifying \code{sq} parameter - type of sequences
+#' will be guessed accordingly to rules described below. You need to pay attention, however, 
+#' because for short sequences type may be guessed incorrectly - in this case you should
+#' specify \code{type} and/or \code{is_clean}.
+#' 
+#' If your sequences contain non-standard letters, where each non-standard letter is one
+#' character long, you also don't need to specify any parameter. Optionally, you can explicitly
+#' do it by setting \code{type} to "atp".
+#' 
+#' If you want to construct sequences with multicharacter letters, you have to specify 
+#' \code{non_standard} parameter, where you have to provide all non-standard letters longer
+#' than one character.
+#' 
+#' In \code{\link[fast-mode]{fast mode}} you have to specify both \code{type} and \code{is_clean} 
+#' parameters. You cannot specify \code{non_standard} parameter in this mode. All letters
+#' outside specified alphabet will be red as \code{\link[NA]{NA values}}.
+#' 
+#' @section Detailed guide to constructing:
+#' Below there are listed all possibilities that can happen during constructing a \code{sq} object.
+#' 
+#' In normal mode (no \code{\link[fast-mode]{fast mode}}):
+#' \itemize{
+#' \item If you don't specify any other parameter than \code{sq}, function will try to guess
+#' sequence type and if it's clean (it will check in exactly this order):
+#' \enumerate{
+#' \item If it contains only ACGTU- letters, either lowercase or 
+#' uppercase, type will be set to \strong{nuc} \strong{cln}.
+#' \item If it contains any letters from 1. and additionally letters DEFHIKLMNPQRSVWY*, either
+#' lowercase or uppercase, type will be set to \strong{ami} \strong{cln}. 
+#' \item If it contains any letters from 1. and additionally letters WSMKRYBDHVN, either 
+#' lowercase or uppercase, and does not contain any other letter, type will be set to 
+#' \strong{nuc} without \strong{cln} subtype.
+#' \item If it contains any letters from 1., 2., 3. and additionally letters JOUXZ, type will
+#' be set to \strong{ami} without \strong{cln} subtype.
+#' \item If it contains any letters that exceed all groups mentioned above, type will be set
+#' to "unt".
+#' }
+#' \item If you specify \code{type} parameter as "ami" or "nuc" (and do not specify neither 
+#' \code{is_clean} nor \code{non_standard}) type will be checked during construction: 
+#' \enumerate{
+#' \item If all letters in sequences fit the clean alphabet of given type, type will be set to 
+#' given type with \strong{cln} subtype. 
+#' \item If all letters in sequences fit the unclean alphabet of given type, type will be set to 
+#' given type without \strong{cln} subtype.
+#' \item If at least one of sequences contain at least one letter that is not element of unclean 
+#' alphabet of provided type, an error will be thrown. 
+#' }
+#' \item If you specify both \code{type} and \code{is_clean}, function checks if letters
+#' in sequences matches exactly specified alphabet (with capitalisation accuracy). If they do, 
+#' type will be set to it. Otherwise, an error will be thrown.
+#' \item If you specify \code{type} as "unt" and won't neither \code{is_clean} nor 
+#' \code{non_standard}, type will be set to \strong{unt}. Letters won't be converted to uppercase, 
+#' alphabet will consist of all letters found in sequences. 
+#' \item If you do not sepcify neither \code{type} nor \code{is_clean} and specify 
+#' \code{non_standard} parameter, which should be character vector where each element is at least 
+#' two characters long, all strings as specified will be detected in sequences and treated as 
+#' letters in constructed \strong{atp} \code{sq}.
+#' \item All other combinations of parameters are incorrect.
+#' }
+#' 
+#' In \code{\link[fast-mode]{fast mode}} you have to specify \code{type} (it has to have either
+#' "ami" or "nuc" value) and \code{is_clean} (\code{TRUE} or \code{FALSE}). You cannot specify
+#' \code{non_standard}. All letters that aren't elements of destination alphabet (with a letter 
+#' size accuracy) will be treated as \link[NA]{NA values}.
+#' 
+#' @section Handling with atp and unt sq and NA values:
+#' You can convert letters into another using \code{\link{substitute_letters}} and then you
+#' can use \code{\link{typify}} function to set of \code{sq} to \strong{ami} or \strong{nuc}.
+#' If your sequences contain \code{NA} values, use \code{\link{remove_na}}
+#' 
+#' @examples 
+#' # saving option:
+#' previous_option <- getOption("tidysq_fast_mode")
+#' 
+#' #### constructing sq in normal mode:
+#' ## setting an option:
+#' options(tidysq_fast_mode = FALSE)
+#' 
+#' ## constructing sq without specyfiing type
+#' # nuc cln sq
+#' construct_sq(c("ATGC", "TCGTTA", "TT--AG")) 
+#' 
+#' # ami cln sq
+#' construct_sq(c("YQQPAVVM", "PQCFL"))
+#' 
+#' # ami cln sq can contain * - letter meaning end of translation:
+#' construct_sq(c("MMDF*", "SYIHR*", "MGG*"))
+#' 
+#' # nuc sq
+#' construct_sq(c("WHDHKYN", "GCYVCYU"))
+#' 
+#' # ami sq
+#' construct_sq(c("XYOQWWKCNJLO"))
+#' 
+#' # unt sq - let's assume that one wants to mark some special element in sequnece with %
+#' construct_sq(c("%%YAPLAA", "PLAA"))
+#' 
+#' ## constructing sq with type 
+#' # all above examples will result in an identical if specified type as guessed
+#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "nuc") 
+#' construct_sq(c("YQQPAVVM", "PQCFL"), "ami")
+#' construct_sq(c("MMDF*", "SYIHR*", "MGG*"), "ami")
+#' construct_sq(c("WHDHKYN", "GCYVCYU"), "nuc")
+#' construct_sq(c("XYOQWWKCNJLO"), "ami")
+#' construct_sq(c("%%YAPLAA", "PLAA"), "unt")
+#' 
+#' # you can force type other than guessed (if letters fit in the destination alphabet)
+#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "nuc", is_clean = FALSE)
+#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "ami")
+#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "ami", is_clean = FALSE)
+#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "unt")
+#' 
+#' ## constructing with non_standard specified
+#' # in sequences below "mA" denotes methyled alanine - two characters are treated as single letter
+#' construct_sq(c("LmAQYmASSR", "LmASMKLKFmAmA"), non_standard = "mA")
+#' 
+#' # reading sequences with three-letter names:
+#' construct_sq(c("ProProGlyAlaMetAlaCys"), non_standard = c("Pro", "Gly", "Ala", "Met", "Cys"))
+#' 
+#' #### constructing in fast mode:
+#' ## setting fast mode on
+#' options(tidysq_fast_mode = TRUE)
+#' 
+#' # you cannot construct without specifying type
+#' construct_sq("CTGA")
+#' construct_sq("CTGA", "nuc", TRUE)
+#' 
+#' # you cannot construct with specifying non_standard
+#' construct_sq("mAPQ", non_standard = "mA")
+#' 
+#' # letters other than in specified alphabet will be treated as NA:
+#' construct_sq("NCTGCNA", "nuc", TRUE)
+#' 
+#' #### Other examples:
+#' ## setting fast mode off again:
+#' options(tidysq_fast_mode = FALSE)
+#' 
+#' # lowercase letters are converted to uppercase if detected type is "ami" or "nuc"
+#' construct_sq(c("aTGc", "tcgTTA", "tt--AG"))
+#' construct_sq(c("XYOqwwKCNJLo"))
+#' 
+#' # but not for "unt"
+#' construct_sq(c("aAAaAA"), type = "unt")
+#' 
+#' # you can construct sq with length 0
+#' construct_sq(character(0))
+#' 
+#' # and sq with empty sequences
+#' construct_sq(c("AGTGGC", "", "CATGA", ""))
+#' 
+#' ## reseting an option
+#' options(tidysq_fast_mode = previous_option)
+#' 
+#' @seealso \code{\link{sq}} \code{\link{read_fasta}} \code{\link{sq-options}} 
+#' \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}
 #' @exportClass sq
 #' @export
 construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) {
   .check_character(sq, "'sq'", allow_zero_len = TRUE)
-  if (getOption("tidysq_no_check_mode") == TRUE) {
+  if (.is_fast_mode()) {
     .nc_construct_sq(sq, type, is_clean)
   } else {
     .check_type_or_nonst_alph(type, is_clean, non_standard)
@@ -207,7 +445,10 @@ construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) 
       if (length(binded) == 2) {
         binded <- t(as.matrix(binded))
         res_ind <- binded[1]:binded[2]
-      } else res_ind <- as.integer(binded, 1, function(row) row[1]:row[2])
+      } else {
+        res_ind <- apply(binded, 1, function(row) row[1]:row[2])
+        res_ind <- if (is.list(res_ind)) unlist(res_ind) else as.integer(res_ind)
+      }
       sin_ind <- setdiff(1:nchar(s), res_ind)
       ind <- .merge_ind(sin_ind, binded[,1])
       n <- nrow(binded) + length(sin_ind)

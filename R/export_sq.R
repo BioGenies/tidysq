@@ -1,3 +1,24 @@
+#' Export sq objects into other formats
+#' 
+#' Convert object of class \code{\link{sq}} to another class from another package. Currently 
+#' supported packages are \code{ape} with its formats (\code{AAbin} and \code{DNAbin}),
+#' \code{Bioconductor} (\code{AAStringSet}, \code{DNAStringSet}) and
+#' \code{seqinr} (\code{SeqFastaAA}, \code{SeqFastadna}).
+#' @inheritParams write_fasta
+#' @param export_format a \code{\link{character}} string indicating package and the destination 
+#' class; it should be one of the following: "seqinr::SeqFastaAA", "ape::AAbin", 
+#' "Biostrings::AAStringSet", "seqinr::SeqFastadna", "ape::DNAbin", "Biostrings::DNAStringSet"
+#' 
+#' @examples 
+#' sq_ami <- construct_sq(c("MVVGL", "LAVPP"))
+#' export_sq(sq_ami, "ape::AAbin")
+#' export_sq(sq_ami, "Biostrings::AAStringSet", c("one", "two"))
+#' export_sq(sq_ami, "seqinr::SeqFastaAA")
+#' 
+#' sq_nuc <- construct_sq(c("TGATGAAGCGCA", "TTGATGGGAA"))
+#' export_sq(sq_nuc, "ape::DNAbin", name = c("one", "two"))
+#' export_sq(sq_nuc, "Biostrings::DNAStringSet")
+#' export_sq(sq_nuc, "seqinr::SeqFastadna")
 #' @export
 export_sq <- function(sq, export_format, name) {
   validate_sq(sq)

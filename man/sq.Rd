@@ -16,7 +16,7 @@ There are multiple ways of obtaining \code{sq} objects:
 \item constructing from a character vector with \code{\link{construct_sq}},
 \item constructing from a character vector with \code{\link{as.sq}} method,
 \item reading from the fasta file with \code{\link{read_fasta}},
-\item exporting from format of other package like \code{ape} or
+\item importing from a format of other package like \code{ape} or
 \code{Biostrings} with \code{\link{import_sq}}.
 }
 
@@ -25,6 +25,22 @@ There are multiple ways of obtaining \code{sq} objects:
 bit packing such assignment may lead to calling one of those functions during
 operating on object or even printing it which can cause crash of R session and,
 in consequence, loss of data.
+}
+
+\section{Export/writing of sq objects}{
+
+There are multiple ways of saving \code{sq} objects or converting them into
+other formats:
+\itemize{
+\item converting into a character vector with \code{\link[as.character.sq]{as.character}} method,
+\item converting into a character matrix (or numeric matrix, in case of \strong{enc}) 
+with \code{\link[as.matrix.sq]{as.matrix}} method,
+\item converting into a list of numerics with \code{\link{encsq_to_list}} (only
+for \strong{enc} \code{sq}),
+\item saving into the fasta file with \code{\link{write_fasta}},
+\item exporting into a format of other package like \code{ape} or
+\code{Biostrings} with \code{\link{export_sq}}.
+}
 }
 
 \section{Types of sq}{
@@ -121,12 +137,18 @@ other parameters to uppercase when working with \strong{ami} or \strong{nuc} - e
 \link{`\%has\%`} operator converts lower letters to upper when searching for motifs in
 \strong{ami} or \strong{nuc} object.
 
+\strong{Important note:} maximum length of an alphabet is \strong{30 letters}. You are
+not allowed to read fasta files or construct from character vectros that have more
+than 30 distinct characters in sequences (with exception of reading or constructing
+\strong{ami} or \strong{nuc} objects - during their construction lowercase letters
+are automatically converted to uppercase).
+
 You can obtain an alphabet of the \code{sq} object using the \code{\link{get_sq_alphabet}}
 function. You can
 check which letters are invalid (are not represented in standard amino acids or nucleotides alphabet)
 in each sequence of given \code{sq} object of type \strong{unt} or \strong{atp} by using
 \code{\link{get_invalid_letters}}. You can substitute one letter with another using
-\code{\link{substitute_letters}}
+\code{\link{substitute_letters}}.
 }
 
 \section{Missing/Not Available values}{
@@ -144,7 +166,7 @@ sequences (but print character can be changed in options, see \code{\link{sq-opt
 \code{NA} might be introduced by:
 \itemize{
 \item reading fasta file with non standard letters in
-\code{\link[no-check-mode]{no-check mode}} with \code{\link{read_fasta}},
+\code{\link[fast-mode]{fast mode}} with \code{\link{read_fasta}},
 \item replacing a letter with \code{NA} value with \code{\link{substitute_letters}},
 \item subsetting sequences out of their lengths with \code{\link{bite}}.
 }
@@ -163,7 +185,36 @@ sequences with \code{\link{remove_na}}.
 \code{\link{construct_sq}},
 \item using the \code{\link{clean}} function,
 \item using the \code{\link{remove_na}} function,
-\item subsetting \code{sq} object with \link[sq]{extract operator}
+\item subsetting \code{sq} object with \link[extract]{extract operator}
 }
+}
+
+\section{Storage format}{
+
+\code{sq} object is, in fact, \strong{list of raw vectors}. The fact that it is list
+implies that an user can concatenate \code{sq} objects using \code{\link[c.sq]{c}} method
+and subset them using \code{\link[extract]{extract operator}}. Alphabet is kept
+as an attribute of the object. 
+
+Raw vectors are the most efficient way of storage - each letter of sequece has asigned
+an integer (its index in alphabet of \code{sq} object). Those integers in binary format
+fit in less than 8 bits, but normally are stored on 16 bits. However, thanks to bit
+packing it is possible to remove unused bits and store numbers more tightly. This 
+operations result in a little time overhead in all operations, because most of them 
+require unpacking and repacking sequences, but this cost is relatively low in comparision
+to amount of saved memory.
+
+For example - \strong{nuc} \strong{cln} alphabet consist of 6 values: ACGTU-. They are 
+asigned numbers 1 to 6 respectively. Those numbers in binary format take form: \code{001},
+\code{010}, \code{011}, \code{100}, \code{101}, \code{110}. Each of the letters can 
+be coded with just 3 bits instead of 8 which is demanded by \code{char} - this allows
+us to save more than 60\% of memory spent on storage of nucleotides sequences.
+}
+
+\section{tibble compatibility}{
+
+\code{sq} objects are compatible with \code{tibble} class - that means you can have
+\code{sq} object as a column of \code{tibble}. There are overloaded print methods, so
+that it is printed in pretty format.
 }
 

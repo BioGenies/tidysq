@@ -3,18 +3,17 @@
 #' Reads a FASTA file of nucleotides or amino acids file and returns
 #' a sqtibble with number of rows corresponding to the number of sequences and two
 #' columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
-#' @param file a \code{\link[base]{connection}} object or a \code{character} string.
-#' @param type of the sequence (one of \code{ami}, \code{nuc} or \code{unt}).
-#' @param is_clean \code{logical}, if \code{TRUE}, it is assumed that all 
-#' sequences do not contain ambiguous letters. 
-#' @param non_standard \code{character} vector of non-standard letters/
+#' @param file a \code{character} string indicating path to file or url
+#' @inheritParams construct_sq
+#' @details 
+#' All rules of creating sq objects are the same as in \code{\link{construct_sq}}
 #' @examples
 #' read_fasta(system.file(package = "tidysq", 
 #'                      "sample_fasta/sample_ami.fasta"))
 #' \dontrun{
 #' read_fasta("https://www.uniprot.org/uniprot/P28307.fasta")
 #' }
-#' @seealso \code{\link[base]{readLines}}
+#' @seealso \code{\link[base]{readLines}}, \code{\link{construct_sq}}
 #' @importFrom stringi stri_detect_regex
 #' @importFrom stringi stri_join
 #' @export
@@ -22,7 +21,7 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
   .check_character(file, "'file'", single_elem = TRUE)
   file <- .get_readable_file(file)
   
-  if (.is_no_check_mode()) {
+  if (.is_fast_mode()) {
     .check_logical(is_clean, "'is_clean'", single_elem = TRUE)
     .check_type(type)
     .nc_read_fasta(file, type, is_clean)
@@ -59,6 +58,14 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
   }
 }
 
+#' Save sq to fasta file
+#' 
+#' Writes \code{\link{sq}} objects with their names to a fasta file.
+#' @param sq \code{\link{sq}} object
+#' @param name a \code{\link{character}} vector of length equal to \code{sq} length
+#' @param file a \code{\link{character}} string indicating path to file to write into
+#' @param nchar a posiitive \code{\link{integer}} value informing about maximum number of 
+#' characters to put in each line of file
 #' @export
 write_fasta <- function(sq, name, file, nchar = 80) {
   validate_sq(sq)

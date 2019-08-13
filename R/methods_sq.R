@@ -1,4 +1,3 @@
-#methods other than print of class sq
 #' Extract parts of a sq object
 #' 
 #' @rdname sqextract
@@ -133,36 +132,84 @@ as.matrix.encsq <- function(x, ...) {
   ret
 }
 
+
+#' Check if object has specified type
+#' 
+#' Function to checks if object is a \code{\link{sq}} object without specyfying type or
+#' if it is  a \code{\link{sq}} object with specific type.
+#' @param x object to be checked
+#' @return \code{\link{logical}} value - \code{TRUE} if \code{x} has given type, \code{FALSE}
+#' otherwise
+#' 
+#' @details 
+#' These function does not only check objects classes - they also check if their format is 
+#' correct (e.g. if they have alphabet parameter, if they have exactly one type, if they are
+#' list of raws, etc. - to see details, how does \code{sq} object look like under the hood, 
+#' read \code{\link[sq]{sq class}} manual).
+#' 
+#' @examples 
+#' sq_ami <- construct_sq(c("CVMPQGQQ", "AHLC--PPQ"))
+#' sq_nuc <- construct_sq(c("CGAUUACG", "UUCUAGA", "UUCA"))
+#' sq_unt <- construct_sq("BAHHAJJ&HAN&JD&")
+#' sq_atp <- construct_sq(c("mALPVQAmAmA", "mAmAPQ"), non_standard = "mA")
+#' sq_enc <- encode(sq_nuc, c(A = 1.23, C = -0.72, G = 0.97, U = 3.01))
+#' 
+#' is.sq(sq_ami)
+#' is.sq(sq_nuc)
+#' is.sq(sq_unt)
+#' is.sq(sq_atp)
+#' is.sq(sq_enc)
+#' 
+#' is.sq(c(1,2,3))
+#' is.sq(LETTERS)
+#' is.sq(TRUE)
+#' is.sq(NULL)
+#' 
+#' is.amisq(sq_ami)
+#' is.nucsq(sq_nuc)
+#' is.atpsq(sq_atp)
+#' is.untsq(sq_unt)
+#' is.encsq(sq_enc)
+#' 
+#' is.nucsq(sq_enc)
+#' is.amisq(sq_atp)
+#' is.untsq(sq_ami)
+#' @seealso \code{\link{sq}}
 #' @exportMethod is sq
 #' @export
 is.sq <- function(x) {
   tryCatch({validate_sq(x); TRUE}, error = function(e) FALSE)
 }
 
+#' @rdname is.sq
 #' @exportMethod is amisq
 #' @export
 is.amisq <- function(x) {
   tryCatch({validate_sq(x, type = "ami"); TRUE}, error = function(e) FALSE)
 }
 
+#' @rdname is.sq
 #' @exportMethod is nucsq
 #' @export
 is.nucsq <- function(x) {
   tryCatch({validate_sq(x, type = "nuc"); TRUE}, error = function(e) FALSE)
 }
 
+#' @rdname is.sq
 #' @exportMethod is untsq
 #' @export
 is.untsq <- function(x) {
   tryCatch({validate_sq(x, type = "unt"); TRUE}, error = function(e) FALSE)
 }
 
+#' @rdname is.sq
 #' @exportMethod is atpsq
 #' @export
 is.atpsq <- function(x) {
   tryCatch({validate_sq(x, type = "atp"); TRUE}, error = function(e) FALSE)
 }
 
+#' @rdname is.sq
 #' @exportMethod is encsq
 #' @export
 is.encsq <- function(x) {
