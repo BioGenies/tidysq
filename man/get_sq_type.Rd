@@ -10,7 +10,7 @@ get_sq_type(sq)
 \item{sq}{a \code{\link{sq}} object to be checked.}
 }
 \value{
-a \code{\link{character}} string, type of\code{\link{sq}} object - can be one of
+A \code{\link{character}} string, type of\code{\link{sq}} object - can be one of
 "ami", "nuc", "unt", "atp" or "enc".
 }
 \description{

@@ -12,19 +12,19 @@
 #' It cannot be used to merge surrounding characters.
 #' 
 #' 
-#' @param sq \code{\link{sq}} object.
+#' @param sq a \code{\link{sq}} object.
 #' @param encoding a vector of letters to be replaced together with their replacements.
 #' One letter can be replaced with multiple symbols. 
 #' To perform substitution create a named vector ex. 
 #' \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
 #' 
-#' @return a \code{\link{sq}} object with \strong{atp}  type with replaced alphabet, 
+#' @return a \code{\link{sq}} object with \strong{atp} type with replaced alphabet, 
 #' defined by user.
 #' 
 #' @details \code{substitute_letters} allows to replace ambigous/extraordinary 
 #' letters in nucleic or amino acid sequence with user-defined or IUPAC 
-#' symbols. Letters can also be replaced with \code{NA} values, so that they 
-#' can be later removed, from the sequence, by \code{clean} function.
+#' symbols. Letters can also be replaced with \code{\link{NA}} values, so that they 
+#' can be later removed, from the sequence, by \code{\link{clean}} function.
 #' 
 #' \code{substitute_letters} can be used to replace default amino acid letters 
 #' with encodings. They can be user-defined or be derived from various 
@@ -97,7 +97,7 @@
 #' 
 #' 
 #' # Use created encoding from other package 
-#' # (ex. \code{\link[AmyloGram]{AmyloGram_model}})
+#' # (ex. AmyloGram::AmyloGram_model)
 #' 
 #' library(AmyloGram)
 #' 

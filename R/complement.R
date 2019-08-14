@@ -3,22 +3,22 @@
 #' @description Creates the complementary sequence from a given RNA or DNA 
 #'  nucleotide sequence. The function differentiates between RNA and DNA sequences. 
 #' 
-#' @param nucsq \code{\link{sq}} object of type \strong{nuc}.
-#' @param is_dna logical indicating if entered sequence is DNA or RNA. If 
-#' 'is_dna' is \code{TRUE}, sequences cannot contain 'U' (uracil);
+#' @param nucsq a \code{\link{sq}} object of type \strong{nuc}.
+#' @param is_dna a \code{\link{logical}} indicating if entered sequence is DNA or RNA. If 
+#' \code{is_dna} is \code{TRUE}, sequences cannot contain 'U' (uracil);
 #' if is \code{FALSE}, sequences cannot contain 'T' (thymine). If 
-#' \code{NULL} (default) the sequence type is not specified.
+#' \code{NULL} (default) the sequence type is not specified and is guessed (see details below).
 #'
-#' @return \strong{nucsq} object of the same type as input nucsq but 
+#' @return \code{sq} object of the same type as input \code{nucsq} (\strong{nuc}) but 
 #' built of complementary nucleotides to entered sequence.
 #' 
 #' @details This function allows obtaining complement sequence which is created by 
-#' matching elements (nucleotides) with complementarity to input nucsq object. If 
+#' matching elements (nucleotides) with complementarity to input \code{nucsq} object. If 
 #' \code{is_dna = TRUE} entered sequence is DNA. If \code{is_dna = FALSE} entered 
 #' sequence is RNA. By default the sequence type is not specified and the function
 #' tries to guess which type of sequence was entered. If sequence contain 'U' without 
 #' 'T' the type will be set to RNA. If a sequence contains 'T' (thymine) without 
-#' 'U' (uracil), the type is set to dna. An error is displayed if both 'T' and 'U' 
+#' 'U' (uracil), the type is set to DNA. An error is displayed if both 'T' and 'U' 
 #' are present in the sequence or if the sequence contains only 'A' (adenine). If the 
 #' sequence does not contain 'T' or 'U' or the logical specification is wrong 
 #' (i.e. if the sequence contains 'U' and the logical specification is set to DNA), 
@@ -57,7 +57,7 @@
 #'  
 #'   
 #' 
-#' @seealso sq clnsq nucsq
+#' @seealso \code{\link{sq}}
 #' 
 #' @export
 complement <- function(nucsq, is_dna = NULL) {

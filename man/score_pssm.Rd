@@ -7,7 +7,7 @@
 score_pssm(sq, pssm)
 }
 \arguments{
-\item{sq}{\code{\link{sq}} object}
+\item{sq}{a \code{\link{sq}} object.}
 
 \item{pssm}{a position specific scoring matrix}
 }

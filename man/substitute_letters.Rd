@@ -7,7 +7,7 @@
 substitute_letters(sq, encoding)
 }
 \arguments{
-\item{sq}{\code{\link{sq}} object.}
+\item{sq}{a \code{\link{sq}} object.}
 
 \item{encoding}{a vector of letters to be replaced together with their replacements.
 One letter can be replaced with multiple symbols. 
@@ -15,7 +15,7 @@ To perform substitution create a named vector ex.
 \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.}
 }
 \value{
-a \code{\link{sq}} object with \strong{atp}  type with replaced alphabet, 
+a \code{\link{sq}} object with \strong{atp} type with replaced alphabet, 
 defined by user.
 }
 \description{
@@ -33,8 +33,8 @@ It cannot be used to merge surrounding characters.
 \details{
 \code{substitute_letters} allows to replace ambigous/extraordinary 
 letters in nucleic or amino acid sequence with user-defined or IUPAC 
-symbols. Letters can also be replaced with \code{NA} values, so that they 
-can be later removed, from the sequence, by \code{clean} function.
+symbols. Letters can also be replaced with \code{\link{NA}} values, so that they 
+can be later removed, from the sequence, by \code{\link{clean}} function.
 
 \code{substitute_letters} can be used to replace default amino acid letters 
 with encodings. They can be user-defined or be derived from various 
@@ -107,7 +107,7 @@ substitute_letters(sq_ami, sub_ami)
 
 
 # Use created encoding from other package 
-# (ex. \\code{\\link[AmyloGram]{AmyloGram_model}})
+# (ex. AmyloGram::AmyloGram_model)
 
 library(AmyloGram)
 

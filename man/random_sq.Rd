@@ -7,32 +7,32 @@
 random_sq(n, len, type, is_clean, sd = NULL, use_gap = FALSE)
 }
 \arguments{
-\item{n}{a positive \code{\link{integer}} value - number of sequences to generate}
+\item{n}{a positive \code{\link{integer}} value - number of sequences to generate.}
 
 \item{len}{a positive \code{\link{integer}} value - length of each sequence if \code{sd} not 
-specified and mean length of sequences if \code{sd} spedified}
+specified and mean length of sequences if \code{sd} spedified.}
 
-\item{type}{type of generated sq object; possible values are "ami" and "nuc" (see section
-\emph{sq types} in \code{\link[sq]{sq class}} documentation for details)}
+\item{type}{a type of generated sq object; possible values are "ami" and "nuc" (see section
+\emph{sq types} in \code{\link[sq]{sq class}} documentation for details).}
 
 \item{is_clean}{a \code{\link{logical}} value - if \code{TRUE}, letters will be drawn from
-clean alphabet, if \code{FALSE} - ambiguous letters might be also generated}
+clean alphabet, if \code{FALSE} - ambiguous letters might be also generated.}
 
 \item{sd}{a positive \code{\link{numeric}} value; if specified, gives standard deviation of
-length of generated sequences}
+length of generated sequences.}
 
 \item{use_gap}{- a \code{\link{logical}} value; if \code{TRUE}, sequences will be generated
-with random gaps inside}
+with random gaps inside.}
 }
 \value{
-object of class \code{sq} with type as specified
+An object of class \code{sq} with type as specified.
 
 Sequences are generated using \code{\link{sample}} function. There is no possibility of 
 generating sequence of 0 length, even if \code{sd} is given. Letter '*' is not used 
 in generating \strong{ami} sequences.
 }
 \description{
-Generates \code{\link{sq}} object with specified number of sequences of given lenght 
+Generates a \code{\link{sq}} object with specified number of sequences of given lenght 
 and given type.
 }
 \examples{

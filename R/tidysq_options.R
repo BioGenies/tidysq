@@ -1,14 +1,8 @@
 #' Set options of package
 #' 
-#' @usage 
-#' \code{getOptions(option_name)}
-#' 
-#' \code{options(option_name = value)}
-#' 
-#' @param option_name an option name to set or get
-#' @param value a value to assing to an option
-#' 
-#' @return in case of \code{getOptions} - value of the option
+#' You can get value of an option by calling \code{getOptions(option_name)} and set its value
+#' by calling \code{options(option_name = value)}, where \code{option_name} is an option name 
+#' (full list of this package included below) and \code{value} is a value to assing to an option.
 #' 
 #' @details 
 #' You can change default behaviour of package using one of following options:
@@ -32,10 +26,10 @@
 #' pillar_shaft_sq width
 #' \item tidysq_max_print_sequences (default 10) - an \code{\link{integer}} value specyfying 
 #' maximum number of printed sequences
-#' in \code{\link[sq:print.sq]{print sq}},
+#' in \code{\link[=print.sq]{print sq}},
 #' \item tidysq_colorful_sq_print (default \code{TRUE}) - a \code{\link{logical}} value if to 
 #' use colorful printing
-#' (see \code{\link[sq:print.sq]{print sq}})
+#' (see \code{\link[=print.sq]{print sq}})
 #' \item tidysq_na_print_char (default = "!") -  a \code{\link{character}} string which character 
 #' string to pring when 
 #' \code{\link{NA}} values appear in sequences,
@@ -47,5 +41,31 @@
 #' If value is not appropriate for given option, default value will be used.
 #' 
 #' @seealso \code{\link[base:option]{options}}
-#' @name sq-options
+#' @name tidysq-options
+NULL
+
+#' Make your operations faster
+#' 
+#' \emph{Fast mode} is meant to improve performance of operations in package. However, turning it 
+#' on is associated with less control - some of parameters checks are skipped, so user has to be
+#' certain that they are correct.
+#' 
+#' Not all functions support \emph{fast mode} yet. Those that do not always operate in normal mode.
+#' 
+#' @section Turning fast mode on and off:
+#' 
+#' \code{Fast mode} can be turned on and off by setting package option "tidysq_fast_mode" to 
+#' accordingly \code{TRUE} and \code{FALSE} with the latter value as default. To learn more about
+#' options, see \code{\link{tidysq-options}}.
+#'
+#' @section Functions supporting fast mode:
+#' 
+#' Below there is a list of functions that do support \emph{fast mode}:
+#' \itemize{
+#' \item \code{\link{construct_sq}}
+#' \item \code{\link{read_fasta}}
+#' }
+#' 
+#' @name fast-mode
+#' @seealso \code{\link{sq}} \code{\link{tidysq-options}}
 NULL

@@ -40,7 +40,7 @@ If the \code{max_sequences} parameter is supplied, the desired number of sequenc
 is printed and this information is included in message (e.q. "printed 1 out of 3"). 
 Only \code{max_sequences} value smaller then the number of sequences in object 
 affects the function. The default value indicating how many sequences should 
-be printed is 10, but it can be changed in \code{\link[sq-options]{package options}}. 
+be printed is 10, but it can be changed in \code{\link[=tidysq-options]{package options}}. 
 
 Default value of \code{use_color} parameter is \code{TRUE} - sequences are printed
 in green and empty sequences, NA character and dots in grey. If this option is disabled, 
@@ -55,7 +55,7 @@ in single line) and following dots indicating that sequence is trunctated.
 
 If sequences contain \code{\link{NA}} (‘Not Available’ / Missing Values) values, they 
 are printed as "!" character, but it can be changed in 
-\code{\link[sq-options]{package options}}.
+\code{\link[=tidysq-options]{package options}}.
 
 This is overloaded function from base package. It is selected when \code{\link{sq}} 
 object is used as a parameter for print function. To see the generic function 
@@ -86,5 +86,5 @@ print(clean(sq_nuc), letters_sep = "-", use_color = FALSE)
 
 }
 \seealso{
-\link{sq} \link{clean} \link{sq-options}
+\code{\link{sq}} \code{\link{clean}} \code{\link{tidysq-options}}
 }

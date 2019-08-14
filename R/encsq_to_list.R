@@ -1,6 +1,6 @@
 #' Transform encoded sequence to a list
 #' 
-#' @description Transform encoded by \code{\link{encode}} sequence, stored in
+#' @description Transform encoded by \code{\link{encode}} sequence, stored in a
 #' \code{\link{sq}} object, to a list.
 #' 
 #' @param encsq a \code{\link{sq}} object with \strong{enc} type which was encoded 
@@ -8,12 +8,12 @@
 #' 
 #' In a new object you can check what value is assigned to each letter.
 #' 
-#' @return A named lists with sequences and theirs encoding.
+#' @return A list with named numeric vectors. Each vector represents values assigned to
+#' according sequnence with \code{\link{encode}} function. Vectors are named and their names
+#' are letters of original sequences.
 #' 
 #' @details Function is used to transform an \code{\link{sq}} object with 
-#' \strong{enc} type to a named list.
-#' 
-#' Each nucleic or amino acid sequence and assigned encodings.
+#' \strong{enc} type to a list, which can be more useful in some cases.
 #' 
 #' @examples 
 #' 
@@ -106,7 +106,7 @@
 #' ee1 <- encsq_to_list(e1)
 #' ee1[[1]]["T"]
 #' 
-#' @seealso sq encsq encode
+#' @seealso \code{\link{sq}} \code{\link{encode}}
 #' 
 #' @export
 encsq_to_list <- function(encsq) {

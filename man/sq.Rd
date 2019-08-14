@@ -5,7 +5,7 @@
 \title{sq: class for keeping biological sequences tidy}
 \description{
 An object of class \strong{sq} represents a list of biological sequences. It is main
-internal format of \strong{tidysq} package and most functions operate on it. 
+internal format of \pkg{tidysq} package and most functions operate on it. 
 The storage method is memory-optimized so that objects require as little memory
 as possible (details below).
 }
@@ -13,11 +13,11 @@ as possible (details below).
 
 There are multiple ways of obtaining \code{sq} objects:
 \itemize{
-\item constructing from a character vector with \code{\link{construct_sq}},
-\item constructing from a character vector with \code{\link{as.sq}} method,
+\item constructing from a \code{\link{character}} vector with \code{\link{construct_sq}},
+\item constructing from another object with \code{\link{as.sq}} method,
 \item reading from the fasta file with \code{\link{read_fasta}},
-\item importing from a format of other package like \code{ape} or
-\code{Biostrings} with \code{\link{import_sq}}.
+\item importing from a format of other package like \pkg{ape} or
+\pkg{Biostrings} with \code{\link{import_sq}}.
 }
 
 \strong{Important note:} A manual assignment of a class \code{sq} to an object is
@@ -32,9 +32,10 @@ in consequence, loss of data.
 There are multiple ways of saving \code{sq} objects or converting them into
 other formats:
 \itemize{
-\item converting into a character vector with \code{\link[sq:as.character.sq]{as.character}} method,
+\item converting into a character vector with \code{\link[=as.character.sq]{as.character}} 
+method,
 \item converting into a character matrix (or numeric matrix, in case of \strong{enc}) 
-with \code{\link[sq:as.matrix.sq]{as.matrix}} method,
+with \code{\link[=as.matrix.sq]{as.matrix}} method,
 \item converting into a list of numerics with \code{\link{encsq_to_list}} (only
 for \strong{enc} \code{sq}),
 \item saving into the fasta file with \code{\link{write_fasta}},
@@ -80,7 +81,7 @@ Only \strong{ami} and \strong{nuc} \code{sq} objects may have this subtype. It i
 that sequences do not contain ambiguous letters (see "alphabets" section below).
 
 \code{sq} object type is printed when using overloaded method 
-\code{\link[sq:print.sq]{print}}. It can be also checked by using \code{\link{get_sq_type}}
+\code{\link[=print.sq]{print}}. It can be also checked by using \code{\link{get_sq_type}}
 }
 
 \section{Alphabet}{
@@ -134,7 +135,7 @@ are case sensitive. Thus, in their alphabets there can appear both lowercase and
 uppercase letters simultaneously and they are treated as different characters. Alphabets of
 \strong{nuc} and \strong{ami} objects are always uppercase and all functions converts
 other parameters to uppercase when working with \strong{ami} or \strong{nuc} - e.g.
-\link{\%has\%} operator converts lower letters to upper when searching for motifs in
+\code{\link{\%has\%}} operator converts lower letters to upper when searching for motifs in
 \strong{ami} or \strong{nuc} object.
 
 \strong{Important note:} maximum length of an alphabet is \strong{30 letters}. You are
@@ -145,7 +146,8 @@ are automatically converted to uppercase).
 
 You can obtain an alphabet of the \code{sq} object using the \code{\link{get_sq_alphabet}}
 function. You can
-check which letters are invalid (are not represented in standard amino acids or nucleotides alphabet)
+check which letters are invalid (are not represented in standard amino acids or nucleotides 
+alphabet)
 in each sequence of given \code{sq} object of type \strong{unt} or \strong{atp} by using
 \code{\link{get_invalid_letters}}. You can substitute one letter with another using
 \code{\link{substitute_letters}}.
@@ -153,15 +155,15 @@ in each sequence of given \code{sq} object of type \strong{unt} or \strong{atp} 
 
 \section{Missing/Not Available values}{
 
-There is a possibility of introducing \code{NA} values into sequences. \code{NA} value
-does not represents gap (which are represented by \code{-}) or wildcard elements 
-(\code{N} in he case of nucleotides and \code{X} in the case of amino acids), but is used 
+There is a possibility of introducing \code{\link{NA}} values into sequences. \code{NA} value
+does not represents gap (which are represented by \code{'-'}) or wildcard elements 
+(\code{N} in he case of nucleotides and \code{'X'} in the case of amino acids), but is used 
 as a representation of an empty position or invalid letters (not represented in nucleotide or 
 amino acid alphabet).
 \code{NA} does not belong to any alphabet (with exception of \strong{enc} objects where some of
 letters might be \code{NA}, see \code{\link{encode}} for details). It is printed as
-"!" and, thus, it is highly unrecommended to use "!" as special letter in \strong{atp}
-sequences (but print character can be changed in options, see \code{\link{sq-options}}).
+'!' and, thus, it is highly unrecommended to use '!' as special letter in \strong{atp}
+sequences (but print character can be changed in options, see \code{\link{tidysq-options}}).
 
 \code{NA} might be introduced by:
 \itemize{
@@ -185,15 +187,15 @@ sequences with \code{\link{remove_na}}.
 \code{\link{construct_sq}},
 \item using the \code{\link{clean}} function,
 \item using the \code{\link{remove_na}} function,
-\item subsetting \code{sq} object with \link[sq:sqextract]{extract operator}
+\item subsetting \code{sq} object with \link[=sq-extract]{extract operator}
 }
 }
 
 \section{Storage format}{
 
 \code{sq} object is, in fact, \strong{list of raw vectors}. The fact that it is list
-implies that an user can concatenate \code{sq} objects using \code{\link[sq:c.sq]{c}} method
-and subset them using \code{\link[sq:sqextract]{extract operator}}. Alphabet is kept
+implies that an user can concatenate \code{sq} objects using \code{\link[=c.sq]{c}} method
+and subset them using \code{\link[=sq-extract]{extract operator}}. Alphabet is kept
 as an attribute of the object. 
 
 Raw vectors are the most efficient way of storage - each letter of sequece has asigned
@@ -213,8 +215,8 @@ us to save more than 60\% of memory spent on storage of nucleotides sequences.
 
 \section{tibble compatibility}{
 
-\code{sq} objects are compatible with \code{tibble} class - that means you can have
-\code{sq} object as a column of \code{tibble}. There are overloaded print methods, so
+\code{sq} objects are compatible with \code{\link[tibble]{tibble}} class - that means you can 
+have \code{sq} object as a column of a \code{tibble}. There are overloaded print methods, so
 that it is printed in pretty format.
 }
 

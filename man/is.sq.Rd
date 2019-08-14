@@ -22,21 +22,21 @@ is.atpsq(x)
 is.encsq(x)
 }
 \arguments{
-\item{x}{object to be checked}
+\item{x}{an object to be checked.}
 }
 \value{
-\code{\link{logical}} value - \code{TRUE} if \code{x} has given type, \code{FALSE}
-otherwise
+A \code{\link{logical}} value - \code{TRUE} if \code{x} has given type, \code{FALSE}
+otherwise.
 }
 \description{
 Function to checks if object is a \code{\link{sq}} object without specyfying type or
-if it is  a \code{\link{sq}} object with specific type.
+if it is a \code{\link{sq}} object with specific type.
 }
 \details{
 These function does not only check objects classes - they also check if their format is 
 correct (e.g. if they have alphabet parameter, if they have exactly one type, if they are
 list of raws, etc. - to see details, how does \code{sq} object look like under the hood, 
-read \code{\link[sq]{sq class}} manual).
+read \code{\link[=sq]{sq class}} manual).
 }
 \examples{
 sq_ami <- construct_sq(c("CVMPQGQQ", "AHLC--PPQ"))
