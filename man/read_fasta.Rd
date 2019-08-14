@@ -32,6 +32,8 @@ columns: 'name' and 'sq' giving the name of the sequence and the sequence itself
 All rules of creating sq objects are the same as in \code{\link{construct_sq}}
 }
 \examples{
+read_fasta(system.file(package = "tidysq", 
+                     "sample_fasta/sample_ami.fasta"))
 \dontrun{
 read_fasta("https://www.uniprot.org/uniprot/P28307.fasta")
 }

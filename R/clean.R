@@ -3,13 +3,13 @@
 #' Remove sequences containing ambiguous elements or remove ambiguous 
 #' elements from sequences in a sq object.
 #' 
-#' @param sq \code{\link{sq}} object of type 'ami' or 'nuc'
+#' @param sq \code{\link{sq}} object of type \strong{ami} or \strong{nuc}
 #' @param only_elements logical indicating if only ambiguous elements
 #' (i.e., matching more than one amino acid/nucleotide) of sequences should
 #' be removed. If \code{FALSE} (default) whole sequences containing ambiguous 
 #' elements are removed.
 #'  
-#' @return a \code{\link{sq}} object with the \code{\link{clnsq}} subtype. 
+#' @return a \code{\link{sq}} object with the \strong{cln} subtype. 
 #' 
 #' @details This function allows cleaning of sequences containing ambiguous
 #' elements. By default, sequences containing ambiguous elements are removed 
@@ -41,7 +41,8 @@
 #' is_null_sq(cln_sq)
 #' 
 #' 
-#' @seealso sq clnsq aminoacids_df nucleotides_df is_null_sq
+#' @seealso \code{\link{sq}} \code{\link{aminoacids_df}} \code{\link{nucleotides_df}}
+#' \code{\link{is_null_sq}}
 #' @exportClass clnsq
 #' @export
 clean <- function(sq, only_elements = FALSE) {

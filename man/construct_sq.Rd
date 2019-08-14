@@ -24,12 +24,12 @@ of length more than one. Each element of this parameter should be at least two c
 long}
 }
 \value{
-object of \code{\link[sq]{class sq}} with appropriate type (one of: \strong{ami},
+object of \code{\link[sq:sq]{class sq}} with appropriate type (one of: \strong{ami},
 \strong{nuc}, \strong{unt}, \strong{atp}).
 }
 \description{
 This function allows the user to construct objects of 
-\code{\link[sq]{class sq}} from a character vector.
+\code{\link[sq:sq]{class sq}} from a character vector.
 }
 \details{
 Function covers all possibilities of standard and non-standard types and alphabets.
@@ -41,13 +41,13 @@ arguments and the letters in the sequences.
 sequence. If this parameter has length 0, object of class \code{sq} with 0 sequences will be 
 created (if not specified, it will have \strong{nuc} \strong{cln} type, which is a result of 
 rules written below). If it contains sequences of length 0, \code{\link{NULL}} sequences
-will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[sq]{sq class}}).
+will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[sq:sq]{sq class}}).
 
 \strong{Important note:} in all below cases word 'letter' stands for an element of an alphabet.
 Letter might consist of more than one character, for example "Ala" might be a single letter.
 However, if you want to construct or read sequences with multi-character letters, you have 
 to specify \code{non_standard} parameter. Details of letters, alphabets and types can be 
-found in \code{\link[sq]{sq class}} documentation.
+found in \code{\link[sq:sq]{sq class}} documentation.
 }
 \section{Simple guide to constructing}{
 
@@ -64,7 +64,7 @@ If you want to construct sequences with multicharacter letters, you have to spec
 \code{non_standard} parameter, where you have to provide all non-standard letters longer
 than one character.
 
-In \code{\link[fast-mode]{fast mode}} you have to specify both \code{type} and \code{is_clean} 
+In \code{\link[sq:fast-mode]{fast mode}} you have to specify both \code{type} and \code{is_clean} 
 parameters. You cannot specify \code{non_standard} parameter in this mode. All letters
 outside specified alphabet will be red as \code{\link[NA]{NA values}}.
 }
@@ -73,7 +73,7 @@ outside specified alphabet will be red as \code{\link[NA]{NA values}}.
 
 Below there are listed all possibilities that can happen during constructing a \code{sq} object.
 
-In normal mode (no \code{\link[fast-mode]{fast mode}}):
+In normal mode (no \code{\link[sq:fast-mode]{fast mode}}):
 \itemize{
 \item If you don't specify any other parameter than \code{sq}, function will try to guess
 sequence type and if it's clean (it will check in exactly this order):
@@ -113,7 +113,7 @@ letters in constructed \strong{atp} \code{sq}.
 \item All other combinations of parameters are incorrect.
 }
 
-In \code{\link[fast-mode]{fast mode}} you have to specify \code{type} (it has to have either
+In \code{\link[sq:fast-mode]{fast mode}} you have to specify \code{type} (it has to have either
 "ami" or "nuc" value) and \code{is_clean} (\code{TRUE} or \code{FALSE}). You cannot specify
 \code{non_standard}. All letters that aren't elements of destination alphabet (with a letter 
 size accuracy) will be treated as \link[NA]{NA values}.
@@ -180,11 +180,15 @@ construct_sq(c("ProProGlyAlaMetAlaCys"), non_standard = c("Pro", "Gly", "Ala", "
 options(tidysq_fast_mode = TRUE)
 
 # you cannot construct without specifying type
+\dontrun{
 construct_sq("CTGA")
+}
 construct_sq("CTGA", "nuc", TRUE)
 
 # you cannot construct with specifying non_standard
+\dontrun{
 construct_sq("mAPQ", non_standard = "mA")
+}
 
 # letters other than in specified alphabet will be treated as NA:
 construct_sq("NCTGCNA", "nuc", TRUE)

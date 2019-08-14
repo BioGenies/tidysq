@@ -107,12 +107,74 @@ as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL
   construct_sq(x, type, is_clean, non_standard)
 }
 
+#' Convert sq object into character vector
+#' 
+#' @description Coerce sequences from a sq object to character vector
+#' of sequences
+#' 
+#' @param x \code{\link{sq}} object to be converted
+#' @param ... further arguments to be passed from or to other methods
+#' 
+#' @return a \code{character} vector of the length the same as number
+#' of sequences in the converted sq object
+#' 
+#' @details This method for class sq allows converting sequences from
+#' the sq object into a character vector of length equal to the length 
+#' of sq. Each element of resulting vector is a seperate sequence. 
+#' All attributes of the input sq are lost during the conversion to 
+#' character vector.
+#' 
+#' @examples 
+#' # Creating an object to work on:
+#' sq_nuc <- construct_sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", 
+#'                          "CAGACCANNNATAG"), type = 'nuc')
+#'                          
+#' # Converting the sq object into a character vector:
+#' as.character(sq_nuc)
+#'
+#' @seealso sq
 #' @exportMethod as.character sq
 #' @export
 as.character.sq <- function(x, ...) {
   unlist(.debitify_sq(x, "string"))
 }
 
+#' Convert sq object into matrix
+#' 
+#' @description Coerce sequences from a sq object to a matrix, in which rows
+#' correspond to sequences and columns to positions
+#' 
+#' @param x \code{\link{sq}} object to be converted
+#' @param ... further arguments to be passed from or to other methods
+#' 
+#' @return a matrix with number of rows the same as number of sequences
+#' and number of columns corresponding to the length of the longest sequence
+#' in the converted sq object.
+#' 
+#' @details This method for class sq allows converting sequences from
+#' the sq object into a matrix. Each row corresponds to the seperate sequence
+#' from the sq object, whereas each column indicates a single position within 
+#' a sequence. Dimensions of matrix are determined by the number of sequences 
+#' (rows) and the length of the longest sequence (columns). If a length of
+#' sequence is smaller than the lenght of the longest sequence, the remaining
+#' columns will be filled with NA. All attributes of the input sq are lost 
+#' during the conversion to matrix.
+#' 
+#' @examples 
+#' # Creating objects to work on:
+#' sq_same_len <- construct_sq(c("CGATAGACA", "TGACAAAAC", "GTGACCGTA"),
+#'                             type = 'nuc')
+#' sq_diff_len <- construct_sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", 
+#'                               "CAGACCANNNATAG"), type = 'nuc')
+#' 
+#' # Converting sq object containing sequences of the same lengths to matrix:
+#' as.matrix(sq_same_len)
+#' 
+#' # Converting sq object containing sequences of different lengths to 
+#' # matrix - NA introduced:
+#' as.matrix(sq_diff_len)
+#' 
+#' @seealso sq
 #' @exportMethod as.matrix sq
 #' @export
 as.matrix.sq <- function(x, ...) {

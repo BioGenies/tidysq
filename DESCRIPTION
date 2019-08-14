@@ -32,12 +32,13 @@ Authors@R: c(person("Michal", "Burdukiewicz",
            comment = c(ORCID = "0000-0001-5467-018X"),
            role = c("ctb")))
 Description: A tidy approach to analysis of biological sequences. All processing and data-storage functions are heavily optimized to allow the fastest and most efficient data storage.
-Depends: tibble (>= 2.1.3)
+Depends: R (>= 3.0.0),
+         slam,
+         tibble (>= 2.1.3)
 Imports: pillar (>= 1.4.2),
          crayon (>= 1.3.4),
          Rcpp (>= 1.0.1),
-         stringi (>= 1.4.3),
-         slam
+         stringi (>= 1.4.3)
 License: GPL (>= 2)
 URL: https://github.com/michbur/tidysq
 BugReports: https://github.com/michbur/tidysq/issues

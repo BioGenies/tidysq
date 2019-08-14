@@ -3,13 +3,13 @@
 #' @description Creates the complementary sequence from a given RNA or DNA 
 #'  nucleotide sequence. The function differentiates between RNA and DNA sequences. 
 #' 
-#' @param nucsq \code{\link{nucsq}} object of type 'nuc'.
+#' @param nucsq \code{\link{sq}} object of type \strong{nuc}.
 #' @param is_dna logical indicating if entered sequence is DNA or RNA. If 
 #' 'is_dna' is \code{TRUE}, sequences cannot contain 'U' (uracil);
 #' if is \code{FALSE}, sequences cannot contain 'T' (thymine). If 
 #' \code{NULL} (default) the sequence type is not specified.
 #'
-#' @return \code{\link{nucsq}} object of the same type as input nucsq but 
+#' @return \strong{nucsq} object of the same type as input nucsq but 
 #' built of complementary nucleotides to entered sequence.
 #' 
 #' @details This function allows obtaining complement sequence which is created by 

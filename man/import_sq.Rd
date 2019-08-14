@@ -36,6 +36,7 @@ Biostrings_nuc <- DNAStringSet(c(one = "CTCA", two = "TGAGG"))
 import_sq(Biostrings_nuc)
 
 ## seqinr example
+library(seqinr)
 seqinr_nuc <- as.SeqFastadna(list(one = c("C", "T", "C", "A"), 
                                   two = c("T", "G", "A", "G", "G")))
 import_sq(seqinr_nuc)

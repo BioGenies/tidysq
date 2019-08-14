@@ -264,11 +264,6 @@ NULL
 #' 
 #' @name bg_freqs
 #' @docType data
-#' @format A data frame with 6 rows and 20 columns:
-#' \describe{
-#'   \item{name}{One-letter symbol for each of the 20 standard proteogenic amino acids}
-#'   \item{Kingdom}{Viruses, Archaea, Bacteria, Eukaryota, All and Seq2logo}
-#' }
 #' @details 
 #' Naturally observed amino acid residue background frequencies are available
 #' from the Proteome Isoelectric Point Database. Proteome-pI Database is a database of
@@ -277,6 +272,7 @@ NULL
 #' including sequence weighting, pseudo counts and two-sided representation of 
 #' amino acid enrichment and depletion.
 #' 
+#' Each row represents different distribution of amino acids in specified environment.
 #' 
 #' @source Kozlowski LP. Proteome-pI: proteome isoelectric point database.
 #' Nucleic Acids Res. 2017;45(D1):D1112–D1116. doi:10.1093/nar/gkw978
@@ -294,12 +290,13 @@ NULL
 #' 
 NULL
 
-#' Normalized amino acids properties
+#' Amino acids properties
 #' 
-#' Normalized (0-1) 554 amino acid properties as retrieved from AAIndex database 
-#' (release 9.1) enriched with contactivity of amino acids.
+#' Raw and normalized (0-1) 554 amino acid properties as retrieved from AAIndex database 
+#' (release 9.1).
 #' 
-#' @name aaprop
+#' @name AAindex
+#' @aliases AAindex_norm
 #' @docType data
 #' @format A data frames with 20 columns and 600 rows.
 #' @details 
@@ -1200,6 +1197,7 @@ NULL
 #' @source AAIndex database.
 #' @keywords datasets
 #' @examples 
-#' data(aaprop)
+#' data(AAindex)
+#' data(AAindex_norm)
 #' 
 NULL
