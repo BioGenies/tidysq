@@ -222,7 +222,7 @@ NULL
 #' 
 #' @details 
 #' Function covers all possibilities of standard and non-standard types and alphabets.
-#' You can check what 'type' and 'alphabet' exactly is in \code{\link{sq class}} documentation.
+#' You can check what 'type' and 'alphabet' exactly is in \code{\link{sq}} documentation.
 #' Below there is a guide how function operates and how the program behaves according to the given 
 #' arguments and the letters in the sequences.
 #' 
@@ -230,7 +230,7 @@ NULL
 #' sequence. If this parameter has length 0, object of class \code{sq} with 0 sequences will be 
 #' created (if not specified, it will have \strong{nuc} \strong{cln} type, which is a result of 
 #' rules written below). If it contains sequences of length 0, \code{\link{NULL}} sequences
-#' will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[sq:sq]{sq class}}).
+#' will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[sq]{sq}}).
 #' 
 #' \strong{Important note:} in all below cases word 'letter' stands for an element of an alphabet.
 #' Letter might consist of more than one character, for example "Ala" might be a single letter.
