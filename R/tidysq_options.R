@@ -21,7 +21,7 @@
 #' about merging lowercase and uppercase letters when typifying \code{sq} object,
 #' \item tidysq_encode_no_given_action (default "warning") - specifies in which way to inform user
 #' about encoding unspecified letters as \code{\link{NA}} if they do appear in sequences in
-#' \code{\lin{encode}},
+#' \code{\link{encode}},
 #' \item tidysq_max_pillar_sq_width (default 15) - specifies pillar_shaft_sq width,
 #' \item tidysq_max_print_sequences (default 10) - specifies maximum number of printed sequences
 #' in \code{\link[sq:print.sq]{print sq}},
