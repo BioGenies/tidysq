@@ -9,13 +9,11 @@ encode(sq, encoding)
 \arguments{
 \item{sq}{\code{\link{sq}} object.}
 
-\item{indices}{\code{encoding} a named vector, that consists of nucleic or 
-amino acid letters with their numeric encoding.
-Letters without assigned encoding will be shown as \code{NA}.}
+\item{encoding}{\code{encoding} a named vector, that consists of nucleic or amino acid letters 
+with their numeric encoding. Letters without assigned encoding will be shown as \code{NA}.}
 }
 \value{
-\code{\link{encsq}} object of the same type as input sq 
-with encoded alphabet.
+\code{\link{sq}} object of type\strong{enc}.
 }
 \description{
 Encode sequences, stored in \code{\link{sq}} object, with 
@@ -31,7 +29,7 @@ sparse encoding, hydrophobicity scale, heat capacities, entropies, chemical
 shift index, probability matrix (BLOSUM, PAM), 
 sequence profile or reduced alphabet.
 
-The newly constructed sequence will have a new class \code{\link{encsq})}, 
+The newly constructed sequence will have a type \strong{enc} (see details in \code{\link{sq}}), 
 which represents encoded sequences.
 
 The named vector (ex. \code{c(G = 1, K = 2, P = 2)}) should have all letters 
@@ -42,7 +40,7 @@ All replaced values will have the numeric type.
 \examples{
 
 # Create sq object with sequences containing letters from 
-stadard alphabet to work on:
+# stadard alphabet to work on:
 
 sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
                          "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", 
@@ -56,7 +54,7 @@ sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL",
 
                
 # Create object, called sq, with sequences containing letters from 
-stadard and extended alphabet to work on:
+# stadard and extended alphabet to work on:
    
 sq_nuc_ex <- construct_sq(c("TATCTAGCTGTATG", "CUGCUG", "CUUAGA", "CCCT", 
                             "CUGAAUGU"))
@@ -84,28 +82,28 @@ enc_ami_ex <- c(A = 5, C = 5, D = 6, E = 6, F = 4,
                      
                                               
 # Encode with simplified standard alphabet sequences without 
-non-standard letters
+# non-standard letters
 
 encode(sq_nuc, enc_nuc)
 encode(sq_ami, enc_ami)
 
 
 # Encode with simplified extended alphabet sequences without 
-non-standard letters
+# non-standard letters
 
 encode(sq_nuc, enc_nuc_ex)
 encode(sq_ami, enc_ami_ex)
 
 
 # Encode with simplified standard alphabet sequences with 
-non-standard letters
+# non-standard letters
 
 encode(sq_nuc_ex, enc_nuc)
 encode(sq_ami_ex, enc_ami)
 
 
 # Encode with simplified extended alphabet sequences with 
-non-standard letters
+# non-standard letters
 
 encode(sq_nuc_ex, enc_nuc_ex)
 encode(sq_ami_ex, enc_ami_ex)

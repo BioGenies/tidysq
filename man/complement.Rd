@@ -7,7 +7,7 @@
 complement(nucsq, is_dna = NULL)
 }
 \arguments{
-\item{nucsq}{\code{\link{nucsq}} object of type 'nuc'.}
+\item{nucsq}{\code{\link{sq}} object of type \strong{nuc}.}
 
 \item{is_dna}{logical indicating if entered sequence is DNA or RNA. If 
 'is_dna' is \code{TRUE}, sequences cannot contain 'U' (uracil);
@@ -15,7 +15,7 @@ if is \code{FALSE}, sequences cannot contain 'T' (thymine). If
 \code{NULL} (default) the sequence type is not specified.}
 }
 \value{
-\code{\link{nucsq}} object of the same type as input nucsq but 
+\strong{nucsq} object of the same type as input nucsq but 
 built of complementary nucleotides to entered sequence.
 }
 \description{

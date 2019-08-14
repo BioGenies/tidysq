@@ -4,12 +4,11 @@
 #' numeric values defined by user in named vector.
 #' 
 #' @param sq \code{\link{sq}} object.
-#' @param encoding \code{encoding} a named vector, that consists of nucleic or amino acid letters with their numeric encoding.
-#' Letters without assigned encoding will be shown as \code{NA}.
+#' @param encoding \code{encoding} a named vector, that consists of nucleic or amino acid letters 
+#' with their numeric encoding. Letters without assigned encoding will be shown as \code{NA}.
 #' 
 #' 
-#' @return \code{\link{encsq}} object of the same type as input sq 
-#' with encoded alphabet.
+#' @return \code{\link{sq}} object of type\strong{enc}.
 #' 
 #' @details Each position in a sequence is replaced by a numeric value 
 #' assigned to that letter. 
@@ -20,7 +19,7 @@
 #' shift index, probability matrix (BLOSUM, PAM), 
 #' sequence profile or reduced alphabet.
 #' 
-#' The newly constructed sequence will have a new class \code{\link{encsq})}, 
+#' The newly constructed sequence will have a type \strong{enc} (see details in \code{\link{sq}}), 
 #' which represents encoded sequences.
 #' 
 #' The named vector (ex. \code{c(G = 1, K = 2, P = 2)}) should have all letters 
@@ -32,7 +31,7 @@
 #' @examples 
 #' 
 #' # Create sq object with sequences containing letters from 
-#' stadard alphabet to work on:
+#' # stadard alphabet to work on:
 #' 
 #' sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
 #'                          "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", 
@@ -46,7 +45,7 @@
 #' 
 #'                
 #' # Create object, called sq, with sequences containing letters from 
-#' stadard and extended alphabet to work on:
+#' # stadard and extended alphabet to work on:
 #'    
 #' sq_nuc_ex <- construct_sq(c("TATCTAGCTGTATG", "CUGCUG", "CUUAGA", "CCCT", 
 #'                             "CUGAAUGU"))
@@ -74,28 +73,28 @@
 #'                      
 #'                                               
 #' # Encode with simplified standard alphabet sequences without 
-#' non-standard letters
+#' # non-standard letters
 #' 
 #' encode(sq_nuc, enc_nuc)
 #' encode(sq_ami, enc_ami)
 #' 
 #' 
 #' # Encode with simplified extended alphabet sequences without 
-#' non-standard letters
+#' # non-standard letters
 #' 
 #' encode(sq_nuc, enc_nuc_ex)
 #' encode(sq_ami, enc_ami_ex)
 #' 
 #' 
 #' # Encode with simplified standard alphabet sequences with 
-#' non-standard letters
+#' # non-standard letters
 #' 
 #' encode(sq_nuc_ex, enc_nuc)
 #' encode(sq_ami_ex, enc_ami)
 #' 
 #' 
 #' # Encode with simplified extended alphabet sequences with 
-#' non-standard letters
+#' # non-standard letters
 #' 
 #' encode(sq_nuc_ex, enc_nuc_ex)
 #' encode(sq_ami_ex, enc_ami_ex)

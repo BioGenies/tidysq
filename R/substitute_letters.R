@@ -15,10 +15,11 @@
 #' @param sq \code{\link{sq}} object.
 #' @param encoding a vector of letters to be replaced together with their replacements.
 #' One letter can be replaced with multiple symbols. 
-#' To perform substitution create a named vector ex. \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
+#' To perform substitution create a named vector ex. 
+#' \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
 #' 
-#' @return \code{\link{atpsq}} object of the same type as input sq with 
-#' replaced alphabet, defined by user.
+#' @return a \code{\link{sq}} object with \strong{atp}  type with replaced alphabet, 
+#' defined by user.
 #' 
 #' @details \code{substitute_letters} allows to replace ambigous/extraordinary 
 #' letters in nucleic or amino acid sequence with user-defined or IUPAC 
@@ -41,13 +42,13 @@
 #' Replacing multiple letters with the same symbol 
 #' (ex. \code{c(A = "rep1", H  = "rep1", G = "rep1")}) is allowed.
 #' 
-#' Created sequence will be deprived of \code{\link{cln})} subtype, 
+#' Created sequence will be deprived of \strong{cln} subtype, 
 #' if the original sequence possessed it. This will also occur when
 #' the letter to be replaced will not be found in the sequence. 
 #' It remain unchanged but will lose subclass.
 #' 
-#' The newly constructed will have a new class \code{\link{atpsq})}, 
-#' representing atypical alphabet.
+#' The newly constructed will have a new type \strong{atp}, 
+#' representing sequences with atypical alphabet.
 #' 
 #' All replaced letters will have the character type. 
 #' Multiple symbol replacement will be recognized as one letter and 
@@ -96,7 +97,7 @@
 #' 
 #' 
 #' # Use created encoding from other package 
-#' (ex. \code{\link[AmyloGram]{AmyloGram_model}})
+#' # (ex. \code{\link[AmyloGram]{AmyloGram_model}})
 #' 
 #' library(AmyloGram)
 #' 

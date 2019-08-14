@@ -7,7 +7,7 @@
 clean(sq, only_elements = FALSE)
 }
 \arguments{
-\item{sq}{\code{\link{sq}} object of type 'ami' or 'nuc'}
+\item{sq}{\code{\link{sq}} object of type \strong{ami} or \strong{nuc}}
 
 \item{only_elements}{logical indicating if only ambiguous elements
 (i.e., matching more than one amino acid/nucleotide) of sequences should
@@ -15,7 +15,7 @@ be removed. If \code{FALSE} (default) whole sequences containing ambiguous
 elements are removed.}
 }
 \value{
-a \code{\link{sq}} object with the \code{\link{clnsq}} subtype.
+a \code{\link{sq}} object with the \strong{cln} subtype.
 }
 \description{
 Remove sequences containing ambiguous elements or remove ambiguous 
@@ -54,5 +54,6 @@ is_null_sq(cln_sq)
 
 }
 \seealso{
-sq clnsq aminoacids_df nucleotides_df is_null_sq
+\code{\link{sq}} \code{\link{aminoacids_df}} \code{\link{nucleotides_df}}
+\code{\link{is_null_sq}}
 }

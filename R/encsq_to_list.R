@@ -3,7 +3,7 @@
 #' @description Transform encoded by \code{\link{encode}} sequence, stored in
 #' \code{\link{sq}} object, to a list.
 #' 
-#' @param indices \code{encsq} a \code{\link{sq}} object which was encoded 
+#' @param encsq a \code{\link{sq}} object with \strong{enc} type which was encoded 
 #' using \code{\link{encode}} function.
 #' 
 #' In a new object you can check what value is assigned to each letter.
@@ -11,14 +11,14 @@
 #' @return A named lists with sequences and theirs encoding.
 #' 
 #' @details Function is used to transform an \code{\link{sq}} object with 
-#' \code{\link{encsq}} class to a named list.
+#' \strong{enc} type to a named list.
 #' 
 #' Each nucleic or amino acid sequence and assigned encodings.
 #' 
 #' @examples 
 #' 
 #' # Create sq object with sequences containing letters from 
-#' stadard alphabet and extended alphabet to work on:
+#' # stadard alphabet and extended alphabet to work on:
 #' 
 #' sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
 #'                          "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", 
@@ -37,7 +37,7 @@
 #' 
 #' 
 #' # Create encoding for standard, extended alphabet and iport from 
-#' other sources:
+#' # other sources:
 #' 
 #' enc_nuc <- c(A = 1, C = 2, G = 2, T = 2)
 #' 
@@ -55,8 +55,8 @@
 #'                 U = -0.1, O = 0.753, X = -53.95, 
 #'                 B = 7.77, Z = 0)
 #'                 
-#' data("aaprop")
-#' enc_aa <- aaprop[20,]
+#' data("AAindex")
+#' enc_aa <- AAindex[20,]
 #' 
 #' 
 #' # Encode sequences and assign it to a variable:

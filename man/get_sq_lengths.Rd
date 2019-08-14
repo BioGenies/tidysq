@@ -28,10 +28,10 @@ sq_nucleotides <- construct_sq(c("ACGATTAGACG","GGATA"), type = "nuc")
 sq_amino_acids <- construct_sq(c("MMVTAAV"), type = "ami")
 
 # Counting number of elements in nucleotide sq object with defined type:
-get_sq_lenghts(sq_nucleotides)
+get_sq_lengths(sq_nucleotides)
 
 # Counting number of elements in amino acid sq object with defined type:
-get_sq_lenghts(sq_amino_acids)
+get_sq_lengths(sq_amino_acids)
 
 }
 \seealso{

@@ -32,9 +32,9 @@ in consequence, loss of data.
 There are multiple ways of saving \code{sq} objects or converting them into
 other formats:
 \itemize{
-\item converting into a character vector with \code{\link[as.character.sq]{as.character}} method,
+\item converting into a character vector with \code{\link[sq:as.character.sq]{as.character}} method,
 \item converting into a character matrix (or numeric matrix, in case of \strong{enc}) 
-with \code{\link[as.matrix.sq]{as.matrix}} method,
+with \code{\link[sq:as.matrix.sq]{as.matrix}} method,
 \item converting into a list of numerics with \code{\link{encsq_to_list}} (only
 for \strong{enc} \code{sq}),
 \item saving into the fasta file with \code{\link{write_fasta}},
@@ -80,7 +80,7 @@ Only \strong{ami} and \strong{nuc} \code{sq} objects may have this subtype. It i
 that sequences do not contain ambiguous letters (see "alphabets" section below).
 
 \code{sq} object type is printed when using overloaded method 
-\code{\link[print.sq]{print}}. It can be also checked by using \code{\link{get_sq_type}}
+\code{\link[sq:print.sq]{print}}. It can be also checked by using \code{\link{get_sq_type}}
 }
 
 \section{Alphabet}{
@@ -134,7 +134,7 @@ are case sensitive. Thus, in their alphabets there can appear both lowercase and
 uppercase letters simultaneously and they are treated as different characters. Alphabets of
 \strong{nuc} and \strong{ami} objects are always uppercase and all functions converts
 other parameters to uppercase when working with \strong{ami} or \strong{nuc} - e.g.
-\link{`\%has\%`} operator converts lower letters to upper when searching for motifs in
+\link{\%has\%} operator converts lower letters to upper when searching for motifs in
 \strong{ami} or \strong{nuc} object.
 
 \strong{Important note:} maximum length of an alphabet is \strong{30 letters}. You are
@@ -166,7 +166,7 @@ sequences (but print character can be changed in options, see \code{\link{sq-opt
 \code{NA} might be introduced by:
 \itemize{
 \item reading fasta file with non standard letters in
-\code{\link[fast-mode]{fast mode}} with \code{\link{read_fasta}},
+\code{\link[sq:fast-mode]{fast mode}} with \code{\link{read_fasta}},
 \item replacing a letter with \code{NA} value with \code{\link{substitute_letters}},
 \item subsetting sequences out of their lengths with \code{\link{bite}}.
 }
@@ -185,15 +185,15 @@ sequences with \code{\link{remove_na}}.
 \code{\link{construct_sq}},
 \item using the \code{\link{clean}} function,
 \item using the \code{\link{remove_na}} function,
-\item subsetting \code{sq} object with \link[extract]{extract operator}
+\item subsetting \code{sq} object with \link[sq:sqextract]{extract operator}
 }
 }
 
 \section{Storage format}{
 
 \code{sq} object is, in fact, \strong{list of raw vectors}. The fact that it is list
-implies that an user can concatenate \code{sq} objects using \code{\link[c.sq]{c}} method
-and subset them using \code{\link[extract]{extract operator}}. Alphabet is kept
+implies that an user can concatenate \code{sq} objects using \code{\link[sq:c.sq]{c}} method
+and subset them using \code{\link[sq:sqextract]{extract operator}}. Alphabet is kept
 as an attribute of the object. 
 
 Raw vectors are the most efficient way of storage - each letter of sequece has asigned
