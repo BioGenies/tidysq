@@ -13,7 +13,7 @@ random_sq(n, len, type, is_clean, sd = NULL, use_gap = FALSE)
 specified and mean length of sequences if \code{sd} spedified.}
 
 \item{type}{a type of generated sq object; possible values are "ami" and "nuc" (see section
-\emph{sq types} in \code{\link[sq]{sq class}} documentation for details).}
+\emph{sq types} in \code{\link[=sq]{sq class}} documentation for details).}
 
 \item{is_clean}{a \code{\link{logical}} value - if \code{TRUE}, letters will be drawn from
 clean alphabet, if \code{FALSE} - ambiguous letters might be also generated.}

@@ -66,7 +66,7 @@ than one character.
 
 In \code{\link[=fast-mode]{fast mode}} you have to specify both \code{type} and \code{is_clean} 
 parameters. You cannot specify \code{non_standard} parameter in this mode. All letters
-outside specified alphabet will be red as \code{\link[NA]{NA values}}.
+outside specified alphabet will be red as \code{NA} values.
 }
 
 \section{Detailed guide to constructing}{
@@ -116,7 +116,7 @@ letters in constructed \strong{atp} \code{sq}.
 In \code{\link[=fast-mode]{fast mode}} you have to specify \code{type} (it has to have either
 "ami" or "nuc" value) and \code{is_clean} (\code{TRUE} or \code{FALSE}). You cannot specify
 \code{non_standard}. All letters that aren't elements of destination alphabet (with a letter 
-size accuracy) will be treated as \link[NA]{NA values}.
+size accuracy) will be treated as \code{NA} values.
 }
 
 \section{Handling with atp and unt sq and NA values}{

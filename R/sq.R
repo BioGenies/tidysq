@@ -154,7 +154,7 @@
 #' \code{NA} might be introduced by:
 #' \itemize{
 #' \item reading fasta file with non standard letters in
-#' \code{\link[sq:fast-mode]{fast mode}} with \code{\link{read_fasta}},
+#' \code{\link[=fast-mode]{fast mode}} with \code{\link{read_fasta}},
 #' \item replacing a letter with \code{NA} value with \code{\link{substitute_letters}},
 #' \item subsetting sequences out of their lengths with \code{\link{bite}}.
 #' }
@@ -256,7 +256,7 @@ NULL
 #' 
 #' In \code{\link[=fast-mode]{fast mode}} you have to specify both \code{type} and \code{is_clean} 
 #' parameters. You cannot specify \code{non_standard} parameter in this mode. All letters
-#' outside specified alphabet will be red as \code{\link[NA]{NA values}}.
+#' outside specified alphabet will be red as \code{NA} values.
 #' 
 #' @section Detailed guide to constructing:
 #' Below there are listed all possibilities that can happen during constructing a \code{sq} object.
@@ -304,7 +304,7 @@ NULL
 #' In \code{\link[=fast-mode]{fast mode}} you have to specify \code{type} (it has to have either
 #' "ami" or "nuc" value) and \code{is_clean} (\code{TRUE} or \code{FALSE}). You cannot specify
 #' \code{non_standard}. All letters that aren't elements of destination alphabet (with a letter 
-#' size accuracy) will be treated as \link[NA]{NA values}.
+#' size accuracy) will be treated as \code{NA} values.
 #' 
 #' @section Handling with atp and unt sq and NA values:
 #' You can convert letters into another using \code{\link{substitute_letters}} and then you

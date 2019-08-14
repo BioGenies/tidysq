@@ -95,6 +95,10 @@ substitute_letters(sq_nuc, c(T = 111, A = 222, C = 333, G = 444))
 substitute_letters(sq_ami, c(M = "Met", Q = "Gln", R = "Arg", D = "Asp"))
 substitute_letters(sq_ami, c(M = "222", Q = "555", R = "999", D = "777"))
 
+# Replace single letter of alphabet with NA value:
+
+substitute_letters(sq_nuc, c(A = NA, G = NA))
+
 
 # Use created encoding
 
@@ -121,5 +125,5 @@ substitute_letters(sq_ami, sub_AG)
 
 }
 \seealso{
-sq atpsq
+\code{\link{sq}}
 }

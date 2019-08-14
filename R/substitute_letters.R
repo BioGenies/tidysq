@@ -85,6 +85,10 @@
 #' substitute_letters(sq_ami, c(M = "Met", Q = "Gln", R = "Arg", D = "Asp"))
 #' substitute_letters(sq_ami, c(M = "222", Q = "555", R = "999", D = "777"))
 #' 
+#' # Replace single letter of alphabet with NA value:
+#' 
+#' substitute_letters(sq_nuc, c(A = NA, G = NA))
+#' 
 #' 
 #' # Use created encoding
 #' 
@@ -109,7 +113,7 @@
 #' 
 #' substitute_letters(sq_ami, sub_AG)
 #' 
-#' @seealso sq atpsq
+#' @seealso \code{\link{sq}} 
 #' @export
 
 substitute_letters <- function(sq, encoding) {
@@ -121,11 +125,13 @@ substitute_letters <- function(sq, encoding) {
   .check_enc_names_in_alph(encoding, alph)
   .check_is_unique(names(encoding), "names of 'encoding'")
   if (is.numeric(encoding)) {
-    .check_integer(encoding, "if is numeric, 'encoding'", allow_na = TRUE)
+    .check_integer(encoding, "if is numeric 'encoding'", allow_na = TRUE)
     name <- names(encoding)
     encoding <- as.character(encoding)
     names(encoding) <- name
-  } else .check_character(encoding, "if is character, 'encoding'", allow_na = TRUE)
+  } else if (is.character(encoding)) {
+    .check_character(encoding, "if is character 'encoding'", allow_na = TRUE)
+  } else .check_simple(!all(is.na(encoding)), "if is neither numeric nor character 'encoding'", "has to contain only NA values")
   
   inds_fun <- alph
   inds_fun[match(names(encoding), alph)] <- encoding
