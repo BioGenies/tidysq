@@ -3,13 +3,13 @@
 #' Remove sequences containing ambiguous elements or remove ambiguous 
 #' elements from sequences in a sq object.
 #' 
-#' @param sq \code{\link{sq}} object of type 'ami' or 'nuc'
+#' @param sq \code{\link{sq}} object of type \strong{ami} or \strong{nuc}
 #' @param only_elements logical indicating if only ambiguous elements
 #' (i.e., matching more than one amino acid/nucleotide) of sequences should
 #' be removed. If \code{FALSE} (default) whole sequences containing ambiguous 
 #' elements are removed.
 #'  
-#' @return a \code{\link{sq}} object with the \code{\link{clnsq}} subtype. 
+#' @return a \code{\link{sq}} object with the \strong{cln} subtype. 
 #' 
 #' @details This function allows cleaning of sequences containing ambiguous
 #' elements. By default, sequences containing ambiguous elements are removed 
@@ -41,29 +41,22 @@
 #' is_null_sq(cln_sq)
 #' 
 #' 
-#' @seealso sq clnsq aminoacids_df nucleotides_df is_null_sq
+#' @seealso \code{\link{sq}} \code{\link{aminoacids_df}} \code{\link{nucleotides_df}}
+#' \code{\link{is_null_sq}}
 #' @exportClass clnsq
 #' @export
 clean <- function(sq, only_elements = FALSE) {
   validate_sq(sq)
   type <- .get_sq_type(sq)
   is_clean <- .is_cleaned(sq)
-
-  if (!is.logical(only_elements) ||
-      is.na(only_elements) ||
-      length(only_elements) != 1) {
-    stop("'only_elements' has to be either TRUE or FALSE")
-  }
-  if (!(type %in% c("ami", "nuc"))) {
-    stop("function 'clean' is meant to be used only with 'ami' or 'nuc' sequences")
-  }
+  .check_logical(only_elements, "'only_elements'", single_elem = TRUE)
+  .check_type(type, "type of 'sq' object")
+  
   if (is_clean) {
     return(sq)
   }
-  
   alph <- .get_alph(sq)
   alph_cln <- .get_standard_alph(type, TRUE)
-  
   
   if (only_elements) {
     ret <- .apply_sq(sq, "char", "none", function(s) {
@@ -71,7 +64,7 @@ clean <- function(sq, only_elements = FALSE) {
     })
   } else {
     ret <- .apply_sq(sq, "char", "none", function(s) {
-      if (!all(s %in% alph_cln)) raw(1) else
+      if (!all(s %in% alph_cln)) raw(0) else
         pack_chars(s, alph_cln)
     }) 
   }

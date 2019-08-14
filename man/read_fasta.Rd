@@ -4,24 +4,40 @@
 \alias{read_fasta}
 \title{Read a FASTA file}
 \usage{
-read_fasta(file, type = "unt", is_clean = NULL)
+read_fasta(file, type = NULL, is_clean = NULL, non_standard = NULL)
 }
 \arguments{
-\item{file}{a \code{\link[base]{connection}} object or a \code{character} string.}
+\item{file}{a \code{character} string indicating path to file or url}
 
-\item{type}{of the sequence (one of \code{ami}, \code{nuc} or \code{unt}).}
+\item{type}{\code{\link{character}} string indicating type of \code{sq} object that
+is going to be constructed; supported values are "ami" for amino acid sequences,
+"nuc" for nucleotide sequences, "unt" for and \code{NULL} for type guessing (see details)}
+
+\item{is_clean}{\code{\link{logical}} value indicating if sequences are clean,
+or in other words - they don't contain ambiguous values; supported values are \code{TRUE} 
+for clean sequences, \code{FALSE} for unclean sequences and \code{NULL} for auto detecting
+(see details)}
+
+\item{non_standard}{\code{\link{character}} vector indicating non-standard letters
+contained in sequences. If \code{NULL}, sequences won't be searched for non-standard letters
+of length more than one. Each element of this parameter should be at least two characters 
+long}
 }
 \description{
 Reads a FASTA file of nucleotides or amino acids file and returns
 a sqtibble with number of rows corresponding to the number of sequences and two
 columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
 }
+\details{
+All rules of creating sq objects are the same as in \code{\link{construct_sq}}
+}
 \examples{
+read_fasta(system.file(package = "tidysq", 
+                     "sample_fasta/sample_ami.fasta"))
 \dontrun{
-read_fasta(file = 'https://www.ncbi.nlm.nih.gov/WebSub/html/help/sample_files/nucleotide-sample.txt')
 read_fasta("https://www.uniprot.org/uniprot/P28307.fasta")
 }
 }
 \seealso{
-\code{\link[base]{readLines}}
+\code{\link[base]{readLines}}, \code{\link{construct_sq}}
 }

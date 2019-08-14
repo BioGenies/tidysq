@@ -3,29 +3,31 @@
 #' Reads a FASTA file of nucleotides or amino acids file and returns
 #' a sqtibble with number of rows corresponding to the number of sequences and two
 #' columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
-#' @param file a \code{\link[base]{connection}} object or a \code{character} string.
-#' @param type of the sequence (one of \code{ami}, \code{nuc} or \code{unt}).
+#' @param file a \code{character} string indicating path to file or url
+#' @inheritParams construct_sq
+#' @details 
+#' All rules of creating sq objects are the same as in \code{\link{construct_sq}}
 #' @examples
+#' read_fasta(system.file(package = "tidysq", 
+#'                      "sample_fasta/sample_ami.fasta"))
 #' \dontrun{
-#' read_fasta(file = 'https://www.ncbi.nlm.nih.gov/WebSub/html/help/sample_files/nucleotide-sample.txt')
 #' read_fasta("https://www.uniprot.org/uniprot/P28307.fasta")
 #' }
-#' @seealso \code{\link[base]{readLines}}
+#' @seealso \code{\link[base]{readLines}}, \code{\link{construct_sq}}
 #' @importFrom stringi stri_detect_regex
 #' @importFrom stringi stri_join
 #' @export
 read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) {
-  .check_file_is_char(file)
+  .check_character(file, "'file'", single_elem = TRUE)
   file <- .get_readable_file(file)
   
-  if(.is_no_check_mode()) {
-    .check_nc_is_clean_in_TRUE_FALSE(is_clean)
-    .check_nc_type_in_ami_nuc(type)
-    
+  if (.is_fast_mode()) {
+    .check_logical(is_clean, "'is_clean'", single_elem = TRUE)
+    .check_type(type)
     .nc_read_fasta(file, type, is_clean)
   } else {
-    .check_is_clean_in_TRUE_FALSE_NULL(is_clean)
-    .check_type_in_ami_nuc_unt_NULL(type)
+    .check_logical(is_clean, "'is_clean'", single_elem = TRUE, allow_null = TRUE)
+    .check_type(type, allow_unt = TRUE, allow_null = TRUE)
     
     if (!is.null(non_standard)) {
       .nonst_read_fasta(file, type, is_clean, non_standard)
@@ -34,9 +36,15 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
       if (!is.null(type) && type %in% c("ami", "nuc")) alph <- toupper(alph)
       .check_alph_matches_type(alph, type, is_clean)
       
-      if (is.null(type)) type <- .guess_type_by_alph(alph)
-      if (type != "unt" && is.null(is_clean)) {
+      if (is.null(type)) {
+        type_clean <- .guess_type_subtype_by_alph(alph)
+        type <- type_clean[["type"]]
+        if (is.null(is_clean) && type != "unt") is_clean <- type_clean[["is_clean"]]
+      } else if (type != "unt" && is.null(is_clean)) {
         is_clean <- if (type == "ami") .guess_ami_is_clean(alph) else .guess_nuc_is_clean(alph) 
+        
+      } 
+      if (type != "unt") {
         .nc_read_fasta(file, type, is_clean)
       } else {
         .check_alph_length(alph)
@@ -50,18 +58,26 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
   }
 }
 
+#' Save sq to fasta file
+#' 
+#' Writes \code{\link{sq}} objects with their names to a fasta file.
+#' @param sq \code{\link{sq}} object
+#' @param name a \code{\link{character}} vector of length equal to \code{sq} length
+#' @param file a \code{\link{character}} string indicating path to file to write into
+#' @param nchar a posiitive \code{\link{integer}} value informing about maximum number of 
+#' characters to put in each line of file
 #' @export
 write_fasta <- function(sq, name, file, nchar = 80) {
   validate_sq(sq)
-  .check_name_proper_char(name)
-  .check_file_is_char(file)
-  .check_nchar_proper_int(nchar)
-  .check_eq_lens(sq, name)
+  .check_character(name, "'name'")
+  .check_character(file, "'file'", single_elem = TRUE)
+  .check_integer(nchar, "'nchar'", single_elem = TRUE, allow_negative = FALSE, allow_zero = FALSE)
+  .check_eq_lens(sq, name, "'sq'", "'name'")
   
   sq <- .debitify_sq(sq, "char")
   char_vec <- unlist(lapply(1L:length(sq), function(i) {
     s <- sq[[i]]
-    s <- lapply(split(s, floor((0:(length(s)-1))/nchar)), function(l) paste(l, collapse=""))
+    s <- lapply(split(s, floor((0:(length(s) - 1))/nchar)), function(l) paste(l, collapse = ""))
     paste0(">", name[i], "\n", paste(s, collapse = "\n"), "\n")
   }))
   

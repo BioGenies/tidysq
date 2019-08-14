@@ -1,4 +1,5 @@
 .bitify_sq <- function(sq, alph) {
+  if (length(sq) == 0) return(sq)
   if (is.numeric(sq[[1]])) 
     pack_fun <- pack_ints
   else if (any(lengths(sq) > 1)) 
@@ -21,6 +22,7 @@
 }
 
 .debitify_sq <- function(sq, to) {
+  if (length(sq) == 0) return(sq)
   alph <- .get_alph(sq)
   if (to == "char") 
     unpack_fun <- function(s) unpack_chars(s, alph, .get_na_char())
@@ -32,21 +34,22 @@
   lapply(sq, function(s) unpack_fun(s))
 }
 
-.apply_sq <- function(sq, ex_form, im_form, fun) {
-  alph <- .get_alph(sq)
+.apply_sq <- function(sq, ex_form, im_form, fun, im_alph = .get_alph(sq)) {
+  if (length(sq) == 0) return(sq)
+  ex_alph <- .get_alph(sq)
   if (ex_form == "char") 
-    unpack_fun <- function(s) unpack_chars(s, alph, .get_na_char())
+    unpack_fun <- function(s) unpack_chars(s, ex_alph, .get_na_char())
   else if (ex_form == "int") 
-    unpack_fun <- function(s) unpack_ints(s, .get_alph_size(alph))
+    unpack_fun <- function(s) unpack_ints(s, .get_alph_size(ex_alph))
   else if (ex_form == "string") 
-    unpack_fun <- function(x) unpack_string(s, alph, .get_na_char())
+    unpack_fun <- function(s) unpack_string(s, ex_alph, .get_na_char())
  
   if (im_form == "char")
-    pack_fun <- function(s) pack_chars(s, alph)
+    pack_fun <- function(s) pack_chars(s, im_alph)
   else if (im_form == "int")
-    pack_fun <- function(s) pack_ints(s, .get_alph_size(alph))
+    pack_fun <- function(s) pack_ints(s, .get_alph_size(im_alph))
   else if (im_form == "string")
-    pack_fun <- function(s) pack_string(charToRaw(s), alph)
+    pack_fun <- function(s) pack_string(charToRaw(s), im_alph)
   else if (im_form == "none")
     pack_fun <- identity
 

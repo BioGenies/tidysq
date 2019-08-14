@@ -7,7 +7,7 @@
 complement(nucsq, is_dna = NULL)
 }
 \arguments{
-\item{nucsq}{\code{\link{nucsq}} object of type 'nuc'.}
+\item{nucsq}{\code{\link{sq}} object of type \strong{nuc}.}
 
 \item{is_dna}{logical indicating if entered sequence is DNA or RNA. If 
 'is_dna' is \code{TRUE}, sequences cannot contain 'U' (uracil);
@@ -15,7 +15,7 @@ if is \code{FALSE}, sequences cannot contain 'T' (thymine). If
 \code{NULL} (default) the sequence type is not specified.}
 }
 \value{
-\code{\link{nucsq}} object of the same type as input nucsq but 
+\strong{nucsq} object of the same type as input nucsq but 
 built of complementary nucleotides to entered sequence.
 }
 \description{
@@ -30,10 +30,10 @@ sequence is RNA. By default the sequence type is not specified and the function
 tries to guess which type of sequence was entered. If sequence contain 'U' without 
 'T' the type will be set to RNA. If a sequence contains 'T' (thymine) without 
 'U' (uracil), the type is set to dna. An error is displayed if both 'T' and 'U' 
-are present in the sequence or if the sequence contains 'A' (adenine). If the 
+are present in the sequence or if the sequence contains only 'A' (adenine). If the 
 sequence does not contain 'T' or 'U' or the logical specification is wrong 
 (i.e. if the sequence contains 'U' and the logical specification is set to DNA), 
-an error will also be returned
+an error will also be returned.
 Both RNA and DNA sequences can be rewritten to complementary sequence.
 }
 \examples{

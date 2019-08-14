@@ -34,8 +34,8 @@
             is.na(opt), TRUE, opt)
 }
 
-.is_no_check_mode <- function() {
-  opt <- getOption("tidysq_no_check_mode")
+.is_fast_mode <- function() {
+  opt <- getOption("tidysq_fast_mode")
   
   ifelse (is.null(opt) || 
             !is.logical(opt) || 

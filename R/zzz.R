@@ -5,13 +5,12 @@
     tidysq_bite_na_action = "warning",
     tidysq_subsitute_letters_cln = "warning",
     tidysq_typify_small_cap_let = "warning",
-    tidysq_encode_nogap_action = "none",
-    tidysq_encode_noname_action = "warning",
+    tidysq_encode_no_given_action = "warning",
     tidysq_max_pillar_sq_width = 15,
     tidysq_max_print_sequences = 10,
     tidysq_colorful_sq_print = TRUE,
     tidysq_na_print_char = "!",
-    tidysq_no_check_mode = FALSE
+    tidysq_fast_mode = FALSE
   )
   
   unset_inds <- !(names(new_options) %in% names(prev_options))

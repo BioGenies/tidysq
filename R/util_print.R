@@ -44,45 +44,73 @@ type_sum.clnsq <- function(x) {
 #' 
 #' @description Prints input \code{\link{sq}} object in a human-friendly form.  
 #' 
-#' @details \code{Print} checks if the input \code{\link{sq}} object is cleaned and includes this information alongside with type in the printed message. 
-#' All \code{\link{NA}} values are replaced with '*' and empty sequences are distinguished.
+#' @details \code{Print} method is used by default in each case of calling the 
+#' \code{\link{sq}} object with default parameters. 
+#' Only by explicit calling the \code{print} method parameters can be changed. 
+#'  
+#' \code{Print} checks if the input \code{\link{sq}} object is cleaned and includes 
+#' this information alongside with type in the printed message. On the right side of 
+#' the sequence, in angle brackets, the length of each sequence is printed (e.q. "<9>").
 #' 
-#' \code{Print} method is used by default in each case of calling the \code{\link{sq}} object.
+#' If the \code{max_sequences} parameter is supplied, the desired number of sequences 
+#' is printed and this information is included in message (e.q. "printed 1 out of 3"). 
+#' Only \code{max_sequences} value smaller then the number of sequences in object 
+#' affects the function. The default value indicating how many sequences should 
+#' be printed is 10, but it can be changed in \code{\link[sq-options]{package options}}. 
 #' 
-#' This is overloaded function from base package. It is selected when \code{\link{sq}} object is used as a parameter for print function. To see the generic function page, 
-#' check \link[here]{https://www.rdocumentation.org/packages/base/versions/3.6.1/topics/print}.
+#' Default value of \code{use_color} parameter is \code{TRUE} - sequences are printed
+#' in green and empty sequences, NA character and dots in grey. If this option is disabled, 
+#' all sequences are in default color of console.
 #' 
-#' @param x \code{\link{sq}} object.
-#' @param ... further arguments passed to or from other methods.
+#' The \code{letters_sep} parameter indicates how the letters should be separated 
+#' (they are not by default). Any character string can be supplied but 
+#' \code{\link{NA_character_}}.
+#' 
+#' If sequences are too long, only leading characters are printed (as many as possible
+#' in single line) and following dots indicating that sequence is trunctated.
+#' 
+#' If sequences contain \code{\link{NA}} (‘Not Available’ / Missing Values) values, they 
+#' are printed as "!" character, but it can be changed in 
+#' \code{\link[sq-options]{package options}}.
+#' 
+#' This is overloaded function from base package. It is selected when \code{\link{sq}} 
+#' object is used as a parameter for print function. To see the generic function 
+#' page, check \code{\link[base:print]{here}}.
+#' 
+#' @param x \code{\link{sq}} object
+#' @param max_sequences \code{numeric} value indicating how many sequences 
+#' should be printed
+#' @param use_color \code{logical} value indicating if sequences should 
+#' be colored
+#' @param letters_sep \code{character} value indicating how the letters 
+#' should be separated
+#' @param ... 	further arguments passed to or from other methods. 
+#' Unused.
 #' 
 #' @examples
 #' 
-#' # Creating sq object to work on:
-#' sq <- construct_sq(c("fafasfasfFSA", "ygagayagfa", "adsDaf"), type = "ami")
+#' # Creating sq objects using construct_sq:
+#' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
+#'                          "NYERTGHLI", "MAYXXXIALN"), type = "ami")
+#' sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
+#'                          "TGACGAGCTTA"), type = "nuc")
+#' sq_unt <- construct_sq(c("ATGCAGGA!", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
 #' 
-#' # Printing without explicit function calling:
-#' sq
+#' # Printing without explicit function calling with default parameters:
+#' sq_ami
+#' sq_nuc
+#' sq_unt
 #' 
-#' # Printing with explicit function calling:
-#' print(sq)
+#' # Printing with explicit function calling and specific parameters:
+#' print(sq_ami)
+#' print(sq_nuc, max_sequences = 1, use_color = FALSE)
+#' print(sq_unt, letters_sep = ":")
 #' 
-#' # Explicit printing of the uncleaned object:
-#' print(construct_sq("ACTAGAGTGATAGTAGGAGTAGA", type = "nuc"))
-#'
-#' # Explicit printing of the cleaned object:
-#' print(clean(construct_sq("ACTAGAGTGATAGTAGGAGTAGA", type = "nuc")))
+#' # Printing of the cleaned object:
+#' clean(sq_nuc)
+#' print(clean(sq_nuc), letters_sep = "-", use_color = FALSE)
 #' 
-#' # Explicit printing of the object without defined type:
-#' print(construct_sq(c("afsfd", "q243faadfa", "afsw34gesfv", "adfq2", "fasfas", "g'qp9u2r3'b;")))
-#' 
-#' # Explicit printing of the object with empty sequence:
-#' print(construct_sq(c("afsfd", "", "adfq2", "fasfas", "")))
-#' 
-#' # Explicit printing of the object with NA element:
-#' print(construct_sq(c("afsfd", NA, "adfq2", NA, "")))
-#' 
-#'  
-#' @seealso \link{sq} \link{clean} 
+#' @seealso \link{sq} \link{clean} \link{sq-options}
 #' 
 #' @importFrom crayon blue
 #' @importFrom crayon silver
@@ -93,8 +121,11 @@ type_sum.clnsq <- function(x) {
 print.sq <- function(x,  
                      max_sequences = getOption("tidysq_max_print_sequences"),
                      use_color = getOption("tidysq_colorful_sq_print"), 
-                     letters_sep = NULL) {
-  
+                     letters_sep = NULL, ...) {
+  .check_integer(max_sequences, "'max_sequences'")
+  .check_logical(use_color, "'use_color'")
+  .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
+                   allow_zero_len = TRUE, allow_null = TRUE)
   alph <- .get_alph(x)
   
   #if parameter is NULL and all letters are lenght one, no space
@@ -105,18 +136,24 @@ print.sq <- function(x,
   
   #select at most max_sequences to print
   num_lines <- min(max_sequences, length(x))
+  if (num_lines == 0) {
+    cat(.get_print_empty_sq(x))
+    return()
+  }  
   sq <- x[1:num_lines]
   
   #cut sq object so that we don't need to debitify long sequences
   # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
   sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
-  sq_cut <- .debitify_sq(sq_cut, "char")
+  sq_cut <- .debitify_sq(sq_cut, "int")
+  
   
   #color NA's
-  na_char <- .get_na_char()
-  if (use_color) sq_cut <- lapply(sq_cut, function(s) {
-    s[s == na_char] <- silver(na_char)
-    s
+  na_char <- if (use_color) silver(.get_na_char()) else .get_na_char()
+  na_val <- .get_na_val(alph)
+  alph[na_val] <- na_char
+  sq_cut <- lapply(sq_cut, function(s) {
+    alph[s]
   })
   
   #max index number width
@@ -194,7 +231,12 @@ print.encsq <- function(x,
                         max_sequences = getOption("tidysq_max_print_sequences"),
                         use_color = getOption("tidysq_colorful_sq_print"), 
                         letters_sep = NULL,
-                        digits = 2) {
+                        digits = 2, ...) {
+  .check_integer(max_sequences, "'max_sequences'")
+  .check_logical(use_color, "'use_color'")
+  .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
+                   allow_zero_len = TRUE, allow_null = TRUE)
+  .check_integer(digits, "'digits'", allow_zero = TRUE)
   alph <- .get_alph(x)
   
   #if parameter is NULL default sep is space
@@ -212,15 +254,15 @@ print.encsq <- function(x,
   
   #cut sq object so that we don't need to debitify long sequences
   # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
-  sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
-  sq_cut <- .debitify_sq(sq_cut, "char")
+   sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
+  sq_cut <- .debitify_sq(sq_cut, "int")
   
-  #color NA's
-  na_char <- .get_na_char()
-  if (use_color) sq_cut <- lapply(sq_cut, function(s) {
-    s[s == na_char] <- silver(na_char)
+  sq_cut <- lapply(sq_cut, function(s) {
+    s <- alph[s]
+    s[is.na(s)] <- "NA"
     s
   })
+  
   
   #max index number width
   inds_width <- nchar(num_lines) + 2
@@ -299,17 +341,20 @@ print.encsq <- function(x,
 pillar_shaft.sq <- function(x, ...) {
   p_width <- getOption("width")
   letters_sep <- ""
+  use_color <- .get_color_opt()
+  alph <- .get_alph(x)
   
   #cut sq object so that we don't need to debitify long sequences
   # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
   sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
-  sq_cut <- .debitify_sq(sq_cut, "char")
+  sq_cut <- .debitify_sq(sq_cut, "int")
   
   #color NA's
-  na_char <- .get_na_char()
-  if (.get_color_opt()) sq_cut <- lapply(sq_cut, function(s) {
-    s[s == na_char] <- silver(na_char)
-    s
+  na_char <- if (use_color) silver(.get_na_char()) else .get_na_char()
+  na_val <- .get_na_val(alph)
+  alph[na_val] <- na_char
+  sq_cut <- lapply(sq_cut, function(s) {
+    alph[s]
   })
   
   lens <- .get_lens(x)
@@ -413,18 +458,19 @@ format.pillar_shaft_sq <- function(x, width, ...) {
 pillar_shaft.encsq <- function(x, ...) {
   p_width <- getOption("width")
   letters_sep <- " "
+  use_color <- .get_color_opt()
   
   x <- .set_alph(x, format(.get_alph(x), digits = 1, scientific = FALSE))
+  alph <- .get_alph(x)
   
   #cut sq object so that we don't need to debitify long sequences
   # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
   sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
-  sq_cut <- .debitify_sq(sq_cut, "char")
+  sq_cut <- .debitify_sq(sq_cut, "int")
   
-  #color NA's
-  na_char <- .get_na_char()
-  if (.get_color_opt()) sq_cut <- lapply(sq_cut, function(s) {
-    s[s == na_char] <- silver(na_char)
+  sq_cut <- lapply(sq_cut, function(s) {
+    s <- alph[s]
+    s[is.na(s)] <- "NA"
     s
   })
   
@@ -546,4 +592,20 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   if (length(sq) > num_lines) 
     paste0("printed ", num_lines, " out of ", length(sq), "")
   else ""
+}
+
+.get_print_empty_sq <- function(sq) {
+  type <- .get_sq_type(sq)
+  if (length(type) != 1) {
+    "sq (improper subtype!):"
+  } else {
+    type_msg <- switch(type,
+                       ami = "ami (amino acids)",
+                       nuc = "nuc (nucleotides)",
+                       unt = "unt (unspecified type)",
+                       atp = "atp (atypical alphabet)",
+                       enc = "enc (encoded values)")
+    clean_msg <- if (.is_cleaned(sq)) ", cln (cleaned)" else ""
+    paste0(type_msg, clean_msg, " sequences list of length 0")
+  }
 }
