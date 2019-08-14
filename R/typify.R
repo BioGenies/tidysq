@@ -4,12 +4,12 @@
 #' \strong{nuc} provided that they do not have invalid letters (which can be checked
 #' using \code{\link{get_sq_alphabet}} and \code{\link{get_invalid_letters}})
 #' 
-#' @param sq object of class \code{\link{sq}} with one of types \strong{ami}, \strong{nuc},
-#' \strong{unt} or \strong{atp}
-#' @param dest_type \code{\link{character}} string, destination type, either "ami" or "nuc"
+#' @param sq an object of class \code{\link{sq}} with one of types \strong{ami}, \strong{nuc},
+#' \strong{unt} or \strong{atp}.
+#' @param dest_type \code{\link{character}} string, destination type, either "ami" or "nuc".
 #' 
-#' @return object of class \code{sq} that represents the same sequences as input \code{sq},
-#' but with type as specified in \code{dest_type}
+#' @return An object of class \code{sq} that represents the same sequences as input \code{sq},
+#' but with type as specified in \code{dest_type}.
 #' 
 #' @details 
 #' Sometimes during reading \code{sq} from fasta file (using \code{\link{read_fasta}}) or 
@@ -29,7 +29,7 @@
 #' 
 #' If \code{sq} contains both lower and uppercase letters, they will be converted to uppercase, but
 #' a message informing about it will be printed in the console. This action is default and can
-#' be changed in package options (see \code{\link{sq-options}}).
+#' be changed in package options (see \code{\link{tidysq-options}}).
 #' 
 #' Output \code{sq} object will not have \strong{cln} subtype, even if all letters of it fit in
 #' clean alphabet of destination type (with exception of passing already clean object as input).

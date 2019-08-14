@@ -1,13 +1,14 @@
 #' Import sq objects from other objects
 #' 
-#' Creates \code{\link[sq]{sq object}} from \code{object} of class from another package.
-#' Currently supported packages are \code{ape} with its formats (\code{AAbin} and \code{DNAbin}),
-#' \code{Bioconductor} (\code{AAStringSet}, \code{DNAStringSet}) and
-#' \code{seqinr} (\code{SeqFastaAA}, \code{SeqFastadna}).
+#' Creates \code{\link[=sq]{sq object}} from \code{object} of class from another package.
+#' Currently supported packages are \pkg{ape} with its formats (\code{AAbin} and \code{DNAbin}),
+#' \pkg{Bioconductor} (\code{AAStringSet}, \code{DNAStringSet}) and
+#' \pkg{seqinr} (\code{SeqFastaAA}, \code{SeqFastadna}).
 #' 
 #' @param object - an object of one of classes: \code{AAbin}, \code{DNAbin}, \code{AAStringSet}, 
-#' \code{DNAStringSet}, \code{SeqFastaAA}, \code{SeqFastadna}
-#' @return a \code{tibble} with \code{sq} column of \code{\link{sq}} type representing the same 
+#' \code{DNAStringSet}, \code{SeqFastaAA}, \code{SeqFastadna}.
+#' @return A \code{\link[tibble]{tibble}} with \code{sq} column of \code{\link{sq}} type 
+#' representing the same 
 #' sequences as given object; the object has a type corresponding to the input type; if given
 #' sequences had names, output tibble has also another column \code{name} with those names
 #' 

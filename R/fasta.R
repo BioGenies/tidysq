@@ -1,21 +1,23 @@
 #' Read a FASTA file
 #'
 #' Reads a FASTA file of nucleotides or amino acids file and returns
-#' a sqtibble with number of rows corresponding to the number of sequences and two
-#' columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
-#' @param file a \code{character} string indicating path to file or url
+#' a \code{\link[tibble]{tibble}} with number of rows corresponding to the number of sequences 
+#' and two columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
+#' @param file a \code{\link{character}} string indicating path to file or url.
 #' @inheritParams construct_sq
+#' @return 
+#' A \code{\link[tibble]{tibble}} with number of rows corresponding to the number of sequences 
+#' and two columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
 #' @details 
-#' All rules of creating sq objects are the same as in \code{\link{construct_sq}}
+#' All rules of creating sq objects are the same as in \code{\link{construct_sq}}.
 #' @examples
 #' read_fasta(system.file(package = "tidysq", 
 #'                      "sample_fasta/sample_ami.fasta"))
 #' \dontrun{
 #' read_fasta("https://www.uniprot.org/uniprot/P28307.fasta")
 #' }
-#' @seealso \code{\link[base]{readLines}}, \code{\link{construct_sq}}
-#' @importFrom stringi stri_detect_regex
-#' @importFrom stringi stri_join
+#' @seealso \code{\link[base]{readLines}} \code{\link{construct_sq}}
+#' @importFrom stringi stri_detect_regex stri_join
 #' @export
 read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) {
   .check_character(file, "'file'", single_elem = TRUE)
@@ -61,11 +63,11 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
 #' Save sq to fasta file
 #' 
 #' Writes \code{\link{sq}} objects with their names to a fasta file.
-#' @param sq \code{\link{sq}} object
-#' @param name a \code{\link{character}} vector of length equal to \code{sq} length
-#' @param file a \code{\link{character}} string indicating path to file to write into
+#' @param sq a \code{\link{sq}} object.
+#' @param name a \code{\link{character}} vector of length equal to \code{sq} length.
+#' @param file a \code{\link{character}} string indicating path to file to write into.
 #' @param nchar a posiitive \code{\link{integer}} value informing about maximum number of 
-#' characters to put in each line of file
+#' characters to put in each line of file.
 #' @export
 write_fasta <- function(sq, name, file, nchar = 80) {
   validate_sq(sq)

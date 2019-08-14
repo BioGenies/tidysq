@@ -3,10 +3,11 @@
 #' @description Encode sequences, stored in \code{\link{sq}} object, with 
 #' numeric values defined by user in named vector.
 #' 
-#' @param sq \code{\link{sq}} object.
-#' @param encoding \code{encoding} a named vector, that consists of nucleic or amino acid letters 
-#' with their numeric encoding. Letters without assigned encoding will be shown as \code{NA}.
-#' 
+#' @param sq a \code{\link{sq}} object.
+#' @param encoding \code{encoding} a named \code{\link{numeric}} vector, that consists of 
+#' values assigned to nucleic or amino acid letters. Letters without assigned encoding will 
+#' be shown as \code{\link[=sq]{NA}}. Names of vector should be unique and should be elements
+#' of alphabet of \code{sq} object.
 #' 
 #' @return \code{\link{sq}} object of type\strong{enc}.
 #' 
@@ -19,14 +20,20 @@
 #' shift index, probability matrix (BLOSUM, PAM), 
 #' sequence profile or reduced alphabet.
 #' 
-#' The newly constructed sequence will have a type \strong{enc} (see details in \code{\link{sq}}), 
-#' which represents encoded sequences.
+#' The newly constructed sequence will have a type \strong{enc} (see details on types 
+#' in \code{\link{sq}}), which represents encoded sequences.
 #' 
 #' The named vector (ex. \code{c(G = 1, K = 2, P = 2)}) should have all letters 
-#' assigned, otherwise unasigned letters will be shown as \code{NA}.
+#' assigned, otherwise unasigned letters will be shown as \code{NA}. If any letter that
+#' appears in alphabet appears in at least one of sequences, user will be informed about it.
+#' Default action is a warning printed in the console, but it can be changed via setting
+#' "tidysq_encode_no_given_action" (see details at \code{\link{tidysq-options}}).
 #' 
-#' All replaced values will have the numeric type.
+#' In fact the only thing that is replaced is an alphabet - letters are substituted
+#' with values assigned to them. Internal structure of object is not changed.
 #' 
+#' If one wants to access numeric values of encoded sequences, they may use 
+#' \code{\link{as.matrix}} or \code{\link{encsq_to_list}}.
 #' 
 #' @examples 
 #' 
@@ -114,7 +121,7 @@
 #' encode(sq_ami, enc_aa)
 #' 
 #' 
-#' @seealso sq encsq
+#' @seealso \code{\link{sq}} \code{\link{as.matrix}} or \code{\link{encsq_to_list}}
 #' 
 #' @exportClass encsq
 #' @export

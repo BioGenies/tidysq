@@ -7,27 +7,29 @@
 \method{as.matrix}{sq}(x, ...)
 }
 \arguments{
-\item{x}{\code{\link{sq}} object to be converted}
+\item{x}{a \code{\link{sq}} object to be converted.}
 
-\item{...}{further arguments to be passed from or to other methods}
+\item{...}{further arguments to be passed from or to other methods.}
 }
 \value{
-a matrix with number of rows the same as number of sequences
+A \code{\link{matrix}} with number of rows the same as number of sequences
 and number of columns corresponding to the length of the longest sequence
-in the converted sq object.
+in the converted sq object. Matrix is either character (if type of \code{sq} is
+\strong{ami}, \strong{nuc}, \strong{atp} or \strong{unt}) or numeric (if type
+is \strong{enc}).
 }
 \description{
-Coerce sequences from a sq object to a matrix, in which rows
-correspond to sequences and columns to positions
+Coerce sequences from a \code{\link{sq}} object to a 
+\code{\link{matrix}}, in which rows correspond to sequences and columns to positions
 }
 \details{
-This method for class sq allows converting sequences from
+This method for class \code{sq} allows converting sequences from
 the sq object into a matrix. Each row corresponds to the seperate sequence
 from the sq object, whereas each column indicates a single position within 
 a sequence. Dimensions of matrix are determined by the number of sequences 
 (rows) and the length of the longest sequence (columns). If a length of
 sequence is smaller than the lenght of the longest sequence, the remaining
-columns will be filled with NA. All attributes of the input sq are lost 
+columns will be filled with \code{\link{NA}}. All attributes of the input \code{sq} are lost 
 during the conversion to matrix.
 }
 \examples{
@@ -46,5 +48,5 @@ as.matrix(sq_diff_len)
 
 }
 \seealso{
-sq
+\code{\link{sq}}
 }

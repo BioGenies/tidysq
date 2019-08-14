@@ -10,7 +10,7 @@ get_sq_lengths(sq)
 \item{sq}{a \code{\link{sq}} object.}
 }
 \value{
-a \code{\link{numeric}} vector, where each element gives length of according 
+A \code{\link{numeric}} vector, where each element gives length of according 
 sequence from \code{\link{sq}} object.
 }
 \description{

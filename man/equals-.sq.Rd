@@ -7,29 +7,29 @@
 \method{==}{sq}(x1, x2)
 }
 \arguments{
-\item{x1}{\code{\link{sq}} object.}
+\item{x1}{a \code{\link{sq}} object.}
 
 \item{x2}{an object (character vector or sq object) to compare with \code{\link{sq}}.}
 }
 \value{
-logical vector indicating on which positions objects are the same
+A \code{\link{logical}} vector indicating on which positions objects are the same
 }
 \description{
 Compares input \code{\link{sq}} object with another given.
 }
 \details{
-\code{`==`} converts left hand side of comparision (x1) to chracters 
+\code{`==`} converts left hand side of comparision (\code{x1}) to chracters 
 vector using \code{\link{as.character}} and checks whether given on the right side 
 object can be compared with \code{\link{sq}} object. Function also check 
 the type of \code{\link{sq}} object with which given object will be compared.
 If the type of \code{\link{sq}} object is ami or nuc and given sequence  is 
 character vector consisting lowercase, the function rewrites it into capital ones
-with usage \code{\link{toupper}}. If right hand side object (x2) is \code{\link{sq}}
+with usage \code{\link{toupper}}. If right hand side object (\code{x2}) is \code{\link{sq}}
 it is converted to character vector using also \code{\link{as.character}} function.
 
 When both objects are already converted to character vectors, comparision is done 
 elementwise with standard R rules, (e.g. recycling is used). You can check details 
-\code{\link[Compare]{here}}.
+\code{\link[base:Comparison]{here}}.
 
 Comparing sequences as characters vectors cause that various types of sequences
 can be compared for example aminoacids with nucleotides sequences so attention 
@@ -72,5 +72,5 @@ sq == c('RISGQQD','RISGQQD')
  
 }
 \seealso{
-sq as.character is.sq
+\code{\link{sq}} \code{\link{as.character}} \code{\link{is.sq}}
 }

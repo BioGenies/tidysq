@@ -13,17 +13,17 @@ using \code{\link{encode}} function.
 In a new object you can check what value is assigned to each letter.}
 }
 \value{
-A named lists with sequences and theirs encoding.
+A list with named numeric vectors. Each vector represents values assigned to
+according sequnence with \code{\link{encode}} function. Vectors are named and their names
+are letters of original sequences.
 }
 \description{
-Transform encoded by \code{\link{encode}} sequence, stored in
+Transform encoded by \code{\link{encode}} sequence, stored in a
 \code{\link{sq}} object, to a list.
 }
 \details{
 Function is used to transform an \code{\link{sq}} object with 
-\strong{enc} type to a named list.
-
-Each nucleic or amino acid sequence and assigned encodings.
+\strong{enc} type to a list, which can be more useful in some cases.
 }
 \examples{
 
@@ -118,5 +118,5 @@ ee1[[1]]["T"]
 
 }
 \seealso{
-sq encsq encode
+\code{\link{sq}} \code{\link{encode}}
 }

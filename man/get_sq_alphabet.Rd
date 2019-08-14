@@ -10,7 +10,7 @@ get_sq_alphabet(sq)
 \item{sq}{a \code{\link{sq}} object to be recognized.}
 }
 \value{
-a character vector of letters of the alphabet.
+A character vector of letters of the alphabet.
 }
 \description{
 Function returns amino acid, nucleotide or atypical alphabet based on a \code{\link{sq}} 

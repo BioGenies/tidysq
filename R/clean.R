@@ -1,25 +1,25 @@
 #' Clean sequences containing ambiguous elements
 #' 
-#' Remove sequences containing ambiguous elements or remove ambiguous 
-#' elements from sequences in a sq object.
+#' Removes sequences containing ambiguous elements or removes ambiguous 
+#' elements from sequences in a \code{sq} object.
 #' 
-#' @param sq \code{\link{sq}} object of type \strong{ami} or \strong{nuc}
-#' @param only_elements logical indicating if only ambiguous elements
+#' @param sq a \code{\link{sq}} object of type \strong{ami} or \strong{nuc}.
+#' @param only_elements \code{\link{logical}} value indicating if only ambiguous elements
 #' (i.e., matching more than one amino acid/nucleotide) of sequences should
 #' be removed. If \code{FALSE} (default) whole sequences containing ambiguous 
 #' elements are removed.
 #'  
-#' @return a \code{\link{sq}} object with the \strong{cln} subtype. 
+#' @return A \code{\link{sq}} object with the \strong{cln} subtype. 
 #' 
 #' @details This function allows cleaning of sequences containing ambiguous
 #' elements. By default, sequences containing ambiguous elements are removed 
-#' and \code{NULL sq} values are introduced in their place. If 
+#' and \code{\link[=sq]{NULL}} (empty) sequences are introduced in their place. If 
 #' \code{only_elements = TRUE} then only ambiguous elements are removed 
-#' from sequences in sq object. Ambiguous letters of the amino acid alphabet 
+#' from sequences in \code{sq} object. Ambiguous letters of the amino acid alphabet 
 #' are: B, J, O, U, X, Z, and of the nucleotide alphabet: W, S, M, K, R, 
 #' Y, B, D, H, V, N. They are marked as 'amb' in \code{\link{aminoacids_df}} 
-#' and \code{\link{nucleotides_df}} respectively. \code{NULL sq} values can
-#' be identified using \code{\link{is_null_sq}} function. 
+#' and \code{\link{nucleotides_df}} respectively. \code{\link[=sq]{NULL}} values (empty sequences) 
+#' can be identified using \code{\link{is_null_sq}} function. 
 #'
 #' @examples 
 #' # Creating objects to work on:
