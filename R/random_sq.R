@@ -7,7 +7,7 @@
 #' @param len a positive \code{\link{integer}} value - length of each sequence if \code{sd} not 
 #' specified and mean length of sequences if \code{sd} spedified.
 #' @param type a type of generated sq object; possible values are "ami" and "nuc" (see section
-#' \emph{sq types} in \code{\link[=sq]{sq class}} documentation for details).
+#' \emph{sq types} in \code{\link[sq]{sq}} documentation for details).
 #' @param is_clean a \code{\link{logical}} value - if \code{TRUE}, letters will be drawn from
 #' clean alphabet, if \code{FALSE} - ambiguous letters might be also generated.
 #' @param sd a positive \code{\link{numeric}} value; if specified, gives standard deviation of

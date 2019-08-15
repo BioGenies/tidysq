@@ -221,7 +221,7 @@
   .check_simple(any(is.nan(dists_f)), "any of elements of 'dists'", "cannot contain NaN values")
   .check_simple(any(is.infinite(dists_f)), "any of elements of 'dists'", "cannot contain infinite values")
   .check_simple(any(dists_f < 0), "any of elements of 'dists'", "cannot be negative")
-  .check_is_unique(dists, "'dists'")
+  #.check_is_unique(dists, "'dists'")
 }
 
 .check_alph_is_subset <- function(sq, alph) {

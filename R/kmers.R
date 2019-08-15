@@ -1,7 +1,73 @@
+#' Count k-mers in sequences
+#'
+#' Counts all k-mers or position-specific k-mers present in the input sequence(s).
+#'
+#' @param sq a vector or matrix describing sequence(s). 
+#' @param lens \code{integer} vector of lengths of k-mers.
+#' @param dists \code{integer} vector of distances between elements of k-mer (0 means 
+#' consecutive elements). See Details.
+#' @param alph \code{integer}, \code{numeric} or \code{character} vector of all
+#' possible elements of the alphabet.
+#' @param position \code{logical}, if \code{TRUE} position-specific k-mers are counted.
+#' 
+#' @details \code{ns} vector and \code{ds} vector must have equal length. Elements of 
+#' \code{ds} vector are used as equivalents of \code{d} parameter for respective values 
+#' of \code{ns}. For example, if \code{ns} is \code{c(4, 4, 4)}, the \code{ds} must be a list of 
+#' length 3. Each element of the \code{ds} list must have length 3 or 1, as appropriate
+#' for a \code{d} parameter in \code{count_ngrams} function.
+#' 
+#' A \code{dists} vector should be always \code{n} - 1 in length.
+#' For example when \code{n} = 3, \code{d} = c(1,2) means A_A__A. For \code{n} = 4, 
+#' \code{d} = c(2,0,1) means A__AA_A. If vector \code{d} has length 1, it is recycled to
+#' length \code{n} - 1.
+#' 
+#' k-mer names follow a specific convention and have three parts for position-specific
+#' k-mers and two parts otherwise. The parts are separated by \code{_}. The \code{.} symbol
+#' is used to separate elements within a part. The general naming scheme is 
+#' \code{POSITION_KMER_DISTANCE}. The optional \code{POSITION} part of the name indicates
+#' the actual position of the k-mer in the sequence(s) and will be present 
+#' only if \code{pos} = \code{TRUE}. This part is always a single integer. The \code{KMER}
+#' part of the name is a sequence of elements in the k-mer. For example, \code{4.2.2}
+#' indicates the k-mer 422 (e.g. TCC). The \code{DISTANCE} part of the name is a vector of
+#' distance(s). For example, \code{0.0} indicates zero distances (continuous k-mers), while
+#' \code{1.2} represents distances for the k-mer A_A__A.
+#' 
+#' Examples of k-mer names:
+#' \itemize{
+#' \item{46_4.4.4_0.1 : trigram 44_4 on position 46}
+#' \item{12_2.1_2     : bigram 2__1 on position 12}
+#' \item{8_1.1.1_0.0  : continuous trigram 111 on position 8}
+#' \item{1.1.1_0.0    : continuous trigram 111 without position information}
+#' }
+#' 
+#' @return a \code{\link[slam]{simple_triplet_matrix}} where columns represent
+#' k-mers and rows sequences. See \code{Details} for specifics of the naming convention.
+#' 
+#' @note By default, the counted k-mer data is stored in a memory-saving format.
+#' To convert an object to a 'classical' matrix use the \code{\link[base]{as.matrix}}
+#' function. See examples for further information.
 #' @export
-count_kmers <- function(sq, dists, alph = NULL, position = FALSE) {
+#' @seealso 
+#' Extract k-mers from sequence(s): \code{\link{extract_kmers}}.
+#' @examples 
+#' random_sqs <- random_sq(5, 20, type = "nuc", is_clean = TRUE)
+#' 
+#' # count 1-mers without position information for nucleotides
+#' count_kmers(random_sqs, 1, 0, alph = c("A", "C", "G", "T"), pos = FALSE)
+#' 
+#' # count position-specific 3-mers from multiple nucleotide sequences
+#' kmers <- count_kmers(random_sqs, 3, c(0, 0, 0), 
+#'                      alph = c("A", "C", "G", "T"), pos = TRUE)
+#' 
+#' # output results of the k-mer counting to screen
+#' as.matrix(kmers)
+#' 
+#' # count multiple k-mers of different lengths and distances
+#' count_kmers(random_sqs, c(1, 2, 2), list(0, 0, 1), 
+#'             alph = c("A", "C", "G", "T"), pos = FALSE)
+#' @export
+count_kmers <- function(sq, lens = 0, dists = list(0), alph = NULL, position = FALSE) {
   validate_sq(sq)
-  .check_isnt_missing(dists, "'dists'")
   .check_isnt_null(dists, "'dists'")
   if (is.list(dists)) 
     .check_list_dists(dists)
@@ -10,14 +76,20 @@ count_kmers <- function(sq, dists, alph = NULL, position = FALSE) {
     dists <- list(dists)
   }
   .check_dists_prop_len(sq, dists)
+  
+  if(length(lens) != length(dists)) {
+    stop("lens vector and distances vector must have equal length.", call. = FALSE)
+  }
+  
   .check_isnt_missing(alph, "'alph'")
   if (is.null(alph)) alph <- .get_alph(sq)
   else .check_alph_is_subset(sq, alph)
   .check_logical(position, "'position'", single_elem = TRUE)
   sqmatrix <- as.matrix(sq)
   n_patterns <- length(dists)
+
   do.call(cbind, lapply(1:n_patterns, function(i) {
-    count_pattern_kmers(sqmatrix, dists[[i]], position, alph)
+    count_pattern_kmers(sqmatrix, lens[i], dists[[i]], position, alph)
   }))
 }
 
@@ -53,10 +125,10 @@ extract_kmers <- function(sq, dists) {
 } 
 
 #' @import slam
-count_pattern_kmers <- function(sqmatrix, dst, position, alph) {
+count_pattern_kmers <- function(sqmatrix, len, dst, position, alph) {
   len_sq <- ncol(sqmatrix)
   num_sq <- nrow(sqmatrix)
-  len <- sum(dst) + length(dst) + 1
+
   possib_ngrams <- create_ngrams(len, alph)
   ngram_ind <- get_ngrams_ind(len_sq, len, dst)
   max_grams <- calc_max_ngrams(len_sq, len, ngram_ind)
@@ -130,7 +202,7 @@ calc_max_ngrams <- function(len_sq, len, ngram_ind) {
   max_grams <- len_sq - len - sum(attr(ngram_ind, "dst")) + 1
   #this check should be moved to validation of input data 
    if (max_grams < 1) {
-    stop("n-gram too long.")
+    stop("k-mer too long.")
   }
   max_grams
 }
@@ -139,7 +211,7 @@ calc_max_grams <- function(len_seq, len, ngram_ind){
   # use attr(ngram_ind, "d") instead of d because of distance recycling
   max_grams <- len_seq - len - sum(attr(ngram_ind, "d")) + 1
   if (max_grams < 1)
-    stop("n-gram too long.")
+    stop("k-mer too long.")
   max_grams
 }
 seq2ngrams_helper <- function(sq, ind, max_grams) {
