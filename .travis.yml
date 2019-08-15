@@ -1,0 +1,26 @@
+language: r
+cache: packages
+r_check_args: --as-cran 
+r_build_args: --compact-vignettes=both
+
+r:
+  - oldrel
+  - release
+  - devel
+
+r_github_packages:
+  - r-lib/covr
+
+before_install:
+  - export DISPLAY=:99.0
+
+services:
+  - xvfb
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+after_success:
+    - Rscript -e 'covr::codecov()'
