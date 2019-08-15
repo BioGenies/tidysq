@@ -64,6 +64,7 @@ To convert an object to a 'classical' matrix use the \code{\link[base]{as.matrix
 function. See examples for further information.
 }
 \examples{
+set.seed(1410)
 random_sqs <- random_sq(5, 20, type = "nuc", is_clean = TRUE)
 
 # count 1-mers without position information for nucleotides

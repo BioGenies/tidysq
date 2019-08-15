@@ -50,6 +50,7 @@
 #' @seealso 
 #' Extract k-mers from sequence(s): \code{\link{extract_kmers}}.
 #' @examples 
+#' set.seed(1410)
 #' random_sqs <- random_sq(5, 20, type = "nuc", is_clean = TRUE)
 #' 
 #' # count 1-mers without position information for nucleotides
@@ -93,35 +94,48 @@ count_kmers <- function(sq, lens = 0, dists = list(0), alph = NULL, position = F
   }))
 }
 
+#' Extract k-mers from sequences
+#'
+#' Extracts vector of k-mers present in sequence(s).
+#'
+#' @inheritParams count_kmers
+#' @details A format of \code{d} vector is discussed in Details of 
+#' \code{\link{count_kmers}}.
+#' @return A \code{character} matrix of k-mers, where every row corresponds to a
+#' different sequence.
+#' @examples 
+#' set.seed(1410)
+#' random_sqs <- random_sq(3, 5, type = "nuc", is_clean = TRUE)
+#' 
+#' # 1-mers
+#' extract_kmers(random_sqs, lens = 1, dists = list(0))
+#' 
+#' # 2-mers with and without gap
+#' extract_kmers(random_sqs, lens = c(2, 2), dists = list(0, 1))
 #' @export
-extract_kmers <- function(sq, dists) {
+extract_kmers <- function(sq, lens = 0, dists = list(0)) {
   validate_sq(sq)
-  .check_integer(dists, "'dists'", allow_zero_len = TRUE, allow_zero = TRUE)
-  .check_dists_prop_len(sq, dists)
-  
-  lens <- .get_lens(sq)
-  n <- length(sq)
-  kmers_len <- sum(dists) + length(dists) + 1
-  
+  #.check_integer(dists, "'dists'", allow_zero_len = TRUE, allow_zero = TRUE)
+  #.check_dists_prop_len(sq, dists)
+  sq_lens <- .get_lens(sq)
   sqmatrix <- as.matrix(sq)
   
-  kmers <- do.call(c, lapply(1:n, function(i) {
-    do.call(c, lapply(1:(lens[i] - kmers_len + 1), function(ind) 
-      paste(sqmatrix[i, ind:(ind + kmers_len - 1)], collapse = "")))
+  do.call(rbind, lapply(1L:nrow(sqmatrix), function(ith_seq) {
+    ngram_ind <- lapply(1L:length(lens), function(i) 
+      get_ngrams_ind(len_seq = sq_lens[ith_seq], len = lens[i], dst = dists[[i]]))
+    
+    max_grams <- lapply(1L:length(lens), function(i) 
+      calc_max_grams(len_seq = sq_lens[ith_seq], len = lens[i], ngram_ind = ngram_ind[[i]]))
+    
+    
+    kmers_vector <- do.call(c, lapply(1L:length(lens), function(i) {
+      grams <- na.omit(seq2ngrams_helper(sqmatrix[ith_seq, ], ind = ngram_ind[[i]], max_grams[i]))
+      paste(grams, paste0(attr(ngram_ind[[i]], "d"), collapse = "."),
+            sep = "_")
+    }))
+    # TODO: add position and the kmer in the sq format
+    tibble(origin_sq = sq[ith_seq], kmer = kmers_vector)
   }))
-  
-  ret_sq <- sq[do.call(c, lapply(1:n, function(i) rep(i, lens[i] - kmers_len + 1)))]
-  
-  ngram_ind <- lapply(lens, get_ngrams_ind, len = kmers_len, dst = dists)
-  max_grams <- sapply(1:n, function(i) calc_max_grams(lens[i], kmers_len, ngram_ind[i]))
-  
-  ret_ids <- do.call(c, lapply(1:n, function(i) {
-    grams <- na.omit(seq2ngrams_helper(sqmatrix[i, ], ind = ngram_ind[[i]], max_grams[i]))
-    paste(grams, paste0(attr(ngram_ind[[i]], "d"), collapse = "."),
-          sep = "_")
-  }))
-  
-  tibble(sq = ret_sq, kmer_id = ret_ids, kmer = construct_sq(kmers))
 } 
 
 #' @import slam
