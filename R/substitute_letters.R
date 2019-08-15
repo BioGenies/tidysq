@@ -12,7 +12,7 @@
 #' It cannot be used to merge surrounding characters.
 #' 
 #' 
-#' @param sq a \code{\link{sq}} object.
+#' @inheritParams reverse
 #' @param encoding a vector of letters to be replaced together with their replacements.
 #' One letter can be replaced with multiple symbols. 
 #' To perform substitution create a named vector ex. 

@@ -3,7 +3,7 @@
 #' @description Extracts a defined range of elements (amino acids or nucleotides) 
 #' from a sequence.
 #' 
-#' @param sq a \code{\link{sq}} object.
+#' @inheritParams reverse
 #' @param indices a \code{\link{numeric}} vector of subsequence indices to extract from
 #' each sequence. The function follows the normal R conventions for indexing 
 #' vectors, including negative indices.

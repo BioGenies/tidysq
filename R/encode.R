@@ -3,7 +3,7 @@
 #' @description Encode sequences, stored in \code{\link{sq}} object, with 
 #' numeric values defined by user in named vector.
 #' 
-#' @param sq a \code{\link{sq}} object.
+#' @inheritParams reverse
 #' @param encoding \code{encoding} a named \code{\link{numeric}} vector, that consists of 
 #' values assigned to nucleic or amino acid letters. Letters without assigned encoding will 
 #' be shown as \code{\link[=sq]{NA}}. Names of vector should be unique and should be elements

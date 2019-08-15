@@ -3,10 +3,7 @@
 #' Removes sequences containing ambiguous elements or removes \code{\link[=sq]{NA values}} 
 #' from sequences in a \code{\link{sq}} object.
 #' 
-#' @param sq a \code{\link{sq}} object of type \strong{ami} or \strong{nuc}.
-#' @param only_elements a \code{\link{logical}} value indicating if only \code{NA} values of 
-#' sequences should be removed. If \code{FALSE} (default) whole sequences containing \code{NA} 
-#' values are removed.
+#' @inheritParams clean
 #'  
 #' @return A \code{\link{sq}} object with the same type as input type. Sequences not containing
 #' any \code{\link[=sq]{NA}} values are left untouched.

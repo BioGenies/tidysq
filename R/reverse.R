@@ -2,7 +2,7 @@
 #' 
 #' @description Reverse given list of sequences.
 #' 
-#' @param sq a \code{\link{sq}} object
+#' @param sq a \code{\link{sq}} object.
 #' 
 #' @details The \code{reverse} function reverses each sequence in supplied 
 #' \code{\link{sq}} object (e.q. transforms "MIAANYTWIL" to "LIWTYNAAIM"). 

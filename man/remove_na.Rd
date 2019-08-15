@@ -9,9 +9,10 @@ remove_na(sq, only_elements = FALSE)
 \arguments{
 \item{sq}{a \code{\link{sq}} object of type \strong{ami} or \strong{nuc}.}
 
-\item{only_elements}{a \code{\link{logical}} value indicating if only \code{NA} values of 
-sequences should be removed. If \code{FALSE} (default) whole sequences containing \code{NA} 
-values are removed.}
+\item{only_elements}{\code{\link{logical}} value indicating if only ambiguous elements
+(i.e., matching more than one amino acid/nucleotide) of sequences should
+be removed. If \code{FALSE} (default) whole sequences containing ambiguous 
+elements are removed.}
 }
 \value{
 A \code{\link{sq}} object with the same type as input type. Sequences not containing
