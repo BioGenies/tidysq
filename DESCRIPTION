@@ -50,6 +50,6 @@ LinkingTo: Rcpp
 Suggests: AmyloGram (>= 1.0),
           testthat (>= 2.1.0),
           ape (>= 5.3),
-          Biostrings (>= 2.52.0),
+          Biostrings (>= 2.50.2),
           seqinr (>= 3.4-5)
           
