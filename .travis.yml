@@ -2,6 +2,11 @@ language: r
 cache: packages
 r_check_args: --as-cran 
 r_build_args: --compact-vignettes=both
+use_bioc: true
+bioc_required: true
+
+bioc_packages:
+  - Biostrings
 
 r:
   - oldrel
