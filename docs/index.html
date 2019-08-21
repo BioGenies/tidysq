@@ -69,13 +69,22 @@
 <div id="tidysq-package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tidysq-package" class="anchor"></a>tidysq package</h2>
-<p>This package contains tools for analysis of biological sequences amino acids (e.g., peptides, proteins) or nucleic acids (e.g., RNA, DNA). Through the effective compression of the sequence data, <em>tidysq</em> streamlines work on very large datasets in <strong>R</strong>.</p>
-</div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<p>This package contains tools for analysis of biological sequences of amino acids (e.g., peptides, proteins) or nucleic acids (e.g., RNA, DNA). Through the efficient compression of the sequence data, <em>tidysq</em> allows studies of very large datasets in <strong>R</strong>.</p>
+<div id="installation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h3>
 <p>You can install the latest development version of the package using the <code>devtools</code> R package.</p>
 <pre><code><a href="https://www.rdocumentation.org/packages/base/topics/source">source("https://install-github.me/michbur/tidysq")</a></code></pre>
+</div>
+</div>
+<div id="troubleshooting" class="section level2">
+<h2 class="hasAnchor">
+<a href="#troubleshooting" class="anchor"></a>Troubleshooting</h2>
+<p>This package heavily utilizes Rcpp to assure the fastest compression of the sequence data. If you have any compiler-related issues, as “clang: error: unsupported option ‘-fopenmp’”, please follow <a href="https://github.com/RcppCore/RcppArmadillo/issues/143">these instructions</a>.</p>
+</div>
+<div id="citation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#citation" class="anchor"></a>Citation</h2>
 <p>For citation type:</p>
 <pre><code><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation("tidysq")</a></code></pre>
 <p>or use: Michal Burdukiewicz, Dominik Rafacz, Weronika Puchala, Filip Pietluch, Katarzyna Sidorczuk, Stefan Roediger and Leon Eyrich Jessen (2019). tidysq: N-Gram Analysis of Biological Sequences. R package version 1.0.</p>

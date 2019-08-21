@@ -15,7 +15,7 @@ as.sq(x, ...)
 A \code{sq} object
 }
 \description{
-This generic funciton takes an object of arbitrary type and returns a \code{\link{sq}} object 
+This generic function takes an object of arbitrary type and returns a \code{\link{sq}} object 
 as an output. Default implementation of the method throws an error - there needs to be 
 implemented a method for specified class in order for function to work.
 }

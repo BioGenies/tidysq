@@ -2,19 +2,23 @@
 [![codecov.io](https://codecov.io/github/michbur/tidysq/coverage.svg?branch=master)](https://codecov.io/github/michbur/tidysq?branch=master) 
 
 
-tidysq package
-------------
+## tidysq package
 
-This package contains tools for analysis of biological sequences amino acids (e.g., peptides, proteins) or nucleic acids (e.g., RNA, DNA). Through the effective compression of the sequence data, *tidysq* streamlines work on very large datasets in **R**.
+This package contains tools for analysis of biological sequences of amino acids (e.g., peptides, proteins) or nucleic acids (e.g., RNA, DNA). Through the efficient compression of the sequence data, *tidysq* allows studies of very large datasets in **R**.
 
-Installation
-------------
+### Installation
 
 You can install the latest development version of the package using the `devtools` R package.
 
 ```
 source("https://install-github.me/michbur/tidysq")
 ```
+
+## Troubleshooting
+
+This package heavily utilizes Rcpp to assure the fastest compression of the sequence data. If you have any compiler-related issues, as "clang: error: unsupported option '-fopenmp'", please follow [these instructions](https://github.com/RcppCore/RcppArmadillo/issues/143).
+
+## Citation
 
 For citation type:
 

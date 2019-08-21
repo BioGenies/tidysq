@@ -106,7 +106,7 @@ type will be set to it. Otherwise, an error will be thrown.
 \item If you specify \code{type} as "unt" and won't neither \code{is_clean} nor 
 \code{non_standard}, type will be set to \strong{unt}. Letters won't be converted to uppercase, 
 alphabet will consist of all letters found in sequences. 
-\item If you do not sepcify neither \code{type} nor \code{is_clean} and specify 
+\item If you do not specify neither \code{type} nor \code{is_clean} and specify 
 \code{non_standard} parameter, which should be character vector where each element is at least 
 two characters long, all strings as specified will be detected in sequences and treated as 
 letters in constructed \strong{atp} \code{sq}.

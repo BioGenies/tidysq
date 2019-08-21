@@ -3,7 +3,7 @@
   
   new_options <- list(
     tidysq_bite_na_action = "warning",
-    tidysq_subsitute_letters_cln = "warning",
+    tidysq_substitute_letters_cln = "warning",
     tidysq_typify_small_cap_let = "warning",
     tidysq_encode_no_given_action = "warning",
     tidysq_max_pillar_sq_width = 15,

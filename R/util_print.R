@@ -128,7 +128,7 @@ print.sq <- function(x,
                    allow_zero_len = TRUE, allow_null = TRUE)
   alph <- .get_alph(x)
   
-  #if parameter is NULL and all letters are lenght one, no space
+  #if parameter is NULL and all letters are length one, no space
   if (is.null(letters_sep)) {
     letters_sep <- if (all(nchar(alph) == 1)) "" else " "
   }
@@ -143,7 +143,7 @@ print.sq <- function(x,
   sq <- x[1:num_lines]
   
   #cut sq object so that we don't need to debitify long sequences
-  # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
+  # 6 is minimum length of p_lens and p_inds, 8 is byte length
   sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .debitify_sq(sq_cut, "int")
   
@@ -166,7 +166,7 @@ print.sq <- function(x,
   #lengths of sequences
   lens <- .get_lens(sq)
   
-  #max lenght number width
+  #max length number width
   lens_width <- max(nchar(lens)) + 2
   
   #lengths to print
@@ -183,7 +183,7 @@ print.sq <- function(x,
       # we count how much characters can we print by counting cumulative extent
       cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
       
-      #max lenght of this line is p_width minus lenghts of lens and inds
+      #max length of this line is p_width minus lengths of lens and inds
       res_lens <- p_width - col_nchar(p_lens[i]) - nchar(p_inds[i]) - 2
       
       #we remove characters we cannot print
@@ -253,7 +253,7 @@ print.encsq <- function(x,
   sq <- .set_alph(sq, format(alph, digits = digits, scientific = FALSE))
   
   #cut sq object so that we don't need to debitify long sequences
-  # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
+  # 6 is minimum length of p_lens and p_inds, 8 is byte length
    sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .debitify_sq(sq_cut, "int")
   
@@ -274,7 +274,7 @@ print.encsq <- function(x,
   #lengths of sequences
   lens <- .get_lens(sq)
   
-  #max lenght number width
+  #max length number width
   lens_width <- max(nchar(lens)) + 2
   
   #lengths to print
@@ -291,7 +291,7 @@ print.encsq <- function(x,
       # we count how much characters can we print by counting cumulative extent
       cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
       
-      #max lenght of this line is p_width minus lenghts of lens and inds
+      #max length of this line is p_width minus lengths of lens and inds
       res_lens <- p_width - col_nchar(p_lens[i]) - nchar(p_inds[i]) - 2
       
       #we remove characters we cannot print
@@ -345,7 +345,7 @@ pillar_shaft.sq <- function(x, ...) {
   alph <- .get_alph(x)
   
   #cut sq object so that we don't need to debitify long sequences
-  # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
+  # 6 is minimum length of p_lens and p_inds, 8 is byte length
   sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .debitify_sq(sq_cut, "int")
   
@@ -391,7 +391,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   
   use_color <- .get_color_opt()
   
-  #max lenght number width
+  #max length number width
   lens_width <- max(nchar(lens)) + 2
     
   #default letters_sep here is NULL
@@ -413,7 +413,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
       # we count how much characters can we print by counting cumulative extent
       cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
       
-      #max lenght of this line is width minus lenghts of lens 
+      #max length of this line is width minus lengths of lens 
       res_lens <- width - col_nchar(p_lens[i]) - 1
       
       #we remove characters we cannot print
@@ -464,7 +464,7 @@ pillar_shaft.encsq <- function(x, ...) {
   alph <- .get_alph(x)
   
   #cut sq object so that we don't need to debitify long sequences
-  # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
+  # 6 is minimum length of p_lens and p_inds, 8 is byte length
   sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .debitify_sq(sq_cut, "int")
   
@@ -506,7 +506,7 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   
   use_color <- .get_color_opt()
   
-  #max lenght number width
+  #max length number width
   lens_width <- max(nchar(lens)) + 2
     
   #default letters_sep here is NULL
@@ -528,7 +528,7 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
       # we count how much characters can we print by counting cumulative extent
       cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
       
-      #max lenght of this line is width minus lenghts of lens 
+      #max length of this line is width minus lengths of lens 
       res_lens <- width - col_nchar(p_lens[i]) - 1
       
       #we remove characters we cannot print

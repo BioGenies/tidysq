@@ -24,8 +24,8 @@ This function allows obtaining list of mismatched elements of sequences from
 a \code{\link{sq}} object to amino acid or nucleotide alphabet. Output list has number of
 elements equal to length of \code{sq} object and each element is a character vector 
 of elements that appear in according sequence that does not fit destination type. This 
-function might be used to find specificly which sequences have which letters - user
-may want to use this information for example to check input sequeces.
+function might be used to find specifically which sequences have which letters - user
+may want to use this information for example to check input sequences.
 
 You can check which letters are valid for specified type in \code{\link{sq}} class 
 documentation.

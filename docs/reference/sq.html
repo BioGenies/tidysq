@@ -213,7 +213,7 @@ identical to <strong>ami</strong> <strong>cln</strong> alphabet. To set the type
 fact that although there is a standard for format of <em>fasta</em> files, sometimes 
 there are other types of symbols which do not fit the standard. Thanks to these types, 
 tidysq can import files with customized alphabets can be imported. Moreover, an user 
-may want to group amino acids with simillar properties (e.g. for machine learning) 
+may want to group amino acids with similar properties (e.g. for machine learning) 
 and replace the longer alphabet with symbols of groups. To check details, see 
 <code><a href='read_fasta.html'>read_fasta</a></code>, <code><a href='construct_sq.html'>construct_sq</a></code> and <code><a href='substitute_letters.html'>substitute_letters</a></code>.</p>
 <p>All of the types: <strong>ami</strong>, <strong>nuc</strong>, <strong>atp</strong>, <strong>unt</strong> have alphabets
@@ -231,7 +231,7 @@ other parameters to uppercase when working with <strong>ami</strong> or <strong>
 <code><a href='grapes-has-grapes.html'>%has%</a></code> operator converts lower letters to upper when searching for motifs in
 <strong>ami</strong> or <strong>nuc</strong> object.</p>
 <p><strong>Important note:</strong> maximum length of an alphabet is <strong>30 letters</strong>. You are
-not allowed to read fasta files or construct from character vectros that have more
+not allowed to read fasta files or construct from character vectors that have more
 than 30 distinct characters in sequences (with exception of reading or constructing
 <strong>ami</strong> or <strong>nuc</strong> objects - during their construction lowercase letters
 are automatically converted to uppercase).</p>
@@ -283,15 +283,15 @@ sequences with <code><a href='remove_na.html'>remove_na</a></code>.</p>
 implies that an user can concatenate <code>sq</code> objects using <code><a href='c.sq.html'>c</a></code> method
 and subset them using <code><a href='sqextract.html'>extract operator</a></code>. Alphabet is kept
 as an attribute of the object.</p>
-<p>Raw vectors are the most efficient way of storage - each letter of sequece has asigned
+<p>Raw vectors are the most efficient way of storage - each letter of the sequence has assigned
 an integer (its index in alphabet of <code>sq</code> object). Those integers in binary format
 fit in less than 8 bits, but normally are stored on 16 bits. However, thanks to bit
 packing it is possible to remove unused bits and store numbers more tightly. This 
 operations result in a little time overhead in all operations, because most of them 
-require unpacking and repacking sequences, but this cost is relatively low in comparision
+require unpacking and repacking sequences, but this cost is relatively low in comparison
 to amount of saved memory.</p>
 <p>For example - <strong>nuc</strong> <strong>cln</strong> alphabet consist of 6 values: ACGTU-. They are 
-asigned numbers 1 to 6 respectively. Those numbers in binary format take form: <code>001</code>,
+assigned numbers 1 to 6 respectively. Those numbers in binary format take form: <code>001</code>,
 <code>010</code>, <code>011</code>, <code>100</code>, <code>101</code>, <code>110</code>. Each of the letters can 
 be coded with just 3 bits instead of 8 which is demanded by <code>char</code> - this allows
 us to save more than 60% of memory spent on storage of nucleotides sequences.</p>

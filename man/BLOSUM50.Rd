@@ -5,7 +5,7 @@
 \alias{BLOSUM50}
 \title{The BLOSUM50 matrix}
 \format{A data frame with with 20 rows and 20 columns.
-\describe{Contains an one-letter codes of amino acid as colums and rows names.
+\describe{Contains an one-letter codes of amino acid as columns and rows names.
 You can check three-letter codes and full names of the amino acids in
 \code{\link{aminoacids_df}}.
  }}

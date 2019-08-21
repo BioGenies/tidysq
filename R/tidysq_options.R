@@ -2,7 +2,7 @@
 #' 
 #' You can get value of an option by calling \code{getOptions(option_name)} and set its value
 #' by calling \code{options(option_name = value)}, where \code{option_name} is an option name 
-#' (full list of this package included below) and \code{value} is a value to assing to an option.
+#' (full list of this package included below) and \code{value} is a value to assign to an option.
 #' 
 #' @details 
 #' You can change default behaviour of package using one of following options:
@@ -10,9 +10,9 @@
 #' \item tidysq_bite_na_action (default "warning") - a \code{\link{character}} string specifying 
 #' in which way to inform user about biting sequences out of the range when using 
 #' \code{\link{bite}}; possible values: "error", "warning", "message", "none",
-#' \item tidysq_subsitute_letters_cln (default "warning") - a \code{\link{character}} string 
+#' \item tidysq_substitute_letters_cln (default "warning") - a \code{\link{character}} string 
 #' specifying in which way to inform user
-#' about droping \code{cln} subtype of \code{sq} while using \code{\link{substitute_letters}}; 
+#' about dropping \code{cln} subtype of \code{sq} while using \code{\link{substitute_letters}}; 
 #' possible values: "error", "warning", "message", "none",
 #' \item tidysq_typify_small_cap_let (default "warning") - a \code{\link{character}} string 
 #' specifying in which way to inform user
@@ -22,9 +22,9 @@
 #' specifying in which way to inform user
 #' about encoding unspecified letters as \code{\link{NA}} if they do appear in sequences in
 #' \code{\link{encode}}; possible values: "error", "warning", "message", "none",
-#' \item tidysq_max_pillar_sq_width (default 15) - an \code{\link{integer}} value specyfying 
+#' \item tidysq_max_pillar_sq_width (default 15) - an \code{\link{integer}} value specifying 
 #' pillar_shaft_sq width
-#' \item tidysq_max_print_sequences (default 10) - an \code{\link{integer}} value specyfying 
+#' \item tidysq_max_print_sequences (default 10) - an \code{\link{integer}} value specifying 
 #' maximum number of printed sequences
 #' in \code{\link[=print.sq]{print sq}},
 #' \item tidysq_colorful_sq_print (default \code{TRUE}) - a \code{\link{logical}} value if to 

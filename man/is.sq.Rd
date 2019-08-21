@@ -29,7 +29,7 @@ A \code{\link{logical}} value - \code{TRUE} if \code{x} has given type, \code{FA
 otherwise.
 }
 \description{
-Function to checks if object is a \code{\link{sq}} object without specyfying type or
+Function to checks if object is a \code{\link{sq}} object without specifying type or
 if it is a \code{\link{sq}} object with specific type.
 }
 \details{

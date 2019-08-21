@@ -66,7 +66,7 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
 #' @param sq a \code{\link{sq}} object.
 #' @param name a \code{\link{character}} vector of length equal to \code{sq} length.
 #' @param file a \code{\link{character}} string indicating path to file to write into.
-#' @param nchar a posiitive \code{\link{integer}} value informing about maximum number of 
+#' @param nchar a positive \code{\link{integer}} value informing about maximum number of 
 #' characters to put in each line of file.
 #' @export
 write_fasta <- function(sq, name, file, nchar = 80) {

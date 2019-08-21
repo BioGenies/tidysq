@@ -9,7 +9,7 @@
 #' In a new object you can check what value is assigned to each letter.
 #' 
 #' @return A list with named numeric vectors. Each vector represents values assigned to
-#' according sequnence with \code{\link{encode}} function. Vectors are named and their names
+#' according sequence with \code{\link{encode}} function. Vectors are named and their names
 #' are letters of original sequences.
 #' 
 #' @details Function is used to transform an \code{\link{sq}} object with 
