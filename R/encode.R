@@ -24,7 +24,7 @@
 #' in \code{\link{sq}}), which represents encoded sequences.
 #' 
 #' The named vector (ex. \code{c(G = 1, K = 2, P = 2)}) should have all letters 
-#' assigned, otherwise unasigned letters will be shown as \code{NA}. If any letter that
+#' assigned, otherwise unassigned letters will be shown as \code{NA}. If any letter that
 #' appears in alphabet appears in at least one of sequences, user will be informed about it.
 #' Default action is a warning printed in the console, but it can be changed via setting
 #' "tidysq_encode_no_given_action" (see details at \code{\link{tidysq-options}}).

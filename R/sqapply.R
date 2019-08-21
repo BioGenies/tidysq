@@ -11,7 +11,7 @@
 #' @param paste_char a \code{\link{logical}} value indicating in which form sequences should be
 #' passed to the function \code{fun}; if \code{FALSE} (default), they will be treated as character
 #' vectors, if \code{TRUE}, they will be pasted into a single string.
-#' @param use_na_char a \code{\link{logical}} value indicating whether to use printing characater
+#' @param use_na_char a \code{\link{logical}} value indicating whether to use a printing character
 #' to represent \code{\link{NA}} values; if \code{TRUE}, letter from option "tidysq_na_print_char"
 #' will be used instead of \code{NA} values (default value for this option is "!", for details
 #' see \code{\link{tidysq-options}}), otherwise just \code{NA} values will be used; default value

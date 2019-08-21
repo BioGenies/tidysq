@@ -113,7 +113,7 @@ c.sq <- function(...) {
 
 #' Convert an object to sq
 #' 
-#' This generic funciton takes an object of arbitrary type and returns a \code{\link{sq}} object 
+#' This generic function takes an object of arbitrary type and returns a \code{\link{sq}} object 
 #' as an output. Default implementation of the method throws an error - there needs to be 
 #' implemented a method for specified class in order for function to work.
 #' 
@@ -163,7 +163,7 @@ as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL
 #' 
 #' @details This method for class \code{\link{sq}} allows converting sequences from
 #' the sq object into a character vector of length equal to the length 
-#' of sq. Each element of resulting vector is a seperate sequence. 
+#' of sq. Each element of resulting vector is a separate sequence. 
 #' All attributes of the input sq are lost during the conversion to 
 #' character vector.
 #' 
@@ -197,11 +197,11 @@ as.character.sq <- function(x, ...) {
 #' is \strong{enc}).
 #' 
 #' @details This method for class \code{sq} allows converting sequences from
-#' the sq object into a matrix. Each row corresponds to the seperate sequence
+#' the sq object into a matrix. Each row corresponds to the separate sequence
 #' from the sq object, whereas each column indicates a single position within 
 #' a sequence. Dimensions of matrix are determined by the number of sequences 
 #' (rows) and the length of the longest sequence (columns). If a length of
-#' sequence is smaller than the lenght of the longest sequence, the remaining
+#' sequence is smaller than the length of the longest sequence, the remaining
 #' columns will be filled with \code{\link{NA}}. All attributes of the input \code{sq} are lost 
 #' during the conversion to matrix.
 #' 
@@ -242,7 +242,7 @@ as.matrix.encsq <- function(x, ...) {
 
 #' Check if object has specified type
 #' 
-#' Function to checks if object is a \code{\link{sq}} object without specyfying type or
+#' Function to checks if object is a \code{\link{sq}} object without specifying type or
 #' if it is a \code{\link{sq}} object with specific type.
 #' @param x an object to be checked.
 #' @return A \code{\link{logical}} value - \code{TRUE} if \code{x} has given type, \code{FALSE}
@@ -325,7 +325,7 @@ is.encsq <- function(x) {
 #' Compare sq object 
 #' @description Compares input \code{\link{sq}} object with another given.
 #'   
-#' @details \code{`==`} converts left hand side of comparision (\code{x1}) to chracters 
+#' @details \code{`==`} converts left hand side of comparison (\code{x1}) to characters 
 #' vector using \code{\link{as.character}} and checks whether given on the right side 
 #' object can be compared with \code{\link{sq}} object. Function also check 
 #' the type of \code{\link{sq}} object with which given object will be compared.
@@ -334,12 +334,12 @@ is.encsq <- function(x) {
 #' with usage \code{\link{toupper}}. If right hand side object (\code{x2}) is \code{\link{sq}}
 #' it is converted to character vector using also \code{\link{as.character}} function.
 #' 
-#' When both objects are already converted to character vectors, comparision is done 
+#' When both objects are already converted to character vectors, comparison is done 
 #' elementwise with standard R rules, (e.g. recycling is used). You can check details 
 #' \code{\link[base:Comparison]{here}}.
 #' 
 #' Comparing sequences as characters vectors cause that various types of sequences
-#' can be compared for example aminoacids with nucleotides sequences so attention 
+#' can be compared for example amino acids with nucleotides sequences so attention 
 #' should be paid which sequences types are compared. 
 #' 
 #' @param x1 a \code{\link{sq}} object.

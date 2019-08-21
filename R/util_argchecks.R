@@ -133,7 +133,7 @@
 }
 
 .check_eq_lens <- function(obj_1, obj_2, name_1, name_2){
-  .check_simple(length(obj_1) != length(obj_2), paste0(name_1, " and ", name_2), "have to have equal lenghts")
+  .check_simple(length(obj_1) != length(obj_2), paste0(name_1, " and ", name_2), "have to have equal lengths")
 }
 
 

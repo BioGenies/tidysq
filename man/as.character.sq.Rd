@@ -22,7 +22,7 @@ of sequences
 \details{
 This method for class \code{\link{sq}} allows converting sequences from
 the sq object into a character vector of length equal to the length 
-of sq. Each element of resulting vector is a seperate sequence. 
+of sq. Each element of resulting vector is a separate sequence. 
 All attributes of the input sq are lost during the conversion to 
 character vector.
 }

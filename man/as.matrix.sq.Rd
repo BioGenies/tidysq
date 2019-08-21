@@ -24,11 +24,11 @@ Coerce sequences from a \code{\link{sq}} object to a
 }
 \details{
 This method for class \code{sq} allows converting sequences from
-the sq object into a matrix. Each row corresponds to the seperate sequence
+the sq object into a matrix. Each row corresponds to the separate sequence
 from the sq object, whereas each column indicates a single position within 
 a sequence. Dimensions of matrix are determined by the number of sequences 
 (rows) and the length of the longest sequence (columns). If a length of
-sequence is smaller than the lenght of the longest sequence, the remaining
+sequence is smaller than the length of the longest sequence, the remaining
 columns will be filled with \code{\link{NA}}. All attributes of the input \code{sq} are lost 
 during the conversion to matrix.
 }

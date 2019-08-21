@@ -19,7 +19,7 @@
 #' \code{sq} objects might have other type - \strong{atp} or \strong{unt}. After removal of those
 #' non-standard letters (using \code{\link{substitute_letters}}), user might want to set type of 
 #' \code{sq} object to one of standard types - \strong{ami} and \strong{nuc} - this is demanded
-#' by some of the functions. This is what this function is desingned for.
+#' by some of the functions. This is what this function is designed for.
 #' 
 #' If \code{dest_type} is equal to type of \code{sq}, function does not do anything.
 #' 

@@ -10,7 +10,7 @@ random_sq(n, len, type, is_clean, sd = NULL, use_gap = FALSE)
 \item{n}{a positive \code{\link{integer}} value - number of sequences to generate.}
 
 \item{len}{a positive \code{\link{integer}} value - length of each sequence if \code{sd} not 
-specified and mean length of sequences if \code{sd} spedified.}
+specified and mean length of sequences if \code{sd} specified}
 
 \item{type}{a type of generated sq object; possible values are "ami" and "nuc" (see section
 \emph{sq types} in \code{\link{sq}} documentation for details).}
@@ -32,7 +32,7 @@ generating sequence of 0 length, even if \code{sd} is given. Letter '*' is not u
 in generating \strong{ami} sequences.
 }
 \description{
-Generates a \code{\link{sq}} object with specified number of sequences of given lenght 
+Generates a \code{\link{sq}} object with specified number of sequences of given length 
 and given type.
 }
 \examples{

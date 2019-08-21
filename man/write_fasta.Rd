@@ -13,7 +13,7 @@ write_fasta(sq, name, file, nchar = 80)
 
 \item{file}{a \code{\link{character}} string indicating path to file to write into.}
 
-\item{nchar}{a posiitive \code{\link{integer}} value informing about maximum number of 
+\item{nchar}{a positive \code{\link{integer}} value informing about maximum number of 
 characters to put in each line of file.}
 }
 \description{

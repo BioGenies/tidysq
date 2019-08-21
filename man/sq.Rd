@@ -117,7 +117,7 @@ The purpose of co-existence of \strong{unt} and \strong{atp} alphabets is the
 fact that although there is a standard for format of \emph{fasta} files, sometimes 
 there are other types of symbols which do not fit the standard. Thanks to these types, 
 tidysq can import files with customized alphabets can be imported. Moreover, an user 
-may want to group amino acids with simillar properties (e.g. for machine learning) 
+may want to group amino acids with similar properties (e.g. for machine learning) 
 and replace the longer alphabet with symbols of groups. To check details, see 
 \code{\link{read_fasta}}, \code{\link{construct_sq}} and \code{\link{substitute_letters}}.
 
@@ -139,7 +139,7 @@ other parameters to uppercase when working with \strong{ami} or \strong{nuc} - e
 \strong{ami} or \strong{nuc} object.
 
 \strong{Important note:} maximum length of an alphabet is \strong{30 letters}. You are
-not allowed to read fasta files or construct from character vectros that have more
+not allowed to read fasta files or construct from character vectors that have more
 than 30 distinct characters in sequences (with exception of reading or constructing
 \strong{ami} or \strong{nuc} objects - during their construction lowercase letters
 are automatically converted to uppercase).
@@ -198,16 +198,16 @@ implies that an user can concatenate \code{sq} objects using \code{\link[=c.sq]{
 and subset them using \code{\link[=sq-extract]{extract operator}}. Alphabet is kept
 as an attribute of the object. 
 
-Raw vectors are the most efficient way of storage - each letter of sequece has asigned
+Raw vectors are the most efficient way of storage - each letter of the sequence has assigned
 an integer (its index in alphabet of \code{sq} object). Those integers in binary format
 fit in less than 8 bits, but normally are stored on 16 bits. However, thanks to bit
 packing it is possible to remove unused bits and store numbers more tightly. This 
 operations result in a little time overhead in all operations, because most of them 
-require unpacking and repacking sequences, but this cost is relatively low in comparision
+require unpacking and repacking sequences, but this cost is relatively low in comparison
 to amount of saved memory.
 
 For example - \strong{nuc} \strong{cln} alphabet consist of 6 values: ACGTU-. They are 
-asigned numbers 1 to 6 respectively. Those numbers in binary format take form: \code{001},
+assigned numbers 1 to 6 respectively. Those numbers in binary format take form: \code{001},
 \code{010}, \code{011}, \code{100}, \code{101}, \code{110}. Each of the letters can 
 be coded with just 3 bits instead of 8 which is demanded by \code{char} - this allows
 us to save more than 60\% of memory spent on storage of nucleotides sequences.

@@ -18,7 +18,7 @@ A \code{\link{logical}} vector indicating on which positions objects are the sam
 Compares input \code{\link{sq}} object with another given.
 }
 \details{
-\code{`==`} converts left hand side of comparision (\code{x1}) to chracters 
+\code{`==`} converts left hand side of comparison (\code{x1}) to characters 
 vector using \code{\link{as.character}} and checks whether given on the right side 
 object can be compared with \code{\link{sq}} object. Function also check 
 the type of \code{\link{sq}} object with which given object will be compared.
@@ -27,12 +27,12 @@ character vector consisting lowercase, the function rewrites it into capital one
 with usage \code{\link{toupper}}. If right hand side object (\code{x2}) is \code{\link{sq}}
 it is converted to character vector using also \code{\link{as.character}} function.
 
-When both objects are already converted to character vectors, comparision is done 
+When both objects are already converted to character vectors, comparison is done 
 elementwise with standard R rules, (e.g. recycling is used). You can check details 
 \code{\link[base:Comparison]{here}}.
 
 Comparing sequences as characters vectors cause that various types of sequences
-can be compared for example aminoacids with nucleotides sequences so attention 
+can be compared for example amino acids with nucleotides sequences so attention 
 should be paid which sequences types are compared.
 }
 \examples{

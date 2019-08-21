@@ -141,13 +141,13 @@ Following properties are included (AAIndex key: description of the property)
  \item{FAUJ880112}{Negative charge (Fauchere et al., 1988)}
  \item{FAUJ880113}{pK-a(RCOOH) (Fauchere et al., 1988)}
  \item{FINA770101}{Helix-coil equilibrium constant (Finkelstein-Ptitsyn, 1977)}
- \item{FINA910101}{Helix initiation parameter at posision i-1 (Finkelstein et
+ \item{FINA910101}{Helix initiation parameter at position i-1 (Finkelstein et
  al., 1991)}
- \item{FINA910102}{Helix initiation parameter at posision i,i+1,i+2 (Finkelstein
+ \item{FINA910102}{Helix initiation parameter at position i,i+1,i+2 (Finkelstein
  et al., 1991)}
- \item{FINA910103}{Helix termination parameter at posision j-2,j-1,j
+ \item{FINA910103}{Helix termination parameter at position j-2,j-1,j
  (Finkelstein et al., 1991)}
- \item{FINA910104}{Helix termination parameter at posision j+1 (Finkelstein et
+ \item{FINA910104}{Helix termination parameter at position j+1 (Finkelstein et
  al., 1991)}
  \item{GARJ730101}{Partition coefficient (Garel et al., 1973)}
  \item{GEIM800101}{Alpha-helix indices (Geisow-Roberts, 1980)}
