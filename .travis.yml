@@ -5,13 +5,26 @@ r_build_args: --compact-vignettes=both
 use_bioc: true
 bioc_required: true
 
-bioc_packages:
-  - Biostrings
-
 r:
   - oldrel
   - release
   - devel
+
+os:
+  - linux
+  - osx
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - r: oldrel
+      os: osx
+
+after_success:
+  - Rscript -e 'covr::codecov()'
+
+bioc_packages:
+  - Biostrings
 
 r_github_packages:
   - r-lib/covr
