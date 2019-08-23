@@ -6,7 +6,6 @@ use_bioc: true
 bioc_required: true
 
 r:
-  - oldrel
   - release
   - devel
 
@@ -17,7 +16,6 @@ os:
 matrix:
   fast_finish: true
   allow_failures:
-    - r: oldrel
       os: osx
 
 after_success:
@@ -31,6 +29,10 @@ r_github_packages:
 
 before_install:
   - export DISPLAY=:99.0
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install llvm &&
+    export PATH="/usr/local/opt/llvm/bin:$PATH" &&
+    export LDFLAGS="-L/usr/local/opt/llvm/lib" &&
+    export CFLAGS="-I/usr/local/opt/llvm/include"; fi
 
 services:
   - xvfb
