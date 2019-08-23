@@ -24,9 +24,6 @@ after_success:
 bioc_packages:
   - Biostrings
 
-r_github_packages:
-  - r-lib/covr
-
 before_install:
   - export DISPLAY=:99.0
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install llvm &&
