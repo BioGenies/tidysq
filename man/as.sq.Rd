@@ -31,6 +31,9 @@ sq_1 <- construct_sq("CTGA")
 # using a method for character
 sq_2 <- as.sq("CTGA")
 
+# checking that both objects are identical
+identical(sq_1, sq_2)
+
 }
 \seealso{
 \code{\link{sq}} \code{\link{construct_sq}}
