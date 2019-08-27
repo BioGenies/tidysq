@@ -2,9 +2,15 @@
 % Please edit documentation in R/fasta.R
 \name{read_fasta}
 \alias{read_fasta}
+\alias{read_fasta_ami}
+\alias{read_fasta_nuc}
 \title{Read a FASTA file}
 \usage{
 read_fasta(file, type = NULL, is_clean = NULL, non_standard = NULL)
+
+read_fasta_ami(file, is_clean = NULL)
+
+read_fasta_nuc(file, is_clean = NULL)
 }
 \arguments{
 \item{file}{a \code{\link{character}} string indicating path to file or url.}
@@ -34,10 +40,16 @@ and two columns: 'name' and 'sq' giving the name of the sequence and the sequenc
 }
 \details{
 All rules of creating sq objects are the same as in \code{\link{construct_sq}}.
+
+Functions \code{read_fasta_ami} and \code{read_fasta_nuc} are wrappers around 
+\code{read_fasta} with specified \code{type} parameter - accordingly "ami" or "nuc". You
+can also pass "is_clean" parameter to those functions, but you cannot pass "non_standard".
 }
 \examples{
-read_fasta(system.file(package = "tidysq", 
-                     "sample_fasta/sample_ami.fasta"))
+fasta_file <- system.file(package = "tidysq", 
+                     "sample_fasta/sample_ami.fasta")
+read_fasta(fasta_file)
+read_fasta_ami(fasta_file)
 \dontrun{
 read_fasta("https://www.uniprot.org/uniprot/P28307.fasta")
 }

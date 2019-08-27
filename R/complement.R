@@ -12,9 +12,10 @@
 #' @return \code{sq} object of the same type as input \code{nucsq} (\strong{nuc}) but 
 #' built of complementary nucleotides to entered sequence.
 #' 
-#' @details This function allows obtaining complement sequence which is created by 
-#' matching elements (nucleotides) with complementarity to input \code{nucsq} object. If 
-#' \code{is_dna = TRUE} entered sequence is DNA. If \code{is_dna = FALSE} entered 
+#' @details This functions allow obtaining complement sequence which is created by 
+#' matching elements (nucleotides) with complementarity to input \code{nucsq} object. In case
+#' of \code{complement}: If \code{is_dna = TRUE} entered sequence is DNA. 
+#' If \code{is_dna = FALSE} entered 
 #' sequence is RNA. By default the sequence type is not specified and the function
 #' tries to guess which type of sequence was entered. If sequence contain 'U' without 
 #' 'T' the type will be set to RNA. If a sequence contains 'T' (thymine) without 
@@ -23,8 +24,9 @@
 #' sequence does not contain 'T' or 'U' or the logical specification is wrong 
 #' (i.e. if the sequence contains 'U' and the logical specification is set to DNA), 
 #' an error will also be returned.
-#' Both RNA and DNA sequences can be rewritten to complementary sequence. 
 #' 
+#' Functions \code{complement_dna} and \code{complement_rna} are wrappers around 
+#' \code{complement} with specified \code{is_dna} parameter - accordingly TRUE or FALSE. 
 #' 
 #' @examples 
 #' # Creating objects nuc_dna_sequence (with DNA sequences) and nuc_rna_sequence 
@@ -35,18 +37,17 @@
 #' nuc_rna_sequence <- construct_sq(c("ACUGCUG", "CUUAGA", 
 #'                                    "CCCU", "CUGAAUGU"), type = "nuc")
 #'                                    
-#' # Sequences are now ready to be used as matrices for creating complementary sequences.
-#' # Get an overview of the sequences:
-#' summary(nuc_dna_sequence)
-#' summary(nuc_rna_sequence)
 #' 
 #' # In the following the complement function is used to make a PCR (Polymerase Chain Reaction)
 #' # primers. Every sequence will be rewritten to its complementary equivalent as 
 #' # following example: AAATTTGGG to TTTAAACCC.
 #'  
-#' # creating complementary sequences with defined sequence type:
+#' # creating complementary sequences with defined sequence type (and using wrappers):
 #' complement(nuc_dna_sequence, is_dna = TRUE)
+#' complement_dna(nuc_dna_sequence)
+#' 
 #' complement(nuc_rna_sequence, is_dna = FALSE)
+#' complement_rna(nuc_rna_sequence)
 #' 
 #' # creating complementary sequences without defined sequence type:
 #' complement(nuc_dna_sequence)
@@ -91,3 +92,14 @@ complement <- function(nucsq, is_dna = NULL) {
   .set_class(ret, "nuc", TRUE)
 }
 
+#' @rdname complement
+#' @export
+complement_dna <- function(nucsq) {
+  complement(nucsq, is_dna = TRUE)
+}
+
+#' @rdname complement
+#' @export
+complement_rna <- function(nucsq) {
+  complement(nucsq, is_dna = FALSE)
+}

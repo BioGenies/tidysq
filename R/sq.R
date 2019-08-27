@@ -223,10 +223,14 @@ NULL
 #' \strong{nuc}, \strong{unt}, \strong{atp}).
 #' 
 #' @details 
-#' Function covers all possibilities of standard and non-standard types and alphabets.
-#' You can check what 'type' and 'alphabet' exactly is in \code{\link[=sq]{sq class}} documentation.
-#' Below there is a guide how function operates and how the program behaves according to the given 
-#' arguments and the letters in the sequences.
+#' Function \code{construct_sq} covers all possibilities of standard and non-standard types and 
+#' alphabets. You can check what 'type' and 'alphabet' exactly are in \code{\link[=sq]{sq class}} 
+#' documentation. Below there is a guide how function operates and how the program behaves 
+#' according to the given arguments and the letters in the sequences.
+#' 
+#' Functions \code{construct_sq_ami} and \code{construct_sq_nuc} are wrappers around 
+#' \code{construct_sq} with specified \code{type} parameter - accordingly "ami" or "nuc". You
+#' can also pass "is_clean" parameter to those functions, but you cannot pass "non_standard".
 #' 
 #' \code{sq} parameter should be a character vector. Each element of this vector is a biological 
 #' sequence. If this parameter has length 0, object of class \code{sq} with 0 sequences will be 
@@ -347,6 +351,13 @@ NULL
 #' construct_sq(c("XYOQWWKCNJLO"), "ami")
 #' construct_sq(c("%%YAPLAA", "PLAA"), "unt")
 #' 
+#' # you can also use wrappers instead of parameters
+#' construct_sq_nuc(c("ATGC", "TCGTTA", "TT--AG")) 
+#' construct_sq_ami(c("YQQPAVVM", "PQCFL"))
+#' construct_sq_ami(c("MMDF*", "SYIHR*", "MGG*"))
+#' construct_sq_nuc(c("WHDHKYN", "GCYVCYU"))
+#' construct_sq_ami(c("XYOQWWKCNJLO"))
+#' 
 #' # you can force type other than guessed (if letters fit in the destination alphabet)
 #' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "nuc", is_clean = FALSE)
 #' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "ami")
@@ -424,6 +435,19 @@ construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) 
              unt = .construct_untsq(sq))
     }
   }
+}
+
+
+#' @rdname construct_sq
+#' @export
+construct_sq_ami <- function(sq, is_clean = NULL) {
+  construct_sq(sq, type = "ami", is_clean)
+}
+
+#' @rdname construct_sq
+#' @export
+construct_sq_nuc <- function(sq, is_clean = NULL) {
+  construct_sq(sq, type = "nuc", is_clean)
 }
 
 .nc_construct_sq <- function(sq, type, is_clean) {

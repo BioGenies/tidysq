@@ -2,9 +2,15 @@
 % Please edit documentation in R/sq.R
 \name{construct_sq}
 \alias{construct_sq}
+\alias{construct_sq_ami}
+\alias{construct_sq_nuc}
 \title{Construct sq object from character vector}
 \usage{
 construct_sq(sq, type = NULL, is_clean = NULL, non_standard = NULL)
+
+construct_sq_ami(sq, is_clean = NULL)
+
+construct_sq_nuc(sq, is_clean = NULL)
 }
 \arguments{
 \item{sq}{a \code{\link{character}} vector.}
@@ -32,10 +38,14 @@ This function allows the user to construct objects of
 \code{\link[=sq]{class sq}} from a character vector.
 }
 \details{
-Function covers all possibilities of standard and non-standard types and alphabets.
-You can check what 'type' and 'alphabet' exactly is in \code{\link[=sq]{sq class}} documentation.
-Below there is a guide how function operates and how the program behaves according to the given 
-arguments and the letters in the sequences.
+Function \code{construct_sq} covers all possibilities of standard and non-standard types and 
+alphabets. You can check what 'type' and 'alphabet' exactly are in \code{\link[=sq]{sq class}} 
+documentation. Below there is a guide how function operates and how the program behaves 
+according to the given arguments and the letters in the sequences.
+
+Functions \code{construct_sq_ami} and \code{construct_sq_nuc} are wrappers around 
+\code{construct_sq} with specified \code{type} parameter - accordingly "ami" or "nuc". You
+can also pass "is_clean" parameter to those functions, but you cannot pass "non_standard".
 
 \code{sq} parameter should be a character vector. Each element of this vector is a biological 
 sequence. If this parameter has length 0, object of class \code{sq} with 0 sequences will be 
@@ -161,6 +171,13 @@ construct_sq(c("MMDF*", "SYIHR*", "MGG*"), "ami")
 construct_sq(c("WHDHKYN", "GCYVCYU"), "nuc")
 construct_sq(c("XYOQWWKCNJLO"), "ami")
 construct_sq(c("\%\%YAPLAA", "PLAA"), "unt")
+
+# you can also use wrappers instead of parameters
+construct_sq_nuc(c("ATGC", "TCGTTA", "TT--AG")) 
+construct_sq_ami(c("YQQPAVVM", "PQCFL"))
+construct_sq_ami(c("MMDF*", "SYIHR*", "MGG*"))
+construct_sq_nuc(c("WHDHKYN", "GCYVCYU"))
+construct_sq_ami(c("XYOQWWKCNJLO"))
 
 # you can force type other than guessed (if letters fit in the destination alphabet)
 construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "nuc", is_clean = FALSE)
