@@ -26,10 +26,6 @@ bioc_packages:
 
 before_install:
   - export DISPLAY=:99.0
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install llvm &&
-    export PATH="/usr/local/opt/llvm/bin:$PATH" &&
-    export LDFLAGS="-L/usr/local/opt/llvm/lib" &&
-    export CFLAGS="-I/usr/local/opt/llvm/include"; fi
 
 services:
   - xvfb
