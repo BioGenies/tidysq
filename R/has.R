@@ -9,13 +9,13 @@
 #' which elements contain all of given motifs
 #' 
 #' @details This function allows testing if elements of a sq object contain 
-#' a given motif or motifs. It returns a logical for every element of the sq 
+#' a given motif or motifs. It returns a logical for every element of a sq 
 #' object - \code{TRUE} if it contains the motif and \code{FALSE} otherwise. 
 #' In case of search for multiple motifs, \code{TRUE} will be returned only 
-#' for sequences that contain all of the given motifs. 
+#' for sequences that contain all the given motifs. 
 #' 
 #' Note if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
-#' search for motifs cannot be performed and an error will be displayed (with 
+#' search for motifs cannot be performed, and an error will be displayed (with 
 #' exception of sq objects of type ami - in their alphabet there is "*" letter 
 #' and it can be contained in sought motif"). To search for motifs with those 
 #' characters, you have to replace them first using 
@@ -33,7 +33,7 @@
 #' case letters, they will be converted to upper case.  
 #' 
 #' This function only indicates if a motif is present within a sequence, to 
-#' find all motifs and their positions within sequences use 
+#' find all motifs, and their positions within sequences use 
 #' \code{\link{find_motifs}}.
 #' 
 #' @examples 

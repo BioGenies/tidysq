@@ -17,7 +17,7 @@
 #' 
 #' @return \code{\link{atpsq}} object of the same type as input sq with replaced alphabet, defined by user.
 #' 
-#' @details \code{substitute_letters} allows to replace ambigous/extraordinary 
+#' @details \code{substitute_letters} allows replacing ambiguous/extraordinary 
 #' letters in nucleic or amino acid sequence with user-defined or IUPAC symbols. 
 #' Letters can also be replaced with \code{NA} values, so that they can be later 
 #' removed, from the sequence, by \code{clean} function.
@@ -25,7 +25,7 @@
 #' \code{substitute_letters} can be used to replace default amino acid letters 
 #' with encodings. They can be user-defined or be derived from various simplified alphabets.
 #' 
-#' One letter of the alphabet may be replaced by a multiple characters. 
+#' One letter of the alphabet may be replaced by a multiple character. 
 #' 
 #' The alphabet characters to be replaced need to be written in capital letters and must originate from default alphabets, otherwise error will be introduced.
 #' Multiple string of letters to be substituted (ex. \item{c(AHG = "replacement")}) will also produce an error.
@@ -33,7 +33,7 @@
 #' Replacing multiple letters with the same symbol (ex. \item{c(A = "replacement1", H  = "replacement1", G = "replacement1")}) is allowed.
 #' 
 #' Created sequence will be deprived of \code{\link{cln})} subtype, if the original sequence possessed it.
-#' This will also occur when the letter to be replaced will not be found in the sequence. It remain unchanged but will lose subclass.
+#' This will also occur when the letter to be replaced will not be found in the sequence. It remains unchanged but will lose subclass.
 #' 
 #' The newly constructed will have a new class \code{\link{cln})}, representing atypical alphabet.
 #' 

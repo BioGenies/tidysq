@@ -30,7 +30,7 @@ find_motifs <- function(sq, name, motifs) {
   if (type == "ami") {
     motifs <- lapply(motifs, toupper)
     if (!all(unlist(strsplit(motifs_c, "")) %in% c(.get_standard_alph("ami", FALSE), "^", "$"))) {
-      stop("motifs that you're searching for in 'sq' object needs to consist of letters from aminoacids alphabet and optionally '^' or '$' characters")
+      stop("motifs that you are searching for in 'sq' object needs to consist of letters from aminoacids alphabet and optionally '^' or '$' characters")
     }
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "B", "[BDN]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "J", "[JIL]"))
