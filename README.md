@@ -14,10 +14,6 @@ You can install the latest development version of the package using the `devtool
 source("https://install-github.me/michbur/tidysq")
 ```
 
-## Troubleshooting
-
-This package heavily utilizes Rcpp to assure the fastest compression of the sequence data. If you have any compiler-related issues, as "clang: error: unsupported option '-fopenmp'", please follow [these instructions](https://github.com/RcppCore/RcppArmadillo/issues/143).
-
 ## Citation
 
 For citation type:
