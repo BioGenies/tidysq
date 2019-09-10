@@ -11,7 +11,7 @@
 #'  \item{one}{One-letter codes of amino acids}
 #'  \item{three}{Three-letter codes of amino acids}
 #'  \item{full}{Full name of the amino acid}
-#'  \item{amb}{Logical indicating if abbreviation is ambiguous, i.e., matches 
+#'  \item{amb}{Logical indicating if abbreviation is ambiguous, i. e., matches 
 #'  more than one amino acid}
 #'  }
 #' @details
@@ -41,7 +41,7 @@ NULL
 #' \describe{
 #'  \item{one}{One-letter codes of nucleotides}
 #'  \item{full}{Full name of the nucleotide}
-#'  \item{amb}{Logical indicating if abbreviation is ambiguous, i.e., matches more than one nucleotide}
+#'  \item{amb}{Logical indicating if abbreviation is ambiguous, i. e., matches more than one nucleotide}
 #'  }
 #' @details The dataset contains a nucleotide alphabet of one-letter codes 
 #' and full names of the nucleotides. It also includes a gap symbol '-' that can be found

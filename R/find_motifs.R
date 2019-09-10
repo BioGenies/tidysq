@@ -1,7 +1,7 @@
 #' Find given motifs
 #' 
 #' @description Find all given motifs in all sequences and return their 
-#' positions 
+#' positions.
 #' 
 #' @inheritParams reverse
 #' @param name a non-\code{NUL}L \code{character} vector without \code{\link{NA}} values, 
@@ -21,7 +21,7 @@
 #'  \item{end}{position of motif end}
 #' 
 #' @details This function allows search of a given motif or motifs in the \code{sq} 
-#' object. It returns all found motifs with their start and end positions 
+#' object. It returns all motifs found with their start and end positions 
 #' within a sequence.
 #' 
 #' @section Allowed and forbidden letters and characters details:
@@ -32,15 +32,15 @@
 #' characters, you have to replace them first using 
 #' \code{\link{substitute_letters}}. 
 #' 
-#' In case of sq objects of type \strong{ami} and \strong{nuc}, motifs have to consist of 
+#' If sq objects of type \strong{ami} and \strong{nuc}, motifs have to consist of 
 #' upper case letters from amino acid and nucleotide alphabet respectively. 
 #' Use of lower case letters will return an error. Two additional characters 
 #' are allowed: '^' and '$' indicating the beginning and the end of a sequence 
 #' respectively. Moreover, notice that '*' character may be used in amino acid 
 #' motifs, as it is a part of the amino acid alphabet. If a motif contains 
-#' ambiguous letters, all possible matches will be searched for, e.g., amino 
-#' acid motif "MAJ" (where "J" is an ambiguous letter indicating L or I) will 
-#' find motifs: "MAJ", "MAL" and "MAI". 
+#' ambiguous letters, all possible matches will be searched for. For example the 
+#' amino acid motif "MAJ" (where "J" is an ambiguous letter indicating L or I) will 
+#' find the motifs: "MAJ", "MAL" and "MAI". 
 #' 
 #' Detailed list of all letters corresponding to each ambiguous letter may be found at
 #' \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}}.

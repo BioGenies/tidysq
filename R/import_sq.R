@@ -68,5 +68,5 @@ import_sq <- function(object) {
       tibble(sq = sq)
     else 
       tibble(name = name, sq = sq)
-  } else stop("this function cannot handle objects with class as given", call. = FALSE)
+  } else stop("this function cannot handle objects with a class as specified", call. = FALSE)
 }

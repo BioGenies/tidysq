@@ -3,7 +3,7 @@
 #' @description Transform encoded by \code{\link{encode}} sequence, stored in a
 #' \code{\link{sq}} object, to a list.
 #' 
-#' @param encsq a \code{\link{sq}} object with \strong{enc} type which was encoded 
+#' @param encsq a \code{\link{sq}} object with \strong{enc} type, which was encoded 
 #' using \code{\link{encode}} function.
 #' 
 #' In a new object you can check what value is assigned to each letter.

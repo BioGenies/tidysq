@@ -17,7 +17,7 @@
 #' of \code{complement}: If \code{is_dna = TRUE} entered sequence is DNA. 
 #' If \code{is_dna = FALSE} entered 
 #' sequence is RNA. By default the sequence type is not specified and the function
-#' tries to guess which type of sequence was entered. If sequence contain 'U' without 
+#' tries to guess, which type of sequence was entered. If sequence contain 'U' without 
 #' 'T' the type will be set to RNA. If a sequence contains 'T' (thymine) without 
 #' 'U' (uracil), the type is set to DNA. An error is displayed if both 'T' and 'U' 
 #' are present in the sequence or if the sequence contains only 'A' (adenine). If the 

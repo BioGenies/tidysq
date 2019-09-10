@@ -248,7 +248,7 @@ as.matrix.encsq <- function(x, ...) {
 #' Function to checks if object is a \code{\link{sq}} object without specifying type or
 #' if it is a \code{\link{sq}} object with specific type.
 #' @param x an object to be checked.
-#' @return A \code{\link{logical}} value - \code{TRUE} if \code{x} has given type, \code{FALSE}
+#' @return A \code{\link{logical}} value - \code{TRUE} if \code{x} has specified type, \code{FALSE}
 #' otherwise.
 #' 
 #' @details 
