@@ -114,7 +114,11 @@ and two columns: 'name' and 'sq' giving the name of the sequence and the sequenc
     
     </div>
 
-    <pre class="usage"><span class='fu'>read_fasta</span>(<span class='no'>file</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>is_clean</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>non_standard</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>read_fasta</span>(<span class='no'>file</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>is_clean</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>non_standard</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>read_fasta_ami</span>(<span class='no'>file</span>, <span class='kw'>is_clean</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>read_fasta_nuc</span>(<span class='no'>file</span>, <span class='kw'>is_clean</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,7 +143,7 @@ for clean sequences, <code>FALSE</code> for unclean sequences and <code>NULL</co
     <tr>
       <th>non_standard</th>
       <td><p>a <code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></code> vector indicating non-standard letters
-contained in sequences. If <code>NULL</code>, sequences won't be searched for non-standard letters
+contained in sequences. If <code>NULL</code>, sequences will not be searched for non-standard letters
 of length more than one. Each element of this parameter should be at least two characters 
 long.</p></td>
     </tr>
@@ -153,6 +157,9 @@ and two columns: 'name' and 'sq' giving the name of the sequence and the sequenc
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>All rules of creating sq objects are the same as in <code><a href='construct_sq.html'>construct_sq</a></code>.</p>
+<p>Functions <code>read_fasta_ami</code> and <code>read_fasta_nuc</code> are wrappers around 
+<code>read_fasta</code> with specified <code>type</code> parameter - accordingly "ami" or "nuc". You
+can also pass "is_clean" parameter to those functions, but you cannot pass "non_standard".</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -160,8 +167,22 @@ and two columns: 'name' and 'sq' giving the name of the sequence and the sequenc
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>read_fasta</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tidysq"</span>,
-                     <span class='st'>"sample_fasta/sample_ami.fasta"</span>))</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 100 x 2</span><span>
+    <pre class="examples"><div class='input'><span class='no'>fasta_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tidysq"</span>,
+                     <span class='st'>"sample_fasta/sample_ami.fasta"</span>)
+<span class='fu'>read_fasta</span>(<span class='no'>fasta_file</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 100 x 2</span><span>
+#&gt;    name          sq                      
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;ami&gt;</span><span>                   
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> sample_ami 1  </span><span style='color: #00BB00;'>KWOVPFWSAZFBTPS</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;29&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> sample_ami 2  </span><span style='color: #00BB00;'>EDAJZOIFQLVTAYV</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;32&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> sample_ami 3  </span><span style='color: #00BB00;'>GXAYZJKAEOMETFG</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> sample_ami 4  </span><span style='color: #00BB00;'>CCTKOSTJAEDGMIK</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;27&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> sample_ami 5  </span><span style='color: #00BB00;'>DCRTRZJWBHRPHXH</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;30&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> sample_ami 6  </span><span style='color: #00BB00;'>PSQLECWRPRGQZFP</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;29&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> sample_ami 7  </span><span style='color: #00BB00;'>DKWLELEWMYCWQJY</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> sample_ami 8  </span><span style='color: #00BB00;'>LLBOMGZSKZIEXDP</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> sample_ami 9  </span><span style='color: #00BB00;'>KAZBIBGOMLLDYHH</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;25&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> sample_ami 10 </span><span style='color: #00BB00;'>FZFTAMEOKKIMZUF</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
+#&gt; </span><span style='color: #949494;'># … with 90 more rows</span><span></div><div class='input'><span class='fu'>read_fasta_ami</span>(<span class='no'>fasta_file</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 100 x 2</span><span>
 #&gt;    name          sq                      
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;ami&gt;</span><span>                   
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span> sample_ami 1  </span><span style='color: #00BB00;'>KWOVPFWSAZFBTPS</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;29&gt;</span><span>

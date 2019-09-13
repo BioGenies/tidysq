@@ -112,7 +112,11 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>complement</span>(<span class='no'>nucsq</span>, <span class='kw'>is_dna</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>complement</span>(<span class='no'>nucsq</span>, <span class='kw'>is_dna</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>complement_dna</span>(<span class='no'>nucsq</span>)
+
+<span class='fu'>complement_rna</span>(<span class='no'>nucsq</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,18 +141,20 @@ built of complementary nucleotides to entered sequence.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function allows obtaining complement sequence which is created by 
-matching elements (nucleotides) with complementarity to input <code>nucsq</code> object. If 
-<code>is_dna = TRUE</code> entered sequence is DNA. If <code>is_dna = FALSE</code> entered 
-sequence is RNA. By default the sequence type is not specified and the function
-tries to guess which type of sequence was entered. If sequence contain 'U' without 
+    <p>This functions allows to obtain a complement sequence, which is created by 
+matching elements (nucleotides) with complementarity to input <code>nucsq</code> object. In case
+of <code>complement</code>: If <code>is_dna = TRUE</code> entered sequence is DNA. 
+If <code>is_dna = FALSE</code> entered 
+sequence is RNA. By default, the sequence type is not specified and the function
+tries to guess, which type of sequence was entered. If a sequence contains 'U' without 
 'T' the type will be set to RNA. If a sequence contains 'T' (thymine) without 
 'U' (uracil), the type is set to DNA. An error is displayed if both 'T' and 'U' 
 are present in the sequence or if the sequence contains only 'A' (adenine). If the 
 sequence does not contain 'T' or 'U' or the logical specification is wrong 
-(i.e. if the sequence contains 'U' and the logical specification is set to DNA), 
-an error will also be returned.
-Both RNA and DNA sequences can be rewritten to complementary sequence.</p>
+(i. e. if the sequence contains 'U' and the logical specification is set to DNA), 
+an error will also be returned.</p>
+<p>Functions <code>complement_dna</code> and <code>complement_rna</code> are wrappers around 
+<code>complement</code> with specified <code>is_dna</code> parameter - accordingly TRUE or FALSE.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -164,28 +170,29 @@ Both RNA and DNA sequences can be rewritten to complementary sequence.</p>
 <span class='no'>nuc_rna_sequence</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"ACUGCUG"</span>, <span class='st'>"CUUAGA"</span>,
                                    <span class='st'>"CCCU"</span>, <span class='st'>"CUGAAUGU"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"nuc"</span>)
 
-<span class='co'># Sequences are now ready to be used as matrices for creating complementary sequences.</span>
-<span class='co'># Get an overview of the sequences:</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>nuc_dna_sequence</span>)</div><div class='output co'>#&gt;      Length Class  Mode
-#&gt; [1,] 3      -none- raw 
-#&gt; [2,] 3      -none- raw 
-#&gt; [3,] 2      -none- raw 
-#&gt; [4,] 3      -none- raw </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>nuc_rna_sequence</span>)</div><div class='output co'>#&gt;      Length Class  Mode
-#&gt; [1,] 3      -none- raw 
-#&gt; [2,] 3      -none- raw 
-#&gt; [3,] 2      -none- raw 
-#&gt; [4,] 3      -none- raw </div><div class='input'>
+
 <span class='co'># In the following the complement function is used to make a PCR (Polymerase Chain Reaction)</span>
 <span class='co'># primers. Every sequence will be rewritten to its complementary equivalent as </span>
 <span class='co'># following example: AAATTTGGG to TTTAAACCC.</span>
 
-<span class='co'># creating complementary sequences with defined sequence type:</span>
+<span class='co'># creating complementary sequences with a specified sequence type (and using wrappers):</span>
 <span class='fu'>complement</span>(<span class='no'>nuc_dna_sequence</span>, <span class='kw'>is_dna</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; nuc (nucleotides), cln (cleaned) sequences list:
 #&gt; [1] <span style='color: #00BB00;'>TGACGAC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>GAATCT</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>GGGA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
 #&gt; [4] </span><span style='color: #00BB00;'>GACTTACA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
-#&gt; </div><div class='input'><span class='fu'>complement</span>(<span class='no'>nuc_rna_sequence</span>, <span class='kw'>is_dna</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; nuc (nucleotides), cln (cleaned) sequences list:
+#&gt; </div><div class='input'><span class='fu'>complement_dna</span>(<span class='no'>nuc_dna_sequence</span>)</div><div class='output co'>#&gt; nuc (nucleotides), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>TGACGAC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>GAATCT</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>GGGA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>GACTTACA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt; </div><div class='input'>
+<span class='fu'>complement</span>(<span class='no'>nuc_rna_sequence</span>, <span class='kw'>is_dna</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; nuc (nucleotides), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>UGACGAC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>GAAUCU</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>GGGA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>GACUUACA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt; </div><div class='input'><span class='fu'>complement_rna</span>(<span class='no'>nuc_rna_sequence</span>)</div><div class='output co'>#&gt; nuc (nucleotides), cln (cleaned) sequences list:
 #&gt; [1] </span><span style='color: #00BB00;'>UGACGAC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>GAAUCU</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>GGGA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
@@ -203,8 +210,8 @@ Both RNA and DNA sequences can be rewritten to complementary sequence.</p>
 #&gt; [3] </span><span style='color: #00BB00;'>GGGA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
 #&gt; [4] </span><span style='color: #00BB00;'>GACUUACA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
 #&gt; </div><div class='input'>
-# Each sequence from  nuc_dna_sequence and nuc_rna_sequence object have now own 
-# complementary equivalent, which can be helpful during constructing PCR primers.
+# Each sequence from nuc_dna_sequence and nuc_rna_sequence object have now an  
+# own complementary equivalent, which can be helpful during constructing PCR primers.
  
   
 

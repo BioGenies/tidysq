@@ -34,7 +34,7 @@
 
 <meta property="og:description" content="Function to set type of atp or unt sequences to ami or 
 nuc provided that they do not have invalid letters (which can be checked
-using get_sq_alphabet and get_invalid_letters)" />
+using get_sq_alphabet and get_invalid_letters)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -110,7 +110,7 @@ using get_sq_alphabet and get_invalid_letters)" />
     
     <p>Function to set type of <strong>atp</strong> or <strong>unt</strong> sequences to <strong>ami</strong> or 
 <strong>nuc</strong> provided that they do not have invalid letters (which can be checked
-using <code><a href='get_sq_alphabet.html'>get_sq_alphabet</a></code> and <code><a href='get_invalid_letters.html'>get_invalid_letters</a></code>)</p>
+using <code><a href='get_sq_alphabet.html'>get_sq_alphabet</a></code> and <code><a href='get_invalid_letters.html'>get_invalid_letters</a></code>).</p>
     
     </div>
 
@@ -121,8 +121,8 @@ using <code><a href='get_sq_alphabet.html'>get_sq_alphabet</a></code> and <code>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>sq</th>
-      <td><p>an object of class <code><a href='sq.html'>sq</a></code> with one of types <strong>ami</strong>, <strong>nuc</strong>,
-<strong>unt</strong> or <strong>atp</strong>.</p></td>
+      <td><p>an object of class <code><a href='sq.html'>sq</a></code> with one of the types <strong>ami</strong>, 
+<strong>nuc</strong>, <strong>unt</strong> or <strong>atp</strong>.</p></td>
     </tr>
     <tr>
       <th>dest_type</th>
@@ -139,12 +139,12 @@ but with type as specified in <code>dest_type</code>.</p>
 
     <p>Sometimes during reading <code>sq</code> from fasta file (using <code><a href='read_fasta.html'>read_fasta</a></code>) or 
 constructing from character vector (using <code><a href='construct_sq.html'>construct_sq</a></code> or 
-<code><a href='https://www.rdocumentation.org/packages/base/topics/character'>as.character</a></code>) there are letters that aren't in standard alphabets (see
+<code><a href='https://www.rdocumentation.org/packages/base/topics/character'>as.character</a></code>) there are letters that are not in standard alphabets (see
 <code><a href='aminoacids_df.html'>aminoacids_df</a></code> and <code><a href='nucleotides_df.html'>nucleotides_df</a></code>). In consequence, newly created
 <code>sq</code> objects might have other type - <strong>atp</strong> or <strong>unt</strong>. After removal of those
 non-standard letters (using <code><a href='substitute_letters.html'>substitute_letters</a></code>), user might want to set type of 
 <code>sq</code> object to one of standard types - <strong>ami</strong> and <strong>nuc</strong> - this is demanded
-by some of the functions. This is what this function is designed for.</p>
+by some functions. This is what this function is designed for.</p>
 <p>If <code>dest_type</code> is equal to type of <code>sq</code>, function does not do anything.</p>
 <p>If <code>sq</code> object contain letters that are not in specified destination alphabet, an error 
 will be thrown. However, <code>typify</code> converts automatically lowercase letters to uppercase

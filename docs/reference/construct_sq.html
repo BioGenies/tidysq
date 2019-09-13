@@ -112,7 +112,11 @@ class sq from a character vector." />
     
     </div>
 
-    <pre class="usage"><span class='fu'>construct_sq</span>(<span class='no'>sq</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>is_clean</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>non_standard</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>construct_sq</span>(<span class='no'>sq</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>is_clean</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>non_standard</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>construct_sq_ami</span>(<span class='no'>sq</span>, <span class='kw'>is_clean</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>construct_sq_nuc</span>(<span class='no'>sq</span>, <span class='kw'>is_clean</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,7 +141,7 @@ for clean sequences, <code>FALSE</code> for unclean sequences and <code>NULL</co
     <tr>
       <th>non_standard</th>
       <td><p>a <code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></code> vector indicating non-standard letters
-contained in sequences. If <code>NULL</code>, sequences won't be searched for non-standard letters
+contained in sequences. If <code>NULL</code>, sequences will not be searched for non-standard letters
 of length more than one. Each element of this parameter should be at least two characters 
 long.</p></td>
     </tr>
@@ -150,10 +154,13 @@ long.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Function covers all possibilities of standard and non-standard types and alphabets.
-You can check what 'type' and 'alphabet' exactly is in <code><a href='sq.html'>sq class</a></code> documentation.
-Below there is a guide how function operates and how the program behaves according to the given 
-arguments and the letters in the sequences.</p>
+    <p>Function <code>construct_sq</code> covers all possibilities of standard and non-standard types and 
+alphabets. You can check what 'type' and 'alphabet' exactly are in <code><a href='sq.html'>sq class</a></code> 
+documentation. Below there is a guide how function operates and how the program behaves 
+according to the given arguments and the letters in the sequences.</p>
+<p>Functions <code>construct_sq_ami</code> and <code>construct_sq_nuc</code> are wrappers around 
+<code>construct_sq</code> with specified <code>type</code> parameter - accordingly "ami" or "nuc". You
+can also pass "is_clean" parameter to those functions, but you cannot pass "non_standard".</p>
 <p><code>sq</code> parameter should be a character vector. Each element of this vector is a biological 
 sequence. If this parameter has length 0, object of class <code>sq</code> with 0 sequences will be 
 created (if not specified, it will have <strong>nuc</strong> <strong>cln</strong> type, which is a result of 
@@ -161,14 +168,14 @@ rules written below). If it contains sequences of length 0, <code><a href='sq.ht
 will be introduced (see <em>NULL (empty) sequences</em> section in <code><a href='sq.html'>sq class</a></code>).</p>
 <p><strong>Important note:</strong> in all below cases word 'letter' stands for an element of an alphabet.
 Letter might consist of more than one character, for example "Ala" might be a single letter.
-However, if you want to construct or read sequences with multi-character letters, you have 
-to specify <code>non_standard</code> parameter. Details of letters, alphabets and types can be 
+However, if you want to construct or read sequences with multi-character letters, one has 
+to specify <code>non_standard</code> parameter. Details of letters, alphabet and types can be 
 found in <code><a href='sq.html'>sq class</a></code> documentation.</p>
     
-    <h2 class="hasAnchor" id="simple-guide-to-constructing"><a class="anchor" href="#simple-guide-to-constructing"></a>Simple guide to constructing</h2>
+    <h2 class="hasAnchor" id="simple-guide-to-construct-"><a class="anchor" href="#simple-guide-to-construct-"></a>Simple guide to construct </h2>
 
     
-    <p>In most cases, all you need to do is just specifying <code>sq</code> parameter - type of sequences
+    <p>In most cases, just the <code>sq</code> parameter needs to be specified - type of sequences
 will be guessed accordingly to rules described below. You need to pay attention, however, 
 because for short sequences type may be guessed incorrectly - in this case you should
 specify <code>type</code> and/or <code>is_clean</code>.</p>
@@ -182,18 +189,18 @@ than one character.</p>
 parameters. You cannot specify <code>non_standard</code> parameter in this mode. All letters
 outside specified alphabet will be red as <code>NA</code> values.</p>
     
-    <h2 class="hasAnchor" id="detailed-guide-to-constructing"><a class="anchor" href="#detailed-guide-to-constructing"></a>Detailed guide to constructing</h2>
+    <h2 class="hasAnchor" id="detailed-guide-to-construct-"><a class="anchor" href="#detailed-guide-to-construct-"></a>Detailed guide to construct </h2>
 
     
-    <p>Below there are listed all possibilities that can happen during constructing a <code>sq</code> object.</p>
+    <p>Below all possibilities that can occur during the construction of a <code>sq</code> object are listed.</p>
 <p>In normal mode (no <code><a href='fast-mode.html'>fast mode</a></code>):</p><ul>
 <li><p>If you don't specify any other parameter than <code>sq</code>, function will try to guess
-sequence type and if it's clean (it will check in exactly this order):</p><ol>
+sequence type and if it is clean (it will check in exactly this order):</p><ol>
 <li><p>If it contains only ACGTU- letters, either lowercase or 
 uppercase, type will be set to <strong>nuc</strong> <strong>cln</strong>.</p></li>
 <li><p>If it contains any letters from 1. and additionally letters DEFHIKLMNPQRSVWY*, either
 lowercase or uppercase, type will be set to <strong>ami</strong> <strong>cln</strong>.</p></li>
-<li><p>If it contains any letters from 1. and additionally letters WSMKRYBDHVN, either 
+<li><p>If it contains any letters from 1. and additionally letters WSMKRYBDHVN, either
 lowercase or uppercase, and does not contain any other letter, type will be set to 
 <strong>nuc</strong> without <strong>cln</strong> subtype.</p></li>
 <li><p>If it contains any letters from 1., 2., 3. and additionally letters JOUXZ, type will
@@ -207,8 +214,8 @@ to "unt".</p></li>
 given type with <strong>cln</strong> subtype.</p></li>
 <li><p>If all letters in sequences fit the unclean alphabet of given type, type will be set to 
 given type without <strong>cln</strong> subtype.</p></li>
-<li><p>If at least one of sequences contain at least one letter that is not element of unclean 
-alphabet of provided type, an error will be thrown.</p></li>
+<li><p>If at least one sequence contains at least one letter that is not an element of an  
+unclean alphabet of the provided type, an error will be thrown.</p></li>
 </ol></li>
 <li><p>If you specify both <code>type</code> and <code>is_clean</code>, function checks if letters
 in sequences matches exactly specified alphabet (with capitalisation accuracy). If they do, 
@@ -248,7 +255,7 @@ If your sequences contain <code>NA</code> values, use <code><a href='remove_na.h
 <span class='co'>## setting an option:</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>options</a></span>(<span class='kw'>tidysq_fast_mode</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='co'>## constructing sq without specyfiing type</span>
+<span class='co'>## constructing sq without specifying type</span>
 <span class='co'># nuc cln sq</span>
 <span class='fu'>construct_sq</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"ATGC"</span>, <span class='st'>"TCGTTA"</span>, <span class='st'>"TT--AG"</span>))</div><div class='output co'>#&gt; nuc (nucleotides), cln (cleaned) sequences list:
 #&gt; [1] <span style='color: #00BB00;'>ATGC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
@@ -275,7 +282,7 @@ If your sequences contain <code>NA</code> values, use <code><a href='remove_na.h
 <span class='fu'>construct_sq</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"XYOQWWKCNJLO"</span>))</div><div class='output co'>#&gt; ami (amino acids) sequences list:
 #&gt; [1] </span><span style='color: #00BB00;'>XYOQWWKCNJLO</span><span>                                                            </span><span style='color: #0000BB;'>&lt;12&gt;</span><span>
 #&gt; </div><div class='input'>
-<span class='co'># unt sq - let's assume that one wants to mark some special element in sequnece with %</span>
+<span class='co'># unt sq - let's assume that one wants to mark some special element in sequence with %</span>
 <span class='fu'>construct_sq</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"%%YAPLAA"</span>, <span class='st'>"PLAA"</span>))</div><div class='output co'>#&gt; unt (unspecified type) sequences list:
 #&gt; [1] </span><span style='color: #00BB00;'>%%YAPLAA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>PLAA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
@@ -302,7 +309,25 @@ If your sequences contain <code>NA</code> values, use <code><a href='remove_na.h
 #&gt; [1] </span><span style='color: #00BB00;'>%%YAPLAA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>PLAA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
 #&gt; </div><div class='input'>
-<span class='co'># you can force type other than guessed (if letters fit in the destination alphabet)</span>
+<span class='co'># you can also use wrappers instead of parameters</span>
+<span class='fu'>construct_sq_nuc</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"ATGC"</span>, <span class='st'>"TCGTTA"</span>, <span class='st'>"TT--AG"</span>))</div><div class='output co'>#&gt; nuc (nucleotides), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>ATGC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TCGTTA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TT--AG</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; </div><div class='input'><span class='fu'>construct_sq_ami</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"YQQPAVVM"</span>, <span class='st'>"PQCFL"</span>))</div><div class='output co'>#&gt; ami (amino acids), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>YQQPAVVM</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>PQCFL</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; </div><div class='input'><span class='fu'>construct_sq_ami</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"MMDF*"</span>, <span class='st'>"SYIHR*"</span>, <span class='st'>"MGG*"</span>))</div><div class='output co'>#&gt; ami (amino acids), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>MMDF*</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>SYIHR*</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>MGG*</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; </div><div class='input'><span class='fu'>construct_sq_nuc</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"WHDHKYN"</span>, <span class='st'>"GCYVCYU"</span>))</div><div class='output co'>#&gt; nuc (nucleotides) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>WHDHKYN</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>GCYVCYU</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt; </div><div class='input'><span class='fu'>construct_sq_ami</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"XYOQWWKCNJLO"</span>))</div><div class='output co'>#&gt; ami (amino acids) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>XYOQWWKCNJLO</span><span>                                                            </span><span style='color: #0000BB;'>&lt;12&gt;</span><span>
+#&gt; </div><div class='input'>
+<span class='co'># One can force type other than guessed (if letters fit in the destination alphabet)</span>
 <span class='fu'>construct_sq</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"ATGC"</span>, <span class='st'>"TCGTTA"</span>, <span class='st'>"TT--AG"</span>), <span class='st'>"nuc"</span>, <span class='kw'>is_clean</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; nuc (nucleotides) sequences list:
 #&gt; [1] </span><span style='color: #00BB00;'>ATGC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>TCGTTA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
@@ -384,9 +409,9 @@ If your sequences contain <code>NA</code> values, use <code><a href='remove_na.h
 
       <li><a href="#details">Details</a></li>
 
-      <li><a href="#simple-guide-to-constructing">Simple guide to constructing</a></li>
+      <li><a href="#simple-guide-to-construct-">Simple guide to construct </a></li>
 
-      <li><a href="#detailed-guide-to-constructing">Detailed guide to constructing</a></li>
+      <li><a href="#detailed-guide-to-construct-">Detailed guide to construct </a></li>
 
       <li><a href="#handling-with-atp-and-unt-sq-and-na-values">Handling with atp and unt sq and NA values</a></li>
 

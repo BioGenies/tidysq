@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Encode sequences — encode • tidysq</title>
+<title>Encode sequences as numeric values — encode • tidysq</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Encode sequences — encode" />
+<meta property="og:title" content="Encode sequences as numeric values — encode" />
 
 <meta property="og:description" content="Encode sequences, stored in sq object, with 
 numeric values defined by user in named vector." />
@@ -100,7 +100,7 @@ numeric values defined by user in named vector." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Encode sequences</h1>
+    <h1>Encode sequences as numeric values</h1>
     <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/encode.R'><code>R/encode.R</code></a></small>
     <div class="hidden name"><code>encode.Rd</code></div>
     </div>
@@ -147,11 +147,11 @@ sequence profile or reduced alphabet.</p>
 in <code><a href='sq.html'>sq</a></code>), which represents encoded sequences.</p>
 <p>The named vector (ex. <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(G = 1, K = 2, P = 2)</a></code>) should have all letters 
 assigned, otherwise unassigned letters will be shown as <code>NA</code>. If any letter that
-appears in alphabet appears in at least one of sequences, user will be informed about it.
+appears in an alphabet appears in at least one of sequences, user will be informed about it.
 Default action is a warning printed in the console, but it can be changed via setting
 "tidysq_encode_no_given_action" (see details at <code><a href='tidysq-options.html'>tidysq-options</a></code>).</p>
 <p>In fact the only thing that is replaced is an alphabet - letters are substituted
-with values assigned to them. Internal structure of object is not changed.</p>
+with values assigned to them. The internal structure of the object remains unchanged.</p>
 <p>If one wants to access numeric values of encoded sequences, they may use 
 <code><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></code> or <code><a href='encsq_to_list.html'>encsq_to_list</a></code>.</p>
     
@@ -163,7 +163,7 @@ with values assigned to them. Internal structure of object is not changed.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># Create sq object with sequences containing letters from </span>
-<span class='co'># stadard alphabet to work on:</span>
+<span class='co'># standard alphabet to work on:</span>
 
 <span class='no'>sq_nuc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA"</span>,
                          <span class='st'>"CTTTGGTTATCTAGCTGTATGA"</span>, <span class='st'>"TATCTAGCTGTATG"</span>,
@@ -176,8 +176,8 @@ with values assigned to them. Internal structure of object is not changed.</p>
                         <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"ami"</span>)
 
 
-<span class='co'># Create object, called sq, with sequences containing letters from </span>
-<span class='co'># stadard and extended alphabet to work on:</span>
+<span class='co'># Create an object, called sq, with sequences containing letters from </span>
+<span class='co'># standard and extended alphabet to work on:</span>
 
 <span class='no'>sq_nuc_ex</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"TATCTAGCTGTATG"</span>, <span class='st'>"CUGCUG"</span>, <span class='st'>"CUUAGA"</span>, <span class='st'>"CCCT"</span>,
                             <span class='st'>"CUGAAUGU"</span>))
@@ -185,7 +185,7 @@ with values assigned to them. Internal structure of object is not changed.</p>
 <span class='no'>sq_ami_ex</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"MAYUOUONNNIALN"</span>, <span class='st'>"UUMXBZONO"</span>, <span class='st'>"NAAGAT"</span>))
 
 
-<span class='co'># Create encoding for standard alphabet </span>
+<span class='co'># Create encoding for a standard alphabet </span>
 
 <span class='no'>enc_nuc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>A</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>G</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>T</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 <span class='no'>enc_ami</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>A</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>D</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>E</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>F</span> <span class='kw'>=</span> <span class='fl'>4</span>,
@@ -194,7 +194,7 @@ with values assigned to them. Internal structure of object is not changed.</p>
              <span class='kw'>S</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>T</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>V</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>W</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>Y</span> <span class='kw'>=</span> <span class='fl'>4</span>)
 
 
-<span class='co'># Create encoding for extended alphabet  </span>
+<span class='co'># Create encoding for an extended alphabet</span>
 
 <span class='no'>enc_nuc_ex</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>A</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>G</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>T</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>U</span> <span class='kw'>=</span> <span class='fl'>3</span>)
 <span class='no'>enc_ami_ex</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>A</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>D</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>E</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>F</span> <span class='kw'>=</span> <span class='fl'>4</span>,
@@ -247,13 +247,13 @@ with values assigned to them. Internal structure of object is not changed.</p>
 <span class='co'># Encode with simplified standard alphabet sequences with </span>
 <span class='co'># non-standard letters</span>
 
-<span class='fu'>encode</span>(<span class='no'>sq_nuc_ex</span>, <span class='no'>enc_nuc</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in alphabet of 'sq' that appear in sequences, but weren't given in 'encoding' - assuming NA</span></div><div class='output co'>#&gt; enc (encoded values) sequences list:
+<span class='fu'>encode</span>(<span class='no'>sq_nuc_ex</span>, <span class='no'>enc_nuc</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA</span></div><div class='output co'>#&gt; enc (encoded values) sequences list:
 #&gt; [1] </span><span style='color: #00BBBB;'>2 1 2 2 2 1 2 2 2 2 2 1 2 2</span><span>                                             </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BBBB;'>2 NA 2 2 NA 2</span><span>                                                            </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BBBB;'>2 NA NA 1 2 1</span><span>                                                            </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [4] </span><span style='color: #00BBBB;'>2 2 2 2</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
 #&gt; [5] </span><span style='color: #00BBBB;'>2 NA 2 1 1 NA 2 NA</span><span>                                                       </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
-#&gt; </div><div class='input'><span class='fu'>encode</span>(<span class='no'>sq_ami_ex</span>, <span class='no'>enc_ami</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in alphabet of 'sq' that appear in sequences, but weren't given in 'encoding' - assuming NA</span></div><div class='output co'>#&gt; enc (encoded values) sequences list:
+#&gt; </div><div class='input'><span class='fu'>encode</span>(<span class='no'>sq_ami_ex</span>, <span class='no'>enc_ami</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA</span></div><div class='output co'>#&gt; enc (encoded values) sequences list:
 #&gt; [1] </span><span style='color: #00BBBB;'>5 5 4 NA NA NA NA 6 6 6 3 5 3 6</span><span>                                         </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BBBB;'>NA NA 5 NA NA NA NA 6 NA</span><span>                                                 </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BBBB;'>6 5 5 1 5 6</span><span>                                                              </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
@@ -276,7 +276,7 @@ with values assigned to them. Internal structure of object is not changed.</p>
 
 <span class='co'># Encode without assigning all letters</span>
 
-<span class='fu'>encode</span>(<span class='no'>sq_nuc</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>A</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>G</span> <span class='kw'>=</span> <span class='fl'>0.02</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in alphabet of 'sq' that appear in sequences, but weren't given in 'encoding' - assuming NA</span></div><div class='output co'>#&gt; enc (encoded values) sequences list:
+<span class='fu'>encode</span>(<span class='no'>sq_nuc</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>A</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>G</span> <span class='kw'>=</span> <span class='fl'>0.02</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA</span></div><div class='output co'>#&gt; enc (encoded values) sequences list:
 #&gt; [1] </span><span style='color: #00BBBB;'>NA 1 NA 0.02 1 1 NA NA 1 0.02 NA NA 0.02 NA NA NA NA NA 0.02 NA NA</span><span style='color: #555555;'>...</span><span>   </span><span style='color: #0000BB;'>&lt;38&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BBBB;'>NA NA NA NA 0.02 0.02 NA NA 1 NA NA NA 1 0.02 NA NA 0.02 NA 1 NA</span><span style='color: #555555;'>...</span><span>     </span><span style='color: #0000BB;'>&lt;22&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BBBB;'>NA 1 NA NA NA 1 0.02 NA NA 0.02 NA 1 NA 0.02</span><span>                            </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
@@ -284,7 +284,7 @@ with values assigned to them. Internal structure of object is not changed.</p>
 #&gt; [5] </span><span style='color: #00BBBB;'>NA NA NA 1 0.02 1</span><span>                                                        </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [6] </span><span style='color: #00BBBB;'>NA NA NA NA</span><span>                                                              </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
 #&gt; [7] </span><span style='color: #00BBBB;'>NA NA 0.02 1 1 NA 0.02 NA</span><span>                                                </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
-#&gt; </div><div class='input'><span class='fu'>encode</span>(<span class='no'>sq_ami</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>A</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>H</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>I</span> <span class='kw'>=</span> <span class='fl'>0.3</span>, <span class='kw'>K</span> <span class='kw'>=</span> -<span class='fl'>2</span>, <span class='kw'>L</span> <span class='kw'>=</span> -<span class='fl'>3.1</span>, <span class='kw'>M</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>6</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in alphabet of 'sq' that appear in sequences, but weren't given in 'encoding' - assuming NA</span></div><div class='output co'>#&gt; enc (encoded values) sequences list:
+#&gt; </div><div class='input'><span class='fu'>encode</span>(<span class='no'>sq_ami</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>A</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>H</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>I</span> <span class='kw'>=</span> <span class='fl'>0.3</span>, <span class='kw'>K</span> <span class='kw'>=</span> -<span class='fl'>2</span>, <span class='kw'>L</span> <span class='kw'>=</span> -<span class='fl'>3.1</span>, <span class='kw'>M</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>6</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA</span></div><div class='output co'>#&gt; enc (encoded values) sequences list:
 #&gt; [1] </span><span style='color: #00BBBB;'>6 NA 5 0.3 NA NA NA NA NA NA NA NA NA NA NA 0.3 NA NA 5 0.3 5 -3.1</span><span style='color: #555555;'>...</span><span>   </span><span style='color: #0000BB;'>&lt;31&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BBBB;'>NA 0.3 5 5 -3.1 NA 6 0.3 0.3 NA NA 5 0.3 NA</span><span>                             </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BBBB;'>6 NA NA NA NA NA 5 -3.1 0.3</span><span>                                              </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
@@ -296,7 +296,7 @@ with values assigned to them. Internal structure of object is not changed.</p>
 <span class='co'># Import encoding from \code{AAindex database}</span>
 
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"AAindex_norm"</span>)
-<span class='no'>enc_aa</span> <span class='kw'>&lt;-</span> <span class='no'>AAindex_norm</span>[<span class='fl'>20</span>,]
+<span class='no'>enc_aa</span> <span class='kw'>&lt;-</span> <span class='no'>AAindex_norm</span>[<span class='fl'>20</span>, ]
 
 <span class='fu'>encode</span>(<span class='no'>sq_ami</span>, <span class='no'>enc_aa</span>)</div><div class='output co'>#&gt; enc (encoded values) sequences list:
 #&gt; [1] </span><span style='color: #00BBBB;'>0.0870870870870871 0.687687687687688 0.525525525525525</span><span style='color: #555555;'>...</span><span>               </span><span style='color: #0000BB;'>&lt;31&gt;</span><span>

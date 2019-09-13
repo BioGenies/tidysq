@@ -32,8 +32,8 @@
 
 <meta property="og:title" content="sq: class for keeping biological sequences tidy — sq" />
 
-<meta property="og:description" content="An object of class sq represents a list of biological sequences. It is main
-internal format of tidysq package and most functions operate on it. 
+<meta property="og:description" content="An object of class sq represents a list of biological sequences. It is the 
+main internal format of the tidysq package and most functions operate on it. 
 The storage method is memory-optimized so that objects require as little memory
 as possible (details below)." />
 <meta name="twitter:card" content="summary" />
@@ -109,8 +109,8 @@ as possible (details below)." />
 
     <div class="ref-description">
     
-    <p>An object of class <strong>sq</strong> represents a list of biological sequences. It is main
-internal format of <span class="pkg">tidysq</span> package and most functions operate on it. 
+    <p>An object of class <strong>sq</strong> represents a list of biological sequences. It is the 
+main internal format of the <span class="pkg">tidysq</span> package and most functions operate on it. 
 The storage method is memory-optimized so that objects require as little memory
 as possible (details below).</p>
     
@@ -130,7 +130,7 @@ as possible (details below).</p>
     <p><strong>Important note:</strong> A manual assignment of a class <code>sq</code> to an object is
 <strong>strongly discouraged</strong> - due to the usage of low-level functions for
 bit packing such assignment may lead to calling one of those functions during
-operating on object or even printing it which can cause crash of R session and,
+operating on object or even printing it which can cause a crash of R session and,
 in consequence, loss of data.</p>
     
     <h2 class="hasAnchor" id="export-writing-of-sq-objects"><a class="anchor" href="#export-writing-of-sq-objects"></a>Export/writing of sq objects</h2>
@@ -144,7 +144,7 @@ method,</p></li>
 with <code><a href='as.matrix.sq.html'>as.matrix</a></code> method,</p></li>
 <li><p>converting into a list of numerics with <code><a href='encsq_to_list.html'>encsq_to_list</a></code> (only
 for <strong>enc</strong> <code>sq</code>),</p></li>
-<li><p>saving into the fasta file with <code><a href='write_fasta.html'>write_fasta</a></code>,</p></li>
+<li><p>saving as fasta file with <code><a href='write_fasta.html'>write_fasta</a></code>,</p></li>
 <li><p>exporting into a format of other package like <code>ape</code> or
 <code>Biostrings</code> with <code><a href='export_sq.html'>export_sq</a></code>.</p></li>
 </ul>
@@ -173,8 +173,8 @@ different from standard <strong>ami</strong> or <strong>nuc</strong> alphabets -
 result of constructing sequences or reading from file with specifying 
 <code>non_standard</code> parameter (for details see <code><a href='read_fasta.html'>read_fasta</a></code>
 and <code><a href='construct_sq.html'>construct_sq</a></code>). They are also result of using function
-<code><a href='substitute_letters.html'>substitute_letters</a></code> - user can use this to for example simplify 
-alphabet and replace a few letters with one.</p></li>
+<code><a href='substitute_letters.html'>substitute_letters</a></code> - users can use this for example to simplify 
+an alphabet and to replace a few letters by one.</p></li>
 <li><p><strong>enc</strong> - (<em>encoded</em>) represents list of sequences that have been
 encoded with function <code><a href='encode.html'>encode</a></code> where each letter is assigned with 
 numeric value.</p></li>
@@ -194,8 +194,8 @@ Alphabet is kept mostly as a character vector, where each element represents one
 <strong>letter</strong>.</p>
 <p><code>sq</code> objects of type <strong>ami</strong> or <strong>nuc</strong> have fixed alphabets (depending
 also if object has <strong>cln</strong> subtype). In other words, if two <code>sq</code> objects have
-exactly the same type - <strong>ami</strong> or <strong>nuc</strong> - and either both have or both don't
-have <strong>cln</strong> subtype, they are ensured to have the same alphabets.</p>
+exactly the same type - <strong>ami</strong> or <strong>nuc</strong> - and either both have or both do
+not have a <strong>cln</strong> subtype, they are ensured to have the same alphabets.</p>
 <p>Here are listed alphabets for these types:</p><ul>
 <li><p><strong>ami</strong> <strong>cln</strong> - ACDEFGHIKLMNPQRSTVWY-*</p></li>
 <li><p><strong>ami</strong>, (not <strong>cln</strong>) - ABCDEFGHIJKLMNOPQRSTUVWXYZ-*</p></li>
@@ -205,15 +205,15 @@ have <strong>cln</strong> subtype, they are ensured to have the same alphabets.<
     <p>To see details of these alphabets see <code><a href='aminoacids_df.html'>aminoacids_df</a></code> and 
 <code><a href='nucleotides_df.html'>nucleotides_df</a></code>.</p>
 <p>Other types of <code>sq</code> objects are allowed to have different alphabets. Having an alphabet
-exactly identical to one of those above does not automatically indicate that type of
-sequence is one of those - e.g. there might be <strong>unt</strong> <code>sq</code> that has an alphabet
-identical to <strong>ami</strong> <strong>cln</strong> alphabet. To set the type, you should use the
+exactly identical to one of those above does not automatically indicate that the type of
+the sequence is one of those - e. g., there might be <strong>unt</strong> <code>sq</code> that has an alphabet
+identical to <strong>ami</strong> <strong>cln</strong> alphabet. To set the type, one should use the
 <code><a href='typify.html'>typify</a></code> function.</p>
 <p>The purpose of co-existence of <strong>unt</strong> and <strong>atp</strong> alphabets is the 
 fact that although there is a standard for format of <em>fasta</em> files, sometimes 
-there are other types of symbols which do not fit the standard. Thanks to these types, 
-tidysq can import files with customized alphabets can be imported. Moreover, an user 
-may want to group amino acids with similar properties (e.g. for machine learning) 
+there are other types of symbols, which do not match the standard. Thanks to these types, 
+tidysq can import files with customized alphabets can be imported. Moreover, a user 
+may want to group amino acids with similar properties (e. g., for machine learning) 
 and replace the longer alphabet with symbols of groups. To check details, see 
 <code><a href='read_fasta.html'>read_fasta</a></code>, <code><a href='construct_sq.html'>construct_sq</a></code> and <code><a href='substitute_letters.html'>substitute_letters</a></code>.</p>
 <p>All of the types: <strong>ami</strong>, <strong>nuc</strong>, <strong>atp</strong>, <strong>unt</strong> have alphabets
@@ -227,7 +227,7 @@ indicating methylated alanine).</p>
 are case sensitive. Thus, in their alphabets there can appear both lowercase and
 uppercase letters simultaneously and they are treated as different characters. Alphabets of
 <strong>nuc</strong> and <strong>ami</strong> objects are always uppercase and all functions converts
-other parameters to uppercase when working with <strong>ami</strong> or <strong>nuc</strong> - e.g.
+other parameters to uppercase when working with <strong>ami</strong> or <strong>nuc</strong> - e. g.,
 <code><a href='grapes-has-grapes.html'>%has%</a></code> operator converts lower letters to upper when searching for motifs in
 <strong>ami</strong> or <strong>nuc</strong> object.</p>
 <p><strong>Important note:</strong> maximum length of an alphabet is <strong>30 letters</strong>. You are
@@ -256,7 +256,7 @@ letters might be <code>NA</code>, see <code><a href='encode.html'>encode</a></co
 '!' and, thus, it is highly unrecommended to use '!' as special letter in <strong>atp</strong>
 sequences (but print character can be changed in options, see <code><a href='tidysq-options.html'>tidysq-options</a></code>).</p>
 <p><code>NA</code> might be introduced by:</p><ul>
-<li><p>reading fasta file with non standard letters in
+<li><p>reading fasta file with non-standard letters in
 <code><a href='fast-mode.html'>fast mode</a></code> with <code><a href='read_fasta.html'>read_fasta</a></code>,</p></li>
 <li><p>replacing a letter with <code>NA</code> value with <code><a href='substitute_letters.html'>substitute_letters</a></code>,</p></li>
 <li><p>subsetting sequences out of their lengths with <code><a href='bite.html'>bite</a></code>.</p></li>
@@ -299,8 +299,8 @@ us to save more than 60% of memory spent on storage of nucleotides sequences.</p
     <h2 class="hasAnchor" id="tibble-compatibility"><a class="anchor" href="#tibble-compatibility"></a>tibble compatibility</h2>
 
     
-    <p><code>sq</code> objects are compatible with <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> class - that means you can 
-have <code>sq</code> object as a column of a <code>tibble</code>. There are overloaded print methods, so
+    <p><code>sq</code> objects are compatible with <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> class - that means one can 
+have a <code>sq</code> object as a column of a <code>tibble</code>. There are overloaded print methods, so
 that it is printed in pretty format.</p>
     
 

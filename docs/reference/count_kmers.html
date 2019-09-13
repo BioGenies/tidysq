@@ -152,10 +152,10 @@ k-mers and rows sequences. See <code>Details</code> for specifics of the naming 
 of <code>ns</code>. For example, if <code>ns</code> is <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(4, 4, 4)</a></code>, the <code>ds</code> must be a list of 
 length 3. Each element of the <code>ds</code> list must have length 3 or 1, as appropriate
 for a <code>d</code> parameter in <code>count_ngrams</code> function.</p>
-<p>A <code>dists</code> vector should be always <code>n</code> - 1 in length.
+<p>A <code>dists</code> vector should always be <code>n</code> - 1 in length.
 For example when <code>n</code> = 3, <code>d</code> = c(1,2) means A_A__A. For <code>n</code> = 4, 
-<code>d</code> = c(2,0,1) means A__AA_A. If vector <code>d</code> has length 1, it is recycled to
-length <code>n</code> - 1.</p>
+<code>d</code> = c(2,0,1) means A__AA_A. If a vector <code>d</code> has a length of 1, it is 
+recycled to length <code>n</code> - 1.</p>
 <p>k-mer names follow a specific convention and have three parts for position-specific
 k-mers and two parts otherwise. The parts are separated by <code>_</code>. The <code>.</code> symbol
 is used to separate elements within a part. The general naming scheme is 

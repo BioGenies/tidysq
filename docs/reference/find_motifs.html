@@ -33,7 +33,7 @@
 <meta property="og:title" content="Find given motifs — find_motifs" />
 
 <meta property="og:description" content="Find all given motifs in all sequences and return their 
-positions" />
+positions." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -108,7 +108,7 @@ positions" />
     <div class="ref-description">
     
     <p>Find all given motifs in all sequences and return their 
-positions</p>
+positions.</p>
     
     </div>
 
@@ -150,7 +150,7 @@ following columns:</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function allows search of a given motif or motifs in the <code>sq</code> 
-object. It returns all found motifs with their start and end positions 
+object. It returns all motifs found with their start and end positions 
 within a sequence.</p>
     
     <h2 class="hasAnchor" id="allowed-and-forbidden-letters-and-characters-details"><a class="anchor" href="#allowed-and-forbidden-letters-and-characters-details"></a>Allowed and forbidden letters and characters details</h2>
@@ -162,15 +162,15 @@ exception of sq objects of type ami - in their alphabet there is '*' letter
 and it can be contained in sought motif). To search for motifs with those 
 characters, you have to replace them first using 
 <code><a href='substitute_letters.html'>substitute_letters</a></code>.</p>
-<p>In case of sq objects of type <strong>ami</strong> and <strong>nuc</strong>, motifs have to consist of 
+<p>If sq objects of type <strong>ami</strong> and <strong>nuc</strong>, motifs have to consist of 
 upper case letters from amino acid and nucleotide alphabet respectively. 
 Use of lower case letters will return an error. Two additional characters 
 are allowed: '^' and '$' indicating the beginning and the end of a sequence 
 respectively. Moreover, notice that '*' character may be used in amino acid 
 motifs, as it is a part of the amino acid alphabet. If a motif contains 
-ambiguous letters, all possible matches will be searched for, e.g., amino 
-acid motif "MAJ" (where "J" is an ambiguous letter indicating L or I) will 
-find motifs: "MAJ", "MAL" and "MAI".</p>
+ambiguous letters, all possible matches will be searched for. For example the 
+amino acid motif "MAJ" (where "J" is an ambiguous letter indicating L or I) will 
+find the motifs: "MAJ", "MAL" and "MAI".</p>
 <p>Detailed list of all letters corresponding to each ambiguous letter may be found at
 <code><a href='aminoacids_df.html'>aminoacids_df</a></code> and <code><a href='nucleotides_df.html'>nucleotides_df</a></code>.</p>
     
