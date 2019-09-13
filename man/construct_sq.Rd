@@ -25,7 +25,7 @@ for clean sequences, \code{FALSE} for unclean sequences and \code{NULL} for auto
 (see details).}
 
 \item{non_standard}{a \code{\link{character}} vector indicating non-standard letters
-contained in sequences. If \code{NULL}, sequences won't be searched for non-standard letters
+contained in sequences. If \code{NULL}, sequences will not be searched for non-standard letters
 of length more than one. Each element of this parameter should be at least two characters 
 long.}
 }
@@ -55,13 +55,13 @@ will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[=sq
 
 \strong{Important note:} in all below cases word 'letter' stands for an element of an alphabet.
 Letter might consist of more than one character, for example "Ala" might be a single letter.
-However, if you want to construct or read sequences with multi-character letters, you have 
-to specify \code{non_standard} parameter. Details of letters, alphabets and types can be 
+However, if you want to construct or read sequences with multi-character letters, one has 
+to specify \code{non_standard} parameter. Details of letters, alphabet and types can be 
 found in \code{\link[=sq]{sq class}} documentation.
 }
-\section{Simple guide to constructing}{
+\section{Simple guide to construct }{
 
-In most cases, all you need to do is just specifying \code{sq} parameter - type of sequences
+In most cases, just the \code{sq} parameter needs to be specified - type of sequences
 will be guessed accordingly to rules described below. You need to pay attention, however, 
 because for short sequences type may be guessed incorrectly - in this case you should
 specify \code{type} and/or \code{is_clean}.
@@ -79,20 +79,20 @@ parameters. You cannot specify \code{non_standard} parameter in this mode. All l
 outside specified alphabet will be red as \code{NA} values.
 }
 
-\section{Detailed guide to constructing}{
+\section{Detailed guide to construct }{
 
-Below there are listed all possibilities that can happen during constructing a \code{sq} object.
+Below all possibilities that can occur during the construction of a \code{sq} object are listed.
 
 In normal mode (no \code{\link[=fast-mode]{fast mode}}):
 \itemize{
 \item If you don't specify any other parameter than \code{sq}, function will try to guess
-sequence type and if it's clean (it will check in exactly this order):
+sequence type and if it is clean (it will check in exactly this order):
 \enumerate{
 \item If it contains only ACGTU- letters, either lowercase or 
 uppercase, type will be set to \strong{nuc} \strong{cln}.
 \item If it contains any letters from 1. and additionally letters DEFHIKLMNPQRSVWY*, either
 lowercase or uppercase, type will be set to \strong{ami} \strong{cln}. 
-\item If it contains any letters from 1. and additionally letters WSMKRYBDHVN, either 
+\item If it contains any letters from 1. and additionally letters WSMKRYBDHVN, either
 lowercase or uppercase, and does not contain any other letter, type will be set to 
 \strong{nuc} without \strong{cln} subtype.
 \item If it contains any letters from 1., 2., 3. and additionally letters JOUXZ, type will
@@ -107,8 +107,8 @@ to "unt".
 given type with \strong{cln} subtype. 
 \item If all letters in sequences fit the unclean alphabet of given type, type will be set to 
 given type without \strong{cln} subtype.
-\item If at least one of sequences contain at least one letter that is not element of unclean 
-alphabet of provided type, an error will be thrown. 
+\item If at least one sequence contains at least one letter that is not an element of an  
+unclean alphabet of the provided type, an error will be thrown. 
 }
 \item If you specify both \code{type} and \code{is_clean}, function checks if letters
 in sequences matches exactly specified alphabet (with capitalisation accuracy). If they do, 
@@ -144,7 +144,7 @@ previous_option <- getOption("tidysq_fast_mode")
 ## setting an option:
 options(tidysq_fast_mode = FALSE)
 
-## constructing sq without specyfiing type
+## constructing sq without specifying type
 # nuc cln sq
 construct_sq(c("ATGC", "TCGTTA", "TT--AG")) 
 
@@ -160,7 +160,7 @@ construct_sq(c("WHDHKYN", "GCYVCYU"))
 # ami sq
 construct_sq(c("XYOQWWKCNJLO"))
 
-# unt sq - let's assume that one wants to mark some special element in sequnece with \%
+# unt sq - let's assume that one wants to mark some special element in sequence with \%
 construct_sq(c("\%\%YAPLAA", "PLAA"))
 
 ## constructing sq with type 
@@ -179,7 +179,7 @@ construct_sq_ami(c("MMDF*", "SYIHR*", "MGG*"))
 construct_sq_nuc(c("WHDHKYN", "GCYVCYU"))
 construct_sq_ami(c("XYOQWWKCNJLO"))
 
-# you can force type other than guessed (if letters fit in the destination alphabet)
+# One can force type other than guessed (if letters fit in the destination alphabet)
 construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "nuc", is_clean = FALSE)
 construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "ami")
 construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "ami", is_clean = FALSE)

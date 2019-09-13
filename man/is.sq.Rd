@@ -25,7 +25,7 @@ is.encsq(x)
 \item{x}{an object to be checked.}
 }
 \value{
-A \code{\link{logical}} value - \code{TRUE} if \code{x} has given type, \code{FALSE}
+A \code{\link{logical}} value - \code{TRUE} if \code{x} has specified type, \code{FALSE}
 otherwise.
 }
 \description{

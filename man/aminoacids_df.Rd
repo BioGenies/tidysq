@@ -9,7 +9,7 @@
  \item{one}{One-letter codes of amino acids}
  \item{three}{Three-letter codes of amino acids}
  \item{full}{Full name of the amino acid}
- \item{amb}{Logical indicating if abbreviation is ambiguous, i.e., matches 
+ \item{amb}{Logical indicating if abbreviation is ambiguous, i. e., matches 
  more than one amino acid}
  }}
 \source{

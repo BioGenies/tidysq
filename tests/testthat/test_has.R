@@ -94,4 +94,9 @@ test_that("%has% detects correctly multiple motifs in nucleotide sequences", {
   expect_equal(sum(sq_nuc %has% c("CC", "TAA")),
                2)
 })
-        
+ 
+test_that("%has% works on a single sequence", {
+  single_seq <- construct_sq("AGNTYIKFGGAYTIB", type = 'ami')
+  expect_true(single_seq %has% "AG")
+})
+

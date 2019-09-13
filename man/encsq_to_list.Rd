@@ -7,7 +7,7 @@
 encsq_to_list(encsq)
 }
 \arguments{
-\item{encsq}{a \code{\link{sq}} object with \strong{enc} type which was encoded 
+\item{encsq}{a \code{\link{sq}} object with \strong{enc} type, which was encoded 
 using \code{\link{encode}} function.
 
 In a new object you can check what value is assigned to each letter.}
@@ -28,7 +28,7 @@ Function is used to transform an \code{\link{sq}} object with
 \examples{
 
 # Create sq object with sequences containing letters from 
-# stadard alphabet and extended alphabet to work on:
+# standard alphabet and extended alphabet to work on:
 
 sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
                          "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", 
@@ -46,7 +46,7 @@ sq_ami_ex <- construct_sq(c("MAYUOUONNNIALN", "UUMXBZONO",
                             "NAAGAT"))
 
 
-# Create encoding for standard, extended alphabet and iport from 
+# Create encoding for standard, extended alphabet and import from 
 # other sources:
 
 enc_nuc <- c(A = 1, C = 2, G = 2, T = 2)
@@ -66,7 +66,7 @@ enc_ami_ex <- c(A = 5, C = 5, D = 6, E = 6, F = 4,
                 B = 7.77, Z = 0)
                 
 data("AAindex")
-enc_aa <- AAindex[20,]
+enc_aa <- AAindex[20, ]
 
 
 # Encode sequences and assign it to a variable:
@@ -87,19 +87,19 @@ e_aa <- encode(sq_ami, enc_aa)
 
 # Transform \\code{\\link{encode}} result to a list:
 
-## Sequence with standard alphabet, encoding with standard alphabet
+## Sequence with a standard alphabet, encoding with a standard alphabet
 encsq_to_list(e1)
 encsq_to_list(e2)
 
-## Sequence with standard alphabet, encoding with extended alphabet
+## Sequence with a standard alphabet, encoding with an extended alphabet
 encsq_to_list(e3)
 encsq_to_list(e4)
 
-## Sequence with extended alphabet, encoding with standard alphabet
+## Sequence with an extended alphabet, encoding with a standard alphabet
 encsq_to_list(e5)
 encsq_to_list(e6)
 
-## Sequence with extended alphabet, encoding with extended alphabet
+## Sequence with an extended alphabet, encoding with an extended alphabet
 encsq_to_list(e7)
 encsq_to_list(e8)
 

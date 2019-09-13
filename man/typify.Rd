@@ -7,8 +7,8 @@
 typify(sq, dest_type)
 }
 \arguments{
-\item{sq}{an object of class \code{\link{sq}} with one of types \strong{ami}, \strong{nuc},
-\strong{unt} or \strong{atp}.}
+\item{sq}{an object of class \code{\link{sq}} with one of the types \strong{ami}, 
+\strong{nuc}, \strong{unt} or \strong{atp}.}
 
 \item{dest_type}{\code{\link{character}} string, destination type, either "ami" or "nuc".}
 }
@@ -19,17 +19,17 @@ but with type as specified in \code{dest_type}.
 \description{
 Function to set type of \strong{atp} or \strong{unt} sequences to \strong{ami} or 
 \strong{nuc} provided that they do not have invalid letters (which can be checked
-using \code{\link{get_sq_alphabet}} and \code{\link{get_invalid_letters}})
+using \code{\link{get_sq_alphabet}} and \code{\link{get_invalid_letters}}).
 }
 \details{
 Sometimes during reading \code{sq} from fasta file (using \code{\link{read_fasta}}) or 
 constructing from character vector (using \code{\link{construct_sq}} or 
-\code{\link{as.character}}) there are letters that aren't in standard alphabets (see
+\code{\link{as.character}}) there are letters that are not in standard alphabets (see
 \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}}). In consequence, newly created
 \code{sq} objects might have other type - \strong{atp} or \strong{unt}. After removal of those
 non-standard letters (using \code{\link{substitute_letters}}), user might want to set type of 
 \code{sq} object to one of standard types - \strong{ami} and \strong{nuc} - this is demanded
-by some of the functions. This is what this function is designed for.
+by some functions. This is what this function is designed for.
 
 If \code{dest_type} is equal to type of \code{sq}, function does not do anything.
 

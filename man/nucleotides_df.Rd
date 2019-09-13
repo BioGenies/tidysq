@@ -8,7 +8,7 @@
 \describe{
  \item{one}{One-letter codes of nucleotides}
  \item{full}{Full name of the nucleotide}
- \item{amb}{Logical indicating if abbreviation is ambiguous, i.e., matches more than one nucleotide}
+ \item{amb}{Logical indicating if abbreviation is ambiguous, i. e., matches more than one nucleotide}
  }}
 \source{
 Johnson, A.D. (2010). An extended IUPAC nomenclature code for 

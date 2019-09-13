@@ -25,7 +25,7 @@ for clean sequences, \code{FALSE} for unclean sequences and \code{NULL} for auto
 (see details).}
 
 \item{non_standard}{a \code{\link{character}} vector indicating non-standard letters
-contained in sequences. If \code{NULL}, sequences won't be searched for non-standard letters
+contained in sequences. If \code{NULL}, sequences will not be searched for non-standard letters
 of length more than one. Each element of this parameter should be at least two characters 
 long.}
 }

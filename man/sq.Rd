@@ -4,8 +4,8 @@
 \alias{sq}
 \title{sq: class for keeping biological sequences tidy}
 \description{
-An object of class \strong{sq} represents a list of biological sequences. It is main
-internal format of \pkg{tidysq} package and most functions operate on it. 
+An object of class \strong{sq} represents a list of biological sequences. It is the 
+main internal format of the \pkg{tidysq} package and most functions operate on it. 
 The storage method is memory-optimized so that objects require as little memory
 as possible (details below).
 }
@@ -23,7 +23,7 @@ There are multiple ways of obtaining \code{sq} objects:
 \strong{Important note:} A manual assignment of a class \code{sq} to an object is
 \strong{strongly discouraged} - due to the usage of low-level functions for
 bit packing such assignment may lead to calling one of those functions during
-operating on object or even printing it which can cause crash of R session and,
+operating on object or even printing it which can cause a crash of R session and,
 in consequence, loss of data.
 }
 
@@ -38,7 +38,7 @@ method,
 with \code{\link[=as.matrix.sq]{as.matrix}} method,
 \item converting into a list of numerics with \code{\link{encsq_to_list}} (only
 for \strong{enc} \code{sq}),
-\item saving into the fasta file with \code{\link{write_fasta}},
+\item saving as fasta file with \code{\link{write_fasta}},
 \item exporting into a format of other package like \code{ape} or
 \code{Biostrings} with \code{\link{export_sq}}.
 }
@@ -69,8 +69,8 @@ different from standard \strong{ami} or \strong{nuc} alphabets - similarly to
 result of constructing sequences or reading from file with specifying 
 \code{non_standard} parameter (for details see \code{\link{read_fasta}}
 and \code{\link{construct_sq}}). They are also result of using function
-\code{\link{substitute_letters}} - user can use this to for example simplify 
-alphabet and replace a few letters with one.
+\code{\link{substitute_letters}} - users can use this for example to simplify 
+an alphabet and to replace a few letters by one.
 \item \strong{enc} - (\emph{encoded}) represents list of sequences that have been
 encoded with function \code{\link{encode}} where each letter is assigned with 
 numeric value.
@@ -93,8 +93,8 @@ Alphabet is kept mostly as a character vector, where each element represents one
 
 \code{sq} objects of type \strong{ami} or \strong{nuc} have fixed alphabets (depending
 also if object has \strong{cln} subtype). In other words, if two \code{sq} objects have
-exactly the same type - \strong{ami} or \strong{nuc} - and either both have or both don't
-have \strong{cln} subtype, they are ensured to have the same alphabets.
+exactly the same type - \strong{ami} or \strong{nuc} - and either both have or both do
+not have a \strong{cln} subtype, they are ensured to have the same alphabets.
 
 Here are listed alphabets for these types:
 \itemize{
@@ -108,16 +108,16 @@ To see details of these alphabets see \code{\link{aminoacids_df}} and
 \code{\link{nucleotides_df}}.
 
 Other types of \code{sq} objects are allowed to have different alphabets. Having an alphabet
-exactly identical to one of those above does not automatically indicate that type of
-sequence is one of those - e.g. there might be \strong{unt} \code{sq} that has an alphabet
-identical to \strong{ami} \strong{cln} alphabet. To set the type, you should use the
+exactly identical to one of those above does not automatically indicate that the type of
+the sequence is one of those - e. g., there might be \strong{unt} \code{sq} that has an alphabet
+identical to \strong{ami} \strong{cln} alphabet. To set the type, one should use the
 \code{\link{typify}} function.
 
 The purpose of co-existence of \strong{unt} and \strong{atp} alphabets is the 
 fact that although there is a standard for format of \emph{fasta} files, sometimes 
-there are other types of symbols which do not fit the standard. Thanks to these types, 
-tidysq can import files with customized alphabets can be imported. Moreover, an user 
-may want to group amino acids with similar properties (e.g. for machine learning) 
+there are other types of symbols, which do not match the standard. Thanks to these types, 
+tidysq can import files with customized alphabets can be imported. Moreover, a user 
+may want to group amino acids with similar properties (e. g., for machine learning) 
 and replace the longer alphabet with symbols of groups. To check details, see 
 \code{\link{read_fasta}}, \code{\link{construct_sq}} and \code{\link{substitute_letters}}.
 
@@ -134,7 +134,7 @@ indicating methylated alanine).
 are case sensitive. Thus, in their alphabets there can appear both lowercase and
 uppercase letters simultaneously and they are treated as different characters. Alphabets of
 \strong{nuc} and \strong{ami} objects are always uppercase and all functions converts
-other parameters to uppercase when working with \strong{ami} or \strong{nuc} - e.g.
+other parameters to uppercase when working with \strong{ami} or \strong{nuc} - e. g.,
 \code{\link{\%has\%}} operator converts lower letters to upper when searching for motifs in
 \strong{ami} or \strong{nuc} object.
 
@@ -167,7 +167,7 @@ sequences (but print character can be changed in options, see \code{\link{tidysq
 
 \code{NA} might be introduced by:
 \itemize{
-\item reading fasta file with non standard letters in
+\item reading fasta file with non-standard letters in
 \code{\link[=fast-mode]{fast mode}} with \code{\link{read_fasta}},
 \item replacing a letter with \code{NA} value with \code{\link{substitute_letters}},
 \item subsetting sequences out of their lengths with \code{\link{bite}}.
@@ -215,8 +215,8 @@ us to save more than 60\% of memory spent on storage of nucleotides sequences.
 
 \section{tibble compatibility}{
 
-\code{sq} objects are compatible with \code{\link[tibble]{tibble}} class - that means you can 
-have \code{sq} object as a column of a \code{tibble}. There are overloaded print methods, so
+\code{sq} objects are compatible with \code{\link[tibble]{tibble}} class - that means one can 
+have a \code{sq} object as a column of a \code{tibble}. There are overloaded print methods, so
 that it is printed in pretty format.
 }
 

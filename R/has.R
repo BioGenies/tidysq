@@ -83,6 +83,8 @@
   .check_motifs_proper_alph(y, type, alph)
   x <- as.character(x)
   ret <- sapply(y, function(s) grepl(s, x))
+  if(!is.matrix(ret))
+    ret <- as.matrix(ret)
   ret <- apply(ret, 1, all)
   ret
 }
@@ -105,6 +107,8 @@
   x <- as.character(x)
   
   ret <- sapply(y, function(s) grepl(s, x))
+  if(!is.matrix(ret))
+    ret <- as.matrix(ret)
   ret <- apply(ret, 1, all)
   ret
 }
@@ -132,11 +136,13 @@
   y <- lapply(y, function(s) replace(s, s == "N", "[ACTGUWSMKRYBDHVN]"))
   
   y <- sapply(y, function(s) paste(s, collapse = ""))
-  
+
   alph <- .get_alph(x)
   x <- as.character(x)
   
   ret <- sapply(y, function(s) grepl(s, x))
+  if(!is.matrix(ret))
+    ret <- as.matrix(ret)
   ret <- apply(ret, 1, all)
   ret
 }

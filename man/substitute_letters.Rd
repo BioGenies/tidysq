@@ -19,16 +19,16 @@ a \code{\link{sq}} object with \strong{atp} type with replaced alphabet,
 defined by user.
 }
 \description{
-1) Replace ambiguous/extraordinary letters in nucleic or 
-amino acid sequence, stored in \code{\link{sq}} object, with the ones 
+1) Replace ambiguous/extraordinary letters in a nucleic or 
+amino acid sequence, stored in a \code{\link{sq}} object, with the ones 
 that are compliant with the IUPAC standard, ones that are user-defined 
 or with \code{NA} values.
 
 2) Replace default amino acid letters in a sequence with a custom encoding 
-to create simplified alphabets.
+to create sequences with simplified alphabets.
 
 The function is only used to replace letters in the alphabet. 
-It cannot be used to merge surrounding characters.
+It cannot be used to merge neighboring characters.
 }
 \details{
 \code{substitute_letters} allows to replace ambiguous/extraordinary 

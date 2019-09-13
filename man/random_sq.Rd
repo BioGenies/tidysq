@@ -28,7 +28,7 @@ with random gaps inside.}
 An object of class \code{sq} with type as specified.
 
 Sequences are generated using \code{\link{sample}} function. There is no possibility of 
-generating sequence of 0 length, even if \code{sd} is given. Letter '*' is not used 
+generating a sequence of length 0, even if \code{sd} is given. Letter '*' is not used 
 in generating \strong{ami} sequences.
 }
 \description{

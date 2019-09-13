@@ -34,10 +34,10 @@ of \code{ns}. For example, if \code{ns} is \code{c(4, 4, 4)}, the \code{ds} must
 length 3. Each element of the \code{ds} list must have length 3 or 1, as appropriate
 for a \code{d} parameter in \code{count_ngrams} function.
 
-A \code{dists} vector should be always \code{n} - 1 in length.
+A \code{dists} vector should always be \code{n} - 1 in length.
 For example when \code{n} = 3, \code{d} = c(1,2) means A_A__A. For \code{n} = 4, 
-\code{d} = c(2,0,1) means A__AA_A. If vector \code{d} has length 1, it is recycled to
-length \code{n} - 1.
+\code{d} = c(2,0,1) means A__AA_A. If a vector \code{d} has a length of 1, it is 
+recycled to length \code{n} - 1.
 
 k-mer names follow a specific convention and have three parts for position-specific
 k-mers and two parts otherwise. The parts are separated by \code{_}. The \code{.} symbol

@@ -29,17 +29,17 @@ Creates the complementary sequence from a given RNA or DNA
  nucleotide sequence. The function differentiates between RNA and DNA sequences.
 }
 \details{
-This functions allow obtaining complement sequence which is created by 
+This functions allows to obtain a complement sequence, which is created by 
 matching elements (nucleotides) with complementarity to input \code{nucsq} object. In case
 of \code{complement}: If \code{is_dna = TRUE} entered sequence is DNA. 
 If \code{is_dna = FALSE} entered 
-sequence is RNA. By default the sequence type is not specified and the function
-tries to guess which type of sequence was entered. If sequence contain 'U' without 
+sequence is RNA. By default, the sequence type is not specified and the function
+tries to guess, which type of sequence was entered. If a sequence contains 'U' without 
 'T' the type will be set to RNA. If a sequence contains 'T' (thymine) without 
 'U' (uracil), the type is set to DNA. An error is displayed if both 'T' and 'U' 
 are present in the sequence or if the sequence contains only 'A' (adenine). If the 
 sequence does not contain 'T' or 'U' or the logical specification is wrong 
-(i.e. if the sequence contains 'U' and the logical specification is set to DNA), 
+(i. e. if the sequence contains 'U' and the logical specification is set to DNA), 
 an error will also be returned.
 
 Functions \code{complement_dna} and \code{complement_rna} are wrappers around 
@@ -59,7 +59,7 @@ nuc_rna_sequence <- construct_sq(c("ACUGCUG", "CUUAGA",
 # primers. Every sequence will be rewritten to its complementary equivalent as 
 # following example: AAATTTGGG to TTTAAACCC.
  
-# creating complementary sequences with defined sequence type (and using wrappers):
+# creating complementary sequences with a specified sequence type (and using wrappers):
 complement(nuc_dna_sequence, is_dna = TRUE)
 complement_dna(nuc_dna_sequence)
 
@@ -70,8 +70,8 @@ complement_rna(nuc_rna_sequence)
 complement(nuc_dna_sequence)
 complement(nuc_rna_sequence)
 
-# Each sequence from  nuc_dna_sequence and nuc_rna_sequence object have now own 
-# complementary equivalent, which can be helpful during constructing PCR primers.
+# Each sequence from nuc_dna_sequence and nuc_rna_sequence object have now an  
+# own complementary equivalent, which can be helpful during constructing PCR primers.
  
   
 
