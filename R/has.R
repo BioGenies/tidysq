@@ -6,20 +6,20 @@
 #' @param y a \code{character} vector of motifs to be searched for.
 #' 
 #' @return A \code{\link{logical}} vector of the same length as input \code{sq}, indicating 
-#' which elements contain all of given motifs
+#' which elements contain all given motifs
 #' 
 #' @details This function allows testing if elements of a \code{sq} object contain 
-#' a given motif or motifs. It returns a \code{logical} for every element of the \code{sq} 
-#' object - \code{TRUE} if it contains the motif and \code{FALSE} otherwise. 
-#' In case of search for multiple motifs, \code{TRUE} will be returned only 
-#' for sequences that contain all of the given motifs. 
+#' a given motif or motifs, which includes start sequences and stop codons. It returns 
+#' a \code{logical} for every element of the \code{sq} object - \code{TRUE} if it 
+#' contains the motif and \code{FALSE} otherwise. When multiple motifs are searched, 
+#' \code{TRUE} will be returned only for sequences that contain all the given motifs. 
 #' 
 #' This function only indicates if a motif is present within a sequence, to 
-#' find all motifs and their positions within sequences use 
+#' find all motifs, and their positions within sequences use 
 #' \code{\link{find_motifs}}.
 #' 
 #' @section Allowed and forbidden letters and characters details:
-#' Note if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
+#' Note: if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
 #' search for motifs cannot be performed and an error will be displayed (with 
 #' exception of sq objects of type ami - in their alphabet there is '*' letter 
 #' and it can be contained in sought motif). To search for motifs with those 
@@ -33,7 +33,7 @@
 #' respectively. Moreover, notice that '*' character may be used in amino acid 
 #' motifs, as it is a part of the amino acid alphabet. If a motif contains 
 #' ambiguous letters, all possible matches will be searched for, e.g., amino 
-#' acid motif "MAJ" (where "J" is an ambiguous letter indicating L or I) will 
+#' acid motif "MAJ" (where "J" is an ambiguous letter indicating L, or I) will 
 #' find motifs: "MAJ", "MAL" and "MAI". 
 #' 
 #' Detailed list of all letters corresponding to each ambiguous letter may be found at
@@ -77,7 +77,7 @@
 #' @exportMethod `%has%` sq
 #' @export
 `%has%.sq` <- function(x, y) {
-  .check_character(y, "'y', right hand side object,")
+  .check_character(y, "'y', right-hand side object,")
   alph <- .get_alph(x)
   type <- .get_sq_type(x)
   .check_motifs_proper_alph(y, type, alph)
