@@ -12,17 +12,16 @@
 #' @return \code{sq} object of the same type as input \code{nucsq} (\strong{nuc}) but 
 #' built of complementary nucleotides to entered sequence.
 #' 
-#' @details This functions allows to obtain a complement sequence, which is created by 
-#' matching elements (nucleotides) with complementarity to input \code{nucsq} object. In case
-#' of \code{complement}: If \code{is_dna = TRUE} entered sequence is DNA. 
-#' If \code{is_dna = FALSE} entered 
-#' sequence is RNA. By default, the sequence type is not specified and the function
-#' tries to guess, which type of sequence was entered. If a sequence contains 'U' without 
-#' 'T' the type will be set to RNA. If a sequence contains 'T' (thymine) without 
-#' 'U' (uracil), the type is set to DNA. An error is displayed if both 'T' and 'U' 
+#' @details This function allows to get complement sequence, which is created by 
+#' matching elements (nucleotides) with complementary to input nucsq object. If 
+#' \code{is_dna = TRUE} entered sequence is DNA. If \code{is_dna = FALSE} entered 
+#' sequence is RNA. By default, the sequence type is not specified, and the function
+#' tries to guess, which type of sequence was entered. Sequences containing 'U' without 
+#' 'T' will be set to the tpye RNA. If a sequence contains 'T' (thymine) without 
+#' 'U' (uracil), the type is set to dna. An error is displayed if both 'T' and 'U' 
 #' are present in the sequence or if the sequence contains only 'A' (adenine). If the 
 #' sequence does not contain 'T' or 'U' or the logical specification is wrong 
-#' (i. e. if the sequence contains 'U' and the logical specification is set to DNA), 
+#' (i.e., if the sequence contains 'U' and the logical specification is set to DNA), 
 #' an error will also be returned.
 #' 
 #' Functions \code{complement_dna} and \code{complement_rna} are wrappers around 

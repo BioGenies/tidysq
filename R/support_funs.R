@@ -8,24 +8,24 @@
 #' @return A character vector of letters of the alphabet.
 #' 
 #' @details This function allows returning alphabet of \code{sq} object which is a character
-#' or numeric vector. The function reads provided \code{\link{sq}} object and determines
+#' or numeric vector. The function reads provided \code{\link{sq}} object and determines,
 #' which kind of sequences user assigned to a \code{\link{sq}} object (nucleotide, amino acid,
 #' atypical or encoded one).
 #' 
 #' If  \code{\link{sq}} type is \strong{ami} the function returns a set of 20 aminoacids with
-#' gap (-) and stop codon (*) letter. If a \code{\link{sq}} contains \strong{nuc}  sequences
+#' gap (-) and stop codon (*) letter. If a \code{\link{sq}} contains \strong{nuc} sequences
 #' the function returns a set of 5 nucleotides with gap (-) element. If \code{sq} has 
 #' additionally \strong{cln} subtype, ambiguous letters are returned as well.
 #' 
 #' If \code{\link{sq}} type is \strong{unt} or \strong{atp} the function returns a list of 
-#' letters present in sequences in \code{\link{sq}} object.
+#' letters present in sequences of a \code{\link{sq}} object.
 #' 
 #' If type is \strong{enc} a numeric vector of values encoded for letters will be returned
 #' (see \code{\link{encode}}).
 #' 
 #' The details about amino acid and nucleotide 
 #' alphabet can be checked in \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}} 
-#' respectively. General informations about alphabets and types of \code{sq} objects can 
+#' respectively. General information about alphabets and types of \code{sq} objects can 
 #' be found in \code{\link{sq}} class documentation.
 #'
 #' @examples 
@@ -195,10 +195,10 @@ is_null_sq <- function(sq) {
 #' a \code{\link{sq}} object to amino acid or nucleotide alphabet. Output list has number of
 #' elements equal to length of \code{sq} object and each element is a character vector 
 #' of elements that appear in according sequence that does not fit destination type. This 
-#' function might be used to find specifically which sequences have which letters - user
+#' function might be used to find specifically, which sequences have letters - user
 #' may want to use this information for example to check input sequences.
 #' 
-#' You can check which letters are valid for specified type in \code{\link{sq}} class 
+#' You can check, which letters are valid for specified type in \code{\link{sq}} class 
 #' documentation.
 #' 
 #' Mismatched elements might be replaced with other letters or \code{NA} using 
