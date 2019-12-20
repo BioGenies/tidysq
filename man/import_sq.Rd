@@ -14,7 +14,8 @@ import_sq(object)
 A \code{\link[tibble]{tibble}} with \code{sq} column of \code{\link{sq}} type 
 representing the same 
 sequences as given object; the object has a type corresponding to the input type; if given
-sequences had names, output tibble has also another column \code{name} with those names
+sequences had names, output \code{\link[tibble]{tibble}} has also another column 
+\code{name} with those names
 }
 \description{
 Creates \code{\link[=sq]{sq object}} from \code{object} of class from another package.

@@ -40,7 +40,7 @@ can be later removed, from the sequence, by \code{\link{clean}} function.
 with encodings. They can be user-defined or be derived from various 
 simplified alphabets.
 
-One letter of the alphabet may be replaced by a multiple characters. 
+One letter of the alphabet may be replaced by a multiple character. 
 
 The alphabet characters to be replaced need to be written in capital letters
 and must originate from default alphabets, otherwise error will be 

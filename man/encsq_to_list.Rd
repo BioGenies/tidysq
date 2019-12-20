@@ -85,7 +85,7 @@ e10 <- encode(sq_ami, c(A = 5, H = 5, I = 0.3, K = -2,
 e_aa <- encode(sq_ami, enc_aa)
 
 
-# Transform \\code{\\link{encode}} result to a list:
+# Transform \code{\link{encode}} result to a list:
 
 ## Sequence with a standard alphabet, encoding with a standard alphabet
 encsq_to_list(e1)

@@ -4,8 +4,7 @@
 \alias{count_kmers}
 \title{Count k-mers in sequences}
 \usage{
-count_kmers(sq, lens = 0, dists = list(0), alph = NULL,
-  position = FALSE)
+count_kmers(sq, lens = 0, dists = list(0), alph = NULL, position = FALSE)
 }
 \arguments{
 \item{sq}{a vector or matrix describing sequence(s).}

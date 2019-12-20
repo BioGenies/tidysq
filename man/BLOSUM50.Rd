@@ -24,7 +24,7 @@ BLOSUM matrix is a substitution matrix used for sequence alignment of proteins.
 BLOSUM matrices are actual percentage identity values of sequences selected for
 construction of the matrices. BLOSUM50 indicates that the sequences
 selected for constructing the matrix share an average identity value of 50\%.
-BLOSUM50 is good matrix for distantly related proteins.
+BLOSUM50 is a good matrix for distantly related proteins.
 The matrix made by matblas from blosum50.iij
 BLOSUM Clustered Scoring Matrix in 1/3 Bit Units
 Cluster Percentage: >= 50
