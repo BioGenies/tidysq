@@ -5,3 +5,9 @@
 tidysq.Rproj
 *.o
 *.so
+
+src/Makevars
+
+config.log
+
+config.status
