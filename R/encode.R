@@ -123,7 +123,6 @@
 #' 
 #' @seealso \code{\link{sq}} \code{\link{as.matrix}} or \code{\link{encsq_to_list}}
 #' 
-#' @exportClass encsq
 #' @export
 encode <- function(sq, encoding) {
   validate_sq(sq)

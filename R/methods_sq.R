@@ -64,8 +64,6 @@
 #' sq_unt[]
 #' 
 #' @seealso \code{\link{sq}} \code{\link{bite}}
-#'   
-#' @exportMethod `[` sq
 #' @export
 `[.sq` <- function(x, i, j, ...) {
   ret <- NextMethod()
@@ -95,7 +93,6 @@
 #' 
 #' c(sq_1, sq_2, sq_3, sq_4)
 #' 
-#' @exportMethod c sq
 #' @export
 c.sq <- function(...) {
   args <- list(...)
@@ -141,13 +138,11 @@ as.sq <- function(x, ...) {
   UseMethod("as.sq")
 }
 
-#' @exportMethod as.sq default
 #' @export
 as.sq.default <- function(x, ...) {
   stop("'as.sq' cannot handle objects with this class")
 }
 
-#' @exportMethod as.sq character
 #' @export
 as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL, ...) {
   construct_sq(x, type, is_clean, non_standard)
@@ -179,7 +174,6 @@ as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL
 #' as.character(sq_nuc)
 #'
 #' @seealso sq
-#' @exportMethod as.character sq
 #' @export
 as.character.sq <- function(x, ...) {
   unlist(.debitify_sq(x, "string"))
@@ -223,7 +217,6 @@ as.character.sq <- function(x, ...) {
 #' as.matrix(sq_diff_len)
 #' 
 #' @seealso \code{\link{sq}}
-#' @exportMethod as.matrix sq
 #' @export
 as.matrix.sq <- function(x, ...) {
   x <- .debitify_sq(x, "char")
@@ -234,7 +227,6 @@ as.matrix.sq <- function(x, ...) {
 }
 
 
-#' @exportMethod as.matrix encsq
 #' @export
 as.matrix.encsq <- function(x, ...) {
   ret <- NextMethod()
@@ -285,42 +277,36 @@ as.matrix.encsq <- function(x, ...) {
 #' is.amisq(sq_atp)
 #' is.untsq(sq_ami)
 #' @seealso \code{\link{sq}}
-#' @exportMethod is sq
 #' @export
 is.sq <- function(x) {
   tryCatch({validate_sq(x); TRUE}, error = function(e) FALSE)
 }
 
 #' @rdname is.sq
-#' @exportMethod is amisq
 #' @export
 is.amisq <- function(x) {
   tryCatch({validate_sq(x, type = "ami"); TRUE}, error = function(e) FALSE)
 }
 
 #' @rdname is.sq
-#' @exportMethod is nucsq
 #' @export
 is.nucsq <- function(x) {
   tryCatch({validate_sq(x, type = "nuc"); TRUE}, error = function(e) FALSE)
 }
 
 #' @rdname is.sq
-#' @exportMethod is untsq
 #' @export
 is.untsq <- function(x) {
   tryCatch({validate_sq(x, type = "unt"); TRUE}, error = function(e) FALSE)
 }
 
 #' @rdname is.sq
-#' @exportMethod is atpsq
 #' @export
 is.atpsq <- function(x) {
   tryCatch({validate_sq(x, type = "atp"); TRUE}, error = function(e) FALSE)
 }
 
 #' @rdname is.sq
-#' @exportMethod is encsq
 #' @export
 is.encsq <- function(x) {
   tryCatch({validate_sq(x, type = "enc"); TRUE}, error = function(e) FALSE)
@@ -385,8 +371,7 @@ is.encsq <- function(x) {
 #' # Comparing sq object to given amino acids vector:
 #' sq == c('RISGQQD','RISGQQD')
 #'  
-#' @seealso \code{\link{sq}} \code{\link{as.character}} \code{\link{is.sq}}                                                         
-#' @exportMethod `==` sq
+#' @seealso \code{\link{sq}} \code{\link{as.character}} \code{\link{is.sq}}
 #' @export
 `==.sq` <- function(x1, x2) {
   #TODO make it faster and lighter, maybe?

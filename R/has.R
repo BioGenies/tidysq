@@ -68,13 +68,11 @@
   UseMethod("%has%")
 }
 
-#' @exportMethod `%has%`
 #' @export
 `%has%.default` <- function(x, y) {
   stop("operator '%has%' is not overloaded for this type of objects")
 }
 
-#' @exportMethod `%has%` sq
 #' @export
 `%has%.sq` <- function(x, y) {
   .check_character(y, "'y', right-hand side object,")
@@ -89,7 +87,6 @@
   ret
 }
 
-#' @exportMethod `%has%` amisq
 #' @export
 `%has%.amisq` <- function(x, y) {
   .check_character(y, "'y', right hand side object,")
@@ -113,7 +110,6 @@
   ret
 }
 
-#' @exportMethod `%has%` nucsq
 #' @export
 `%has%.nucsq` <- function(x, y) {
   .check_character(y, "'y', right hand side object,")

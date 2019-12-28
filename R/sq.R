@@ -411,7 +411,6 @@ NULL
 #' 
 #' @seealso \code{\link{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}} 
 #' \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}
-#' @exportClass sq
 #' @export
 construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) {
   .check_character(sq, "'sq'", allow_zero_len = TRUE)
@@ -499,7 +498,6 @@ construct_sq_nuc <- function(sq, is_clean = NULL) {
   .set_class(sq, "atp")
 }
 
-#' @exportClass amisq
 .construct_amisq <- function(sq, is_clean) {
   sq <- toupper(sq)
   real_alph <- .get_real_alph(sq)
@@ -512,7 +510,6 @@ construct_sq_nuc <- function(sq, is_clean = NULL) {
   .set_class(sq, "ami", is_clean)
 }
 
-#' @exportClass nucsq
 .construct_nucsq <- function(sq, is_clean) {
   sq <- toupper(sq)
   real_alph <- .get_real_alph(sq)
@@ -525,7 +522,6 @@ construct_sq_nuc <- function(sq, is_clean = NULL) {
   .set_class(sq, "nuc", is_clean)
 }
 
-#' @exportClass untsq
 .construct_untsq <- function(sq) {
   alph <- .get_real_alph(sq)
   .check_alph_length(alph)

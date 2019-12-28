@@ -1,40 +1,34 @@
 #' @importFrom pillar type_sum
-#' @exportMethod type_sum amisq
 #' @export
 type_sum.amisq <- function(x) {
   "ami"
 }
 
 #' @importFrom pillar type_sum
-#' @exportMethod type_sum nucsq
 #' @export
 type_sum.nucsq <- function(x) {
   "nuc"
 }
 
 #' @importFrom pillar type_sum
-#' @exportMethod type_sum untsq
 #' @export
 type_sum.untsq <- function(x) {
   "unt"
 }
 
 #' @importFrom pillar type_sum
-#' @exportMethod type_sum atpsq
 #' @export
 type_sum.atpsq <- function(x) {
   "atp"
 }
 
 #' @importFrom pillar type_sum
-#' @exportMethod type_sum encsq
 #' @export
 type_sum.encsq <- function(x) {
   "enc"
 }
 
 #' @importFrom pillar type_sum
-#' @exportMethod type_sum clnsq
 #' @export
 type_sum.clnsq <- function(x) {
   paste0("(c)", NextMethod())
@@ -116,7 +110,6 @@ type_sum.clnsq <- function(x) {
 #' @importFrom crayon silver
 #' @importFrom crayon green
 #' @importFrom crayon col_nchar
-#' @exportMethod print sq
 #' @export
 print.sq <- function(x,  
                      max_sequences = getOption("tidysq_max_print_sequences"),
@@ -225,7 +218,6 @@ print.sq <- function(x,
 #' @importFrom crayon silver
 #' @importFrom crayon cyan
 #' @importFrom crayon col_nchar
-#' @exportMethod print encsq
 #' @export
 print.encsq <- function(x,
                         max_sequences = getOption("tidysq_max_print_sequences"),
@@ -336,7 +328,6 @@ print.encsq <- function(x,
 #' @importFrom pillar new_pillar_shaft
 #' @importFrom pillar get_max_extent
 #' @importFrom pillar get_extent
-#' @exportMethod pillar_shaft sq
 #' @export
 pillar_shaft.sq <- function(x, ...) {
   p_width <- getOption("width")
@@ -378,7 +369,6 @@ pillar_shaft.sq <- function(x, ...) {
 #' @importFrom crayon silver
 #' @importFrom crayon col_substring
 #' @importFrom pillar new_ornament
-#' @exportMethod format pillar_shaft_sq
 #' @export
 format.pillar_shaft_sq <- function(x, width, ...) {
   if (width < attr(x, "min_width")) {
@@ -453,7 +443,6 @@ format.pillar_shaft_sq <- function(x, width, ...) {
 #' @importFrom pillar pillar_shaft
 #' @importFrom pillar new_pillar_shaft
 #' @importFrom pillar get_max_extent
-#' @exportMethod pillar_shaft encsq
 #' @export
 pillar_shaft.encsq <- function(x, ...) {
   p_width <- getOption("width")
@@ -493,7 +482,6 @@ pillar_shaft.encsq <- function(x, ...) {
 #' @importFrom crayon cyan
 #' @importFrom crayon silver
 #' @importFrom pillar new_ornament
-#' @exportMethod format pillar_shaft_encsq
 #' @export
 format.pillar_shaft_encsq <- function(x, width, ...) {
   if (width < attr(x, "min_width")) {

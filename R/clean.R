@@ -43,7 +43,6 @@
 #' 
 #' @seealso \code{\link{sq}} \code{\link{aminoacids_df}} \code{\link{nucleotides_df}}
 #' \code{\link{is_null_sq}}
-#' @exportClass clnsq
 #' @export
 clean <- function(sq, only_elements = FALSE) {
   validate_sq(sq)
