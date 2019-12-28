@@ -192,6 +192,90 @@ namespace tidysq {
         return Rcpp::as<Rcpp::CharacterVector >(rcpp_result_gen);
     }
 
+    inline unsigned short get_alph_size(Rcpp::CharacterVector alph) {
+        typedef SEXP(*Ptr_get_alph_size)(SEXP);
+        static Ptr_get_alph_size p_get_alph_size = NULL;
+        if (p_get_alph_size == NULL) {
+            validateSignature("unsigned short(*get_alph_size)(Rcpp::CharacterVector)");
+            p_get_alph_size = (Ptr_get_alph_size)R_GetCCallable("tidysq", "_tidysq_get_alph_size");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_get_alph_size(Shield<SEXP>(Rcpp::wrap(alph)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<unsigned short >(rcpp_result_gen);
+    }
+
+    inline Rcpp::RawVector match_chars(Rcpp::CharacterVector letters, Rcpp::CharacterVector alph) {
+        typedef SEXP(*Ptr_match_chars)(SEXP,SEXP);
+        static Ptr_match_chars p_match_chars = NULL;
+        if (p_match_chars == NULL) {
+            validateSignature("Rcpp::RawVector(*match_chars)(Rcpp::CharacterVector,Rcpp::CharacterVector)");
+            p_match_chars = (Ptr_match_chars)R_GetCCallable("tidysq", "_tidysq_match_chars");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_match_chars(Shield<SEXP>(Rcpp::wrap(letters)), Shield<SEXP>(Rcpp::wrap(alph)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::RawVector >(rcpp_result_gen);
+    }
+
+    inline Rcpp::RawVector match_char(Rcpp::RawVector letters, Rcpp::CharacterVector alph) {
+        typedef SEXP(*Ptr_match_char)(SEXP,SEXP);
+        static Ptr_match_char p_match_char = NULL;
+        if (p_match_char == NULL) {
+            validateSignature("Rcpp::RawVector(*match_char)(Rcpp::RawVector,Rcpp::CharacterVector)");
+            p_match_char = (Ptr_match_char)R_GetCCallable("tidysq", "_tidysq_match_char");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_match_char(Shield<SEXP>(Rcpp::wrap(letters)), Shield<SEXP>(Rcpp::wrap(alph)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::RawVector >(rcpp_result_gen);
+    }
+
+    inline Rcpp::CharacterVector match_raws(Rcpp::RawVector letters, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_char) {
+        typedef SEXP(*Ptr_match_raws)(SEXP,SEXP,SEXP);
+        static Ptr_match_raws p_match_raws = NULL;
+        if (p_match_raws == NULL) {
+            validateSignature("Rcpp::CharacterVector(*match_raws)(Rcpp::RawVector,Rcpp::CharacterVector,Rcpp::CharacterVector)");
+            p_match_raws = (Ptr_match_raws)R_GetCCallable("tidysq", "_tidysq_match_raws");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_match_raws(Shield<SEXP>(Rcpp::wrap(letters)), Shield<SEXP>(Rcpp::wrap(alph)), Shield<SEXP>(Rcpp::wrap(na_char)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::CharacterVector >(rcpp_result_gen);
+    }
+
 }
 
 #endif // RCPP_tidysq_RCPPEXPORTS_H_GEN_
