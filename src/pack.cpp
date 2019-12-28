@@ -1,5 +1,7 @@
 #include <Rcpp.h>
 
+// [[Rcpp::interfaces(cpp, r)]]
+
 unsigned short get_alph_size(Rcpp::CharacterVector alph);
 Rcpp::RawVector match_chars(Rcpp::CharacterVector letters, 
                             Rcpp::CharacterVector alph);
