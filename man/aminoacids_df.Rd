@@ -4,14 +4,16 @@
 \name{aminoacids_df}
 \alias{aminoacids_df}
 \title{Amino acid abbreviations}
-\format{A data frame with 27 rows and 4 columns:
+\format{
+A data frame with 27 rows and 4 columns:
 \describe{
  \item{one}{One-letter codes of amino acids}
  \item{three}{Three-letter codes of amino acids}
  \item{full}{Full name of the amino acid}
  \item{amb}{Logical indicating if abbreviation is ambiguous, i.e., matches 
  more than one amino acid}
- }}
+ }
+}
 \source{
 (1984), Nomenclature and Symbolism for Amino Acids and Peptides. 
 European Journal of Biochemistry 138, 9-37; Dunnen et al. (2016), HGVS 

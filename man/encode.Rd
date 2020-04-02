@@ -115,7 +115,7 @@ encode(sq_nuc, c(A = 1, G = 0.02))
 encode(sq_ami, c(A = 5, H = 5, I = 0.3, K = -2, L = -3.1, M = 5, N = 6))
 
 
-# Import encoding from \\code{AAindex database}
+# Import encoding from \code{AAindex database}
 
 data("AAindex_norm")
 enc_aa <- AAindex_norm[20,]

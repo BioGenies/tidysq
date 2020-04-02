@@ -107,7 +107,7 @@ substitute_letters(sq_ami, sub_ami)
 
 
 # Use created encoding from other package 
-# (ex. \\code{\\link[AmyloGram]{AmyloGram_model}})
+# (ex. \code{\link[AmyloGram]{AmyloGram_model}})
 
 library(AmyloGram)
 

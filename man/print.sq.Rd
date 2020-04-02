@@ -4,10 +4,13 @@
 \alias{print.sq}
 \title{Print sq object}
 \usage{
-\method{print}{sq}(x,
+\method{print}{sq}(
+  x,
   max_sequences = getOption("tidysq_max_print_sequences"),
   use_color = getOption("tidysq_colorful_sq_print"),
-  letters_sep = NULL, ...)
+  letters_sep = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{\code{\link{sq}} object}
