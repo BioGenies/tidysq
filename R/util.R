@@ -123,3 +123,17 @@
     tmp
   } else normalizePath(file)
 }
+
+#' @importFrom stringi stri_split_regex stri_replace_all_regex
+.regexify_pattern <- function(digest_pattern) {
+  sides <- stri_split_regex(digest_pattern, "\\.")[[1]]
+  left <- stri_replace_all_regex(sides[[1]], "\\<", "(?<!")
+  left <- stri_replace_all_regex(left, "\\[", "(?<=")
+  left <- stri_replace_all_regex(left, "\\]|\\>", ")")
+  
+  right <- stri_replace_all_regex(sides[[2]], "\\[", "(?=")
+  right <- stri_replace_all_regex(right, "\\<", "(?!")
+  right <- stri_replace_all_regex(right, "\\]|\\>", ")")
+  
+  paste0(left, right)
+}
