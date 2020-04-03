@@ -59,7 +59,7 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
         .check_alph_length(alph)
         
         sqtibble <- read_fasta_file(file, alph)
-        class(sqtibble[["sq"]]) <- c("untsq", "sq")
+        class(sqtibble[["sq"]]) <- c("untsq", "sq", "list")
         attr(sqtibble[["sq"]], "alphabet") <- alph
         as_tibble(sqtibble)
       }
@@ -107,7 +107,7 @@ write_fasta <- function(sq, name, file, nchar = 80) {
 
 .nc_read_fasta <- function(file, type, is_clean) {
   sqtibble <- nc_read_fasta_file(file, type == "ami", is_clean)
-  class(sqtibble[["sq"]]) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq")
+  class(sqtibble[["sq"]]) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq", "list")
   attr(sqtibble[["sq"]], "alphabet") <- .get_standard_alph(type, is_clean)
   as_tibble(sqtibble)
 }

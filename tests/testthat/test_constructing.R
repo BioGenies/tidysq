@@ -11,7 +11,7 @@ test_that("single short ambiguous nucleotides sequences constructing", {
   expect_identical(construct_sq("ATGN", type = "nuc"),
                    structure(list(as.raw(c(0x81, 0x0c, 0x08))), 
                              alphabet = alph_amb_nuc, 
-                             class = c("nucsq", "sq")))
+                             class = c("nucsq", "sq", "list")))
 })
 
 test_that("multiple short ambiguous nucleotides sequences constructing", {
@@ -36,7 +36,7 @@ test_that("multiple short ambiguous nucleotides sequences constructing", {
                                   as.raw(c(0x81, 0x0c, 0x26, 0x20, 0x04)),
                                   as.raw(c(0x50, 0xad, 0x84, 0x8e, 0x61, 0xcd, 0x3d, 0xa8, 0x56, 0x42, 0xc7, 0xb0, 0xe6, 0x1e))), 
                              alphabet = alph_amb_nuc, 
-                             class = c("nucsq", "sq")))
+                             class = c("nucsq", "sq", "list")))
 })
 
 test_that("single medium-length ambiguous nucleotides sequences constructing", {
@@ -50,7 +50,7 @@ test_that("single medium-length ambiguous nucleotides sequences constructing", {
                                            0x64, 0x82, 0x0b, 0x82, 0x2d, 0x42, 0x54, 0x68, 0x50, 0xa4, 0x76, 
                                            0x86, 0x3b, 0x8f, 0x35))), 
                              alphabet = alph_amb_nuc, 
-                             class = c("nucsq", "sq")))
+                             class = c("nucsq", "sq", "list")))
 })
 
 test_that("multiple medium-length ambiguous nucleotides sequences constructing", {
@@ -150,7 +150,7 @@ test_that("multiple medium-length ambiguous nucleotides sequences constructing",
             alphabet = c("A", "C", "G", 
                          "T", "U", "W", "S", "M", "K", "R", "Y", "B", "D", "H", "V", "N", 
                          "-"), 
-            class = c("nucsq", "sq"))
+            class = c("nucsq", "sq", "list"))
   )
 })
 
@@ -380,7 +380,7 @@ test_that("single long ambiguous nucleotides sequences constructing", {
                           0x8b, 0x1d, 0x43, 0xde, 0x60, 0xc2, 0x39, 0xb4, 0xd6, 0x80, 0x61, 
                           0xb1, 0x04, 0x0f, 0x13, 0xc8, 0x31, 0x74, 0xde, 0x72))), 
             alphabet = alph_amb_nuc, 
-            class = c("nucsq", "sq"))
+            class = c("nucsq", "sq", "list"))
   )
 })
 
@@ -901,7 +901,7 @@ test_that("multiple long ambiguous nucleotides sequences constructing", {
                           0xc8, 0x1c, 0xa2, 0x10, 0x82, 0x27, 0x09, 0xf1, 0x1e, 0x1a, 
                           0xc2, 0x89, 0xe3, 0xc6, 0x02))), 
             alphabet = alph_amb_nuc, 
-            class = c("nucsq", "sq"))
+            class = c("nucsq", "sq", "list"))
   )
 })
 
@@ -909,7 +909,7 @@ test_that("single short non-ambiguous nucleotides sequences constructing", {
   expect_identical(construct_sq("ATG"),
                    structure(list(as.raw(c(0xe1, 0x00))), 
                              alphabet = alph_cln_nuc, 
-                             class = c("clnsq", "nucsq", "sq")))
+                             class = c("clnsq", "nucsq", "sq", "list")))
 })
 
 test_that("multiple short non-ambiguous nucleotides sequences constructing", {
@@ -926,7 +926,7 @@ test_that("multiple short non-ambiguous nucleotides sequences constructing", {
                  as.raw(c(0x51, 0x9b, 0x89, 0x11, 0x97, 0x32, 0x6c, 0xca, 0x70, 0x9c, 0x58, 0x52)), 
                  as.raw(c(0xe2, 0x9a, 0x49, 0x02))), 
             alphabet = alph_cln_nuc,
-            class = c("clnsq", "nucsq", "sq"))
+            class = c("clnsq", "nucsq", "sq", "list"))
   )
 })
 
@@ -941,7 +941,7 @@ test_that("single medium-length non-ambiguous nucleotides sequences constructing
                           0x38, 0x96, 0x6a, 0x92, 0x28, 0x8b, 0x92, 0x8d, 0x89, 0xb8, 0xb2, 
                           0x61, 0x2a, 0x86, 0x4c, 0x92, 0x0d))), 
             alphabet = alph_cln_nuc, 
-            class = c("clnsq", "nucsq", "sq"))
+            class = c("clnsq", "nucsq", "sq", "list"))
   )
 })
 
@@ -953,7 +953,7 @@ test_that("multiple medium-length non-ambiguous nucleotides sequences constructi
                                   as.raw(c(0x14, 0x17, 0x2e, 0x5c, 0x32, 0x31, 0x63, 0xb6, 0x04)), 
                                   as.raw(c(0xdb, 0x98, 0x2d, 0xcc, 0x26, 0x66, 0x61, 0x06))), 
                              alphabet = alph_cln_nuc, 
-                             class = c("clnsq", "nucsq", "sq")))
+                             class = c("clnsq", "nucsq", "sq", "list")))
 })
 
 test_that("single long non-ambiguous nucleotides sequences constructing", {
@@ -1157,7 +1157,7 @@ test_that("single long non-ambiguous nucleotides sequences constructing", {
                           0x21, 0x19, 0x26, 0xdb, 0x42, 0x92, 0x93, 0x16, 0x92, 0xda, 0x24, 
                           0x86, 0xdc, 0x48))), 
             alphabet = alph_cln_nuc, 
-            class = c("clnsq", "nucsq", "sq"))
+            class = c("clnsq", "nucsq", "sq", "list"))
   )
 })
 
@@ -1656,7 +1656,7 @@ test_that("multiple long non-ambiguous nucleotides sequences constructing", {
                           0xa4, 0xa8, 0x8e, 0x5b, 0xc5, 0x48, 0x0b, 0xb7, 0x8a, 0x29
                  ))), 
             alphabet = alph_cln_nuc, 
-            class = c("clnsq", "nucsq", "sq"))
+            class = c("clnsq", "nucsq", "sq", "list"))
   )
 })
 
@@ -1665,7 +1665,7 @@ test_that("single short ambiguous aminoacids sequences constructing", {
                    structure(list(as.raw(c(0x33, 0xc9, 0x49, 0x4d, 0x44, 0xf0, 0x40, 
                                            0xf4, 0x48, 0x88, 0x65, 0x3a, 0x61, 0x00))), 
                              alphabet = alph_amb_ami,
-                             class = c("amisq", "sq"))
+                             class = c("amisq", "sq", "list"))
   )
 })
 
@@ -1691,7 +1691,7 @@ test_that("multiple short ambiguous aminoacids sequences constructing", {
                  as.raw(c(0x36, 0xd6, 0x89, 0xaa, 0xaa, 0x2b, 0x50, 0x57, 0x53, 0x5d, 0x8b, 0x1c, 0x37, 0x17, 0x0d, 0xa7, 0x39, 0xc3, 0x32)), 
                  as.raw(c(0x6b, 0x2a, 0xa6, 0x14, 0xd4, 0xe8, 0x65, 0x43, 0x65, 0xc8))), 
             alphabet = alph_amb_ami, 
-            class = c("amisq", "sq"))
+            class = c("amisq", "sq", "list"))
   )
 })
 
@@ -1708,7 +1708,7 @@ test_that("single medium-length ambiguous aminoacids sequences constructing", {
                           0xeb, 0x02, 0xbc, 0x19, 0x39, 0x3b, 0x94, 0xa1, 0xa4, 0xe9, 0x9b, 
                           0x09, 0x04))), 
             alphabet = alph_amb_ami, 
-            class = c("amisq", "sq"))
+            class = c("amisq", "sq", "list"))
   )
 })
 
@@ -1752,7 +1752,7 @@ test_that("multiple medium-length ambiguous aminoacids sequences constructing", 
                           0x5c, 0x72, 0x9c, 0x20, 0x1a, 0x12, 0x52, 0x45, 0x1a, 0xd6, 0x0e, 
                           0xf1, 0x1c, 0x09, 0x0b, 0xda, 0x43, 0x4f, 0x18, 0x04))), 
             alphabet = alph_amb_ami, 
-            class = c("amisq", "sq"))
+            class = c("amisq", "sq", "list"))
   )
 })
 
@@ -1975,7 +1975,7 @@ test_that("single long ambiguous aminoacids sequences constructing", {
                           0x54, 0x64, 0x62, 0xad, 0xd1, 0xe0, 0x30, 0x4a, 0x8a, 0xc7, 0x8e, 
                           0x3a, 0x3a, 0xcb, 0x77, 0xd3, 0x6c, 0x94, 0x5e))), 
             alphabet = alph_amb_ami, 
-            class = c("amisq", "sq"))
+            class = c("amisq", "sq", "list"))
   )
 })
 
@@ -2219,7 +2219,7 @@ test_that("multiple long ambiguous aminoacids sequences constructing", {
                           0x16, 0xad, 0xc6, 0x41, 0xa1, 0xb4, 0xa6, 0x39, 0xb1, 0xec, 0x66, 
                           0xc9, 0xf4, 0xc8, 0xcc, 0x66, 0x30, 0x72, 0x1e))), 
             alphabet = alph_amb_ami, 
-            class = c("amisq", "sq"))
+            class = c("amisq", "sq", "list"))
   )
 })
 
@@ -2227,7 +2227,7 @@ test_that("single short non-ambiguous aminoacids sequences constructing", {
   expect_identical(construct_sq("PQKH"),
                    structure(list(as.raw(c(0xcd, 0xa5, 0x03))), 
                              alphabet = alph_cln_ami, 
-                             class = c("clnsq", "amisq", "sq")))
+                             class = c("clnsq", "amisq", "sq", "list")))
 })
 
 test_that("multiple short non-ambiguous aminoacids sequences constructing", {
@@ -2248,7 +2248,7 @@ test_that("multiple short non-ambiguous aminoacids sequences constructing", {
                           0x11, 0x3c, 0x26, 0x96, 0x92, 0x22, 0x81, 0x03, 0x41, 0xb2, 0x64, 
                           0x02))), 
             alphabet = alph_cln_ami, 
-            class = c("clnsq", "amisq", "sq"))
+            class = c("clnsq", "amisq", "sq", "list"))
   )
 })
 
@@ -2275,7 +2275,7 @@ test_that("single medium-length non-ambiguous aminoacids sequences constructing"
                           0xe9, 0x0e, 0x3b, 0x25, 0xc5, 0xc1, 0xd2, 0x13, 0x87, 0x31, 0x45, 
                           0xd3, 0x02))), 
             alphabet = alph_cln_ami, 
-            class = c("clnsq", "amisq", "sq"))
+            class = c("clnsq", "amisq", "sq", "list"))
   )
 })
 
@@ -2335,7 +2335,7 @@ test_that("multiple medium-length non-ambiguous aminoacids sequences constructin
                           0x8d, 0x32, 0xe4, 0x90, 0xcb, 0xbc, 0xa7, 0xd2, 0x61, 0x26, 0x2c, 
                           0x94, 0x8c, 0x28, 0x12, 0x91, 0x48, 0x1e))), 
             alphabet = alph_cln_ami, 
-            class = c("clnsq", "amisq", "sq"))
+            class = c("clnsq", "amisq", "sq", "list"))
   )
 })
 
@@ -2519,7 +2519,7 @@ test_that("single long non-ambiguous aminoacids sequences constructing", {
                           0x0a, 0x82, 0x1c, 0x94, 0x86, 0x10, 0x28, 0x89, 0xc5, 0xda, 0x93, 
                           0x63, 0x39, 0x21, 0xe4, 0x1c))), 
             alphabet = alph_cln_ami, 
-            class = c("clnsq", "amisq", "sq"))
+            class = c("clnsq", "amisq", "sq", "list"))
   )
 })
 
@@ -2826,7 +2826,7 @@ test_that("multiple long non-ambiguous aminoacids sequences constructing", {
                           0x6f, 0xca, 0xe1, 0xd0, 0x20, 0x54, 0x3c, 0x49, 0xc4, 0x7a, 0xa1, 
                           0xa1, 0x12, 0x1a, 0x85, 0x54, 0x96, 0x34, 0x43, 0x08))), 
             alphabet = alph_cln_ami, 
-            class = c("clnsq", "amisq", "sq"))
+            class = c("clnsq", "amisq", "sq", "list"))
   )
 })
 
@@ -2834,14 +2834,14 @@ test_that("ambiguous nucleotides with specified type sequences constructing", {
   expect_equal(construct_sq("GGNWGATCGANN", type = "nuc"),
                structure(list(as.raw(c(0x63, 0x40, 0x33, 0x02, 0x11, 0x23, 0x40, 0x08))), 
                          alphabet = alph_amb_nuc, 
-                         class = c("nucsq", "sq")))
+                         class = c("nucsq", "sq", "list")))
 })
 
 test_that("non-ambiguous nucleotides with specified type sequences constructing", {
   expect_identical(construct_sq("GCTUATGT", type = "nuc"),
                    structure(list(as.raw(c(0x13, 0x1b, 0x8e))), 
                              alphabet = alph_cln_nuc, 
-                             class = c("clnsq", "nucsq", "sq"))
+                             class = c("clnsq", "nucsq", "sq", "list"))
   )
 })
 
@@ -2850,7 +2850,7 @@ test_that("ambiguous aminoacids with specified type sequences constructing", {
                    structure(list(as.raw(c(0xb0, 0xb1, 0x57, 0xde, 0xa4, 0xcc, 0x0e, 
                                            0x1d, 0x97, 0xc8, 0xd6, 0x01))), 
                              alphabet = alph_amb_ami, 
-                             class = c("amisq", "sq"))
+                             class = c("amisq", "sq", "list"))
   )
 })
 
@@ -2859,7 +2859,7 @@ test_that("non-ambiguous aminoacids with specified type sequences constructing",
                    structure(list(as.raw(c(0x63, 0x88, 0x25, 0x57, 0x79, 0x21, 0x44, 
                                            0x88, 0x1e, 0x05))), 
                              alphabet = alph_cln_ami, 
-                             class = c("clnsq", "amisq", "sq"))
+                             class = c("clnsq", "amisq", "sq", "list"))
   )
 })
 
@@ -2868,7 +2868,7 @@ test_that("ambiguous nucleotides with specified is_clean sequences constructing"
                    structure(list(as.raw(c(0x41, 0x95, 0x12, 0x0a, 0x11, 0x83, 0x98, 
                                            0x20, 0x42, 0x08, 0xe1, 0x94, 0x21, 0xca, 0x08))), 
                              alphabet = alph_amb_nuc, 
-                             class = c("nucsq", "sq"))
+                             class = c("nucsq", "sq", "list"))
   )
 })
 
@@ -2876,7 +2876,7 @@ test_that("non-ambiguous nucleotides with specified is_clean sequences construct
   expect_identical(construct_sq("GCTUATGT", is_clean = TRUE),
                    structure(list(as.raw(c(0x13, 0x1b, 0x8e))), 
                              alphabet = alph_cln_nuc, 
-                             class = c("clnsq", "nucsq", "sq"))
+                             class = c("clnsq", "nucsq", "sq", "list"))
   )
 })
 
@@ -2885,7 +2885,7 @@ test_that("ambiguous aminoacids with specified is_clean sequences constructing",
                    structure(list(as.raw(c(0xb0, 0xb1, 0x57, 0xde, 0xa4, 0xcc, 0x0e, 
                                            0x1d, 0x97, 0xc8, 0xd6, 0x01))), 
                              alphabet = alph_amb_ami, 
-                             class = c("amisq", "sq"))
+                             class = c("amisq", "sq", "list"))
   )
 })
 
@@ -2894,7 +2894,7 @@ test_that("non-ambiguous aminoacids with specified is_clean sequences constructi
                    structure(list(as.raw(c(0x63, 0x88, 0x25, 0x57, 0x79, 0x21, 0x44, 
                                            0x88, 0x1e, 0x05))), 
                              alphabet = alph_cln_ami, 
-                             class = c("clnsq", "amisq", "sq"))
+                             class = c("clnsq", "amisq", "sq", "list"))
   )
 })
 
@@ -2903,7 +2903,7 @@ test_that("ambiguous nucleotides with specified both type and is_clean sequences
                    structure(list(as.raw(c(0x41, 0x95, 0x12, 0x0a, 0x11, 0x83, 0x98, 
                                            0x20, 0x42, 0x08, 0xe1, 0x94, 0x21, 0xca, 0x08))), 
                              alphabet = alph_amb_nuc, 
-                             class = c("nucsq", "sq"))
+                             class = c("nucsq", "sq", "list"))
   )
 })
 
@@ -2911,7 +2911,7 @@ test_that("non-ambiguous nucleotides with specified both type and is_clean seque
   expect_identical(construct_sq("GCTUATGT", type = "nuc", is_clean = TRUE),
                    structure(list(as.raw(c(0x13, 0x1b, 0x8e))), 
                              alphabet = alph_cln_nuc, 
-                             class = c("clnsq", "nucsq", "sq"))
+                             class = c("clnsq", "nucsq", "sq", "list"))
   )
 })
 
@@ -2920,7 +2920,7 @@ test_that("ambiguous aminoacids with specified both type and is_clean sequences 
                    structure(list(as.raw(c(0xb0, 0xb1, 0x57, 0xde, 0xa4, 0xcc, 0x0e, 
                                            0x1d, 0x97, 0xc8, 0xd6, 0x01))), 
                              alphabet = alph_amb_ami, 
-                             class = c("amisq", "sq"))
+                             class = c("amisq", "sq", "list"))
   )
 })
 
@@ -2929,6 +2929,6 @@ test_that("non-ambiguous aminoacids with specified both type and is_clean sequen
                    structure(list(as.raw(c(0x63, 0x88, 0x25, 0x57, 0x79, 0x21, 0x44, 
                                            0x88, 0x1e, 0x05))), 
                              alphabet = alph_cln_ami, 
-                             class = c("clnsq", "amisq", "sq"))
+                             class = c("clnsq", "amisq", "sq", "list"))
   )
 })

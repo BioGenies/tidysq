@@ -40,7 +40,7 @@
 }
 
 .set_class <- function(sq, type, is_clean = FALSE) {
-  class(sq) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq")
+  class(sq) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq", "list")
   sq
 }
 

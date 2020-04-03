@@ -12,12 +12,12 @@ sq_ami_cln_cut_2 <- clean(construct_sq(c("ANYTWIL","ALGNIIYRAIE",
 
 sq_ami_cln_na <- structure(list(as.raw(c(0xff, 0xff, 0xff, 0xff, 0xff)), as.raw(c(0x88, 0xfc, 0xff, 0xff, 0xff)), 
                                 as.raw(c(0xff, 0xff, 0xff, 0xff, 0xff)), as.raw(c(0xff, 0xff, 0xff, 0xff, 0xff))), 
-                           class = c("clnsq", "amisq", "sq"), 
+                           class = c("clnsq", "amisq", "sq", "list"), 
                            alphabet = c("A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "Y", "-", "*"))
 
 sq_ami_cln_na_2 <- structure(list(as.raw(c(0xff, 0x7f)), as.raw(c(0x01, 0x11)), 
                                   as.raw(c(0xff, 0x7f)), as.raw(c(0xff, 0x7f))), 
-                             class = c("clnsq", "amisq", "sq"), 
+                             class = c("clnsq", "amisq", "sq", "list"), 
                              alphabet = c("A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "Y", "-", "*"))
 
 #############
