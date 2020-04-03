@@ -2,42 +2,58 @@
 % Please edit documentation in R/fasta.R
 \name{read_fasta}
 \alias{read_fasta}
+\alias{read_fasta_ami}
+\alias{read_fasta_nuc}
 \title{Read a FASTA file}
 \usage{
 read_fasta(file, type = NULL, is_clean = NULL, non_standard = NULL)
+
+read_fasta_ami(file, is_clean = NULL)
+
+read_fasta_nuc(file, is_clean = NULL)
 }
 \arguments{
-\item{file}{a \code{character} string indicating path to file or url}
+\item{file}{a \code{\link{character}} string indicating path to file or url.}
 
-\item{type}{\code{\link{character}} string indicating type of \code{sq} object that
+\item{type}{a \code{\link{character}} string indicating type of \code{sq} object that
 is going to be constructed; supported values are "ami" for amino acid sequences,
 "nuc" for nucleotide sequences, "unt" for and \code{NULL} for type guessing (see details)}
 
-\item{is_clean}{\code{\link{logical}} value indicating if sequences are clean,
+\item{is_clean}{a \code{\link{logical}} value indicating if sequences are clean.
 or in other words - they don't contain ambiguous values; supported values are \code{TRUE} 
 for clean sequences, \code{FALSE} for unclean sequences and \code{NULL} for auto detecting
-(see details)}
+(see details).}
 
-\item{non_standard}{\code{\link{character}} vector indicating non-standard letters
-contained in sequences. If \code{NULL}, sequences won't be searched for non-standard letters
+\item{non_standard}{a \code{\link{character}} vector indicating non-standard letters
+contained in sequences. If \code{NULL}, sequences will not be searched for non-standard letters
 of length more than one. Each element of this parameter should be at least two characters 
-long}
+long.}
+}
+\value{
+A \code{\link[tibble]{tibble}} with number of rows corresponding to the number of sequences 
+and two columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
 }
 \description{
 Reads a FASTA file of nucleotides or amino acids file and returns
-a sqtibble with number of rows corresponding to the number of sequences and two
-columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
+a \code{\link[tibble]{tibble}} with number of rows corresponding to the number of sequences 
+and two columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
 }
 \details{
-All rules of creating sq objects are the same as in \code{\link{construct_sq}}
+All rules of creating sq objects are the same as in \code{\link{construct_sq}}.
+
+Functions \code{read_fasta_ami} and \code{read_fasta_nuc} are wrappers around 
+\code{read_fasta} with specified \code{type} parameter - accordingly "ami" or "nuc". You
+can also pass "is_clean" parameter to those functions, but you cannot pass "non_standard".
 }
 \examples{
-read_fasta(system.file(package = "tidysq", 
-                     "sample_fasta/sample_ami.fasta"))
+fasta_file <- system.file(package = "tidysq", 
+                     "sample_fasta/sample_ami.fasta")
+read_fasta(fasta_file)
+read_fasta_ami(fasta_file)
 \dontrun{
 read_fasta("https://www.uniprot.org/uniprot/P28307.fasta")
 }
 }
 \seealso{
-\code{\link[base]{readLines}}, \code{\link{construct_sq}}
+\code{\link[base]{readLines}} \code{\link{construct_sq}}
 }

@@ -1,0 +1,36 @@
+language: r
+cache: packages
+r_check_args: --as-cran 
+r_build_args: --compact-vignettes=both
+use_bioc: true
+bioc_required: true
+
+r:
+  - release
+  - devel
+
+os:
+  - linux
+  - osx
+
+matrix:
+  fast_finish: true
+  allow_failures:
+  - r: devel
+
+bioc_packages:
+  - Biostrings
+
+before_install:
+  - export DISPLAY=:99.0
+
+services:
+  - xvfb
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+after_success:
+    - Rscript -e 'covr::codecov()'

@@ -7,14 +7,14 @@
 write_fasta(sq, name, file, nchar = 80)
 }
 \arguments{
-\item{sq}{\code{\link{sq}} object}
+\item{sq}{a \code{\link{sq}} object.}
 
-\item{name}{a \code{\link{character}} vector of length equal to \code{sq} length}
+\item{name}{a \code{\link{character}} vector of length equal to \code{sq} length.}
 
-\item{file}{a \code{\link{character}} string indicating path to file to write into}
+\item{file}{a \code{\link{character}} string indicating path to file to write into.}
 
-\item{nchar}{a posiitive \code{\link{integer}} value informing about maximum number of 
-characters to put in each line of file}
+\item{nchar}{a positive \code{\link{integer}} value informing about maximum number of 
+characters to put in each line of file.}
 }
 \description{
 Writes \code{\link{sq}} objects with their names to a fasta file.

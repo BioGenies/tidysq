@@ -1,24 +1,24 @@
 #' Transform encoded sequence to a list
 #' 
-#' @description Transform encoded by \code{\link{encode}} sequence, stored in
+#' @description Transform encoded by \code{\link{encode}} sequence, stored in a
 #' \code{\link{sq}} object, to a list.
 #' 
-#' @param encsq a \code{\link{sq}} object with \strong{enc} type which was encoded 
+#' @param encsq a \code{\link{sq}} object with \strong{enc} type, which was encoded 
 #' using \code{\link{encode}} function.
 #' 
 #' In a new object you can check what value is assigned to each letter.
 #' 
-#' @return A named lists with sequences and theirs encoding.
+#' @return A list with named numeric vectors. Each vector represents values assigned to
+#' according sequence with \code{\link{encode}} function. Vectors are named and their names
+#' are letters of original sequences.
 #' 
 #' @details Function is used to transform an \code{\link{sq}} object with 
-#' \strong{enc} type to a named list.
-#' 
-#' Each nucleic or amino acid sequence and assigned encodings.
+#' \strong{enc} type to a list, which can be more useful in some cases.
 #' 
 #' @examples 
 #' 
 #' # Create sq object with sequences containing letters from 
-#' # stadard alphabet and extended alphabet to work on:
+#' # standard alphabet and extended alphabet to work on:
 #' 
 #' sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
 #'                          "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", 
@@ -36,7 +36,7 @@
 #'                             "NAAGAT"))
 #' 
 #' 
-#' # Create encoding for standard, extended alphabet and iport from 
+#' # Create encoding for standard, extended alphabet and import from 
 #' # other sources:
 #' 
 #' enc_nuc <- c(A = 1, C = 2, G = 2, T = 2)
@@ -56,7 +56,7 @@
 #'                 B = 7.77, Z = 0)
 #'                 
 #' data("AAindex")
-#' enc_aa <- AAindex[20,]
+#' enc_aa <- AAindex[20, ]
 #' 
 #' 
 #' # Encode sequences and assign it to a variable:
@@ -77,19 +77,19 @@
 #' 
 #' # Transform \code{\link{encode}} result to a list:
 #' 
-#' ## Sequence with standard alphabet, encoding with standard alphabet
+#' ## Sequence with a standard alphabet, encoding with a standard alphabet
 #' encsq_to_list(e1)
 #' encsq_to_list(e2)
 #' 
-#' ## Sequence with standard alphabet, encoding with extended alphabet
+#' ## Sequence with a standard alphabet, encoding with an extended alphabet
 #' encsq_to_list(e3)
 #' encsq_to_list(e4)
 #' 
-#' ## Sequence with extended alphabet, encoding with standard alphabet
+#' ## Sequence with an extended alphabet, encoding with a standard alphabet
 #' encsq_to_list(e5)
 #' encsq_to_list(e6)
 #' 
-#' ## Sequence with extended alphabet, encoding with extended alphabet
+#' ## Sequence with an extended alphabet, encoding with an extended alphabet
 #' encsq_to_list(e7)
 #' encsq_to_list(e8)
 #' 
@@ -106,7 +106,7 @@
 #' ee1 <- encsq_to_list(e1)
 #' ee1[[1]]["T"]
 #' 
-#' @seealso sq encsq encode
+#' @seealso \code{\link{sq}} \code{\link{encode}}
 #' 
 #' @export
 encsq_to_list <- function(encsq) {

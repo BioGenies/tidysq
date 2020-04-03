@@ -11,7 +11,7 @@
 #'  \item{one}{One-letter codes of amino acids}
 #'  \item{three}{Three-letter codes of amino acids}
 #'  \item{full}{Full name of the amino acid}
-#'  \item{amb}{Logical indicating if abbreviation is ambiguous, i.e., matches 
+#'  \item{amb}{Logical indicating if abbreviation is ambiguous, i. e., matches 
 #'  more than one amino acid}
 #'  }
 #' @details
@@ -41,7 +41,7 @@ NULL
 #' \describe{
 #'  \item{one}{One-letter codes of nucleotides}
 #'  \item{full}{Full name of the nucleotide}
-#'  \item{amb}{Logical indicating if abbreviation is ambiguous, i.e., matches more than one nucleotide}
+#'  \item{amb}{Logical indicating if abbreviation is ambiguous, i. e., matches more than one nucleotide}
 #'  }
 #' @details The dataset contains a nucleotide alphabet of one-letter codes 
 #' and full names of the nucleotides. It also includes a gap symbol '-' that can be found
@@ -62,7 +62,7 @@ NULL
 #' @name BLOSUM50
 #' @docType data
 #' @format A data frame with with 20 rows and 20 columns.
-#' \describe{Contains an one-letter codes of amino acid as colums and rows names.
+#' \describe{Contains an one-letter codes of amino acid as columns and rows names.
 #' You can check three-letter codes and full names of the amino acids in
 #' \code{\link{aminoacids_df}}.
 #'  }
@@ -71,7 +71,7 @@ NULL
 #' BLOSUM matrices are actual percentage identity values of sequences selected for
 #' construction of the matrices. BLOSUM50 indicates that the sequences
 #' selected for constructing the matrix share an average identity value of 50\%.
-#' BLOSUM50 is good matrix for distantly related proteins.
+#' BLOSUM50 is a good matrix for distantly related proteins.
 #' The matrix made by matblas from blosum50.iij
 #' BLOSUM Clustered Scoring Matrix in 1/3 Bit Units
 #' Cluster Percentage: >= 50
@@ -96,7 +96,7 @@ NULL
 #' @name BLOSUM62
 #' @docType data
 #' @format A data frame with with 20 rows and 20 columns.
-#' \describe{Contains an one-letter codes of amino acid as colums and rows names.
+#' \describe{Contains an one-letter codes of amino acid as columns and rows names.
 #' You can check three-letter codes and full names of the amino acids in
 #' \code{\link{aminoacids_df}}.
 #'  }
@@ -105,7 +105,7 @@ NULL
 #' BLOSUM matrices are actual percentage identity values of sequences selected for
 #' construction of the matrices. BLOSUM62 indicates that the sequences
 #' selected for constructing the matrix share an average identity value of 62\%.
-#' BLOSUM62 is miderange matrix between close and  distangly related proteins.
+#' BLOSUM62 is miderange matrix between close and distantly related proteins.
 #' Matrix made by matblas from blosum62.iij
 #' BLOSUM Clustered Scoring Matrix in 1/2 Bit Units
 #' Cluster Percentage: >= 62
@@ -131,7 +131,7 @@ NULL
 #' @name BLOSUM50_enc
 #' @docType data
 #' @format A data frame with with 21 rows and 21 columns.
-#' \describe{Contains an one-letter codes of amino acid as colums and rows names
+#' \describe{Contains an one-letter codes of amino acid as columns and rows names
 #' and also row and column zero vectors representing 'X' (any amino acid).
 #' You can check three-letter codes and full names of the amino acids in
 #' \code{\link{aminoacids_df}}.
@@ -141,7 +141,7 @@ NULL
 #' BLOSUM matrices are actual percentage identity values of sequences selected for
 #' construction of the matrices. BLOSUM50 indicates that the sequences
 #' selected for constructing the matrix share an average identity value of 50\%.
-#' BLOSUM50 is good matrix for distantly related proteins.
+#' BLOSUM50 is a good matrix for distantly related proteins.
 #' The matrix made by matblas from blosum50.iij
 #' BLOSUM Clustered Scoring Matrix in 1/3 Bit Units
 #' Cluster Percentage: >= 50
@@ -166,7 +166,7 @@ NULL
 #' @name BLOSUM62_enc
 #' @docType data
 #' @format A data frame with with 21 rows and 21 columns.
-#' \describe{Contains an one-letter codes of amino acid as colums and rows names
+#' \describe{Contains an one-letter codes of amino acid as columns and rows names
 #' and also row and column zero vectors representing 'X' (any amino acid).
 #' You can check three-letter codes and full names of the amino acids in
 #' \code{\link{aminoacids_df}}.
@@ -176,7 +176,7 @@ NULL
 #' BLOSUM matrices are actual percentage identity values of sequences selected for
 #' construction of the matrices. BLOSUM62 indicates that the sequences
 #' selected for constructing the matrix share an average identity value of 62\%.
-#' BLOSUM62 is miderange matrix between close and  distangly related proteins.
+#' BLOSUM62 is miderange matrix between close and distantly related proteins.
 #' Matrix made by matblas from blosum62.iij
 #' BLOSUM Clustered Scoring Matrix in 1/2 Bit Units
 #' Cluster Percentage: >= 62
@@ -208,7 +208,7 @@ NULL
 #' \code{\link{aminoacids_df}}.
 #'  }
 #' @details
-#' The BLOSUM50_pca matrix enables PCA calculation on proteins sequences aligments.
+#' The BLOSUM50_pca matrix enables PCA calculation on proteins sequences alignments.
 #' Components are generated by an eigenvector decomposition of the matrix formed
 #' from pairwise similarity scores between each pair of sequences. The similarity score model
 #' used for creating BLOSUM50_pca matrix is the \code{\link{BLOSUM50}}. 
@@ -240,7 +240,7 @@ NULL
 #' \code{\link{aminoacids_df}}.
 #'  }
 #' @details
-#' The BLOSUM62_pca matrix enables PCA calculation on proteins sequences aligments.
+#' The BLOSUM62_pca matrix enables PCA calculation on proteins sequences alignments.
 #' Components are generated by an eigenvector decomposition of the matrix formed
 #' from pairwise similarity scores between each pair of sequences. The similarity score model
 #' used for creating BLOSUM62_pca matrix is the \code{\link{BLOSUM62}}. 
@@ -427,13 +427,13 @@ NULL
 #'  \item{FAUJ880112}{Negative charge (Fauchere et al., 1988)}
 #'  \item{FAUJ880113}{pK-a(RCOOH) (Fauchere et al., 1988)}
 #'  \item{FINA770101}{Helix-coil equilibrium constant (Finkelstein-Ptitsyn, 1977)}
-#'  \item{FINA910101}{Helix initiation parameter at posision i-1 (Finkelstein et
+#'  \item{FINA910101}{Helix initiation parameter at position i-1 (Finkelstein et
 #'  al., 1991)}
-#'  \item{FINA910102}{Helix initiation parameter at posision i,i+1,i+2 (Finkelstein
+#'  \item{FINA910102}{Helix initiation parameter at position i,i+1,i+2 (Finkelstein
 #'  et al., 1991)}
-#'  \item{FINA910103}{Helix termination parameter at posision j-2,j-1,j
+#'  \item{FINA910103}{Helix termination parameter at position j-2,j-1,j
 #'  (Finkelstein et al., 1991)}
-#'  \item{FINA910104}{Helix termination parameter at posision j+1 (Finkelstein et
+#'  \item{FINA910104}{Helix termination parameter at position j+1 (Finkelstein et
 #'  al., 1991)}
 #'  \item{GARJ730101}{Partition coefficient (Garel et al., 1973)}
 #'  \item{GEIM800101}{Alpha-helix indices (Geisow-Roberts, 1980)}

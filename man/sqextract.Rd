@@ -2,6 +2,7 @@
 % Please edit documentation in R/methods_sq.R
 \name{[.sq}
 \alias{[.sq}
+\alias{sq-extract}
 \title{Extract parts of a sq object}
 \usage{
 \method{[}{sq}(x, i, j, ...)
@@ -10,7 +11,7 @@
 \item{x}{sq object from which to extract element(s)}
 
 \item{i, j, ...}{indices specifying elements to extract. They may be 
-\code{numeric}, \code{character} or \code{logical} vectors or empty. 
+\code{\link{numeric}}, \code{\link{character}} or \code{\link{logical}} vectors or empty. 
 This function follows normal R conventions for indexing vectors, including 
 negative indices.}
 }
@@ -74,5 +75,5 @@ sq_unt[]
 
 }
 \seealso{
-sq bite
+\code{\link{sq}} \code{\link{bite}}
 }

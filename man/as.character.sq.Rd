@@ -7,22 +7,22 @@
 \method{as.character}{sq}(x, ...)
 }
 \arguments{
-\item{x}{\code{\link{sq}} object to be converted}
+\item{x}{a \code{\link{sq}} object to be converted}
 
-\item{...}{further arguments to be passed from or to other methods}
+\item{...}{further arguments to be passed from or to other methods.}
 }
 \value{
-a \code{character} vector of the length the same as number
-of sequences in the converted sq object
+A \code{character} vector of the length the same as number
+of sequences in the converted \code{sq} object
 }
 \description{
-Coerce sequences from a sq object to character vector
+Coerce sequences from a \code{\link{sq}} object to \code{\link{character}} vector
 of sequences
 }
 \details{
-This method for class sq allows converting sequences from
+This method for class \code{\link{sq}} allows converting sequences from
 the sq object into a character vector of length equal to the length 
-of sq. Each element of resulting vector is a seperate sequence. 
+of sq. Each element of resulting vector is a separate sequence. 
 All attributes of the input sq are lost during the conversion to 
 character vector.
 }

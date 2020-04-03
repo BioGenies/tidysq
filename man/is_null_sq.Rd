@@ -7,10 +7,10 @@
 is_null_sq(sq)
 }
 \arguments{
-\item{sq}{\code{\link{sq}} object to be tested}
+\item{sq}{a\code{\link{sq}} object to be tested}
 }
 \value{
-a logical vector of the same length as input sq, 
+A logical vector of the same length as input sq, 
 indicating which elements are \code{NULL sq}, i.e., an empty sequence
 of length 0.
 }
@@ -52,5 +52,5 @@ is_null_sq(rm_bitten_sq)
 
 }
 \seealso{
-sq clean clnsq
+\code{\link{sq}} \code{\link{clean}}
 }

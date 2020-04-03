@@ -1,23 +1,24 @@
 #' Apply function to each sequence
 #' 
 #' Applies given function to each sequence. Sequences are passed to function as character vectors
-#' or single character strings, depending on parameter.
+#' (or numeric, if type of \code{sq} is \strong{enc}) or single character strings, depending on 
+#' parameter.
 #' 
-#' @param sq a \code{\link{sq}} object
+#' @inheritParams reverse
 #' @param fun a \code{\link{function}} to apply to each sequence in \code{sq} object; it should
-#' take a character vector or single character string as an input
-#' @param ... another arguments passed to \code{fun} 
+#' take a character vector, numeric vector or single character string as an input.
+#' @param ... another arguments passed to \code{fun}.
 #' @param paste_char a \code{\link{logical}} value indicating in which form sequences should be
 #' passed to the function \code{fun}; if \code{FALSE} (default), they will be treated as character
-#' vectors, if \code{TRUE}, they will be pasted into a single string
-#' @param use_na_char a \code{\link{logical}} value indicating whether to use printing characater
+#' vectors, if \code{TRUE}, they will be pasted into a single string.
+#' @param use_na_char a \code{\link{logical}} value indicating whether to use a printing character
 #' to represent \code{\link{NA}} values; if \code{TRUE}, letter from option "tidysq_na_print_char"
 #' will be used instead of \code{NA} values (default value for this option is "!", for details
-#' see \code{\link{sq-options}}), otherwise just \code{NA} values will be used; default value
+#' see \code{\link{tidysq-options}}), otherwise just \code{NA} values will be used; default value
 #' for this parameter is equal to \code{paste_char} value; \code{use_na_char} cannot be 
-#' \code{FALSE} if \code{paste_char} is \code{TRUE}
+#' \code{FALSE} if \code{paste_char} is \code{TRUE}.
 #' 
-#' @return a list of values returned by function for each sequence in corresponding order
+#' @return A list of values returned by function for each sequence in corresponding order.
 #' 
 #' @examples 
 #' sq_ami <- construct_sq(c("YCYWIFTSRIK", "GGWGDVKCG", "KTKHIEQKL"))

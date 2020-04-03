@@ -1,36 +1,36 @@
 #' Substitute letters in a sequence
 #' 
-#' @description 1) Replace ambigous/extraordinary letters in nucleic or 
-#' amino acid sequence, stored in \code{\link{sq}} object, with the ones 
+#' @description 1) Replace ambiguous/extraordinary letters in a nucleic or 
+#' amino acid sequence, stored in a \code{\link{sq}} object, with the ones 
 #' that are compliant with the IUPAC standard, ones that are user-defined 
 #' or with \code{NA} values.
 #' 
 #' 2) Replace default amino acid letters in a sequence with a custom encoding 
-#' to create simplified alphabets.
+#' to create sequences with simplified alphabets.
 #' 
 #' The function is only used to replace letters in the alphabet. 
-#' It cannot be used to merge surrounding characters.
+#' It cannot be used to merge neighboring characters.
 #' 
 #' 
-#' @param sq \code{\link{sq}} object.
+#' @inheritParams reverse
 #' @param encoding a vector of letters to be replaced together with their replacements.
 #' One letter can be replaced with multiple symbols. 
 #' To perform substitution create a named vector ex. 
 #' \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
 #' 
-#' @return a \code{\link{sq}} object with \strong{atp}  type with replaced alphabet, 
+#' @return a \code{\link{sq}} object with \strong{atp} type with replaced alphabet, 
 #' defined by user.
 #' 
-#' @details \code{substitute_letters} allows to replace ambigous/extraordinary 
+#' @details \code{substitute_letters} allows to replace ambiguous/extraordinary 
 #' letters in nucleic or amino acid sequence with user-defined or IUPAC 
-#' symbols. Letters can also be replaced with \code{NA} values, so that they 
-#' can be later removed, from the sequence, by \code{clean} function.
+#' symbols. Letters can also be replaced with \code{\link{NA}} values, so that they 
+#' can be later removed, from the sequence, by \code{\link{clean}} function.
 #' 
 #' \code{substitute_letters} can be used to replace default amino acid letters 
 #' with encodings. They can be user-defined or be derived from various 
 #' simplified alphabets.
 #' 
-#' One letter of the alphabet may be replaced by a multiple characters. 
+#' One letter of the alphabet may be replaced by a multiple character. 
 #' 
 #' The alphabet characters to be replaced need to be written in capital letters
 #' and must originate from default alphabets, otherwise error will be 
@@ -85,6 +85,10 @@
 #' substitute_letters(sq_ami, c(M = "Met", Q = "Gln", R = "Arg", D = "Asp"))
 #' substitute_letters(sq_ami, c(M = "222", Q = "555", R = "999", D = "777"))
 #' 
+#' # Replace single letter of alphabet with NA value:
+#' 
+#' substitute_letters(sq_nuc, c(A = NA, G = NA))
+#' 
 #' 
 #' # Use created encoding
 #' 
@@ -97,7 +101,7 @@
 #' 
 #' 
 #' # Use created encoding from other package 
-#' # (ex. \code{\link[AmyloGram]{AmyloGram_model}})
+#' # (ex. AmyloGram::AmyloGram_model)
 #' 
 #' library(AmyloGram)
 #' 
@@ -109,7 +113,7 @@
 #' 
 #' substitute_letters(sq_ami, sub_AG)
 #' 
-#' @seealso sq atpsq
+#' @seealso \code{\link{sq}} 
 #' @export
 
 substitute_letters <- function(sq, encoding) {
@@ -121,11 +125,13 @@ substitute_letters <- function(sq, encoding) {
   .check_enc_names_in_alph(encoding, alph)
   .check_is_unique(names(encoding), "names of 'encoding'")
   if (is.numeric(encoding)) {
-    .check_integer(encoding, "if is numeric, 'encoding'", allow_na = TRUE)
+    .check_integer(encoding, "if is numeric 'encoding'", allow_na = TRUE)
     name <- names(encoding)
     encoding <- as.character(encoding)
     names(encoding) <- name
-  } else .check_character(encoding, "if is character, 'encoding'", allow_na = TRUE)
+  } else if (is.character(encoding)) {
+    .check_character(encoding, "if is character 'encoding'", allow_na = TRUE)
+  } else .check_simple(!all(is.na(encoding)), "if is neither numeric nor character 'encoding'", "has to contain only NA values")
   
   inds_fun <- alph
   inds_fun[match(names(encoding), alph)] <- encoding
@@ -138,7 +144,7 @@ substitute_letters <- function(sq, encoding) {
     inds_fun[s]
   }, new_alph)
   if (.is_cleaned(sq)) {
-    .handle_opt_txt("tidysq_subsitute_letters_cln",
+    .handle_opt_txt("tidysq_substitute_letters_cln",
                     "'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it")
   }
 

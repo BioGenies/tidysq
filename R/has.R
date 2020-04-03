@@ -1,40 +1,43 @@
 #' Test sq object for presence of given motifs
 #' 
-#' @description Test if elements of a sq object contain given motifs
+#' @description Test if elements of a \code{\link{sq}} object contain given motifs
 #' 
-#' @param x \code{\link{sq}} object to be tested
-#' @param y \code{character} vector of motifs to be searched for
+#' @param x a \code{\link{sq}} object to be tested.
+#' @param y a \code{character} vector of motifs to be searched for.
 #' 
-#' @return a logical vector of the same length as input sq, indicating 
-#' which elements contain all of given motifs
+#' @return A \code{\link{logical}} vector of the same length as input \code{sq}, indicating 
+#' which elements contain all given motifs
 #' 
-#' @details This function allows testing if elements of a sq object contain 
-#' a given motif or motifs. It returns a logical for every element of the sq 
-#' object - \code{TRUE} if it contains the motif and \code{FALSE} otherwise. 
-#' In case of search for multiple motifs, \code{TRUE} will be returned only 
-#' for sequences that contain all of the given motifs. 
+#' @details This function allows testing if elements of a \code{sq} object contain 
+#' a given motif or motifs, which includes start sequences and stop codons. It returns 
+#' a \code{logical} for every element of the \code{sq} object - \code{TRUE} if it 
+#' contains the motif and \code{FALSE} otherwise. When multiple motifs are searched, 
+#' \code{TRUE} will be returned only for sequences that contain all the given motifs. 
 #' 
-#' Note if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
+#' This function only indicates if a motif is present within a sequence, to 
+#' find all motifs, and their positions within sequences use 
+#' \code{\link{find_motifs}}.
+#' 
+#' @section Allowed and forbidden letters and characters details:
+#' Note: if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
 #' search for motifs cannot be performed and an error will be displayed (with 
-#' exception of sq objects of type ami - in their alphabet there is "*" letter 
-#' and it can be contained in sought motif"). To search for motifs with those 
+#' exception of sq objects of type ami - in their alphabet there is '*' letter 
+#' and it can be contained in sought motif). To search for motifs with those 
 #' characters, you have to replace them first using 
 #' \code{\link{substitute_letters}}. 
 #' 
-#' In case of sq objects of type 'ami' and 'nuc', motifs have to consist 
-#' of letters from amino acid and nucleotide alphabet respectively. 
-#' However, two additional characters are allowed: '^' and '$' indicating
-#' the beginning and the end of a sequence respectively. Moreover, notice
-#' that '*' character may be used in amino acid motifs, as it is a part of 
-#' the amino acid alphabet. If a motif contains ambiguous letters, all 
-#' possible matches will be tested, e.g., amino acid motif "MAJ" (where "J" 
-#' is an ambiguous letter indicating L or I) will return \code{TRUE} for 
-#' sequences containing "MAJ", "MAL" and "MAI". If a motif contains lower 
-#' case letters, they will be converted to upper case.  
+#' In case of sq objects of type \strong{ami} and \strong{nuc}, motifs have to consist of 
+#' upper case letters from amino acid and nucleotide alphabet respectively. 
+#' Use of lower case letters will return an error. Two additional characters 
+#' are allowed: '^' and '$' indicating the beginning and the end of a sequence 
+#' respectively. Moreover, notice that '*' character may be used in amino acid 
+#' motifs, as it is a part of the amino acid alphabet. If a motif contains 
+#' ambiguous letters, all possible matches will be searched for, e.g., amino 
+#' acid motif "MAJ" (where "J" is an ambiguous letter indicating L, or I) will 
+#' find motifs: "MAJ", "MAL" and "MAI". 
 #' 
-#' This function only indicates if a motif is present within a sequence, to 
-#' find all motifs and their positions within sequences use 
-#' \code{\link{find_motifs}}.
+#' Detailed list of all letters corresponding to each ambiguous letter may be found at
+#' \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}}.
 #' 
 #' @examples 
 #' # Creating objects to work on:
@@ -59,32 +62,31 @@
 #' # Test if amino acid sequences contain two motifs:
 #' sq_ami %has% c("AAXG", "mat")
 #' 
-#' @seealso sq substitute_letters find_motifs
+#' @seealso \code{\link{sq}} \code{\link{substitute_letters}} \code{\link{find_motifs}}
 #' @export
 `%has%` <- function(x, y) {
   UseMethod("%has%")
 }
 
-#' @exportMethod `%has%`
 #' @export
 `%has%.default` <- function(x, y) {
   stop("operator '%has%' is not overloaded for this type of objects")
 }
 
-#' @exportMethod `%has%` sq
 #' @export
 `%has%.sq` <- function(x, y) {
-  .check_character(y, "'y', right hand side object,")
+  .check_character(y, "'y', right-hand side object,")
   alph <- .get_alph(x)
   type <- .get_sq_type(x)
   .check_motifs_proper_alph(y, type, alph)
   x <- as.character(x)
   ret <- sapply(y, function(s) grepl(s, x))
+  if(!is.matrix(ret))
+    ret <- as.matrix(ret)
   ret <- apply(ret, 1, all)
   ret
 }
 
-#' @exportMethod `%has%` amisq
 #' @export
 `%has%.amisq` <- function(x, y) {
   .check_character(y, "'y', right hand side object,")
@@ -102,11 +104,12 @@
   x <- as.character(x)
   
   ret <- sapply(y, function(s) grepl(s, x))
+  if(!is.matrix(ret))
+    ret <- as.matrix(ret)
   ret <- apply(ret, 1, all)
   ret
 }
 
-#' @exportMethod `%has%` nucsq
 #' @export
 `%has%.nucsq` <- function(x, y) {
   .check_character(y, "'y', right hand side object,")
@@ -129,11 +132,13 @@
   y <- lapply(y, function(s) replace(s, s == "N", "[ACTGUWSMKRYBDHVN]"))
   
   y <- sapply(y, function(s) paste(s, collapse = ""))
-  
+
   alph <- .get_alph(x)
   x <- as.character(x)
   
   ret <- sapply(y, function(s) grepl(s, x))
+  if(!is.matrix(ret))
+    ret <- as.matrix(ret)
   ret <- apply(ret, 1, all)
   ret
 }

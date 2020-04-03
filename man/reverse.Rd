@@ -7,10 +7,10 @@
 reverse(sq)
 }
 \arguments{
-\item{sq}{\code{\link{sq}} object}
+\item{sq}{a \code{\link{sq}} object.}
 }
 \value{
-\code{\link{sq}} object of the same type as input object but 
+A \code{\link{sq}} object of the same type as input object but 
 each sequence is reversed.
 }
 \description{

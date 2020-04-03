@@ -5,27 +5,27 @@
 #' 
 #' @param sq a \code{\link{sq}} object to be recognized. 
 #'  
-#' @return a character vector of letters of the alphabet.
+#' @return A character vector of letters of the alphabet.
 #' 
 #' @details This function allows returning alphabet of \code{sq} object which is a character
-#' or numeric vector. The function reads provided \code{\link{sq}} object and determines
+#' or numeric vector. The function reads provided \code{\link{sq}} object and determines,
 #' which kind of sequences user assigned to a \code{\link{sq}} object (nucleotide, amino acid,
 #' atypical or encoded one).
 #' 
 #' If  \code{\link{sq}} type is \strong{ami} the function returns a set of 20 aminoacids with
-#' gap (-) and stop codon (*) letter. If a \code{\link{sq}} contains \strong{nuc}  sequences
+#' gap (-) and stop codon (*) letter. If a \code{\link{sq}} contains \strong{nuc} sequences
 #' the function returns a set of 5 nucleotides with gap (-) element. If \code{sq} has 
 #' additionally \strong{cln} subtype, ambiguous letters are returned as well.
 #' 
 #' If \code{\link{sq}} type is \strong{unt} or \strong{atp} the function returns a list of 
-#' letters present in sequences in \code{\link{sq}} object.
+#' letters present in sequences of a \code{\link{sq}} object.
 #' 
 #' If type is \strong{enc} a numeric vector of values encoded for letters will be returned
 #' (see \code{\link{encode}}).
 #' 
 #' The details about amino acid and nucleotide 
 #' alphabet can be checked in \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}} 
-#' respectively. General informations about alphabets and types of \code{sq} objects can 
+#' respectively. General information about alphabets and types of \code{sq} objects can 
 #' be found in \code{\link{sq}} class documentation.
 #'
 #' @examples 
@@ -58,7 +58,7 @@ NULL
 #'  
 #' @param sq a \code{\link{sq}} object to be checked. 
 #'  
-#' @return a \code{\link{character}} string, type of\code{\link{sq}} object - can be one of
+#' @return A \code{\link{character}} string, type of\code{\link{sq}} object - can be one of
 #' "ami", "nuc", "unt", "atp" or "enc".
 #' 
 #' @details This function returns type of sequence from \code{\link{sq}} object.
@@ -103,7 +103,7 @@ NULL
 #' 
 #' @param sq a \code{\link{sq}} object. 
 #'  
-#' @return a \code{\link{numeric}} vector, where each element gives length of according 
+#' @return A \code{\link{numeric}} vector, where each element gives length of according 
 #' sequence from \code{\link{sq}} object.
 #' 
 #' @details This function allows returning numeric vector of lengths of sequences from
@@ -133,9 +133,9 @@ get_sq_lengths <- function(sq) {
 #' 
 #' Test a sq object for presence of empty sequences
 #' 
-#' @param sq \code{\link{sq}} object to be tested
+#' @param sq a\code{\link{sq}} object to be tested
 #'  
-#' @return a logical vector of the same length as input sq, 
+#' @return A logical vector of the same length as input sq, 
 #' indicating which elements are \code{NULL sq}, i.e., an empty sequence
 #' of length 0.
 #' 
@@ -171,7 +171,7 @@ get_sq_lengths <- function(sq) {
 #' is_null_sq(rm_bitten_sq)
 #' 
 #' 
-#' @seealso sq clean clnsq
+#' @seealso \code{\link{sq}} \code{\link{clean}}
 #' @export
 is_null_sq <- function(sq) {
   validate_sq(sq)
@@ -189,16 +189,16 @@ is_null_sq <- function(sq) {
 #' @param dest_type a \code{\link{character}} string denoting destination type - it may be 
 #' "nuc" for \strong{nuc} type (nucleotides) or "ami" for \strong{ami} type (amino acids).  
 #'  
-#' @return a list of mismatched elements for every sequence from \code{\link{sq}} object.
+#' @return A list of mismatched elements for every sequence from \code{\link{sq}} object.
 #' 
 #' @details This function allows obtaining list of mismatched elements of sequences from  
-#' \code{\link{sq}} object to amino acid or nucleotide alphabet. Output list has number of
+#' a \code{\link{sq}} object to amino acid or nucleotide alphabet. Output list has number of
 #' elements equal to length of \code{sq} object and each element is a character vector 
 #' of elements that appear in according sequence that does not fit destination type. This 
-#' function might be used to find specificly which sequences have which letters - user
-#' may want to use this information for example to check input sequeces.
+#' function might be used to find specifically, which sequences have letters - user
+#' may want to use this information for example to check input sequences.
 #' 
-#' You can check which letters are valid for specified type in \code{\link{sq}} class 
+#' You can check, which letters are valid for specified type in \code{\link{sq}} class 
 #' documentation.
 #' 
 #' Mismatched elements might be replaced with other letters or \code{NA} using 
@@ -206,7 +206,7 @@ is_null_sq <- function(sq) {
 #' set type to destinated using \code{\link{typify}}.
 #' 
 #' Returned lists for \strong{ami} and \strong{nuc} \code{sq} objects, if \code{des_type}
-#' is specified respectively "ami" and "nuc", will contain only \code{NULL} elements.
+#' is specified respectively "ami" and "nuc", will contain only \code{\link[=sq]{NULL}} elements.
 #'
 #' @examples
 #' # Creating an object to work on:       
@@ -219,7 +219,7 @@ is_null_sq <- function(sq) {
 #' # Creating lists of mismatched elements from amino acid sq object:
 #' get_invalid_letters(sq_amino_acids, "ami")
 #' 
-#' @seealso sq construct_sq
+#' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
 get_invalid_letters <- function(sq, dest_type) {
   validate_sq(sq)

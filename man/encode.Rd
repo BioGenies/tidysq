@@ -2,15 +2,17 @@
 % Please edit documentation in R/encode.R
 \name{encode}
 \alias{encode}
-\title{Encode sequences}
+\title{Encode sequences as numeric values}
 \usage{
 encode(sq, encoding)
 }
 \arguments{
-\item{sq}{\code{\link{sq}} object.}
+\item{sq}{a \code{\link{sq}} object.}
 
-\item{encoding}{\code{encoding} a named vector, that consists of nucleic or amino acid letters 
-with their numeric encoding. Letters without assigned encoding will be shown as \code{NA}.}
+\item{encoding}{\code{encoding} a named \code{\link{numeric}} vector, that consists of 
+values assigned to nucleic or amino acid letters. Letters without assigned encoding will 
+be shown as \code{\link[=sq]{NA}}. Names of vector should be unique and should be elements
+of alphabet of \code{sq} object.}
 }
 \value{
 \code{\link{sq}} object of type\strong{enc}.
@@ -29,18 +31,25 @@ sparse encoding, hydrophobicity scale, heat capacities, entropies, chemical
 shift index, probability matrix (BLOSUM, PAM), 
 sequence profile or reduced alphabet.
 
-The newly constructed sequence will have a type \strong{enc} (see details in \code{\link{sq}}), 
-which represents encoded sequences.
+The newly constructed sequence will have a type \strong{enc} (see details on types 
+in \code{\link{sq}}), which represents encoded sequences.
 
 The named vector (ex. \code{c(G = 1, K = 2, P = 2)}) should have all letters 
-assigned, otherwise unasigned letters will be shown as \code{NA}.
+assigned, otherwise unassigned letters will be shown as \code{NA}. If any letter that
+appears in an alphabet appears in at least one of sequences, user will be informed about it.
+Default action is a warning printed in the console, but it can be changed via setting
+"tidysq_encode_no_given_action" (see details at \code{\link{tidysq-options}}).
 
-All replaced values will have the numeric type.
+In fact the only thing that is replaced is an alphabet - letters are substituted
+with values assigned to them. The internal structure of the object remains unchanged.
+
+If one wants to access numeric values of encoded sequences, they may use 
+\code{\link{as.matrix}} or \code{\link{encsq_to_list}}.
 }
 \examples{
 
 # Create sq object with sequences containing letters from 
-# stadard alphabet to work on:
+# standard alphabet to work on:
 
 sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
                          "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", 
@@ -53,8 +62,8 @@ sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL",
                         type = "ami")
 
                
-# Create object, called sq, with sequences containing letters from 
-# stadard and extended alphabet to work on:
+# Create an object, called sq, with sequences containing letters from 
+# standard and extended alphabet to work on:
    
 sq_nuc_ex <- construct_sq(c("TATCTAGCTGTATG", "CUGCUG", "CUUAGA", "CCCT", 
                             "CUGAAUGU"))
@@ -62,16 +71,16 @@ sq_nuc_ex <- construct_sq(c("TATCTAGCTGTATG", "CUGCUG", "CUUAGA", "CCCT",
 sq_ami_ex <- construct_sq(c("MAYUOUONNNIALN", "UUMXBZONO", "NAAGAT"))       
 
        
-# Create encoding for standard alphabet 
+# Create encoding for a standard alphabet 
 
 enc_nuc <- c(A = 1, C = 2, G = 2, T = 2)
 enc_ami <- c(A = 5, C = 5, D = 6, E = 6, F = 4, 
              G = 1, H = 5, I = 3, K = 2, L = 3, 
              M = 5, N = 6, P = 2, Q = 6, R = 2, 
-             S = 6, T = 6, V = 3, W = 4, Y = 4)                   
+             S = 6, T = 6, V = 3, W = 4, Y = 4)
                         
              
-# Create encoding for extended alphabet  
+# Create encoding for an extended alphabet
 
 enc_nuc_ex <- c(A = 1, C = 2, G = 2, T = 2, U = 3)
 enc_ami_ex <- c(A = 5, C = 5, D = 6, E = 6, F = 4, 
@@ -79,8 +88,8 @@ enc_ami_ex <- c(A = 5, C = 5, D = 6, E = 6, F = 4,
              M = 5, N = 6, P = 2, Q = 6, R = 2, 
              S = 6, T = 6, V = 3, W = 4, Y = 4, 
              U = -0.1, O = 0.753, X = -53.95, B = 7.77, Z = 0)
-                     
-                                              
+
+
 # Encode with simplified standard alphabet sequences without 
 # non-standard letters
 
@@ -118,12 +127,12 @@ encode(sq_ami, c(A = 5, H = 5, I = 0.3, K = -2, L = -3.1, M = 5, N = 6))
 # Import encoding from \code{AAindex database}
 
 data("AAindex_norm")
-enc_aa <- AAindex_norm[20,]
+enc_aa <- AAindex_norm[20, ]
 
 encode(sq_ami, enc_aa)
 
 
 }
 \seealso{
-sq encsq
+\code{\link{sq}} \code{\link{as.matrix}} or \code{\link{encsq_to_list}}
 }

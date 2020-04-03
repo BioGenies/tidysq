@@ -1,15 +1,16 @@
 #' Find given motifs
 #' 
 #' @description Find all given motifs in all sequences and return their 
-#' positions 
+#' positions.
 #' 
-#' @param sq \code{\link{sq}} object to be tested
-#' @param name non-NULL \code{character} vector without NA's, containing
-#' names of the sequences in the sq. It have to be of the same length 
-#' as the sq. 
-#' @param motifs \code{character} vector of motifs to be searched for
+#' @inheritParams reverse
+#' @param name a non-\code{NUL}L \code{character} vector without \code{\link{NA}} values, 
+#' containing names of the sequences in the sq. It has to be of the same length 
+#' as the \code{sq}. 
+#' @param motifs a \code{character} vector of motifs to be searched for.
 #' 
-#' @return a tibble with number of rows the same as the length of sq and
+#' @return A \code{\link[tibble]{tibble}} with number of rows the same as the length of 
+#' \code{sq} and
 #' following columns:
 #'  \item{name}{name of the sequence}
 #'  \item{sq}{sequence}
@@ -19,26 +20,30 @@
 #'  \item{start}{position of motif start}
 #'  \item{end}{position of motif end}
 #' 
-#' @details This function allows search of a given motif or motifs in the sq 
-#' object. It returns all found motifs with their start and end positions 
+#' @details This function allows search of a given motif or motifs in the \code{sq} 
+#' object. It returns all motifs found with their start and end positions 
 #' within a sequence.
 #' 
+#' @section Allowed and forbidden letters and characters details:
 #' Note if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
 #' search for motifs cannot be performed and an error will be displayed (with 
-#' exception of sq objects of type ami - in their alphabet there is "*" letter 
+#' exception of sq objects of type ami - in their alphabet there is '*' letter 
 #' and it can be contained in sought motif). To search for motifs with those 
 #' characters, you have to replace them first using 
 #' \code{\link{substitute_letters}}. 
 #' 
-#' In case of sq objects of type 'ami' and 'nuc', motifs have to consist of 
+#' If sq objects of type \strong{ami} and \strong{nuc}, motifs have to consist of 
 #' upper case letters from amino acid and nucleotide alphabet respectively. 
 #' Use of lower case letters will return an error. Two additional characters 
 #' are allowed: '^' and '$' indicating the beginning and the end of a sequence 
 #' respectively. Moreover, notice that '*' character may be used in amino acid 
 #' motifs, as it is a part of the amino acid alphabet. If a motif contains 
-#' ambiguous letters, all possible matches will be searched for, e.g., amino 
-#' acid motif "MAJ" (where "J" is an ambiguous letter indicating L or I) will 
-#' find motifs: "MAJ", "MAL" and "MAI". 
+#' ambiguous letters, all possible matches will be searched for. For example the 
+#' amino acid motif "MAJ" (where "J" is an ambiguous letter indicating L or I) will 
+#' find the motifs: "MAJ", "MAL" and "MAI". 
+#' 
+#' Detailed list of all letters corresponding to each ambiguous letter may be found at
+#' \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}}.
 #' 
 #' @examples 
 #' # Creating objects to work on:
@@ -60,7 +65,7 @@
 #' # Find multiple motifs:
 #' find_motifs(sqtbl[["sq"]], sqtbl[["name"]], c("^LIV", "XXKK", "EN$"))
 #' 
-#' @seealso sq substitute_letters \%has\%
+#' @seealso \code{\link{sq}} \code{\link{substitute_letters}} \code{\link{\%has\%}}
 #' 
 #' @importFrom stringi stri_sub stri_locate_all_regex stri_count_regex
 #' @export

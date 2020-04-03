@@ -40,13 +40,13 @@ this information alongside with type in the printed message. On the right side o
 the sequence, in angle brackets, the length of each sequence is printed (e.q. "<9>").
 
 If the \code{max_sequences} parameter is supplied, the desired number of sequences 
-is printed and this information is included in message (e.q. "printed 1 out of 3"). 
-Only \code{max_sequences} value smaller then the number of sequences in object 
+is printed and this information is included in a message (e.q. "printed 1 out of 3"). 
+Only \code{max_sequences} value smaller than the number of sequences in object 
 affects the function. The default value indicating how many sequences should 
-be printed is 10, but it can be changed in \code{\link[sq-options]{package options}}. 
+be printed is 10, but it can be changed in \code{\link[=tidysq-options]{package options}}. 
 
 Default value of \code{use_color} parameter is \code{TRUE} - sequences are printed
-in green and empty sequences, NA character and dots in grey. If this option is disabled, 
+in green and empty sequences, NA character and dots in gray. If this option is disabled, 
 all sequences are in default color of console.
 
 The \code{letters_sep} parameter indicates how the letters should be separated 
@@ -54,11 +54,11 @@ The \code{letters_sep} parameter indicates how the letters should be separated
 \code{\link{NA_character_}}.
 
 If sequences are too long, only leading characters are printed (as many as possible
-in single line) and following dots indicating that sequence is trunctated.
+in single line) and following dots indicating that sequence is truncated.
 
 If sequences contain \code{\link{NA}} (‘Not Available’ / Missing Values) values, they 
 are printed as "!" character, but it can be changed in 
-\code{\link[sq-options]{package options}}.
+\code{\link[=tidysq-options]{package options}}.
 
 This is overloaded function from base package. It is selected when \code{\link{sq}} 
 object is used as a parameter for print function. To see the generic function 
@@ -89,5 +89,5 @@ print(clean(sq_nuc), letters_sep = "-", use_color = FALSE)
 
 }
 \seealso{
-\link{sq} \link{clean} \link{sq-options}
+\code{\link{sq}} \code{\link{clean}} \code{\link{tidysq-options}}
 }

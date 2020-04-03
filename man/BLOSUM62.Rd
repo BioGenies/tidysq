@@ -6,7 +6,7 @@
 \title{The BLOSUM62 matrix}
 \format{
 A data frame with with 20 rows and 20 columns.
-\describe{Contains an one-letter codes of amino acid as colums and rows names.
+\describe{Contains an one-letter codes of amino acid as columns and rows names.
 You can check three-letter codes and full names of the amino acids in
 \code{\link{aminoacids_df}}.
  }
@@ -26,7 +26,7 @@ BLOSUM matrix is a substitution matrix used for sequence alignment of proteins.
 BLOSUM matrices are actual percentage identity values of sequences selected for
 construction of the matrices. BLOSUM62 indicates that the sequences
 selected for constructing the matrix share an average identity value of 62\%.
-BLOSUM62 is miderange matrix between close and  distangly related proteins.
+BLOSUM62 is miderange matrix between close and distantly related proteins.
 Matrix made by matblas from blosum62.iij
 BLOSUM Clustered Scoring Matrix in 1/2 Bit Units
 Cluster Percentage: >= 62

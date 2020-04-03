@@ -77,3 +77,7 @@ match_raws <- function(letters, alph, na_char) {
     .Call('_tidysq_match_raws', PACKAGE = 'tidysq', letters, alph, na_char)
 }
 
+# Register entry points for exported C++ functions
+methods::setLoadAction(function(ns) {
+    .Call('_tidysq_RcppExport_registerCCallable', PACKAGE = 'tidysq')
+})

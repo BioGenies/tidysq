@@ -1,40 +1,34 @@
 #' @importFrom pillar type_sum
-#' @exportMethod type_sum amisq
 #' @export
 type_sum.amisq <- function(x) {
   "ami"
 }
 
 #' @importFrom pillar type_sum
-#' @exportMethod type_sum nucsq
 #' @export
 type_sum.nucsq <- function(x) {
   "nuc"
 }
 
 #' @importFrom pillar type_sum
-#' @exportMethod type_sum untsq
 #' @export
 type_sum.untsq <- function(x) {
   "unt"
 }
 
 #' @importFrom pillar type_sum
-#' @exportMethod type_sum atpsq
 #' @export
 type_sum.atpsq <- function(x) {
   "atp"
 }
 
 #' @importFrom pillar type_sum
-#' @exportMethod type_sum encsq
 #' @export
 type_sum.encsq <- function(x) {
   "enc"
 }
 
 #' @importFrom pillar type_sum
-#' @exportMethod type_sum clnsq
 #' @export
 type_sum.clnsq <- function(x) {
   paste0("(c)", NextMethod())
@@ -53,13 +47,13 @@ type_sum.clnsq <- function(x) {
 #' the sequence, in angle brackets, the length of each sequence is printed (e.q. "<9>").
 #' 
 #' If the \code{max_sequences} parameter is supplied, the desired number of sequences 
-#' is printed and this information is included in message (e.q. "printed 1 out of 3"). 
-#' Only \code{max_sequences} value smaller then the number of sequences in object 
+#' is printed and this information is included in a message (e.q. "printed 1 out of 3"). 
+#' Only \code{max_sequences} value smaller than the number of sequences in object 
 #' affects the function. The default value indicating how many sequences should 
-#' be printed is 10, but it can be changed in \code{\link[sq-options]{package options}}. 
+#' be printed is 10, but it can be changed in \code{\link[=tidysq-options]{package options}}. 
 #' 
 #' Default value of \code{use_color} parameter is \code{TRUE} - sequences are printed
-#' in green and empty sequences, NA character and dots in grey. If this option is disabled, 
+#' in green and empty sequences, NA character and dots in gray. If this option is disabled, 
 #' all sequences are in default color of console.
 #' 
 #' The \code{letters_sep} parameter indicates how the letters should be separated 
@@ -67,11 +61,11 @@ type_sum.clnsq <- function(x) {
 #' \code{\link{NA_character_}}.
 #' 
 #' If sequences are too long, only leading characters are printed (as many as possible
-#' in single line) and following dots indicating that sequence is trunctated.
+#' in single line) and following dots indicating that sequence is truncated.
 #' 
 #' If sequences contain \code{\link{NA}} (‘Not Available’ / Missing Values) values, they 
 #' are printed as "!" character, but it can be changed in 
-#' \code{\link[sq-options]{package options}}.
+#' \code{\link[=tidysq-options]{package options}}.
 #' 
 #' This is overloaded function from base package. It is selected when \code{\link{sq}} 
 #' object is used as a parameter for print function. To see the generic function 
@@ -110,13 +104,12 @@ type_sum.clnsq <- function(x) {
 #' clean(sq_nuc)
 #' print(clean(sq_nuc), letters_sep = "-", use_color = FALSE)
 #' 
-#' @seealso \link{sq} \link{clean} \link{sq-options}
+#' @seealso \code{\link{sq}} \code{\link{clean}} \code{\link{tidysq-options}}
 #' 
 #' @importFrom crayon blue
 #' @importFrom crayon silver
 #' @importFrom crayon green
 #' @importFrom crayon col_nchar
-#' @exportMethod print sq
 #' @export
 print.sq <- function(x,  
                      max_sequences = getOption("tidysq_max_print_sequences"),
@@ -128,7 +121,7 @@ print.sq <- function(x,
                    allow_zero_len = TRUE, allow_null = TRUE)
   alph <- .get_alph(x)
   
-  #if parameter is NULL and all letters are lenght one, no space
+  #if parameter is NULL and all letters are length one, no space
   if (is.null(letters_sep)) {
     letters_sep <- if (all(nchar(alph) == 1)) "" else " "
   }
@@ -143,7 +136,7 @@ print.sq <- function(x,
   sq <- x[1:num_lines]
   
   #cut sq object so that we don't need to debitify long sequences
-  # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
+  # 6 is minimum length of p_lens and p_inds, 8 is byte length
   sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .debitify_sq(sq_cut, "int")
   
@@ -166,7 +159,7 @@ print.sq <- function(x,
   #lengths of sequences
   lens <- .get_lens(sq)
   
-  #max lenght number width
+  #max length number width
   lens_width <- max(nchar(lens)) + 2
   
   #lengths to print
@@ -183,7 +176,7 @@ print.sq <- function(x,
       # we count how much characters can we print by counting cumulative extent
       cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
       
-      #max lenght of this line is p_width minus lenghts of lens and inds
+      #max length of this line is p_width minus lengths of lens and inds
       res_lens <- p_width - col_nchar(p_lens[i]) - nchar(p_inds[i]) - 2
       
       #we remove characters we cannot print
@@ -225,7 +218,6 @@ print.sq <- function(x,
 #' @importFrom crayon silver
 #' @importFrom crayon cyan
 #' @importFrom crayon col_nchar
-#' @exportMethod print encsq
 #' @export
 print.encsq <- function(x,
                         max_sequences = getOption("tidysq_max_print_sequences"),
@@ -253,7 +245,7 @@ print.encsq <- function(x,
   sq <- .set_alph(sq, format(alph, digits = digits, scientific = FALSE))
   
   #cut sq object so that we don't need to debitify long sequences
-  # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
+  # 6 is minimum length of p_lens and p_inds, 8 is byte length
    sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .debitify_sq(sq_cut, "int")
   
@@ -274,7 +266,7 @@ print.encsq <- function(x,
   #lengths of sequences
   lens <- .get_lens(sq)
   
-  #max lenght number width
+  #max length number width
   lens_width <- max(nchar(lens)) + 2
   
   #lengths to print
@@ -291,7 +283,7 @@ print.encsq <- function(x,
       # we count how much characters can we print by counting cumulative extent
       cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
       
-      #max lenght of this line is p_width minus lenghts of lens and inds
+      #max length of this line is p_width minus lengths of lens and inds
       res_lens <- p_width - col_nchar(p_lens[i]) - nchar(p_inds[i]) - 2
       
       #we remove characters we cannot print
@@ -336,7 +328,6 @@ print.encsq <- function(x,
 #' @importFrom pillar new_pillar_shaft
 #' @importFrom pillar get_max_extent
 #' @importFrom pillar get_extent
-#' @exportMethod pillar_shaft sq
 #' @export
 pillar_shaft.sq <- function(x, ...) {
   p_width <- getOption("width")
@@ -345,7 +336,7 @@ pillar_shaft.sq <- function(x, ...) {
   alph <- .get_alph(x)
   
   #cut sq object so that we don't need to debitify long sequences
-  # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
+  # 6 is minimum length of p_lens and p_inds, 8 is byte length
   sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .debitify_sq(sq_cut, "int")
   
@@ -378,7 +369,6 @@ pillar_shaft.sq <- function(x, ...) {
 #' @importFrom crayon silver
 #' @importFrom crayon col_substring
 #' @importFrom pillar new_ornament
-#' @exportMethod format pillar_shaft_sq
 #' @export
 format.pillar_shaft_sq <- function(x, width, ...) {
   if (width < attr(x, "min_width")) {
@@ -391,7 +381,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   
   use_color <- .get_color_opt()
   
-  #max lenght number width
+  #max length number width
   lens_width <- max(nchar(lens)) + 2
     
   #default letters_sep here is NULL
@@ -413,7 +403,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
       # we count how much characters can we print by counting cumulative extent
       cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
       
-      #max lenght of this line is width minus lenghts of lens 
+      #max length of this line is width minus lengths of lens 
       res_lens <- width - col_nchar(p_lens[i]) - 1
       
       #we remove characters we cannot print
@@ -453,7 +443,6 @@ format.pillar_shaft_sq <- function(x, width, ...) {
 #' @importFrom pillar pillar_shaft
 #' @importFrom pillar new_pillar_shaft
 #' @importFrom pillar get_max_extent
-#' @exportMethod pillar_shaft encsq
 #' @export
 pillar_shaft.encsq <- function(x, ...) {
   p_width <- getOption("width")
@@ -464,7 +453,7 @@ pillar_shaft.encsq <- function(x, ...) {
   alph <- .get_alph(x)
   
   #cut sq object so that we don't need to debitify long sequences
-  # 6 is minimum lenght of p_lens and p_inds, 8 is byte lenght
+  # 6 is minimum length of p_lens and p_inds, 8 is byte length
   sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .debitify_sq(sq_cut, "int")
   
@@ -493,7 +482,6 @@ pillar_shaft.encsq <- function(x, ...) {
 #' @importFrom crayon cyan
 #' @importFrom crayon silver
 #' @importFrom pillar new_ornament
-#' @exportMethod format pillar_shaft_encsq
 #' @export
 format.pillar_shaft_encsq <- function(x, width, ...) {
   if (width < attr(x, "min_width")) {
@@ -506,7 +494,7 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   
   use_color <- .get_color_opt()
   
-  #max lenght number width
+  #max length number width
   lens_width <- max(nchar(lens)) + 2
     
   #default letters_sep here is NULL
@@ -528,7 +516,7 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
       # we count how much characters can we print by counting cumulative extent
       cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
       
-      #max lenght of this line is width minus lenghts of lens 
+      #max length of this line is width minus lengths of lens 
       res_lens <- width - col_nchar(p_lens[i]) - 1
       
       #we remove characters we cannot print

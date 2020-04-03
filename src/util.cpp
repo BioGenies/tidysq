@@ -2,6 +2,8 @@
 #include <cmath>
 #include <iostream>
 
+// [[Rcpp::interfaces(cpp, r)]]
+
 // [[Rcpp::export]]
 unsigned short get_alph_size(Rcpp::CharacterVector alph) {
   return ceil(log2(alph.size() + 2));

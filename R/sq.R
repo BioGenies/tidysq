@@ -1,36 +1,37 @@
 #' sq: class for keeping biological sequences tidy
 #' 
-#' An object of class \strong{sq} represents a list of biological sequences. It is main
-#' internal format of \strong{tidysq} package and most functions operate on it. 
+#' An object of class \strong{sq} represents a list of biological sequences. It is the 
+#' main internal format of the \pkg{tidysq} package and most functions operate on it. 
 #' The storage method is memory-optimized so that objects require as little memory
 #' as possible (details below).
 #' 
 #' @section Construction/reading/import of sq objects:
 #' There are multiple ways of obtaining \code{sq} objects:
 #' \itemize{
-#' \item constructing from a character vector with \code{\link{construct_sq}},
-#' \item constructing from a character vector with \code{\link{as.sq}} method,
+#' \item constructing from a \code{\link{character}} vector with \code{\link{construct_sq}},
+#' \item constructing from another object with \code{\link{as.sq}} method,
 #' \item reading from the fasta file with \code{\link{read_fasta}},
-#' \item importing from a format of other package like \code{ape} or
-#' \code{Biostrings} with \code{\link{import_sq}}.
+#' \item importing from a format of other package like \pkg{ape} or
+#' \pkg{Biostrings} with \code{\link{import_sq}}.
 #' }
 #'
 #' \strong{Important note:} A manual assignment of a class \code{sq} to an object is
 #' \strong{strongly discouraged} - due to the usage of low-level functions for
 #' bit packing such assignment may lead to calling one of those functions during
-#' operating on object or even printing it which can cause crash of R session and,
+#' operating on object or even printing it which can cause a crash of R session and,
 #' in consequence, loss of data.
 #'
 #' @section Export/writing of sq objects:
 #' There are multiple ways of saving \code{sq} objects or converting them into
 #' other formats:
 #' \itemize{
-#' \item converting into a character vector with \code{\link[sq:as.character.sq]{as.character}} method,
+#' \item converting into a character vector with \code{\link[=as.character.sq]{as.character}} 
+#' method,
 #' \item converting into a character matrix (or numeric matrix, in case of \strong{enc}) 
-#' with \code{\link[sq:as.matrix.sq]{as.matrix}} method,
+#' with \code{\link[=as.matrix.sq]{as.matrix}} method,
 #' \item converting into a list of numerics with \code{\link{encsq_to_list}} (only
 #' for \strong{enc} \code{sq}),
-#' \item saving into the fasta file with \code{\link{write_fasta}},
+#' \item saving as fasta file with \code{\link{write_fasta}},
 #' \item exporting into a format of other package like \code{ape} or
 #' \code{Biostrings} with \code{\link{export_sq}}.
 #' }
@@ -59,8 +60,8 @@
 #' result of constructing sequences or reading from file with specifying 
 #' \code{non_standard} parameter (for details see \code{\link{read_fasta}}
 #' and \code{\link{construct_sq}}). They are also result of using function
-#' \code{\link{substitute_letters}} - user can use this to for example simplify 
-#' alphabet and replace a few letters with one.
+#' \code{\link{substitute_letters}} - users can use this for example to simplify 
+#' an alphabet and to replace a few letters by one.
 #' \item \strong{enc} - (\emph{encoded}) represents list of sequences that have been
 #' encoded with function \code{\link{encode}} where each letter is assigned with 
 #' numeric value.
@@ -71,7 +72,7 @@
 #' that sequences do not contain ambiguous letters (see "alphabets" section below).
 #' 
 #' \code{sq} object type is printed when using overloaded method 
-#' \code{\link[sq:print.sq]{print}}. It can be also checked by using \code{\link{get_sq_type}}
+#' \code{\link[=print.sq]{print}}. It can be also checked by using \code{\link{get_sq_type}}
 #' @section Alphabet:
 #' Each \code{sq} object have an \strong{alphabet} associated with it. Alphabet is
 #' a set of possible \strong{letters} that can appear in sequences contained in object.
@@ -80,8 +81,8 @@
 #'
 #' \code{sq} objects of type \strong{ami} or \strong{nuc} have fixed alphabets (depending
 #' also if object has \strong{cln} subtype). In other words, if two \code{sq} objects have
-#' exactly the same type - \strong{ami} or \strong{nuc} - and either both have or both don't
-#' have \strong{cln} subtype, they are ensured to have the same alphabets.
+#' exactly the same type - \strong{ami} or \strong{nuc} - and either both have or both do
+#' not have a \strong{cln} subtype, they are ensured to have the same alphabets.
 #'
 #' Here are listed alphabets for these types:
 #' \itemize{
@@ -95,16 +96,16 @@
 #' \code{\link{nucleotides_df}}.
 #'
 #' Other types of \code{sq} objects are allowed to have different alphabets. Having an alphabet
-#' exactly identical to one of those above does not automatically indicate that type of
-#' sequence is one of those - e.g. there might be \strong{unt} \code{sq} that has an alphabet
-#' identical to \strong{ami} \strong{cln} alphabet. To set the type, you should use the
+#' exactly identical to one of those above does not automatically indicate that the type of
+#' the sequence is one of those - e. g., there might be \strong{unt} \code{sq} that has an alphabet
+#' identical to \strong{ami} \strong{cln} alphabet. To set the type, one should use the
 #' \code{\link{typify}} function.
 #'
 #' The purpose of co-existence of \strong{unt} and \strong{atp} alphabets is the 
 #' fact that although there is a standard for format of \emph{fasta} files, sometimes 
-#' there are other types of symbols which do not fit the standard. Thanks to these types, 
-#' tidysq can import files with customized alphabets can be imported. Moreover, an user 
-#' may want to group amino acids with simillar properties (e.g. for machine learning) 
+#' there are other types of symbols, which do not match the standard. Thanks to these types, 
+#' tidysq can import files with customized alphabets can be imported. Moreover, a user 
+#' may want to group amino acids with similar properties (e. g., for machine learning) 
 #' and replace the longer alphabet with symbols of groups. To check details, see 
 #' \code{\link{read_fasta}}, \code{\link{construct_sq}} and \code{\link{substitute_letters}}.
 #'
@@ -121,38 +122,39 @@
 #' are case sensitive. Thus, in their alphabets there can appear both lowercase and
 #' uppercase letters simultaneously and they are treated as different characters. Alphabets of
 #' \strong{nuc} and \strong{ami} objects are always uppercase and all functions converts
-#' other parameters to uppercase when working with \strong{ami} or \strong{nuc} - e.g.
-#' \link{\%has\%} operator converts lower letters to upper when searching for motifs in
+#' other parameters to uppercase when working with \strong{ami} or \strong{nuc} - e. g.,
+#' \code{\link{\%has\%}} operator converts lower letters to upper when searching for motifs in
 #' \strong{ami} or \strong{nuc} object.
 #' 
 #' \strong{Important note:} maximum length of an alphabet is \strong{30 letters}. You are
-#' not allowed to read fasta files or construct from character vectros that have more
+#' not allowed to read fasta files or construct from character vectors that have more
 #' than 30 distinct characters in sequences (with exception of reading or constructing
 #' \strong{ami} or \strong{nuc} objects - during their construction lowercase letters
 #' are automatically converted to uppercase).
 #'
 #' You can obtain an alphabet of the \code{sq} object using the \code{\link{get_sq_alphabet}}
 #' function. You can
-#' check which letters are invalid (are not represented in standard amino acids or nucleotides alphabet)
+#' check which letters are invalid (are not represented in standard amino acids or nucleotides 
+#' alphabet)
 #' in each sequence of given \code{sq} object of type \strong{unt} or \strong{atp} by using
 #' \code{\link{get_invalid_letters}}. You can substitute one letter with another using
 #' \code{\link{substitute_letters}}.
 #'
 #' @section Missing/Not Available values:
-#' There is a possibility of introducing \code{NA} values into sequences. \code{NA} value
-#' does not represents gap (which are represented by \code{-}) or wildcard elements 
-#' (\code{N} in he case of nucleotides and \code{X} in the case of amino acids), but is used 
+#' There is a possibility of introducing \code{\link{NA}} values into sequences. \code{NA} value
+#' does not represents gap (which are represented by \code{'-'}) or wildcard elements 
+#' (\code{N} in he case of nucleotides and \code{'X'} in the case of amino acids), but is used 
 #' as a representation of an empty position or invalid letters (not represented in nucleotide or 
 #' amino acid alphabet).
 #' \code{NA} does not belong to any alphabet (with exception of \strong{enc} objects where some of
 #' letters might be \code{NA}, see \code{\link{encode}} for details). It is printed as
-#' "!" and, thus, it is highly unrecommended to use "!" as special letter in \strong{atp}
-#' sequences (but print character can be changed in options, see \code{\link{sq-options}}).
+#' '!' and, thus, it is highly unrecommended to use '!' as special letter in \strong{atp}
+#' sequences (but print character can be changed in options, see \code{\link{tidysq-options}}).
 #'
 #' \code{NA} might be introduced by:
 #' \itemize{
-#' \item reading fasta file with non standard letters in
-#' \code{\link[sq:fast-mode]{fast mode}} with \code{\link{read_fasta}},
+#' \item reading fasta file with non-standard letters in
+#' \code{\link[=fast-mode]{fast mode}} with \code{\link{read_fasta}},
 #' \item replacing a letter with \code{NA} value with \code{\link{substitute_letters}},
 #' \item subsetting sequences out of their lengths with \code{\link{bite}}.
 #' }
@@ -169,32 +171,32 @@
 #' \code{\link{construct_sq}},
 #' \item using the \code{\link{clean}} function,
 #' \item using the \code{\link{remove_na}} function,
-#' \item subsetting \code{sq} object with \link[sq:sqextract]{extract operator}
+#' \item subsetting \code{sq} object with \link[=sq-extract]{extract operator}
 #' }
 #'
 #' @section Storage format:
 #' \code{sq} object is, in fact, \strong{list of raw vectors}. The fact that it is list
-#' implies that an user can concatenate \code{sq} objects using \code{\link[sq:c.sq]{c}} method
-#' and subset them using \code{\link[sq:sqextract]{extract operator}}. Alphabet is kept
+#' implies that an user can concatenate \code{sq} objects using \code{\link[=c.sq]{c}} method
+#' and subset them using \code{\link[=sq-extract]{extract operator}}. Alphabet is kept
 #' as an attribute of the object. 
 #' 
-#' Raw vectors are the most efficient way of storage - each letter of sequece has asigned
+#' Raw vectors are the most efficient way of storage - each letter of the sequence has assigned
 #' an integer (its index in alphabet of \code{sq} object). Those integers in binary format
 #' fit in less than 8 bits, but normally are stored on 16 bits. However, thanks to bit
 #' packing it is possible to remove unused bits and store numbers more tightly. This 
 #' operations result in a little time overhead in all operations, because most of them 
-#' require unpacking and repacking sequences, but this cost is relatively low in comparision
+#' require unpacking and repacking sequences, but this cost is relatively low in comparison
 #' to amount of saved memory.
 #' 
 #' For example - \strong{nuc} \strong{cln} alphabet consist of 6 values: ACGTU-. They are 
-#' asigned numbers 1 to 6 respectively. Those numbers in binary format take form: \code{001},
+#' assigned numbers 1 to 6 respectively. Those numbers in binary format take form: \code{001},
 #' \code{010}, \code{011}, \code{100}, \code{101}, \code{110}. Each of the letters can 
 #' be coded with just 3 bits instead of 8 which is demanded by \code{char} - this allows
 #' us to save more than 60\% of memory spent on storage of nucleotides sequences.
 #' 
 #' @section tibble compatibility:
-#' \code{sq} objects are compatible with \code{tibble} class - that means you can have
-#' \code{sq} object as a column of \code{tibble}. There are overloaded print methods, so
+#' \code{sq} objects are compatible with \code{\link[tibble]{tibble}} class - that means one can 
+#' have a \code{sq} object as a column of a \code{tibble}. There are overloaded print methods, so
 #' that it is printed in pretty format.
 #'
 #' @name sq
@@ -203,72 +205,76 @@ NULL
 #' Construct sq object from character vector
 #' 
 #' @description This function allows the user to construct objects of 
-#' \code{\link[sq:sq]{class sq}} from a character vector.
+#' \code{\link[=sq]{class sq}} from a character vector.
 #' 
-#' @param sq \code{\link{character}} vector 
-#' @param type \code{\link{character}} string indicating type of \code{sq} object that
+#' @param sq a \code{\link{character}} vector.
+#' @param type a \code{\link{character}} string indicating type of \code{sq} object that
 #' is going to be constructed; supported values are "ami" for amino acid sequences,
 #' "nuc" for nucleotide sequences, "unt" for and \code{NULL} for type guessing (see details)
-#' @param is_clean \code{\link{logical}} value indicating if sequences are clean,
+#' @param is_clean a \code{\link{logical}} value indicating if sequences are clean.
 #' or in other words - they don't contain ambiguous values; supported values are \code{TRUE} 
 #' for clean sequences, \code{FALSE} for unclean sequences and \code{NULL} for auto detecting
-#' (see details)
-#' @param non_standard \code{\link{character}} vector indicating non-standard letters
-#' contained in sequences. If \code{NULL}, sequences won't be searched for non-standard letters
+#' (see details).
+#' @param non_standard a \code{\link{character}} vector indicating non-standard letters
+#' contained in sequences. If \code{NULL}, sequences will not be searched for non-standard letters
 #' of length more than one. Each element of this parameter should be at least two characters 
-#' long
-#' @return object of \code{\link[sq:sq]{class sq}} with appropriate type (one of: \strong{ami},
+#' long.
+#' @return object of \code{\link[=sq]{class sq}} with appropriate type (one of: \strong{ami},
 #' \strong{nuc}, \strong{unt}, \strong{atp}).
 #' 
 #' @details 
-#' Function covers all possibilities of standard and non-standard types and alphabets.
-#' You can check what 'type' and 'alphabet' exactly is in \code{\link{sq class}} documentation.
-#' Below there is a guide how function operates and how the program behaves according to the given 
-#' arguments and the letters in the sequences.
+#' Function \code{construct_sq} covers all possibilities of standard and non-standard types and 
+#' alphabets. You can check what 'type' and 'alphabet' exactly are in \code{\link[=sq]{sq class}} 
+#' documentation. Below there is a guide how function operates and how the program behaves 
+#' according to the given arguments and the letters in the sequences.
+#' 
+#' Functions \code{construct_sq_ami} and \code{construct_sq_nuc} are wrappers around 
+#' \code{construct_sq} with specified \code{type} parameter - accordingly "ami" or "nuc". You
+#' can also pass "is_clean" parameter to those functions, but you cannot pass "non_standard".
 #' 
 #' \code{sq} parameter should be a character vector. Each element of this vector is a biological 
 #' sequence. If this parameter has length 0, object of class \code{sq} with 0 sequences will be 
 #' created (if not specified, it will have \strong{nuc} \strong{cln} type, which is a result of 
-#' rules written below). If it contains sequences of length 0, \code{\link{NULL}} sequences
-#' will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[sq:sq]{sq class}}).
+#' rules written below). If it contains sequences of length 0, \code{\link[=sq]{NULL}} sequences
+#' will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[=sq]{sq class}}).
 #' 
 #' \strong{Important note:} in all below cases word 'letter' stands for an element of an alphabet.
 #' Letter might consist of more than one character, for example "Ala" might be a single letter.
-#' However, if you want to construct or read sequences with multi-character letters, you have 
-#' to specify \code{non_standard} parameter. Details of letters, alphabets and types can be 
-#' found in \code{\link[sq:sq]{sq class}} documentation.
+#' However, if you want to construct or read sequences with multi-character letters, one has 
+#' to specify \code{non_standard} parameter. Details of letters, alphabet and types can be 
+#' found in \code{\link[=sq]{sq class}} documentation.
 #' 
-#' @section Simple guide to constructing:
-#' In most cases, all you need to do is just specifying \code{sq} parameter - type of sequences
+#' @section Simple guide to construct :
+#' In most cases, just the \code{sq} parameter needs to be specified - type of sequences
 #' will be guessed accordingly to rules described below. You need to pay attention, however, 
 #' because for short sequences type may be guessed incorrectly - in this case you should
 #' specify \code{type} and/or \code{is_clean}.
 #' 
 #' If your sequences contain non-standard letters, where each non-standard letter is one
 #' character long, you also don't need to specify any parameter. Optionally, you can explicitly
-#' do it by setting \code{type} to "atp".
+#' do it by setting \code{type} to "unt".
 #' 
 #' If you want to construct sequences with multicharacter letters, you have to specify 
 #' \code{non_standard} parameter, where you have to provide all non-standard letters longer
 #' than one character.
 #' 
-#' In \code{\link[sq:fast-mode]{fast mode}} you have to specify both \code{type} and \code{is_clean} 
+#' In \code{\link[=fast-mode]{fast mode}} you have to specify both \code{type} and \code{is_clean} 
 #' parameters. You cannot specify \code{non_standard} parameter in this mode. All letters
-#' outside specified alphabet will be red as \code{\link[NA]{NA values}}.
+#' outside specified alphabet will be red as \code{NA} values.
 #' 
-#' @section Detailed guide to constructing:
-#' Below there are listed all possibilities that can happen during constructing a \code{sq} object.
+#' @section Detailed guide to construct :
+#' Below all possibilities that can occur during the construction of a \code{sq} object are listed.
 #' 
-#' In normal mode (no \code{\link[sq:fast-mode]{fast mode}}):
+#' In normal mode (no \code{\link[=fast-mode]{fast mode}}):
 #' \itemize{
 #' \item If you don't specify any other parameter than \code{sq}, function will try to guess
-#' sequence type and if it's clean (it will check in exactly this order):
+#' sequence type and if it is clean (it will check in exactly this order):
 #' \enumerate{
 #' \item If it contains only ACGTU- letters, either lowercase or 
 #' uppercase, type will be set to \strong{nuc} \strong{cln}.
 #' \item If it contains any letters from 1. and additionally letters DEFHIKLMNPQRSVWY*, either
 #' lowercase or uppercase, type will be set to \strong{ami} \strong{cln}. 
-#' \item If it contains any letters from 1. and additionally letters WSMKRYBDHVN, either 
+#' \item If it contains any letters from 1. and additionally letters WSMKRYBDHVN, either
 #' lowercase or uppercase, and does not contain any other letter, type will be set to 
 #' \strong{nuc} without \strong{cln} subtype.
 #' \item If it contains any letters from 1., 2., 3. and additionally letters JOUXZ, type will
@@ -283,8 +289,8 @@ NULL
 #' given type with \strong{cln} subtype. 
 #' \item If all letters in sequences fit the unclean alphabet of given type, type will be set to 
 #' given type without \strong{cln} subtype.
-#' \item If at least one of sequences contain at least one letter that is not element of unclean 
-#' alphabet of provided type, an error will be thrown. 
+#' \item If at least one sequence contains at least one letter that is not an element of an  
+#' unclean alphabet of the provided type, an error will be thrown. 
 #' }
 #' \item If you specify both \code{type} and \code{is_clean}, function checks if letters
 #' in sequences matches exactly specified alphabet (with capitalisation accuracy). If they do, 
@@ -292,17 +298,17 @@ NULL
 #' \item If you specify \code{type} as "unt" and won't neither \code{is_clean} nor 
 #' \code{non_standard}, type will be set to \strong{unt}. Letters won't be converted to uppercase, 
 #' alphabet will consist of all letters found in sequences. 
-#' \item If you do not sepcify neither \code{type} nor \code{is_clean} and specify 
+#' \item If you do not specify neither \code{type} nor \code{is_clean} and specify 
 #' \code{non_standard} parameter, which should be character vector where each element is at least 
 #' two characters long, all strings as specified will be detected in sequences and treated as 
 #' letters in constructed \strong{atp} \code{sq}.
 #' \item All other combinations of parameters are incorrect.
 #' }
 #' 
-#' In \code{\link[sq:fast-mode]{fast mode}} you have to specify \code{type} (it has to have either
+#' In \code{\link[=fast-mode]{fast mode}} you have to specify \code{type} (it has to have either
 #' "ami" or "nuc" value) and \code{is_clean} (\code{TRUE} or \code{FALSE}). You cannot specify
 #' \code{non_standard}. All letters that aren't elements of destination alphabet (with a letter 
-#' size accuracy) will be treated as \link[NA]{NA values}.
+#' size accuracy) will be treated as \code{NA} values.
 #' 
 #' @section Handling with atp and unt sq and NA values:
 #' You can convert letters into another using \code{\link{substitute_letters}} and then you
@@ -317,7 +323,7 @@ NULL
 #' ## setting an option:
 #' options(tidysq_fast_mode = FALSE)
 #' 
-#' ## constructing sq without specyfiing type
+#' ## constructing sq without specifying type
 #' # nuc cln sq
 #' construct_sq(c("ATGC", "TCGTTA", "TT--AG")) 
 #' 
@@ -333,7 +339,7 @@ NULL
 #' # ami sq
 #' construct_sq(c("XYOQWWKCNJLO"))
 #' 
-#' # unt sq - let's assume that one wants to mark some special element in sequnece with %
+#' # unt sq - let's assume that one wants to mark some special element in sequence with %
 #' construct_sq(c("%%YAPLAA", "PLAA"))
 #' 
 #' ## constructing sq with type 
@@ -345,7 +351,14 @@ NULL
 #' construct_sq(c("XYOQWWKCNJLO"), "ami")
 #' construct_sq(c("%%YAPLAA", "PLAA"), "unt")
 #' 
-#' # you can force type other than guessed (if letters fit in the destination alphabet)
+#' # you can also use wrappers instead of parameters
+#' construct_sq_nuc(c("ATGC", "TCGTTA", "TT--AG")) 
+#' construct_sq_ami(c("YQQPAVVM", "PQCFL"))
+#' construct_sq_ami(c("MMDF*", "SYIHR*", "MGG*"))
+#' construct_sq_nuc(c("WHDHKYN", "GCYVCYU"))
+#' construct_sq_ami(c("XYOQWWKCNJLO"))
+#' 
+#' # One can force type other than guessed (if letters fit in the destination alphabet)
 #' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "nuc", is_clean = FALSE)
 #' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "ami")
 #' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "ami", is_clean = FALSE)
@@ -396,9 +409,8 @@ NULL
 #' ## reseting an option
 #' options(tidysq_fast_mode = previous_option)
 #' 
-#' @seealso \code{\link{sq}} \code{\link{read_fasta}} \code{\link{sq-options}} 
+#' @seealso \code{\link{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}} 
 #' \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}
-#' @exportClass sq
 #' @export
 construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) {
   .check_character(sq, "'sq'", allow_zero_len = TRUE)
@@ -422,6 +434,19 @@ construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) 
              unt = .construct_untsq(sq))
     }
   }
+}
+
+
+#' @rdname construct_sq
+#' @export
+construct_sq_ami <- function(sq, is_clean = NULL) {
+  construct_sq(sq, type = "ami", is_clean)
+}
+
+#' @rdname construct_sq
+#' @export
+construct_sq_nuc <- function(sq, is_clean = NULL) {
+  construct_sq(sq, type = "nuc", is_clean)
 }
 
 .nc_construct_sq <- function(sq, type, is_clean) {
@@ -473,7 +498,6 @@ construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) 
   .set_class(sq, "atp")
 }
 
-#' @exportClass amisq
 .construct_amisq <- function(sq, is_clean) {
   sq <- toupper(sq)
   real_alph <- .get_real_alph(sq)
@@ -486,7 +510,6 @@ construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) 
   .set_class(sq, "ami", is_clean)
 }
 
-#' @exportClass nucsq
 .construct_nucsq <- function(sq, is_clean) {
   sq <- toupper(sq)
   real_alph <- .get_real_alph(sq)
@@ -499,7 +522,6 @@ construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) 
   .set_class(sq, "nuc", is_clean)
 }
 
-#' @exportClass untsq
 .construct_untsq <- function(sq) {
   alph <- .get_real_alph(sq)
   .check_alph_length(alph)

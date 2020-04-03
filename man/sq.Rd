@@ -4,8 +4,8 @@
 \alias{sq}
 \title{sq: class for keeping biological sequences tidy}
 \description{
-An object of class \strong{sq} represents a list of biological sequences. It is main
-internal format of \strong{tidysq} package and most functions operate on it. 
+An object of class \strong{sq} represents a list of biological sequences. It is the 
+main internal format of the \pkg{tidysq} package and most functions operate on it. 
 The storage method is memory-optimized so that objects require as little memory
 as possible (details below).
 }
@@ -13,17 +13,17 @@ as possible (details below).
 
 There are multiple ways of obtaining \code{sq} objects:
 \itemize{
-\item constructing from a character vector with \code{\link{construct_sq}},
-\item constructing from a character vector with \code{\link{as.sq}} method,
+\item constructing from a \code{\link{character}} vector with \code{\link{construct_sq}},
+\item constructing from another object with \code{\link{as.sq}} method,
 \item reading from the fasta file with \code{\link{read_fasta}},
-\item importing from a format of other package like \code{ape} or
-\code{Biostrings} with \code{\link{import_sq}}.
+\item importing from a format of other package like \pkg{ape} or
+\pkg{Biostrings} with \code{\link{import_sq}}.
 }
 
 \strong{Important note:} A manual assignment of a class \code{sq} to an object is
 \strong{strongly discouraged} - due to the usage of low-level functions for
 bit packing such assignment may lead to calling one of those functions during
-operating on object or even printing it which can cause crash of R session and,
+operating on object or even printing it which can cause a crash of R session and,
 in consequence, loss of data.
 }
 
@@ -32,12 +32,13 @@ in consequence, loss of data.
 There are multiple ways of saving \code{sq} objects or converting them into
 other formats:
 \itemize{
-\item converting into a character vector with \code{\link[sq:as.character.sq]{as.character}} method,
+\item converting into a character vector with \code{\link[=as.character.sq]{as.character}} 
+method,
 \item converting into a character matrix (or numeric matrix, in case of \strong{enc}) 
-with \code{\link[sq:as.matrix.sq]{as.matrix}} method,
+with \code{\link[=as.matrix.sq]{as.matrix}} method,
 \item converting into a list of numerics with \code{\link{encsq_to_list}} (only
 for \strong{enc} \code{sq}),
-\item saving into the fasta file with \code{\link{write_fasta}},
+\item saving as fasta file with \code{\link{write_fasta}},
 \item exporting into a format of other package like \code{ape} or
 \code{Biostrings} with \code{\link{export_sq}}.
 }
@@ -68,8 +69,8 @@ different from standard \strong{ami} or \strong{nuc} alphabets - similarly to
 result of constructing sequences or reading from file with specifying 
 \code{non_standard} parameter (for details see \code{\link{read_fasta}}
 and \code{\link{construct_sq}}). They are also result of using function
-\code{\link{substitute_letters}} - user can use this to for example simplify 
-alphabet and replace a few letters with one.
+\code{\link{substitute_letters}} - users can use this for example to simplify 
+an alphabet and to replace a few letters by one.
 \item \strong{enc} - (\emph{encoded}) represents list of sequences that have been
 encoded with function \code{\link{encode}} where each letter is assigned with 
 numeric value.
@@ -80,7 +81,7 @@ Only \strong{ami} and \strong{nuc} \code{sq} objects may have this subtype. It i
 that sequences do not contain ambiguous letters (see "alphabets" section below).
 
 \code{sq} object type is printed when using overloaded method 
-\code{\link[sq:print.sq]{print}}. It can be also checked by using \code{\link{get_sq_type}}
+\code{\link[=print.sq]{print}}. It can be also checked by using \code{\link{get_sq_type}}
 }
 
 \section{Alphabet}{
@@ -92,8 +93,8 @@ Alphabet is kept mostly as a character vector, where each element represents one
 
 \code{sq} objects of type \strong{ami} or \strong{nuc} have fixed alphabets (depending
 also if object has \strong{cln} subtype). In other words, if two \code{sq} objects have
-exactly the same type - \strong{ami} or \strong{nuc} - and either both have or both don't
-have \strong{cln} subtype, they are ensured to have the same alphabets.
+exactly the same type - \strong{ami} or \strong{nuc} - and either both have or both do
+not have a \strong{cln} subtype, they are ensured to have the same alphabets.
 
 Here are listed alphabets for these types:
 \itemize{
@@ -107,16 +108,16 @@ To see details of these alphabets see \code{\link{aminoacids_df}} and
 \code{\link{nucleotides_df}}.
 
 Other types of \code{sq} objects are allowed to have different alphabets. Having an alphabet
-exactly identical to one of those above does not automatically indicate that type of
-sequence is one of those - e.g. there might be \strong{unt} \code{sq} that has an alphabet
-identical to \strong{ami} \strong{cln} alphabet. To set the type, you should use the
+exactly identical to one of those above does not automatically indicate that the type of
+the sequence is one of those - e. g., there might be \strong{unt} \code{sq} that has an alphabet
+identical to \strong{ami} \strong{cln} alphabet. To set the type, one should use the
 \code{\link{typify}} function.
 
 The purpose of co-existence of \strong{unt} and \strong{atp} alphabets is the 
 fact that although there is a standard for format of \emph{fasta} files, sometimes 
-there are other types of symbols which do not fit the standard. Thanks to these types, 
-tidysq can import files with customized alphabets can be imported. Moreover, an user 
-may want to group amino acids with simillar properties (e.g. for machine learning) 
+there are other types of symbols, which do not match the standard. Thanks to these types, 
+tidysq can import files with customized alphabets can be imported. Moreover, a user 
+may want to group amino acids with similar properties (e. g., for machine learning) 
 and replace the longer alphabet with symbols of groups. To check details, see 
 \code{\link{read_fasta}}, \code{\link{construct_sq}} and \code{\link{substitute_letters}}.
 
@@ -133,19 +134,20 @@ indicating methylated alanine).
 are case sensitive. Thus, in their alphabets there can appear both lowercase and
 uppercase letters simultaneously and they are treated as different characters. Alphabets of
 \strong{nuc} and \strong{ami} objects are always uppercase and all functions converts
-other parameters to uppercase when working with \strong{ami} or \strong{nuc} - e.g.
-\link{\%has\%} operator converts lower letters to upper when searching for motifs in
+other parameters to uppercase when working with \strong{ami} or \strong{nuc} - e. g.,
+\code{\link{\%has\%}} operator converts lower letters to upper when searching for motifs in
 \strong{ami} or \strong{nuc} object.
 
 \strong{Important note:} maximum length of an alphabet is \strong{30 letters}. You are
-not allowed to read fasta files or construct from character vectros that have more
+not allowed to read fasta files or construct from character vectors that have more
 than 30 distinct characters in sequences (with exception of reading or constructing
 \strong{ami} or \strong{nuc} objects - during their construction lowercase letters
 are automatically converted to uppercase).
 
 You can obtain an alphabet of the \code{sq} object using the \code{\link{get_sq_alphabet}}
 function. You can
-check which letters are invalid (are not represented in standard amino acids or nucleotides alphabet)
+check which letters are invalid (are not represented in standard amino acids or nucleotides 
+alphabet)
 in each sequence of given \code{sq} object of type \strong{unt} or \strong{atp} by using
 \code{\link{get_invalid_letters}}. You can substitute one letter with another using
 \code{\link{substitute_letters}}.
@@ -153,20 +155,20 @@ in each sequence of given \code{sq} object of type \strong{unt} or \strong{atp} 
 
 \section{Missing/Not Available values}{
 
-There is a possibility of introducing \code{NA} values into sequences. \code{NA} value
-does not represents gap (which are represented by \code{-}) or wildcard elements 
-(\code{N} in he case of nucleotides and \code{X} in the case of amino acids), but is used 
+There is a possibility of introducing \code{\link{NA}} values into sequences. \code{NA} value
+does not represents gap (which are represented by \code{'-'}) or wildcard elements 
+(\code{N} in he case of nucleotides and \code{'X'} in the case of amino acids), but is used 
 as a representation of an empty position or invalid letters (not represented in nucleotide or 
 amino acid alphabet).
 \code{NA} does not belong to any alphabet (with exception of \strong{enc} objects where some of
 letters might be \code{NA}, see \code{\link{encode}} for details). It is printed as
-"!" and, thus, it is highly unrecommended to use "!" as special letter in \strong{atp}
-sequences (but print character can be changed in options, see \code{\link{sq-options}}).
+'!' and, thus, it is highly unrecommended to use '!' as special letter in \strong{atp}
+sequences (but print character can be changed in options, see \code{\link{tidysq-options}}).
 
 \code{NA} might be introduced by:
 \itemize{
-\item reading fasta file with non standard letters in
-\code{\link[sq:fast-mode]{fast mode}} with \code{\link{read_fasta}},
+\item reading fasta file with non-standard letters in
+\code{\link[=fast-mode]{fast mode}} with \code{\link{read_fasta}},
 \item replacing a letter with \code{NA} value with \code{\link{substitute_letters}},
 \item subsetting sequences out of their lengths with \code{\link{bite}}.
 }
@@ -185,27 +187,27 @@ sequences with \code{\link{remove_na}}.
 \code{\link{construct_sq}},
 \item using the \code{\link{clean}} function,
 \item using the \code{\link{remove_na}} function,
-\item subsetting \code{sq} object with \link[sq:sqextract]{extract operator}
+\item subsetting \code{sq} object with \link[=sq-extract]{extract operator}
 }
 }
 
 \section{Storage format}{
 
 \code{sq} object is, in fact, \strong{list of raw vectors}. The fact that it is list
-implies that an user can concatenate \code{sq} objects using \code{\link[sq:c.sq]{c}} method
-and subset them using \code{\link[sq:sqextract]{extract operator}}. Alphabet is kept
+implies that an user can concatenate \code{sq} objects using \code{\link[=c.sq]{c}} method
+and subset them using \code{\link[=sq-extract]{extract operator}}. Alphabet is kept
 as an attribute of the object. 
 
-Raw vectors are the most efficient way of storage - each letter of sequece has asigned
+Raw vectors are the most efficient way of storage - each letter of the sequence has assigned
 an integer (its index in alphabet of \code{sq} object). Those integers in binary format
 fit in less than 8 bits, but normally are stored on 16 bits. However, thanks to bit
 packing it is possible to remove unused bits and store numbers more tightly. This 
 operations result in a little time overhead in all operations, because most of them 
-require unpacking and repacking sequences, but this cost is relatively low in comparision
+require unpacking and repacking sequences, but this cost is relatively low in comparison
 to amount of saved memory.
 
 For example - \strong{nuc} \strong{cln} alphabet consist of 6 values: ACGTU-. They are 
-asigned numbers 1 to 6 respectively. Those numbers in binary format take form: \code{001},
+assigned numbers 1 to 6 respectively. Those numbers in binary format take form: \code{001},
 \code{010}, \code{011}, \code{100}, \code{101}, \code{110}. Each of the letters can 
 be coded with just 3 bits instead of 8 which is demanded by \code{char} - this allows
 us to save more than 60\% of memory spent on storage of nucleotides sequences.
@@ -213,8 +215,8 @@ us to save more than 60\% of memory spent on storage of nucleotides sequences.
 
 \section{tibble compatibility}{
 
-\code{sq} objects are compatible with \code{tibble} class - that means you can have
-\code{sq} object as a column of \code{tibble}. There are overloaded print methods, so
+\code{sq} objects are compatible with \code{\link[tibble]{tibble}} class - that means one can 
+have a \code{sq} object as a column of a \code{tibble}. There are overloaded print methods, so
 that it is printed in pretty format.
 }
 
