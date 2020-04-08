@@ -124,16 +124,23 @@
   } else normalizePath(file)
 }
 
-#' @importFrom stringi stri_split_regex stri_replace_all_regex
+#' @importFrom stringi stri_replace_all_regex stri_match_all_regex stri_split_regex
 .regexify_pattern <- function(digest_pattern) {
-  sides <- stri_split_regex(digest_pattern, "\\.")[[1]]
-  left <- stri_replace_all_regex(sides[[1]], "\\<", "(?<!")
-  left <- stri_replace_all_regex(left, "\\[", "(?<=")
-  left <- stri_replace_all_regex(left, "\\]|\\>", ")")
+  ami_alph <- c("A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", 
+                "P", "Q", "R", "S", "T", "V", "W", "Y")
+  negated <- stri_match_all_regex(digest_pattern, "(?<=\\<)[ACDEFGHIKLMNPQRSTVWY]+(?=\\>)")[[1]]
+  pattern <- stri_split_regex(digest_pattern, "\\<[ACDEFGHIKLMNPQRSTVWY]+\\>")[[1]]
+  if (length(negated) == 1 && is.na(negated[1])) {
+    negated <- NULL
+  } else {
+    negated <- paste0("[^", sapply(strsplit(as.character(negated), ""), 
+                                   function(neg_set) paste(base::setdiff(ami_alph, neg_set), collapse = "")), "]")
+  }
+  pattern <- paste0(pattern, c(negated, ""), collapse = "")
   
-  right <- stri_replace_all_regex(sides[[2]], "\\[", "(?=")
-  right <- stri_replace_all_regex(right, "\\<", "(?!")
-  right <- stri_replace_all_regex(right, "\\]|\\>", ")")
-  
-  paste0(left, right)
+  sides <- stri_split_regex(pattern, "\\.")[[1]]
+  sides[[1]] <- ifelse(nchar(sides[[1]]) > 1, paste0("(?<=", sides[[1]], ")"), "")
+  sides[[2]] <- ifelse(nchar(sides[[2]]) > 1, paste0("(?=", sides[[2]], ")"), "")
+
+  paste0(sides[[1]], sides[[2]])
 }

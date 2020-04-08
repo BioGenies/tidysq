@@ -244,6 +244,6 @@
 
 #' @importFrom stringi stri_detect
 .check_digest_pattern <- function(digest_pattern) {
-  if (!stri_detect_regex(digest_pattern, "^(\\[[ACDEFGHIKLMNPQRSTVWY]+\\]\\.((\\[[ACDEFGHIKLMNPQRSTVWY]+\\])|(\\<[ACDEFGHIKLMNPQRSTVWY]+\\>))?)|((\\<[ACDEFGHIKLMNPQRSTVWY]+\\>)?\\.\\[[ACDEFGHIKLMNPQRSTVWY]+\\])$"))
+  if (!stri_detect_regex(digest_pattern, "^((\\[[ACDEFGHIKLMNPQRSTVWY]+\\]|\\<[ACDEFGHIKLMNPQRSTVWY]+\\>)+\\.|(\\[[ACDEFGHIKLMNPQRSTVWY]+\\]|\\<[ACDEFGHIKLMNPQRSTVWY]+\\>)*\\.(\\[[ACDEFGHIKLMNPQRSTVWY]+\\]|\\<[ACDEFGHIKLMNPQRSTVWY]+\\>)+)$"))
     stop("'digest_pattern' is incorrect!", call. = FALSE)
 }
