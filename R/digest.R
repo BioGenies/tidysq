@@ -1,3 +1,19 @@
+#' Digest proteins at specified cleavage sites
+#' 
+#' TEMPORARY DOCS
+#' 
+#' @param ami_sq a \code{\link{sq}} object with \strong{ami} type and \strong{cln} subtype.
+#' @param name a non-\code{NULL} \code{character} vector without \code{\link{NA}} values, 
+#' containing names of the sequences in the sq. It has to be of the same length 
+#' as the \code{sq}. 
+#' @param digest_pattern a \code{character} protease cleavage site pattern.
+#' 
+#' @return A \code{\link[tibble]{tibble}} with following columns:
+#'  \item{name}{name of the sequence}
+#'  \item{peptide}{fragment of the sequence, result of digesting}
+#'  
+#' @details TEMPORARY DOCS
+#' 
 #' @importFrom stringi stri_split_regex
 #' @importFrom tibble tibble
 #' @export
