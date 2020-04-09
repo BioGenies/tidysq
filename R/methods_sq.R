@@ -324,8 +324,8 @@ is.encsq <- function(x) {
 #' it is converted to character vector using also \code{\link{as.character}} function.
 #' 
 #' When both objects are already converted to character vectors, comparison is carried out 
-#' element-wise with standard R rules, (e.g., recycling is used). You can check details 
-#' \code{\link[Compare]{here}}.
+#' element-wise with standard R rules, (e.g., recycling is used). You can check details at
+#' \code{\link{Comparison}}.
 #' 
 #' Comparing sequences as characters vectors cause that various types of sequences
 #' can be compared for example amino acids with nucleotides sequences so attention 
