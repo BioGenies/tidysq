@@ -35,9 +35,13 @@ test_that("biting sq with positive indices - no reaching outside range", {
 })
 
 test_that("biting sq with positive indices - reaching outside range", {
-  expect_equal(bite(sq_ami_cln, 13:20), 
+  expect_warning(out <- bite(sq_ami_cln, 13:20), 
+                 "some sequences are subsetted with index bigger than length - NA introduced")
+  expect_equal(out, 
                sq_ami_cln_na)
-  expect_equal(bite(sq_ami_cln, 12:14), 
+  expect_warning(out <- bite(sq_ami_cln, 12:14), 
+                 "some sequences are subsetted with index bigger than length - NA introduced")
+  expect_equal(out, 
                sq_ami_cln_na_2)
 })
 
