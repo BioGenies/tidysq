@@ -4,14 +4,12 @@
 #' positions.
 #' 
 #' @inheritParams reverse
-#' @param name a non-\code{NUL}L \code{character} vector without \code{\link{NA}} values, 
+#' @param name a non-\code{NULL} \code{character} vector without \code{\link{NA}} values, 
 #' containing names of the sequences in the sq. It has to be of the same length 
 #' as the \code{sq}. 
 #' @param motifs a \code{character} vector of motifs to be searched for.
 #' 
-#' @return A \code{\link[tibble]{tibble}} with number of rows the same as the length of 
-#' \code{sq} and
-#' following columns:
+#' @return A \code{\link[tibble]{tibble}} with following columns:
 #'  \item{name}{name of the sequence}
 #'  \item{sq}{sequence}
 #'  \item{sought}{sought motif}

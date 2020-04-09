@@ -40,7 +40,7 @@
 }
 
 .set_class <- function(sq, type, is_clean = FALSE) {
-  class(sq) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq")
+  class(sq) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq", "list")
   sq
 }
 
@@ -122,4 +122,25 @@
     download.file(file, tmp)
     tmp
   } else normalizePath(file)
+}
+
+#' @importFrom stringi stri_replace_all_regex stri_match_all_regex stri_split_regex
+.regexify_pattern <- function(digest_pattern) {
+  ami_alph <- c("A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", 
+                "P", "Q", "R", "S", "T", "V", "W", "Y")
+  negated <- stri_match_all_regex(digest_pattern, "(?<=\\<)[ACDEFGHIKLMNPQRSTVWY]+(?=\\>)")[[1]]
+  pattern <- stri_split_regex(digest_pattern, "\\<[ACDEFGHIKLMNPQRSTVWY]+\\>")[[1]]
+  if (length(negated) == 1 && is.na(negated[1])) {
+    negated <- NULL
+  } else {
+    negated <- paste0("[^", sapply(strsplit(as.character(negated), ""), 
+                                   function(neg_set) paste(base::setdiff(ami_alph, neg_set), collapse = "")), "]")
+  }
+  pattern <- paste0(pattern, c(negated, ""), collapse = "")
+  
+  sides <- stri_split_regex(pattern, "\\.")[[1]]
+  sides[[1]] <- ifelse(nchar(sides[[1]]) > 1, paste0("(?<=", sides[[1]], ")"), "")
+  sides[[2]] <- ifelse(nchar(sides[[2]]) > 1, paste0("(?=", sides[[2]], ")"), "")
+
+  paste0(sides[[1]], sides[[2]])
 }

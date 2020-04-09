@@ -59,7 +59,7 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
         .check_alph_length(alph)
         
         sqtibble <- read_fasta_file(file, alph)
-        class(sqtibble[["sq"]]) <- c("untsq", "sq")
+        class(sqtibble[["sq"]]) <- c("untsq", "sq", "list")
         attr(sqtibble[["sq"]], "alphabet") <- alph
         as_tibble(sqtibble)
       }
@@ -79,35 +79,9 @@ read_fasta_nuc <- function(file, is_clean = NULL) {
   read_fasta(file, type = "nuc", is_clean)
 }
 
-#' Save sq to fasta file
-#' 
-#' Writes \code{\link{sq}} objects with their names to a fasta file.
-#' @param sq a \code{\link{sq}} object.
-#' @param name a \code{\link{character}} vector of length equal to \code{sq} length.
-#' @param file a \code{\link{character}} string indicating path to file to write into.
-#' @param nchar a positive \code{\link{integer}} value informing about maximum number of 
-#' characters to put in each line of file.
-#' @export
-write_fasta <- function(sq, name, file, nchar = 80) {
-  validate_sq(sq)
-  .check_character(name, "'name'")
-  .check_character(file, "'file'", single_elem = TRUE)
-  .check_integer(nchar, "'nchar'", single_elem = TRUE, allow_negative = FALSE, allow_zero = FALSE)
-  .check_eq_lens(sq, name, "'sq'", "'name'")
-  
-  sq <- .debitify_sq(sq, "char")
-  char_vec <- unlist(lapply(1L:length(sq), function(i) {
-    s <- sq[[i]]
-    s <- lapply(split(s, floor((0:(length(s) - 1))/nchar)), function(l) paste(l, collapse = ""))
-    paste0(">", name[i], "\n", paste(s, collapse = "\n"), "\n")
-  }))
-  
-  writeLines(text = char_vec, con = file)
-}
-
 .nc_read_fasta <- function(file, type, is_clean) {
   sqtibble <- nc_read_fasta_file(file, type == "ami", is_clean)
-  class(sqtibble[["sq"]]) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq")
+  class(sqtibble[["sq"]]) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq", "list")
   attr(sqtibble[["sq"]], "alphabet") <- .get_standard_alph(type, is_clean)
   as_tibble(sqtibble)
 }

@@ -99,6 +99,10 @@
   }
 }
 
+.check_sq_has_type <- function(sq, argname, type) {
+  .check_simple(!type %in% .get_sq_type(sq), argname, paste0("has to have '", type, "' type"))
+}
+
 .check_is_clean <- function(sq, argname) {
   .check_simple(!.is_cleaned(sq), argname, "has to be clean (has to have 'cln' subtype)")
 }
@@ -236,4 +240,10 @@
       stop("some sequences in 'sq' are shorter than some of kmers to extract ", call. = FALSE)
   } else if (sum(dists) + length(dists) + 1 > min_sq_len)
     stop("some sequences in 'sq' are shorter than given kmers", call. = FALSE)
+}
+
+#' @importFrom stringi stri_detect
+.check_digest_pattern <- function(digest_pattern) {
+  if (!stri_detect_regex(digest_pattern, "^((\\[[ACDEFGHIKLMNPQRSTVWY]+\\]|\\<[ACDEFGHIKLMNPQRSTVWY]+\\>)+\\.|(\\[[ACDEFGHIKLMNPQRSTVWY]+\\]|\\<[ACDEFGHIKLMNPQRSTVWY]+\\>)*\\.(\\[[ACDEFGHIKLMNPQRSTVWY]+\\]|\\<[ACDEFGHIKLMNPQRSTVWY]+\\>)+)$"))
+    stop("'digest_pattern' is incorrect!", call. = FALSE)
 }

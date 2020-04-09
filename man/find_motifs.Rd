@@ -9,16 +9,14 @@ find_motifs(sq, name, motifs)
 \arguments{
 \item{sq}{a \code{\link{sq}} object.}
 
-\item{name}{a non-\code{NUL}L \code{character} vector without \code{\link{NA}} values, 
+\item{name}{a non-\code{NULL} \code{character} vector without \code{\link{NA}} values, 
 containing names of the sequences in the sq. It has to be of the same length 
 as the \code{sq}.}
 
 \item{motifs}{a \code{character} vector of motifs to be searched for.}
 }
 \value{
-A \code{\link[tibble]{tibble}} with number of rows the same as the length of 
-\code{sq} and
-following columns:
+A \code{\link[tibble]{tibble}} with following columns:
  \item{name}{name of the sequence}
  \item{sq}{sequence}
  \item{sought}{sought motif}
