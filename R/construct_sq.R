@@ -453,7 +453,7 @@ construct_sq_nuc <- function(sq, is_clean = NULL) {
   .check_type(type)
   .check_logical(is_clean, single_elem = TRUE)
   
-  sq <- .nc_bitify_sq(sq, type, is_clean)
+  sq <- .nc_pack_to_sq(sq, type, is_clean)
   sq <- .set_class(sq, type, is_clean)
   .set_alph(sq, .get_standard_alph(type, is_clean))
 }
@@ -493,7 +493,7 @@ construct_sq_nuc <- function(sq, is_clean = NULL) {
   
   alph <- unique(unlist(sq))
   .check_alph_length(alph)
-  sq <- .bitify_sq(sq, alph)
+  sq <- .pack_to_sq(sq, alph)
   sq <- .set_alph(sq, alph)
   .set_class(sq, "atp")
 }
@@ -505,7 +505,7 @@ construct_sq_nuc <- function(sq, is_clean = NULL) {
   if (is.null(is_clean)) {
     is_clean <- .guess_ami_is_clean(real_alph)
   }
-  sq <- .nc_bitify_sq(sq, "ami", is_clean)
+  sq <- .nc_pack_to_sq(sq, "ami", is_clean)
   sq <- .set_alph(sq, .get_standard_alph("ami", is_clean))
   .set_class(sq, "ami", is_clean)
 }
@@ -517,7 +517,7 @@ construct_sq_nuc <- function(sq, is_clean = NULL) {
   if (is.null(is_clean)) {
     is_clean <- .guess_nuc_is_clean(real_alph)
   }
-  sq <- .nc_bitify_sq(sq, "nuc", is_clean)
+  sq <- .nc_pack_to_sq(sq, "nuc", is_clean)
   sq <- .set_alph(sq, .get_standard_alph("nuc", is_clean))
   .set_class(sq, "nuc", is_clean)
 }
@@ -526,7 +526,7 @@ construct_sq_nuc <- function(sq, is_clean = NULL) {
   alph <- .get_real_alph(sq)
   .check_alph_length(alph)
   
-  sq <- .bitify_sq(sq, alph)
+  sq <- .pack_to_sq(sq, alph)
   sq <- .set_alph(sq, alph)
   .set_class(sq, "unt", FALSE)
 }

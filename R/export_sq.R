@@ -37,9 +37,9 @@ export_sq <- function(sq, export_format, name) {
   if (export_format %in% c("seqinr::SeqFastaAA", "seqinr::SeqFastadna")) {
     .check_is_installed("seqinr")
     if (type == "ami") {
-      ret <- lapply(.debitify_sq(sq, "char"), seqinr::as.SeqFastaAA)
+      ret <- lapply(.unpack_from_sq(sq, "char"), seqinr::as.SeqFastaAA)
     } else if (type == "nuc") {
-      ret <- lapply(.debitify_sq(sq, "char"), seqinr::as.SeqFastadna)
+      ret <- lapply(.unpack_from_sq(sq, "char"), seqinr::as.SeqFastadna)
     }
     
     if (!is.null(name)) {
@@ -51,16 +51,16 @@ export_sq <- function(sq, export_format, name) {
   } else if (export_format %in% c("ape::AAbin", "ape::DNAbin")) {
     .check_is_installed("ape")
     if (type == "ami") {
-      ape::as.AAbin(setNames(.debitify_sq(sq, "char"), name))
+      ape::as.AAbin(setNames(.unpack_from_sq(sq, "char"), name))
     } else if (type == "nuc") {
-      ape::as.DNAbin(setNames(.debitify_sq(sq, "char"), name))
+      ape::as.DNAbin(setNames(.unpack_from_sq(sq, "char"), name))
     }
   } else if (export_format %in% c("Biostrings::AAStringSet", "Biostrings::DNAStringSet")) {
     .check_is_installed("Biostrings")
     if (type == "ami") {
-      Biostrings::AAStringSet(setNames(unlist(.debitify_sq(sq, "string")), name))
+      Biostrings::AAStringSet(setNames(unlist(.unpack_from_sq(sq, "string")), name))
     } else if (type == "nuc") {
-      Biostrings::DNAStringSet(setNames(unlist(.debitify_sq(sq, "string")), name))
+      Biostrings::DNAStringSet(setNames(unlist(.unpack_from_sq(sq, "string")), name))
     }
   }
 }

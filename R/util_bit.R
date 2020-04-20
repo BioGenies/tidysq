@@ -1,59 +1,59 @@
-.bitify_sq <- function(sq, alph) {
+.pack_to_sq <- function(sq, alph) {
   if (length(sq) == 0) return(sq)
   if (is.numeric(sq[[1]])) 
-    pack_fun <- pack_ints
+    packing_fun <- pack_ints
   else if (any(lengths(sq) > 1)) 
-    pack_fun <- pack_chars
-  else pack_fun <- function(s, alph) pack_string(charToRaw(s), alph)
+    packing_fun <- pack_chars
+  else packing_fun <- function(s, alph) pack_string(charToRaw(s), alph)
   
   alph_size <- .get_alph_size(alph)
   lapply(sq, function(s) {
-    pack_fun(s, alph)
+    packing_fun(s, alph)
   })
 }
 
-.nc_bitify_sq <- function(sq, type, is_clean) {
-  if      (type == "ami" &&  is_clean) pack_fun <- nc_pack_cami
-  else if (type == "ami" && !is_clean) pack_fun <- nc_pack_ami
-  else if (type == "nuc" &&  is_clean) pack_fun <- nc_pack_cnuc
-  else if (type == "nuc" && !is_clean) pack_fun <- nc_pack_nuc
+.nc_pack_to_sq <- function(sq, type, is_clean) {
+  if      (type == "ami" &&  is_clean) packing_fun <- nc_pack_cami
+  else if (type == "ami" && !is_clean) packing_fun <- nc_pack_ami
+  else if (type == "nuc" &&  is_clean) packing_fun <- nc_pack_cnuc
+  else if (type == "nuc" && !is_clean) packing_fun <- nc_pack_nuc
   
-  lapply(sq, function(s) pack_fun(charToRaw(s)))
+  lapply(sq, function(s) packing_fun(charToRaw(s)))
 }
 
-.debitify_sq <- function(sq, to) {
+.unpack_from_sq <- function(sq, to) {
   if (length(sq) == 0) return(sq)
   alph <- .get_alph(sq)
   if (to == "char") 
-    unpack_fun <- function(s) unpack_chars(s, alph, .get_na_char())
+    unpacking_fun <- function(s) unpack_chars(s, alph, .get_na_char())
   else if (to == "int") 
-    unpack_fun <- function(s) unpack_ints(s, .get_alph_size(alph))
+    unpacking_fun <- function(s) unpack_ints(s, .get_alph_size(alph))
   else if (to == "string") 
-    unpack_fun <- function(s) unpack_string(s, alph, .get_na_char())
+    unpacking_fun <- function(s) unpack_string(s, alph, .get_na_char())
   
-  lapply(sq, function(s) unpack_fun(s))
+  lapply(sq, function(s) unpacking_fun(s))
 }
 
 .apply_sq <- function(sq, ex_form, im_form, fun, im_alph = .get_alph(sq)) {
   if (length(sq) == 0) return(sq)
   ex_alph <- .get_alph(sq)
   if (ex_form == "char") 
-    unpack_fun <- function(s) unpack_chars(s, ex_alph, .get_na_char())
+    unpacking_fun <- function(s) unpack_chars(s, ex_alph, .get_na_char())
   else if (ex_form == "int") 
-    unpack_fun <- function(s) unpack_ints(s, .get_alph_size(ex_alph))
+    unpacking_fun <- function(s) unpack_ints(s, .get_alph_size(ex_alph))
   else if (ex_form == "string") 
-    unpack_fun <- function(s) unpack_string(s, ex_alph, .get_na_char())
+    unpacking_fun <- function(s) unpack_string(s, ex_alph, .get_na_char())
  
   if (im_form == "char")
-    pack_fun <- function(s) pack_chars(s, im_alph)
+    packing_fun <- function(s) pack_chars(s, im_alph)
   else if (im_form == "int")
-    pack_fun <- function(s) pack_ints(s, .get_alph_size(im_alph))
+    packing_fun <- function(s) pack_ints(s, .get_alph_size(im_alph))
   else if (im_form == "string")
-    pack_fun <- function(s) pack_string(charToRaw(s), im_alph)
+    packing_fun <- function(s) pack_string(charToRaw(s), im_alph)
   else if (im_form == "none")
-    pack_fun <- identity
+    packing_fun <- identity
 
   lapply(sq, function(s) {
-    s <- pack_fun(fun(unpack_fun(s)))
+    s <- packing_fun(fun(unpacking_fun(s)))
   })
 }

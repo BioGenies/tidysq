@@ -66,7 +66,7 @@ complement <- function(nucsq, is_dna = NULL) {
   .check_is_clean(nucsq, "'nucsq'")
   alph <- .get_alph(nucsq)
   alph_size <- .get_alph_size(alph)
-  sq <- .debitify_sq(nucsq, "int")
+  sq <- .unpack_from_sq(nucsq, "int")
   
   has_U <- any(unlist(sq) == match("U", alph))
   has_T <- any(unlist(sq) == match("T", alph))

@@ -176,7 +176,7 @@ as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL
 #' @seealso sq
 #' @export
 as.character.sq <- function(x, ...) {
-  unlist(.debitify_sq(x, "string"))
+  unlist(.unpack_from_sq(x, "string"))
 }
 
 #' Convert sq object into matrix
@@ -219,7 +219,7 @@ as.character.sq <- function(x, ...) {
 #' @seealso \code{\link{sq}}
 #' @export
 as.matrix.sq <- function(x, ...) {
-  x <- .debitify_sq(x, "char")
+  x <- .unpack_from_sq(x, "char")
   max_len <- max(lengths(x))
   ret <- do.call(rbind, lapply(x, function(row) row[1:max_len]))
   ret[ret == .get_na_char()] <- NA
