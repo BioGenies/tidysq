@@ -67,7 +67,7 @@ remove_na <- function(sq, only_elements = FALSE) {
     }) 
   } else {
     ret <- lapply(sq, function(s) {
-      st <- unpack_ints(s, alph_size)
+      st <- C_unpack_ints(s, alph_size)
       if (any(st == na_val)) raw(0) else s
     })
   }

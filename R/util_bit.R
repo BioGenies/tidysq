@@ -1,10 +1,10 @@
 .pack_to_sq <- function(sq, alph) {
   if (length(sq) == 0) return(sq)
   if (is.numeric(sq[[1]])) 
-    packing_fun <- pack_ints
+    packing_fun <-  C_pack_ints
   else if (any(lengths(sq) > 1)) 
-    packing_fun <- pack_chars
-  else packing_fun <- function(s, alph) pack_string(charToRaw(s), alph)
+    packing_fun <- C_pack_chars
+  else packing_fun <- function(s, alph) C_pack_string(charToRaw(s), alph)
   
   alph_size <- .get_alph_size(alph)
   lapply(sq, function(s) {
@@ -25,11 +25,11 @@
   if (length(sq) == 0) return(sq)
   alph <- .get_alph(sq)
   if (to == "char") 
-    unpacking_fun <- function(s) unpack_chars(s, alph, .get_na_char())
+    unpacking_fun <- function(s) C_unpack_chars(s, alph, .get_na_char())
   else if (to == "int") 
-    unpacking_fun <- function(s) unpack_ints(s, .get_alph_size(alph))
+    unpacking_fun <- function(s) C_unpack_ints(s, .get_alph_size(alph))
   else if (to == "string") 
-    unpacking_fun <- function(s) unpack_string(s, alph, .get_na_char())
+    unpacking_fun <- function(s) C_unpack_string(s, alph, .get_na_char())
   
   lapply(sq, function(s) unpacking_fun(s))
 }
@@ -38,18 +38,18 @@
   if (length(sq) == 0) return(sq)
   ex_alph <- .get_alph(sq)
   if (ex_form == "char") 
-    unpacking_fun <- function(s) unpack_chars(s, ex_alph, .get_na_char())
+    unpacking_fun <- function(s) C_unpack_chars(s, ex_alph, .get_na_char())
   else if (ex_form == "int") 
-    unpacking_fun <- function(s) unpack_ints(s, .get_alph_size(ex_alph))
+    unpacking_fun <- function(s) C_unpack_ints(s, .get_alph_size(ex_alph))
   else if (ex_form == "string") 
-    unpacking_fun <- function(s) unpack_string(s, ex_alph, .get_na_char())
+    unpacking_fun <- function(s) C_unpack_string(s, ex_alph, .get_na_char())
  
   if (im_form == "char")
-    packing_fun <- function(s) pack_chars(s, im_alph)
+    packing_fun <- function(s) C_pack_chars(s, im_alph)
   else if (im_form == "int")
-    packing_fun <- function(s) pack_ints(s, .get_alph_size(im_alph))
+    packing_fun <- function(s)  C_pack_ints(s, .get_alph_size(im_alph))
   else if (im_form == "string")
-    packing_fun <- function(s) pack_string(charToRaw(s), im_alph)
+    packing_fun <- function(s) C_pack_string(charToRaw(s), im_alph)
   else if (im_form == "none")
     packing_fun <- identity
 

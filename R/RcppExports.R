@@ -5,16 +5,16 @@ pack_raws <- function(unpacked, alph_size) {
     .Call('_tidysq_pack_raws', PACKAGE = 'tidysq', unpacked, alph_size)
 }
 
-pack_ints <- function(unpacked, alph_size) {
-    .Call('_tidysq_pack_ints', PACKAGE = 'tidysq', unpacked, alph_size)
+C_pack_ints <- function(unpacked, alph_size) {
+    .Call('_tidysq_C_pack_ints', PACKAGE = 'tidysq', unpacked, alph_size)
 }
 
-pack_chars <- function(unpacked, alph) {
-    .Call('_tidysq_pack_chars', PACKAGE = 'tidysq', unpacked, alph)
+C_pack_chars <- function(unpacked, alph) {
+    .Call('_tidysq_C_pack_chars', PACKAGE = 'tidysq', unpacked, alph)
 }
 
-pack_string <- function(unpacked, alph) {
-    .Call('_tidysq_pack_string', PACKAGE = 'tidysq', unpacked, alph)
+C_pack_string <- function(unpacked, alph) {
+    .Call('_tidysq_C_pack_string', PACKAGE = 'tidysq', unpacked, alph)
 }
 
 nc_pack_cnuc <- function(UNPACKED) {
@@ -45,37 +45,30 @@ find_alph <- function(file) {
     .Call('_tidysq_find_alph', PACKAGE = 'tidysq', file)
 }
 
-unpack_raws <- function(packed, alph_size) {
-    .Call('_tidysq_unpack_raws', PACKAGE = 'tidysq', packed, alph_size)
+C_unpack_raws <- function(packed, alph_size) {
+    .Call('_tidysq_C_unpack_raws', PACKAGE = 'tidysq', packed, alph_size)
 }
 
-unpack_ints <- function(packed, alph_size) {
-    .Call('_tidysq_unpack_ints', PACKAGE = 'tidysq', packed, alph_size)
+C_unpack_ints <- function(packed, alph_size) {
+    .Call('_tidysq_C_unpack_ints', PACKAGE = 'tidysq', packed, alph_size)
 }
 
-unpack_chars <- function(packed, alph, na_char) {
-    .Call('_tidysq_unpack_chars', PACKAGE = 'tidysq', packed, alph, na_char)
+C_unpack_chars <- function(packed, alph, na_char) {
+    .Call('_tidysq_C_unpack_chars', PACKAGE = 'tidysq', packed, alph, na_char)
 }
 
-unpack_string <- function(packed, alph, na_char) {
-    .Call('_tidysq_unpack_string', PACKAGE = 'tidysq', packed, alph, na_char)
+C_unpack_string <- function(packed, alph, na_char) {
+    .Call('_tidysq_C_unpack_string', PACKAGE = 'tidysq', packed, alph, na_char)
 }
 
-get_alph_size <- function(alph) {
-    .Call('_tidysq_get_alph_size', PACKAGE = 'tidysq', alph)
-}
+#' Match index of letter in alphabet for each letter
+NULL
 
-match_chars <- function(letters, alph) {
-    .Call('_tidysq_match_chars', PACKAGE = 'tidysq', letters, alph)
-}
+#' Match index of letter in alphabet for each letter
+NULL
 
-match_char <- function(letters, alph) {
-    .Call('_tidysq_match_char', PACKAGE = 'tidysq', letters, alph)
-}
-
-match_raws <- function(letters, alph, na_char) {
-    .Call('_tidysq_match_raws', PACKAGE = 'tidysq', letters, alph, na_char)
-}
+#' Match index of letter in alphabet for each letter
+NULL
 
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {

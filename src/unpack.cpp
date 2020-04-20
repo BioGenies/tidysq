@@ -3,13 +3,13 @@
 
 // [[Rcpp::interfaces(cpp, r)]]
 
-unsigned short get_alph_size(Rcpp::CharacterVector alph);
-Rcpp::CharacterVector match_raws(Rcpp::RawVector letters,
-                                 Rcpp::CharacterVector alph,
-                                 Rcpp::CharacterVector na_char);
+unsigned short C_get_alph_size(Rcpp::CharacterVector alph);
+Rcpp::CharacterVector C_match(Rcpp::RawVector letters,
+                              Rcpp::CharacterVector alph,
+                              Rcpp::CharacterVector na_char);
 // [[Rcpp::export]]
-Rcpp::RawVector unpack_raws(Rcpp::RawVector packed, 
-                            const unsigned short alph_size) {
+Rcpp::RawVector C_unpack_raws(Rcpp::RawVector packed,
+                              const unsigned short alph_size) {
   const unsigned int in_len = packed.size();
   unsigned short out_shift = 0;
   if (in_len == 0) {
@@ -321,33 +321,33 @@ Rcpp::RawVector unpack_raws(Rcpp::RawVector packed,
 }
 
 // [[Rcpp::export]]
-Rcpp::IntegerVector unpack_ints(Rcpp::RawVector packed,
-                                const unsigned short alph_size) {
+Rcpp::IntegerVector C_unpack_ints(Rcpp::RawVector packed,
+                                  const unsigned short alph_size) {
   if ((packed.size() == 0) or 
-      ((packed.size() == 1) and 
-         Rcpp::is_true(Rcpp::all(packed[0] == Rcpp::RawVector(1))))) return Rcpp::IntegerVector(0);
-  Rcpp::RawVector unpacked = unpack_raws(packed, alph_size);
+        ((packed.size() == 1) and 
+           Rcpp::is_true(Rcpp::all(packed[0] == Rcpp::RawVector(1))))) return Rcpp::IntegerVector(0);
+  Rcpp::RawVector unpacked = C_unpack_raws(packed, alph_size);
   Rcpp::IntegerVector ret(unpacked);
   return ret;
 }
 
 // [[Rcpp::export]]
-Rcpp::CharacterVector unpack_chars(Rcpp::RawVector packed,
-                                   Rcpp::CharacterVector alph,
-                                   Rcpp::CharacterVector na_char) {
+Rcpp::CharacterVector C_unpack_chars(Rcpp::RawVector packed,
+                                     Rcpp::CharacterVector alph,
+                                     Rcpp::CharacterVector na_char) {
   if ((packed.size() == 0) or 
-      ((packed.size() == 1) and 
-         Rcpp::is_true(Rcpp::all(packed[0] == Rcpp::RawVector(1))))) return Rcpp::CharacterVector(0);
-  Rcpp::RawVector unpacked = unpack_raws(packed, get_alph_size(alph));
-  Rcpp::CharacterVector ret = match_raws(unpacked, alph, na_char);
+        ((packed.size() == 1) and 
+           Rcpp::is_true(Rcpp::all(packed[0] == Rcpp::RawVector(1))))) return Rcpp::CharacterVector(0);
+  Rcpp::RawVector unpacked = C_unpack_raws(packed, C_get_alph_size(alph));
+  Rcpp::CharacterVector ret = C_match(unpacked, alph, na_char);
   return ret;
 }
 
 // [[Rcpp::export]]
-Rcpp::CharacterVector unpack_string(Rcpp::RawVector packed,
-                              Rcpp::CharacterVector alph,
-                              Rcpp::CharacterVector na_char) {
-  Rcpp::CharacterVector unpacked = unpack_chars(packed, alph, na_char);
+Rcpp::CharacterVector C_unpack_string(Rcpp::RawVector packed,
+                                      Rcpp::CharacterVector alph,
+                                      Rcpp::CharacterVector na_char) {
+  Rcpp::CharacterVector unpacked = C_unpack_chars(packed, alph, na_char);
   std::string ret = Rcpp::collapse(unpacked);
   return ret;
 }

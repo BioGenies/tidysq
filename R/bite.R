@@ -99,11 +99,11 @@ bite <- function(sq, indices) {
   
   ret <- list(length(sq))
   for (i in 1:length(sq)) {
-    s <- unpack_ints(sq[[i]], alph_size)
+    s <- C_unpack_ints(sq[[i]], alph_size)
     s <- s[indices]
     if (any(is.na(s))) na_introduced <- TRUE
     s[is.na(s)] <- na_val
-    ret[[i]] <- pack_ints(s, alph_size)
+    ret[[i]] <-  C_pack_ints(s, alph_size)
   }
   if (na_introduced) {
     .handle_opt_txt("tidysq_bite_na_action",

@@ -6,7 +6,7 @@
 namespace tidysq {
   unsigned char* unpack_sq_to_char(Rcpp::RawVector packed, 
                                    const unsigned short alph_size) {
-    Rcpp::RawVector unpacked = unpack_raws(packed, alph_size);
+    Rcpp::RawVector unpacked = C_unpack_raws(packed, alph_size);
     unsigned char* chars = &unpacked[0];
     return chars;
   }
