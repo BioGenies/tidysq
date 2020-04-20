@@ -279,37 +279,37 @@ as.matrix.encsq <- function(x, ...) {
 #' @seealso \code{\link{sq}}
 #' @export
 is.sq <- function(x) {
-  tryCatch({validate_sq(x); TRUE}, error = function(e) FALSE)
+  tryCatch({.validate_sq(x); TRUE}, error = function(e) FALSE)
 }
 
 #' @rdname is.sq
 #' @export
 is.amisq <- function(x) {
-  tryCatch({validate_sq(x, type = "ami"); TRUE}, error = function(e) FALSE)
+  tryCatch({.validate_sq(x, type = "ami"); TRUE}, error = function(e) FALSE)
 }
 
 #' @rdname is.sq
 #' @export
 is.nucsq <- function(x) {
-  tryCatch({validate_sq(x, type = "nuc"); TRUE}, error = function(e) FALSE)
+  tryCatch({.validate_sq(x, type = "nuc"); TRUE}, error = function(e) FALSE)
 }
 
 #' @rdname is.sq
 #' @export
 is.untsq <- function(x) {
-  tryCatch({validate_sq(x, type = "unt"); TRUE}, error = function(e) FALSE)
+  tryCatch({.validate_sq(x, type = "unt"); TRUE}, error = function(e) FALSE)
 }
 
 #' @rdname is.sq
 #' @export
 is.atpsq <- function(x) {
-  tryCatch({validate_sq(x, type = "atp"); TRUE}, error = function(e) FALSE)
+  tryCatch({.validate_sq(x, type = "atp"); TRUE}, error = function(e) FALSE)
 }
 
 #' @rdname is.sq
 #' @export
 is.encsq <- function(x) {
-  tryCatch({validate_sq(x, type = "enc"); TRUE}, error = function(e) FALSE)
+  tryCatch({.validate_sq(x, type = "enc"); TRUE}, error = function(e) FALSE)
 }
 #' Compare sq object 
 #' @description Compares input \code{\link{sq}} object with another given.

@@ -46,7 +46,7 @@
 #' 
 #' @export 
 typify <- function(sq, dest_type) {
-  validate_sq(sq)
+  .validate_sq(sq)
   .check_type(dest_type, "'dest_type'")
   type <- .get_sq_type(sq)
   if (type == dest_type) {

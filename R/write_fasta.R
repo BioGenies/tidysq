@@ -8,7 +8,7 @@
 #' characters to put in each line of file.
 #' @export
 write_fasta <- function(sq, name, file, nchar = 80) {
-  validate_sq(sq)
+  .validate_sq(sq)
   .check_character(name, "'name'")
   .check_character(file, "'file'", single_elem = TRUE)
   .check_integer(nchar, "'nchar'", single_elem = TRUE, allow_negative = FALSE, allow_zero = FALSE)

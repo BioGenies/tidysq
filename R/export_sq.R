@@ -22,7 +22,7 @@
 #' @seealso \code{\link{sq}} \code{\link{import_sq}}
 #' @export
 export_sq <- function(sq, export_format, name) {
-  validate_sq(sq)
+  .validate_sq(sq)
   if (!missing(name)) {
     .check_character(name, "'name'")
     .check_eq_lens(sq, name, "'sq'", "'name'")

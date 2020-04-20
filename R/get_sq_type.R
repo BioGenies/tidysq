@@ -47,7 +47,7 @@
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}} \code{\link{encode}}
 #' @export
 get_sq_alphabet <- function(sq) {
-  validate_sq(sq)
+  .validate_sq(sq)
   .get_alph(sq)
 }
 
@@ -90,6 +90,6 @@ get_sq_alphabet <- function(sq) {
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
 get_sq_type <- function(sq) {
-  validate_sq(sq)
+  .validate_sq(sq)
   .get_sq_type(sq)
 }

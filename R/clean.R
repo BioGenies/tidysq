@@ -45,7 +45,7 @@
 #' \code{\link{is_null_sq}}
 #' @export
 clean <- function(sq, only_elements = FALSE) {
-  validate_sq(sq)
+  .validate_sq(sq)
   type <- .get_sq_type(sq)
   is_clean <- .is_cleaned(sq)
   .check_logical(only_elements, "'only_elements'", single_elem = TRUE)

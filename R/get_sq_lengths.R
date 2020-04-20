@@ -26,6 +26,6 @@
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
 get_sq_lengths <- function(sq) {
-  validate_sq(sq)
+  .validate_sq(sq)
   .get_lens(sq)
 }

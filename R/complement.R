@@ -61,7 +61,7 @@
 #' 
 #' @export
 complement <- function(nucsq, is_dna = NULL) {
-  validate_sq(nucsq, "nuc")
+  .validate_sq(nucsq, "nuc")
   
   .check_is_clean(nucsq, "'nucsq'")
   alph <- .get_alph(nucsq)

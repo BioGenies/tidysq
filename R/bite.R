@@ -89,7 +89,7 @@
 #' @seealso \code{\link{sq}} \code{\link{remove_na}} \code{\link{tidysq-options}}
 #' @export
 bite <- function(sq, indices) {
-  validate_sq(sq)
+  .validate_sq(sq)
   .check_numeric(indices, "'indices'", allow_negative = TRUE)
   
   na_introduced <- FALSE
