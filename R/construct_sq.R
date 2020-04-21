@@ -317,11 +317,11 @@ NULL
 #' 
 #' @examples 
 #' # saving option:
-#' previous_option <- getOption("tidysq_fast_mode")
+#' previous_option <- getOption("tidysq_g_fast_mode")
 #' 
 #' #### constructing sq in normal mode:
 #' ## setting an option:
-#' options(tidysq_fast_mode = FALSE)
+#' options(tidysq_g_fast_mode = FALSE)
 #' 
 #' ## constructing sq without specifying type
 #' # nuc cln sq
@@ -373,7 +373,7 @@ NULL
 #' 
 #' #### constructing in fast mode:
 #' ## setting fast mode on
-#' options(tidysq_fast_mode = TRUE)
+#' options(tidysq_g_fast_mode = TRUE)
 #' 
 #' # you cannot construct without specifying type
 #' \dontrun{
@@ -391,7 +391,7 @@ NULL
 #' 
 #' #### Other examples:
 #' ## setting fast mode off again:
-#' options(tidysq_fast_mode = FALSE)
+#' options(tidysq_g_fast_mode = FALSE)
 #' 
 #' # lowercase letters are converted to uppercase if detected type is "ami" or "nuc"
 #' construct_sq(c("aTGc", "tcgTTA", "tt--AG"))
@@ -407,7 +407,7 @@ NULL
 #' construct_sq(c("AGTGGC", "", "CATGA", ""))
 #' 
 #' ## reseting an option
-#' options(tidysq_fast_mode = previous_option)
+#' options(tidysq_g_fast_mode = previous_option)
 #' 
 #' @seealso \code{\link{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}} 
 #' \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}

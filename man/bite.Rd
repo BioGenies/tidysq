@@ -38,7 +38,7 @@ refer to the R documentation (see
 Extracting indices not present in the sequence results in introducing 
 \code{\link{NA}} (‘Not Available’ / Missing Values) values. 
 Information about it is printed on a console depending on value of option 
-'tidysq_bite_na_action' - it can be either a warning (default), error, 
+'tidysq_a_bite_na' - it can be either a warning (default), error,
 message or no information (you can check details in \code{\link{tidysq-options})}. 
 \code{NA} values can be removed by using \code{\link{remove_na}} function.
 }

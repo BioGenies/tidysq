@@ -14,7 +14,7 @@ Not all functions support \emph{fast mode} yet. Those that do not always operate
 \section{Turning fast mode on and off}{
 
 
-\code{Fast mode} can be turned on and off by setting package option "tidysq_fast_mode" to 
+\code{Fast mode} can be turned on and off by setting package option "tidysq_g_fast_mode" to
 accordingly \code{TRUE} and \code{FALSE} with the latter value as default. To learn more about
 options, see \code{\link{tidysq-options}}.
 }

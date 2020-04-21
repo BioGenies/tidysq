@@ -27,7 +27,7 @@
 #' Extracting indices not present in the sequence results in introducing 
 #' \code{\link{NA}} (‘Not Available’ / Missing Values) values. 
 #' Information about it is printed on a console depending on value of option 
-#' 'tidysq_bite_na_action' - it can be either a warning (default), error, 
+#' 'tidysq_a_bite_na' - it can be either a warning (default), error,
 #' message or no information (you can check details in \code{\link{tidysq-options})}. 
 #' \code{NA} values can be removed by using \code{\link{remove_na}} function.
 #' 
@@ -106,7 +106,7 @@ bite <- function(sq, indices) {
     ret[[i]] <-  C_pack_ints(s, alph_size)
   }
   if (na_introduced) {
-    .handle_opt_txt("tidysq_bite_na_action",
+    .handle_opt_txt("tidysq_a_bite_na",
                     "some sequences are subsetted with index bigger than length - NA introduced")
   }
   .set_class_alph(ret, sq)

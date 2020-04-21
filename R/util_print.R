@@ -112,8 +112,8 @@ type_sum.clnsq <- function(x) {
 #' @importFrom crayon col_nchar
 #' @export
 print.sq <- function(x,  
-                     max_sequences = getOption("tidysq_max_print_sequences"),
-                     use_color = getOption("tidysq_colorful_sq_print"), 
+                     max_sequences = getOption("tidysq_p_max_sequences"),
+                     use_color = getOption("tidysq_p_use_color"),
                      letters_sep = NULL, ...) {
   .check_integer(max_sequences, "'max_sequences'")
   .check_logical(use_color, "'use_color'")
@@ -220,8 +220,8 @@ print.sq <- function(x,
 #' @importFrom crayon col_nchar
 #' @export
 print.encsq <- function(x,
-                        max_sequences = getOption("tidysq_max_print_sequences"),
-                        use_color = getOption("tidysq_colorful_sq_print"), 
+                        max_sequences = getOption("tidysq_p_max_sequences"),
+                        use_color = getOption("tidysq_p_use_color"),
                         letters_sep = NULL,
                         digits = 2, ...) {
   .check_integer(max_sequences, "'max_sequences'")
