@@ -138,11 +138,11 @@ If your sequences contain \code{NA} values, use \code{\link{remove_na}}
 
 \examples{
 # saving option:
-previous_option <- getOption("tidysq_fast_mode")
+previous_option <- getOption("tidysq_g_fast_mode")
 
 #### constructing sq in normal mode:
 ## setting an option:
-options(tidysq_fast_mode = FALSE)
+options(tidysq_g_fast_mode = FALSE)
 
 ## constructing sq without specifying type
 # nuc cln sq
@@ -194,7 +194,7 @@ construct_sq(c("ProProGlyAlaMetAlaCys"), non_standard = c("Pro", "Gly", "Ala", "
 
 #### constructing in fast mode:
 ## setting fast mode on
-options(tidysq_fast_mode = TRUE)
+options(tidysq_g_fast_mode = TRUE)
 
 # you cannot construct without specifying type
 \dontrun{
@@ -212,7 +212,7 @@ construct_sq("NCTGCNA", "nuc", TRUE)
 
 #### Other examples:
 ## setting fast mode off again:
-options(tidysq_fast_mode = FALSE)
+options(tidysq_g_fast_mode = FALSE)
 
 # lowercase letters are converted to uppercase if detected type is "ami" or "nuc"
 construct_sq(c("aTGc", "tcgTTA", "tt--AG"))
@@ -228,7 +228,7 @@ construct_sq(character(0))
 construct_sq(c("AGTGGC", "", "CATGA", ""))
 
 ## reseting an option
-options(tidysq_fast_mode = previous_option)
+options(tidysq_g_fast_mode = previous_option)
 
 }
 \seealso{

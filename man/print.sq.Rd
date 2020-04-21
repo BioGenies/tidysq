@@ -6,8 +6,8 @@
 \usage{
 \method{print}{sq}(
   x,
-  max_sequences = getOption("tidysq_max_print_sequences"),
-  use_color = getOption("tidysq_colorful_sq_print"),
+  max_sequences = getOption("tidysq_p_max_sequences"),
+  use_color = getOption("tidysq_p_use_color"),
   letters_sep = NULL,
   ...
 )

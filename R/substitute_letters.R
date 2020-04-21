@@ -144,7 +144,7 @@ substitute_letters <- function(sq, encoding) {
     inds_fun[s]
   }, new_alph)
   if (.is_cleaned(sq)) {
-    .handle_opt_txt("tidysq_substitute_letters_cln",
+    .handle_opt_txt("tidysq_a_cln_sub_letters",
                     "'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it")
   }
 

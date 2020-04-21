@@ -15,7 +15,7 @@
 }
 
 .get_print_length <- function() {
-  opt <- getOption("tidysq_max_pillar_sq_width")
+  opt <- getOption("tidysq_p_max_pillar_width")
   
   ifelse (is.null(opt) || 
             !is.numeric(opt) || 
@@ -27,7 +27,7 @@
 
 
 .get_color_opt <- function() {
-  opt <- getOption("tidysq_colorful_sq_print")
+  opt <- getOption("tidysq_p_use_color")
   
   ifelse (is.null(opt) || 
             !is.logical(opt) || 
@@ -35,7 +35,7 @@
 }
 
 .is_fast_mode <- function() {
-  opt <- getOption("tidysq_fast_mode")
+  opt <- getOption("tidysq_g_fast_mode")
   
   ifelse (is.null(opt) || 
             !is.logical(opt) || 
@@ -43,7 +43,7 @@
 }
 
 .get_na_char <- function() {
-  opt <- getOption("tidysq_na_print_char")
+  opt <- getOption("tidysq_p_na_char")
 
   ifelse (is.null(opt) ||
             !is.character(opt) ||

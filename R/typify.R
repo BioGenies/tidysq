@@ -58,7 +58,7 @@ typify <- function(sq, dest_type) {
   
   .check_all_up_alph_proper(up_alph, dest_alph)
   if (!(length(alph) == length(up_alph))) {
-    .handle_opt_txt("tidysq_typify_small_cap_let",
+    .handle_opt_txt("tidysq_a_typify_small_cap_let",
                     "in 'alphabet' attribute of 'sq' some letters appear as both lower and capital")
   }
   

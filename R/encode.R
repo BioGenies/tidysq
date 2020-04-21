@@ -27,7 +27,7 @@
 #' assigned, otherwise unassigned letters will be shown as \code{NA}. If any letter that
 #' appears in an alphabet appears in at least one of sequences, user will be informed about it.
 #' Default action is a warning printed in the console, but it can be changed via setting
-#' "tidysq_encode_no_given_action" (see details at \code{\link{tidysq-options}}).
+#' "tidysq_a_no_given_enc" (see details at \code{\link{tidysq-options}}).
 #' 
 #' In fact the only thing that is replaced is an alphabet - letters are substituted
 #' with values assigned to them. The internal structure of the object remains unchanged.
@@ -142,7 +142,7 @@ encode <- function(sq, encoding) {
     ind <- (1:length(alph))[!is_given]
     for (s in sq) {
       if (any(unpack_ints(s, alph_size) %in% ind)) {
-        .handle_opt_txt("tidysq_encode_no_given_action",
+        .handle_opt_txt("tidysq_a_no_given_enc",
                         "there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA")
         break
       }
