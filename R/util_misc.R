@@ -57,7 +57,7 @@
 }
 
 .construct_sq_s <- function(sq, alph, classes) {
-  sq <- .bitify_sq(sq, alph)
+  sq <- .pack_to_sq(sq, alph)
   attr(sq, "alphabet") <- alph
   class(sq) <- classes
   sq

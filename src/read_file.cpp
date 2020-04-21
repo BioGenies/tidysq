@@ -12,7 +12,7 @@ Rcpp::RawVector nc_pack_cnuc(Rcpp::RawVector UNPACKED);
 Rcpp::RawVector nc_pack_nuc(Rcpp::RawVector UNPACKED);
 Rcpp::RawVector nc_pack_cami(Rcpp::RawVector UNPACKED);
 Rcpp::RawVector nc_pack_ami(Rcpp::RawVector UNPACKED);
-Rcpp::RawVector pack_chars(Rcpp::CharacterVector unpacked,
+Rcpp::RawVector C_pack_chars(Rcpp::CharacterVector unpacked,
                            Rcpp::CharacterVector alph);
 
 Rcpp::RawVector append_raw(Rcpp::RawVector already_packed, 
@@ -31,7 +31,7 @@ Rcpp::RawVector append_raw(Rcpp::RawVector already_packed,
                            std::vector<char> unpacked,
                            Rcpp::CharacterVector alph) {
   Rcpp::CharacterVector converted = Rcpp::wrap(unpacked);
-  Rcpp::RawVector packed = pack_chars(converted, alph);
+  Rcpp::RawVector packed = C_pack_chars(converted, alph);
   Rcpp::RawVector ret = Rcpp::RawVector(already_packed.size() + packed.size());
   std::copy(already_packed.begin(), already_packed.end(), ret.begin());
   std::copy(packed.begin(), packed.end(), ret.begin() + already_packed.size());

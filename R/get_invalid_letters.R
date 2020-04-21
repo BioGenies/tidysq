@@ -41,7 +41,7 @@
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
 get_invalid_letters <- function(sq, dest_type) {
-  validate_sq(sq)
+  .validate_sq(sq)
   .check_type(dest_type, "'dest_type'")
   
   alph <- .get_alph(sq)

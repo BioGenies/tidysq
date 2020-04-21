@@ -18,7 +18,7 @@
 #' @importFrom tibble tibble
 #' @export
 digest <- function(ami_sq, name, digest_pattern) {
-  validate_sq(ami_sq)
+  .validate_sq(ami_sq)
   .check_character(name, "name")
   .check_eq_lens(ami_sq, name, "ami_sq", "name")
   .check_character(digest_pattern, "digest_pattern")

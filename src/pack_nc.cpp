@@ -1,6 +1,6 @@
 #include <Rcpp.h>
 
-inline char translate_cnuc(char letter) {
+inline char C_translate_cnuc(char letter) {
   char ret;
   switch (letter) {
   case 'a': case 'A': ret = 1; break;
@@ -14,7 +14,7 @@ inline char translate_cnuc(char letter) {
   return ret;
 }
 
-inline char translate_nuc(char letter) {
+inline char C_translate_nuc(char letter) {
   char ret;
   switch (letter) {
   case 'a': case 'A': ret = 1 ; break;
@@ -39,7 +39,7 @@ inline char translate_nuc(char letter) {
   return ret;
 }
 
-inline char translate_cami(char letter) {
+inline char C_translate_cami(char letter) {
   char ret;
   switch (letter) {
   case 'a': case 'A': ret = 1 ; break;
@@ -69,7 +69,7 @@ inline char translate_cami(char letter) {
   return ret;
 }
 
-inline char translate_ami(char letter) {
+inline char C_translate_ami(char letter) {
   char ret;
   switch (letter) {
   case 'a': case 'A': ret = 1 ; break;
@@ -117,67 +117,67 @@ Rcpp::RawVector nc_pack_cnuc(Rcpp::RawVector UNPACKED) {
   
   int i = 0;
   for (; i + 8 <= in_len; i += 8) {
-    ret[out_byte    ] = (translate_cnuc(UNPACKED[i]    )     ) | 
-                        (translate_cnuc(UNPACKED[i + 1]) << 3) | 
-                        (translate_cnuc(UNPACKED[i + 2]) << 6);
-    ret[out_byte + 1] = (translate_cnuc(UNPACKED[i + 2]) >> 2) | 
-                        (translate_cnuc(UNPACKED[i + 3]) << 1) | 
-                        (translate_cnuc(UNPACKED[i + 4]) << 4) | 
-                        (translate_cnuc(UNPACKED[i + 5]) << 7);
-    ret[out_byte + 2] = (translate_cnuc(UNPACKED[i + 5]) >> 1) | 
-                        (translate_cnuc(UNPACKED[i + 6]) << 2) | 
-                        (translate_cnuc(UNPACKED[i + 7]) << 5);
+    ret[out_byte    ] = (C_translate_cnuc(UNPACKED[i]    )     ) |
+                        (C_translate_cnuc(UNPACKED[i + 1]) << 3) |
+                        (C_translate_cnuc(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_cnuc(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_cnuc(UNPACKED[i + 3]) << 1) |
+                        (C_translate_cnuc(UNPACKED[i + 4]) << 4) |
+                        (C_translate_cnuc(UNPACKED[i + 5]) << 7);
+    ret[out_byte + 2] = (C_translate_cnuc(UNPACKED[i + 5]) >> 1) |
+                        (C_translate_cnuc(UNPACKED[i + 6]) << 2) |
+                        (C_translate_cnuc(UNPACKED[i + 7]) << 5);
     out_byte += 3;
   }
   switch (in_len - i) {
   case 7:
-    ret[out_byte    ] = (translate_cnuc(UNPACKED[i]    )     ) | 
-                        (translate_cnuc(UNPACKED[i + 1]) << 3) | 
-                        (translate_cnuc(UNPACKED[i + 2]) << 6);
-    ret[out_byte + 1] = (translate_cnuc(UNPACKED[i + 2]) >> 2) | 
-                        (translate_cnuc(UNPACKED[i + 3]) << 1) | 
-                        (translate_cnuc(UNPACKED[i + 4]) << 4) | 
-                        (translate_cnuc(UNPACKED[i + 5]) << 7);
-    ret[out_byte + 2] = (translate_cnuc(UNPACKED[i + 5]) >> 1) | 
-                        (translate_cnuc(UNPACKED[i + 6]) << 2);
+    ret[out_byte    ] = (C_translate_cnuc(UNPACKED[i]    )     ) |
+                        (C_translate_cnuc(UNPACKED[i + 1]) << 3) |
+                        (C_translate_cnuc(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_cnuc(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_cnuc(UNPACKED[i + 3]) << 1) |
+                        (C_translate_cnuc(UNPACKED[i + 4]) << 4) |
+                        (C_translate_cnuc(UNPACKED[i + 5]) << 7);
+    ret[out_byte + 2] = (C_translate_cnuc(UNPACKED[i + 5]) >> 1) |
+                        (C_translate_cnuc(UNPACKED[i + 6]) << 2);
     break;
   case 6:
-    ret[out_byte    ] = (translate_cnuc(UNPACKED[i]    )     ) | 
-                        (translate_cnuc(UNPACKED[i + 1]) << 3) | 
-                        (translate_cnuc(UNPACKED[i + 2]) << 6);
-    ret[out_byte + 1] = (translate_cnuc(UNPACKED[i + 2]) >> 2) | 
-                        (translate_cnuc(UNPACKED[i + 3]) << 1) | 
-                        (translate_cnuc(UNPACKED[i + 4]) << 4) | 
-                        (translate_cnuc(UNPACKED[i + 5]) << 7);
-    ret[out_byte + 2] = (translate_cnuc(UNPACKED[i + 5]) >> 1);
+    ret[out_byte    ] = (C_translate_cnuc(UNPACKED[i]    )     ) |
+                        (C_translate_cnuc(UNPACKED[i + 1]) << 3) |
+                        (C_translate_cnuc(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_cnuc(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_cnuc(UNPACKED[i + 3]) << 1) |
+                        (C_translate_cnuc(UNPACKED[i + 4]) << 4) |
+                        (C_translate_cnuc(UNPACKED[i + 5]) << 7);
+    ret[out_byte + 2] = (C_translate_cnuc(UNPACKED[i + 5]) >> 1);
     break;
   case 5:
-    ret[out_byte    ] = (translate_cnuc(UNPACKED[i]    )     ) | 
-                        (translate_cnuc(UNPACKED[i + 1]) << 3) | 
-                        (translate_cnuc(UNPACKED[i + 2]) << 6);
-    ret[out_byte + 1] = (translate_cnuc(UNPACKED[i + 2]) >> 2) | 
-                        (translate_cnuc(UNPACKED[i + 3]) << 1) | 
-                        (translate_cnuc(UNPACKED[i + 4]) << 4);
+    ret[out_byte    ] = (C_translate_cnuc(UNPACKED[i]    )     ) |
+                        (C_translate_cnuc(UNPACKED[i + 1]) << 3) |
+                        (C_translate_cnuc(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_cnuc(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_cnuc(UNPACKED[i + 3]) << 1) |
+                        (C_translate_cnuc(UNPACKED[i + 4]) << 4);
     break;
   case 4:
-    ret[out_byte    ] = (translate_cnuc(UNPACKED[i]    )     ) | 
-                        (translate_cnuc(UNPACKED[i + 1]) << 3) | 
-                        (translate_cnuc(UNPACKED[i + 2]) << 6);
-    ret[out_byte + 1] = (translate_cnuc(UNPACKED[i + 2]) >> 2) | 
-                        (translate_cnuc(UNPACKED[i + 3]) << 1);
+    ret[out_byte    ] = (C_translate_cnuc(UNPACKED[i]    )     ) |
+                        (C_translate_cnuc(UNPACKED[i + 1]) << 3) |
+                        (C_translate_cnuc(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_cnuc(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_cnuc(UNPACKED[i + 3]) << 1);
     break;
   case 3:
-    ret[out_byte    ] = (translate_cnuc(UNPACKED[i]    )     ) | 
-                        (translate_cnuc(UNPACKED[i + 1]) << 3) | 
-                        (translate_cnuc(UNPACKED[i + 2]) << 6);
-    ret[out_byte + 1] = (translate_cnuc(UNPACKED[i + 2]) >> 2); 
+    ret[out_byte    ] = (C_translate_cnuc(UNPACKED[i]    )     ) |
+                        (C_translate_cnuc(UNPACKED[i + 1]) << 3) |
+                        (C_translate_cnuc(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_cnuc(UNPACKED[i + 2]) >> 2);
     break;
   case 2:
-    ret[out_byte    ] = (translate_cnuc(UNPACKED[i]    )     ) | 
-                        (translate_cnuc(UNPACKED[i + 1]) << 3);
+    ret[out_byte    ] = (C_translate_cnuc(UNPACKED[i]    )     ) |
+                        (C_translate_cnuc(UNPACKED[i + 1]) << 3);
     break;
   case 1:
-    ret[out_byte    ] = (translate_cnuc(UNPACKED[i]    )     );
+    ret[out_byte    ] = (C_translate_cnuc(UNPACKED[i]    )     );
     break;
   }
   
@@ -196,76 +196,76 @@ Rcpp::RawVector nc_pack_nuc(Rcpp::RawVector UNPACKED) {
   
   int i = 0;
   for (; i + 8 <= in_len; i += 8) {
-    ret[out_byte    ] = (translate_nuc(UNPACKED[i]    )     ) | 
-                        (translate_nuc(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_nuc(UNPACKED[i + 1]) >> 3) | 
-                        (translate_nuc(UNPACKED[i + 2]) << 2) | 
-                        (translate_nuc(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_nuc(UNPACKED[i + 3]) >> 1) | 
-                        (translate_nuc(UNPACKED[i + 4]) << 4); 
-    ret[out_byte + 3] = (translate_nuc(UNPACKED[i + 4]) >> 4) |
-                        (translate_nuc(UNPACKED[i + 5]) << 1) |
-                        (translate_nuc(UNPACKED[i + 6]) << 6);
-    ret[out_byte + 4] = (translate_nuc(UNPACKED[i + 6]) >> 2) |
-                        (translate_nuc(UNPACKED[i + 7]) << 3);
+    ret[out_byte    ] = (C_translate_nuc(UNPACKED[i]    )     ) |
+                        (C_translate_nuc(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_nuc(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_nuc(UNPACKED[i + 2]) << 2) |
+                        (C_translate_nuc(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_nuc(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_nuc(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_nuc(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_nuc(UNPACKED[i + 5]) << 1) |
+                        (C_translate_nuc(UNPACKED[i + 6]) << 6);
+    ret[out_byte + 4] = (C_translate_nuc(UNPACKED[i + 6]) >> 2) |
+                        (C_translate_nuc(UNPACKED[i + 7]) << 3);
     out_byte += 5;
   }
   switch (in_len - i) {
   case 7:
-    ret[out_byte    ] = (translate_nuc(UNPACKED[i]    )     ) | 
-                        (translate_nuc(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_nuc(UNPACKED[i + 1]) >> 3) | 
-                        (translate_nuc(UNPACKED[i + 2]) << 2) | 
-                        (translate_nuc(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_nuc(UNPACKED[i + 3]) >> 1) | 
-                        (translate_nuc(UNPACKED[i + 4]) << 4); 
-    ret[out_byte + 3] = (translate_nuc(UNPACKED[i + 4]) >> 4) |
-                        (translate_nuc(UNPACKED[i + 5]) << 1) |
-                        (translate_nuc(UNPACKED[i + 6]) << 6);
-    ret[out_byte + 4] = (translate_nuc(UNPACKED[i + 6]) >> 2);
+    ret[out_byte    ] = (C_translate_nuc(UNPACKED[i]    )     ) |
+                        (C_translate_nuc(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_nuc(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_nuc(UNPACKED[i + 2]) << 2) |
+                        (C_translate_nuc(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_nuc(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_nuc(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_nuc(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_nuc(UNPACKED[i + 5]) << 1) |
+                        (C_translate_nuc(UNPACKED[i + 6]) << 6);
+    ret[out_byte + 4] = (C_translate_nuc(UNPACKED[i + 6]) >> 2);
     break;
   case 6:
-    ret[out_byte    ] = (translate_nuc(UNPACKED[i]    )     ) | 
-                        (translate_nuc(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_nuc(UNPACKED[i + 1]) >> 3) | 
-                        (translate_nuc(UNPACKED[i + 2]) << 2) | 
-                        (translate_nuc(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_nuc(UNPACKED[i + 3]) >> 1) | 
-                        (translate_nuc(UNPACKED[i + 4]) << 4); 
-    ret[out_byte + 3] = (translate_nuc(UNPACKED[i + 4]) >> 4) |
-                        (translate_nuc(UNPACKED[i + 5]) << 1);
+    ret[out_byte    ] = (C_translate_nuc(UNPACKED[i]    )     ) |
+                        (C_translate_nuc(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_nuc(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_nuc(UNPACKED[i + 2]) << 2) |
+                        (C_translate_nuc(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_nuc(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_nuc(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_nuc(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_nuc(UNPACKED[i + 5]) << 1);
     break;
   case 5:
-    ret[out_byte    ] = (translate_nuc(UNPACKED[i]    )     ) | 
-                        (translate_nuc(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_nuc(UNPACKED[i + 1]) >> 3) | 
-                        (translate_nuc(UNPACKED[i + 2]) << 2) | 
-                        (translate_nuc(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_nuc(UNPACKED[i + 3]) >> 1) | 
-                        (translate_nuc(UNPACKED[i + 4]) << 4); 
-    ret[out_byte + 3] = (translate_nuc(UNPACKED[i + 4]) >> 4);
+    ret[out_byte    ] = (C_translate_nuc(UNPACKED[i]    )     ) |
+                        (C_translate_nuc(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_nuc(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_nuc(UNPACKED[i + 2]) << 2) |
+                        (C_translate_nuc(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_nuc(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_nuc(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_nuc(UNPACKED[i + 4]) >> 4);
     break;
   case 4:
-    ret[out_byte    ] = (translate_nuc(UNPACKED[i]    )     ) | 
-                        (translate_nuc(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_nuc(UNPACKED[i + 1]) >> 3) | 
-                        (translate_nuc(UNPACKED[i + 2]) << 2) | 
-                        (translate_nuc(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_nuc(UNPACKED[i + 3]) >> 1);
+    ret[out_byte    ] = (C_translate_nuc(UNPACKED[i]    )     ) |
+                        (C_translate_nuc(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_nuc(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_nuc(UNPACKED[i + 2]) << 2) |
+                        (C_translate_nuc(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_nuc(UNPACKED[i + 3]) >> 1);
     break;
   case 3:
-    ret[out_byte    ] = (translate_nuc(UNPACKED[i]    )     ) | 
-                        (translate_nuc(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_nuc(UNPACKED[i + 1]) >> 3) | 
-                        (translate_nuc(UNPACKED[i + 2]) << 2);
+    ret[out_byte    ] = (C_translate_nuc(UNPACKED[i]    )     ) |
+                        (C_translate_nuc(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_nuc(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_nuc(UNPACKED[i + 2]) << 2);
     break;
   case 2:
-    ret[out_byte    ] = (translate_nuc(UNPACKED[i]    )     ) | 
-                        (translate_nuc(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_nuc(UNPACKED[i + 1]) >> 3);
+    ret[out_byte    ] = (C_translate_nuc(UNPACKED[i]    )     ) |
+                        (C_translate_nuc(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_nuc(UNPACKED[i + 1]) >> 3);
     break;
   case 1:
-    ret[out_byte    ] = (translate_nuc(UNPACKED[i]    )     );
+    ret[out_byte    ] = (C_translate_nuc(UNPACKED[i]    )     );
     break;
   }
   
@@ -284,76 +284,76 @@ Rcpp::RawVector nc_pack_cami(Rcpp::RawVector UNPACKED) {
   
   int i = 0;
   for (; i + 8 <= in_len; i += 8) {
-    ret[out_byte    ] = (translate_cami(UNPACKED[i]    )     ) | 
-                        (translate_cami(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_cami(UNPACKED[i + 1]) >> 3) | 
-                        (translate_cami(UNPACKED[i + 2]) << 2) | 
-                        (translate_cami(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_cami(UNPACKED[i + 3]) >> 1) | 
-                        (translate_cami(UNPACKED[i + 4]) << 4); 
-    ret[out_byte + 3] = (translate_cami(UNPACKED[i + 4]) >> 4) |
-                        (translate_cami(UNPACKED[i + 5]) << 1) |
-                        (translate_cami(UNPACKED[i + 6]) << 6);
-    ret[out_byte + 4] = (translate_cami(UNPACKED[i + 6]) >> 2) |
-                        (translate_cami(UNPACKED[i + 7]) << 3);
+    ret[out_byte    ] = (C_translate_cami(UNPACKED[i]    )     ) |
+                        (C_translate_cami(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_cami(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_cami(UNPACKED[i + 2]) << 2) |
+                        (C_translate_cami(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_cami(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_cami(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_cami(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_cami(UNPACKED[i + 5]) << 1) |
+                        (C_translate_cami(UNPACKED[i + 6]) << 6);
+    ret[out_byte + 4] = (C_translate_cami(UNPACKED[i + 6]) >> 2) |
+                        (C_translate_cami(UNPACKED[i + 7]) << 3);
     out_byte += 5;
   }
   switch (in_len - i) {
   case 7:
-    ret[out_byte    ] = (translate_cami(UNPACKED[i]    )     ) | 
-                        (translate_cami(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_cami(UNPACKED[i + 1]) >> 3) | 
-                        (translate_cami(UNPACKED[i + 2]) << 2) | 
-                        (translate_cami(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_cami(UNPACKED[i + 3]) >> 1) | 
-                        (translate_cami(UNPACKED[i + 4]) << 4); 
-    ret[out_byte + 3] = (translate_cami(UNPACKED[i + 4]) >> 4) |
-                        (translate_cami(UNPACKED[i + 5]) << 1) |
-                        (translate_cami(UNPACKED[i + 6]) << 6);
-    ret[out_byte + 4] = (translate_cami(UNPACKED[i + 6]) >> 2);
+    ret[out_byte    ] = (C_translate_cami(UNPACKED[i]    )     ) |
+                        (C_translate_cami(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_cami(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_cami(UNPACKED[i + 2]) << 2) |
+                        (C_translate_cami(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_cami(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_cami(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_cami(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_cami(UNPACKED[i + 5]) << 1) |
+                        (C_translate_cami(UNPACKED[i + 6]) << 6);
+    ret[out_byte + 4] = (C_translate_cami(UNPACKED[i + 6]) >> 2);
     break;
   case 6:
-    ret[out_byte    ] = (translate_cami(UNPACKED[i]    )     ) | 
-                        (translate_cami(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_cami(UNPACKED[i + 1]) >> 3) | 
-                        (translate_cami(UNPACKED[i + 2]) << 2) | 
-                        (translate_cami(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_cami(UNPACKED[i + 3]) >> 1) | 
-                        (translate_cami(UNPACKED[i + 4]) << 4); 
-    ret[out_byte + 3] = (translate_cami(UNPACKED[i + 4]) >> 4) |
-                        (translate_cami(UNPACKED[i + 5]) << 1);
+    ret[out_byte    ] = (C_translate_cami(UNPACKED[i]    )     ) |
+                        (C_translate_cami(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_cami(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_cami(UNPACKED[i + 2]) << 2) |
+                        (C_translate_cami(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_cami(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_cami(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_cami(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_cami(UNPACKED[i + 5]) << 1);
     break;
   case 5:
-    ret[out_byte    ] = (translate_cami(UNPACKED[i]    )     ) | 
-                        (translate_cami(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_cami(UNPACKED[i + 1]) >> 3) | 
-                        (translate_cami(UNPACKED[i + 2]) << 2) | 
-                        (translate_cami(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_cami(UNPACKED[i + 3]) >> 1) | 
-                        (translate_cami(UNPACKED[i + 4]) << 4); 
-    ret[out_byte + 3] = (translate_cami(UNPACKED[i + 4]) >> 4);
+    ret[out_byte    ] = (C_translate_cami(UNPACKED[i]    )     ) |
+                        (C_translate_cami(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_cami(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_cami(UNPACKED[i + 2]) << 2) |
+                        (C_translate_cami(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_cami(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_cami(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_cami(UNPACKED[i + 4]) >> 4);
     break;
   case 4:
-    ret[out_byte    ] = (translate_cami(UNPACKED[i]    )     ) | 
-                        (translate_cami(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_cami(UNPACKED[i + 1]) >> 3) | 
-                        (translate_cami(UNPACKED[i + 2]) << 2) | 
-                        (translate_cami(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_cami(UNPACKED[i + 3]) >> 1);
+    ret[out_byte    ] = (C_translate_cami(UNPACKED[i]    )     ) |
+                        (C_translate_cami(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_cami(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_cami(UNPACKED[i + 2]) << 2) |
+                        (C_translate_cami(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_cami(UNPACKED[i + 3]) >> 1);
     break;
   case 3:
-    ret[out_byte    ] = (translate_cami(UNPACKED[i]    )     ) | 
-                        (translate_cami(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_cami(UNPACKED[i + 1]) >> 3) | 
-                        (translate_cami(UNPACKED[i + 2]) << 2);
+    ret[out_byte    ] = (C_translate_cami(UNPACKED[i]    )     ) |
+                        (C_translate_cami(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_cami(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_cami(UNPACKED[i + 2]) << 2);
     break;
   case 2:
-    ret[out_byte    ] = (translate_cami(UNPACKED[i]    )     ) | 
-                        (translate_cami(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_cami(UNPACKED[i + 1]) >> 3);
+    ret[out_byte    ] = (C_translate_cami(UNPACKED[i]    )     ) |
+                        (C_translate_cami(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_cami(UNPACKED[i + 1]) >> 3);
       break;
   case 1:
-    ret[out_byte    ] = (translate_cami(UNPACKED[i]    )     );
+    ret[out_byte    ] = (C_translate_cami(UNPACKED[i]    )     );
     break;
   }
   
@@ -372,76 +372,76 @@ Rcpp::RawVector nc_pack_ami(Rcpp::RawVector UNPACKED) {
   
   int i = 0;
   for (; i + 8 <= in_len; i += 8) {
-    ret[out_byte    ] = (translate_ami(UNPACKED[i]    )     ) | 
-                        (translate_ami(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_ami(UNPACKED[i + 1]) >> 3) | 
-                        (translate_ami(UNPACKED[i + 2]) << 2) | 
-                        (translate_ami(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_ami(UNPACKED[i + 3]) >> 1) | 
-                        (translate_ami(UNPACKED[i + 4]) << 4); 
-    ret[out_byte + 3] = (translate_ami(UNPACKED[i + 4]) >> 4) |
-                        (translate_ami(UNPACKED[i + 5]) << 1) |
-                        (translate_ami(UNPACKED[i + 6]) << 6);
-    ret[out_byte + 4] = (translate_ami(UNPACKED[i + 6]) >> 2) |
-                        (translate_ami(UNPACKED[i + 7]) << 3);
+    ret[out_byte    ] = (C_translate_ami(UNPACKED[i]    )     ) |
+                        (C_translate_ami(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_ami(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_ami(UNPACKED[i + 2]) << 2) |
+                        (C_translate_ami(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_ami(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_ami(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_ami(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_ami(UNPACKED[i + 5]) << 1) |
+                        (C_translate_ami(UNPACKED[i + 6]) << 6);
+    ret[out_byte + 4] = (C_translate_ami(UNPACKED[i + 6]) >> 2) |
+                        (C_translate_ami(UNPACKED[i + 7]) << 3);
     out_byte += 5;
   }
   switch (in_len - i) {
   case 7:
-    ret[out_byte    ] = (translate_ami(UNPACKED[i]    )     ) | 
-                        (translate_ami(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_ami(UNPACKED[i + 1]) >> 3) | 
-                        (translate_ami(UNPACKED[i + 2]) << 2) | 
-                        (translate_ami(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_ami(UNPACKED[i + 3]) >> 1) | 
-                        (translate_ami(UNPACKED[i + 4]) << 4); 
-    ret[out_byte + 3] = (translate_ami(UNPACKED[i + 4]) >> 4) |
-                        (translate_ami(UNPACKED[i + 5]) << 1) |
-                        (translate_ami(UNPACKED[i + 6]) << 6);
-    ret[out_byte + 4] = (translate_ami(UNPACKED[i + 6]) >> 2);
+    ret[out_byte    ] = (C_translate_ami(UNPACKED[i]    )     ) |
+                        (C_translate_ami(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_ami(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_ami(UNPACKED[i + 2]) << 2) |
+                        (C_translate_ami(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_ami(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_ami(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_ami(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_ami(UNPACKED[i + 5]) << 1) |
+                        (C_translate_ami(UNPACKED[i + 6]) << 6);
+    ret[out_byte + 4] = (C_translate_ami(UNPACKED[i + 6]) >> 2);
     break;
   case 6:
-    ret[out_byte    ] = (translate_ami(UNPACKED[i]    )     ) | 
-                        (translate_ami(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_ami(UNPACKED[i + 1]) >> 3) | 
-                        (translate_ami(UNPACKED[i + 2]) << 2) | 
-                        (translate_ami(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_ami(UNPACKED[i + 3]) >> 1) | 
-                        (translate_ami(UNPACKED[i + 4]) << 4); 
-    ret[out_byte + 3] = (translate_ami(UNPACKED[i + 4]) >> 4) |
-                        (translate_ami(UNPACKED[i + 5]) << 1);
+    ret[out_byte    ] = (C_translate_ami(UNPACKED[i]    )     ) |
+                        (C_translate_ami(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_ami(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_ami(UNPACKED[i + 2]) << 2) |
+                        (C_translate_ami(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_ami(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_ami(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_ami(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_ami(UNPACKED[i + 5]) << 1);
     break;
   case 5:
-    ret[out_byte    ] = (translate_ami(UNPACKED[i]    )     ) | 
-                        (translate_ami(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_ami(UNPACKED[i + 1]) >> 3) | 
-                        (translate_ami(UNPACKED[i + 2]) << 2) | 
-                        (translate_ami(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_ami(UNPACKED[i + 3]) >> 1) | 
-                        (translate_ami(UNPACKED[i + 4]) << 4); 
-    ret[out_byte + 3] = (translate_ami(UNPACKED[i + 4]) >> 4);
+    ret[out_byte    ] = (C_translate_ami(UNPACKED[i]    )     ) |
+                        (C_translate_ami(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_ami(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_ami(UNPACKED[i + 2]) << 2) |
+                        (C_translate_ami(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_ami(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_ami(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_ami(UNPACKED[i + 4]) >> 4);
     break;
   case 4:
-    ret[out_byte    ] = (translate_ami(UNPACKED[i]    )     ) | 
-                        (translate_ami(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_ami(UNPACKED[i + 1]) >> 3) | 
-                        (translate_ami(UNPACKED[i + 2]) << 2) | 
-                        (translate_ami(UNPACKED[i + 3]) << 7); 
-    ret[out_byte + 2] = (translate_ami(UNPACKED[i + 3]) >> 1);
+    ret[out_byte    ] = (C_translate_ami(UNPACKED[i]    )     ) |
+                        (C_translate_ami(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_ami(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_ami(UNPACKED[i + 2]) << 2) |
+                        (C_translate_ami(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_ami(UNPACKED[i + 3]) >> 1);
     break;
   case 3:
-    ret[out_byte    ] = (translate_ami(UNPACKED[i]    )     ) | 
-                        (translate_ami(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_ami(UNPACKED[i + 1]) >> 3) | 
-                        (translate_ami(UNPACKED[i + 2]) << 2);
+    ret[out_byte    ] = (C_translate_ami(UNPACKED[i]    )     ) |
+                        (C_translate_ami(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_ami(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_ami(UNPACKED[i + 2]) << 2);
     break;
   case 2:
-    ret[out_byte    ] = (translate_ami(UNPACKED[i]    )     ) | 
-                        (translate_ami(UNPACKED[i + 1]) << 5); 
-    ret[out_byte + 1] = (translate_ami(UNPACKED[i + 1]) >> 3);
+    ret[out_byte    ] = (C_translate_ami(UNPACKED[i]    )     ) |
+                        (C_translate_ami(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_ami(UNPACKED[i + 1]) >> 3);
       break;
   case 1:
-    ret[out_byte    ] = (translate_ami(UNPACKED[i]    )     );
+    ret[out_byte    ] = (C_translate_ami(UNPACKED[i]    )     );
     break;
   }
   

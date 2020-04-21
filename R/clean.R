@@ -45,7 +45,7 @@
 #' \code{\link{is_null_sq}}
 #' @export
 clean <- function(sq, only_elements = FALSE) {
-  validate_sq(sq)
+  .validate_sq(sq)
   type <- .get_sq_type(sq)
   is_clean <- .is_cleaned(sq)
   .check_logical(only_elements, "'only_elements'", single_elem = TRUE)
@@ -59,12 +59,12 @@ clean <- function(sq, only_elements = FALSE) {
   
   if (only_elements) {
     ret <- .apply_sq(sq, "char", "none", function(s) {
-      pack_chars(s[(s %in% alph_cln)], alph_cln)
+      C_pack_chars(s[(s %in% alph_cln)], alph_cln)
     })
   } else {
     ret <- .apply_sq(sq, "char", "none", function(s) {
       if (!all(s %in% alph_cln)) raw(0) else
-        pack_chars(s, alph_cln)
+        C_pack_chars(s, alph_cln)
     }) 
   }
 

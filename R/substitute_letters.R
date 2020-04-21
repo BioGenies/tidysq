@@ -117,7 +117,7 @@
 #' @export
 
 substitute_letters <- function(sq, encoding) {
-  validate_sq(sq)
+  .validate_sq(sq)
   alph <- .get_alph(sq)
   .check_isnt_missing(encoding, "'encoding'")
   .check_isnt_null(encoding, "'encoding'")
