@@ -125,7 +125,7 @@
 #' 
 #' @export
 encode <- function(sq, encoding) {
-  validate_sq(sq)
+  .validate_sq(sq)
   type <- .get_sq_type(sq)
   .check_isnt_missing(encoding, "'encoding'")
   .check_is_named(encoding, "'encoding'")

@@ -34,7 +34,7 @@
 #' @export 
 sqapply <- function(sq, fun, ..., paste_char = FALSE, 
                     use_na_char = paste_char) {
-  validate_sq(sq)
+  .validate_sq(sq)
   .check_logical(paste_char, "'paste_char'", single_elem = TRUE)
   .check_logical(use_na_char, "'use_na_char'", single_elem = TRUE)
   .check_paste_or_na(paste_char, use_na_char)

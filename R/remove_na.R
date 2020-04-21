@@ -54,7 +54,7 @@
 #' \code{\link{bite}}
 #' @export
 remove_na <- function(sq, only_elements = FALSE) {
-  validate_sq(sq)
+  .validate_sq(sq)
   .check_logical(only_elements, "'only_elements'", single_elem = TRUE)
   
   alph <- .get_alph(sq)
@@ -67,7 +67,7 @@ remove_na <- function(sq, only_elements = FALSE) {
     }) 
   } else {
     ret <- lapply(sq, function(s) {
-      st <- unpack_ints(s, alph_size)
+      st <- C_unpack_ints(s, alph_size)
       if (any(st == na_val)) raw(0) else s
     })
   }
