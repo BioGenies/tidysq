@@ -33,6 +33,10 @@ nc_pack_ami <- function(UNPACKED) {
     .Call('_tidysq_nc_pack_ami', PACKAGE = 'tidysq', UNPACKED)
 }
 
+C_unpack_sq_parallel <- function(sq) {
+    .Call('_tidysq_C_unpack_sq_parallel', PACKAGE = 'tidysq', sq)
+}
+
 nc_read_fasta_file <- function(file, is_ami, is_clean) {
     .Call('_tidysq_nc_read_fasta_file', PACKAGE = 'tidysq', file, is_ami, is_clean)
 }

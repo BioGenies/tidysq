@@ -192,6 +192,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// C_unpack_sq_parallel
+Rcpp::List C_unpack_sq_parallel(Rcpp::List sq);
+RcppExport SEXP _tidysq_C_unpack_sq_parallel(SEXP sqSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List >::type sq(sqSEXP);
+    rcpp_result_gen = Rcpp::wrap(C_unpack_sq_parallel(sq));
+    return rcpp_result_gen;
+END_RCPP
+}
 // nc_read_fasta_file
 Rcpp::List nc_read_fasta_file(std::string file, bool is_ami, bool is_clean);
 RcppExport SEXP _tidysq_nc_read_fasta_file(SEXP fileSEXP, SEXP is_amiSEXP, SEXP is_cleanSEXP) {
@@ -482,6 +493,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_nc_pack_nuc", (DL_FUNC) &_tidysq_nc_pack_nuc, 1},
     {"_tidysq_nc_pack_cami", (DL_FUNC) &_tidysq_nc_pack_cami, 1},
     {"_tidysq_nc_pack_ami", (DL_FUNC) &_tidysq_nc_pack_ami, 1},
+    {"_tidysq_C_unpack_sq_parallel", (DL_FUNC) &_tidysq_C_unpack_sq_parallel, 1},
     {"_tidysq_nc_read_fasta_file", (DL_FUNC) &_tidysq_nc_read_fasta_file, 3},
     {"_tidysq_read_fasta_file", (DL_FUNC) &_tidysq_read_fasta_file, 2},
     {"_tidysq_find_alph", (DL_FUNC) &_tidysq_find_alph, 1},

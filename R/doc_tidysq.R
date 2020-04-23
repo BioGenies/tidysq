@@ -13,4 +13,5 @@ NULL
 
 #' @useDynLib tidysq
 #' @importFrom Rcpp sourceCpp
+#' @importFrom RcppParallel RcppParallelLibs
 NULL
