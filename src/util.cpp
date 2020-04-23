@@ -4,10 +4,12 @@
 
 // [[Rcpp::interfaces(cpp, r)]]
 
+// [[Rcpp::export]]
 unsigned short C_get_alph_size(Rcpp::CharacterVector alph) {
   return ceil(log2(alph.size() + 2));
 }
 
+// [[Rcpp::export]]
 unsigned short C_get_na_val(const unsigned short alph_size) {
   return (1 << alph_size) - 1;
 }
