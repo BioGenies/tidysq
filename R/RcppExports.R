@@ -70,6 +70,14 @@ NULL
 #' Match index of letter in alphabet for each letter
 NULL
 
+C_get_alph_size <- function(alph) {
+    .Call('_tidysq_C_get_alph_size', PACKAGE = 'tidysq', alph)
+}
+
+C_get_na_val <- function(alph_size) {
+    .Call('_tidysq_C_get_na_val', PACKAGE = 'tidysq', alph_size)
+}
+
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
     .Call('_tidysq_RcppExport_registerCCallable', PACKAGE = 'tidysq')

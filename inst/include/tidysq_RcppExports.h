@@ -192,6 +192,48 @@ namespace tidysq {
         return Rcpp::as<Rcpp::CharacterVector >(rcpp_result_gen);
     }
 
+    inline unsigned short C_get_alph_size(Rcpp::CharacterVector alph) {
+        typedef SEXP(*Ptr_C_get_alph_size)(SEXP);
+        static Ptr_C_get_alph_size p_C_get_alph_size = NULL;
+        if (p_C_get_alph_size == NULL) {
+            validateSignature("unsigned short(*C_get_alph_size)(Rcpp::CharacterVector)");
+            p_C_get_alph_size = (Ptr_C_get_alph_size)R_GetCCallable("tidysq", "_tidysq_C_get_alph_size");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_C_get_alph_size(Shield<SEXP>(Rcpp::wrap(alph)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<unsigned short >(rcpp_result_gen);
+    }
+
+    inline unsigned short C_get_na_val(const unsigned short alph_size) {
+        typedef SEXP(*Ptr_C_get_na_val)(SEXP);
+        static Ptr_C_get_na_val p_C_get_na_val = NULL;
+        if (p_C_get_na_val == NULL) {
+            validateSignature("unsigned short(*C_get_na_val)(const unsigned short)");
+            p_C_get_na_val = (Ptr_C_get_na_val)R_GetCCallable("tidysq", "_tidysq_C_get_na_val");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_C_get_na_val(Shield<SEXP>(Rcpp::wrap(alph_size)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<unsigned short >(rcpp_result_gen);
+    }
+
 }
 
 #endif // RCPP_tidysq_RCPPEXPORTS_H_GEN_
