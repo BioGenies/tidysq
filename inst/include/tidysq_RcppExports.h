@@ -24,17 +24,17 @@ namespace tidysq {
         }
     }
 
-    inline Rcpp::RawVector pack_raws(Rcpp::RawVector unpacked, const unsigned short alph_size) {
-        typedef SEXP(*Ptr_pack_raws)(SEXP,SEXP);
-        static Ptr_pack_raws p_pack_raws = NULL;
-        if (p_pack_raws == NULL) {
-            validateSignature("Rcpp::RawVector(*pack_raws)(Rcpp::RawVector,const unsigned short)");
-            p_pack_raws = (Ptr_pack_raws)R_GetCCallable("tidysq", "_tidysq_pack_raws");
+    inline Rcpp::RawVector C_pack_raws(Rcpp::RawVector unpacked, const unsigned short alph_size) {
+        typedef SEXP(*Ptr_C_pack_raws)(SEXP,SEXP);
+        static Ptr_C_pack_raws p_C_pack_raws = NULL;
+        if (p_C_pack_raws == NULL) {
+            validateSignature("Rcpp::RawVector(*C_pack_raws)(Rcpp::RawVector,const unsigned short)");
+            p_C_pack_raws = (Ptr_C_pack_raws)R_GetCCallable("tidysq", "_tidysq_C_pack_raws");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_pack_raws(Shield<SEXP>(Rcpp::wrap(unpacked)), Shield<SEXP>(Rcpp::wrap(alph_size)));
+            rcpp_result_gen = p_C_pack_raws(Shield<SEXP>(Rcpp::wrap(unpacked)), Shield<SEXP>(Rcpp::wrap(alph_size)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
