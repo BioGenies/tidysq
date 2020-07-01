@@ -96,8 +96,8 @@
   y <- lapply(y, function(s) replace(s, s == "*", "\\*"))
   y <- lapply(y, function(s) replace(s, s == "B", "[BDN]"))
   y <- lapply(y, function(s) replace(s, s == "J", "[JIL]"))
-  y <- lapply(y, function(s) replace(s, s == "X", "[A-Z]"))
   y <- lapply(y, function(s) replace(s, s == "Z", "[ZEQ]"))
+  y <- lapply(y, function(s) replace(s, s == "X", "[A-Z]"))
   y <- sapply(y, function(s) paste(s, collapse = ""))
   
   alph <- .get_alph(x)
