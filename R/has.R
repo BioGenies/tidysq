@@ -132,7 +132,73 @@
   y <- lapply(y, function(s) replace(s, s == "N", "[ACTGUWSMKRYBDHVN]"))
   
   y <- sapply(y, function(s) paste(s, collapse = ""))
+  
+  alph <- .get_alph(x)
+  x <- as.character(x)
+  
+  ret <- sapply(y, function(s) grepl(s, x))
+  if(!is.matrix(ret))
+    ret <- as.matrix(ret)
+  ret <- apply(ret, 1, all)
+  ret
+}
 
+#' @export
+`%has%.dnasq` <- function(x, y) {
+  .check_character(y, "'y', right hand side object,")
+  y <- toupper(y)
+  .check_motifs_proper_alph(y, "dna")
+  y <- strsplit(y, "")
+  y <- lapply(y, function(s) replace(s, s == "W", "[WAT]"))
+  y <- lapply(y, function(s) replace(s, s == "S", "[SCG]"))
+  
+  y <- lapply(y, function(s) replace(s, s == "M", "[MAC]"))
+  y <- lapply(y, function(s) replace(s, s == "K", "[KGT]"))
+  y <- lapply(y, function(s) replace(s, s == "R", "[RAG]"))
+  y <- lapply(y, function(s) replace(s, s == "Y", "[YCT]"))
+  
+  y <- lapply(y, function(s) replace(s, s == "B", "[BCTG]"))
+  y <- lapply(y, function(s) replace(s, s == "D", "[DATG]"))
+  y <- lapply(y, function(s) replace(s, s == "H", "[HACT]"))
+  y <- lapply(y, function(s) replace(s, s == "V", "[VACG]"))
+  
+  y <- lapply(y, function(s) replace(s, s == "N", "[ACTGWSMKRYBDHVN]"))
+  
+  y <- sapply(y, function(s) paste(s, collapse = ""))
+  
+  alph <- .get_alph(x)
+  x <- as.character(x)
+  
+  ret <- sapply(y, function(s) grepl(s, x))
+  if(!is.matrix(ret))
+    ret <- as.matrix(ret)
+  ret <- apply(ret, 1, all)
+  ret
+}
+
+#' @export
+`%has%.rnasq` <- function(x, y) {
+  .check_character(y, "'y', right hand side object,")
+  y <- toupper(y)
+  .check_motifs_proper_alph(y, "rna")
+  y <- strsplit(y, "")
+  y <- lapply(y, function(s) replace(s, s == "W", "[WAU]"))
+  y <- lapply(y, function(s) replace(s, s == "S", "[SCG]"))
+  
+  y <- lapply(y, function(s) replace(s, s == "M", "[MAC]"))
+  y <- lapply(y, function(s) replace(s, s == "K", "[KGU]"))
+  y <- lapply(y, function(s) replace(s, s == "R", "[RAG]"))
+  y <- lapply(y, function(s) replace(s, s == "Y", "[YCU]"))
+  
+  y <- lapply(y, function(s) replace(s, s == "B", "[BCGU]"))
+  y <- lapply(y, function(s) replace(s, s == "D", "[DAGU]"))
+  y <- lapply(y, function(s) replace(s, s == "H", "[HACU]"))
+  y <- lapply(y, function(s) replace(s, s == "V", "[VACG]"))
+  
+  y <- lapply(y, function(s) replace(s, s == "N", "[ACGUWSMKRYBDHVN]"))
+  
+  y <- sapply(y, function(s) paste(s, collapse = ""))
+  
   alph <- .get_alph(x)
   x <- as.character(x)
   

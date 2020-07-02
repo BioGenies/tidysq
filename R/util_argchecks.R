@@ -94,7 +94,7 @@
   .check_isnt_missing(obj, argname)
   if (!allow_null) .check_isnt_null(obj, argname)
   else if (!is.null(obj)) {
-    allowed <- c("ami", "nuc", if (allow_unt) "unt")
+    allowed <- c("ami", "nuc", "dna", "rna", if (allow_unt) "unt")
     .check_simple(!obj %in% allowed, argname, paste0("has to be one of '", paste(allowed, collapse = "', '"), "'")) 
   }
 }
@@ -173,6 +173,7 @@
   }
 }
 
+# TODO: expand by dna & rna types (after checking export_sq.R)
 .check_type_matches_format <- function(type, export_format, ami_formats, nuc_formats) {
   if (type == "ami" && !(export_format %in% ami_formats) ||
       type == "nuc" && !(export_format %in% nuc_formats)) 
@@ -200,7 +201,7 @@
 }
 
 .check_motifs_proper_alph <- function(motifs, type, alph = NULL) {
-  if (type %in% c("ami", "nuc")) {
+  if (type %in% c("ami", "nuc", "dna", "rna")) {
     if (!all(unlist(strsplit(motifs, "")) %in% c(.get_standard_alph(type, FALSE), "^", "$"))) 
       stop("motifs that you're searching for in the 'sq' object needs to consist of letters from its alphabet and optionally '^' or '$' characters", call. = FALSE)
   } else if (any(alph %in% c("^", "$", "?", "(", "=", ")", "\\", ".", "|", "+", "*", "{", "}", "[", "]"))) 

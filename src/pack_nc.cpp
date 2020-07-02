@@ -1,5 +1,31 @@
 #include <Rcpp.h>
 
+inline char C_translate_cdna(char letter) {
+  char ret;
+  switch (letter) {
+  case 'a': case 'A': ret = 1; break;
+  case 'c': case 'C': ret = 2; break;
+  case 'g': case 'G': ret = 3; break;
+  case 't': case 'T': ret = 4; break;
+  case '-':           ret = 5; break;
+  default:            ret = 7;
+  }
+  return ret;
+}
+
+inline char C_translate_crna(char letter) {
+  char ret;
+  switch (letter) {
+  case 'a': case 'A': ret = 1; break;
+  case 'c': case 'C': ret = 2; break;
+  case 'g': case 'G': ret = 3; break;
+  case 'u': case 'U': ret = 4; break;
+  case '-':           ret = 5; break;
+  default:            ret = 7;
+  }
+  return ret;
+}
+
 inline char C_translate_cnuc(char letter) {
   char ret;
   switch (letter) {
@@ -10,6 +36,54 @@ inline char C_translate_cnuc(char letter) {
   case 'u': case 'U': ret = 5; break;
   case '-':           ret = 6; break;
   default:            ret = 7;
+  }
+  return ret;
+}
+
+inline char C_translate_dna(char letter) {
+  char ret;
+  switch (letter) {
+  case 'a': case 'A': ret = 1 ; break;
+  case 'c': case 'C': ret = 2 ; break;
+  case 'g': case 'G': ret = 3 ; break;
+  case 't': case 'T': ret = 4 ; break;
+  case 'w': case 'W': ret = 5 ; break;
+  case 's': case 'S': ret = 6 ; break;
+  case 'm': case 'M': ret = 7 ; break;
+  case 'k': case 'K': ret = 8 ; break;
+  case 'r': case 'R': ret = 9 ; break;
+  case 'y': case 'Y': ret = 10; break;
+  case 'b': case 'B': ret = 11; break;
+  case 'd': case 'D': ret = 12; break;
+  case 'h': case 'H': ret = 13; break;
+  case 'v': case 'V': ret = 14; break;
+  case 'n': case 'N': ret = 15; break;
+  case '-':           ret = 16; break;
+  default:            ret = 31;
+  }
+  return ret;
+}
+
+inline char C_translate_rna(char letter) {
+  char ret;
+  switch (letter) {
+  case 'a': case 'A': ret = 1 ; break;
+  case 'c': case 'C': ret = 2 ; break;
+  case 'g': case 'G': ret = 3 ; break;
+  case 'u': case 'U': ret = 4 ; break;
+  case 'w': case 'W': ret = 5 ; break;
+  case 's': case 'S': ret = 6 ; break;
+  case 'm': case 'M': ret = 7 ; break;
+  case 'k': case 'K': ret = 8 ; break;
+  case 'r': case 'R': ret = 9 ; break;
+  case 'y': case 'Y': ret = 10; break;
+  case 'b': case 'B': ret = 11; break;
+  case 'd': case 'D': ret = 12; break;
+  case 'h': case 'H': ret = 13; break;
+  case 'v': case 'V': ret = 14; break;
+  case 'n': case 'N': ret = 15; break;
+  case '-':           ret = 16; break;
+  default:            ret = 31;
   }
   return ret;
 }
@@ -106,6 +180,164 @@ inline char C_translate_ami(char letter) {
 }
 
 // [[Rcpp::export]]
+Rcpp::RawVector nc_pack_cdna(Rcpp::RawVector UNPACKED) {
+  const unsigned int ALPH_SIZE = 3;
+  unsigned int in_len = UNPACKED.size();
+  
+  if (in_len == 0) return Rcpp::RawVector(0);
+  
+  Rcpp::RawVector ret((ALPH_SIZE * in_len  + 7) / 8);
+  unsigned int out_byte = 0;
+  
+  int i = 0;
+  for (; i + 8 <= in_len; i += 8) {
+    ret[out_byte    ] = (C_translate_cdna(UNPACKED[i]    )     ) |
+                        (C_translate_cdna(UNPACKED[i + 1]) << 3) |
+                        (C_translate_cdna(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_cdna(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_cdna(UNPACKED[i + 3]) << 1) |
+                        (C_translate_cdna(UNPACKED[i + 4]) << 4) |
+                        (C_translate_cdna(UNPACKED[i + 5]) << 7);
+    ret[out_byte + 2] = (C_translate_cdna(UNPACKED[i + 5]) >> 1) |
+                        (C_translate_cdna(UNPACKED[i + 6]) << 2) |
+                        (C_translate_cdna(UNPACKED[i + 7]) << 5);
+    out_byte += 3;
+  }
+  switch (in_len - i) {
+  case 7:
+    ret[out_byte    ] = (C_translate_cdna(UNPACKED[i]    )     ) |
+                        (C_translate_cdna(UNPACKED[i + 1]) << 3) |
+                        (C_translate_cdna(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_cdna(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_cdna(UNPACKED[i + 3]) << 1) |
+                        (C_translate_cdna(UNPACKED[i + 4]) << 4) |
+                        (C_translate_cdna(UNPACKED[i + 5]) << 7);
+    ret[out_byte + 2] = (C_translate_cdna(UNPACKED[i + 5]) >> 1) |
+                        (C_translate_cdna(UNPACKED[i + 6]) << 2);
+    break;
+  case 6:
+    ret[out_byte    ] = (C_translate_cdna(UNPACKED[i]    )     ) |
+                        (C_translate_cdna(UNPACKED[i + 1]) << 3) |
+                        (C_translate_cdna(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_cdna(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_cdna(UNPACKED[i + 3]) << 1) |
+                        (C_translate_cdna(UNPACKED[i + 4]) << 4) |
+                        (C_translate_cdna(UNPACKED[i + 5]) << 7);
+    ret[out_byte + 2] = (C_translate_cdna(UNPACKED[i + 5]) >> 1);
+    break;
+  case 5:
+    ret[out_byte    ] = (C_translate_cdna(UNPACKED[i]    )     ) |
+                        (C_translate_cdna(UNPACKED[i + 1]) << 3) |
+                        (C_translate_cdna(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_cdna(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_cdna(UNPACKED[i + 3]) << 1) |
+                        (C_translate_cdna(UNPACKED[i + 4]) << 4);
+    break;
+  case 4:
+    ret[out_byte    ] = (C_translate_cdna(UNPACKED[i]    )     ) |
+                        (C_translate_cdna(UNPACKED[i + 1]) << 3) |
+                        (C_translate_cdna(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_cdna(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_cdna(UNPACKED[i + 3]) << 1);
+    break;
+  case 3:
+    ret[out_byte    ] = (C_translate_cdna(UNPACKED[i]    )     ) |
+                        (C_translate_cdna(UNPACKED[i + 1]) << 3) |
+                        (C_translate_cdna(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_cdna(UNPACKED[i + 2]) >> 2);
+    break;
+  case 2:
+    ret[out_byte    ] = (C_translate_cdna(UNPACKED[i]    )     ) |
+                        (C_translate_cdna(UNPACKED[i + 1]) << 3);
+    break;
+  case 1:
+    ret[out_byte    ] = (C_translate_cdna(UNPACKED[i]    )     );
+    break;
+  }
+  
+  return ret;
+}
+
+// [[Rcpp::export]]
+Rcpp::RawVector nc_pack_crna(Rcpp::RawVector UNPACKED) {
+  const unsigned int ALPH_SIZE = 3;
+  unsigned int in_len = UNPACKED.size();
+  
+  if (in_len == 0) return Rcpp::RawVector(0);
+  
+  Rcpp::RawVector ret((ALPH_SIZE * in_len  + 7) / 8);
+  unsigned int out_byte = 0;
+  
+  int i = 0;
+  for (; i + 8 <= in_len; i += 8) {
+    ret[out_byte    ] = (C_translate_crna(UNPACKED[i]    )     ) |
+                        (C_translate_crna(UNPACKED[i + 1]) << 3) |
+                        (C_translate_crna(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_crna(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_crna(UNPACKED[i + 3]) << 1) |
+                        (C_translate_crna(UNPACKED[i + 4]) << 4) |
+                        (C_translate_crna(UNPACKED[i + 5]) << 7);
+    ret[out_byte + 2] = (C_translate_crna(UNPACKED[i + 5]) >> 1) |
+                        (C_translate_crna(UNPACKED[i + 6]) << 2) |
+                        (C_translate_crna(UNPACKED[i + 7]) << 5);
+    out_byte += 3;
+  }
+  switch (in_len - i) {
+  case 7:
+    ret[out_byte    ] = (C_translate_crna(UNPACKED[i]    )     ) |
+                        (C_translate_crna(UNPACKED[i + 1]) << 3) |
+                        (C_translate_crna(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_crna(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_crna(UNPACKED[i + 3]) << 1) |
+                        (C_translate_crna(UNPACKED[i + 4]) << 4) |
+                        (C_translate_crna(UNPACKED[i + 5]) << 7);
+    ret[out_byte + 2] = (C_translate_crna(UNPACKED[i + 5]) >> 1) |
+                        (C_translate_crna(UNPACKED[i + 6]) << 2);
+    break;
+  case 6:
+    ret[out_byte    ] = (C_translate_crna(UNPACKED[i]    )     ) |
+                        (C_translate_crna(UNPACKED[i + 1]) << 3) |
+                        (C_translate_crna(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_crna(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_crna(UNPACKED[i + 3]) << 1) |
+                        (C_translate_crna(UNPACKED[i + 4]) << 4) |
+                        (C_translate_crna(UNPACKED[i + 5]) << 7);
+    ret[out_byte + 2] = (C_translate_crna(UNPACKED[i + 5]) >> 1);
+    break;
+  case 5:
+    ret[out_byte    ] = (C_translate_crna(UNPACKED[i]    )     ) |
+                        (C_translate_crna(UNPACKED[i + 1]) << 3) |
+                        (C_translate_crna(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_crna(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_crna(UNPACKED[i + 3]) << 1) |
+                        (C_translate_crna(UNPACKED[i + 4]) << 4);
+    break;
+  case 4:
+    ret[out_byte    ] = (C_translate_crna(UNPACKED[i]    )     ) |
+                        (C_translate_crna(UNPACKED[i + 1]) << 3) |
+                        (C_translate_crna(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_crna(UNPACKED[i + 2]) >> 2) |
+                        (C_translate_crna(UNPACKED[i + 3]) << 1);
+    break;
+  case 3:
+    ret[out_byte    ] = (C_translate_crna(UNPACKED[i]    )     ) |
+                        (C_translate_crna(UNPACKED[i + 1]) << 3) |
+                        (C_translate_crna(UNPACKED[i + 2]) << 6);
+    ret[out_byte + 1] = (C_translate_crna(UNPACKED[i + 2]) >> 2);
+    break;
+  case 2:
+    ret[out_byte    ] = (C_translate_crna(UNPACKED[i]    )     ) |
+                        (C_translate_crna(UNPACKED[i + 1]) << 3);
+    break;
+  case 1:
+    ret[out_byte    ] = (C_translate_crna(UNPACKED[i]    )     );
+    break;
+  }
+  
+  return ret;
+}
+
+// [[Rcpp::export]]
 Rcpp::RawVector nc_pack_cnuc(Rcpp::RawVector UNPACKED) {
   const unsigned int ALPH_SIZE = 3;
   unsigned int in_len = UNPACKED.size();
@@ -178,6 +410,182 @@ Rcpp::RawVector nc_pack_cnuc(Rcpp::RawVector UNPACKED) {
     break;
   case 1:
     ret[out_byte    ] = (C_translate_cnuc(UNPACKED[i]    )     );
+    break;
+  }
+  
+  return ret;
+}
+
+// [[Rcpp::export]]
+Rcpp::RawVector nc_pack_dna(Rcpp::RawVector UNPACKED) {
+  const unsigned int ALPH_SIZE = 5;
+  unsigned int in_len = UNPACKED.size();
+  
+  if (in_len == 0) return Rcpp::RawVector(0);
+  
+  Rcpp::RawVector ret((ALPH_SIZE * in_len  + 7) / 8);
+  unsigned int out_byte = 0;
+  
+  int i = 0;
+  for (; i + 8 <= in_len; i += 8) {
+    ret[out_byte    ] = (C_translate_dna(UNPACKED[i]    )     ) |
+                        (C_translate_dna(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_dna(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_dna(UNPACKED[i + 2]) << 2) |
+                        (C_translate_dna(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_dna(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_dna(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_dna(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_dna(UNPACKED[i + 5]) << 1) |
+                        (C_translate_dna(UNPACKED[i + 6]) << 6);
+    ret[out_byte + 4] = (C_translate_dna(UNPACKED[i + 6]) >> 2) |
+                        (C_translate_dna(UNPACKED[i + 7]) << 3);
+    out_byte += 5;
+  }
+  switch (in_len - i) {
+  case 7:
+    ret[out_byte    ] = (C_translate_dna(UNPACKED[i]    )     ) |
+                        (C_translate_dna(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_dna(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_dna(UNPACKED[i + 2]) << 2) |
+                        (C_translate_dna(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_dna(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_dna(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_dna(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_dna(UNPACKED[i + 5]) << 1) |
+                        (C_translate_dna(UNPACKED[i + 6]) << 6);
+    ret[out_byte + 4] = (C_translate_dna(UNPACKED[i + 6]) >> 2);
+    break;
+  case 6:
+    ret[out_byte    ] = (C_translate_dna(UNPACKED[i]    )     ) |
+                        (C_translate_dna(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_dna(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_dna(UNPACKED[i + 2]) << 2) |
+                        (C_translate_dna(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_dna(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_dna(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_dna(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_dna(UNPACKED[i + 5]) << 1);
+    break;
+  case 5:
+    ret[out_byte    ] = (C_translate_dna(UNPACKED[i]    )     ) |
+                        (C_translate_dna(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_dna(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_dna(UNPACKED[i + 2]) << 2) |
+                        (C_translate_dna(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_dna(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_dna(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_dna(UNPACKED[i + 4]) >> 4);
+    break;
+  case 4:
+    ret[out_byte    ] = (C_translate_dna(UNPACKED[i]    )     ) |
+                        (C_translate_dna(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_dna(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_dna(UNPACKED[i + 2]) << 2) |
+                        (C_translate_dna(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_dna(UNPACKED[i + 3]) >> 1);
+    break;
+  case 3:
+    ret[out_byte    ] = (C_translate_dna(UNPACKED[i]    )     ) |
+                        (C_translate_dna(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_dna(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_dna(UNPACKED[i + 2]) << 2);
+    break;
+  case 2:
+    ret[out_byte    ] = (C_translate_dna(UNPACKED[i]    )     ) |
+                        (C_translate_dna(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_dna(UNPACKED[i + 1]) >> 3);
+    break;
+  case 1:
+    ret[out_byte    ] = (C_translate_dna(UNPACKED[i]    )     );
+    break;
+  }
+  
+  return ret;
+}
+
+// [[Rcpp::export]]
+Rcpp::RawVector nc_pack_rna(Rcpp::RawVector UNPACKED) {
+  const unsigned int ALPH_SIZE = 5;
+  unsigned int in_len = UNPACKED.size();
+  
+  if (in_len == 0) return Rcpp::RawVector(0);
+  
+  Rcpp::RawVector ret((ALPH_SIZE * in_len  + 7) / 8);
+  unsigned int out_byte = 0;
+  
+  int i = 0;
+  for (; i + 8 <= in_len; i += 8) {
+    ret[out_byte    ] = (C_translate_rna(UNPACKED[i]    )     ) |
+                        (C_translate_rna(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_rna(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_rna(UNPACKED[i + 2]) << 2) |
+                        (C_translate_rna(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_rna(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_rna(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_rna(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_rna(UNPACKED[i + 5]) << 1) |
+                        (C_translate_rna(UNPACKED[i + 6]) << 6);
+    ret[out_byte + 4] = (C_translate_rna(UNPACKED[i + 6]) >> 2) |
+                        (C_translate_rna(UNPACKED[i + 7]) << 3);
+    out_byte += 5;
+  }
+  switch (in_len - i) {
+  case 7:
+    ret[out_byte    ] = (C_translate_rna(UNPACKED[i]    )     ) |
+                        (C_translate_rna(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_rna(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_rna(UNPACKED[i + 2]) << 2) |
+                        (C_translate_rna(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_rna(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_rna(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_rna(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_rna(UNPACKED[i + 5]) << 1) |
+                        (C_translate_rna(UNPACKED[i + 6]) << 6);
+    ret[out_byte + 4] = (C_translate_rna(UNPACKED[i + 6]) >> 2);
+    break;
+  case 6:
+    ret[out_byte    ] = (C_translate_rna(UNPACKED[i]    )     ) |
+                        (C_translate_rna(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_rna(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_rna(UNPACKED[i + 2]) << 2) |
+                        (C_translate_rna(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_rna(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_rna(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_rna(UNPACKED[i + 4]) >> 4) |
+                        (C_translate_rna(UNPACKED[i + 5]) << 1);
+    break;
+  case 5:
+    ret[out_byte    ] = (C_translate_rna(UNPACKED[i]    )     ) |
+                        (C_translate_rna(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_rna(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_rna(UNPACKED[i + 2]) << 2) |
+                        (C_translate_rna(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_rna(UNPACKED[i + 3]) >> 1) |
+                        (C_translate_rna(UNPACKED[i + 4]) << 4);
+    ret[out_byte + 3] = (C_translate_rna(UNPACKED[i + 4]) >> 4);
+    break;
+  case 4:
+    ret[out_byte    ] = (C_translate_rna(UNPACKED[i]    )     ) |
+                        (C_translate_rna(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_rna(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_rna(UNPACKED[i + 2]) << 2) |
+                        (C_translate_rna(UNPACKED[i + 3]) << 7);
+    ret[out_byte + 2] = (C_translate_rna(UNPACKED[i + 3]) >> 1);
+    break;
+  case 3:
+    ret[out_byte    ] = (C_translate_rna(UNPACKED[i]    )     ) |
+                        (C_translate_rna(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_rna(UNPACKED[i + 1]) >> 3) |
+                        (C_translate_rna(UNPACKED[i + 2]) << 2);
+    break;
+  case 2:
+    ret[out_byte    ] = (C_translate_rna(UNPACKED[i]    )     ) |
+                        (C_translate_rna(UNPACKED[i + 1]) << 5);
+    ret[out_byte + 1] = (C_translate_rna(UNPACKED[i + 1]) >> 3);
+    break;
+  case 1:
+    ret[out_byte    ] = (C_translate_rna(UNPACKED[i]    )     );
     break;
   }
   

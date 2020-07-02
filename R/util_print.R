@@ -12,6 +12,18 @@ type_sum.nucsq <- function(x) {
 
 #' @importFrom pillar type_sum
 #' @export
+type_sum.dnasq <- function(x) {
+  "dna"
+}
+
+#' @importFrom pillar type_sum
+#' @export
+type_sum.rnasq <- function(x) {
+  "rna"
+}
+
+#' @importFrom pillar type_sum
+#' @export
 type_sum.untsq <- function(x) {
   "unt"
 }
@@ -299,7 +311,7 @@ print.encsq <- function(x,
     }
   }
   
-  #paste sequene
+  #paste sequence
   p_body <- sapply(sq_cut, function(s) paste(s, collapse = letters_sep))
   if (use_color) p_body <- sapply(1:num_lines, function(i) {
     if (lens[i] == 0) silver(p_body[i]) else cyan(p_body[i])
@@ -532,7 +544,7 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
     }
   }
   
-  #paste sequene
+  #paste sequence
   p_body <- sapply(x, function(s) paste(s, collapse = letters_sep))
   if (use_color) p_body <- sapply(1:num_lines, function(i) {
     if (lens[i] == 0) silver(p_body[i]) else cyan(p_body[i])
@@ -568,6 +580,8 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
     type_msg <- switch(type,
                        ami = "ami (amino acids)",
                        nuc = "nuc (nucleotides)",
+                       dna = "dna (DNA)",
+                       rna = "rna (RNA)",
                        unt = "unt (unspecified type)",
                        atp = "atp (atypical alphabet)",
                        enc = "enc (encoded values)")
@@ -590,6 +604,8 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
     type_msg <- switch(type,
                        ami = "ami (amino acids)",
                        nuc = "nuc (nucleotides)",
+                       dna = "dna (DNA)",
+                       rna = "rna (RNA)",
                        unt = "unt (unspecified type)",
                        atp = "atp (atypical alphabet)",
                        enc = "enc (encoded values)")

@@ -17,8 +17,24 @@ C_pack_string <- function(unpacked, alph) {
     .Call('_tidysq_C_pack_string', PACKAGE = 'tidysq', unpacked, alph)
 }
 
+nc_pack_cdna <- function(UNPACKED) {
+    .Call('_tidysq_nc_pack_cdna', PACKAGE = 'tidysq', UNPACKED)
+}
+
+nc_pack_crna <- function(UNPACKED) {
+    .Call('_tidysq_nc_pack_crna', PACKAGE = 'tidysq', UNPACKED)
+}
+
 nc_pack_cnuc <- function(UNPACKED) {
     .Call('_tidysq_nc_pack_cnuc', PACKAGE = 'tidysq', UNPACKED)
+}
+
+nc_pack_dna <- function(UNPACKED) {
+    .Call('_tidysq_nc_pack_dna', PACKAGE = 'tidysq', UNPACKED)
+}
+
+nc_pack_rna <- function(UNPACKED) {
+    .Call('_tidysq_nc_pack_rna', PACKAGE = 'tidysq', UNPACKED)
 }
 
 nc_pack_nuc <- function(UNPACKED) {
@@ -37,8 +53,8 @@ C_unpack_sq_parallel <- function(sq) {
     .Call('_tidysq_C_unpack_sq_parallel', PACKAGE = 'tidysq', sq)
 }
 
-nc_read_fasta_file <- function(file, is_ami, is_clean) {
-    .Call('_tidysq_nc_read_fasta_file', PACKAGE = 'tidysq', file, is_ami, is_clean)
+nc_read_fasta_file <- function(file, type, is_clean) {
+    .Call('_tidysq_nc_read_fasta_file', PACKAGE = 'tidysq', file, type, is_clean)
 }
 
 read_fasta_file <- function(file, alph) {

@@ -4,9 +4,9 @@
     stop(argname, " doesn't inherit class 'sq'", call. = FALSE)
   sqtype <- .get_sq_subclass(object)
   if (length(sqtype) != 1)
-    stop("'object' should have exactly one of classes: 'amisq', 'nucsq', 'untsq', 'encsq', 'atpsq'", call. = FALSE)
+    stop("'object' should have exactly one of classes: 'amisq', 'nucsq', 'dnasq', 'rnasq', 'untsq', 'encsq', 'atpsq'", call. = FALSE)
   if (is.null(attr(object, "alphabet")))
-    stop("'object' doesn't 'alphabet' attribute", call. = FALSE)
+    stop("'object' doesn't have 'alphabet' attribute", call. = FALSE)
   alph <- .get_alph(object)
   if (!is.character(alph) &&
     !is.numeric(alph))
@@ -19,12 +19,40 @@
     switch(type,
            ami = .validate_amisq(object),
            nuc = .validate_nucsq(object),
+           dna = .validate_dnasq(object),
+           rna = .validate_rnasq(object),
            unt = .validate_untsq(object),
            atp = .validate_atpsq(object),
            enc = .validate_encsq(object),
            invisible(object)
     )
   }
+}
+
+.validate_dnasq <- function(object) {
+  if (!"dnasq" %in% class(object))
+    stop("'object' doesn't inherit class 'dnasq'", call. = FALSE)
+  alph <- .get_alph(object)
+  if (!"clnsq" %in% class(object)) {
+    if (!identical(alph, .get_standard_alph("dna", FALSE)))
+      stop("attribute 'alphabet' isn't identical to standard DNA alphabet", call. = FALSE)
+  } else if (!identical(alph, .get_standard_alph("dna", TRUE)))
+    stop("attribute 'alphabet' isn't identical to cleaned DNA alphabet", call. = FALSE)
+  
+  invisible(object)
+}
+
+.validate_rnasq <- function(object) {
+  if (!"rnasq" %in% class(object))
+    stop("'object' doesn't inherit class 'rnasq'", call. = FALSE)
+  alph <- .get_alph(object)
+  if (!"clnsq" %in% class(object)) {
+    if (!identical(alph, .get_standard_alph("rna", FALSE)))
+      stop("attribute 'alphabet' isn't identical to standard RNA alphabet", call. = FALSE)
+  } else if (!identical(alph, .get_standard_alph("rna", TRUE)))
+    stop("attribute 'alphabet' isn't identical to cleaned RNA alphabet", call. = FALSE)
+  
+  invisible(object)
 }
 
 .validate_nucsq <- function(object) {
@@ -36,7 +64,7 @@
       stop("attribute 'alphabet' isn't identical to standard nucleotides alphabet", call. = FALSE)
   } else if (!identical(alph, .get_standard_alph("nuc", TRUE)))
     stop("attribute 'alphabet' isn't identical to cleaned nucleotides alphabet", call. = FALSE)
-
+  
   invisible(object)
 }
 
@@ -55,11 +83,11 @@
 }
 
 .validate_untsq <- function(object) {
+  if (!"untsq" %in% class(object))
+    stop("'object' doesn't inherit class 'untsq'", call. = FALSE)
   alph <- .get_alph(object)
   if (!is.character(alph))
     stop("attribute 'alphabet' isn't a character vector", call. = FALSE)
-  if (!"untsq" %in% class(object))
-    stop("'object' doesn't inherit class 'untsq'", call. = FALSE)
 
   invisible(object)
 }

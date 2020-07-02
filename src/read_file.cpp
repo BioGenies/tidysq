@@ -8,7 +8,11 @@
 #include <list>
 #include <algorithm>
 
+Rcpp::RawVector nc_pack_cdna(Rcpp::RawVector UNPACKED);
+Rcpp::RawVector nc_pack_crna(Rcpp::RawVector UNPACKED);
 Rcpp::RawVector nc_pack_cnuc(Rcpp::RawVector UNPACKED);
+Rcpp::RawVector nc_pack_dna(Rcpp::RawVector UNPACKED);
+Rcpp::RawVector nc_pack_rna(Rcpp::RawVector UNPACKED);
 Rcpp::RawVector nc_pack_nuc(Rcpp::RawVector UNPACKED);
 Rcpp::RawVector nc_pack_cami(Rcpp::RawVector UNPACKED);
 Rcpp::RawVector nc_pack_ami(Rcpp::RawVector UNPACKED);
@@ -43,15 +47,19 @@ const unsigned int SQ_BUFFER_SIZE = 800001;
 
 // [[Rcpp::export]]
 Rcpp::List nc_read_fasta_file(std::string file,
-                              bool is_ami,
+                              std::string type,
                               bool is_clean) {
   
   Rcpp::RawVector (*packing_function)(Rcpp::RawVector);
   
-       if ( is_ami and  is_clean) packing_function = nc_pack_cami;
-  else if ( is_ami and !is_clean) packing_function = nc_pack_ami;
-  else if (!is_ami and  is_clean) packing_function = nc_pack_cnuc;
-  else if (!is_ami and !is_clean) packing_function = nc_pack_nuc;
+       if (type == "ami" and  is_clean) packing_function = nc_pack_cami;
+  else if (type == "ami" and !is_clean) packing_function = nc_pack_ami;
+  else if (type == "nuc" and  is_clean) packing_function = nc_pack_cnuc;
+  else if (type == "nuc" and !is_clean) packing_function = nc_pack_nuc;
+  else if (type == "dna" and  is_clean) packing_function = nc_pack_cdna;
+  else if (type == "dna" and !is_clean) packing_function = nc_pack_dna;
+  else if (type == "rna" and  is_clean) packing_function = nc_pack_crna;
+  else if (type == "rna" and !is_clean) packing_function = nc_pack_rna;
   
   std::ifstream in_fstream;                               //file hook
   in_fstream.open(file);

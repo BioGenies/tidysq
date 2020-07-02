@@ -93,9 +93,10 @@ find_motifs <- function(sq, name, motifs) {
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "X", "[A-Z]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "Z", "[ZEQ]"))
     motifs <- sapply(motifs, function(motif) paste(motif, collapse = ""))
-  } else if (type == "nuc") {
+  } else if (type %in% c("nuc", "dna", "rna")) {
     motifs <- lapply(motifs, toupper)
-    .check_motifs_proper_alph(motifs_c, "nuc")
+    .check_motifs_proper_alph(motifs_c, type)
+    # TODO: consider complicating it a bit; maybe set X instead of TU and later replace it?
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "W", "[WATU]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "S", "[SCG]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "M", "[MAC]"))
@@ -108,8 +109,9 @@ find_motifs <- function(sq, name, motifs) {
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "V", "[VACG]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "N", "[ACTGUWSMKRYBDHVN]"))
     motifs <- sapply(motifs, function(motif) paste(motif, collapse = ""))
-    
-  } else .check_motifs_proper_alph(motifs_c, type, alph)
+  } else {
+    .check_motifs_proper_alph(motifs_c, type, alph)
+  }
 
   sq <- as.character(sq)
   n <- length(sq)

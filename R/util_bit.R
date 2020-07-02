@@ -17,6 +17,10 @@
   else if (type == "ami" && !is_clean) packing_fun <- nc_pack_ami
   else if (type == "nuc" &&  is_clean) packing_fun <- nc_pack_cnuc
   else if (type == "nuc" && !is_clean) packing_fun <- nc_pack_nuc
+  else if (type == "dna" &&  is_clean) packing_fun <- nc_pack_cdna
+  else if (type == "dna" && !is_clean) packing_fun <- nc_pack_dna
+  else if (type == "rna" &&  is_clean) packing_fun <- nc_pack_crna
+  else if (type == "rna" && !is_clean) packing_fun <- nc_pack_rna
   
   lapply(sq, function(s) packing_fun(charToRaw(s)))
 }
