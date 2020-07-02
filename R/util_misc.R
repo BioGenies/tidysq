@@ -31,14 +31,12 @@
 .get_standard_alph <- function(type, is_clean) {
        if (type == "ami" &&  is_clean) aminoacids_df[!aminoacids_df[["amb"]], "one"]
   else if (type == "ami" && !is_clean) aminoacids_df[, "one"]
-  # <removable>
   else if (type == "nuc" &&  is_clean) nucleotides_df[!nucleotides_df[["amb"]], "one"]
   else if (type == "nuc" && !is_clean) nucleotides_df[, "one"]
-  # </removable>
   else if (type == "dna" &&  is_clean) nucleotides_df[nucleotides_df[["dna"]], "one"]
-  else if (type == "dna" && !is_clean) nucleotides_df[nucleotides_df[["dna"]] || nucleotides_df[["amb"]], "one"]
+  else if (type == "dna" && !is_clean) nucleotides_df[nucleotides_df[["dna"]] | nucleotides_df[["amb"]], "one"]
   else if (type == "rna" &&  is_clean) nucleotides_df[nucleotides_df[["rna"]], "one"]
-  else if (type == "rna" && !is_clean) nucleotides_df[nucleotides_df[["rna"]] || nucleotides_df[["amb"]], "one"]
+  else if (type == "rna" && !is_clean) nucleotides_df[nucleotides_df[["rna"]] | nucleotides_df[["amb"]], "one"]
 }
 
 .is_cleaned <- function(sq) {
