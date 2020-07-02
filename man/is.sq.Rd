@@ -4,6 +4,8 @@
 \alias{is.sq}
 \alias{is.amisq}
 \alias{is.nucsq}
+\alias{is.dnasq}
+\alias{is.rnasq}
 \alias{is.untsq}
 \alias{is.atpsq}
 \alias{is.encsq}
@@ -14,6 +16,10 @@ is.sq(x)
 is.amisq(x)
 
 is.nucsq(x)
+
+is.dnasq(x)
+
+is.rnasq(x)
 
 is.untsq(x)
 

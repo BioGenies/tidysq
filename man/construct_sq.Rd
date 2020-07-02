@@ -4,6 +4,8 @@
 \alias{construct_sq}
 \alias{construct_sq_ami}
 \alias{construct_sq_nuc}
+\alias{construct_sq_dna}
+\alias{construct_sq_rna}
 \title{Construct sq object from character vector}
 \usage{
 construct_sq(sq, type = NULL, is_clean = NULL, non_standard = NULL)
@@ -11,6 +13,10 @@ construct_sq(sq, type = NULL, is_clean = NULL, non_standard = NULL)
 construct_sq_ami(sq, is_clean = NULL)
 
 construct_sq_nuc(sq, is_clean = NULL)
+
+construct_sq_dna(sq, is_clean = NULL)
+
+construct_sq_rna(sq, is_clean = NULL)
 }
 \arguments{
 \item{sq}{a \code{\link{character}} vector.}

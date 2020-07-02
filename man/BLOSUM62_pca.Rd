@@ -4,15 +4,13 @@
 \name{BLOSUM62_pca}
 \alias{BLOSUM62_pca}
 \title{The BLOSUM62_pca matrix}
-\format{
-A data frame with with 21 rows and 20 columns.
+\format{A data frame with with 21 rows and 20 columns.
 \describe{Contains an one-letter codes of amino acid as rows (additionaly 'X' as any amino acid)
 and ordinal numbers of principal component direction as columns names. Twenty columns represent 
 the loadings of the twenty eigenvectors. 
 You can check three-letter codes and full names of the amino acids in
 \code{\link{aminoacids_df}}.
- }
-}
+ }}
 \source{
 Li, Jie & Koehl, Patrice. (2014). 3D representations of amino acids - 
 Applications to protein sequence comparison and classification. 

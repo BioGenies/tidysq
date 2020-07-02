@@ -4,6 +4,8 @@
 \alias{read_fasta}
 \alias{read_fasta_ami}
 \alias{read_fasta_nuc}
+\alias{read_fasta_dna}
+\alias{read_fasta_rna}
 \title{Read a FASTA file}
 \usage{
 read_fasta(file, type = NULL, is_clean = NULL, non_standard = NULL)
@@ -11,6 +13,10 @@ read_fasta(file, type = NULL, is_clean = NULL, non_standard = NULL)
 read_fasta_ami(file, is_clean = NULL)
 
 read_fasta_nuc(file, is_clean = NULL)
+
+read_fasta_dna(file, is_clean = NULL)
+
+read_fasta_rna(file, is_clean = NULL)
 }
 \arguments{
 \item{file}{a \code{\link{character}} string indicating path to file or url.}
