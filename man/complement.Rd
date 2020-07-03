@@ -6,19 +6,19 @@
 \alias{complement_rna}
 \title{Create complement sequence from nucsq object}
 \usage{
-complement(nucsq, is_dna = NULL)
+complement(sq, is_dna = NULL)
 
-complement_dna(nucsq)
+complement_dna(sq)
 
-complement_rna(nucsq)
+complement_rna(sq)
 }
 \arguments{
-\item{nucsq}{a \code{\link{sq}} object of type \strong{nuc}.}
-
 \item{is_dna}{a \code{\link{logical}} indicating if entered sequence is DNA or RNA. If 
 \code{is_dna} is \code{TRUE}, sequences cannot contain 'U' (uracil);
 if is \code{FALSE}, sequences cannot contain 'T' (thymine). If 
 \code{NULL} (default) the sequence type is not specified and is guessed (see details below).}
+
+\item{nucsq}{a \code{\link{sq}} object of type \strong{nuc}.}
 }
 \value{
 \code{sq} object of the same type as input \code{nucsq} (\strong{nuc}) but 
@@ -71,8 +71,6 @@ complement(nuc_rna_sequence)
 
 # Each sequence from nuc_dna_sequence and nuc_rna_sequence object have now an  
 # own complementary equivalent, which can be helpful during constructing PCR primers.
- 
-  
 
 }
 \seealso{

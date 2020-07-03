@@ -54,19 +54,26 @@
 #' 
 #' # Each sequence from nuc_dna_sequence and nuc_rna_sequence object have now an  
 #' # own complementary equivalent, which can be helpful during constructing PCR primers.
-#'  
-#'   
 #' 
 #' @seealso \code{\link{sq}}
-#' 
 #' @export
-complement <- function(nucsq, is_dna = NULL) {
-  .validate_sq(nucsq, "nuc")
+complement <- function(sq, is_dna = NULL) {
+  UseMethod("complement")
+}
+
+#' @export
+complement.default <- function(sq, is_dna = NULL) {
+  stop("method 'complement' isn't implemented for this type of object")
+}
+
+#' @export
+complement.nucsq <- function(sq, is_dna = NULL) {
+  .validate_sq(sq, "nuc")
   
-  .check_is_clean(nucsq, "'nucsq'")
-  alph <- .get_alph(nucsq)
+  .check_is_clean(sq, "'nucsq'")
+  alph <- .get_alph(sq)
   alph_size <- .get_alph_size(alph)
-  sq <- .unpack_from_sq(nucsq, "int")
+  sq <- .unpack_from_sq(sq, "int")
   
   has_U <- any(unlist(sq) == match("U", alph))
   has_T <- any(unlist(sq) == match("T", alph))
@@ -91,14 +98,54 @@ complement <- function(nucsq, is_dna = NULL) {
   .set_class(ret, "nuc", TRUE)
 }
 
-#' @rdname complement
 #' @export
-complement_dna <- function(nucsq) {
-  complement(nucsq, is_dna = TRUE)
+complement.dnasq <- function(sq, is_dna = NULL) {
+  .validate_sq(sq, "dna")
+  if (!is.null(is_dna) && !is_dna) stop("'is_dna = FALSE' cannot be used with an object of class 'dnasq'; use TRUE or NULL instead", call. = FALSE)
+  
+  .check_is_clean(sq, "'dnasq'")
+  alph <- .get_alph(sq)
+  alph_size <- .get_alph_size(alph)
+  sq <- .unpack_from_sq(sq, "int")
+  
+  dict <- c(G = "C", C = "G", T = "A", A = "T", `-` = "-")
+  
+  inds_fun <- match(dict[alph], alph)
+  names(inds_fun) <- as.character(1:length(alph))
+  ret <- lapply(sq, function(s)  C_pack_ints(inds_fun[s], alph_size))
+  
+  ret <- .set_alph(ret, alph)
+  .set_class(ret, "dna", TRUE)
+}
+
+#' @export
+complement.rnasq <- function(sq, is_dna = NULL) {
+  .validate_sq(sq, "rna")
+  if (!is.null(is_dna) && is_dna) stop("'is_dna = TRUE' cannot be used with an object of class 'rnasq'; use FALSE or NULL instead", call. = FALSE)
+  
+  .check_is_clean(sq, "'rnasq'")
+  alph <- .get_alph(sq)
+  alph_size <- .get_alph_size(alph)
+  sq <- .unpack_from_sq(sq, "int")
+  
+  dict <- c(G = "C", C = "G", U = "A", A = "U", `-` = "-")
+  
+  inds_fun <- match(dict[alph], alph)
+  names(inds_fun) <- as.character(1:length(alph))
+  ret <- lapply(sq, function(s)  C_pack_ints(inds_fun[s], alph_size))
+  
+  ret <- .set_alph(ret, alph)
+  .set_class(ret, "rna", TRUE)
 }
 
 #' @rdname complement
 #' @export
-complement_rna <- function(nucsq) {
-  complement(nucsq, is_dna = FALSE)
+complement_dna <- function(sq) {
+  complement(sq, is_dna = TRUE)
+}
+
+#' @rdname complement
+#' @export
+complement_rna <- function(sq) {
+  complement(sq, is_dna = FALSE)
 }

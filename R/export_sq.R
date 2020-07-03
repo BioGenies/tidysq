@@ -38,7 +38,7 @@ export_sq <- function(sq, export_format, name) {
     .check_is_installed("seqinr")
     if (type == "ami") {
       ret <- lapply(.unpack_from_sq(sq, "char"), seqinr::as.SeqFastaAA)
-    } else if (type == "nuc") {
+    } else if (type %in% c("nuc", "dna", "rna")) {
       ret <- lapply(.unpack_from_sq(sq, "char"), seqinr::as.SeqFastadna)
     }
     
@@ -52,14 +52,14 @@ export_sq <- function(sq, export_format, name) {
     .check_is_installed("ape")
     if (type == "ami") {
       ape::as.AAbin(setNames(.unpack_from_sq(sq, "char"), name))
-    } else if (type == "nuc") {
+    } else if (type %in% c("nuc", "dna", "rna")) {
       ape::as.DNAbin(setNames(.unpack_from_sq(sq, "char"), name))
     }
   } else if (export_format %in% c("Biostrings::AAStringSet", "Biostrings::DNAStringSet")) {
     .check_is_installed("Biostrings")
     if (type == "ami") {
       Biostrings::AAStringSet(setNames(unlist(.unpack_from_sq(sq, "string")), name))
-    } else if (type == "nuc") {
+    } else if (type %in% c("nuc", "dna", "rna")) {
       Biostrings::DNAStringSet(setNames(unlist(.unpack_from_sq(sq, "string")), name))
     }
   }
