@@ -10,10 +10,8 @@
 
 Rcpp::RawVector nc_pack_cdna(Rcpp::RawVector UNPACKED);
 Rcpp::RawVector nc_pack_crna(Rcpp::RawVector UNPACKED);
-Rcpp::RawVector nc_pack_cnuc(Rcpp::RawVector UNPACKED);
 Rcpp::RawVector nc_pack_dna(Rcpp::RawVector UNPACKED);
 Rcpp::RawVector nc_pack_rna(Rcpp::RawVector UNPACKED);
-Rcpp::RawVector nc_pack_nuc(Rcpp::RawVector UNPACKED);
 Rcpp::RawVector nc_pack_cami(Rcpp::RawVector UNPACKED);
 Rcpp::RawVector nc_pack_ami(Rcpp::RawVector UNPACKED);
 Rcpp::RawVector C_pack_chars(Rcpp::CharacterVector unpacked,
@@ -54,8 +52,6 @@ Rcpp::List nc_read_fasta_file(std::string file,
   
        if (type == "ami" and  is_clean) packing_function = nc_pack_cami;
   else if (type == "ami" and !is_clean) packing_function = nc_pack_ami;
-  else if (type == "nuc" and  is_clean) packing_function = nc_pack_cnuc;
-  else if (type == "nuc" and !is_clean) packing_function = nc_pack_nuc;
   else if (type == "dna" and  is_clean) packing_function = nc_pack_cdna;
   else if (type == "dna" and !is_clean) packing_function = nc_pack_dna;
   else if (type == "rna" and  is_clean) packing_function = nc_pack_crna;
