@@ -1,6 +1,12 @@
 alph_amb_nuc <- c("A", "C", "G", "T", "U", "W", "S", "M", "K", "R", "Y", "B", "D", "H", 
                   "V", "N", "-")
 alph_cln_nuc <- c("A", "C", "G", "T", "U", "-")
+alph_amb_dna <- c("A", "C", "G", "T", "W", "S", "M", "K", "R", "Y", "B", "D", "H", 
+                  "V", "N", "-")
+alph_cln_dna <- c("A", "C", "G", "T", "-")
+alph_amb_rna <- c("A", "C", "G", "U", "W", "S", "M", "K", "R", "Y", "B", "D", "H", 
+                  "V", "N", "-")
+alph_cln_rna <- c("A", "C", "G", "U", "-")
 alph_amb_ami <- c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", 
                   "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "-", "*")
 alph_cln_ami <- c("A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "P", "Q", 

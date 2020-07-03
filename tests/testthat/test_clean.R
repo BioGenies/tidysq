@@ -4,34 +4,51 @@ sq_ami_cln_elements <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI"
 sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", "TGACGAGCTTA", "ACTNNAGCN"), type = "nuc")
 sq_nuc_cln <- construct_sq(c("ATGCAGGA", "", "TGACGAGCTTA", ""), type = "nuc")
 sq_nuc_cln_elements <- construct_sq(c("ATGCAGGA", "GACCGAACGA", "TGACGAGCTTA", "ACTAGC"), type = "nuc")
+sq_rna <- construct_sq(c("UGGCGNNGBV", "ACGGUUUCGUU", "UBBGDGAACG", "GGCUCGACAGACUGC"), type = "rna")
+sq_rna_cln <- construct_sq(c("", "ACGGUUUCGUU", "", "GGCUCGACAGACUGC"), type = "rna")
+sq_rna_cln_elements <- construct_sq(c("UGGCGG", "ACGGUUUCGUU", "UGGAACG", "GGCUCGACAGACUGC"), type = "rna")
 
 test_that("cleaning doesn't affect clean ami sq", {
   expect_equal(clean(sq_ami_cln),
                sq_ami_cln)
 })
-          
+
 test_that("cleaning doesn't affect clean nuc sq", {
   expect_equal(clean(sq_nuc_cln),
                sq_nuc_cln)
 })
-          
+
+test_that("cleaning doesn't affect clean rna sq", {
+  expect_equal(clean(sq_rna_cln),
+               sq_rna_cln)
+})
+
 test_that("cleaning ami sq with parameter only_elements = FALSE", {
   expect_equal(clean(sq_ami, only_elements = FALSE),
                sq_ami_cln)
 })
-          
+
 test_that("cleaning nuc sq with parameter only_elements = TRUE", {
   expect_equal(clean(sq_ami, only_elements = TRUE),
                sq_ami_cln_elements)
 })
-          
+
 test_that("cleaning ami sq with parameter only_elements = FALSE", {
   expect_equal(clean(sq_nuc, only_elements = FALSE),
                sq_nuc_cln)
 })
-          
+
 test_that("cleaning nuc sq with parameter only_elements = TRUE", {
   expect_equal(clean(sq_nuc, only_elements = TRUE),
                sq_nuc_cln_elements)
 })
-          
+
+test_that("cleaning rna sq with parameter only_elements = FALSE", {
+  expect_equal(clean(sq_rna, only_elements = FALSE),
+               sq_rna_cln)
+})
+
+test_that("cleaning rna sq with parameter only_elements = TRUE", {
+  expect_equal(clean(sq_rna, only_elements = TRUE),
+               sq_rna_cln_elements)
+})
