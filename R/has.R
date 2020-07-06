@@ -111,39 +111,6 @@
 }
 
 #' @export
-`%has%.nucsq` <- function(x, y) {
-  .check_character(y, "'y', right hand side object,")
-  y <- toupper(y)
-  .check_motifs_proper_alph(y, "nuc")
-  y <- strsplit(y, "")
-  y <- lapply(y, function(s) replace(s, s == "W", "[WATU]"))
-  y <- lapply(y, function(s) replace(s, s == "S", "[SCG]"))
-  
-  y <- lapply(y, function(s) replace(s, s == "M", "[MAC]"))
-  y <- lapply(y, function(s) replace(s, s == "K", "[KGTU]"))
-  y <- lapply(y, function(s) replace(s, s == "R", "[RAG]"))
-  y <- lapply(y, function(s) replace(s, s == "Y", "[YCTU]"))
-  
-  y <- lapply(y, function(s) replace(s, s == "B", "[BCTGU]"))
-  y <- lapply(y, function(s) replace(s, s == "D", "[DATGU]"))
-  y <- lapply(y, function(s) replace(s, s == "H", "[HACTU]"))
-  y <- lapply(y, function(s) replace(s, s == "V", "[VACG]"))
-  
-  y <- lapply(y, function(s) replace(s, s == "N", "[ACTGUWSMKRYBDHVN]"))
-  
-  y <- sapply(y, function(s) paste(s, collapse = ""))
-  
-  alph <- .get_alph(x)
-  x <- as.character(x)
-  
-  ret <- sapply(y, function(s) grepl(s, x))
-  if(!is.matrix(ret))
-    ret <- as.matrix(ret)
-  ret <- apply(ret, 1, all)
-  ret
-}
-
-#' @export
 `%has%.dnasq` <- function(x, y) {
   .check_character(y, "'y', right hand side object,")
   y <- toupper(y)

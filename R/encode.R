@@ -132,7 +132,7 @@ encode <- function(sq, encoding) {
   .check_numeric(encoding, "'encoding'", allow_zero = TRUE, allow_negative = TRUE, 
                  allow_na = TRUE, allow_nan = TRUE, allow_inf = TRUE)
   .check_is_unique(names(encoding), "'encoding'")
-  if (type %in% c("ami", "nuc", "dna", "rna"))
+  if (type %in% c("ami", "dna", "rna"))
     names(encoding) <- toupper(names(encoding))
   
   alph <- .get_alph(sq)

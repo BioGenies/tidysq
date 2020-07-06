@@ -42,7 +42,7 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
       .nonst_read_fasta(file, type, is_clean, non_standard)
     } else {
       alph <- find_alph(file)
-      if (!is.null(type) && type %in% c("ami", "nuc", "dna", "rna")) alph <- toupper(alph)
+      if (!is.null(type) && type %in% c("ami", "dna", "rna")) alph <- toupper(alph)
       .check_alph_matches_type(alph, type, is_clean)
       
       if (is.null(type)) {
@@ -51,7 +51,6 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
         if (is.null(is_clean) && type != "unt") is_clean <- type_clean[["is_clean"]]
       } else if (type != "unt" && is.null(is_clean)) {
         if      (type == "ami") is_clean <- .guess_ami_is_clean(alph)
-        else if (type == "nuc") is_clean <- .guess_nuc_is_clean(alph)
         else if (type == "dna") is_clean <- .guess_dna_is_clean(alph)
         else if (type == "rna") is_clean <- .guess_rna_is_clean(alph)
       } 
@@ -73,12 +72,6 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
 #' @export
 read_fasta_ami <- function(file, is_clean = NULL) {
   read_fasta(file, type = "ami", is_clean)
-}
-
-#' @rdname read_fasta
-#' @export
-read_fasta_nuc <- function(file, is_clean = NULL) {
-  read_fasta(file, type = "nuc", is_clean)
 }
 
 #' @rdname read_fasta

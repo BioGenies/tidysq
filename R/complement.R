@@ -57,51 +57,18 @@
 #' 
 #' @seealso \code{\link{sq}}
 #' @export
-complement <- function(sq, is_dna = NULL) {
+complement <- function(sq) {
   UseMethod("complement")
 }
 
 #' @export
-complement.default <- function(sq, is_dna = NULL) {
+complement.default <- function(sq) {
   stop("method 'complement' isn't implemented for this type of object")
 }
 
 #' @export
-complement.nucsq <- function(sq, is_dna = NULL) {
-  .validate_sq(sq, "nuc")
-  
-  .check_is_clean(sq, "'nucsq'")
-  alph <- .get_alph(sq)
-  alph_size <- .get_alph_size(alph)
-  sq <- .unpack_from_sq(sq, "int")
-  
-  has_U <- any(unlist(sq) == match("U", alph))
-  has_T <- any(unlist(sq) == match("T", alph))
-  has_A <- any(unlist(sq) == match("A", alph))
-  .check_has_both_UT(has_U, has_T)
-  dict <- c(G = "C", C = "G", T = "A", U = "A", A = "T", `-` = "-")
-  
-  if (is.null(is_dna)) {
-    .check_has_A_no_UT(has_U, has_T, has_A) 
-    if (has_U) dict["A"] <- "U"
-  } else {
-    .check_logical(is_dna, "'is_dna'", allow_null = TRUE)
-    .check_is_dna_matches(is_dna, has_U, has_T) 
-    if (!is_dna) dict["A"] <- "U"
-  }
-  
-  inds_fun <- match(dict[alph], alph)
-  names(inds_fun) <- as.character(1:length(alph))
-  ret <- lapply(sq, function(s)  C_pack_ints(inds_fun[s], alph_size))
-  
-  ret <- .set_alph(ret, alph)
-  .set_class(ret, "nuc", TRUE)
-}
-
-#' @export
-complement.dnasq <- function(sq, is_dna = NULL) {
+complement.dnasq <- function(sq) {
   .validate_sq(sq, "dna")
-  if (!is.null(is_dna) && !is_dna) stop("'is_dna = FALSE' cannot be used with an object of class 'dnasq'; use TRUE or NULL instead", call. = FALSE)
   
   .check_is_clean(sq, "'dnasq'")
   alph <- .get_alph(sq)
@@ -119,9 +86,8 @@ complement.dnasq <- function(sq, is_dna = NULL) {
 }
 
 #' @export
-complement.rnasq <- function(sq, is_dna = NULL) {
+complement.rnasq <- function(sq) {
   .validate_sq(sq, "rna")
-  if (!is.null(is_dna) && is_dna) stop("'is_dna = TRUE' cannot be used with an object of class 'rnasq'; use FALSE or NULL instead", call. = FALSE)
   
   .check_is_clean(sq, "'rnasq'")
   alph <- .get_alph(sq)
@@ -141,11 +107,31 @@ complement.rnasq <- function(sq, is_dna = NULL) {
 #' @rdname complement
 #' @export
 complement_dna <- function(sq) {
-  complement(sq, is_dna = TRUE)
+  UseMethod("complement")
+}
+
+#' @export
+complement_dna.default <- function(sq) {
+  stop("method 'complement_dna' isn't implemented for this type of object")
+}
+
+#' @export
+complement_dna.dnasq <- function(sq) {
+  complement.dnasq(sq)
 }
 
 #' @rdname complement
 #' @export
 complement_rna <- function(sq) {
-  complement(sq, is_dna = FALSE)
+  UseMethod("complement")
+}
+
+#' @export
+complement_rna.default <- function(sq) {
+  stop("method 'complement_rna' isn't implemented for this type of object")
+}
+
+#' @export
+complement_rna.dnasq <- function(sq) {
+  complement.rnasq(sq)
 }

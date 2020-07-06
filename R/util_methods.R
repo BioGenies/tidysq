@@ -290,12 +290,6 @@ is.amisq <- function(x) {
 
 #' @rdname is.sq
 #' @export
-is.nucsq <- function(x) {
-  tryCatch({.validate_sq(x, type = "nuc"); TRUE}, error = function(e) FALSE)
-}
-
-#' @rdname is.sq
-#' @export
 is.dnasq <- function(x) {
   tryCatch({.validate_sq(x, type = "dna"); TRUE}, error = function(e) FALSE)
 }
@@ -394,7 +388,7 @@ is.encsq <- function(x) {
   }
   
   type <- .get_sq_type(x1)
-  if (type %in% c("ami", "nuc", "dna", "rna")) {
+  if (type %in% c("ami", "dna", "rna")) {
     x2 <- toupper(x2)
   }
   

@@ -23,16 +23,14 @@
 }
 
 .get_sq_type <- function(sq) {
-  sqclasses <- intersect(class(sq), c("amisq", "nucsq", "dnasq", "rnasq", "untsq", "atpsq", "encsq"))
-  dict <- c(amisq = "ami", nucsq = "nuc", dnasq = "dna", rnasq = "rna", untsq = "unt", atpsq = "atp", encsq = "enc")
+  sqclasses <- intersect(class(sq), c("amisq", "dnasq", "rnasq", "untsq", "atpsq", "encsq"))
+  dict <- c(amisq = "ami", dnasq = "dna", rnasq = "rna", untsq = "unt", atpsq = "atp", encsq = "enc")
   dict[sqclasses]
 }
 
 .get_standard_alph <- function(type, is_clean) {
        if (type == "ami" &&  is_clean) aminoacids_df[!aminoacids_df[["amb"]], "one"]
   else if (type == "ami" && !is_clean) aminoacids_df[, "one"]
-  else if (type == "nuc" &&  is_clean) nucleotides_df[!nucleotides_df[["amb"]], "one"]
-  else if (type == "nuc" && !is_clean) nucleotides_df[, "one"]
   else if (type == "dna" &&  is_clean) nucleotides_df[nucleotides_df[["dna"]], "one"]
   else if (type == "dna" && !is_clean) nucleotides_df[nucleotides_df[["dna"]] | nucleotides_df[["amb"]], "one"]
   else if (type == "rna" &&  is_clean) nucleotides_df[nucleotides_df[["rna"]], "one"]
@@ -91,14 +89,6 @@
   else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
 }
 
-.guess_nuc_is_clean <- function(real_alph) {
-  if (all(real_alph %in% .get_standard_alph("nuc", TRUE)))
-    TRUE
-  else if (all(real_alph %in% .get_standard_alph("nuc", FALSE)))
-    FALSE
-  else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
-}
-
 .guess_sq_type_subtype <- function(sq) {
   real_alph <- toupper(.get_real_alph(sq))
   .guess_type_subtype_by_alph(real_alph)
@@ -108,11 +98,9 @@
   # TODO: any better idea for it?
   possib_rets <- list(list(type = "dna", is_clean = TRUE),
                       list(type = "rna", is_clean = TRUE),
-                      list(type = "nuc", is_clean = TRUE),
                       list(type = "ami", is_clean = TRUE),
                       list(type = "dna", is_clean = FALSE),
                       list(type = "rna", is_clean = FALSE),
-                      list(type = "nuc", is_clean = FALSE),
                       list(type = "ami", is_clean = FALSE))
   for (ret in possib_rets)
     if (all(alph %in% .get_standard_alph(ret[["type"]], ret[["is_clean"]]))) return(ret)

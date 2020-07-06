@@ -6,12 +6,6 @@ type_sum.amisq <- function(x) {
 
 #' @importFrom pillar type_sum
 #' @export
-type_sum.nucsq <- function(x) {
-  "nuc"
-}
-
-#' @importFrom pillar type_sum
-#' @export
 type_sum.dnasq <- function(x) {
   "dna"
 }
@@ -431,7 +425,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
     }
   }
   
-  #paste sequene
+  #paste sequence
   p_body <- sapply(x, function(s) paste(s, collapse = letters_sep))
   if (use_color) p_body <- sapply(1:num_lines, function(i) {
     if (lens[i] == 0) silver(p_body[i]) else green(p_body[i])
@@ -579,7 +573,6 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   } else {
     type_msg <- switch(type,
                        ami = "ami (amino acids)",
-                       nuc = "nuc (nucleotides)",
                        dna = "dna (DNA)",
                        rna = "rna (RNA)",
                        unt = "unt (unspecified type)",
@@ -603,7 +596,6 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   } else {
     type_msg <- switch(type,
                        ami = "ami (amino acids)",
-                       nuc = "nuc (nucleotides)",
                        dna = "dna (DNA)",
                        rna = "rna (RNA)",
                        unt = "unt (unspecified type)",

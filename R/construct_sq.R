@@ -432,7 +432,6 @@ construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) 
              ami = .construct_amisq(sq, is_clean),
              dna = .construct_dnasq(sq, is_clean),
              rna = .construct_rnasq(sq, is_clean),
-             nuc = .construct_nucsq(sq, is_clean),
              unt = .construct_untsq(sq))
     }
   }
@@ -443,12 +442,6 @@ construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) 
 #' @export
 construct_sq_ami <- function(sq, is_clean = NULL) {
   construct_sq(sq, type = "ami", is_clean)
-}
-
-#' @rdname construct_sq
-#' @export
-construct_sq_nuc <- function(sq, is_clean = NULL) {
-  construct_sq(sq, type = "nuc", is_clean)
 }
 
 #' @rdname construct_sq
@@ -546,18 +539,6 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   sq <- .nc_pack_to_sq(sq, "rna", is_clean)
   sq <- .set_alph(sq, .get_standard_alph("rna", is_clean))
   .set_class(sq, "rna", is_clean)
-}
-
-.construct_nucsq <- function(sq, is_clean) {
-  sq <- toupper(sq)
-  real_alph <- .get_real_alph(sq)
-  .check_real_alph_clean(real_alph, "nuc", is_clean)
-  if (is.null(is_clean)) {
-    is_clean <- .guess_nuc_is_clean(real_alph)
-  }
-  sq <- .nc_pack_to_sq(sq, "nuc", is_clean)
-  sq <- .set_alph(sq, .get_standard_alph("nuc", is_clean))
-  .set_class(sq, "nuc", is_clean)
 }
 
 .construct_untsq <- function(sq) {

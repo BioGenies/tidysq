@@ -94,7 +94,7 @@
   .check_isnt_missing(obj, argname)
   if (!allow_null) .check_isnt_null(obj, argname)
   else if (!is.null(obj)) {
-    allowed <- c("ami", "nuc", "dna", "rna", if (allow_unt) "unt")
+    allowed <- c("ami", "dna", "rna", if (allow_unt) "unt")
     .check_simple(!obj %in% allowed, argname, paste0("has to be one of '", paste(allowed, collapse = "', '"), "'")) 
   }
 }
@@ -173,10 +173,11 @@
   }
 }
 
-# TODO: expand by dna & rna types (after checking export_sq.R)
+# TODO: verify if RNA is exportable to these formats
+# TODO: are parentheses right?
 .check_type_matches_format <- function(type, export_format, ami_formats, nuc_formats) {
   if (type == "ami" && !(export_format %in% ami_formats) ||
-      type == "nuc" && !(export_format %in% nuc_formats)) 
+      type %in% c("dna", "rna") && !(export_format %in% nuc_formats)) 
     stop("'sq' object type doesn't match 'export_format'", call. = FALSE)
 }
 
@@ -184,24 +185,9 @@
   if (!all(names(encoding) %in% alph)) 
     stop("all names of 'encoding' has to be letters from alphabet (elements of 'alphabet' attribute of 'sq')", call. = FALSE)
 }
-  
-.check_has_both_UT <- function(has_U, has_T) {
-  if (has_U && has_T)
-    stop("'nucsq' sequences contains both 'U' and 'T' letters - should contain only one of them", call. = FALSE)
-}
-
-.check_has_A_no_UT <- function(has_U, has_T, has_A) {
-  if (!has_U && !has_T && has_A)
-    stop("'nucsq' sequences contains 'A' elements, but does not contain 'T' nor 'U' - unable to guess if it's dna or rna", call. = FALSE)
-}
-
-.check_is_dna_matches <- function(is_dna, has_U, has_T) {
-  if ((is_dna && has_U) || (!is_dna && has_T)) 
-    stop("if 'is_dna' is TRUE, sequences cannot contain 'U'; if is FALSE, sequences cannot contain 'T'", call. = FALSE)
-}
 
 .check_motifs_proper_alph <- function(motifs, type, alph = NULL) {
-  if (type %in% c("ami", "nuc", "dna", "rna")) {
+  if (type %in% c("ami", "dna", "rna")) {
     if (!all(unlist(strsplit(motifs, "")) %in% c(.get_standard_alph(type, FALSE), "^", "$"))) 
       stop("motifs that you're searching for in the 'sq' object needs to consist of letters from its alphabet and optionally '^' or '$' characters", call. = FALSE)
   } else if (any(alph %in% c("^", "$", "?", "(", "=", ")", "\\", ".", "|", "+", "*", "{", "}", "[", "]"))) 

@@ -64,7 +64,6 @@ typify <- function(sq, dest_type) {
   
   pack_fun <- switch(dest_type,
     "ami" = nc_pack_ami,
-    "nuc" = nc_pack_nuc,
     "dna" = nc_pack_dna,
     "rna" = nc_pack_rna
   )
