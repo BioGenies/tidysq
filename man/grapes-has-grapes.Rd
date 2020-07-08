@@ -38,10 +38,10 @@ and it can be contained in sought motif). To search for motifs with those
 characters, you have to replace them first using 
 \code{\link{substitute_letters}}. 
 
-In case of sq objects of type \strong{ami} and \strong{nuc}, motifs have to consist of 
-upper case letters from amino acid and nucleotide alphabet respectively. 
-Use of lower case letters will return an error. Two additional characters 
-are allowed: '^' and '$' indicating the beginning and the end of a sequence 
+In case of sq objects of type \strong{ami}, \strong{dna} and \strong{rna},
+motifs have to consist of upper case letters from amino acid, DNA and RNA alphabets
+respectively. Use of lower case letters will return an error. Two additional
+characters are allowed: '^' and '$' indicating the beginning and the end of a sequence 
 respectively. Moreover, notice that '*' character may be used in amino acid 
 motifs, as it is a part of the amino acid alphabet. If a motif contains 
 ambiguous letters, all possible matches will be searched for, e.g., amino 
@@ -54,19 +54,19 @@ Detailed list of all letters corresponding to each ambiguous letter may be found
 
 \examples{
 # Creating objects to work on:
-sq_nuc <- construct_sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", 
-                         "CAGACCANNNATAG"), type = 'nuc')
+sq_dna <- construct_sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", 
+                         "CAGACCANNNATAG"), type = 'dna')
 sq_ami <- construct_sq(c("AGNTYIKFGGAYTI", "MATEGILIAADGYTWIL", 
                          "MIPADHICAANGIENAGIK"), type = 'ami')
                          
-# Test if nucleotide sequences contain start codon 'ATG':
-sq_nuc \%has\% 'ATG'
+# Test if DNA sequences contain start codon 'ATG':
+sq_dna \%has\% 'ATG'
 
-# Test if nucleotide sequences begin with start codon 'ATG'
-sq_nuc \%has\% '^ATG'
+# Test if DNA sequences begin with start codon 'ATG'
+sq_dna \%has\% '^ATG'
 
-# Test if nucleotide sequences end with 'TAG' (one of the stop codons):
-sq_nuc \%has\% 'TAG$'
+# Test if DNA sequences end with 'TAG' (one of the stop codons):
+sq_dna \%has\% 'TAG$'
 
 # Test if amino acid sequences contain motif of two alanines followed by
 # aspartic acid or asparagine ('AAB' motif will match 'AAB', 'AAD' and 'AAN'):

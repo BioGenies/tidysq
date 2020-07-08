@@ -34,20 +34,23 @@ of length more than one. Each element of this parameter should be at least two c
 long.}
 }
 \value{
-A \code{\link[tibble]{tibble}} with number of rows corresponding to the number of sequences 
-and two columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
+A \code{\link[tibble]{tibble}} with number of rows equal to the number of sequences 
+and two columns: 'name' - specifying how to call a sequence - and 'sq' - 
+containing the sequence itself.
 }
 \description{
-Reads a FASTA file of nucleotides or amino acids file and returns
-a \code{\link[tibble]{tibble}} with number of rows corresponding to the number of sequences 
-and two columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
+Reads a FASTA file, that contains nucleotide or amino acid sequences, and returns
+a \code{\link[tibble]{tibble}} with number of rows equal to the number of sequences 
+and the following columns: 'name' - specifying how to call a sequence - and 'sq' - 
+containing the sequence itself.
 }
 \details{
 All rules of creating sq objects are the same as in \code{\link{construct_sq}}.
 
-Functions \code{read_fasta_ami} and \code{read_fasta_nuc} are wrappers around 
-\code{read_fasta} with specified \code{type} parameter - accordingly "ami" or "nuc". You
-can also pass "is_clean" parameter to those functions, but you cannot pass "non_standard".
+Functions \code{read_fasta_ami}, \code{read_fasta_dna} and \code{read_fasta_rna}
+are wrappers around \code{read_fasta} with specified \code{type} parameter -
+accordingly "ami", "dna" and "rna". You can also pass "is_clean" parameter
+to those functions, but you cannot pass "non_standard".
 }
 \examples{
 fasta_file <- system.file(package = "tidysq", 

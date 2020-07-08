@@ -15,10 +15,10 @@
 #' export_sq(sq_ami, "Biostrings::AAStringSet", c("one", "two"))
 #' export_sq(sq_ami, "seqinr::SeqFastaAA")
 #' 
-#' sq_nuc <- construct_sq(c("TGATGAAGCGCA", "TTGATGGGAA"))
-#' export_sq(sq_nuc, "ape::DNAbin", name = c("one", "two"))
-#' export_sq(sq_nuc, "Biostrings::DNAStringSet")
-#' export_sq(sq_nuc, "seqinr::SeqFastadna")
+#' sq_dna <- construct_sq(c("TGATGAAGCGCA", "TTGATGGGAA"))
+#' export_sq(sq_dna, "ape::DNAbin", name = c("one", "two"))
+#' export_sq(sq_dna, "Biostrings::DNAStringSet")
+#' export_sq(sq_dna, "seqinr::SeqFastadna")
 #' @seealso \code{\link{sq}} \code{\link{import_sq}}
 #' @export
 export_sq <- function(sq, export_format, name) {

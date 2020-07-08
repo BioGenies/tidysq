@@ -30,8 +30,8 @@
 #' characters, you have to replace them first using 
 #' \code{\link{substitute_letters}}. 
 #' 
-#' If sq objects of type \strong{ami} and \strong{nuc}, motifs have to consist of 
-#' upper case letters from amino acid and nucleotide alphabet respectively. 
+#' If sq objects of type \strong{ami}, \strong{dna} and \strong{rna}, motifs have to
+#' consist of upper case letters from amino acid, DNA and RNA alphabets respectively.
 #' Use of lower case letters will return an error. Two additional characters 
 #' are allowed: '^' and '$' indicating the beginning and the end of a sequence 
 #' respectively. Moreover, notice that '*' character may be used in amino acid 

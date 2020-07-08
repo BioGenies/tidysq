@@ -6,8 +6,8 @@
 #' @param n a positive \code{\link{integer}} value - number of sequences to generate.
 #' @param len a positive \code{\link{integer}} value - length of each sequence if \code{sd} not 
 #' specified and mean length of sequences if \code{sd} specified
-#' @param type a type of generated sq object; possible values are "ami" and "nuc" (see section
-#' \emph{sq types} in \code{\link{sq}} documentation for details).
+#' @param type a type of generated sq object; possible values are "ami", "dna" and "rna"
+#' (see section \emph{sq types} in \code{\link{sq}} documentation for details).
 #' @param is_clean a \code{\link{logical}} value - if \code{TRUE}, letters will be drawn from
 #' clean alphabet, if \code{FALSE} - ambiguous letters might be also generated.
 #' @param sd a positive \code{\link{numeric}} value; if specified, gives standard deviation of
@@ -26,7 +26,8 @@
 #' 
 #' # generating random sequences
 #' random_sq(10, 10, "ami", TRUE)
-#' random_sq(50, 8, "nuc", FALSE, sd = 3)
+#' random_sq(25, 18, "rna", TRUE, sd = 6)
+#' random_sq(50, 8, "dna", FALSE, sd = 3)
 #' random_sq(6, 100, "ami", TRUE, use_gap = TRUE)
 #' @seealso \code{\link{construct_sq}} \code{\link{sq}}
 #' @export
