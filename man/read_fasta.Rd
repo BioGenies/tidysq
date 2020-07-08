@@ -3,7 +3,6 @@
 \name{read_fasta}
 \alias{read_fasta}
 \alias{read_fasta_ami}
-\alias{read_fasta_nuc}
 \alias{read_fasta_dna}
 \alias{read_fasta_rna}
 \title{Read a FASTA file}
@@ -11,8 +10,6 @@
 read_fasta(file, type = NULL, is_clean = NULL, non_standard = NULL)
 
 read_fasta_ami(file, is_clean = NULL)
-
-read_fasta_nuc(file, is_clean = NULL)
 
 read_fasta_dna(file, is_clean = NULL)
 
@@ -23,7 +20,8 @@ read_fasta_rna(file, is_clean = NULL)
 
 \item{type}{a \code{\link{character}} string indicating type of \code{sq} object that
 is going to be constructed; supported values are "ami" for amino acid sequences,
-"nuc" for nucleotide sequences, "unt" for and \code{NULL} for type guessing (see details)}
+"dna" for DNA sequences, "rna" for RNA sequences, "unt" for and \code{NULL} for
+type guessing (see details)}
 
 \item{is_clean}{a \code{\link{logical}} value indicating if sequences are clean.
 or in other words - they don't contain ambiguous values; supported values are \code{TRUE} 

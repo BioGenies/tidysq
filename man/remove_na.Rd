@@ -7,7 +7,7 @@
 remove_na(sq, only_elements = FALSE)
 }
 \arguments{
-\item{sq}{a \code{\link{sq}} object of type \strong{ami} or \strong{nuc}.}
+\item{sq}{a \code{\link{sq}} object of type \strong{ami}, \strong{dna} or \strong{rna}.}
 
 \item{only_elements}{\code{\link{logical}} value indicating if only ambiguous elements
 (i.e., matching more than one amino acid/nucleotide) of sequences should

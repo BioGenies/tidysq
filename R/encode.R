@@ -50,16 +50,16 @@
 #'                         "MAYNNNIALN", "MN", "NAAAT"), 
 #'                         type = "ami")
 #' 
-#'                
+#' 
 #' # Create an object, called sq, with sequences containing letters from 
 #' # standard and extended alphabet to work on:
-#'    
+#' 
 #' sq_rna_ex <- construct_sq(c("VAHCHAGDUGBBVG", "CUGCVB", "DUUBGA", "CCCU", 
 #'                             "CUHAABBU"), type = "rna")
 #' 
 #' sq_ami_ex <- construct_sq(c("MAYUOUONNNIALN", "UUMXBZONO", "NAAGAT"), type = "ami")
 #' 
-#'        
+#' 
 #' # Create encoding for a standard alphabet 
 #' 
 #' enc_dna <- c(A = 1, C = 2, G = 2, T = 2)

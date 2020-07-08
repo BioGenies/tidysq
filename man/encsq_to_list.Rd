@@ -30,18 +30,18 @@ Function is used to transform an \code{\link{sq}} object with
 # Create sq object with sequences containing letters from 
 # standard alphabet and extended alphabet to work on:
 
-sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
+sq_dna <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
                          "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", 
                          "CTGCTG", "CTTAGA", "CCCT", "CTGAATGT"), 
-                       type = "nuc")
-                       
+                       type = "dna")
+
 sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", 
                          "TIAALGNIIYRAIE", "NYERTGHLI", "MAYNNNIALN", 
                          "MN", "NAAAT"), type = "ami")
-                         
-sq_nuc_ex <- construct_sq(c("TATCTAGCTGTATG", "CUGCUG", "CUUAGA", 
-                            "CCCT", "CUGAAUGU"))
-                            
+
+sq_rna_ex <- construct_sq(c("VAHCHAGDUGBBVG", "CUGCVB", "DUUBGA", "CCCU", 
+                            "CUHAABBU"), type = "rna")
+
 sq_ami_ex <- construct_sq(c("MAYUOUONNNIALN", "UUMXBZONO", 
                             "NAAGAT"))
 
@@ -49,15 +49,17 @@ sq_ami_ex <- construct_sq(c("MAYUOUONNNIALN", "UUMXBZONO",
 # Create encoding for standard, extended alphabet and import from 
 # other sources:
 
-enc_nuc <- c(A = 1, C = 2, G = 2, T = 2)
-
+enc_dna <- c(A = 1, C = 2, G = 2, T = 2)
+enc_rna <- c(A = 7, C = 5, G = 3, U = 2)
 enc_ami <- c(A = 5, C = 5, D = 6, E = 6, F = 4, 
              G = 1, H = 5, I = 3, K = 2, L = 3, 
              M = 5, N = 6, P = 2, Q = 6, R = 2, 
              S = 6, T = 6, V = 3, W = 4, Y = 4)
              
-enc_nuc_ex <- c(A = 1, C = 2, G = 2, T = 2, U = 3)
-
+enc_dna_ex <- c(A = 1, C = 1, G = 2, T = 3,
+                B = 5, D = 8, H = 13, V = 21)
+enc_rna_ex <- c(A = 1, C = 1, G = 2, U = 3,
+                B = 5, D = 8, H = 13, V = 21)
 enc_ami_ex <- c(A = 5, C = 5, D = 6, E = 6, F = 4, 
                 G = 1, H = 5, I = 3, K = 2, L = 3, 
                 M = 5, N = 6, P = 2, Q = 6, R = 2, 
@@ -71,15 +73,15 @@ enc_aa <- AAindex[20, ]
 
 # Encode sequences and assign it to a variable:
 
-e1 <- encode(sq_nuc, enc_nuc)
+e1 <- encode(sq_dna, enc_dna)
 e2 <- encode(sq_ami, enc_ami)
-e3 <- encode(sq_nuc, enc_nuc_ex)
+e3 <- encode(sq_dna, enc_rna_ex)
 e4 <- encode(sq_ami, enc_ami_ex)
-e5 <- encode(sq_nuc_ex, enc_nuc)
+e5 <- encode(sq_rna_ex, enc_dna)
 e6 <- encode(sq_ami_ex, enc_ami)
-e7 <- encode(sq_nuc_ex, enc_nuc_ex)
+e7 <- encode(sq_rna_ex, enc_rna_ex)
 e8 <- encode(sq_ami_ex, enc_ami_ex)
-e9 <- encode(sq_nuc, c(A = 1, G = 0.02))
+e9 <- encode(sq_dna, c(A = 1, G = 0.02))
 e10 <- encode(sq_ami, c(A = 5, H = 5, I = 0.3, K = -2, 
                         L = -3.1, M = 5, N = 6))
 e_aa <- encode(sq_ami, enc_aa)

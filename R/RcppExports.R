@@ -25,20 +25,12 @@ nc_pack_crna <- function(UNPACKED) {
     .Call('_tidysq_nc_pack_crna', PACKAGE = 'tidysq', UNPACKED)
 }
 
-nc_pack_cnuc <- function(UNPACKED) {
-    .Call('_tidysq_nc_pack_cnuc', PACKAGE = 'tidysq', UNPACKED)
-}
-
 nc_pack_dna <- function(UNPACKED) {
     .Call('_tidysq_nc_pack_dna', PACKAGE = 'tidysq', UNPACKED)
 }
 
 nc_pack_rna <- function(UNPACKED) {
     .Call('_tidysq_nc_pack_rna', PACKAGE = 'tidysq', UNPACKED)
-}
-
-nc_pack_nuc <- function(UNPACKED) {
-    .Call('_tidysq_nc_pack_nuc', PACKAGE = 'tidysq', UNPACKED)
 }
 
 nc_pack_cami <- function(UNPACKED) {
