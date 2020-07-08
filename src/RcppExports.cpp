@@ -8,22 +8,22 @@
 
 using namespace Rcpp;
 
-// pack_raws
-Rcpp::RawVector pack_raws(Rcpp::RawVector unpacked, const unsigned short alph_size);
-static SEXP _tidysq_pack_raws_try(SEXP unpackedSEXP, SEXP alph_sizeSEXP) {
+// C_pack_raws
+Rcpp::RawVector C_pack_raws(Rcpp::RawVector unpacked, const unsigned short alph_size);
+static SEXP _tidysq_C_pack_raws_try(SEXP unpackedSEXP, SEXP alph_sizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type unpacked(unpackedSEXP);
     Rcpp::traits::input_parameter< const unsigned short >::type alph_size(alph_sizeSEXP);
-    rcpp_result_gen = Rcpp::wrap(pack_raws(unpacked, alph_size));
+    rcpp_result_gen = Rcpp::wrap(C_pack_raws(unpacked, alph_size));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _tidysq_pack_raws(SEXP unpackedSEXP, SEXP alph_sizeSEXP) {
+RcppExport SEXP _tidysq_C_pack_raws(SEXP unpackedSEXP, SEXP alph_sizeSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_tidysq_pack_raws_try(unpackedSEXP, alph_sizeSEXP));
+        rcpp_result_gen = PROTECT(_tidysq_C_pack_raws_try(unpackedSEXP, alph_sizeSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -189,6 +189,17 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type UNPACKED(UNPACKEDSEXP);
     rcpp_result_gen = Rcpp::wrap(nc_pack_ami(UNPACKED));
+    return rcpp_result_gen;
+END_RCPP
+}
+// C_unpack_sq_parallel
+Rcpp::List C_unpack_sq_parallel(Rcpp::List sq);
+RcppExport SEXP _tidysq_C_unpack_sq_parallel(SEXP sqSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List >::type sq(sqSEXP);
+    rcpp_result_gen = Rcpp::wrap(C_unpack_sq_parallel(sq));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -443,7 +454,7 @@ RcppExport SEXP _tidysq_C_get_na_val(SEXP alph_sizeSEXP) {
 static int _tidysq_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
-        signatures.insert("Rcpp::RawVector(*pack_raws)(Rcpp::RawVector,const unsigned short)");
+        signatures.insert("Rcpp::RawVector(*C_pack_raws)(Rcpp::RawVector,const unsigned short)");
         signatures.insert("Rcpp::RawVector(*C_pack_ints)(Rcpp::IntegerVector,const unsigned short)");
         signatures.insert("Rcpp::RawVector(*C_pack_chars)(Rcpp::CharacterVector,Rcpp::CharacterVector)");
         signatures.insert("Rcpp::RawVector(*C_pack_string)(Rcpp::RawVector,Rcpp::CharacterVector)");
@@ -459,7 +470,7 @@ static int _tidysq_RcppExport_validate(const char* sig) {
 
 // registerCCallable (register entry points for exported C++ functions)
 RcppExport SEXP _tidysq_RcppExport_registerCCallable() { 
-    R_RegisterCCallable("tidysq", "_tidysq_pack_raws", (DL_FUNC)_tidysq_pack_raws_try);
+    R_RegisterCCallable("tidysq", "_tidysq_C_pack_raws", (DL_FUNC)_tidysq_C_pack_raws_try);
     R_RegisterCCallable("tidysq", "_tidysq_C_pack_ints", (DL_FUNC)_tidysq_C_pack_ints_try);
     R_RegisterCCallable("tidysq", "_tidysq_C_pack_chars", (DL_FUNC)_tidysq_C_pack_chars_try);
     R_RegisterCCallable("tidysq", "_tidysq_C_pack_string", (DL_FUNC)_tidysq_C_pack_string_try);
@@ -474,7 +485,7 @@ RcppExport SEXP _tidysq_RcppExport_registerCCallable() {
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_tidysq_pack_raws", (DL_FUNC) &_tidysq_pack_raws, 2},
+    {"_tidysq_C_pack_raws", (DL_FUNC) &_tidysq_C_pack_raws, 2},
     {"_tidysq_C_pack_ints", (DL_FUNC) &_tidysq_C_pack_ints, 2},
     {"_tidysq_C_pack_chars", (DL_FUNC) &_tidysq_C_pack_chars, 2},
     {"_tidysq_C_pack_string", (DL_FUNC) &_tidysq_C_pack_string, 2},
@@ -482,6 +493,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_nc_pack_nuc", (DL_FUNC) &_tidysq_nc_pack_nuc, 1},
     {"_tidysq_nc_pack_cami", (DL_FUNC) &_tidysq_nc_pack_cami, 1},
     {"_tidysq_nc_pack_ami", (DL_FUNC) &_tidysq_nc_pack_ami, 1},
+    {"_tidysq_C_unpack_sq_parallel", (DL_FUNC) &_tidysq_C_unpack_sq_parallel, 1},
     {"_tidysq_nc_read_fasta_file", (DL_FUNC) &_tidysq_nc_read_fasta_file, 3},
     {"_tidysq_read_fasta_file", (DL_FUNC) &_tidysq_read_fasta_file, 2},
     {"_tidysq_find_alph", (DL_FUNC) &_tidysq_find_alph, 1},
