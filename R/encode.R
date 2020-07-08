@@ -40,10 +40,10 @@
 #' # Create sq object with sequences containing letters from 
 #' # standard alphabet to work on:
 #' 
-#' sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
+#' sq_dna <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
 #'                          "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", 
 #'                          "CTGCTG", "CTTAGA", "CCCT", "CTGAATGT"), 
-#'                        type = "nuc")
+#'                        type = "dna")
 #' 
 #' sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", 
 #'                         "TIAALGNIIYRAIE", "NYERTGHLI", 
@@ -54,15 +54,16 @@
 #' # Create an object, called sq, with sequences containing letters from 
 #' # standard and extended alphabet to work on:
 #'    
-#' sq_nuc_ex <- construct_sq(c("TATCTAGCTGTATG", "CUGCUG", "CUUAGA", "CCCT", 
-#'                             "CUGAAUGU"))
+#' sq_rna_ex <- construct_sq(c("VAHCHAGDUGBBVG", "CUGCVB", "DUUBGA", "CCCU", 
+#'                             "CUHAABBU"), type = "rna")
 #' 
-#' sq_ami_ex <- construct_sq(c("MAYUOUONNNIALN", "UUMXBZONO", "NAAGAT"))       
+#' sq_ami_ex <- construct_sq(c("MAYUOUONNNIALN", "UUMXBZONO", "NAAGAT"), type = "ami")
 #' 
 #'        
 #' # Create encoding for a standard alphabet 
 #' 
-#' enc_nuc <- c(A = 1, C = 2, G = 2, T = 2)
+#' enc_dna <- c(A = 1, C = 2, G = 2, T = 2)
+#' enc_rna <- c(A = 7, C = 5, G = 3, U = 2)
 #' enc_ami <- c(A = 5, C = 5, D = 6, E = 6, F = 4, 
 #'              G = 1, H = 5, I = 3, K = 2, L = 3, 
 #'              M = 5, N = 6, P = 2, Q = 6, R = 2, 
@@ -71,45 +72,48 @@
 #'              
 #' # Create encoding for an extended alphabet
 #' 
-#' enc_nuc_ex <- c(A = 1, C = 2, G = 2, T = 2, U = 3)
+#' enc_dna_ex <- c(A = 1, C = 1, G = 2, T = 3,
+#'                 B = 5, D = 8, H = 13, V = 21)
+#' enc_rna_ex <- c(A = 1, C = 1, G = 2, U = 3,
+#'                 B = 5, D = 8, H = 13, V = 21)
 #' enc_ami_ex <- c(A = 5, C = 5, D = 6, E = 6, F = 4, 
-#'              G = 1, H = 5, I = 3, K = 2, L = 3, 
-#'              M = 5, N = 6, P = 2, Q = 6, R = 2, 
-#'              S = 6, T = 6, V = 3, W = 4, Y = 4, 
-#'              U = -0.1, O = 0.753, X = -53.95, B = 7.77, Z = 0)
+#'                 G = 1, H = 5, I = 3, K = 2, L = 3, 
+#'                 M = 5, N = 6, P = 2, Q = 6, R = 2, 
+#'                 S = 6, T = 6, V = 3, W = 4, Y = 4, 
+#'                 U = -0.1, O = 0.753, X = -53.95, B = 7.77, Z = 0)
 #'
 #' 
 #' # Encode with simplified standard alphabet sequences without 
 #' # non-standard letters
 #' 
-#' encode(sq_nuc, enc_nuc)
+#' encode(sq_dna, enc_dna)
 #' encode(sq_ami, enc_ami)
 #' 
 #' 
 #' # Encode with simplified extended alphabet sequences without 
 #' # non-standard letters
 #' 
-#' encode(sq_nuc, enc_nuc_ex)
+#' encode(sq_dna, enc_dna_ex)
 #' encode(sq_ami, enc_ami_ex)
 #' 
 #' 
 #' # Encode with simplified standard alphabet sequences with 
 #' # non-standard letters
 #' 
-#' encode(sq_nuc_ex, enc_nuc)
+#' encode(sq_rna_ex, enc_rna)
 #' encode(sq_ami_ex, enc_ami)
 #' 
 #' 
 #' # Encode with simplified extended alphabet sequences with 
 #' # non-standard letters
 #' 
-#' encode(sq_nuc_ex, enc_nuc_ex)
+#' encode(sq_rna_ex, enc_rna_ex)
 #' encode(sq_ami_ex, enc_ami_ex)
 #' 
 #' 
 #' # Encode without assigning all letters
 #' 
-#' encode(sq_nuc, c(A = 1, G = 0.02))
+#' encode(sq_dna, c(A = 1, G = 0.02))
 #' encode(sq_ami, c(A = 5, H = 5, I = 0.3, K = -2, L = -3.1, M = 5, N = 6))
 #' 
 #' 
@@ -141,7 +145,7 @@ encode <- function(sq, encoding) {
   if (!all(is_given)) {
     ind <- (1:length(alph))[!is_given]
     for (s in sq) {
-      if (any(unpack_ints(s, alph_size) %in% ind)) {
+      if (any(C_unpack_ints(s, alph_size) %in% ind)) {
         .handle_opt_txt("tidysq_a_no_given_enc",
                         "there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA")
         break

@@ -37,11 +37,13 @@ NULL
 #' according to IUPAC nomenclature.
 #' @name nucleotides_df
 #' @docType data 
-#' @format  A data frame with 17 rows and 3 columns:
+#' @format  A data frame with 17 rows and 5 columns:
 #' \describe{
 #'  \item{one}{One-letter codes of nucleotides}
 #'  \item{full}{Full name of the nucleotide}
 #'  \item{amb}{Logical indicating if abbreviation is ambiguous, i. e., matches more than one nucleotide}
+#'  \item{dna}{Logical indicating if this nucleotide appears in standard DNA code}
+#'  \item{rna}{Logical indicating if this nucleotide appears in standard RNA code}
 #'  }
 #' @details The dataset contains a nucleotide alphabet of one-letter codes 
 #' and full names of the nucleotides. It also includes a gap symbol '-' that can be found
