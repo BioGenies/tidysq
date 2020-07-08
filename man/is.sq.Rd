@@ -43,13 +43,15 @@ read \code{\link[=sq]{sq class}} manual).
 }
 \examples{
 sq_ami <- construct_sq(c("CVMPQGQQ", "AHLC--PPQ"))
-sq_nuc <- construct_sq(c("CGAUUACG", "UUCUAGA", "UUCA"))
+sq_dna <- construct_sq(c("GGCAT", "TATC-A", "TGA"))
+sq_rna <- construct_sq(c("CGAUUACG", "UUCUAGA", "UUCA"))
 sq_unt <- construct_sq("BAHHAJJ&HAN&JD&")
 sq_atp <- construct_sq(c("mALPVQAmAmA", "mAmAPQ"), non_standard = "mA")
-sq_enc <- encode(sq_nuc, c(A = 1.23, C = -0.72, G = 0.97, U = 3.01))
+sq_enc <- encode(sq_rna, c(A = 1.23, C = -0.72, G = 0.97, U = 3.01))
 
 is.sq(sq_ami)
-is.sq(sq_nuc)
+is.sq(sq_dna)
+is.sq(sq_rna)
 is.sq(sq_unt)
 is.sq(sq_atp)
 is.sq(sq_enc)
@@ -60,12 +62,13 @@ is.sq(TRUE)
 is.sq(NULL)
 
 is.amisq(sq_ami)
-is.nucsq(sq_nuc)
+is.dnasq(sq_dna)
+is.rnasq(sq_rna)
 is.atpsq(sq_atp)
 is.untsq(sq_unt)
 is.encsq(sq_enc)
 
-is.nucsq(sq_enc)
+is.dnasq(sq_enc)
 is.amisq(sq_atp)
 is.untsq(sq_ami)
 }
