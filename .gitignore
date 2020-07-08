@@ -11,3 +11,5 @@ src/Makevars
 config.log
 
 config.status
+
+src/tidysq.dll
