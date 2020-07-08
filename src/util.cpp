@@ -1,12 +1,12 @@
 #include <Rcpp.h>
 #include <cmath>
 #include <iostream>
+#include <tidysq_generic.h>
 
 // [[Rcpp::interfaces(cpp, r)]]
-
 // [[Rcpp::export]]
 unsigned short C_get_alph_size(Rcpp::CharacterVector alph) {
-  return ceil(log2(alph.size() + 2));
+  return tidysq::get_alph_size_internal(alph);
 }
 
 // [[Rcpp::export]]
