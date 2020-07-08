@@ -25,7 +25,7 @@ test_that("reading fasta file with clean DNA sequences with type and is_clean un
   expect_equal(dim(read_fasta(file_cln_dna)),
                c(100, 2))
   expect_equal(read_fasta(file_cln_dna)[[2]][1],
-               construct_sq("CTTTATGATTTCTTGTAGTACTCCUCTTGA", type = "dna"))
+               construct_sq("CTTTATGATTTCTTGTAGTACTCCTCTTGA", type = "dna"))
 })
           
 test_that("reading fasta file with ambiguous DNA sequences with type and is_clean unspecified", {
@@ -33,7 +33,7 @@ test_that("reading fasta file with ambiguous DNA sequences with type and is_clea
   expect_equal(dim(read_fasta(file_dna)),
                c(100, 2))
   expect_equal(read_fasta(file_dna)[[2]][1],
-               construct_sq("MBSDCKKHSGGMNGTYVKWKWGCVWUYM", type = "dna"))
+               construct_sq("MBSDCKKHSGGMNGTYVKWKWGCVWTYM", type = "dna"))
 })
           
 test_that("reading fasta file with non-standard element", {

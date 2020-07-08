@@ -6,7 +6,7 @@ test_that("find_motifs detects correctly motif that is single unambiguous amino 
   expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "A")[["start"]],
                c(1, 2, 4, 9))
   expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "C")[["start"]],
-               8)
+               c(start = 8))
 })
 
 test_that("find_motifs detects correctly motif that is single unambiguous DNA nucleotide in sequences", {
@@ -39,9 +39,9 @@ test_that("find_motifs detects correctly motif that is single ambiguous DNA nucl
 
 test_that("find_motifs detects correctly motif that is single ambiguous RNA nucleotide in sequences", {
   expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), "B")[["start"]],
-               c(1, 2, 3, 6, 7, 8, 10, 11, 2, 3, 4, 5, 6, 7, 1, 3, 5, 6))
+               c(1, 2, 4, 5, 7, 8, 9, 1, 2, 5, 6, 7, 8, 2, 3, 6, 8, 9))
   expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), "Y")[["start"]],
-               c(1, 2, 6, 8, 11, 2, 4, 5, 7, 1, 5, 6))
+               c(1, 2, 4, 7, 8, 9, 1, 2, 6, 8, 2, 3, 8, 9))
 })
 
 test_that("find_motifs detects correctly leading letters of amino acid sequences using '^'", {
