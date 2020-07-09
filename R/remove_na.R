@@ -31,7 +31,7 @@
 #' 
 #' # Substituting some letters with NA
 #' sq_ami_sub <- substitute_letters(sq_ami, c(E = NA, R = NA))
-#' sq_dna_sub <- substitute_letters(sq_nuc, c(N = NA))
+#' sq_dna_sub <- substitute_letters(sq_dna, c(N = NA))
 #' 
 #' # Biting sequences out of range
 #' sq_bitten <- bite(sq_ami, 1:15)
