@@ -75,7 +75,7 @@ get_sq_alphabet <- function(sq) {
 #' sq_amino_acids <- construct_sq(c("MMVTAAV"), type = "ami")
 #' sq_unt <- construct_sq(c("MMVTAAVXX"), type = "unt")
 #' sq_atp <- substitute_letters(sq_amino_acids, c(M = "g1", V = "g2", T = "g1", A = "g3"))
-#' sq_encoded <- encode(sq_nucleotides, c(A = 2.3, C = 1.56, T = 0.23, G = 0.28))
+#' sq_encoded <- encode(sq_dna, c(A = 2.3, C = 1.56, T = 0.23, G = 0.28))
 #' 
 #' # Getting sq type from DNA sq object:
 #' get_sq_type(sq_dna)

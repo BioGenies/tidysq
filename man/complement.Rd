@@ -13,7 +13,7 @@ complement_dna(sq)
 complement_rna(sq)
 }
 \arguments{
-\item{nucsq}{a \code{\link{sq}} object of type \strong{dna} or \strong{rna}.}
+\item{sq}{a \code{\link{sq}} object of type \strong{dna} or \strong{rna}.}
 }
 \value{
 \code{sq} object of the same type as input \code{dnasq} (\strong{dna})

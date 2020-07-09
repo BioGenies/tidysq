@@ -3,7 +3,7 @@
 #' @description Creates the complementary sequence from a given RNA or DNA 
 #'  nucleotide sequence. The function differentiates between RNA and DNA sequences. 
 #' 
-#' @param nucsq a \code{\link{sq}} object of type \strong{dna} or \strong{rna}.
+#' @param sq a \code{\link{sq}} object of type \strong{dna} or \strong{rna}.
 #'
 #' @return \code{sq} object of the same type as input \code{dnasq} (\strong{dna})
 #' or \code{rnasq} (\strong{rna}) but built of complementary nucleotides to entered
