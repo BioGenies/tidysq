@@ -25,10 +25,10 @@
 #' refer to the R documentation (see 
 #' \url{https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Index-vectors}). 
 #' Extracting indices not present in the sequence results in introducing 
-#' \code{\link{NA}} (‘Not Available’ / Missing Values) values. 
-#' Information about it is printed on a console depending on value of option 
-#' 'tidysq_a_bite_na' - it can be either a warning (default), error,
-#' message or no information (you can check details in \code{\link{tidysq-options})}. 
+#' \code{\link{NA}} (‘Not Available’ / Missing Value) values. 
+#' Information about it is printed on a console depending on the value of option 
+#' 'tidysq_a_bite_na' - it can be either a warning (default), an error,
+#' a message or no information (you can check details in \code{\link{tidysq-options})}. 
 #' \code{NA} values can be removed by using \code{\link{remove_na}} function.
 #' 
 #' @examples 
@@ -47,7 +47,7 @@
 #'
 #' sq <- construct_sq(c("TCTTTGGTTATCTAGCTGTATGA", "CTTTGGTTATCTAGCTGTATGA", 
 #'                      "TCTTTGGTTATCTAGCTGTATG", "TCTTTGGTTATCTAGCTGTATGAA", 
-#'                      "ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"), type = "nuc")
+#'                      "ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"), type = "dna")
 #'
 #' # Get an overview of the sequences and show the first four only:
 #' # The first four isomiRs sequences have lengths of 15, 14, 14 and 15
@@ -64,7 +64,7 @@
 #' bite(sq[1:4], 1:5)
 #' 
 #' # Working with all sequences
-#' # extracting first letter from each sequence:
+#' # Extracting first letter from each sequence:
 #' bite(sq, 1)
 #' 
 #' # Extracting first three letters from each sequence:

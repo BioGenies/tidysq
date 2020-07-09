@@ -3,7 +3,7 @@
 #' Removes sequences containing ambiguous elements or removes ambiguous 
 #' elements from sequences in a \code{sq} object.
 #' 
-#' @param sq a \code{\link{sq}} object of type \strong{ami} or \strong{nuc}.
+#' @param sq a \code{\link{sq}} object of type \strong{ami}, \strong{dna} or \strong{rna}.
 #' @param only_elements \code{\link{logical}} value indicating if only ambiguous elements
 #' (i.e., matching more than one amino acid/nucleotide) of sequences should
 #' be removed. If \code{FALSE} (default) whole sequences containing ambiguous 
@@ -16,7 +16,7 @@
 #' and \code{\link[=sq]{NULL}} (empty) sequences are introduced in their place. If 
 #' \code{only_elements = TRUE} then only ambiguous elements are removed 
 #' from sequences in \code{sq} object. Ambiguous letters of the amino acid alphabet 
-#' are: B, J, O, U, X, Z, and of the nucleotide alphabet: W, S, M, K, R, 
+#' are: B, J, O, U, X, Z, and these of the nucleotide alphabets are: W, S, M, K, R, 
 #' Y, B, D, H, V, N. They are marked as 'amb' in \code{\link{aminoacids_df}} 
 #' and \code{\link{nucleotides_df}} respectively. \code{\link[=sq]{NULL}} values (empty sequences) 
 #' can be identified using \code{\link{is_null_sq}} function. 
@@ -25,16 +25,16 @@
 #' # Creating objects to work on:
 #' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
 #'                          "NYERTGHLI", "MAYXXXIALN"), type = "ami")
-#' sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
-#'                          "TGACGAGCTTA", "ACTNNAGCN"), type = "nuc")
+#' sq_dna <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
+#'                          "TGACGAGCTTA", "ACTNNAGCN"), type = "dna")
 #' 
 #' # Removing sequences with ambiguous elements:
 #' clean(sq_ami)
-#' clean(sq_nuc)
+#' clean(sq_dna)
 #' 
 #' # Removing ambiguous elements from sequences:
 #' clean(sq_ami, only_elements = TRUE)
-#' clean(sq_nuc, only_elements = TRUE)
+#' clean(sq_dna, only_elements = TRUE)
 #' 
 #' # Testing for presence of empty sequences after cleaning:
 #' cln_sq <- clean(sq_ami)

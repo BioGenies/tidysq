@@ -12,8 +12,8 @@ random_sq(n, len, type, is_clean, sd = NULL, use_gap = FALSE)
 \item{len}{a positive \code{\link{integer}} value - length of each sequence if \code{sd} not 
 specified and mean length of sequences if \code{sd} specified}
 
-\item{type}{a type of generated sq object; possible values are "ami" and "nuc" (see section
-\emph{sq types} in \code{\link{sq}} documentation for details).}
+\item{type}{a type of generated sq object; possible values are "ami", "dna" and "rna"
+(see section \emph{sq types} in \code{\link{sq}} documentation for details).}
 
 \item{is_clean}{a \code{\link{logical}} value - if \code{TRUE}, letters will be drawn from
 clean alphabet, if \code{FALSE} - ambiguous letters might be also generated.}
@@ -41,7 +41,8 @@ set.seed(16)
 
 # generating random sequences
 random_sq(10, 10, "ami", TRUE)
-random_sq(50, 8, "nuc", FALSE, sd = 3)
+random_sq(25, 18, "rna", TRUE, sd = 6)
+random_sq(50, 8, "dna", FALSE, sd = 3)
 random_sq(6, 100, "ami", TRUE, use_gap = TRUE)
 }
 \seealso{

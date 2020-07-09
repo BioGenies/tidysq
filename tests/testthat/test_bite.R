@@ -1,5 +1,5 @@
 sq_ami_cln <- clean(construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
-                        "NYERTGHLI", "MAYXXXIALN"), type = "ami"), only_elements = TRUE)
+                                   "NYERTGHLI", "MAYXXXIALN"), type = "ami"), only_elements = TRUE)
 
 sq_ami_cln_short <- clean(construct_sq(c("MI","TI", "NY", "MA"), type = "ami"), only_elements = TRUE)
 sq_ami_cln_short_2 <- clean(construct_sq(c("IAA","IAA", "YER", "AYI"), type = "ami"), only_elements = TRUE)
@@ -8,7 +8,7 @@ sq_ami_cln_cut <- clean(construct_sq(c("IAANYTWIL","IAALGNIIYRAIE",
                                        "YERTGHLI", "AYXXXIALN"), type = "ami"), only_elements = TRUE)
 
 sq_ami_cln_cut_2 <- clean(construct_sq(c("ANYTWIL","ALGNIIYRAIE", 
-                                       "RTGHLI", "IALN"), type = "ami"), only_elements = TRUE)
+                                         "RTGHLI", "IALN"), type = "ami"), only_elements = TRUE)
 
 sq_ami_cln_na <- structure(list(as.raw(c(0xff, 0xff, 0xff, 0xff, 0xff)), as.raw(c(0x88, 0xfc, 0xff, 0xff, 0xff)), 
                                 as.raw(c(0xff, 0xff, 0xff, 0xff, 0xff)), as.raw(c(0xff, 0xff, 0xff, 0xff, 0xff))), 
@@ -58,5 +58,3 @@ test_that("biting sq with negative indices - reaching outside range", {
   expect_equal(bite(sq_ami_cln, -17:-18),
                sq_ami_cln)
 })
-          
-

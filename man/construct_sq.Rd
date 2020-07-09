@@ -3,21 +3,25 @@
 \name{construct_sq}
 \alias{construct_sq}
 \alias{construct_sq_ami}
-\alias{construct_sq_nuc}
+\alias{construct_sq_dna}
+\alias{construct_sq_rna}
 \title{Construct sq object from character vector}
 \usage{
 construct_sq(sq, type = NULL, is_clean = NULL, non_standard = NULL)
 
 construct_sq_ami(sq, is_clean = NULL)
 
-construct_sq_nuc(sq, is_clean = NULL)
+construct_sq_dna(sq, is_clean = NULL)
+
+construct_sq_rna(sq, is_clean = NULL)
 }
 \arguments{
 \item{sq}{a \code{\link{character}} vector.}
 
 \item{type}{a \code{\link{character}} string indicating type of \code{sq} object that
 is going to be constructed; supported values are "ami" for amino acid sequences,
-"nuc" for nucleotide sequences, "unt" for and \code{NULL} for type guessing (see details)}
+"dna" for DNA sequences, "rna" for RNA sequences, "unt" for and \code{NULL} for
+type guessing (see details)}
 
 \item{is_clean}{a \code{\link{logical}} value indicating if sequences are clean.
 or in other words - they don't contain ambiguous values; supported values are \code{TRUE} 
@@ -31,7 +35,7 @@ long.}
 }
 \value{
 object of \code{\link[=sq]{class sq}} with appropriate type (one of: \strong{ami},
-\strong{nuc}, \strong{unt}, \strong{atp}).
+\strong{dna}, \strong{rna}, \strong{unt}, \strong{atp}).
 }
 \description{
 This function allows the user to construct objects of 
@@ -43,13 +47,14 @@ alphabets. You can check what 'type' and 'alphabet' exactly are in \code{\link[=
 documentation. Below there is a guide how function operates and how the program behaves 
 according to the given arguments and the letters in the sequences.
 
-Functions \code{construct_sq_ami} and \code{construct_sq_nuc} are wrappers around 
-\code{construct_sq} with specified \code{type} parameter - accordingly "ami" or "nuc". You
-can also pass "is_clean" parameter to those functions, but you cannot pass "non_standard".
+Functions \code{construct_sq_ami}, \code{construct_sq_dna} and \code{construct_sq_rna} are
+wrappers around \code{construct_sq} with specified \code{type} parameter - accordingly
+"ami", "dna" or "rna". You can also pass "is_clean" parameter to those functions, but you
+cannot pass "non_standard".
 
 \code{sq} parameter should be a character vector. Each element of this vector is a biological 
 sequence. If this parameter has length 0, object of class \code{sq} with 0 sequences will be 
-created (if not specified, it will have \strong{nuc} \strong{cln} type, which is a result of 
+created (if not specified, it will have \strong{dna} \strong{cln} type, which is a result of 
 rules written below). If it contains sequences of length 0, \code{\link[=sq]{NULL}} sequences
 will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[=sq]{sq class}}).
 
@@ -88,19 +93,24 @@ In normal mode (no \code{\link[=fast-mode]{fast mode}}):
 \item If you don't specify any other parameter than \code{sq}, function will try to guess
 sequence type and if it is clean (it will check in exactly this order):
 \enumerate{
-\item If it contains only ACGTU- letters, either lowercase or 
-uppercase, type will be set to \strong{nuc} \strong{cln}.
-\item If it contains any letters from 1. and additionally letters DEFHIKLMNPQRSVWY*, either
-lowercase or uppercase, type will be set to \strong{ami} \strong{cln}. 
+\item If it contains only ACGT- letters, either lowercase or uppercase, type will be set
+to \strong{dna} \strong{cln}.
+\item If it contains only ACGU- letters, either lowercase or uppercase, type will be set
+to \strong{dna} \strong{cln}.
+\item If it contains any letters from 1. and 2. and additionally letters DEFHIKLMNPQRSVWY*,
+either lowercase or uppercase, type will be set to \strong{ami} \strong{cln}.
 \item If it contains any letters from 1. and additionally letters WSMKRYBDHVN, either
 lowercase or uppercase, and does not contain any other letter, type will be set to 
-\strong{nuc} without \strong{cln} subtype.
-\item If it contains any letters from 1., 2., 3. and additionally letters JOUXZ, type will
+\strong{dna} without \strong{cln} subtype.
+\item If it contains any letters from 2. and additionally letters WSMKRYBDHVN, either
+lowercase or uppercase, and does not contain any other letter, type will be set to 
+\strong{rna} without \strong{cln} subtype.
+\item If it contains any letters from previous points and additionally letters JOUXZ, type will
 be set to \strong{ami} without \strong{cln} subtype.
 \item If it contains any letters that exceed all groups mentioned above, type will be set
 to "unt".
 }
-\item If you specify \code{type} parameter as "ami" or "nuc" (and do not specify neither 
+\item If you specify \code{type} parameter as "ami", "dna" or "rna" (and do not specify neither 
 \code{is_clean} nor \code{non_standard}) type will be checked during construction: 
 \enumerate{
 \item If all letters in sequences fit the clean alphabet of given type, type will be set to 
@@ -113,9 +123,9 @@ unclean alphabet of the provided type, an error will be thrown.
 \item If you specify both \code{type} and \code{is_clean}, function checks if letters
 in sequences matches exactly specified alphabet (with capitalisation accuracy). If they do, 
 type will be set to it. Otherwise, an error will be thrown.
-\item If you specify \code{type} as "unt" and won't neither \code{is_clean} nor 
-\code{non_standard}, type will be set to \strong{unt}. Letters won't be converted to uppercase, 
-alphabet will consist of all letters found in sequences. 
+\item If you specify \code{type} as "unt" and neither \code{is_clean} nor \code{non_standard},
+type will be set to \strong{unt}. Letters won't be converted to uppercase, alphabet will
+consist of all letters found in sequences. 
 \item If you do not specify neither \code{type} nor \code{is_clean} and specify 
 \code{non_standard} parameter, which should be character vector where each element is at least 
 two characters long, all strings as specified will be detected in sequences and treated as 
@@ -123,17 +133,17 @@ letters in constructed \strong{atp} \code{sq}.
 \item All other combinations of parameters are incorrect.
 }
 
-In \code{\link[=fast-mode]{fast mode}} you have to specify \code{type} (it has to have either
-"ami" or "nuc" value) and \code{is_clean} (\code{TRUE} or \code{FALSE}). You cannot specify
-\code{non_standard}. All letters that aren't elements of destination alphabet (with a letter 
-size accuracy) will be treated as \code{NA} values.
+In \code{\link[=fast-mode]{fast mode}} you have to specify \code{type} (it has to have one of
+"ami", "dna" or "rna" values) and \code{is_clean} (\code{TRUE} or \code{FALSE}). You cannot
+specify \code{non_standard}. All letters that aren't elements of destination alphabet (with
+a letter size accuracy) will be treated as \code{NA} values.
 }
 
-\section{Handling with atp and unt sq and NA values}{
+\section{Handling atp and unt sequences and NA values}{
 
 You can convert letters into another using \code{\link{substitute_letters}} and then you
-can use \code{\link{typify}} function to set of \code{sq} to \strong{ami} or \strong{nuc}.
-If your sequences contain \code{NA} values, use \code{\link{remove_na}}
+can use \code{\link{typify}} function to set of \code{sq} to \strong{ami}, \strong{dna}
+or \strong{rna}. If your sequences contain \code{NA} values, use \code{\link{remove_na}}
 }
 
 \examples{
@@ -145,8 +155,11 @@ previous_option <- getOption("tidysq_g_fast_mode")
 options(tidysq_g_fast_mode = FALSE)
 
 ## constructing sq without specifying type
-# nuc cln sq
-construct_sq(c("ATGC", "TCGTTA", "TT--AG")) 
+# dna cln sq
+construct_sq(c("ATGC", "TCGTTA", "TT--AG"))
+
+# rna cln sq
+construct_sq(c("CUUAC", "UACCGGC", "GCA-ACGU"))
 
 # ami cln sq
 construct_sq(c("YQQPAVVM", "PQCFL"))
@@ -154,7 +167,10 @@ construct_sq(c("YQQPAVVM", "PQCFL"))
 # ami cln sq can contain * - letter meaning end of translation:
 construct_sq(c("MMDF*", "SYIHR*", "MGG*"))
 
-# nuc sq
+# dna sq
+construct_sq(c("TMVCCDA", "BASDT-CNN"))
+
+# rna sq
 construct_sq(c("WHDHKYN", "GCYVCYU"))
 
 # ami sq
@@ -165,22 +181,26 @@ construct_sq(c("\%\%YAPLAA", "PLAA"))
 
 ## constructing sq with type 
 # all above examples will result in an identical if specified type as guessed
-construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "nuc") 
+construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "dna")
+construct_sq(c("CUUAC", "UACCGGC", "GCA-ACGU"), "rna")
 construct_sq(c("YQQPAVVM", "PQCFL"), "ami")
 construct_sq(c("MMDF*", "SYIHR*", "MGG*"), "ami")
-construct_sq(c("WHDHKYN", "GCYVCYU"), "nuc")
+construct_sq(c("TMVCCDA", "BASDT-CNN"), "dna")
+construct_sq(c("WHDHKYN", "GCYVCYU"), "rna")
 construct_sq(c("XYOQWWKCNJLO"), "ami")
 construct_sq(c("\%\%YAPLAA", "PLAA"), "unt")
 
 # you can also use wrappers instead of parameters
-construct_sq_nuc(c("ATGC", "TCGTTA", "TT--AG")) 
+construct_sq_dna(c("ATGC", "TCGTTA", "TT--AG"))
+construct_sq_rna(c("CUUAC", "UACCGGC", "GCA-ACGU"))
 construct_sq_ami(c("YQQPAVVM", "PQCFL"))
 construct_sq_ami(c("MMDF*", "SYIHR*", "MGG*"))
-construct_sq_nuc(c("WHDHKYN", "GCYVCYU"))
+construct_sq_dna(c("TMVCCDA", "BASDT-CNN"))
+construct_sq_rna(c("WHDHKYN", "GCYVCYU"))
 construct_sq_ami(c("XYOQWWKCNJLO"))
 
 # One can force type other than guessed (if letters fit in the destination alphabet)
-construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "nuc", is_clean = FALSE)
+construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "dna", is_clean = FALSE)
 construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "ami")
 construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "ami", is_clean = FALSE)
 construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "unt")
@@ -200,7 +220,7 @@ options(tidysq_g_fast_mode = TRUE)
 \dontrun{
 construct_sq("CTGA")
 }
-construct_sq("CTGA", "nuc", TRUE)
+construct_sq("CTGA", "dna", TRUE)
 
 # you cannot construct with specifying non_standard
 \dontrun{
@@ -208,13 +228,14 @@ construct_sq("mAPQ", non_standard = "mA")
 }
 
 # letters other than in specified alphabet will be treated as NA:
-construct_sq("NCTGCNA", "nuc", TRUE)
+construct_sq("NCTGCNA", "dna", TRUE)
 
 #### Other examples:
 ## setting fast mode off again:
 options(tidysq_g_fast_mode = FALSE)
 
-# lowercase letters are converted to uppercase if detected type is "ami" or "nuc"
+# lowercase letters are converted to uppercase if detected type is
+# "ami", "dna" or "rna"
 construct_sq(c("aTGc", "tcgTTA", "tt--AG"))
 construct_sq(c("XYOqwwKCNJLo"))
 

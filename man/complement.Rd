@@ -4,25 +4,21 @@
 \alias{complement}
 \alias{complement_dna}
 \alias{complement_rna}
-\title{Create complement sequence from nucsq object}
+\title{Create complement sequence from dnasq or rnasq object}
 \usage{
-complement(nucsq, is_dna = NULL)
+complement(sq)
 
-complement_dna(nucsq)
+complement_dna(sq)
 
-complement_rna(nucsq)
+complement_rna(sq)
 }
 \arguments{
-\item{nucsq}{a \code{\link{sq}} object of type \strong{nuc}.}
-
-\item{is_dna}{a \code{\link{logical}} indicating if entered sequence is DNA or RNA. If 
-\code{is_dna} is \code{TRUE}, sequences cannot contain 'U' (uracil);
-if is \code{FALSE}, sequences cannot contain 'T' (thymine). If 
-\code{NULL} (default) the sequence type is not specified and is guessed (see details below).}
+\item{nucsq}{a \code{\link{sq}} object of type \strong{dna} or \strong{rna}.}
 }
 \value{
-\code{sq} object of the same type as input \code{nucsq} (\strong{nuc}) but 
-built of complementary nucleotides to entered sequence.
+\code{sq} object of the same type as input \code{dnasq} (\strong{dna})
+or \code{rnasq} (\strong{rna}) but built of complementary nucleotides to entered
+sequence.
 }
 \description{
 Creates the complementary sequence from a given RNA or DNA 
@@ -30,49 +26,35 @@ Creates the complementary sequence from a given RNA or DNA
 }
 \details{
 This function allows to get complement sequence, which is created by 
-matching elements (nucleotides) with complementary to input nucsq object. If 
-\code{is_dna = TRUE} entered sequence is DNA. If \code{is_dna = FALSE} entered 
-sequence is RNA. By default, the sequence type is not specified, and the function
-tries to guess, which type of sequence was entered. Sequences containing 'U' without 
-'T' will be set to the type RNA. If a sequence contains 'T' (thymine) without 
-'U' (uracil), the type is set to DNA. An error is displayed if both 'T' and 'U' 
-are present in the sequence or if the sequence contains only 'A' (adenine). If the 
-sequence does not contain 'T' or 'U' or the logical specification is wrong 
-(i.e., if the sequence contains 'U' and the logical specification is set to DNA), 
-an error will also be returned.
+matching elements (nucleotides) with complementary to input dnasq or rnasq object.
+Whether 'U' (uracil) or 'T' (thymine) is used depends on the class of the sq object.
 
-Functions \code{complement_dna} and \code{complement_rna} are wrappers around 
-\code{complement} with specified \code{is_dna} parameter - accordingly TRUE or FALSE.
+Functions \code{complement_dna} and \code{complement_rna} are provided as a safe
+way of limiting classes \code{complement} function is used on.
 }
 \examples{
-# Creating objects nuc_dna_sequence (with DNA sequences) and nuc_rna_sequence 
+# Creating objects dna_sequence (with DNA sequences) and rna_sequence 
 # (with RNA sequences) to work on:
 
-nuc_dna_sequence <- construct_sq(c("ACTGCTG", "CTTAGA", 
-                                   "CCCT", "CTGAATGT"), type = "nuc")
-nuc_rna_sequence <- construct_sq(c("ACUGCUG", "CUUAGA", 
-                                   "CCCU", "CUGAAUGU"), type = "nuc")
-                                   
+dna_sequence <- construct_sq(c("ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"),
+                             type = "dna")
+rna_sequence <- construct_sq(c("ACUGCUG", "CUUAGA", "CCCU", "CUGAAUGU"),
+                             type = "rna")
+
 
 # In the following the complement function is used to make a PCR (Polymerase Chain Reaction)
 # primers. Every sequence will be rewritten to its complementary equivalent as 
 # following example: AAATTTGGG to TTTAAACCC.
  
-# creating complementary sequences with a specified sequence type (and using wrappers):
-complement(nuc_dna_sequence, is_dna = TRUE)
-complement_dna(nuc_dna_sequence)
+# creating complementary sequences with the basic function and using wrappers:
+complement(dna_sequence)
+complement_dna(dna_sequence)
 
-complement(nuc_rna_sequence, is_dna = FALSE)
-complement_rna(nuc_rna_sequence)
+complement(rna_sequence)
+complement_rna(rna_sequence)
 
-# creating complementary sequences without defined sequence type:
-complement(nuc_dna_sequence)
-complement(nuc_rna_sequence)
-
-# Each sequence from nuc_dna_sequence and nuc_rna_sequence object have now an  
-# own complementary equivalent, which can be helpful during constructing PCR primers.
- 
-  
+# Each sequence from dna_sequence and rna_sequence object have now an own
+# complementary equivalent, which can be helpful during constructing PCR primers.
 
 }
 \seealso{

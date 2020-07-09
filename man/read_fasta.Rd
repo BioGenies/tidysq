@@ -3,21 +3,25 @@
 \name{read_fasta}
 \alias{read_fasta}
 \alias{read_fasta_ami}
-\alias{read_fasta_nuc}
+\alias{read_fasta_dna}
+\alias{read_fasta_rna}
 \title{Read a FASTA file}
 \usage{
 read_fasta(file, type = NULL, is_clean = NULL, non_standard = NULL)
 
 read_fasta_ami(file, is_clean = NULL)
 
-read_fasta_nuc(file, is_clean = NULL)
+read_fasta_dna(file, is_clean = NULL)
+
+read_fasta_rna(file, is_clean = NULL)
 }
 \arguments{
 \item{file}{a \code{\link{character}} string indicating path to file or url.}
 
 \item{type}{a \code{\link{character}} string indicating type of \code{sq} object that
 is going to be constructed; supported values are "ami" for amino acid sequences,
-"nuc" for nucleotide sequences, "unt" for and \code{NULL} for type guessing (see details)}
+"dna" for DNA sequences, "rna" for RNA sequences, "unt" for and \code{NULL} for
+type guessing (see details)}
 
 \item{is_clean}{a \code{\link{logical}} value indicating if sequences are clean.
 or in other words - they don't contain ambiguous values; supported values are \code{TRUE} 
@@ -30,20 +34,23 @@ of length more than one. Each element of this parameter should be at least two c
 long.}
 }
 \value{
-A \code{\link[tibble]{tibble}} with number of rows corresponding to the number of sequences 
-and two columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
+A \code{\link[tibble]{tibble}} with number of rows equal to the number of sequences 
+and two columns: 'name' - specifying how to call a sequence - and 'sq' - 
+containing the sequence itself.
 }
 \description{
-Reads a FASTA file of nucleotides or amino acids file and returns
-a \code{\link[tibble]{tibble}} with number of rows corresponding to the number of sequences 
-and two columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
+Reads a FASTA file, that contains nucleotide or amino acid sequences, and returns
+a \code{\link[tibble]{tibble}} with number of rows equal to the number of sequences 
+and the following columns: 'name' - specifying how to call a sequence - and 'sq' - 
+containing the sequence itself.
 }
 \details{
 All rules of creating sq objects are the same as in \code{\link{construct_sq}}.
 
-Functions \code{read_fasta_ami} and \code{read_fasta_nuc} are wrappers around 
-\code{read_fasta} with specified \code{type} parameter - accordingly "ami" or "nuc". You
-can also pass "is_clean" parameter to those functions, but you cannot pass "non_standard".
+Functions \code{read_fasta_ami}, \code{read_fasta_dna} and \code{read_fasta_rna}
+are wrappers around \code{read_fasta} with specified \code{type} parameter -
+accordingly "ami", "dna" and "rna". You can also pass "is_clean" parameter
+to those functions, but you cannot pass "non_standard".
 }
 \examples{
 fasta_file <- system.file(package = "tidysq", 

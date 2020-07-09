@@ -1,19 +1,22 @@
 #' Read a FASTA file
 #'
-#' Reads a FASTA file of nucleotides or amino acids file and returns
-#' a \code{\link[tibble]{tibble}} with number of rows corresponding to the number of sequences 
-#' and two columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
+#' Reads a FASTA file, that contains nucleotide or amino acid sequences, and returns
+#' a \code{\link[tibble]{tibble}} with number of rows equal to the number of sequences 
+#' and the following columns: 'name' - specifying how to call a sequence - and 'sq' - 
+#' containing the sequence itself.
 #' @param file a \code{\link{character}} string indicating path to file or url.
 #' @inheritParams construct_sq
 #' @return 
-#' A \code{\link[tibble]{tibble}} with number of rows corresponding to the number of sequences 
-#' and two columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.
+#' A \code{\link[tibble]{tibble}} with number of rows equal to the number of sequences 
+#' and two columns: 'name' - specifying how to call a sequence - and 'sq' - 
+#' containing the sequence itself.
 #' @details 
 #' All rules of creating sq objects are the same as in \code{\link{construct_sq}}.
 #' 
-#' Functions \code{read_fasta_ami} and \code{read_fasta_nuc} are wrappers around 
-#' \code{read_fasta} with specified \code{type} parameter - accordingly "ami" or "nuc". You
-#' can also pass "is_clean" parameter to those functions, but you cannot pass "non_standard".
+#' Functions \code{read_fasta_ami}, \code{read_fasta_dna} and \code{read_fasta_rna}
+#' are wrappers around \code{read_fasta} with specified \code{type} parameter -
+#' accordingly "ami", "dna" and "rna". You can also pass "is_clean" parameter
+#' to those functions, but you cannot pass "non_standard".
 #' 
 #' @examples
 #' fasta_file <- system.file(package = "tidysq", 
@@ -42,7 +45,7 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
       .nonst_read_fasta(file, type, is_clean, non_standard)
     } else {
       alph <- find_alph(file)
-      if (!is.null(type) && type %in% c("ami", "nuc")) alph <- toupper(alph)
+      if (!is.null(type) && type %in% c("ami", "dna", "rna")) alph <- toupper(alph)
       .check_alph_matches_type(alph, type, is_clean)
       
       if (is.null(type)) {
@@ -50,8 +53,9 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
         type <- type_clean[["type"]]
         if (is.null(is_clean) && type != "unt") is_clean <- type_clean[["is_clean"]]
       } else if (type != "unt" && is.null(is_clean)) {
-        is_clean <- if (type == "ami") .guess_ami_is_clean(alph) else .guess_nuc_is_clean(alph) 
-        
+        if      (type == "ami") is_clean <- .guess_ami_is_clean(alph)
+        else if (type == "dna") is_clean <- .guess_dna_is_clean(alph)
+        else if (type == "rna") is_clean <- .guess_rna_is_clean(alph)
       } 
       if (type != "unt") {
         .nc_read_fasta(file, type, is_clean)
@@ -75,12 +79,18 @@ read_fasta_ami <- function(file, is_clean = NULL) {
 
 #' @rdname read_fasta
 #' @export
-read_fasta_nuc <- function(file, is_clean = NULL) {
-  read_fasta(file, type = "nuc", is_clean)
+read_fasta_dna <- function(file, is_clean = NULL) {
+  read_fasta(file, type = "dna", is_clean)
+}
+
+#' @rdname read_fasta
+#' @export
+read_fasta_rna <- function(file, is_clean = NULL) {
+  read_fasta(file, type = "rna", is_clean)
 }
 
 .nc_read_fasta <- function(file, type, is_clean) {
-  sqtibble <- nc_read_fasta_file(file, type == "ami", is_clean)
+  sqtibble <- nc_read_fasta_file(file, type, is_clean)
   class(sqtibble[["sq"]]) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq", "list")
   attr(sqtibble[["sq"]], "alphabet") <- .get_standard_alph(type, is_clean)
   as_tibble(sqtibble)

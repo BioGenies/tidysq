@@ -27,7 +27,7 @@ This function allows extracting specified sequences from the
 sq object and follows the normal R conventions. For details refer to the 
 R documentation (see 
 \url{https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Index-vectors}). 
-Subsetting of the sq object will not drop its attributes (class and alphabet 
+Subsetting of the sq object does not affect its attributes (class and alphabet 
 of the object). Numeric values are coerced to integer as by 
 \code{\link{as.integer}} and hence truncated towards zero. In case of 
 logical vectors indicating elements/slices to select, they are recycled if 

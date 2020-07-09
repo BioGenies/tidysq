@@ -6,8 +6,14 @@ type_sum.amisq <- function(x) {
 
 #' @importFrom pillar type_sum
 #' @export
-type_sum.nucsq <- function(x) {
-  "nuc"
+type_sum.dnasq <- function(x) {
+  "dna"
+}
+
+#' @importFrom pillar type_sum
+#' @export
+type_sum.rnasq <- function(x) {
+  "rna"
 }
 
 #' @importFrom pillar type_sum
@@ -53,7 +59,7 @@ type_sum.clnsq <- function(x) {
 #' be printed is 10, but it can be changed in \code{\link[=tidysq-options]{package options}}. 
 #' 
 #' Default value of \code{use_color} parameter is \code{TRUE} - sequences are printed
-#' in green and empty sequences, NA character and dots in gray. If this option is disabled, 
+#' in green, while empty sequences, NA character and dots in gray. If this option is disabled, 
 #' all sequences are in default color of console.
 #' 
 #' The \code{letters_sep} parameter indicates how the letters should be separated 
@@ -86,23 +92,23 @@ type_sum.clnsq <- function(x) {
 #' # Creating sq objects using construct_sq:
 #' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
 #'                          "NYERTGHLI", "MAYXXXIALN"), type = "ami")
-#' sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
-#'                          "TGACGAGCTTA"), type = "nuc")
+#' sq_dna <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
+#'                          "TGACGAGCTTA"), type = "dna")
 #' sq_unt <- construct_sq(c("ATGCAGGA!", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
 #' 
 #' # Printing without explicit function calling with default parameters:
 #' sq_ami
-#' sq_nuc
+#' sq_dna
 #' sq_unt
 #' 
 #' # Printing with explicit function calling and specific parameters:
 #' print(sq_ami)
-#' print(sq_nuc, max_sequences = 1, use_color = FALSE)
+#' print(sq_dna, max_sequences = 1, use_color = FALSE)
 #' print(sq_unt, letters_sep = ":")
 #' 
 #' # Printing of the cleaned object:
-#' clean(sq_nuc)
-#' print(clean(sq_nuc), letters_sep = "-", use_color = FALSE)
+#' clean(sq_dna)
+#' print(clean(sq_dna), letters_sep = "-", use_color = FALSE)
 #' 
 #' @seealso \code{\link{sq}} \code{\link{clean}} \code{\link{tidysq-options}}
 #' 
@@ -299,7 +305,7 @@ print.encsq <- function(x,
     }
   }
   
-  #paste sequene
+  #paste sequence
   p_body <- sapply(sq_cut, function(s) paste(s, collapse = letters_sep))
   if (use_color) p_body <- sapply(1:num_lines, function(i) {
     if (lens[i] == 0) silver(p_body[i]) else cyan(p_body[i])
@@ -419,7 +425,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
     }
   }
   
-  #paste sequene
+  #paste sequence
   p_body <- sapply(x, function(s) paste(s, collapse = letters_sep))
   if (use_color) p_body <- sapply(1:num_lines, function(i) {
     if (lens[i] == 0) silver(p_body[i]) else green(p_body[i])
@@ -532,7 +538,7 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
     }
   }
   
-  #paste sequene
+  #paste sequence
   p_body <- sapply(x, function(s) paste(s, collapse = letters_sep))
   if (use_color) p_body <- sapply(1:num_lines, function(i) {
     if (lens[i] == 0) silver(p_body[i]) else cyan(p_body[i])
@@ -567,7 +573,8 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   } else {
     type_msg <- switch(type,
                        ami = "ami (amino acids)",
-                       nuc = "nuc (nucleotides)",
+                       dna = "dna (DNA)",
+                       rna = "rna (RNA)",
                        unt = "unt (unspecified type)",
                        atp = "atp (atypical alphabet)",
                        enc = "enc (encoded values)")
@@ -589,7 +596,8 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   } else {
     type_msg <- switch(type,
                        ami = "ami (amino acids)",
-                       nuc = "nuc (nucleotides)",
+                       dna = "dna (DNA)",
+                       rna = "rna (RNA)",
                        unt = "unt (unspecified type)",
                        atp = "atp (atypical alphabet)",
                        enc = "enc (encoded values)")

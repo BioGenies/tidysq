@@ -29,19 +29,19 @@ Providing object of class other than specified will result in error.
 \examples{
 ## ape example
 library(ape)
-ape_nuc <- as.DNAbin(list(one = c("C", "T", "C", "A"), two = c("T", "G", "A", "G", "G")))
-import_sq(ape_nuc)
+ape_dna <- as.DNAbin(list(one = c("C", "T", "C", "A"), two = c("T", "G", "A", "G", "G")))
+import_sq(ape_dna)
 
 ## Biostrings example
 library(Biostrings)
-Biostrings_nuc <- DNAStringSet(c(one = "CTCA", two = "TGAGG"))
-import_sq(Biostrings_nuc)
+Biostrings_dna <- DNAStringSet(c(one = "CTCA", two = "TGAGG"))
+import_sq(Biostrings_dna)
 
 ## seqinr example
 library(seqinr)
-seqinr_nuc <- as.SeqFastadna(list(one = c("C", "T", "C", "A"), 
+seqinr_dna <- as.SeqFastadna(list(one = c("C", "T", "C", "A"), 
                                   two = c("T", "G", "A", "G", "G")))
-import_sq(seqinr_nuc)
+import_sq(seqinr_dna)
 
 }
 \seealso{

@@ -30,8 +30,8 @@
 #' characters, you have to replace them first using 
 #' \code{\link{substitute_letters}}. 
 #' 
-#' If sq objects of type \strong{ami} and \strong{nuc}, motifs have to consist of 
-#' upper case letters from amino acid and nucleotide alphabet respectively. 
+#' If sq objects of type \strong{ami}, \strong{dna} and \strong{rna}, motifs have to
+#' consist of upper case letters from amino acid, DNA and RNA alphabets respectively.
 #' Use of lower case letters will return an error. Two additional characters 
 #' are allowed: '^' and '$' indicating the beginning and the end of a sequence 
 #' respectively. Moreover, notice that '*' character may be used in amino acid 
@@ -93,23 +93,40 @@ find_motifs <- function(sq, name, motifs) {
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "X", "[A-Z]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "Z", "[ZEQ]"))
     motifs <- sapply(motifs, function(motif) paste(motif, collapse = ""))
-  } else if (type == "nuc") {
+  } else if (type == "dna") {
+    # TODO: consider reworking it a bit
     motifs <- lapply(motifs, toupper)
-    .check_motifs_proper_alph(motifs_c, "nuc")
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "W", "[WATU]"))
+    .check_motifs_proper_alph(motifs_c, type)
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "W", "[WAT]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "S", "[SCG]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "M", "[MAC]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "K", "[KGTU]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "K", "[KGT]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "R", "[RAG]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "Y", "[YCTU]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "B", "[BCTGU]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "D", "[DATGU]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "H", "[HACTU]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "Y", "[YCT]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "B", "[BCTG]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "D", "[DATG]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "H", "[HACT]"))
     motifs <- lapply(motifs, function(motif) replace(motif, motif == "V", "[VACG]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "N", "[ACTGUWSMKRYBDHVN]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "N", "[NACTGWSMKRYBDHV]"))
     motifs <- sapply(motifs, function(motif) paste(motif, collapse = ""))
-    
-  } else .check_motifs_proper_alph(motifs_c, type, alph)
+  } else if (type == "rna") {
+    motifs <- lapply(motifs, toupper)
+    .check_motifs_proper_alph(motifs_c, type)
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "W", "[WAU]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "S", "[SCG]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "M", "[MAC]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "K", "[KGU]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "R", "[RAG]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "Y", "[YCU]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "B", "[BCGU]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "D", "[DAGU]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "H", "[HACU]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "V", "[VACG]"))
+    motifs <- lapply(motifs, function(motif) replace(motif, motif == "N", "[NACGUWSMKRYBDHV]"))
+    motifs <- sapply(motifs, function(motif) paste(motif, collapse = ""))
+  } else {
+    .check_motifs_proper_alph(motifs_c, type, alph)
+  }
 
   sq <- as.character(sq)
   n <- length(sq)

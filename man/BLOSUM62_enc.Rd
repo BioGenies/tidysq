@@ -4,14 +4,12 @@
 \name{BLOSUM62_enc}
 \alias{BLOSUM62_enc}
 \title{The BLOSUM62_enc matrix}
-\format{
-A data frame with with 21 rows and 21 columns.
+\format{A data frame with with 21 rows and 21 columns.
 \describe{Contains an one-letter codes of amino acid as columns and rows names
 and also row and column zero vectors representing 'X' (any amino acid).
 You can check three-letter codes and full names of the amino acids in
 \code{\link{aminoacids_df}}.
- }
-}
+ }}
 \source{
 Henikoff, Steven, and Jorja G. Henikoff. 
 "Amino acid substitution matrices from protein blocks." 

@@ -15,8 +15,10 @@
 .nc_pack_to_sq <- function(sq, type, is_clean) {
   if      (type == "ami" &&  is_clean) packing_fun <- nc_pack_cami
   else if (type == "ami" && !is_clean) packing_fun <- nc_pack_ami
-  else if (type == "nuc" &&  is_clean) packing_fun <- nc_pack_cnuc
-  else if (type == "nuc" && !is_clean) packing_fun <- nc_pack_nuc
+  else if (type == "dna" &&  is_clean) packing_fun <- nc_pack_cdna
+  else if (type == "dna" && !is_clean) packing_fun <- nc_pack_dna
+  else if (type == "rna" &&  is_clean) packing_fun <- nc_pack_crna
+  else if (type == "rna" && !is_clean) packing_fun <- nc_pack_rna
   
   lapply(sq, function(s) packing_fun(charToRaw(s)))
 }
@@ -47,7 +49,7 @@
   if (im_form == "char")
     packing_fun <- function(s) C_pack_chars(s, im_alph)
   else if (im_form == "int")
-    packing_fun <- function(s)  C_pack_ints(s, .get_alph_size(im_alph))
+    packing_fun <- function(s) C_pack_ints(s, .get_alph_size(im_alph))
   else if (im_form == "string")
     packing_fun <- function(s) C_pack_string(charToRaw(s), im_alph)
   else if (im_form == "none")

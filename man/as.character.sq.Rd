@@ -28,11 +28,11 @@ character vector.
 }
 \examples{
 # Creating an object to work on:
-sq_nuc <- construct_sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", 
-                         "CAGACCANNNATAG"), type = 'nuc')
+sq_dna <- construct_sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", 
+                         "CAGACCANNNATAG"), type = 'dna')
                          
 # Converting the sq object into a character vector:
-as.character(sq_nuc)
+as.character(sq_dna)
 
 }
 \seealso{
