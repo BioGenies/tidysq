@@ -51,7 +51,6 @@
   sq
 }
 
-
 .set_class_alph <- function(new_sq, sq) {
   class(new_sq) <- class(sq)
   attr(new_sq, "alphabet") <- .get_alph(sq)
