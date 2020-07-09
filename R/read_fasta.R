@@ -90,7 +90,7 @@ read_fasta_rna <- function(file, is_clean = NULL) {
 }
 
 .nc_read_fasta <- function(file, type, is_clean) {
-  sqtibble <- nc_read_fasta_file(file, "ami", is_clean)
+  sqtibble <- nc_read_fasta_file(file, type, is_clean)
   class(sqtibble[["sq"]]) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq", "list")
   attr(sqtibble[["sq"]], "alphabet") <- .get_standard_alph(type, is_clean)
   as_tibble(sqtibble)
