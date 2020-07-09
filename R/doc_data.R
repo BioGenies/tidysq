@@ -203,7 +203,7 @@ NULL
 #' @name BLOSUM50_pca
 #' @docType data
 #' @format A data frame with with 21 rows and 20 columns.
-#' \describe{Contains an one-letter codes of amino acid as rows (additionaly 'X' as any amino acid)
+#' \describe{Contains an one-letter codes of amino acid as rows (additionally 'X' as any amino acid)
 #' and ordinal numbers of principal component direction as columns names. Twenty columns represent 
 #' the loadings of the twenty eigenvectors. 
 #' You can check three-letter codes and full names of the amino acids in
@@ -235,7 +235,7 @@ NULL
 #' @name BLOSUM62_pca
 #' @docType data
 #' @format A data frame with with 21 rows and 20 columns.
-#' \describe{Contains an one-letter codes of amino acid as rows (additionaly 'X' as any amino acid)
+#' \describe{Contains an one-letter codes of amino acid as rows (additionally 'X' as any amino acid)
 #' and ordinal numbers of principal component direction as columns names. Twenty columns represent 
 #' the loadings of the twenty eigenvectors. 
 #' You can check three-letter codes and full names of the amino acids in

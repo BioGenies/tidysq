@@ -342,7 +342,7 @@ is.encsq <- function(x) {
 #' should be paid, which sequence types are compared.
 #' 
 #' @param x1 an \code{\link{sq}} object.
-#' @param x2 an object (a character vector or an \code{\line{sq}} object) to compare with
+#' @param x2 an object (a character vector or an \code{\link{sq}} object) to compare with
 #' \code{x1}.
 #' 
 #' @return A \code{\link{logical}} vector indicating on which positions the objects are equal

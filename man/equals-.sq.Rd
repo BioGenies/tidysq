@@ -9,7 +9,7 @@
 \arguments{
 \item{x1}{an \code{\link{sq}} object.}
 
-\item{x2}{an object (a character vector or an \code{\line{sq}} object) to compare with
+\item{x2}{an object (a character vector or an \code{\link{sq}} object) to compare with
 \code{x1}.}
 }
 \value{
