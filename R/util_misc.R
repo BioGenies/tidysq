@@ -51,6 +51,13 @@
   sq
 }
 
+.set_original_length <- function(sq, orig_lengths) {
+  for (index in 1:length(sq)) {
+    attr(sq[[index]], "original_length") <- n_chars[index]
+  }
+  sq
+}
+
 .set_class_alph <- function(new_sq, sq) {
   class(new_sq) <- class(sq)
   attr(new_sq, "alphabet") <- .get_alph(sq)

@@ -21,11 +21,7 @@
   else if (type == "rna" && !is_clean) packing_fun <- nc_pack_rna
   
   ret <- lapply(sq, function(s) packing_fun(charToRaw(s)))
-  n_chars <- nchar(sq)
-  for (index in 1:length(ret)) {
-    attr(ret[[index]], "original_length") <- n_chars[index]
-  }
-  ret
+  .set_original_length(ret, nchar(sq))
 }
 
 .unpack_from_sq <- function(sq, to) {
