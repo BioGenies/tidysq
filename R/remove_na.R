@@ -68,7 +68,11 @@ remove_na <- function(sq, only_elements = FALSE) {
   } else {
     ret <- lapply(sq, function(s) {
       st <- C_unpack_ints(s, alph_size)
-      if (any(st == na_val)) raw(0) else s
+      if (any(st == na_val)) {
+        empty_sq <- raw(0)
+        attr(empty_sq, "original_length") <- 0
+        empty_sq
+      } else s
     })
   }
   

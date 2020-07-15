@@ -53,7 +53,7 @@
 
 .set_original_length <- function(sq, orig_lengths) {
   for (index in 1:length(sq)) {
-    attr(sq[[index]], "original_length") <- n_chars[index]
+    attr(sq[[index]], "original_length") <- orig_lengths[index]
   }
   sq
 }
