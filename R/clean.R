@@ -58,14 +58,13 @@ clean <- function(sq, only_elements = FALSE) {
   alph_cln <- .get_standard_alph(type, TRUE)
   
   if (only_elements) {
-    ret <- .apply_sq(sq, "char", "none", function(s) {
-      C_pack_chars(s[(s %in% alph_cln)], alph_cln)
-    })
+    ret <- .apply_sq(sq, "char", "char", function(s) {
+      s[(s %in% alph_cln)]
+    }, alph_cln)
   } else {
-    ret <- .apply_sq(sq, "char", "none", function(s) {
-      if (!all(s %in% alph_cln)) raw(0) else
-        C_pack_chars(s, alph_cln)
-    }) 
+    ret <- .apply_sq(sq, "char", "char", function(s) {
+      if (!all(s %in% alph_cln)) raw(0) else s
+    }, alph_cln) 
   }
 
   class(ret) <- c("clnsq", class(sq))

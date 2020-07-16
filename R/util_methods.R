@@ -226,14 +226,12 @@ as.matrix.sq <- function(x, ...) {
   ret
 }
 
-
 #' @export
 as.matrix.encsq <- function(x, ...) {
   ret <- NextMethod()
   storage.mode(ret) <- "numeric"
   ret
 }
-
 
 #' Check if object has specified type
 #' 
@@ -320,6 +318,7 @@ is.atpsq <- function(x) {
 is.encsq <- function(x) {
   tryCatch({.validate_sq(x, type = "enc"); TRUE}, error = function(e) FALSE)
 }
+
 #' Compare sq objects
 #' @description Compares input \code{\link{sq}} object with another given.
 #' 
@@ -392,8 +391,7 @@ is.encsq <- function(x) {
     stop("you cannot compare 'sq' object to object that is not character vector or 'sq' object")
   }
   
-  type <- .get_sq_type(x1)
-  if (type %in% c("ami", "dna", "rna")) {
+  if (.get_sq_type(x1) %in% c("ami", "dna", "rna")) {
     x2 <- toupper(x2)
   }
   
