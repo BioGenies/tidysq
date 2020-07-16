@@ -397,3 +397,8 @@ is.encsq <- function(x) {
   
   as.character(x1) == x2
 }
+
+#' @export
+lengths.sq <- function(x, use.names = TRUE) {
+  sapply(x, attr, "original_length")
+}
