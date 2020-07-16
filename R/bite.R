@@ -97,20 +97,20 @@ bite <- function(sq, indices) {
   alph_size <- .get_alph_size(alph)
   na_val <- .get_na_val(alph)
   
-  ret <- list(length(sq))
-  orig_length <- numeric(0)
+  # preallocate returned list
+  ret <- vector("list", length(sq))
+  
   for (i in 1:length(sq)) {
     s <- C_unpack_ints(sq[[i]], alph_size)
     s <- s[indices]
-    orig_length[i] <- length(s)
     if (any(is.na(s))) na_introduced <- TRUE
     s[is.na(s)] <- na_val
     ret[[i]] <-  C_pack_ints(s, alph_size)
+    attr(ret[[i]], "original_length") <- length(s)
   }
   if (na_introduced) {
     .handle_opt_txt("tidysq_a_bite_na",
                     "some sequences are subsetted with index bigger than length - NA introduced")
   }
-  ret <- .set_original_length(ret, orig_length)
   .set_class_alph(ret, sq)
 }
