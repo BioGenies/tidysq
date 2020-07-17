@@ -215,9 +215,9 @@ print.sq <- function(x,
   
   #paste and cat everything
   p_body <- paste0(p_inds, " ", p_body, p_dots, p_spaces, " ", p_lens, collapse = "\n")
-  header <- .get_print_header(sq)
+  header <- .get_print_nonempty_header(sq)
   footer <- .get_print_footer(x, num_lines)
-  cat(header, p_body, footer, sep = "\n")
+  cat(header, p_body, if (length(x) > num_lines) footer, sep = "\n")
 }
 
 #' @importFrom crayon blue
@@ -322,9 +322,9 @@ print.encsq <- function(x,
   
   #paste and cat everything
   p_body <- paste0(p_inds, " ", p_body, p_dots, p_spaces, " ", p_lens, collapse = "\n")
-  header <- .get_print_header(sq)
+  header <- .get_print_nonempty_header(sq)
   footer <- .get_print_footer(x, num_lines)
-  cat(header, p_body, footer, sep = "\n")
+  cat(header, p_body, if (length(x) > num_lines) footer, sep = "\n")
 }
 
 #' @importFrom crayon col_nchar
@@ -571,7 +571,7 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
 .get_print_header <- function(sq) {
   type <- .get_sq_type(sq)
   if (length(type) != 1) {
-    "sq (improper subtype!):"
+    "sq (improper subtype!)"
   } else {
     type_msg <- switch(type,
                        ami = "ami (amino acids)",
@@ -581,29 +581,20 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
                        atp = "atp (atypical alphabet)",
                        enc = "enc (encoded values)")
     clean_msg <- if (.is_cleaned(sq)) ", cln (cleaned)" else ""
-    paste0(type_msg, clean_msg, " sequences list:")
+    paste0(type_msg, clean_msg, " sequences list")
   }
+}
+
+.get_print_nonempty_header <- function(sq) {
+  paste0(.get_print_header(sq), ":")
+}
+
+.get_print_empty_sq <- function(sq) {
+  paste0(.get_print_header(sq), " of length 0")
 }
 
 .get_print_footer <- function(sq, num_lines) {
   if (length(sq) > num_lines) 
     paste0("printed ", num_lines, " out of ", length(sq), "")
   else ""
-}
-
-.get_print_empty_sq <- function(sq) {
-  type <- .get_sq_type(sq)
-  if (length(type) != 1) {
-    "sq (improper subtype!):"
-  } else {
-    type_msg <- switch(type,
-                       ami = "ami (amino acids)",
-                       dna = "dna (DNA)",
-                       rna = "rna (RNA)",
-                       unt = "unt (unspecified type)",
-                       atp = "atp (atypical alphabet)",
-                       enc = "enc (encoded values)")
-    clean_msg <- if (.is_cleaned(sq)) ", cln (cleaned)" else ""
-    paste0(type_msg, clean_msg, " sequences list of length 0")
-  }
 }

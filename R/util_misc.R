@@ -48,6 +48,7 @@
 }
 
 .set_original_length <- function(sq, orig_lengths) {
+  if (length(sq) == 0) return(sq)
   for (index in 1:length(sq)) {
     attr(sq[[index]], "original_length") <- orig_lengths[index]
   }
