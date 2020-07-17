@@ -252,7 +252,7 @@ print.encsq <- function(x,
   
   #cut sq object so that we don't need to debitify long sequences
   # 6 is minimum length of p_lens and p_inds, 8 is byte length
-   sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
+  sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .unpack_from_sq(sq_cut, "int")
   
   sq_cut <- lapply(sq_cut, function(s) {
@@ -270,7 +270,7 @@ print.encsq <- function(x,
                    width = inds_width, justify = "right")
   
   #lengths of sequences
-  lens <- .get_lens(sq)
+  lens <- lengths(sq)
   
   #max length number width
   lens_width <- max(nchar(lens)) + 2
@@ -354,7 +354,7 @@ pillar_shaft.sq <- function(x, ...) {
     alph[s]
   })
   
-  lens <- .get_lens(x)
+  lens <- lengths(x)
   max_len_width <- max(nchar(lens))
   
   max_str_width <- max(sapply(sq_cut, function(s) sum(col_nchar(s))))
@@ -378,8 +378,7 @@ pillar_shaft.sq <- function(x, ...) {
 #' @export
 format.pillar_shaft_sq <- function(x, width, ...) {
   if (width < attr(x, "min_width")) {
-    stop("need at least width ", attr(x, "min_width"), ", requested ", 
-         width, ".", call. = FALSE)
+    stop("need at least width ", attr(x, "min_width"), ", requested ", width, ".", call. = FALSE)
   } 
   
   lens <- x[["lens"]]
@@ -469,7 +468,7 @@ pillar_shaft.encsq <- function(x, ...) {
     s
   })
   
-  lens <- .get_lens(x)
+  lens <- lengths(x)
   max_len_width <- max(nchar(lens))
   
   max_str_width <- max(sapply(sq_cut, function(s) sum(col_nchar(s))))
