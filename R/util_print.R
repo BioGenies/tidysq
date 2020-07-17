@@ -363,8 +363,8 @@ pillar_shaft.sq <- function(x, ...) {
   opt <- .get_print_length()
   
   new_pillar_shaft(list(sq = sq_cut, lens = lens),
-                   width = min(max_str_width + max_len_width + 4, 
-                               opt + max_len_width + 7),
+                   width = min(max_len_width + max_str_width + 4, 
+                               max_len_width + opt + 7),
                    min_width = max_len_width + min_str_width + 3,
                    class = "pillar_shaft_sq",
                    align = "left")
@@ -477,8 +477,8 @@ pillar_shaft.encsq <- function(x, ...) {
   opt <- .get_print_length()
   
   new_pillar_shaft(list(sq = sq_cut, lens = lens),
-                   width = min(max_str_width + max_len_width + 3, 
-                               opt + max_len_width + 6),
+                   width = min(max_len_width + max_str_width + 3, 
+                               max_len_width + opt + 6),
                    min_width = max_len_width + min_str_width + 3,
                    class = "pillar_shaft_encsq",
                    align = "left")
@@ -594,7 +594,5 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
 }
 
 .get_print_footer <- function(sq, num_lines) {
-  if (length(sq) > num_lines) 
-    paste0("printed ", num_lines, " out of ", length(sq), "")
-  else ""
+  paste0("printed ", num_lines, " out of ", length(sq), "")
 }

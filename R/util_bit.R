@@ -3,10 +3,14 @@
   orig_lengths <- lengths(sq)
   if (is.numeric(sq[[1]])) 
     packing_fun <-  C_pack_ints
-  else if (any(lengths(sq) > 1)) 
+  else if (any(orig_lengths > 1)) 
     packing_fun <- C_pack_chars
-  else
+  else {
     packing_fun <- function(s, alph) C_pack_string(charToRaw(s), alph)
+    # TODO: might cause problems whenever strings packed contain non-singular characters
+    orig_lengths <- sapply(sq, nchar)
+  }
+  
   
   alph_size <- .get_alph_size(alph)
   ret <- lapply(sq, function(s) packing_fun(s, alph))
