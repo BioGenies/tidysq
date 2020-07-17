@@ -198,7 +198,7 @@ print.sq <- function(x,
     }
   }
   
-  #paste sequene
+  #paste sequence
   p_body <- sapply(sq_cut, function(s) paste(s, collapse = letters_sep))
   if (use_color) p_body <- sapply(1:num_lines, function(i) {
     if (lens[i] == 0) silver(p_body[i]) else green(p_body[i])

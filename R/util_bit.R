@@ -1,5 +1,6 @@
 .pack_to_sq <- function(sq, alph) {
   if (length(sq) == 0) return(sq)
+  orig_lengths <- lengths(sq)
   if (is.numeric(sq[[1]])) 
     packing_fun <-  C_pack_ints
   else if (any(lengths(sq) > 1)) 
@@ -9,7 +10,7 @@
   
   alph_size <- .get_alph_size(alph)
   ret <- lapply(sq, function(s) packing_fun(s, alph))
-  .set_original_length(ret, nchar(sq))
+  .set_original_length(ret, orig_lengths)
 }
 
 .nc_pack_to_sq <- function(sq, type, is_clean) {
