@@ -4,7 +4,8 @@
     packing_fun <-  C_pack_ints
   else if (any(lengths(sq) > 1)) 
     packing_fun <- C_pack_chars
-  else packing_fun <- function(s, alph) C_pack_string(charToRaw(s), alph)
+  else
+    packing_fun <- function(s, alph) C_pack_string(charToRaw(s), alph)
   
   alph_size <- .get_alph_size(alph)
   ret <- lapply(sq, function(s) packing_fun(s, alph))
@@ -47,7 +48,7 @@
   else if (ex_form == "string") 
     unpacking_fun <- function(s) C_unpack_string(s, ex_alph, .get_na_char())
   
-  if (im_form == "none") return(lapply(sq, function(s) s <- fun(unpacking_fun(s))))
+  if (im_form == "none") return(lapply(sq, function(s) fun(unpacking_fun(s))))
   
   if (im_form == "char")
     packing_fun <- function(s) C_pack_chars(s, im_alph)
@@ -56,8 +57,8 @@
   else if (im_form == "string")
     packing_fun <- function(s) C_pack_string(charToRaw(s), im_alph)
 
-  ret <- lapply(sq, function(s) s <- fun(unpacking_fun(s)))
+  ret <- lapply(sq, function(s) fun(unpacking_fun(s)))
   orig_length <- lengths(ret)
-  ret <- lapply(ret, function(s) s <- packing_fun(s))
+  ret <- lapply(ret, function(s) packing_fun(s))
   .set_original_length(ret, orig_length)
 }

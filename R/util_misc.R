@@ -10,10 +10,6 @@
   attr(sq, "alphabet")
 }
 
-.get_lens <- function(sq) {
-  unlist(.apply_sq(sq, "int", "none", function(s) length(s)))
-}
-
 .get_real_alph <- function(sq) {
   unique(unlist(strsplit(sq, "")))
 }

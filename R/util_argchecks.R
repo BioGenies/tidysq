@@ -221,7 +221,7 @@
 }
 
 .check_dists_prop_len <- function(sq, dists) {
-  min_sq_len <- min(.get_lens(sq))
+  min_sq_len <- min(lengths(sq))
   if (is.list(dists)) {
     if (any(sapply(dists, function(d) sum(d) + length(d) + 1) > min_sq_len))
       stop("some sequences in 'sq' are shorter than some of kmers to extract ", call. = FALSE)
