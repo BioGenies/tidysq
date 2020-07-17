@@ -144,8 +144,8 @@ print.sq <- function(x,
   #cut sq object so that we don't need to debitify long sequences
   # 6 is minimum length of p_lens and p_inds, 8 is byte length
   sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
+  # TODO: maybe replace it with "char" or "string"? that is, considering the need of coloring NA's
   sq_cut <- .unpack_from_sq(sq_cut, "int")
-  
   
   #color NA's
   na_char <- if (use_color) silver(.get_na_char()) else .get_na_char()
@@ -163,7 +163,7 @@ print.sq <- function(x,
                    width = inds_width, justify = "right")
   
   #lengths of sequences
-  lens <- .get_lens(sq)
+  lens <- lengths(sq)
   
   #max length number width
   lens_width <- max(nchar(lens)) + 2
@@ -560,9 +560,12 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
 }
 
 .cut_sq <- function(sq, num_oct) {
+  # note: num_oct should be greater than 0, not that it'd make sense to use 0 or less
   alph_size <- .get_alph_size(.get_alph(sq))
-  ret <- lapply(sq, function(s) if (length(s) < num_oct * alph_size) s 
-         else s[1:(num_oct * alph_size)])
+  ret <- lapply(sq, function(s) {
+    if (length(s) <= num_oct * alph_size) s 
+    else structure(s[1:(num_oct * alph_size)], original_length = attr(s, "original_length"))
+  })
   .set_class_alph(ret, sq)
 }
 
