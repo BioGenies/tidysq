@@ -474,15 +474,8 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   letters_sep <- attr(x, "letters_sep")
   align <- attr(x, "align")
   
-  use_color <- .get_color_opt()
-  
   # max width of length number
   lens_width <- max(nchar(lens)) + 2
-  
-  num_lines <- length(x)
-  
-  # lengths formatted to print
-  p_lens <- paste0("<", lens, ">")
   
   x <- mapply(function(sq, len) {
     if (len == 0) {
@@ -496,7 +489,7 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
       # if total length is greater than reserved space, we have to cut it down
       if (tail(cum_lens, n = 1) > res_lens) {
         # if printed sequence is shorter than original, we also need space for dots
-        # find first index that allows sq to fit into reserved space
+        # find last index that allows sq to fit into reserved space
         n <- Position(identity, cum_lens <= res_lens - 3, right = TRUE)
         sq <- sq[1:n]
         attr(sq, "dots") <- "..."
@@ -507,18 +500,19 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
     }
   }, x, lens, SIMPLIFY = FALSE)
   
-  # paste sequence
+  # strings formatted (without colors) to be printed
+  # sequences
   p_body <- sapply(x, paste, collapse = letters_sep)
-  
   # dots
   p_dots <- sapply(x, attr, "dots")
-  
-  # spaces between sequence and lens
+  # lengths
+  p_lens <- paste0("<", lens, ">")
+  # spaces between sequences and lens
   p_spaces <- sapply(width - col_nchar(p_body) - col_nchar(p_lens) - col_nchar(p_dots),
                      function(l) paste0(rep(" ", l), collapse = ""))
   
   # add colors to text if necessary
-  if (use_color) {
+  if (.get_color_opt()) {
     p_lens <- blue(p_lens)
     p_body <- mapply(function(content, len)
       if (len == 0) silver(content) else body_color(content),
@@ -527,7 +521,6 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   }
   
   # paste and cat everything
-  p_body <- paste0(p_body, p_dots, p_spaces, p_lens)
-  
-  new_ornament(p_body, width = width, align = align)
+  new_ornament(paste0(p_body, p_dots, p_spaces, p_lens),
+               width = width, align = align)
 }
