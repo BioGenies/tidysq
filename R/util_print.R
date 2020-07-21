@@ -327,151 +327,42 @@ print.encsq <- function(x,
   cat(header, p_body, if (length(x) > num_lines) footer, sep = "\n")
 }
 
-#' @importFrom crayon col_nchar
 #' @importFrom crayon green
 #' @importFrom crayon silver
 #' @importFrom pillar pillar_shaft
-#' @importFrom pillar new_pillar_shaft
-#' @importFrom pillar get_max_extent
-#' @importFrom pillar get_extent
 #' @export
 pillar_shaft.sq <- function(x, ...) {
-  p_width <- getOption("width")
-  letters_sep <- ""
-  use_color <- .get_color_opt()
+  # color NA's
   alph <- .get_alph(x)
-  
-  #cut sq object so that we don't need to debitify long sequences
-  # 6 is minimum length of p_lens and p_inds, 8 is byte length
-  sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
-  sq_cut <- .unpack_from_sq(sq_cut, "int")
-  
-  #color NA's
-  na_char <- if (use_color) silver(.get_na_char()) else .get_na_char()
+  na_char <- if (.get_color_opt()) silver(.get_na_char()) else .get_na_char()
   na_val <- .get_na_val(alph)
   alph[na_val] <- na_char
-  sq_cut <- lapply(sq_cut, function(s) {
-    alph[s]
-  })
   
-  lens <- lengths(x)
-  max_len_width <- max(nchar(lens))
-  
-  max_str_width <- max(sapply(sq_cut, function(s) sum(col_nchar(s))))
-  min_str_width <- if (max_str_width >= 6) 6 else max_str_width + 1
-  
-  opt <- .get_print_length()
-  
-  new_pillar_shaft(sq_cut,
-                   width = max_len_width + min(max_str_width + 4, opt + 7),
-                   min_width = max_len_width + min_str_width + 3,
-                   class = "pillar_shaft_sq",
-                   align = "left",
-                   lens = lens,
-                   letters_sep = letters_sep)
-}
-
-#' @importFrom crayon green
-#' @export
-format.pillar_shaft_sq <- function(x, width, ...) {
-  .format_pillar_shaft_sq(x, width, green)
-}
-
-#' @importFrom pillar pillar_shaft
-#' @importFrom pillar new_pillar_shaft
-#' @importFrom pillar get_max_extent
-#' @export
-pillar_shaft.encsq <- function(x, ...) {
-  p_width <- getOption("width")
-  letters_sep <- " "
-  use_color <- .get_color_opt()
-  
-  x <- .set_alph(x, format(.get_alph(x), digits = 1, scientific = FALSE))
-  alph <- .get_alph(x)
-  
-  #cut sq object so that we don't need to debitify long sequences
-  # 6 is minimum length of p_lens and p_inds, 8 is byte length
-  sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
-  sq_cut <- .unpack_from_sq(sq_cut, "int")
-  
-  sq_cut <- lapply(sq_cut, function(s) {
-    s <- alph[s]
-    s[is.na(s)] <- "NA"
-    s
-  })
-  
-  lens <- lengths(x)
-  max_len_width <- max(nchar(lens))
-  
-  max_str_width <- max(sapply(sq_cut, function(s) sum(col_nchar(s))))
-  min_str_width <- if (max_str_width >= 6) 6 else max_str_width
-  
-  opt <- .get_print_length()
-  
-  new_pillar_shaft(sq_cut,
-                   width = max_len_width + min(max_str_width + 3, opt + 6),
-                   min_width = max_len_width + min_str_width + 3,
-                   class = "pillar_shaft_encsq",
-                   align = "left",
-                   lens = lens,
-                   letters_sep = letters_sep)
+  .pillar_shaft_sq(x, alph, "", green)
 }
 
 #' @importFrom crayon cyan
+#' @importFrom pillar pillar_shaft
 #' @export
-format.pillar_shaft_encsq <- function(x, width, ...) {
-  .format_pillar_shaft_sq(x, width, cyan)
-}
-
-.cut_sq <- function(sq, num_oct) {
-  # note: num_oct should be greater than 0, not that it'd make sense to use 0 or less
-  alph_size <- .get_alph_size(.get_alph(sq))
-  ret <- lapply(sq, function(s) {
-    if (length(s) <= num_oct * alph_size) s 
-    else structure(s[1:(num_oct * alph_size)], original_length = attr(s, "original_length"))
-  })
-  .set_class_alph(ret, sq)
-}
-
-.get_print_header <- function(sq) {
-  type <- .get_sq_type(sq)
-  if (length(type) != 1) {
-    "sq (improper subtype!)"
-  } else {
-    type_msg <- switch(type,
-                       ami = "ami (amino acids)",
-                       dna = "dna (DNA)",
-                       rna = "rna (RNA)",
-                       unt = "unt (unspecified type)",
-                       atp = "atp (atypical alphabet)",
-                       enc = "enc (encoded values)")
-    clean_msg <- if (.is_cleaned(sq)) ", cln (cleaned)" else ""
-    paste0(type_msg, clean_msg, " sequences list")
-  }
-}
-
-.get_print_nonempty_header <- function(sq) {
-  paste0(.get_print_header(sq), ":")
-}
-
-.get_print_empty_sq <- function(sq) {
-  paste0(.get_print_header(sq), " of length 0")
-}
-
-.get_print_footer <- function(sq, num_lines) {
-  paste0("printed ", num_lines, " out of ", length(sq), "")
+pillar_shaft.encsq <- function(x, ...) {
+  x <- .set_alph(x, format(.get_alph(x), digits = 1, scientific = FALSE))
+  alph <- .get_alph(x)
+  
+  .pillar_shaft_sq(x, alph, " ", cyan)
 }
 
 #' @importFrom crayon col_nchar
 #' @importFrom crayon blue
 #' @importFrom crayon silver
 #' @importFrom pillar new_ornament
-.format_pillar_shaft_sq <- function(x, width, body_color) {
+#' @export
+format.pillar_shaft_sq <- function(x, width, ...) {
   if (width < attr(x, "min_width"))
     stop("need at least width ", attr(x, "min_width"), ", requested ", width, ".", call. = FALSE)
   
   lens <- attr(x, "lens")
   letters_sep <- attr(x, "letters_sep")
+  body_color <- attr(x, "body_color")
   align <- attr(x, "align")
   
   # max width of length number
@@ -523,4 +414,71 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
   # paste and cat everything
   new_ornament(paste0(p_body, p_dots, p_spaces, p_lens),
                width = width, align = align)
+}
+
+.cut_sq <- function(sq, num_oct) {
+  # note: num_oct should be greater than 0, not that it'd make sense to use 0 or less
+  alph_size <- .get_alph_size(.get_alph(sq))
+  ret <- lapply(sq, function(s) {
+    if (length(s) <= num_oct * alph_size) s 
+    else structure(s[1:(num_oct * alph_size)], original_length = attr(s, "original_length"))
+  })
+  .set_class_alph(ret, sq)
+}
+
+.get_print_header <- function(sq) {
+  type <- .get_sq_type(sq)
+  if (length(type) != 1) {
+    "sq (improper subtype!)"
+  } else {
+    type_msg <- switch(type,
+                       ami = "ami (amino acids)",
+                       dna = "dna (DNA)",
+                       rna = "rna (RNA)",
+                       unt = "unt (unspecified type)",
+                       atp = "atp (atypical alphabet)",
+                       enc = "enc (encoded values)")
+    clean_msg <- if (.is_cleaned(sq)) ", cln (cleaned)" else ""
+    paste0(type_msg, clean_msg, " sequences list")
+  }
+}
+
+.get_print_nonempty_header <- function(sq) {
+  paste0(.get_print_header(sq), ":")
+}
+
+.get_print_empty_sq <- function(sq) {
+  paste0(.get_print_header(sq), " of length 0")
+}
+
+.get_print_footer <- function(sq, num_lines) {
+  paste0("printed ", num_lines, " out of ", length(sq), "")
+}
+
+#' @importFrom crayon col_nchar
+#' @importFrom pillar new_pillar_shaft
+.pillar_shaft_sq <- function(x, alph, letters_sep, body_color) {
+  p_width <- getOption("width")
+  
+  # cut sq object so that we don't need to debitify long sequences
+  # 6 is minimum length of p_lens and p_inds, 8 is byte length
+  sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
+  sq_cut <- .unpack_from_sq(sq_cut, "int")
+  sq_cut <- lapply(sq_cut, function(s) alph[s])
+  
+  # maximum length of length numbers
+  lens <- lengths(x)
+  max_len_width <- max(nchar(lens))
+  
+  max_str_width <- max(sapply(sq_cut, function(s) sum(col_nchar(s))))
+  min_str_width <- if (max_str_width >= 6) 6 else max_str_width
+  
+  new_pillar_shaft(sq_cut,
+                   width = max_len_width + 3 + min(max_str_width, .get_print_length() + 3),
+                   min_width = max_len_width + 3 + min_str_width,
+                   class = "pillar_shaft_sq",
+                   align = "left",
+                   lens = lens,
+                   letters_sep = letters_sep,
+                   body_color = body_color)
 }
