@@ -362,87 +362,19 @@ pillar_shaft.sq <- function(x, ...) {
   
   opt <- .get_print_length()
   
-  new_pillar_shaft(list(sq = sq_cut, lens = lens),
-                   width = min(max_len_width + max_str_width + 4, 
-                               max_len_width + opt + 7),
+  new_pillar_shaft(sq_cut,
+                   width = max_len_width + min(max_str_width + 4, opt + 7),
                    min_width = max_len_width + min_str_width + 3,
                    class = "pillar_shaft_sq",
-                   align = "left")
+                   align = "left",
+                   lens = lens,
+                   letters_sep = letters_sep)
 }
 
-#' @importFrom crayon col_nchar
-#' @importFrom crayon blue
-#' @importFrom crayon silver
-#' @importFrom crayon col_substring
-#' @importFrom pillar new_ornament
+#' @importFrom crayon green
 #' @export
 format.pillar_shaft_sq <- function(x, width, ...) {
-  if (width < attr(x, "min_width")) {
-    stop("need at least width ", attr(x, "min_width"), ", requested ", width, ".", call. = FALSE)
-  } 
-  
-  lens <- x[["lens"]]
-  x <- x[["sq"]]
-  
-  use_color <- .get_color_opt()
-  
-  #max length number width
-  lens_width <- max(nchar(lens)) + 2
-    
-  #default letters_sep here is NULL
-  letters_sep <- ""
-  
-  num_lines <- length(x)
-  
-  #lengths to print
-  p_lens <- paste0("<", lens, ">")
-  if (use_color) p_lens <- blue(p_lens)
-  
-  needs_dots <- rep(FALSE, num_lines)
-  
-  for (i in 1:num_lines) {
-    if (lens[i] == 0) {
-      x[[i]] <- "<NULL>"
-    } else {
-      s <- x[[i]]
-      # we count how much characters can we print by counting cumulative extent
-      cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
-      
-      #max length of this line is width minus lengths of lens 
-      res_lens <- width - col_nchar(p_lens[i]) - 1
-      
-      #we remove characters we cannot print
-      s <- s[cum_lens < res_lens]
-      n <- length(s)
-      
-      #if printed sequence is shorter than original, we need also space for dots
-      if (n < lens[i]) {
-        s <- s[cum_lens[1:n] < res_lens - 3]
-        needs_dots[i] <- TRUE
-      }
-      x[[i]] <- s
-    }
-  }
-  
-  #paste sequence
-  p_body <- sapply(x, function(s) paste(s, collapse = letters_sep))
-  if (use_color) p_body <- sapply(1:num_lines, function(i) {
-    if (lens[i] == 0) silver(p_body[i]) else green(p_body[i])
-  })
-  
-  #dots
-  p_dots <- ifelse(needs_dots, "...", "")
-  if (use_color) p_dots <- silver(p_dots)
-  
-  #spaces between sequence and lens
-  p_spaces <- sapply(width - col_nchar(p_body) - 
-                       col_nchar(p_lens) - col_nchar(p_dots) - 1, 
-                     function(l) paste0(rep(" ", l), collapse = ""))
-  
-  #paste and cat everything
-  p_body <- paste0(p_body, p_dots, p_spaces, " ", p_lens)
-  
-  new_ornament(p_body, width = width, align = "left")
+  .format_pillar_shaft_sq(x, width, green)
 }
 
 #' @importFrom pillar pillar_shaft
@@ -476,86 +408,19 @@ pillar_shaft.encsq <- function(x, ...) {
   
   opt <- .get_print_length()
   
-  new_pillar_shaft(list(sq = sq_cut, lens = lens),
-                   width = min(max_len_width + max_str_width + 3, 
-                               max_len_width + opt + 6),
+  new_pillar_shaft(sq_cut,
+                   width = max_len_width + min(max_str_width + 3, opt + 6),
                    min_width = max_len_width + min_str_width + 3,
                    class = "pillar_shaft_encsq",
-                   align = "left")
+                   align = "left",
+                   lens = lens,
+                   letters_sep = letters_sep)
 }
 
 #' @importFrom crayon cyan
-#' @importFrom crayon silver
-#' @importFrom pillar new_ornament
 #' @export
 format.pillar_shaft_encsq <- function(x, width, ...) {
-  if (width < attr(x, "min_width")) {
-    stop("need at least width ", attr(x, "min_width"), ", requested ", 
-         width, ".", call. = FALSE)
-  } 
-  
-  lens <- x[["lens"]]
-  x <- x[["sq"]]
-  
-  use_color <- .get_color_opt()
-  
-  #max length number width
-  lens_width <- max(nchar(lens)) + 2
-    
-  #default letters_sep here is NULL
-  letters_sep <- " "
-  
-  num_lines <- length(x)
-  
-  #lengths to print
-  p_lens <- paste0("<", lens, ">")
-  if (use_color) p_lens <- blue(p_lens)
-  
-  needs_dots <- rep(FALSE, num_lines)
-  
-  for (i in 1:num_lines) {
-    if (lens[i] == 0) {
-      x[[i]] <- "<NULL>"
-    } else {
-      s <- x[[i]]
-      # we count how much characters can we print by counting cumulative extent
-      cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
-      
-      #max length of this line is width minus lengths of lens 
-      res_lens <- width - col_nchar(p_lens[i]) - 1
-      
-      #we remove characters we cannot print
-      s <- s[cum_lens < res_lens]
-      n <- length(s)
-      
-      #if printed sequence is shorter than original, we need also space for dots
-      if (n < lens[i]) {
-        s <- s[cum_lens[1:n] < res_lens - 3]
-        needs_dots[i] <- TRUE
-      }
-      x[[i]] <- s
-    }
-  }
-  
-  #paste sequence
-  p_body <- sapply(x, function(s) paste(s, collapse = letters_sep))
-  if (use_color) p_body <- sapply(1:num_lines, function(i) {
-    if (lens[i] == 0) silver(p_body[i]) else cyan(p_body[i])
-  })
-  
-  #dots
-  p_dots <- ifelse(needs_dots, "...", "")
-  if (use_color) p_dots <- silver(p_dots)
-  
-  #spaces between sequence and lens
-  p_spaces <- sapply(width - col_nchar(p_body) - 
-                       col_nchar(p_lens) - col_nchar(p_dots) - 1, 
-                     function(l) paste0(rep(" ", l), collapse = ""))
-  
-  #paste and cat everything
-  p_body <- paste0(p_body, p_dots, p_spaces, " ", p_lens)
-  
-  new_ornament(p_body, width = width, align = "left")
+  .format_pillar_shaft_sq(x, width, cyan)
 }
 
 .cut_sq <- function(sq, num_oct) {
@@ -595,4 +460,74 @@ format.pillar_shaft_encsq <- function(x, width, ...) {
 
 .get_print_footer <- function(sq, num_lines) {
   paste0("printed ", num_lines, " out of ", length(sq), "")
+}
+
+#' @importFrom crayon col_nchar
+#' @importFrom crayon blue
+#' @importFrom crayon silver
+#' @importFrom pillar new_ornament
+.format_pillar_shaft_sq <- function(x, width, body_color) {
+  if (width < attr(x, "min_width"))
+    stop("need at least width ", attr(x, "min_width"), ", requested ", width, ".", call. = FALSE)
+  
+  lens <- attr(x, "lens")
+  letters_sep <- attr(x, "letters_sep")
+  align <- attr(x, "align")
+  
+  use_color <- .get_color_opt()
+  
+  # max width of length number
+  lens_width <- max(nchar(lens)) + 2
+  
+  num_lines <- length(x)
+  
+  # lengths formatted to print
+  p_lens <- paste0("<", lens, ">")
+  
+  x <- mapply(function(sq, len) {
+    if (len == 0) {
+      structure("<NULL>", dots = "")
+    } else {
+      # we count how much characters can we print by counting cumulative extent
+      cum_lens <- cumsum(col_nchar(sq)) + (0:(length(sq) - 1)) * nchar(letters_sep)
+      # max length of this line is its width minus the lens_width
+      res_lens <- width - lens_width - 1
+      
+      # if total length is greater than reserved space, we have to cut it down
+      if (tail(cum_lens, n = 1) > res_lens) {
+        # if printed sequence is shorter than original, we also need space for dots
+        # find first index that allows sq to fit into reserved space
+        n <- Position(identity, cum_lens <= res_lens - 3, right = TRUE)
+        sq <- sq[1:n]
+        attr(sq, "dots") <- "..."
+      } else {
+        attr(sq, "dots") <- ""
+      }
+      sq
+    }
+  }, x, lens, SIMPLIFY = FALSE)
+  
+  # paste sequence
+  p_body <- sapply(x, paste, collapse = letters_sep)
+  
+  # dots
+  p_dots <- sapply(x, attr, "dots")
+  
+  # spaces between sequence and lens
+  p_spaces <- sapply(width - col_nchar(p_body) - col_nchar(p_lens) - col_nchar(p_dots),
+                     function(l) paste0(rep(" ", l), collapse = ""))
+  
+  # add colors to text if necessary
+  if (use_color) {
+    p_lens <- blue(p_lens)
+    p_body <- mapply(function(content, len)
+      if (len == 0) silver(content) else body_color(content),
+      p_body, lens)
+    p_dots <- silver(p_dots)
+  }
+  
+  # paste and cat everything
+  p_body <- paste0(p_body, p_dots, p_spaces, p_lens)
+  
+  new_ornament(p_body, width = width, align = align)
 }
