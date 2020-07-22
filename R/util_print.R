@@ -165,56 +165,10 @@ print.sq <- function(x,
   #lengths of sequences
   lens <- lengths(sq)
   
-  #max length number width
-  lens_width <- max(nchar(lens)) + 2
-  
-  #lengths to print
-  p_lens <- paste0("<", lens, ">")
-  if (use_color) p_lens <- blue(p_lens)
-  
-  needs_dots <- rep(FALSE, num_lines)
-  
-  for (i in 1:num_lines) {
-    if (lens[i] == 0) {
-      sq_cut[[i]] <- "<NULL>"
-    } else {
-      s <- sq_cut[[i]]
-      # we count how much characters can we print by counting cumulative extent
-      cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
-      
-      #max length of this line is p_width minus lengths of lens and inds
-      res_lens <- p_width - col_nchar(p_lens[i]) - nchar(p_inds[i]) - 2
-      
-      #we remove characters we cannot print
-      s <- s[cum_lens < res_lens]
-      n <- length(s)
-      
-      #if printed sequence is shorter than original, we need also space for dots
-      if (n < lens[i]) {
-        s <- s[cum_lens[1:n] < res_lens - 3]
-        needs_dots[i] <- TRUE
-      }
-      sq_cut[[i]] <- s
-    }
-  }
-  
-  #paste sequence
-  p_body <- sapply(sq_cut, function(s) paste(s, collapse = letters_sep))
-  if (use_color) p_body <- sapply(1:num_lines, function(i) {
-    if (lens[i] == 0) silver(p_body[i]) else green(p_body[i])
-  })
-  
-  #dots
-  p_dots <- ifelse(needs_dots, "...", "")
-  if (use_color) p_dots <- silver(p_dots)
-  
-  #spaces between sequence and lens
-  p_spaces <- sapply(p_width - col_nchar(p_body) - nchar(p_inds) - 
-                       col_nchar(p_lens) - col_nchar(p_dots) - 2, 
-                     function(l) paste0(rep(" ", l), collapse = ""))
+  p_seqs <- .get_p_seqs(sq_cut, lens, letters_sep, green, p_width - inds_width - 1)
   
   #paste and cat everything
-  p_body <- paste0(p_inds, " ", p_body, p_dots, p_spaces, " ", p_lens, collapse = "\n")
+  p_body <- paste0(p_inds, " ", p_seqs, collapse = "\n")
   header <- .get_print_nonempty_header(sq)
   footer <- .get_print_footer(x, num_lines)
   cat(header, p_body, if (length(x) > num_lines) footer, sep = "\n")
@@ -256,9 +210,7 @@ print.encsq <- function(x,
   sq_cut <- .unpack_from_sq(sq_cut, "int")
   
   sq_cut <- lapply(sq_cut, function(s) {
-    s <- alph[s]
-    s[is.na(s)] <- "NA"
-    s
+    alph[s]
   })
   
   
@@ -272,56 +224,10 @@ print.encsq <- function(x,
   #lengths of sequences
   lens <- lengths(sq)
   
-  #max length number width
-  lens_width <- max(nchar(lens)) + 2
-  
-  #lengths to print
-  p_lens <- paste0("<", lens, ">")
-  if (use_color) p_lens <- blue(p_lens)
-  
-  needs_dots <- rep(FALSE, num_lines)
-  
-  for (i in 1:num_lines) {
-    if (lens[i] == 0) {
-      sq_cut[[i]] <- "<NULL>"
-    } else {
-      s <- sq_cut[[i]]
-      # we count how much characters can we print by counting cumulative extent
-      cum_lens <- cumsum(col_nchar(s)) + (0:(length(s) - 1)) * nchar(letters_sep)
-      
-      #max length of this line is p_width minus lengths of lens and inds
-      res_lens <- p_width - col_nchar(p_lens[i]) - nchar(p_inds[i]) - 2
-      
-      #we remove characters we cannot print
-      s <- s[cum_lens < res_lens]
-      n <- length(s)
-      
-      #if printed sequence is shorter than original, we need also space for dots
-      if (n < lens[i]) {
-        s <- s[cum_lens[1:n] < res_lens - 3]
-        needs_dots[i] <- TRUE
-      }
-      sq_cut[[i]] <- s
-    }
-  }
-  
-  #paste sequence
-  p_body <- sapply(sq_cut, function(s) paste(s, collapse = letters_sep))
-  if (use_color) p_body <- sapply(1:num_lines, function(i) {
-    if (lens[i] == 0) silver(p_body[i]) else cyan(p_body[i])
-  })
-  
-  #dots
-  p_dots <- ifelse(needs_dots, "...", "")
-  if (use_color) p_dots <- silver(p_dots)
-  
-  #spaces between sequence and lens
-  p_spaces <- sapply(p_width - col_nchar(p_body) - nchar(p_inds) - 
-                       col_nchar(p_lens) - col_nchar(p_dots) - 2, 
-                     function(l) paste0(rep(" ", l), collapse = ""))
+  p_seqs <- .get_p_seqs(sq_cut, lens, letters_sep, cyan, p_width - inds_width - 1)
   
   #paste and cat everything
-  p_body <- paste0(p_inds, " ", p_body, p_dots, p_spaces, " ", p_lens, collapse = "\n")
+  p_body <- paste0(p_inds, " ", p_seqs, collapse = "\n")
   header <- .get_print_nonempty_header(sq)
   footer <- .get_print_footer(x, num_lines)
   cat(header, p_body, if (length(x) > num_lines) footer, sep = "\n")
@@ -360,60 +266,16 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   if (width < attr(x, "min_width"))
     stop("need at least width ", attr(x, "min_width"), ", requested ", width, ".", call. = FALSE)
   
+  # TODO: maybe get rid of those intermediate variables?
   lens <- attr(x, "lens")
   letters_sep <- attr(x, "letters_sep")
   body_color <- attr(x, "body_color")
   align <- attr(x, "align")
   
-  # max width of length number
-  lens_width <- max(nchar(lens)) + 2
+  p_seqs <- .get_p_seqs(x, lens, letters_sep, body_color, width)
   
-  x <- mapply(function(sq, len) {
-    if (len == 0) {
-      structure("<NULL>", dots = "")
-    } else {
-      # we count how much characters can we print by counting cumulative extent
-      cum_lens <- cumsum(col_nchar(sq)) + (0:(length(sq) - 1)) * nchar(letters_sep)
-      # max length of this line is its width minus the lens_width
-      res_lens <- width - lens_width - 1
-      
-      # if total length is greater than reserved space, we have to cut it down
-      if (tail(cum_lens, n = 1) > res_lens) {
-        # if printed sequence is shorter than original, we also need space for dots
-        # find last index that allows sq to fit into reserved space
-        n <- Position(identity, cum_lens <= res_lens - 3, right = TRUE)
-        sq <- sq[1:n]
-        attr(sq, "dots") <- "..."
-      } else {
-        attr(sq, "dots") <- ""
-      }
-      sq
-    }
-  }, x, lens, SIMPLIFY = FALSE)
-  
-  # strings formatted (without colors) to be printed
-  # sequences
-  p_body <- sapply(x, paste, collapse = letters_sep)
-  # dots
-  p_dots <- sapply(x, attr, "dots")
-  # lengths
-  p_lens <- paste0("<", lens, ">")
-  # spaces between sequences and lens
-  p_spaces <- sapply(width - col_nchar(p_body) - col_nchar(p_lens) - col_nchar(p_dots),
-                     function(l) paste0(rep(" ", l), collapse = ""))
-  
-  # add colors to text if necessary
-  if (.get_color_opt()) {
-    p_lens <- blue(p_lens)
-    p_body <- mapply(function(content, len)
-      if (len == 0) silver(content) else body_color(content),
-      p_body, lens)
-    p_dots <- silver(p_dots)
-  }
-  
-  # paste and cat everything
-  new_ornament(paste0(p_body, p_dots, p_spaces, p_lens),
-               width = width, align = align)
+  # cat everything
+  new_ornament(p_seqs, width = width, align = align)
 }
 
 .cut_sq <- function(sq, num_oct) {
@@ -453,6 +315,60 @@ format.pillar_shaft_sq <- function(x, width, ...) {
 
 .get_print_footer <- function(sq, num_lines) {
   paste0("printed ", num_lines, " out of ", length(sq), "")
+}
+
+#' @importFrom crayon col_nchar
+#' @importFrom crayon blue
+#' @importFrom crayon silver
+.get_p_seqs <- function(x, lens, letters_sep, body_color, width, use_color = .get_color_opt()) {
+  # max width of length number
+  lens_width <- max(nchar(lens)) + 2
+  
+  x <- mapply(function(sq, len) {
+    if (len == 0) {
+      structure("<NULL>", dots = "")
+    } else {
+      # we count how much characters can we print by counting cumulative extent
+      cum_lens <- cumsum(col_nchar(sq)) + (0:(length(sq) - 1)) * nchar(letters_sep)
+      # max length of this line is its width minus the lens_width
+      res_lens <- width - lens_width - 1
+      
+      # if total length is greater than reserved space, we have to cut it down
+      if (tail(cum_lens, n = 1) > res_lens) {
+        # if printed sequence is shorter than original, we also need space for dots
+        # find last index that allows sq to fit into reserved space
+        n <- Position(identity, cum_lens <= res_lens - 3, right = TRUE)
+        sq <- sq[1:n]
+        attr(sq, "dots") <- "..."
+      } else {
+        attr(sq, "dots") <- ""
+      }
+      sq
+    }
+  }, x, lens, SIMPLIFY = FALSE)
+  
+  # strings formatted (without colors) to be printed
+  # sequences
+  p_body <- sapply(x, paste, collapse = letters_sep)
+  # dots
+  p_dots <- sapply(x, attr, "dots")
+  # lengths
+  p_lens <- paste0("<", lens, ">")
+  # spaces between sequences and lens
+  p_spaces <- sapply(width - col_nchar(p_body) - col_nchar(p_lens) - col_nchar(p_dots),
+                     function(l) paste0(rep(" ", l), collapse = ""))
+  
+  # add colors to text if necessary
+  if (use_color) {
+    p_lens <- blue(p_lens)
+    p_body <- mapply(function(content, len)
+      if (len == 0) silver(content) else body_color(content),
+      p_body, lens)
+    p_dots <- silver(p_dots)
+  }
+  
+  # return pasted everything as a vector of strings, each for one (printed) sequence
+  paste0(p_body, p_dots, p_spaces, p_lens)
 }
 
 #' @importFrom crayon col_nchar
