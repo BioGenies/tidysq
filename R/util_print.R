@@ -112,8 +112,9 @@ type_sum.clnsq <- function(x) {
 #' 
 #' @seealso \code{\link{sq}} \code{\link{clean}} \code{\link{tidysq-options}}
 #' 
-#' @importFrom crayon silver
+#' @importFrom crayon col_nchar
 #' @importFrom crayon green
+#' @importFrom crayon silver
 #' @export
 print.sq <- function(x,  
                      max_sequences = getOption("tidysq_p_max_sequences"),
@@ -123,53 +124,19 @@ print.sq <- function(x,
   .check_logical(use_color, "'use_color'")
   .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
                    allow_zero_len = TRUE, allow_null = TRUE)
+  
+  # color NA's
   alph <- .get_alph(x)
-  
-  #if parameter is NULL and all letters are length one, no space
-  if (is.null(letters_sep)) {
-    letters_sep <- if (all(nchar(alph) == 1)) "" else " "
-  }
-  p_width <- getOption("width")
-  
-  #select at most max_sequences to print
-  num_lines <- min(max_sequences, length(x))
-  if (num_lines == 0) {
-    cat(.get_print_empty_sq(x))
-    return()
-  }  
-  sq <- x[1:num_lines]
-  
-  #cut sq object so that we don't need to debitify long sequences
-  # 6 is minimum length of p_lens and p_inds, 8 is byte length
-  sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
-  # TODO: maybe replace it with "char" or "string"? that is, considering the need of coloring NA's
-  sq_cut <- .unpack_from_sq(sq_cut, "int")
-  
-  #color NA's
-  na_char <- if (use_color) silver(.get_na_char()) else .get_na_char()
+  na_char <- if (.get_color_opt()) silver(.get_na_char()) else .get_na_char()
   na_val <- .get_na_val(alph)
   alph[na_val] <- na_char
-  sq_cut <- lapply(sq_cut, function(s) {
-    alph[s]
-  })
   
-  #max index number width
-  inds_width <- nchar(num_lines) + 2
+  # if parameter is NULL and all letters are length one, no space
+  if (is.null(letters_sep)) {
+    letters_sep <- if (all(col_nchar(alph[!is.na(alph)]) == 1)) "" else " "
+  }
   
-  #indices to print
-  p_inds <- format(paste0("[", 1:num_lines, "]"), 
-                   width = inds_width, justify = "right")
-  
-  #lengths of sequences
-  lens <- lengths(sq)
-  
-  p_seqs <- .get_p_seqs(sq_cut, lens, letters_sep, green, p_width - inds_width - 1)
-  
-  #paste and cat everything
-  p_body <- paste0(p_inds, " ", p_seqs, collapse = "\n")
-  header <- .get_print_nonempty_header(sq)
-  footer <- .get_print_footer(x, num_lines)
-  cat(header, p_body, if (length(x) > num_lines) footer, sep = "\n")
+  .print_sq(x, alph, max_sequences, use_color, letters_sep, green)
 }
 
 #' @importFrom crayon cyan
@@ -184,48 +151,16 @@ print.encsq <- function(x,
   .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
                    allow_zero_len = TRUE, allow_null = TRUE)
   .check_integer(digits, "'digits'", allow_zero = TRUE)
+  
+  x <- .set_alph(x, format(.get_alph(x), digits = digits, scientific = FALSE))
   alph <- .get_alph(x)
   
-  #if parameter is NULL default sep is space
+  # if parameter is NULL default sep is space
   if (is.null(letters_sep)) {
     letters_sep <-  " "
   }
-  p_width <- getOption("width")
   
-  #select at most max_sequences to print
-  num_lines <- min(max_sequences, length(x))
-  sq <- x[1:num_lines]
-  
-  #format alphabet accordingly to passed params
-  sq <- .set_alph(sq, format(alph, digits = digits, scientific = FALSE))
-  
-  #cut sq object so that we don't need to debitify long sequences
-  # 6 is minimum length of p_lens and p_inds, 8 is byte length
-  sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
-  sq_cut <- .unpack_from_sq(sq_cut, "int")
-  
-  sq_cut <- lapply(sq_cut, function(s) {
-    alph[s]
-  })
-  
-  
-  #max index number width
-  inds_width <- nchar(num_lines) + 2
-  
-  #indices to print
-  p_inds <- format(paste0("[", 1:num_lines, "]"), 
-                   width = inds_width, justify = "right")
-  
-  #lengths of sequences
-  lens <- lengths(sq)
-  
-  p_seqs <- .get_p_seqs(sq_cut, lens, letters_sep, cyan, p_width - inds_width - 1)
-  
-  #paste and cat everything
-  p_body <- paste0(p_inds, " ", p_seqs, collapse = "\n")
-  header <- .get_print_nonempty_header(sq)
-  footer <- .get_print_footer(x, num_lines)
-  cat(header, p_body, if (length(x) > num_lines) footer, sep = "\n")
+  .print_sq(x, alph, max_sequences, use_color, letters_sep, cyan)
 }
 
 #' @importFrom crayon green
@@ -268,6 +203,43 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   
   # cat everything
   new_ornament(p_seqs, width = width, align = align)
+}
+
+.print_sq <- function(x, alph, max_sequences, use_color, letters_sep, body_color) {
+  # select at most max_sequences to print
+  num_lines <- min(max_sequences, length(x))
+  if (num_lines == 0) {
+    cat(.get_print_empty_sq(x))
+    return()
+  }
+  sq <- x[1:num_lines]
+  
+  p_width <- getOption("width")
+  
+  # cut sq object so that we don't need to debitify long sequences
+  # 6 is minimum length of p_lens and p_inds, 8 is byte length
+  sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
+  sq_cut <- .unpack_from_sq(sq_cut, "int")
+  sq_cut <- lapply(sq_cut, function(s) alph[s])
+  
+  # lengths of sequences
+  lens <- lengths(sq)
+  
+  # max width of index number
+  inds_width <- nchar(num_lines) + 2
+  
+  # indices to print
+  p_inds <- format(paste0("[", 1:num_lines, "]"), 
+                   width = inds_width, justify = "right")
+  
+  p_seqs <- .get_p_seqs(sq_cut, lens, letters_sep, body_color, p_width - inds_width - 1, use_color)
+  
+  cat(
+    .get_print_nonempty_header(sq),  # print header
+    paste0(p_inds, " ", p_seqs, collapse = "\n"),  # print body
+    if (length(x) > num_lines) .get_print_footer(x, num_lines),  # print footer (if needed)
+    sep = "\n"
+  )
 }
 
 .cut_sq <- function(sq, num_oct) {
