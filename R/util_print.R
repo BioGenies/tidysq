@@ -112,10 +112,8 @@ type_sum.clnsq <- function(x) {
 #' 
 #' @seealso \code{\link{sq}} \code{\link{clean}} \code{\link{tidysq-options}}
 #' 
-#' @importFrom crayon blue
 #' @importFrom crayon silver
 #' @importFrom crayon green
-#' @importFrom crayon col_nchar
 #' @export
 print.sq <- function(x,  
                      max_sequences = getOption("tidysq_p_max_sequences"),
@@ -174,10 +172,7 @@ print.sq <- function(x,
   cat(header, p_body, if (length(x) > num_lines) footer, sep = "\n")
 }
 
-#' @importFrom crayon blue
-#' @importFrom crayon silver
 #' @importFrom crayon cyan
-#' @importFrom crayon col_nchar
 #' @export
 print.encsq <- function(x,
                         max_sequences = getOption("tidysq_p_max_sequences"),
@@ -257,9 +252,6 @@ pillar_shaft.encsq <- function(x, ...) {
   .pillar_shaft_sq(x, alph, " ", cyan)
 }
 
-#' @importFrom crayon col_nchar
-#' @importFrom crayon blue
-#' @importFrom crayon silver
 #' @importFrom pillar new_ornament
 #' @export
 format.pillar_shaft_sq <- function(x, width, ...) {
