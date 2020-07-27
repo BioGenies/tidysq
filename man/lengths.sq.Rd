@@ -7,7 +7,9 @@
 lengths.sq(x, use.names = TRUE)
 }
 \arguments{
-\item{sq}{an \code{\link{sq}} object.}
+\item{x}{an \code{\link{sq}} object.}
+
+\item{use.names}{unused argument, a leftover from default \code{\link{lengths}} method.}
 }
 \value{
 A \code{\link{numeric}} vector, where each element gives length of according 

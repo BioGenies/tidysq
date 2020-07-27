@@ -51,9 +51,9 @@ export_sq <- function(sq, export_format, name) {
   } else if (export_format %in% c("ape::AAbin", "ape::DNAbin")) {
     .check_is_installed("ape")
     if (type == "ami") {
-      ape::as.AAbin(setNames(.unpack_from_sq(sq, "char"), name))
+      ape::as.AAbin(setNames(lapply(.unpack_from_sq(sq, "char"), `attributes<-`, NULL), name))
     } else if (type %in% c("dna", "rna")) {
-      ape::as.DNAbin(setNames(.unpack_from_sq(sq, "char"), name))
+      ape::as.DNAbin(setNames(lapply(.unpack_from_sq(sq, "char"), `attributes<-`, NULL), name))
     }
   } else if (export_format %in% c("Biostrings::AAStringSet", "Biostrings::DNAStringSet")) {
     .check_is_installed("Biostrings")
@@ -63,4 +63,8 @@ export_sq <- function(sq, export_format, name) {
       Biostrings::DNAStringSet(setNames(unlist(.unpack_from_sq(sq, "string")), name))
     }
   }
+}
+
+.remove_original_length <- function(unpacked_sq) {
+  lapply()
 }
