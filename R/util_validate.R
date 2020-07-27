@@ -11,9 +11,9 @@
   if (!is.character(alph) &&
     !is.numeric(alph))
     stop("attribute 'alphabet' is neither a character nor a numeric vector", call. = FALSE)
-  if (!is.numeric(lengths(mysq)))
+  if (!is.numeric(lengths(object)))
     stop("'lengths()' method does not return numeric vector", call. = FALSE)
-  if (length(lengths(mysq)) != length(mysq))
+  if (length(lengths(object)) != length(object))
     stop("'lengths()' method must return a vector of the length equal to the number of sequences", call. = FALSE)
   if (!is.list(object))
     stop("'object' isn't a list", call. = FALSE)
