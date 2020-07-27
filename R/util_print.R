@@ -284,6 +284,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
 #' @importFrom crayon col_nchar
 #' @importFrom crayon blue
 #' @importFrom crayon silver
+#' @importFrom utils tail
 .get_p_seqs <- function(x, lens, letters_sep, body_color, width, use_color = .get_color_opt()) {
   # max width of length number
   lens_width <- max(nchar(lens)) + 2

@@ -401,7 +401,8 @@ is.encsq <- function(x) {
 #' 
 #' Function counts number of elements in each sequence in given \code{\link{sq}} object.
 #' 
-#' @param sq an \code{\link{sq}} object.
+#' @param x an \code{\link{sq}} object.
+#' @param use.names unused argument, a leftover from default \code{\link{lengths}} method.
 #'  
 #' @return A \code{\link{numeric}} vector, where each element gives length of according 
 #' sequence from \code{\link{sq}} object.
@@ -425,5 +426,6 @@ is.encsq <- function(x) {
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
 lengths.sq <- function(x, use.names = TRUE) {
-  sapply(x, attr, "original_length")
+  if (length(x) == 0) numeric(0)
+  else sapply(x, attr, "original_length")
 }

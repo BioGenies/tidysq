@@ -65,6 +65,9 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
         sqtibble <- read_fasta_file(file, alph)
         class(sqtibble[["sq"]]) <- c("untsq", "sq", "list")
         attr(sqtibble[["sq"]], "alphabet") <- alph
+        # TODO: replace with adding length inside C++ code
+        sqtibble[["sq"]] <- .set_original_length(sqtibble[["sq"]],
+                                                 sapply(.unpack_from_sq(sqtibble[["sq"]], "char"), length))
         as_tibble(sqtibble)
       }
     }
@@ -93,6 +96,8 @@ read_fasta_rna <- function(file, is_clean = NULL) {
   sqtibble <- nc_read_fasta_file(file, type, is_clean)
   class(sqtibble[["sq"]]) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq", "list")
   attr(sqtibble[["sq"]], "alphabet") <- .get_standard_alph(type, is_clean)
+  sqtibble[["sq"]] <- .set_original_length(sqtibble[["sq"]],
+                                           sapply(.unpack_from_sq(sqtibble[["sq"]], "char"), length))
   as_tibble(sqtibble)
 }
 
