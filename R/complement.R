@@ -67,6 +67,7 @@ complement.dnasq <- function(sq) {
   ret <- lapply(sq, function(s)  C_pack_ints(inds_fun[s], alph_size))
   
   ret <- .set_alph(ret, alph)
+  ret <- .set_original_length(ret, sapply(sq, attr, "original_length"))
   .set_class(ret, "dna", TRUE)
 }
 
@@ -86,6 +87,7 @@ complement.rnasq <- function(sq) {
   ret <- lapply(sq, function(s)  C_pack_ints(inds_fun[s], alph_size))
   
   ret <- .set_alph(ret, alph)
+  ret <- .set_original_length(ret, sapply(sq, attr, "original_length"))
   .set_class(ret, "rna", TRUE)
 }
 

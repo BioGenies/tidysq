@@ -10,10 +10,6 @@
   attr(sq, "alphabet")
 }
 
-.get_lens <- function(sq) {
-  unlist(.apply_sq(sq, "int", "none", function(s) length(s)))
-}
-
 .get_real_alph <- function(sq) {
   unique(unlist(strsplit(sq, "")))
 }
@@ -51,6 +47,13 @@
   sq
 }
 
+.set_original_length <- function(sq, orig_lengths) {
+  if (length(sq) == 0) return(sq)
+  for (index in 1:length(sq)) {
+    attr(sq[[index]], "original_length") <- orig_lengths[index]
+  }
+  sq
+}
 
 .set_class_alph <- function(new_sq, sq) {
   class(new_sq) <- class(sq)

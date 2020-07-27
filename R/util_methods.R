@@ -67,7 +67,7 @@
 #' @export
 `[.sq` <- function(x, i, j, ...) {
   ret <- NextMethod()
-  ret <- lapply(ret, function(s) if (is.null(s)) raw(0) else s)
+  ret <- lapply(ret, function(s) if (is.null(s)) structure(raw(0), original_length = 0) else s)
   class(ret) <- class(x)
   attr(ret, "alphabet") <- .get_alph(x)
   ret
@@ -219,13 +219,11 @@ as.character.sq <- function(x, ...) {
 #' @seealso \code{\link{sq}}
 #' @export
 as.matrix.sq <- function(x, ...) {
-  x <- .unpack_from_sq(x, "char")
   max_len <- max(lengths(x))
-  ret <- do.call(rbind, lapply(x, function(row) row[1:max_len]))
+  ret <- do.call(rbind, lapply(.unpack_from_sq(x, "char"), function(row) row[1:max_len]))
   ret[ret == .get_na_char()] <- NA
   ret
 }
-
 
 #' @export
 as.matrix.encsq <- function(x, ...) {
@@ -233,7 +231,6 @@ as.matrix.encsq <- function(x, ...) {
   storage.mode(ret) <- "numeric"
   ret
 }
-
 
 #' Check if object has specified type
 #' 
@@ -320,6 +317,7 @@ is.atpsq <- function(x) {
 is.encsq <- function(x) {
   tryCatch({.validate_sq(x, type = "enc"); TRUE}, error = function(e) FALSE)
 }
+
 #' Compare sq objects
 #' @description Compares input \code{\link{sq}} object with another given.
 #' 
@@ -392,10 +390,42 @@ is.encsq <- function(x) {
     stop("you cannot compare 'sq' object to object that is not character vector or 'sq' object")
   }
   
-  type <- .get_sq_type(x1)
-  if (type %in% c("ami", "dna", "rna")) {
+  if (.get_sq_type(x1) %in% c("ami", "dna", "rna")) {
     x2 <- toupper(x2)
   }
   
   as.character(x1) == x2
+}
+
+#' Get lengths of sequences in sq object
+#' 
+#' Function counts number of elements in each sequence in given \code{\link{sq}} object.
+#' 
+#' @param x an \code{\link{sq}} object.
+#' @param use.names unused argument, a leftover from default \code{\link{lengths}} method.
+#'  
+#' @return A \code{\link{numeric}} vector, where each element gives length of according 
+#' sequence from \code{\link{sq}} object.
+#' 
+#' @details This function allows returning numeric vector of lengths of sequences from
+#' \code{\link{sq}} object. The numeric vector is as long as number of sequences present 
+#' in \code{\link{sq}} object.
+#' The function counts elements in all types of sequences.
+#'
+#' @examples 
+#' # Creating an object to work on:
+#' sq_dna <- construct_sq(c("ACGATTAGACG","GGATA"), type = "dna")
+#' sq_amino_acids <- construct_sq(c("MMVTAAV"), type = "ami")
+#' 
+#' # Counting number of elements in DNA sq object with defined type:
+#' lengths(sq_dna)
+#' 
+#' # Counting number of elements in amino acid sq object with defined type:
+#' lengths(sq_amino_acids)
+#' 
+#' @seealso \code{\link{sq}} \code{\link{construct_sq}}
+#' @export
+lengths.sq <- function(x, use.names = TRUE) {
+  if (length(x) == 0) numeric(0)
+  else sapply(x, attr, "original_length")
 }
