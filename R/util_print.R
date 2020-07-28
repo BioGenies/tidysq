@@ -215,15 +215,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   if (length(type) != 1) {
     "sq (improper subtype!)"
   } else {
-    type_msg <- switch(type,
-                       ami = "ami (amino acids)",
-                       dna = "dna (DNA)",
-                       rna = "rna (RNA)",
-                       unt = "unt (unspecified type)",
-                       atp = "atp (atypical alphabet)",
-                       enc = "enc (encoded values)")
-    clean_msg <- if (.is_cleaned(sq)) ", cln (cleaned)" else ""
-    paste0(type_msg, clean_msg, " sequences list")
+    paste0(vec_ptype_full(sq), " sequences list")
   }
 }
 
