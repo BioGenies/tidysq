@@ -73,6 +73,8 @@ typify <- function(sq, dest_type) {
     toupper(s)
   }, im_alph = dest_alph)
   
-  ret <- .set_alph(ret, dest_alph)
-  .set_class(ret, dest_type)
+  new_list_of(ret,
+              ptype = raw(),
+              alphabet = dest_alph,
+              class = c(paste0(dest_type, "sq"), "sq", "list"))
 }

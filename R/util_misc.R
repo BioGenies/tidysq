@@ -63,9 +63,10 @@
 
 .construct_sq_s <- function(sq, alph, classes) {
   sq <- .pack_to_sq(sq, alph)
-  attr(sq, "alphabet") <- alph
-  class(sq) <- classes
-  sq
+  new_list_of(sq,
+              ptype = raw(),
+              alphabet = alph,
+              class = classes)
 }
 
 .guess_ami_is_clean <- function(real_alph) {

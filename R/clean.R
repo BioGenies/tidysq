@@ -66,7 +66,9 @@ clean <- function(sq, only_elements = FALSE) {
       if (!all(s %in% alph_cln)) raw(0) else s
     }, alph_cln) 
   }
-
-  class(ret) <- c("clnsq", class(sq))
-  .set_alph(ret, alph_cln)
+  
+  new_list_of(ret,
+              ptype = raw(),
+              alphabet = alph_cln,
+              class = c("clnsq", class(sq)))
 }

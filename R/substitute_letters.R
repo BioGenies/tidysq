@@ -140,14 +140,14 @@ substitute_letters <- function(sq, encoding) {
   inds_fun <- match(inds_fun, new_alph)
   inds_fun[is.na(inds_fun)] <- .get_na_val(new_alph)
   
-  ret <- .apply_sq(sq, "int", "int", function(s) {
-    inds_fun[s]
-  }, new_alph)
+  ret <- .apply_sq(sq, "int", "int", function(s) inds_fun[s], new_alph)
   if (.is_cleaned(sq)) {
     .handle_opt_txt("tidysq_a_cln_sub_letters",
                     "'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it")
   }
-
-  ret <- .set_alph(ret, new_alph)
-  .set_class(ret, "atp")
+  
+  new_list_of(ret,
+              ptype = raw(),
+              alphabet = new_alph,
+              class = c("atpsq", "sq", "list"))
 }

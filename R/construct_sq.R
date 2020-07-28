@@ -432,6 +432,8 @@ NULL
 #' 
 #' @seealso \code{\link{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}} 
 #' \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}
+#' 
+#' @importFrom zeallot `%<-%`
 #' @export
 construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) {
   .check_character(sq, "'sq'", allow_zero_len = TRUE)
@@ -444,9 +446,7 @@ construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) 
     } else {
       .check_logical(is_clean, "'is_clean'", allow_null = TRUE, single_elem = TRUE)
       if (is.null(type)) {
-        type_clean <- .guess_sq_type_subtype(sq)
-        type <- type_clean[["type"]]
-        if (is.null(is_clean) && type != "unt") is_clean <- type_clean[["is_clean"]]
+        c(type, is_clean) %<-% .guess_sq_type_subtype(sq)
       }
       .check_type(type, allow_unt = TRUE)
       switch(type,
@@ -482,8 +482,10 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   .check_logical(is_clean, single_elem = TRUE)
   
   sq <- .nc_pack_to_sq(sq, type, is_clean)
-  sq <- .set_class(sq, type, is_clean)
-  .set_alph(sq, .get_standard_alph(type, is_clean))
+  new_list_of(sq,
+              ptype = raw(),
+              alphabet = .get_standard_alph(type, is_clean),
+              class = c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq", "list"))
 }
 
 
@@ -522,8 +524,10 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   alph <- unique(unlist(sq))
   .check_alph_length(alph)
   sq <- .pack_to_sq(sq, alph)
-  sq <- .set_alph(sq, alph)
-  .set_class(sq, "atp")
+  new_list_of(sq,
+              ptype = raw(),
+              alphabet = alph,
+              class = c("atpsq", "sq", "list"))
 }
 
 .construct_amisq <- function(sq, is_clean) {
@@ -534,8 +538,10 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
     is_clean <- .guess_ami_is_clean(real_alph)
   }
   sq <- .nc_pack_to_sq(sq, "ami", is_clean)
-  sq <- .set_alph(sq, .get_standard_alph("ami", is_clean))
-  .set_class(sq, "ami", is_clean)
+  new_list_of(sq,
+              ptype = raw(),
+              alphabet = .get_standard_alph("ami", is_clean),
+              class = c(if (is_clean) "clnsq" else NULL, "amisq", "sq", "list"))
 }
 
 .construct_dnasq <- function(sq, is_clean) {
@@ -546,8 +552,10 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
     is_clean <- .guess_dna_is_clean(real_alph)
   }
   sq <- .nc_pack_to_sq(sq, "dna", is_clean)
-  sq <- .set_alph(sq, .get_standard_alph("dna", is_clean))
-  .set_class(sq, "dna", is_clean)
+  new_list_of(sq,
+              ptype = raw(),
+              alphabet = .get_standard_alph("dna", is_clean),
+              class = c(if (is_clean) "clnsq" else NULL, "dnasq", "sq", "list"))
 }
 
 .construct_rnasq <- function(sq, is_clean) {
@@ -558,8 +566,10 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
     is_clean <- .guess_rna_is_clean(real_alph)
   }
   sq <- .nc_pack_to_sq(sq, "rna", is_clean)
-  sq <- .set_alph(sq, .get_standard_alph("rna", is_clean))
-  .set_class(sq, "rna", is_clean)
+  new_list_of(sq,
+              ptype = raw(),
+              alphabet = .get_standard_alph("rna", is_clean),
+              class = c(if (is_clean) "clnsq" else NULL, "rnasq", "sq", "list"))
 }
 
 .construct_untsq <- function(sq) {
@@ -567,6 +577,8 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   .check_alph_length(alph)
   
   sq <- .pack_to_sq(sq, alph)
-  sq <- .set_alph(sq, alph)
-  .set_class(sq, "unt", FALSE)
+  new_list_of(sq,
+              ptype = raw(),
+              alphabet = alph,
+              class = c("untsq", "sq", "list"))
 }
