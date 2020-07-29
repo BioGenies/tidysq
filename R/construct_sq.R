@@ -485,7 +485,7 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   new_list_of(sq,
               ptype = raw(),
               alphabet = .get_standard_alph(type, is_clean),
-              class = c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq", "list"))
+              class = c(paste0(type, "sq"), if (is_clean) "clnsq" else NULL, "sq", "list"))
 }
 
 
@@ -541,7 +541,7 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   new_list_of(sq,
               ptype = raw(),
               alphabet = .get_standard_alph("ami", is_clean),
-              class = c(if (is_clean) "clnsq" else NULL, "amisq", "sq", "list"))
+              class = c("amisq", if (is_clean) "clnsq" else NULL, "sq", "list"))
 }
 
 .construct_dnasq <- function(sq, is_clean) {
@@ -555,7 +555,7 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   new_list_of(sq,
               ptype = raw(),
               alphabet = .get_standard_alph("dna", is_clean),
-              class = c(if (is_clean) "clnsq" else NULL, "dnasq", "sq", "list"))
+              class = c("dnasq", if (is_clean) "clnsq" else NULL, "sq", "list"))
 }
 
 .construct_rnasq <- function(sq, is_clean) {
@@ -569,7 +569,7 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   new_list_of(sq,
               ptype = raw(),
               alphabet = .get_standard_alph("rna", is_clean),
-              class = c(if (is_clean) "clnsq" else NULL, "rnasq", "sq", "list"))
+              class = c("rnasq", if (is_clean) "clnsq" else NULL, "sq", "list"))
 }
 
 .construct_untsq <- function(sq) {
