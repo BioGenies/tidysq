@@ -25,6 +25,10 @@ vec_cast.rnasq.character <- function(x, to, ...) construct_sq_rna(x, .is_cleaned
 #' @export
 vec_cast.character.rnasq <- function(x, to, ...) unlist(.unpack_from_sq(x, "string"))
 
+# untsq ----
+#' @export
+vec_cast.character.untsq <- function(x, to, ...) unlist(.unpack_from_sq(x, "string"))
+
 # atpsq ----
 #' @export
 vec_cast.atpsq.atpsq <- function(x, to, ...)
