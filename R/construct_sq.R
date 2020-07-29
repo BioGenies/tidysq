@@ -521,12 +521,10 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
     }
   })
   
-  alph <- unique(unlist(sq))
-  .check_alph_length(alph)
-  sq <- .pack_to_sq(sq, alph)
+  sq <- .pack_to_sq(sq, non_standard)
   new_list_of(sq,
               ptype = raw(),
-              alphabet = alph,
+              alphabet = non_standard,
               class = c("atpsq", "sq", "list"))
 }
 
