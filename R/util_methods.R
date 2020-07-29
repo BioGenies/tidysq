@@ -1,38 +1,3 @@
-#' Concatenate sq objects
-#' 
-#' Merges multiple \code{\link{sq}} objects of the same type into one larger.
-#' 
-#' @param ... multiple \code{\link{sq}} objects. All of them have to have the same type and
-#' subtype. If type is \strong{atp}, \strong{unt} or \strong{enc} also their alphabets have to
-#' be exactly identical.
-#' 
-#' @return A \code{\link{sq}} object with length equal to sum of lengths of individual objects
-#' passed as parameters. Elements of \code{\link{sq}} are concatenated just as if they were normal
-#' lists (see \code{\link[base]{c}})
-#' 
-#' @examples 
-#' sq_1 <- construct_sq(c("TAGACTAG", "", "CCGTAGATG"))
-#' sq_2 <- construct_sq(c("TTGATAACG", "TGTATGTGA"))
-#' sq_3 <- construct_sq(character(0))
-#' sq_4 <- construct_sq("gaGG")
-#' 
-#' c(sq_1, sq_2, sq_3, sq_4)
-#' 
-#' @export
-c.sq <- function(...) {
-  args <- list(...)
-  if (!all(sapply(args, is.sq)))
-    stop("not all elements passed to function are 'sq' objects")
-  types <- sapply(args, .get_sq_type)
-  if (length(unique(unlist(types))) != 1)
-    stop("not all sq objects have the same type")
-  ret <- unlist(args, recursive = FALSE)
-  alphs <- lapply(args, .get_alph)
-  if (!all(sapply(alphs[-1], function(alph) identical(alphs[[1]], alph))))
-    stop("all of sq objects should have identical alphabets")
-  .set_class_alph(ret, args[[1]])
-}
-
 #' Convert an object to sq
 #' 
 #' This generic function takes an object of arbitrary type and returns an \code{\link{sq}} object 
@@ -101,7 +66,7 @@ as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL
 #' @seealso sq
 #' @export
 as.character.sq <- function(x, ...) {
-  unlist(.unpack_from_sq(x, "string"))
+  vec_cast(x, character())
 }
 
 #' Convert sq object into matrix
