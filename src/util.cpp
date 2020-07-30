@@ -10,10 +10,15 @@ unsigned short C_get_alph_size(Rcpp::CharacterVector alph) {
 }
 
 // [[Rcpp::export]]
+unsigned int C_get_out_len(Rcpp::RawVector packed,
+                           const unsigned short alph_size) {
+    return tidysq::get_out_len_internal<Rcpp::RawVector>(packed, alph_size);
+}
+
+// [[Rcpp::export]]
 unsigned short C_get_na_val(const unsigned short alph_size) {
   return (1 << alph_size) - 1;
 }
-
 
 //' Match index of letter in alphabet for each letter
 Rcpp::RawVector C_match(Rcpp::CharacterVector letters,
