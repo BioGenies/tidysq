@@ -9,6 +9,12 @@ unsigned short C_get_alph_size(Rcpp::CharacterVector alph) {
   return tidysq::get_alph_size_internal(alph);
 }
 
+// [[Rcpp::interfaces(cpp, r)]]
+// [[Rcpp::export]]
+std::vector<unsigned char> unpack_raws_to_std_vector(Rcpp::RawVector v, unsigned short alphabet_size) {
+    return tidysq::unpack_raws_internal<Rcpp::RawVector, std::vector<unsigned char>>(v, alphabet_size);
+}
+
 // [[Rcpp::export]]
 unsigned int C_get_out_len(Rcpp::RawVector packed,
                            const unsigned short alph_size) {

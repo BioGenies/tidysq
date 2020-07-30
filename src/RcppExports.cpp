@@ -323,6 +323,41 @@ RcppExport SEXP _tidysq_C_get_alph_size(SEXP alphSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// unpack_raws_to_std_vector
+std::vector<unsigned char> unpack_raws_to_std_vector(Rcpp::RawVector v, unsigned short alphabet_size);
+static SEXP _tidysq_unpack_raws_to_std_vector_try(SEXP vSEXP, SEXP alphabet_sizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type v(vSEXP);
+    Rcpp::traits::input_parameter< unsigned short >::type alphabet_size(alphabet_sizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(unpack_raws_to_std_vector(v, alphabet_size));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _tidysq_unpack_raws_to_std_vector(SEXP vSEXP, SEXP alphabet_sizeSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_tidysq_unpack_raws_to_std_vector_try(vSEXP, alphabet_sizeSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // C_get_out_len
 unsigned int C_get_out_len(Rcpp::RawVector packed, const unsigned short alph_size);
 static SEXP _tidysq_C_get_out_len_try(SEXP packedSEXP, SEXP alph_sizeSEXP) {
@@ -402,6 +437,7 @@ static int _tidysq_RcppExport_validate(const char* sig) {
         signatures.insert("Rcpp::RawVector(*C_pack_chars)(Rcpp::CharacterVector,Rcpp::CharacterVector)");
         signatures.insert("Rcpp::RawVector(*C_pack_string)(Rcpp::RawVector,Rcpp::CharacterVector)");
         signatures.insert("unsigned short(*C_get_alph_size)(Rcpp::CharacterVector)");
+        signatures.insert("std::vector<unsigned char>(*unpack_raws_to_std_vector)(Rcpp::RawVector,unsigned short)");
         signatures.insert("unsigned int(*C_get_out_len)(Rcpp::RawVector,const unsigned short)");
         signatures.insert("unsigned short(*C_get_na_val)(const unsigned short)");
     }
@@ -415,6 +451,7 @@ RcppExport SEXP _tidysq_RcppExport_registerCCallable() {
     R_RegisterCCallable("tidysq", "_tidysq_C_pack_chars", (DL_FUNC)_tidysq_C_pack_chars_try);
     R_RegisterCCallable("tidysq", "_tidysq_C_pack_string", (DL_FUNC)_tidysq_C_pack_string_try);
     R_RegisterCCallable("tidysq", "_tidysq_C_get_alph_size", (DL_FUNC)_tidysq_C_get_alph_size_try);
+    R_RegisterCCallable("tidysq", "_tidysq_unpack_raws_to_std_vector", (DL_FUNC)_tidysq_unpack_raws_to_std_vector_try);
     R_RegisterCCallable("tidysq", "_tidysq_C_get_out_len", (DL_FUNC)_tidysq_C_get_out_len_try);
     R_RegisterCCallable("tidysq", "_tidysq_C_get_na_val", (DL_FUNC)_tidysq_C_get_na_val_try);
     R_RegisterCCallable("tidysq", "_tidysq_RcppExport_validate", (DL_FUNC)_tidysq_RcppExport_validate);
@@ -439,6 +476,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_C_unpack_chars", (DL_FUNC) &_tidysq_C_unpack_chars, 3},
     {"_tidysq_C_unpack_string", (DL_FUNC) &_tidysq_C_unpack_string, 3},
     {"_tidysq_C_get_alph_size", (DL_FUNC) &_tidysq_C_get_alph_size, 1},
+    {"_tidysq_unpack_raws_to_std_vector", (DL_FUNC) &_tidysq_unpack_raws_to_std_vector, 2},
     {"_tidysq_C_get_out_len", (DL_FUNC) &_tidysq_C_get_out_len, 2},
     {"_tidysq_C_get_na_val", (DL_FUNC) &_tidysq_C_get_na_val, 1},
     {"_tidysq_RcppExport_registerCCallable", (DL_FUNC) &_tidysq_RcppExport_registerCCallable, 0},
