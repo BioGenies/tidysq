@@ -49,6 +49,10 @@ find_alph <- function(file) {
     .Call('_tidysq_find_alph', PACKAGE = 'tidysq', file)
 }
 
+C_get_out_len <- function(packed, alph_size) {
+    .Call('_tidysq_C_get_out_len', PACKAGE = 'tidysq', packed, alph_size)
+}
+
 C_unpack_raws <- function(packed, alph_size) {
     .Call('_tidysq_C_unpack_raws', PACKAGE = 'tidysq', packed, alph_size)
 }
