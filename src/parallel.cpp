@@ -6,7 +6,7 @@ unsigned short C_get_alph_size(Rcpp::CharacterVector alph);
 Rcpp::RawVector C_unpack_raws(Rcpp::RawVector packed,
                               const unsigned short alph_size);
 unsigned int C_get_out_len(Rcpp::RawVector packed,
-                           const unsigned int alph_size);
+                           const unsigned short alph_size);
 void C_unpack_raws_safe(RcppParallel::RVector<unsigned char> packed,
                         RcppParallel::RVector<unsigned char> ret,
                         const unsigned short alph_size);
@@ -16,7 +16,7 @@ public:
   std::vector<RcppParallel::RVector<unsigned char>> packed;
   std::vector<RcppParallel::RVector<unsigned char>> unpacked;
   unsigned int alphabetSize;
-  
+
   UnpackingWorker(Rcpp::List sq) {
     packed = std::vector<RcppParallel::RVector<unsigned char>>();
     unpacked = std::vector<RcppParallel::RVector<unsigned char>>();

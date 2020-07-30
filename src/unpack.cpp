@@ -4,18 +4,10 @@
 #include <string>
 #include <tidysq_generic.h>
 
-// [[Rcpp::interfaces(cpp, r)]]
-
 unsigned short C_get_alph_size(Rcpp::CharacterVector alph);
 Rcpp::CharacterVector C_match(Rcpp::RawVector letters,
                               Rcpp::CharacterVector alph,
                               Rcpp::CharacterVector na_char);
-
-// [[Rcpp::export]]
-unsigned int C_get_out_len(Rcpp::RawVector packed, 
-                           const unsigned short alph_size) {
-  return tidysq::get_out_len_internal<Rcpp::RawVector>(packed, alph_size);
-}
 
 // [[Rcpp::export]]
 Rcpp::RawVector C_unpack_raws(Rcpp::RawVector packed,
