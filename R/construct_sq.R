@@ -570,8 +570,10 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
               class = c("rnasq", if (is_clean) "clnsq" else NULL, "sq", "list"))
 }
 
-.construct_untsq <- function(sq) {
-  alph <- .get_real_alph(sq)
+.construct_untsq <- function(sq, alph = NULL) {
+  if (is.null(alph)) {
+    alph <- .get_real_alph(sq)
+  }
   .check_alph_length(alph)
   
   sq <- .pack_to_sq(sq, alph)
