@@ -34,8 +34,9 @@ Authors@R: c(person("Michal", "Burdukiewicz",
 Description: A tidy approach to analysis of biological sequences. All processing and data-storage functions are heavily optimized to allow the fastest and most efficient data storage.
 Depends: R (>= 3.0.0),
          tibble (>= 2.1.3)
-Imports: pillar (>= 1.4.2),
+Imports: cli (>= 2.0.0),
          crayon (>= 1.3.4),
+         pillar (>= 1.4.2),
          Rcpp (>= 1.0.1),
          RcppParallel,
          stringi (>= 1.4.3),
