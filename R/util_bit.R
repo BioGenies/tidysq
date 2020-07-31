@@ -1,5 +1,5 @@
 .pack_to_sq <- function(sq, alph) {
-  if (length(sq) == 0) return(sq)
+  if (length(sq) == 0) return(list())
   orig_lengths <- lengths(sq)
   if (is.numeric(sq[[1]])) 
     packing_fun <-  C_pack_ints

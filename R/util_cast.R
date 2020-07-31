@@ -27,6 +27,8 @@ vec_cast.character.rnasq <- function(x, to, ...) unlist(.unpack_from_sq(x, "stri
 
 # untsq ----
 #' @export
+vec_cast.untsq.untsq <- function(x, to, ...)
+#' @export
 vec_cast.character.untsq <- function(x, to, ...) unlist(.unpack_from_sq(x, "string"))
 
 # atpsq ----

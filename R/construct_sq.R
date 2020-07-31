@@ -580,3 +580,20 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
               alphabet = alph,
               class = c("untsq", "sq", "list"))
 }
+
+.construct_sq_ptype <- function(type, is_clean = NULL, alph = character()) {
+  if (!is.null(is_clean)) {
+    if (type %in% c("ami", "dna", "rna")) {
+      alph <- .get_standard_alph(type, is_clean)
+    } else {
+      stop(paste0("you cannot specify 'is_clean' with type ", type), call. = FALSE)
+    }
+  } else {
+    # Easier to write if (is_clean) than to include is.null() in the check as well
+    is_clean <- FALSE
+  }
+  new_list_of(list(),
+              ptype = raw(),
+              alphabet = alph,
+              class = c(paste0(type, "sq"), if (is_clean) "clnsq" else NULL, "sq", "list"))
+}

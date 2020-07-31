@@ -45,8 +45,3 @@ vec_ptype_abbr.encsq <- function(x, ...) paste0(NextMethod(), "enc")
 
 #' @export
 vec_ptype_full.encsq <- function(x, ...) paste0("enc (encoded values)", NextMethod())
-
-#' @export
-format.sq <- function(x, ...) {
-  "hidden"
-}
