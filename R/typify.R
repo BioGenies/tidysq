@@ -54,7 +54,7 @@ typify <- function(sq, dest_type) {
   if (type == dest_type) {
     return(sq)
   }
-  alph <- .get_alph(sq)
+  alph <- alphabet(sq)
   up_alph <- unique(toupper(alph))
   dest_alph <- .get_standard_alph(dest_type, FALSE)
   

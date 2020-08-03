@@ -82,7 +82,7 @@ find_motifs <- function(sq, name, motifs) {
                    paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
   motifs <- strsplit(motifs, "")
   
-  alph <- .get_alph(sq)
+  alph <- alphabet(sq)
   
   if (type == "ami") {
     motifs <- lapply(motifs, toupper)

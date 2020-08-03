@@ -216,7 +216,7 @@
 }
 
 .check_alph_is_subset <- function(sq, alph) {
-  if (!all(alph %in% .get_alph(sq)))
+  if (!all(alph %in% alphabet(sq)))
     stop("'alph' contains letters that aren't elements of alphabet of 'sq'", call. = FALSE)
 }
 

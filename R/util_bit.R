@@ -31,7 +31,7 @@
 
 .unpack_from_sq <- function(sq, to) {
   if (length(sq) == 0) return(sq)
-  alph <- .get_alph(sq)
+  alph <- alphabet(sq)
   if (to == "char") 
     unpacking_fun <- function(s) C_unpack_chars(s, alph, .get_na_char())
   else if (to == "int") 
@@ -43,9 +43,9 @@
   .set_original_length(ret, sapply(sq, attr, "original_length"))
 }
 
-.apply_sq <- function(sq, ex_form, im_form, fun, im_alph = .get_alph(sq)) {
+.apply_sq <- function(sq, ex_form, im_form, fun, im_alph = alphabet(sq)) {
   if (length(sq) == 0) return(sq)
-  ex_alph <- .get_alph(sq)
+  ex_alph <- alphabet(sq)
   if (ex_form == "char") 
     unpacking_fun <- function(s) C_unpack_chars(s, ex_alph, .get_na_char())
   else if (ex_form == "int") 

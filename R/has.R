@@ -76,7 +76,7 @@
 #' @export
 `%has%.sq` <- function(x, y) {
   .check_character(y, "'y', right-hand side object,")
-  alph <- .get_alph(x)
+  alph <- alphabet(x)
   type <- .get_sq_type(x)
   .check_motifs_proper_alph(y, type, alph)
   x <- as.character(x)

@@ -54,7 +54,7 @@ clean <- function(sq, only_elements = FALSE) {
   if (is_clean) {
     return(sq)
   }
-  alph <- .get_alph(sq)
+  alph <- alphabet(sq)
   alph_cln <- .get_standard_alph(type, TRUE)
   
   if (only_elements) {

@@ -6,10 +6,6 @@
   2 ^ .get_alph_size(alph) - 1
 }
 
-.get_alph <- function(sq) {
-  attr(sq, "alphabet")
-}
-
 .get_real_alph <- function(sq) {
   unique(unlist(strsplit(sq, "")))
 }
@@ -37,28 +33,12 @@
   "clnsq" %in% class(sq)
 }
 
-.set_class <- function(sq, type, is_clean = FALSE) {
-  class(sq) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq", "list")
-  sq
-}
-
-.set_alph <- function(sq, alph) {
-  attr(sq, "alphabet") <- alph
-  sq
-}
-
 .set_original_length <- function(sq, orig_lengths) {
   if (length(sq) == 0) return(sq)
   for (index in 1:length(sq)) {
     attr(sq[[index]], "original_length") <- orig_lengths[index]
   }
   sq
-}
-
-.set_class_alph <- function(new_sq, sq) {
-  class(new_sq) <- class(sq)
-  attr(new_sq, "alphabet") <- .get_alph(sq)
-  new_sq
 }
 
 .construct_sq_s <- function(sq, alph, classes) {

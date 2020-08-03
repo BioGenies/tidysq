@@ -56,7 +56,7 @@ complement.dnasq <- function(sq) {
   .validate_sq(sq, "dna")
   
   .check_is_clean(sq, "'dnasq'")
-  alph <- .get_alph(sq)
+  alph <- alphabet(sq)
   alph_size <- .get_alph_size(alph)
   ret <- .unpack_from_sq(sq, "int")
   
@@ -75,7 +75,7 @@ complement.rnasq <- function(sq) {
   .validate_sq(sq, "rna")
   
   .check_is_clean(sq, "'rnasq'")
-  alph <- .get_alph(sq)
+  alph <- alphabet(sq)
   alph_size <- .get_alph_size(alph)
   ret <- .unpack_from_sq(sq, "int")
   

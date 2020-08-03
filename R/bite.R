@@ -93,7 +93,7 @@ bite <- function(sq, indices) {
   .check_numeric(indices, "'indices'", allow_negative = TRUE)
   
   na_introduced <- FALSE
-  alph <- .get_alph(sq)
+  alph <- alphabet(sq)
   alph_size <- .get_alph_size(alph)
   na_val <- .get_na_val(alph)
   
