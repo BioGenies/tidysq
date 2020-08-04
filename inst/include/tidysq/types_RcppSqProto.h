@@ -26,17 +26,22 @@ namespace tidysq {
             return content_[index];
         }
 
-        template<typename TYPE_OUT>
-        TYPE_OUT pack() const {
-            return sqapply<RcppSqProto, TYPE_OUT, AlphabetType>(*this, ops::OperationPack<SequenceType, typename TYPE_OUT::SequenceType, AlphabetType>());
-        }
-
         lensq length() const {
             return content_.size();
         }
 
         AlphabetType alphabet() const {
             return alphabet_;
+        }
+
+        template<typename TYPE_OUT>
+        TYPE_OUT pack() const {
+            return sqapply<RcppSqProto, TYPE_OUT, AlphabetType>(*this, ops::OperationPack<SequenceType, typename TYPE_OUT::SequenceType, AlphabetType>());
+        }
+
+        Rcpp::List exportToR() {
+            content_.attr("alphabet") = alphabet_;
+            return content_;
         }
     };
 }
