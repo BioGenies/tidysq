@@ -2,19 +2,34 @@
 #define TIDYSQ_INTERNAL_PACK_UTIL_H
 
 #include <cmath>
-#include "types_general.h"
+#include "types_Sequence.h"
+#include "types_RcppSequence.h"
+
 
 namespace tidysq {
     namespace internal {
         template<typename ALPHABET>
-        constexpr inline sizealph getAlphabetSize(const ALPHABET& alphabet) {
+        inline sizealph getAlphabetSize(const ALPHABET& alphabet) {
             return ceil(log2((double) alphabet.size() + 2));
         }
 
         template<typename SEQUENCE_UNPACKED,
                 typename ALPHABET>
-        constexpr inline lensq getPackedLength(const SEQUENCE_UNPACKED& unpacked, const ALPHABET& alphabet) {
+        inline lensq getPackedLength(const SEQUENCE_UNPACKED& unpacked, const ALPHABET& alphabet) {
             return (getAlphabetSize(alphabet) * unpacked.size() + 7) / 8;
+        }
+
+        template<typename SEQUENCE_PACKED>
+        inline lensq getOriginalLength(const SEQUENCE_PACKED& packed);
+
+        template<>
+        inline lensq getOriginalLength<Sequence>(const Sequence& packed) {
+            return packed.originalLength();
+        }
+
+        template<>
+        inline lensq getOriginalLength<RcppSequence>(const RcppSequence& packed) {
+            return packed.attr("original_length");
         }
 
         template<typename SEQUENCE_UNPACKED,
