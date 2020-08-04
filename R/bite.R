@@ -97,8 +97,9 @@ bite <- function(sq, indices) {
   alph_size <- .get_alph_size(alph)
   na_val <- .get_na_val(alph)
   
-  ret <- lapply(sq, function(seq) {
-    s <- C_unpack_ints(seq, alph_size)[indices]
+  ret <- lapply(sq, function(s) {
+    s <- C_unpack_ints(s, alph_size)[indices]
+    if (any(is.na(s))) na_introduced <<- TRUE
     s[is.na(s)] <- na_val
     structure(C_pack_ints(s, alph_size), original_length = length(s))
   })

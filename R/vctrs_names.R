@@ -45,3 +45,9 @@ vec_ptype_abbr.encsq <- function(x, ...) paste0(NextMethod(), "enc")
 
 #' @export
 vec_ptype_full.encsq <- function(x, ...) paste0("enc (encoded values)", NextMethod())
+
+#' @export
+vec_ptype_abbr.sq_alphabet <- function(x, ...) "sq_alph"
+
+#' @export
+vec_ptype_full.sq_alphabet <- function(x, ...) "tidysq alphabet"

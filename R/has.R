@@ -100,7 +100,7 @@
   y <- lapply(y, function(s) replace(s, s == "X", "[A-Z]"))
   y <- sapply(y, function(s) paste(s, collapse = ""))
   
-  alph <- .get_alph(x)
+  alph <- alphabet(x)
   x <- as.character(x)
   
   ret <- sapply(y, function(s) grepl(s, x))
@@ -133,7 +133,7 @@
   
   y <- sapply(y, function(s) paste(s, collapse = ""))
   
-  alph <- .get_alph(x)
+  alph <- alphabet(x)
   x <- as.character(x)
   
   ret <- sapply(y, function(s) grepl(s, x))
@@ -166,7 +166,7 @@
   
   y <- sapply(y, function(s) paste(s, collapse = ""))
   
-  alph <- .get_alph(x)
+  alph <- alphabet(x)
   x <- as.character(x)
   
   ret <- sapply(y, function(s) grepl(s, x))

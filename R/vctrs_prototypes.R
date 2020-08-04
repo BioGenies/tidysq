@@ -60,3 +60,9 @@ vec_ptype2.atpsq.atpsq <- function(x, y, ...)
 vec_ptype2.atpsq.character <- function(x, y, ...) x
 #' @export
 vec_ptype2.character.atpsq <- function(x, y, ...) y
+
+# sq_alphabet ----
+#' @export
+vec_ptype2.sq_alphabet.character <- function(x, y, ...) x
+#' @export
+vec_ptype2.character.sq_alphabet <- function(x, y, ...) y

@@ -12,9 +12,7 @@ format.sq <- function(x, ...,
   
   # color NA's
   alph <- alphabet(x)
-  na_char <- if (.get_color_opt()) col_silver(.get_na_char()) else .get_na_char()
-  na_val <- .get_na_val(alph)
-  alph[na_val] <- na_char
+  na_character(alph) <- if (use_color) col_silver(.get_na_char()) else .get_na_char()
   alphabet(x) <- alph
   
   # if parameter is NULL and all letters are length one, no space
@@ -68,8 +66,6 @@ format.encsq <- function(x, ...,
   # indices to print
   p_inds <- format(paste0("[", 1:num_lines, "]"), 
                    width = inds_width, justify = "right")
-  
-  browser()
   
   p_seqs <- .get_p_seqs(sq_cut, lens, letters_sep, body_color, p_width - inds_width - 1, use_color)
   

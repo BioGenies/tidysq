@@ -1,15 +1,3 @@
-.get_alph_size <- function(alph) {
-  ceiling(log2(length(alph) + 2))
-}
-
-.get_na_val <- function(alph) {
-  2 ^ .get_alph_size(alph) - 1
-}
-
-.get_real_alph <- function(sq) {
-  unique(unlist(strsplit(sq, "")))
-}
-
 .get_sq_subclass <- function(sq) {
   intersect(class(sq), c("amisq", "nucsq", "dnasq", "rnasq", "untsq", "atpsq", "encsq"))
 }
@@ -18,15 +6,6 @@
   sqclasses <- intersect(class(sq), c("amisq", "dnasq", "rnasq", "untsq", "atpsq", "encsq"))
   dict <- c(amisq = "ami", dnasq = "dna", rnasq = "rna", untsq = "unt", atpsq = "atp", encsq = "enc")
   dict[sqclasses]
-}
-
-.get_standard_alph <- function(type, is_clean) {
-       if (type == "ami" &&  is_clean) aminoacids_df[!aminoacids_df[["amb"]], "one"]
-  else if (type == "ami" && !is_clean) aminoacids_df[, "one"]
-  else if (type == "dna" &&  is_clean) nucleotides_df[nucleotides_df[["dna"]], "one"]
-  else if (type == "dna" && !is_clean) nucleotides_df[nucleotides_df[["dna"]] | nucleotides_df[["amb"]], "one"]
-  else if (type == "rna" &&  is_clean) nucleotides_df[nucleotides_df[["rna"]], "one"]
-  else if (type == "rna" && !is_clean) nucleotides_df[nucleotides_df[["rna"]] | nucleotides_df[["amb"]], "one"]
 }
 
 .is_cleaned <- function(sq) {
@@ -47,30 +26,6 @@
               ptype = raw(),
               alphabet = alph,
               class = classes)
-}
-
-.guess_ami_is_clean <- function(real_alph) {
-  if (all(real_alph %in% .get_standard_alph("ami", TRUE)))
-    TRUE
-  else if (all(real_alph %in% .get_standard_alph("ami", FALSE)))
-    FALSE
-  else stop("there are letters that aren't in IUPAC standard! (see: aminoacids_df)")
-}
-
-.guess_dna_is_clean <- function(real_alph) {
-  if (all(real_alph %in% .get_standard_alph("dna", TRUE)))
-    TRUE
-  else if (all(real_alph %in% .get_standard_alph("dna", FALSE)))
-    FALSE
-  else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
-}
-
-.guess_rna_is_clean <- function(real_alph) {
-  if (all(real_alph %in% .get_standard_alph("rna", TRUE)))
-    TRUE
-  else if (all(real_alph %in% .get_standard_alph("rna", FALSE)))
-    FALSE
-  else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
 }
 
 .guess_sq_type_subtype <- function(sq) {

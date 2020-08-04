@@ -7,7 +7,7 @@ vec_cast.amisq.character <- function(x, to, ...) .construct_amisq(x, .is_cleaned
 #' @export
 vec_cast.character.amisq <- function(x, to, ...) unlist(.unpack_from_sq(x, "string"))
 #' @export
-vec_cast.untsq.amisq <- function(x, to, ...) .construct_untsq(as.character(x), alph = .get_alph(to))
+vec_cast.untsq.amisq <- function(x, to, ...) .construct_untsq(as.character(x), alph = alphabet(to))
 #' @export
 vec_cast.amisq.untsq <- function(x, to, ...) typify(x, "ami")
 
@@ -54,3 +54,9 @@ vec_cast.atpsq.atpsq <- function(x, to, ...)
 vec_cast.atpsq.character <- function(x, to, ...) .nonst_construct_sq(x, alphabet(to))
 #' @export
 vec_cast.character.atpsq <- function(x, to, ...) unlist(.unpack_from_sq(x, "string"))
+
+# sq_alphabet ----
+#' @export
+vec_cast.sq_alphabet.character <- function(x, to, ...) sq_alphabet(x, na_character(to))
+#' @export
+vec_cast.character.sq_alphabet <- function(x, to, ...) vec_data(x)

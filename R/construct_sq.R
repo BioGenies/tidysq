@@ -524,7 +524,7 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   sq <- .pack_to_sq(sq, non_standard)
   new_list_of(sq,
               ptype = raw(),
-              alphabet = non_standard,
+              alphabet = vec_cast(non_standard, sq_alphabet_ptype()),
               class = c("atpsq", "sq", "list"))
 }
 
@@ -579,7 +579,7 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   sq <- .pack_to_sq(sq, alph)
   new_list_of(sq,
               ptype = raw(),
-              alphabet = alph,
+              alphabet = vec_cast(alph, sq_alphabet_ptype()),
               class = c("untsq", "sq", "list"))
 }
 
@@ -596,6 +596,6 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   }
   new_list_of(list(),
               ptype = raw(),
-              alphabet = alph,
+              alphabet = vec_cast(alph, sq_alphabet_ptype()),
               class = c(paste0(type, "sq"), if (is_clean) "clnsq" else NULL, "sq", "list"))
 }

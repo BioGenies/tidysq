@@ -135,7 +135,7 @@ substitute_letters <- function(sq, encoding) {
   
   inds_fun <- alph
   inds_fun[match(names(encoding), alph)] <- encoding
-  new_alph <- na.omit(unique(inds_fun))
+  new_alph <- vec_cast(na.omit(unique(inds_fun)), sq_alphabet_ptype())
   names(inds_fun) <- as.character(1:length(alph))
   inds_fun <- match(inds_fun, new_alph)
   inds_fun[is.na(inds_fun)] <- .get_na_val(new_alph)

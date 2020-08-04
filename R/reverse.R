@@ -36,7 +36,6 @@
 #' @export
 reverse <- function(sq) {
   .validate_sq(sq)
-  alph_size <- .get_alph_size(.get_alph(sq))
   ret <- .apply_sq(sq, "int", "int", rev)
   vec_restore(ret, sq)
 }

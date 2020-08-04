@@ -11,8 +11,6 @@
     orig_lengths <- sapply(sq, nchar)
   }
   
-  
-  alph_size <- .get_alph_size(alph)
   ret <- lapply(sq, function(s) packing_fun(s, alph))
   .set_original_length(ret, orig_lengths)
 }
@@ -33,11 +31,11 @@
   if (length(sq) == 0) return(sq)
   alph <- alphabet(sq)
   if (to == "char") 
-    unpacking_fun <- function(s) C_unpack_chars(s, alph, .get_na_char())
+    unpacking_fun <- function(s) C_unpack_chars(s, alph, na_character(alph))
   else if (to == "int") 
     unpacking_fun <- function(s) C_unpack_ints(s, .get_alph_size(alph))
   else if (to == "string") 
-    unpacking_fun <- function(s) C_unpack_string(s, alph, .get_na_char())
+    unpacking_fun <- function(s) C_unpack_string(s, alph, na_character(alph))
   
   ret <- lapply(sq, function(s) unpacking_fun(s))
   .set_original_length(ret, sapply(sq, attr, "original_length"))
@@ -47,11 +45,11 @@
   if (length(sq) == 0) return(sq)
   ex_alph <- alphabet(sq)
   if (ex_form == "char") 
-    unpacking_fun <- function(s) C_unpack_chars(s, ex_alph, .get_na_char())
+    unpacking_fun <- function(s) C_unpack_chars(s, ex_alph, na_character(ex_alph))
   else if (ex_form == "int") 
     unpacking_fun <- function(s) C_unpack_ints(s, .get_alph_size(ex_alph))
   else if (ex_form == "string") 
-    unpacking_fun <- function(s) C_unpack_string(s, ex_alph, .get_na_char())
+    unpacking_fun <- function(s) C_unpack_string(s, ex_alph, na_character(ex_alph))
   
   if (im_form == "none") return(lapply(sq, function(s) fun(unpacking_fun(s))))
   
