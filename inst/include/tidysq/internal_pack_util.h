@@ -38,6 +38,12 @@ namespace tidysq {
         inline SEQUENCE_PACKED reserveSpaceForPacked(const SEQUENCE_UNPACKED& unpacked, const ALPHABET& alphabet) {
             return SEQUENCE_PACKED(getPackedLength(unpacked, alphabet), unpacked.size());
         }
+
+        template<typename SEQUENCE_PACKED,
+                typename SEQUENCE_UNPACKED>
+        inline SEQUENCE_UNPACKED reserveSpaceForUnpacked(const SEQUENCE_PACKED& packed) {
+            return SEQUENCE_UNPACKED(getOriginalLength(packed));
+        }
     }
 }
 
