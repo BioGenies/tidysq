@@ -14,6 +14,12 @@ namespace tidysq {
             BaseType::attr("original_length") = original_length;
         }
 
+        explicit RcppSequence(const Rcpp::RawVector& content) :
+                BaseType(content) {
+            if (!content.hasAttribute("original_length"))
+                throw std::invalid_argument(R"("content" argument in RcppSequence should have "original_length" attribute!)");
+        };
+
         BaseType::const_Proxy operator[] (lensq index) const {
             return BaseType::operator[](index);
         }
