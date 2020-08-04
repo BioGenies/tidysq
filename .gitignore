@@ -13,3 +13,11 @@ config.log
 config.status
 
 src/tidysq.dll
+
+inst/include/tidysq/.idea/
+
+inst/include/tidysq/cmake-build-debug/
+
+inst/include/tidysq/CMakeLists.txt
+
+inst/include/tidysq/main.cpp
