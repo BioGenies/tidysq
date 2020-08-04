@@ -8,6 +8,15 @@ using namespace tidysq;
 //' @export
 //[[Rcpp::export]]
 List tmpPack(List raws, StringVector alphabet) {
-  RcppSqProto<RcppSequenceProtoRaw> sqProto(raws, alphabet);
-  return sqProto.pack<RcppSq>().exportToR();
+  return RcppSqProto<RcppSequenceProtoRaw>(raws, alphabet)
+    .pack<RcppSq>()
+    .exportToR();
+}
+
+//' @export
+//[[Rcpp::export]]
+List tmpUnpack(List raws) {
+  return RcppSq(raws)
+    .unpack<RcppSqProto<RcppSequenceProtoRaw>>()
+    .exportToR();
 }

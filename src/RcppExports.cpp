@@ -273,6 +273,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// tmpUnpack
+List tmpUnpack(List raws);
+RcppExport SEXP _tidysq_tmpUnpack(SEXP rawsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type raws(rawsSEXP);
+    rcpp_result_gen = Rcpp::wrap(tmpUnpack(raws));
+    return rcpp_result_gen;
+END_RCPP
+}
 // C_unpack_raws
 Rcpp::RawVector C_unpack_raws(Rcpp::RawVector packed, const unsigned short alph_size);
 static SEXP _tidysq_C_unpack_raws_try(SEXP packedSEXP, SEXP alph_sizeSEXP) {
@@ -534,6 +545,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_read_fasta_file", (DL_FUNC) &_tidysq_read_fasta_file, 2},
     {"_tidysq_find_alph", (DL_FUNC) &_tidysq_find_alph, 1},
     {"_tidysq_tmpPack", (DL_FUNC) &_tidysq_tmpPack, 2},
+    {"_tidysq_tmpUnpack", (DL_FUNC) &_tidysq_tmpUnpack, 1},
     {"_tidysq_C_unpack_raws", (DL_FUNC) &_tidysq_C_unpack_raws, 2},
     {"_tidysq_C_unpack_ints", (DL_FUNC) &_tidysq_C_unpack_ints, 2},
     {"_tidysq_C_unpack_chars", (DL_FUNC) &_tidysq_C_unpack_chars, 3},

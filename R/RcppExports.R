@@ -62,6 +62,11 @@ tmpPack <- function(raws, alphabet) {
     .Call('_tidysq_tmpPack', PACKAGE = 'tidysq', raws, alphabet)
 }
 
+#' @export
+tmpUnpack <- function(raws) {
+    .Call('_tidysq_tmpUnpack', PACKAGE = 'tidysq', raws)
+}
+
 C_unpack_raws <- function(packed, alph_size) {
     .Call('_tidysq_C_unpack_raws', PACKAGE = 'tidysq', packed, alph_size)
 }
