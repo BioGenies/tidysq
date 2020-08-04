@@ -3,6 +3,8 @@
 
 #include "types_RcppSequence.h"
 #include "types_general.h"
+#include "sqapply.h"
+#include "impl_Operation.h"
 
 namespace tidysq {
     class RcppSq {
@@ -28,11 +30,23 @@ namespace tidysq {
             return content_[index];
         }
 
+        lensq length() const {
+            return content_.size();
+        }
+
+        AlphabetType alphabet() const {
+            return alphabet_;
+        }
+
+        template<typename TYPE_OUT>
+        TYPE_OUT unpack() const {
+            return sqapply<RcppSq, TYPE_OUT, AlphabetType>(*this, ops::OperationUnpack<SequenceType, typename TYPE_OUT::SequenceType, AlphabetType>());
+        }
+
         Rcpp::List exportToR() {
             content_.attr("alphabet") = alphabet_;
             return content_;
         }
-
     };
 }
 
