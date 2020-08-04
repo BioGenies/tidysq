@@ -12,13 +12,13 @@ namespace tidysq {
         typedef RcppSequence SequenceType;
         typedef RcppAlphabet AlphabetType;
 
-        explicit RcppSq(lensq length, AlphabetType alphabet) :
+        RcppSq(lensq length, AlphabetType alphabet) :
                 content_(Rcpp::List(length)),
                 alphabet_(alphabet) {};
 
-        RcppSq(Rcpp::List content, AlphabetType alphabet) :
+        explicit RcppSq(Rcpp::List content) :
                 content_(content),
-                alphabet_(alphabet) {};
+                alphabet_(content.attr("alphabet")) {};
 
         Rcpp::List::Proxy operator[] (lensq index) {
             return content_[index];
