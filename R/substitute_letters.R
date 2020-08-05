@@ -9,13 +9,13 @@
 #' to create sequences with simplified alphabets.
 #' 
 #' The function is only used to replace letters in the alphabet. 
-#' It cannot be used to merge neighboring characters.
+#' It cannot be used to merge multiple characters into one.
 #' 
 #' 
 #' @inheritParams reverse
 #' @param encoding a vector of letters to be replaced together with their replacements.
 #' One letter can be replaced with multiple symbols. 
-#' To perform substitution create a named vector ex. 
+#' To perform substitution create a named vector, e.g.
 #' \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
 #' 
 #' @return a \code{\link{sq}} object with \strong{atp} type with replaced alphabet, 
@@ -42,7 +42,7 @@
 #' Replacing multiple letters with the same symbol 
 #' (ex. \code{c(A = "rep1", H  = "rep1", G = "rep1")}) is allowed.
 #' 
-#' Created sequence will be deprived of \strong{cln} subtype, 
+#' Created sequence will be stripped of \strong{cln} subtype, 
 #' if the original sequence possessed it. This will also occur when
 #' the letter to be replaced will not be found in the sequence. 
 #' It remain unchanged but will lose subclass.
@@ -57,10 +57,10 @@
 #' @examples 
 #' # Creating sq object to work on:
 #'
-#' sq_nuc <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
+#' sq_dna <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
 #'                          "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", 
 #'                          "CTGCTG", "CTTAGA", "CCCT", "CTGAATGT"), 
-#'                        type = "nuc")
+#'                        type = "dna")
 #' 
 #' sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", 
 #'                         "TIAALGNIIYRAIE", "NYERTGHLI", 
@@ -70,8 +70,8 @@
 #' 
 #' # Replace single letter of alphabet with single character encoding:
 #' 
-#' substitute_letters(sq_nuc, c(T = "t", A = "a", C = "H", G = "Z"))
-#' substitute_letters(sq_nuc, c(T = 1, A = 2, C = 3, G = 4))
+#' substitute_letters(sq_dna, c(T = "t", A = "a", C = "H", G = "Z"))
+#' substitute_letters(sq_dna, c(T = 1, A = 2, C = 3, G = 4))
 #' 
 #' substitute_letters(sq_ami, c(M = "m", Q = "g", R = "#", D = "$"))
 #' substitute_letters(sq_ami, c(M = "2", Q = "5", R = "9", D = "7"))
@@ -79,24 +79,24 @@
 #' 
 #' # Replace single letter of alphabet with multiple character encoding:
 #' 
-#' substitute_letters(sq_nuc, c(T = "th", A = "ad", C = "cy", G = "gu"))
-#' substitute_letters(sq_nuc, c(T = 111, A = 222, C = 333, G = 444))
+#' substitute_letters(sq_dna, c(T = "th", A = "ad", C = "cy", G = "gu"))
+#' substitute_letters(sq_dna, c(T = 111, A = 222, C = 333, G = 444))
 #' 
 #' substitute_letters(sq_ami, c(M = "Met", Q = "Gln", R = "Arg", D = "Asp"))
 #' substitute_letters(sq_ami, c(M = "222", Q = "555", R = "999", D = "777"))
 #' 
 #' # Replace single letter of alphabet with NA value:
 #' 
-#' substitute_letters(sq_nuc, c(A = NA, G = NA))
+#' substitute_letters(sq_dna, c(A = NA, G = NA))
 #' 
 #' 
 #' # Use created encoding
 #' 
-#' sub_nuc <- c(T = "t", A = "a", C = "c", G = "g")
+#' sub_dna <- c(T = "t", A = "a", C = "c", G = "g")
 #' sub_ami <- c(M = "Met", Q = "Gln", R = "Arg", D = "Asp", 
 #'              H = "His", K = "Lys", A = "Ala")
 #' 
-#' substitute_letters(sq_nuc, sub_nuc)
+#' substitute_letters(sq_dna, sub_dna)
 #' substitute_letters(sq_ami, sub_ami)
 #' 
 #' 

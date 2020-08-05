@@ -5,9 +5,7 @@
 \alias{AAindex}
 \alias{AAindex_norm}
 \title{Amino acids properties}
-\format{
-A data frames with 20 columns and 600 rows.
-}
+\format{A data frames with 20 columns and 600 rows.}
 \source{
 AAIndex database.
 }

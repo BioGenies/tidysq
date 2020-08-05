@@ -4,14 +4,14 @@
 \name{nucleotides_df}
 \alias{nucleotides_df}
 \title{Nucleotides abbreviations}
-\format{
-A data frame with 17 rows and 3 columns:
+\format{A data frame with 17 rows and 5 columns:
 \describe{
  \item{one}{One-letter codes of nucleotides}
  \item{full}{Full name of the nucleotide}
  \item{amb}{Logical indicating if abbreviation is ambiguous, i. e., matches more than one nucleotide}
- }
-}
+ \item{dna}{Logical indicating if this nucleotide appears in standard DNA code}
+ \item{rna}{Logical indicating if this nucleotide appears in standard RNA code}
+ }}
 \source{
 Johnson, A.D. (2010). An extended IUPAC nomenclature code for 
 polymorphic nucleic acids. Bioinformatics 26, 1386–1389.

@@ -15,12 +15,12 @@ as.sq(x, ...)
 A \code{sq} object
 }
 \description{
-This generic function takes an object of arbitrary type and returns a \code{\link{sq}} object 
+This generic function takes an object of arbitrary type and returns an \code{\link{sq}} object 
 as an output. Default implementation of the method throws an error - there needs to be 
 implemented a method for specified class in order for function to work.
 }
 \details{
-In \pkg{tidysq} only for \code{\link{character}} vector there is implemented a method 
+In \pkg{tidysq} only for \code{\link{character}} vector there is an implemented method 
 which in fact works exactly like \code{\link{construct_sq}} - you can also pass other arguments
 like those supported by \code{\link{construct_sq}}.
 }

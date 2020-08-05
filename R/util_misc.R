@@ -10,29 +10,27 @@
   attr(sq, "alphabet")
 }
 
-.get_lens <- function(sq) {
-  unlist(.apply_sq(sq, "int", "none", function(s) length(s)))
-}
-
 .get_real_alph <- function(sq) {
   unique(unlist(strsplit(sq, "")))
 }
 
 .get_sq_subclass <- function(sq) {
-  intersect(class(sq), c("amisq", "nucsq", "untsq", "atpsq", "encsq"))
+  intersect(class(sq), c("amisq", "nucsq", "dnasq", "rnasq", "untsq", "atpsq", "encsq"))
 }
 
 .get_sq_type <- function(sq) {
-  sqclasses <- intersect(class(sq), c("amisq", "nucsq", "untsq", "atpsq", "encsq"))
-  dict <- c(amisq = "ami", nucsq = "nuc", untsq = "unt", atpsq = "atp", encsq = "enc")
+  sqclasses <- intersect(class(sq), c("amisq", "dnasq", "rnasq", "untsq", "atpsq", "encsq"))
+  dict <- c(amisq = "ami", dnasq = "dna", rnasq = "rna", untsq = "unt", atpsq = "atp", encsq = "enc")
   dict[sqclasses]
 }
 
 .get_standard_alph <- function(type, is_clean) {
        if (type == "ami" &&  is_clean) aminoacids_df[!aminoacids_df[["amb"]], "one"]
   else if (type == "ami" && !is_clean) aminoacids_df[, "one"]
-  else if (type == "nuc" &&  is_clean) nucleotides_df[!nucleotides_df[["amb"]], "one"]
-  else if (type == "nuc" && !is_clean) nucleotides_df[, "one"]
+  else if (type == "dna" &&  is_clean) nucleotides_df[nucleotides_df[["dna"]], "one"]
+  else if (type == "dna" && !is_clean) nucleotides_df[nucleotides_df[["dna"]] | nucleotides_df[["amb"]], "one"]
+  else if (type == "rna" &&  is_clean) nucleotides_df[nucleotides_df[["rna"]], "one"]
+  else if (type == "rna" && !is_clean) nucleotides_df[nucleotides_df[["rna"]] | nucleotides_df[["amb"]], "one"]
 }
 
 .is_cleaned <- function(sq) {
@@ -49,9 +47,16 @@
   sq
 }
 
+.set_original_length <- function(sq, orig_lengths) {
+  if (length(sq) == 0) return(sq)
+  for (index in 1:length(sq)) {
+    attr(sq[[index]], "original_length") <- orig_lengths[index]
+  }
+  sq
+}
 
 .set_class_alph <- function(new_sq, sq) {
-  class(new_sq) <-class(sq)
+  class(new_sq) <- class(sq)
   attr(new_sq, "alphabet") <- .get_alph(sq)
   new_sq
 }
@@ -71,10 +76,18 @@
   else stop("there are letters that aren't in IUPAC standard! (see: aminoacids_df)")
 }
 
-.guess_nuc_is_clean <- function(real_alph) {
-  if (all(real_alph %in% .get_standard_alph("nuc", TRUE)))
+.guess_dna_is_clean <- function(real_alph) {
+  if (all(real_alph %in% .get_standard_alph("dna", TRUE)))
     TRUE
-  else if (all(real_alph %in% .get_standard_alph("nuc", FALSE)))
+  else if (all(real_alph %in% .get_standard_alph("dna", FALSE)))
+    FALSE
+  else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
+}
+
+.guess_rna_is_clean <- function(real_alph) {
+  if (all(real_alph %in% .get_standard_alph("rna", TRUE)))
+    TRUE
+  else if (all(real_alph %in% .get_standard_alph("rna", FALSE)))
     FALSE
   else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
 }
@@ -85,15 +98,19 @@
 }
 
 .guess_type_subtype_by_alph <- function(alph) {
-  possib_rets <- list(list(type = "nuc", is_clean = TRUE),
+  # TODO: any better idea for it?
+  possib_rets <- list(list(type = "dna", is_clean = TRUE),
+                      list(type = "rna", is_clean = TRUE),
                       list(type = "ami", is_clean = TRUE),
-                      list(type = "nuc", is_clean = FALSE),
+                      list(type = "dna", is_clean = FALSE),
+                      list(type = "rna", is_clean = FALSE),
                       list(type = "ami", is_clean = FALSE))
   for (ret in possib_rets)
     if (all(alph %in% .get_standard_alph(ret[["type"]], ret[["is_clean"]]))) return(ret)
   list(type = "unt", is_clean = NULL)  
 }
 
+# TODO: check what it does
 .merge_ind <- function(res_ind, begs) {
   n <- length(res_ind)
   m <- length(begs)

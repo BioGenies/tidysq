@@ -6,17 +6,18 @@ AAR
 AAStringSet
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 ACDEFGHIKLMNPQRSTVWY
-ACGTU
-ACGTUWSMKRYBDHVN
+ACGT
+ACGTWSMKRYBDHVN
+ACGU
+ACGUWSMKRYBDHVN
 AcWl
-additionaly
 al
 alanine
 ALTFT
 ALTLS
 amb
 ami
-aminoacid
+aminoacids
 Amphiphilicity
 antiparallel
 Aperiodic
@@ -27,10 +28,8 @@ Bae
 Bastolla
 bata
 Beghin
-behaviour
 Bhaskaran
 Bigelow
-bigram
 bilayer
 Bioinformatics
 Biostrings
@@ -56,7 +55,6 @@ chx
 cln
 codecov
 Cohn
-complementarity
 compositino
 conformational
 Conformational
@@ -76,7 +74,9 @@ der
 destinated
 df
 Dirkx
+dna
 DNAbin
+dnasq
 DNAStringSet
 doi
 DSSP
@@ -96,7 +96,6 @@ Fauchere
 FDPB
 Finkelstein
 Fodje
-fopenmp
 Fukuchi
 Garel
 Geisow
@@ -105,7 +104,6 @@ gks
 gkw
 Goldsack
 Grantham
-grey
 Guo
 Harpaz
 Heijne
@@ -175,8 +173,6 @@ McMeekin
 MeCN
 Meirovitch
 MEM
-mer
-mers
 mesophiles
 mesophilic
 methylated
@@ -205,10 +201,8 @@ NNEIG
 nonbonding
 noside
 Nozaki
-nuc
 nucleotides
 Nucleotides
-nucsq
 oct
 Ohara
 Oobatake
@@ -231,6 +225,7 @@ PRIFT
 PRILS
 pring
 PrOH
+protease
 proteogenic
 proteome
 Proteome
@@ -243,10 +238,11 @@ Rackovsky
 Radzicka
 raws
 RCOOH
-Rcpp
 Refractivity
 respectivetly
 Ri
+rna
+rnasq
 Roseman
 Scheraga
 Sejnowski
@@ -257,7 +253,6 @@ Sippl
 Sneath
 solvation
 Solvation
-spedified
 steric
 Steric
 STERIMOL
@@ -269,7 +264,6 @@ SWEIG
 Takano
 Tanaka
 Tanford
-TCC
 TFA
 th
 thermophiles
@@ -281,10 +275,8 @@ TOTLS
 translational
 transmembrane
 Transmembrane
-trigram
 tripeptide
 tripeptides
-trunctated
 Tsai
 Tsong
 unrecommended

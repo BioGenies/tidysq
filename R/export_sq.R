@@ -15,10 +15,10 @@
 #' export_sq(sq_ami, "Biostrings::AAStringSet", c("one", "two"))
 #' export_sq(sq_ami, "seqinr::SeqFastaAA")
 #' 
-#' sq_nuc <- construct_sq(c("TGATGAAGCGCA", "TTGATGGGAA"))
-#' export_sq(sq_nuc, "ape::DNAbin", name = c("one", "two"))
-#' export_sq(sq_nuc, "Biostrings::DNAStringSet")
-#' export_sq(sq_nuc, "seqinr::SeqFastadna")
+#' sq_dna <- construct_sq(c("TGATGAAGCGCA", "TTGATGGGAA"))
+#' export_sq(sq_dna, "ape::DNAbin", name = c("one", "two"))
+#' export_sq(sq_dna, "Biostrings::DNAStringSet")
+#' export_sq(sq_dna, "seqinr::SeqFastadna")
 #' @seealso \code{\link{sq}} \code{\link{import_sq}}
 #' @export
 export_sq <- function(sq, export_format, name) {
@@ -38,7 +38,7 @@ export_sq <- function(sq, export_format, name) {
     .check_is_installed("seqinr")
     if (type == "ami") {
       ret <- lapply(.unpack_from_sq(sq, "char"), seqinr::as.SeqFastaAA)
-    } else if (type == "nuc") {
+    } else if (type %in% c("dna", "rna")) {
       ret <- lapply(.unpack_from_sq(sq, "char"), seqinr::as.SeqFastadna)
     }
     
@@ -51,16 +51,20 @@ export_sq <- function(sq, export_format, name) {
   } else if (export_format %in% c("ape::AAbin", "ape::DNAbin")) {
     .check_is_installed("ape")
     if (type == "ami") {
-      ape::as.AAbin(setNames(.unpack_from_sq(sq, "char"), name))
-    } else if (type == "nuc") {
-      ape::as.DNAbin(setNames(.unpack_from_sq(sq, "char"), name))
+      ape::as.AAbin(setNames(lapply(.unpack_from_sq(sq, "char"), `attributes<-`, NULL), name))
+    } else if (type %in% c("dna", "rna")) {
+      ape::as.DNAbin(setNames(lapply(.unpack_from_sq(sq, "char"), `attributes<-`, NULL), name))
     }
   } else if (export_format %in% c("Biostrings::AAStringSet", "Biostrings::DNAStringSet")) {
     .check_is_installed("Biostrings")
     if (type == "ami") {
       Biostrings::AAStringSet(setNames(unlist(.unpack_from_sq(sq, "string")), name))
-    } else if (type == "nuc") {
+    } else if (type %in% c("dna", "rna")) {
       Biostrings::DNAStringSet(setNames(unlist(.unpack_from_sq(sq, "string")), name))
     }
   }
+}
+
+.remove_original_length <- function(unpacked_sq) {
+  lapply()
 }

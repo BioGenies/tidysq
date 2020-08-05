@@ -46,7 +46,7 @@ affects the function. The default value indicating how many sequences should
 be printed is 10, but it can be changed in \code{\link[=tidysq-options]{package options}}. 
 
 Default value of \code{use_color} parameter is \code{TRUE} - sequences are printed
-in green and empty sequences, NA character and dots in gray. If this option is disabled, 
+in green, while empty sequences, NA character and dots in gray. If this option is disabled, 
 all sequences are in default color of console.
 
 The \code{letters_sep} parameter indicates how the letters should be separated 
@@ -69,23 +69,23 @@ page, check \code{\link[base:print]{here}}.
 # Creating sq objects using construct_sq:
 sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
                          "NYERTGHLI", "MAYXXXIALN"), type = "ami")
-sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
-                         "TGACGAGCTTA"), type = "nuc")
+sq_dna <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
+                         "TGACGAGCTTA"), type = "dna")
 sq_unt <- construct_sq(c("ATGCAGGA!", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
 
 # Printing without explicit function calling with default parameters:
 sq_ami
-sq_nuc
+sq_dna
 sq_unt
 
 # Printing with explicit function calling and specific parameters:
 print(sq_ami)
-print(sq_nuc, max_sequences = 1, use_color = FALSE)
+print(sq_dna, max_sequences = 1, use_color = FALSE)
 print(sq_unt, letters_sep = ":")
 
 # Printing of the cleaned object:
-clean(sq_nuc)
-print(clean(sq_nuc), letters_sep = "-", use_color = FALSE)
+clean(sq_dna)
+print(clean(sq_dna), letters_sep = "-", use_color = FALSE)
 
 }
 \seealso{

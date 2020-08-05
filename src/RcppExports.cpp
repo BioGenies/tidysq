@@ -148,25 +148,47 @@ RcppExport SEXP _tidysq_C_pack_string(SEXP unpackedSEXP, SEXP alphSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// nc_pack_cnuc
-Rcpp::RawVector nc_pack_cnuc(Rcpp::RawVector UNPACKED);
-RcppExport SEXP _tidysq_nc_pack_cnuc(SEXP UNPACKEDSEXP) {
+// nc_pack_cdna
+Rcpp::RawVector nc_pack_cdna(Rcpp::RawVector UNPACKED);
+RcppExport SEXP _tidysq_nc_pack_cdna(SEXP UNPACKEDSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type UNPACKED(UNPACKEDSEXP);
-    rcpp_result_gen = Rcpp::wrap(nc_pack_cnuc(UNPACKED));
+    rcpp_result_gen = Rcpp::wrap(nc_pack_cdna(UNPACKED));
     return rcpp_result_gen;
 END_RCPP
 }
-// nc_pack_nuc
-Rcpp::RawVector nc_pack_nuc(Rcpp::RawVector UNPACKED);
-RcppExport SEXP _tidysq_nc_pack_nuc(SEXP UNPACKEDSEXP) {
+// nc_pack_crna
+Rcpp::RawVector nc_pack_crna(Rcpp::RawVector UNPACKED);
+RcppExport SEXP _tidysq_nc_pack_crna(SEXP UNPACKEDSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type UNPACKED(UNPACKEDSEXP);
-    rcpp_result_gen = Rcpp::wrap(nc_pack_nuc(UNPACKED));
+    rcpp_result_gen = Rcpp::wrap(nc_pack_crna(UNPACKED));
+    return rcpp_result_gen;
+END_RCPP
+}
+// nc_pack_dna
+Rcpp::RawVector nc_pack_dna(Rcpp::RawVector UNPACKED);
+RcppExport SEXP _tidysq_nc_pack_dna(SEXP UNPACKEDSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type UNPACKED(UNPACKEDSEXP);
+    rcpp_result_gen = Rcpp::wrap(nc_pack_dna(UNPACKED));
+    return rcpp_result_gen;
+END_RCPP
+}
+// nc_pack_rna
+Rcpp::RawVector nc_pack_rna(Rcpp::RawVector UNPACKED);
+RcppExport SEXP _tidysq_nc_pack_rna(SEXP UNPACKEDSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type UNPACKED(UNPACKEDSEXP);
+    rcpp_result_gen = Rcpp::wrap(nc_pack_rna(UNPACKED));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -204,15 +226,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // nc_read_fasta_file
-Rcpp::List nc_read_fasta_file(std::string file, bool is_ami, bool is_clean);
-RcppExport SEXP _tidysq_nc_read_fasta_file(SEXP fileSEXP, SEXP is_amiSEXP, SEXP is_cleanSEXP) {
+Rcpp::List nc_read_fasta_file(std::string file, std::string type, bool is_clean);
+RcppExport SEXP _tidysq_nc_read_fasta_file(SEXP fileSEXP, SEXP typeSEXP, SEXP is_cleanSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type file(fileSEXP);
-    Rcpp::traits::input_parameter< bool >::type is_ami(is_amiSEXP);
+    Rcpp::traits::input_parameter< std::string >::type type(typeSEXP);
     Rcpp::traits::input_parameter< bool >::type is_clean(is_cleanSEXP);
-    rcpp_result_gen = Rcpp::wrap(nc_read_fasta_file(file, is_ami, is_clean));
+    rcpp_result_gen = Rcpp::wrap(nc_read_fasta_file(file, type, is_clean));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -463,8 +485,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_C_pack_ints", (DL_FUNC) &_tidysq_C_pack_ints, 2},
     {"_tidysq_C_pack_chars", (DL_FUNC) &_tidysq_C_pack_chars, 2},
     {"_tidysq_C_pack_string", (DL_FUNC) &_tidysq_C_pack_string, 2},
-    {"_tidysq_nc_pack_cnuc", (DL_FUNC) &_tidysq_nc_pack_cnuc, 1},
-    {"_tidysq_nc_pack_nuc", (DL_FUNC) &_tidysq_nc_pack_nuc, 1},
+    {"_tidysq_nc_pack_cdna", (DL_FUNC) &_tidysq_nc_pack_cdna, 1},
+    {"_tidysq_nc_pack_crna", (DL_FUNC) &_tidysq_nc_pack_crna, 1},
+    {"_tidysq_nc_pack_dna", (DL_FUNC) &_tidysq_nc_pack_dna, 1},
+    {"_tidysq_nc_pack_rna", (DL_FUNC) &_tidysq_nc_pack_rna, 1},
     {"_tidysq_nc_pack_cami", (DL_FUNC) &_tidysq_nc_pack_cami, 1},
     {"_tidysq_nc_pack_ami", (DL_FUNC) &_tidysq_nc_pack_ami, 1},
     {"_tidysq_C_unpack_sq_parallel", (DL_FUNC) &_tidysq_C_unpack_sq_parallel, 1},

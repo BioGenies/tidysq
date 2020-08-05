@@ -20,7 +20,7 @@
 #'
 #' @examples 
 #' # Creating an object to work on:
-#' sq <- construct_sq(c("ACGATTAGACG", "", "GACGANTCCAGNTAC"), type = "nuc")
+#' sq <- construct_sq(c("ACGATTAGACG", "", "GACGANTCCAGNTAC"), type = "dna")
 #' 
 #' # Testing for presence of empty sequences:
 #' is_null_sq(sq)
