@@ -54,7 +54,6 @@ clean <- function(sq, only_elements = FALSE) {
   if (is_clean) {
     return(sq)
   }
-  alph <- .get_alph(sq)
   alph_cln <- .get_standard_alph(type, TRUE)
   
   if (only_elements) {
@@ -66,7 +65,9 @@ clean <- function(sq, only_elements = FALSE) {
       if (!all(s %in% alph_cln)) raw(0) else s
     }, alph_cln) 
   }
-
-  class(ret) <- c("clnsq", class(sq))
-  .set_alph(ret, alph_cln)
+  
+  new_list_of(ret,
+              ptype = raw(),
+              alphabet = alph_cln,
+              class = c(.get_sq_subclass(sq), "clnsq", "sq", "list"))
 }
