@@ -44,7 +44,7 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
     if (!is.null(non_standard)) {
       .nonst_read_fasta(file, type, is_clean, non_standard)
     } else {
-      alph <- vec_cast(find_alph(file), sq_alphabet_ptype())
+      alph <- find_alph(file)
       if (!is.null(type) && type %in% c("ami", "dna", "rna")) alph <- toupper(alph)
       .check_alph_matches_type(alph, type, is_clean)
       
@@ -63,11 +63,8 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
         .check_alph_length(alph)
         
         sqtibble <- read_fasta_file(file, alph)
-        sqtibble[["sq"]] <- new_list_of(sqtibble[["sq"]],
-                                        ptype = raw(),
-                                        alphabet = alph,
-                                        class = c("untsq", "sq", "list"))
-        
+        class(sqtibble[["sq"]]) <- c("untsq", "sq", "list")
+        attr(sqtibble[["sq"]], "alphabet") <- alph
         # TODO: replace with adding length inside C++ code
         sqtibble[["sq"]] <- .set_original_length(sqtibble[["sq"]],
                                                  sapply(.unpack_from_sq(sqtibble[["sq"]], "char"), length))
@@ -97,12 +94,8 @@ read_fasta_rna <- function(file, is_clean = NULL) {
 
 .nc_read_fasta <- function(file, type, is_clean) {
   sqtibble <- nc_read_fasta_file(file, type, is_clean)
-  sqtibble[["sq"]] <- new_list_of(sqtibble[["sq"]],
-                                  ptype = raw(),
-                                  alphabet = .get_standard_alph(type, is_clean),
-                                  class = c(paste0(type, "sq"), if (is_clean) "clnsq" else NULL, "sq", "list"))
-  
-  # TODO: replace with adding length inside C++ code
+  class(sqtibble[["sq"]]) <- c(if (is_clean) "clnsq" else NULL, paste0(type, "sq"), "sq", "list")
+  attr(sqtibble[["sq"]], "alphabet") <- .get_standard_alph(type, is_clean)
   sqtibble[["sq"]] <- .set_original_length(sqtibble[["sq"]],
                                            sapply(.unpack_from_sq(sqtibble[["sq"]], "char"), length))
   as_tibble(sqtibble)

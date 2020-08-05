@@ -64,3 +64,7 @@ export_sq <- function(sq, export_format, name) {
     }
   }
 }
+
+.remove_original_length <- function(unpacked_sq) {
+  lapply()
+}

@@ -56,18 +56,19 @@ complement.dnasq <- function(sq) {
   .validate_sq(sq, "dna")
   
   .check_is_clean(sq, "'dnasq'")
-  alph <- alphabet(sq)
+  alph <- .get_alph(sq)
   alph_size <- .get_alph_size(alph)
-  ret <- .unpack_from_sq(sq, "int")
+  sq <- .unpack_from_sq(sq, "int")
   
   dict <- c(G = "C", C = "G", T = "A", A = "T", `-` = "-")
   
   inds_fun <- match(dict[alph], alph)
   names(inds_fun) <- as.character(1:length(alph))
-  ret <- lapply(ret, function(s)  structure(C_pack_ints(inds_fun[s], alph_size),
-                                            original_length = attr(s, "original_length")))
+  ret <- lapply(sq, function(s)  C_pack_ints(inds_fun[s], alph_size))
   
-  vec_restore(ret, sq)
+  ret <- .set_alph(ret, alph)
+  ret <- .set_original_length(ret, sapply(sq, attr, "original_length"))
+  .set_class(ret, "dna", TRUE)
 }
 
 #' @export
@@ -75,18 +76,19 @@ complement.rnasq <- function(sq) {
   .validate_sq(sq, "rna")
   
   .check_is_clean(sq, "'rnasq'")
-  alph <- alphabet(sq)
+  alph <- .get_alph(sq)
   alph_size <- .get_alph_size(alph)
-  ret <- .unpack_from_sq(sq, "int")
+  sq <- .unpack_from_sq(sq, "int")
   
   dict <- c(G = "C", C = "G", U = "A", A = "U", `-` = "-")
   
   inds_fun <- match(dict[alph], alph)
   names(inds_fun) <- as.character(1:length(alph))
-  ret <- lapply(ret, function(s)  structure(C_pack_ints(inds_fun[s], alph_size),
-                                            original_length = attr(s, "original_length")))
+  ret <- lapply(sq, function(s)  C_pack_ints(inds_fun[s], alph_size))
   
-  vec_restore(ret, sq)
+  ret <- .set_alph(ret, alph)
+  ret <- .set_original_length(ret, sapply(sq, attr, "original_length"))
+  .set_class(ret, "rna", TRUE)
 }
 
 #' @rdname complement

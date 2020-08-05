@@ -54,7 +54,7 @@ typify <- function(sq, dest_type) {
   if (type == dest_type) {
     return(sq)
   }
-  alph <- alphabet(sq)
+  alph <- .get_alph(sq)
   up_alph <- unique(toupper(alph))
   dest_alph <- .get_standard_alph(dest_type, FALSE)
   
@@ -73,8 +73,6 @@ typify <- function(sq, dest_type) {
     toupper(s)
   }, im_alph = dest_alph)
   
-  new_list_of(ret,
-              ptype = raw(),
-              alphabet = dest_alph,
-              class = c(paste0(dest_type, "sq"), "sq", "list"))
+  ret <- .set_alph(ret, dest_alph)
+  .set_class(ret, dest_type)
 }

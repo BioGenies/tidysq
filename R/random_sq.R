@@ -40,8 +40,8 @@ random_sq <- function(n, len, type, is_clean, sd = NULL, use_gap = FALSE) {
   .check_logical(use_gap, "'use_gap'", single_elem = TRUE)
   
   alph <- .get_standard_alph(type, is_clean)
-  if (!use_gap) alph <- .skip_characters(alph, "-")
-  if (type == "ami") alph <- .skip_characters(alph, "*")
+  if (!use_gap) alph <- setdiff(alph, "-")
+  if (type == "ami") alph <- setdiff(alph, "*")
   
   if (is.null(sd))
     sq <- sapply(1:n, function(i) paste0(sample(alph, len, replace = TRUE), collapse = ""))

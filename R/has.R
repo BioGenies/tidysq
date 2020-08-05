@@ -76,7 +76,7 @@
 #' @export
 `%has%.sq` <- function(x, y) {
   .check_character(y, "'y', right-hand side object,")
-  alph <- alphabet(x)
+  alph <- .get_alph(x)
   type <- .get_sq_type(x)
   .check_motifs_proper_alph(y, type, alph)
   x <- as.character(x)
@@ -100,7 +100,7 @@
   y <- lapply(y, function(s) replace(s, s == "X", "[A-Z]"))
   y <- sapply(y, function(s) paste(s, collapse = ""))
   
-  alph <- alphabet(x)
+  alph <- .get_alph(x)
   x <- as.character(x)
   
   ret <- sapply(y, function(s) grepl(s, x))
@@ -133,7 +133,7 @@
   
   y <- sapply(y, function(s) paste(s, collapse = ""))
   
-  alph <- alphabet(x)
+  alph <- .get_alph(x)
   x <- as.character(x)
   
   ret <- sapply(y, function(s) grepl(s, x))
@@ -166,7 +166,7 @@
   
   y <- sapply(y, function(s) paste(s, collapse = ""))
   
-  alph <- alphabet(x)
+  alph <- .get_alph(x)
   x <- as.character(x)
   
   ret <- sapply(y, function(s) grepl(s, x))

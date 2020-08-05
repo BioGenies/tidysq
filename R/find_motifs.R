@@ -82,7 +82,7 @@ find_motifs <- function(sq, name, motifs) {
                    paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
   motifs <- strsplit(motifs, "")
   
-  alph <- alphabet(sq)
+  alph <- .get_alph(sq)
   
   if (type == "ami") {
     motifs <- lapply(motifs, toupper)
@@ -145,6 +145,7 @@ find_motifs <- function(sq, name, motifs) {
   sq_col <- sq_c[matched_inds[, "s_ind"]]
   nm_col <- name[matched_inds[, "s_ind"]]
   found <- stri_sub(sq[matched_inds[, "s_ind"]], from = matched_inds[, "start"], to = matched_inds[, "end"])
+  sq_col <- .set_class_alph(sq_col, sq_c)
   tibble(name = nm_col, 
          sq = sq_col, 
          sought = sought, 

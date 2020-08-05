@@ -7,7 +7,6 @@
 #' @importFrom stats na.omit rnorm setNames
 #' @importFrom utils download.file installed.packages
 #' @importFrom tibble as_tibble tibble
-#' @import vctrs
 #' @name tidysq-package
 #' @aliases tidysq
 NULL
