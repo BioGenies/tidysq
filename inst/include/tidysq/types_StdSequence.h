@@ -1,5 +1,5 @@
-#ifndef TIDYSQ_TYPES_SEQUENCE_H
-#define TIDYSQ_TYPES_SEQUENCE_H
+#ifndef TIDYSQ_TYPES_STDSEQUENCE_H
+#define TIDYSQ_TYPES_STDSEQUENCE_H
 
 #include <vector>
 #include <string>
@@ -7,14 +7,14 @@
 #include "types_general.h"
 
 namespace tidysq {
-    class Sequence : public std::pair<std::vector<unsigned char>, lensq> {
+    class StdSequence : public std::pair<std::vector<unsigned char>, lensq> {
         typedef std::pair<std::vector<unsigned char>, lensq> BaseType;
     public:
         typedef unsigned char ElementType;
-        Sequence() :
-                Sequence(0, 0) {};
+        StdSequence() :
+                StdSequence(0, 0) {};
 
-        Sequence(lensq packed_length, lensq original_length) :
+        StdSequence(lensq packed_length, lensq original_length) :
                 BaseType(std::vector<ElementType>(packed_length), original_length) {};
 
         const ElementType &operator[](lensq index) const {
@@ -38,12 +38,12 @@ namespace tidysq {
         }
     };
 
-    typedef std::vector<unsigned char> SequenceProtoRaw;
-    typedef std::vector<int> SequenceProtoInteger;
-    typedef std::string SequenceProtoString;
-    typedef std::vector<std::string> SequenceProtoStrings;
+    typedef std::vector<unsigned char> StdSequenceProtoRaw;
+    typedef std::vector<int> StdSequenceProtoInteger;
+    typedef std::string StdSequenceProtoString;
+    typedef std::vector<std::string> StdSequenceProtoStrings;
 
-    typedef std::vector<std::string> Alphabet;
+    typedef std::vector<std::string> StdAlphabet;
 }
 
-#endif //TIDYSQ_TYPES_SEQUENCE_H
+#endif //TIDYSQ_TYPES_STDSEQUENCE_H
