@@ -10,18 +10,22 @@ namespace tidysq {
     class Sequence : public std::pair<std::vector<unsigned char>, lensq> {
         typedef std::pair<std::vector<unsigned char>, lensq> BaseType;
     public:
+        typedef unsigned char ElementType;
+        Sequence() :
+                Sequence(0, 0) {};
+
         Sequence(lensq packed_length, lensq original_length) :
-                BaseType(std::vector<unsigned char>(packed_length), original_length) {};
+                BaseType(std::vector<ElementType>(packed_length), original_length) {};
 
-        const unsigned char &operator[](lensq index) const {
+        const ElementType &operator[](lensq index) const {
             return first[index];
         }
 
-        unsigned char &operator[](lensq index) {
+        ElementType &operator[](lensq index) {
             return first[index];
         }
 
-        const lensq &originalLength() const {
+        [[nodiscard]] const lensq &originalLength() const {
             return second;
         }
 
@@ -29,7 +33,7 @@ namespace tidysq {
             return second;
         }
 
-        lensq size() const {
+        [[nodiscard]] lensq size() const {
             return first.size();
         }
     };
