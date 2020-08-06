@@ -11,13 +11,12 @@ format.sq <- function(x, ...,
                    allow_zero_len = TRUE, allow_null = TRUE)
   
   # color NA's
+  na_character(alphabet(x)) <- if (use_color) col_silver(.get_na_char()) else .get_na_char()
   alph <- alphabet(x)
-  na_character(alph) <- if (use_color) col_silver(.get_na_char()) else .get_na_char()
-  alphabet(x) <- alph
   
   # if parameter is NULL and all letters are length one, no space
   if (is.null(letters_sep))
-    letters_sep <- if (all(col_nchar(alph[!is.na(alph)]) == 1)) "" else " "
+    letters_sep <- if (all(col_nchar(alph[!is.na(alph)]) == 1)) "" else "\u00a0"
   
   .format_sq(x, max_sequences, use_color, letters_sep, col_green)
 }
@@ -39,7 +38,7 @@ format.encsq <- function(x, ...,
   
   # if parameter is NULL default sep is space
   if (is.null(letters_sep))
-    letters_sep <- " "
+    letters_sep <- "\u00a0"
   
   .format_sq(x, max_sequences, use_color, letters_sep, col_cyan)
 }

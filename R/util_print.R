@@ -8,14 +8,14 @@ obj_print_header.sq <- function(x, ...) {
              if (length(x) == 0) " of length 0" else ":")
 }
 
-#' @importFrom cli cli_text
+#' @importFrom cli cat_line
 #' @export
 obj_print_data.sq <- function(x, ...) {
   # for some unknown reason had to copy this code from original obj_print_data
   if (length(x) == 0) {
     return()
   }
-  cli_text(format(x, ...))
+  cat_line(format(x, ...))
   invisible(x)
 }
 
