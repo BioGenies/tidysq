@@ -6,7 +6,7 @@
 #include "general.h"
 #include "SequenceSTD.h"
 #include "AlphabetSTD.h"
-#include "../impl_Operation.h"
+#include "../ops/OperationUnpack.h"
 #include "../sqapply.h"
 
 namespace tidysq {
@@ -38,9 +38,10 @@ namespace tidysq {
             return alphabet_;
         }
 
-        template<typename TYPE_OUT>
-        TYPE_OUT unpack() const {
-            return sqapply<Sq<STD>, TYPE_OUT, AlphabetType>(*this, ops::OperationUnpack<SequenceType, typename TYPE_OUT::SequenceType, AlphabetType>());
+        template<InternalType INTERNAL_OUT,
+                ProtoType PROTO_OUT>
+        SqProto<INTERNAL_OUT, PROTO_OUT> unpack() const {
+            return sqapply<Sq<STD>, SqProto<INTERNAL_OUT, PROTO_OUT>, AlphabetType>(*this, ops::OperationUnpack<STD, INTERNAL_OUT, PROTO_OUT>());
         }
     };
 }

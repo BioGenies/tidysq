@@ -3,8 +3,8 @@
 
 #include "SequenceProtoRCPP.h"
 #include "AlphabetRCPP.h"
+#include "../ops/OperationPack.h"
 #include "../sqapply.h"
-#include "../impl_Operation.h"
 
 namespace tidysq {
     template<ProtoType PROTO>
@@ -19,6 +19,10 @@ namespace tidysq {
                 content_(content),
                 alphabet_(alphabet) {};
 
+        SqProto(lensq length, AlphabetType alphabet) :
+                content_(Rcpp::List(length)),
+                alphabet_(alphabet) {};
+
         Rcpp::List::Proxy operator[] (lensq index) {
             return content_[index];
         }
@@ -27,17 +31,17 @@ namespace tidysq {
             return content_[index];
         }
 
-        lensq length() const {
+        [[nodiscard]] lensq length() const {
             return content_.size();
         }
 
-        AlphabetType alphabet() const {
+        [[nodiscard]] AlphabetType alphabet() const {
             return alphabet_;
         }
 
-        template<typename TYPE_OUT>
-        TYPE_OUT pack() const {
-            return sqapply<SqProto<RCPP, PROTO>, TYPE_OUT, AlphabetType>(*this, ops::OperationPack<SequenceType, typename TYPE_OUT::SequenceType, AlphabetType>());
+        template<InternalType INTERNAL_OUT>
+        Sq<INTERNAL_OUT> pack() const {
+            return sqapply<SqProto<RCPP, PROTO>, Sq<INTERNAL_OUT>, AlphabetType>(*this, ops::OperationPack<RCPP, PROTO, INTERNAL_OUT>());
         }
 
         Rcpp::List exportToR() {

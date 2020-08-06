@@ -2,7 +2,7 @@
 #define TIDYSQ_SQAPPLY_H
 
 #include "types/general.h"
-#include "interface_Operation.h"
+#include "ops/interface/Operation.h"
 
 namespace tidysq {
     template <typename TYPE_IN, typename TYPE_OUT, typename ALPHABET>

@@ -10,7 +10,7 @@ using namespace tidysq;
 //[[Rcpp::export]]
 List tmpPack(List raws, StringVector alphabet) {
   return SqProto<RCPP>(raws, alphabet)
-    .pack<Sq<RCPP>>()
+    .pack<RCPP>()
     .exportToR();
 }
 
@@ -18,6 +18,6 @@ List tmpPack(List raws, StringVector alphabet) {
 //[[Rcpp::export]]
 List tmpUnpack(List raws) {
   return Sq<RCPP>(raws)
-    .unpack<SqProto<RCPP>>()
+    .unpack<RCPP, RAWS>()
     .exportToR();
 }

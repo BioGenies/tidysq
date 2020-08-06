@@ -4,8 +4,8 @@
 #include "general.h"
 #include "SequenceRCPP.h"
 #include "AlphabetRCPP.h"
+#include "../ops/OperationUnpack.h"
 #include "../sqapply.h"
-#include "../impl_Operation.h"
 
 namespace tidysq {
     template<>
@@ -32,17 +32,18 @@ namespace tidysq {
             return content_[index];
         }
 
-        lensq length() const {
+        [[nodiscard]] lensq length() const {
             return content_.size();
         }
 
-        AlphabetType alphabet() const {
+        [[nodiscard]] AlphabetType alphabet() const {
             return alphabet_;
         }
 
-        template<typename TYPE_OUT>
-        TYPE_OUT unpack() const {
-            return sqapply<Sq<RCPP>, TYPE_OUT, AlphabetType>(*this, ops::OperationUnpack<SequenceType, typename TYPE_OUT::SequenceType, AlphabetType>());
+        template<InternalType INTERNAL_OUT,
+                ProtoType PROTO_OUT>
+        SqProto<INTERNAL_OUT, PROTO_OUT> unpack() const {
+            return sqapply<Sq<RCPP>, SqProto<INTERNAL_OUT, PROTO_OUT>, AlphabetType>(*this, ops::OperationUnpack<RCPP, INTERNAL_OUT, PROTO_OUT>());
         }
 
         Rcpp::List exportToR() {
