@@ -1,20 +1,21 @@
-#ifndef TIDYSQ_TYPES_RCPPSQPROTO_H
-#define TIDYSQ_TYPES_RCPPSQPROTO_H
+#ifndef TIDYSQ_SQPROTORCPP_H
+#define TIDYSQ_SQPROTORCPP_H
 
-#include "types_RcppSequence.h"
-#include "sqapply.h"
-#include "impl_Operation.h"
+#include "SequenceProtoRCPP.h"
+#include "AlphabetRCPP.h"
+#include "../sqapply.h"
+#include "../impl_Operation.h"
 
 namespace tidysq {
-    template<typename RCPP_SEQUENCE_PROTO>
-    class RcppSqProto {
+    template<ProtoType PROTO>
+    class SqProto<RCPP, PROTO> {
         Rcpp::List content_;
-        RcppAlphabet alphabet_;
+        Alphabet<RCPP> alphabet_;
     public:
-        typedef RCPP_SEQUENCE_PROTO SequenceType;
-        typedef RcppAlphabet AlphabetType;
+        typedef SequenceProto<RCPP, PROTO> SequenceType;
+        typedef Alphabet<RCPP> AlphabetType;
 
-        RcppSqProto(Rcpp::List content, RcppAlphabet alphabet) :
+        SqProto(Rcpp::List content, AlphabetType alphabet) :
                 content_(content),
                 alphabet_(alphabet) {};
 
@@ -36,7 +37,7 @@ namespace tidysq {
 
         template<typename TYPE_OUT>
         TYPE_OUT pack() const {
-            return sqapply<RcppSqProto, TYPE_OUT, AlphabetType>(*this, ops::OperationPack<SequenceType, typename TYPE_OUT::SequenceType, AlphabetType>());
+            return sqapply<SqProto<RCPP, PROTO>, TYPE_OUT, AlphabetType>(*this, ops::OperationPack<SequenceType, typename TYPE_OUT::SequenceType, AlphabetType>());
         }
 
         Rcpp::List exportToR() {
@@ -46,4 +47,4 @@ namespace tidysq {
     };
 }
 
-#endif //TIDYSQ_TYPES_RCPPSQPROTO_H
+#endif //TIDYSQ_SQPROTORCPP_H

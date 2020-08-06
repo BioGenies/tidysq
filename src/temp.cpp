@@ -1,6 +1,7 @@
 #include <Rcpp.h>
-#include "tidysq/types_RcppSq.h"
-#include "tidysq/types_RcppSqProto.h"
+#include "tidysq/types/SqRCPP.h"
+#include "tidysq/types/SqProtoRCPP.h"
+#include "tidysq/types/AlphabetRCPP.h"
 
 using namespace Rcpp;
 using namespace tidysq;
@@ -8,15 +9,15 @@ using namespace tidysq;
 //' @export
 //[[Rcpp::export]]
 List tmpPack(List raws, StringVector alphabet) {
-  return RcppSqProto<RcppSequenceProtoRaw>(raws, alphabet)
-    .pack<RcppSq>()
+  return SqProto<RCPP>(raws, alphabet)
+    .pack<Sq<RCPP>>()
     .exportToR();
 }
 
 //' @export
 //[[Rcpp::export]]
 List tmpUnpack(List raws) {
-  return RcppSq(raws)
-    .unpack<RcppSqProto<RcppSequenceProtoRaw>>()
+  return Sq<RCPP>(raws)
+    .unpack<SqProto<RCPP>>()
     .exportToR();
 }

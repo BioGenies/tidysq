@@ -1,24 +1,26 @@
-#ifndef TIDYSQ_TYPES_RCPPSQ_H
-#define TIDYSQ_TYPES_RCPPSQ_H
+#ifndef TIDYSQ_SQRCPP_H
+#define TIDYSQ_SQRCPP_H
 
-#include "types_RcppSequence.h"
-#include "types_general.h"
-#include "sqapply.h"
-#include "impl_Operation.h"
+#include "general.h"
+#include "SequenceRCPP.h"
+#include "AlphabetRCPP.h"
+#include "../sqapply.h"
+#include "../impl_Operation.h"
 
 namespace tidysq {
-    class RcppSq {
+    template<>
+    class Sq<RCPP> {
         Rcpp::List content_;
-        RcppAlphabet alphabet_;
+        Alphabet<RCPP> alphabet_;
     public:
-        typedef RcppSequence SequenceType;
-        typedef RcppAlphabet AlphabetType;
+        typedef Sequence<RCPP> SequenceType;
+        typedef Alphabet<RCPP> AlphabetType;
 
-        RcppSq(lensq length, AlphabetType alphabet) :
+        Sq(lensq length, AlphabetType alphabet) :
                 content_(Rcpp::List(length)),
                 alphabet_(alphabet) {};
 
-        explicit RcppSq(Rcpp::List content) :
+        explicit Sq(Rcpp::List content) :
                 content_(content),
                 alphabet_(content.attr("alphabet")) {};
 
@@ -40,7 +42,7 @@ namespace tidysq {
 
         template<typename TYPE_OUT>
         TYPE_OUT unpack() const {
-            return sqapply<RcppSq, TYPE_OUT, AlphabetType>(*this, ops::OperationUnpack<SequenceType, typename TYPE_OUT::SequenceType, AlphabetType>());
+            return sqapply<Sq<RCPP>, TYPE_OUT, AlphabetType>(*this, ops::OperationUnpack<SequenceType, typename TYPE_OUT::SequenceType, AlphabetType>());
         }
 
         Rcpp::List exportToR() {
@@ -50,4 +52,4 @@ namespace tidysq {
     };
 }
 
-#endif //TIDYSQ_TYPES_RCPPSQ_H
+#endif //TIDYSQ_SQRCPP_H

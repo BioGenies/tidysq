@@ -1,7 +1,7 @@
 #ifndef TIDYSQ_SQAPPLY_H
 #define TIDYSQ_SQAPPLY_H
 
-#include "types_general.h"
+#include "types/general.h"
 #include "interface_Operation.h"
 
 namespace tidysq {

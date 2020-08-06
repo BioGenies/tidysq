@@ -3,7 +3,7 @@
 
 #include <stdexcept>
 
-#include "types_general.h"
+#include "types/general.h"
 #include "internal_pack_util.h"
 
 namespace tidysq {

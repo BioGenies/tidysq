@@ -2,8 +2,8 @@
 #define TIDYSQ_INTERNAL_PACK_UTIL_H
 
 #include <cmath>
-#include "types_StdSequence.h"
-#include "types_RcppSequence.h"
+#include "types/SequenceSTD.h"
+#include "types/SequenceRCPP.h"
 
 
 namespace tidysq {
@@ -23,12 +23,12 @@ namespace tidysq {
         inline lensq getOriginalLength(const SEQUENCE_PACKED& packed);
 
         template<>
-        inline lensq getOriginalLength<StdSequence>(const StdSequence& packed) {
+        inline lensq getOriginalLength<Sequence<STD>>(const Sequence<STD>& packed) {
             return packed.originalLength();
         }
 
         template<>
-        inline lensq getOriginalLength<RcppSequence>(const RcppSequence& packed) {
+        inline lensq getOriginalLength<Sequence<RCPP>>(const Sequence<RCPP>& packed) {
             return packed.attr("original_length");
         }
 
