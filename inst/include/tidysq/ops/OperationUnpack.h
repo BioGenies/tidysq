@@ -2,20 +2,37 @@
 #define TIDYSQ_OPERATIONUNPACK_H
 
 #include "interface/Operation.h"
-#include "internal/unpackRAWS.h"
+#include "internal/unpackNUMS.h"
 
 namespace tidysq::ops {
     template<InternalType INTERNAL_IN,
             InternalType INTERNAL_OUT,
             ProtoType PROTO_OUT>
-    class OperationUnpack :
+    class OperationUnpack;
+
+    template<InternalType INTERNAL_IN,
+            InternalType INTERNAL_OUT>
+    class OperationUnpack<INTERNAL_IN, INTERNAL_OUT, RAWS> :
             public OperationSq<Sequence<INTERNAL_IN>,
-                    SequenceProto<INTERNAL_OUT, PROTO_OUT>,
+                    SequenceProto<INTERNAL_OUT, RAWS>,
                     Alphabet<INTERNAL_IN>> {
     public:
-        SequenceProto<INTERNAL_OUT, PROTO_OUT> operator()(const Sequence<INTERNAL_IN> &sequence,
+        SequenceProto<INTERNAL_OUT, RAWS> operator()(const Sequence<INTERNAL_IN> &sequence,
                                                           const Alphabet<INTERNAL_IN> &alphabet) const override {
-            return internal::unpack<INTERNAL_IN, INTERNAL_OUT>(sequence, alphabet);
+            return internal::unpackNUMS<INTERNAL_IN, INTERNAL_OUT, RAWS>(sequence, alphabet);
+        }
+    };
+
+    template<InternalType INTERNAL_IN,
+            InternalType INTERNAL_OUT>
+    class OperationUnpack<INTERNAL_IN, INTERNAL_OUT, INTS> :
+            public OperationSq<Sequence<INTERNAL_IN>,
+                    SequenceProto<INTERNAL_OUT, INTS>,
+                    Alphabet<INTERNAL_IN>> {
+    public:
+        SequenceProto<INTERNAL_OUT, INTS> operator()(const Sequence<INTERNAL_IN> &sequence,
+                                                     const Alphabet<INTERNAL_IN> &alphabet) const override {
+            return internal::unpackNUMS<INTERNAL_IN, INTERNAL_OUT, INTS>(sequence, alphabet);
         }
     };
 }

@@ -1,5 +1,5 @@
-#ifndef TIDYSQ_PACKRAWS_H
-#define TIDYSQ_PACKRAWS_H
+#ifndef TIDYSQ_PACKNUMS_H
+#define TIDYSQ_PACKNUMS_H
 
 #include <stdexcept>
 
@@ -8,12 +8,13 @@
 
 namespace tidysq::internal {
     template<InternalType INTERNAL_IN,
+            ProtoType PROTO_IN,
             InternalType INTERNAL_OUT>
-    Sequence<INTERNAL_OUT> pack2(const SequenceProto<INTERNAL_IN, RAWS> &unpacked,
-                                 const Alphabet<INTERNAL_IN> &alphabet) {
+    Sequence<INTERNAL_OUT> packNUMS2(const SequenceProto<INTERNAL_IN, PROTO_IN> &unpacked,
+                                     const Alphabet<INTERNAL_IN> &alphabet) {
         lensq outByte = 0;
         lensq i = 0;
-        Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, RAWS, INTERNAL_OUT>(unpacked, alphabet);
+        Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(unpacked, alphabet);
         for (; i + 8 <= unpacked.size(); i += 8) {
             packed[outByte] = (unpacked[i]) |
                               (unpacked[i + 1] << 2) |
@@ -73,12 +74,13 @@ namespace tidysq::internal {
     }
 
     template<InternalType INTERNAL_IN,
+            ProtoType PROTO_IN,
             InternalType INTERNAL_OUT>
-    Sequence<INTERNAL_OUT> pack3(const SequenceProto<INTERNAL_IN, RAWS> &unpacked,
-                                 const Alphabet<INTERNAL_IN> &alphabet) {
+    Sequence<INTERNAL_OUT> packNUMS3(const SequenceProto<INTERNAL_IN, PROTO_IN> &unpacked,
+                                     const Alphabet<INTERNAL_IN> &alphabet) {
         lensq outByte = 0;
         lensq i = 0;
-        Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, RAWS, INTERNAL_OUT>(unpacked, alphabet);
+        Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(unpacked, alphabet);
         for (; i + 8 <= unpacked.size(); i += 8) {
             packed[outByte] = (unpacked[i]) |
                               (unpacked[i + 1] << 3) |
@@ -147,12 +149,13 @@ namespace tidysq::internal {
     }
 
     template<InternalType INTERNAL_IN,
+            ProtoType PROTO_IN,
             InternalType INTERNAL_OUT>
-    Sequence<INTERNAL_OUT> pack4(const SequenceProto<INTERNAL_IN, RAWS> &unpacked,
-                                 const Alphabet<INTERNAL_IN> &alphabet) {
+    Sequence<INTERNAL_OUT> packNUMS4(const SequenceProto<INTERNAL_IN, PROTO_IN> &unpacked,
+                                     const Alphabet<INTERNAL_IN> &alphabet) {
         lensq outByte = 0;
         lensq i = 0;
-        Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, RAWS, INTERNAL_OUT>(unpacked, alphabet);
+        Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(unpacked, alphabet);
         for (; i + 8 <= unpacked.size(); i += 8) {
             packed[outByte] = (unpacked[i]) |
                               (unpacked[i + 1] << 4);
@@ -212,12 +215,13 @@ namespace tidysq::internal {
     }
 
     template<InternalType INTERNAL_IN,
+            ProtoType PROTO_IN,
             InternalType INTERNAL_OUT>
-    Sequence<INTERNAL_OUT> pack5(const SequenceProto<INTERNAL_IN, RAWS> &unpacked,
-                                 const Alphabet<INTERNAL_IN> &alphabet) {
+    Sequence<INTERNAL_OUT> packNUMS5(const SequenceProto<INTERNAL_IN, PROTO_IN> &unpacked,
+                                     const Alphabet<INTERNAL_IN> &alphabet) {
         lensq outByte = 0;
         lensq i = 0;
-        Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, RAWS, INTERNAL_OUT>(unpacked, alphabet);
+        Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(unpacked, alphabet);
         for (; i + 8 <= unpacked.size(); i += 8) {
             packed[outByte] = (unpacked[i]) |
                               (unpacked[i + 1] << 5);
@@ -296,22 +300,23 @@ namespace tidysq::internal {
 
 
     template<InternalType INTERNAL_IN,
+            ProtoType PROTO_IN,
             InternalType INTERNAL_OUT>
-    Sequence<INTERNAL_OUT> pack(const SequenceProto<INTERNAL_IN, RAWS> &unpacked,
-                                const Alphabet<INTERNAL_IN> &alphabet) {
+    Sequence<INTERNAL_OUT> packNUMS(const SequenceProto<INTERNAL_IN, PROTO_IN> &unpacked,
+                                    const Alphabet<INTERNAL_IN> &alphabet) {
         switch (getAlphabetSize(alphabet)) {
             case 2:
-                return pack2<INTERNAL_IN, INTERNAL_OUT>(unpacked, alphabet);
+                return packNUMS2<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(unpacked, alphabet);
             case 3:
-                return pack3<INTERNAL_IN, INTERNAL_OUT>(unpacked, alphabet);
+                return packNUMS3<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(unpacked, alphabet);
             case 4:
-                return pack4<INTERNAL_IN, INTERNAL_OUT>(unpacked, alphabet);
+                return packNUMS4<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(unpacked, alphabet);
             case 5:
-                return pack5<INTERNAL_IN, INTERNAL_OUT>(unpacked, alphabet);
+                return packNUMS5<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(unpacked, alphabet);
             default:
                 throw std::invalid_argument("\"alphabet\" has bad alphabet size");
         }
     }
 }
 
-#endif //TIDYSQ_PACKRAWS_H
+#endif //TIDYSQ_PACKNUMS_H

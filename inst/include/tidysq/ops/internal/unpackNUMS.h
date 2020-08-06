@@ -1,5 +1,5 @@
-#ifndef TIDYSQ_UNPACKRAWS_H
-#define TIDYSQ_UNPACKRAWS_H
+#ifndef TIDYSQ_UNPACKNUMS_H
+#define TIDYSQ_UNPACKNUMS_H
 
 #include <stdexcept>
 
@@ -8,11 +8,12 @@
 
 namespace tidysq::internal {
     template<InternalType INTERNAL_IN,
-            InternalType INTERNAL_OUT>
-    SequenceProto<INTERNAL_OUT, RAWS> unpack2(const Sequence<INTERNAL_IN> &packed,
+            InternalType INTERNAL_OUT,
+            ProtoType PROTO_OUT>
+    SequenceProto<INTERNAL_OUT, PROTO_OUT> unpackNUMS2(const Sequence<INTERNAL_IN> &packed,
                                               const Alphabet<INTERNAL_IN> &alphabet) {
         lensq in_byte = 0;
-        SequenceProto<INTERNAL_OUT, RAWS> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, RAWS>(packed);
+        SequenceProto<INTERNAL_OUT, PROTO_OUT> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed);
         lensq out_len = unpacked.size();
 
         lensq i = 0;
@@ -75,11 +76,12 @@ namespace tidysq::internal {
     }
 
     template<InternalType INTERNAL_IN,
-            InternalType INTERNAL_OUT>
-    SequenceProto<INTERNAL_OUT, RAWS> unpack3(const Sequence<INTERNAL_IN> &packed,
+            InternalType INTERNAL_OUT,
+            ProtoType PROTO_OUT>
+    SequenceProto<INTERNAL_OUT, PROTO_OUT> unpackNUMS3(const Sequence<INTERNAL_IN> &packed,
                                               const Alphabet<INTERNAL_IN> &alphabet) {
         lensq in_byte = 0;
-        SequenceProto<INTERNAL_OUT, RAWS> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, RAWS>(packed);
+        SequenceProto<INTERNAL_OUT, PROTO_OUT> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed);
         lensq out_len = unpacked.size();
 
         lensq i = 0;
@@ -151,11 +153,12 @@ namespace tidysq::internal {
     }
 
     template<InternalType INTERNAL_IN,
-            InternalType INTERNAL_OUT>
-    SequenceProto<INTERNAL_OUT, RAWS> unpack4(const Sequence<INTERNAL_IN> &packed,
+            InternalType INTERNAL_OUT,
+            ProtoType PROTO_OUT>
+    SequenceProto<INTERNAL_OUT, PROTO_OUT> unpackNUMS4(const Sequence<INTERNAL_IN> &packed,
                                               const Alphabet<INTERNAL_IN> &alphabet) {
         lensq in_byte = 0;
-        SequenceProto<INTERNAL_OUT, RAWS> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, RAWS>(packed);
+        SequenceProto<INTERNAL_OUT, PROTO_OUT> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed);
         lensq out_len = unpacked.size();
 
         lensq i = 0;
@@ -218,11 +221,12 @@ namespace tidysq::internal {
     }
 
     template<InternalType INTERNAL_IN,
-            InternalType INTERNAL_OUT>
-    SequenceProto<INTERNAL_OUT, RAWS> unpack5(const Sequence<INTERNAL_IN> &packed,
+            InternalType INTERNAL_OUT,
+            ProtoType PROTO_OUT>
+    SequenceProto<INTERNAL_OUT, PROTO_OUT> unpackNUMS5(const Sequence<INTERNAL_IN> &packed,
                                               const Alphabet<INTERNAL_IN> &alphabet) {
         lensq in_byte = 0;
-        SequenceProto<INTERNAL_OUT, RAWS> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, RAWS>(packed);
+        SequenceProto<INTERNAL_OUT, PROTO_OUT> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed);
         lensq out_len = unpacked.size();
 
         lensq i = 0;
@@ -303,22 +307,23 @@ namespace tidysq::internal {
     }
 
     template<InternalType INTERNAL_IN,
-            InternalType INTERNAL_OUT>
-    SequenceProto<INTERNAL_OUT, RAWS> unpack(const Sequence<INTERNAL_IN> &packed,
+            InternalType INTERNAL_OUT,
+            ProtoType PROTO_OUT>
+    SequenceProto<INTERNAL_OUT, PROTO_OUT> unpackNUMS(const Sequence<INTERNAL_IN> &packed,
                                              const Alphabet<INTERNAL_IN> &alphabet) {
         switch (getAlphabetSize(alphabet)) {
             case 2:
-                return unpack2<INTERNAL_IN, INTERNAL_OUT>(packed, alphabet);
+                return unpackNUMS2<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed, alphabet);
             case 3:
-                return unpack3<INTERNAL_IN, INTERNAL_OUT>(packed, alphabet);
+                return unpackNUMS3<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed, alphabet);
             case 4:
-                return unpack4<INTERNAL_IN, INTERNAL_OUT>(packed, alphabet);
+                return unpackNUMS4<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed, alphabet);
             case 5:
-                return unpack5<INTERNAL_IN, INTERNAL_OUT>(packed, alphabet);
+                return unpackNUMS5<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed, alphabet);
             default:
                 throw std::invalid_argument("\"alphabet\" has bad alphabet size");
         }
     }
 }
 
-#endif //TIDYSQ_UNPACKRAWS_H
+#endif //TIDYSQ_UNPACKNUMS_H

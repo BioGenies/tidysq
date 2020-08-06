@@ -21,3 +21,11 @@ List tmpUnpack(List raws) {
     .unpack<RCPP, RAWS>()
     .exportToR();
 }
+
+//' @export
+//[[Rcpp::export]]
+List tmpUnpack2(List raws) {
+  return Sq<RCPP>(raws)
+  .unpack<RCPP, INTS>()
+  .exportToR();
+}
