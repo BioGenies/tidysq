@@ -19,11 +19,18 @@ obj_print_data.sq <- function(x, ...) {
   invisible(x)
 }
 
-#' @importFrom cli cli_text style_italic
+#' @importFrom cli cli_text
 #' @export
 obj_print_footer.sq <- function(x, ...,
                                 max_sequences = getOption("tidysq_p_max_sequences")) {
   if (length(x) > max_sequences)
-    cli_text(style_italic("printed {max_sequences} out of {length(x)}"))
+    cli_text("printed {max_sequences} out of {length(x)}")
   invisible(x)
+}
+
+#' @importFrom pillar pillar_shaft
+#' @export
+pillar_shaft.sq <- function (x, ...) {
+  pillar_shaft(structure(format(x, ...),
+                         class = "pillar_vertical"))
 }

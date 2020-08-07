@@ -2,9 +2,12 @@
 % Please edit documentation in R/util_methods.R
 \name{lengths.sq}
 \alias{lengths.sq}
+\alias{lengths,sq-method}
 \title{Get lengths of sequences in sq object}
 \usage{
 lengths.sq(x, use.names = TRUE)
+
+\S4method{lengths}{sq}(x, use.names = TRUE)
 }
 \arguments{
 \item{x}{an \code{\link{sq}} object.}

@@ -319,3 +319,9 @@ lengths.sq <- function(x, use.names = TRUE) {
   if (length(x) == 0) numeric(0)
   else sapply(x, attr, "original_length")
 }
+
+#' @rdname lengths.sq
+#' @export
+setMethod("lengths", signature("sq"), function(x, use.names = TRUE) {
+  lengths.sq(x, use.names)
+})
