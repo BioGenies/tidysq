@@ -4,6 +4,7 @@
 namespace tidysq {
     typedef unsigned long long int lensq;
     typedef short sizealph;
+    typedef short letvalue;
 
     enum InternalType {
         STD,
