@@ -1,6 +1,8 @@
 #ifndef TIDYSQ_SQPROTORCPP_H
 #define TIDYSQ_SQPROTORCPP_H
 
+#include <utility>
+
 #include "SequenceProtoRCPP.h"
 #include "AlphabetRCPP.h"
 #include "../ops/OperationPack.h"
@@ -15,13 +17,13 @@ namespace tidysq {
         typedef SequenceProto<RCPP, PROTO> SequenceType;
         typedef Alphabet<RCPP> AlphabetType;
 
-        SqProto(Rcpp::List content, AlphabetType alphabet) :
+        SqProto(const Rcpp::List& content, AlphabetType alphabet) :
                 content_(content),
-                alphabet_(alphabet) {};
+                alphabet_(std::move(alphabet)) {};
 
         SqProto(lensq length, AlphabetType alphabet) :
                 content_(Rcpp::List(length)),
-                alphabet_(alphabet) {};
+                alphabet_(std::move(alphabet)) {};
 
         Rcpp::List::Proxy operator[] (lensq index) {
             return content_[index];

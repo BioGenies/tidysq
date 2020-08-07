@@ -1,6 +1,8 @@
 #ifndef TIDYSQ_SQPROTOSTD_H
 #define TIDYSQ_SQPROTOSTD_H
 
+#include <utility>
+
 #include "SequenceProtoSTD.h"
 #include "AlphabetSTD.h"
 #include "../ops/OperationPack.h"
@@ -15,13 +17,13 @@ namespace tidysq {
         typedef SequenceProto<STD, PROTO> SequenceType;
         typedef Alphabet<STD> AlphabetType;
 
-        SqProto(std::vector<SequenceProto<STD, PROTO>> content, Alphabet<STD> alphabet) :
+        SqProto(const std::vector<SequenceProto<STD, PROTO>> &content, Alphabet<STD> alphabet) :
                 content_(content),
-                alphabet_(alphabet) {};
+                alphabet_(std::move(alphabet)) {};
 
         SqProto(lensq length, Alphabet<STD> alphabet) :
                 content_(std::vector<SequenceProto<STD, PROTO>>(length)),
-                alphabet_(alphabet) {};
+                alphabet_(std::move(alphabet)) {};
 
         SequenceType &operator[] (lensq index) {
             return content_[index];

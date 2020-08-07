@@ -1,6 +1,7 @@
 #ifndef TIDYSQ_SQSTD_H
 #define TIDYSQ_SQSTD_H
 
+#include <utility>
 #include <vector>
 
 #include "general.h"
@@ -20,7 +21,7 @@ namespace tidysq {
 
         Sq(lensq length, AlphabetType alphabet) :
                 content_(std::vector<Sequence<STD>>(length)),
-                alphabet_(alphabet) {};
+                alphabet_(std::move(alphabet)) {};
 
         SequenceType &operator[] (lensq index) {
             return content_[index];

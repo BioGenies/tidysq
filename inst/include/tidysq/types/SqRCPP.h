@@ -1,6 +1,8 @@
 #ifndef TIDYSQ_SQRCPP_H
 #define TIDYSQ_SQRCPP_H
 
+#include <utility>
+
 #include "general.h"
 #include "SequenceRCPP.h"
 #include "AlphabetRCPP.h"
@@ -18,9 +20,9 @@ namespace tidysq {
 
         Sq(lensq length, AlphabetType alphabet) :
                 content_(Rcpp::List(length)),
-                alphabet_(alphabet) {};
+                alphabet_(std::move(alphabet)) {};
 
-        explicit Sq(Rcpp::List content) :
+        explicit Sq(const Rcpp::List &content) :
                 content_(content),
                 alphabet_(Alphabet<RCPP>(content.attr("alphabet"))) {};
 
