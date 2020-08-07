@@ -18,58 +18,58 @@ namespace tidysq::internal {
 
         lensq i = 0;
         for (; i + 8 <= out_len; i += 8) {
-            unpacked[i] = alphabet[((packed[in_byte]) & 3) - 1];
-            unpacked[i + 1] = alphabet[((packed[in_byte] >> 2) & 3) - 1];
-            unpacked[i + 2] = alphabet[((packed[in_byte] >> 4) & 3) - 1];
-            unpacked[i + 3] = alphabet[((packed[in_byte] >> 6) & 3) - 1];
-            unpacked[i + 4] = alphabet[((packed[in_byte + 1]) & 3) - 1];
-            unpacked[i + 5] = alphabet[((packed[in_byte + 1] >> 2) & 3) - 1];
-            unpacked[i + 6] = alphabet[((packed[in_byte + 1] >> 4) & 3) - 1];
-            unpacked[i + 7] = alphabet[((packed[in_byte + 1] >> 6) & 3) - 1];
+            unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 3, alphabet);
+            unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 2) & 3, alphabet);
+            unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 4) & 3, alphabet);
+            unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 6) & 3, alphabet);
+            unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1]) & 3, alphabet);
+            unpacked[i + 5] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 2) & 3, alphabet);
+            unpacked[i + 6] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 4) & 3, alphabet);
+            unpacked[i + 7] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 6) & 3, alphabet);
             in_byte += 2;
         }
         switch (out_len - i) {
             case 7:
-                unpacked[i] = alphabet[((packed[in_byte]) & 3) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 2) & 3) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte] >> 4) & 3) - 1];
-                unpacked[i + 3] = alphabet[((packed[in_byte] >> 6) & 3) - 1];
-                unpacked[i + 4] = alphabet[((packed[in_byte + 1]) & 3) - 1];
-                unpacked[i + 5] = alphabet[((packed[in_byte + 1] >> 2) & 3) - 1];
-                unpacked[i + 6] = alphabet[((packed[in_byte + 1] >> 4) & 3) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 3, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 2) & 3, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 4) & 3, alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 6) & 3, alphabet);
+                unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1]) & 3, alphabet);
+                unpacked[i + 5] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 2) & 3, alphabet);
+                unpacked[i + 6] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 4) & 3, alphabet);
                 break;
             case 6:
-                unpacked[i] = alphabet[((packed[in_byte]) & 3) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 2) & 3) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte] >> 4) & 3) - 1];
-                unpacked[i + 3] = alphabet[((packed[in_byte] >> 6) & 3) - 1];
-                unpacked[i + 4] = alphabet[((packed[in_byte + 1]) & 3) - 1];
-                unpacked[i + 5] = alphabet[((packed[in_byte + 1] >> 2) & 3) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 3, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 2) & 3, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 4) & 3, alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 6) & 3, alphabet);
+                unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1]) & 3, alphabet);
+                unpacked[i + 5] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 2) & 3, alphabet);
                 break;
             case 5:
-                unpacked[i] = alphabet[((packed[in_byte]) & 3) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 2) & 3) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte] >> 4) & 3) - 1];
-                unpacked[i + 3] = alphabet[((packed[in_byte] >> 6) & 3) - 1];
-                unpacked[i + 4] = alphabet[((packed[in_byte + 1]) & 3) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 3, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 2) & 3, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 4) & 3, alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 6) & 3, alphabet);
+                unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1]) & 3, alphabet);
                 break;
             case 4:
-                unpacked[i] = alphabet[((packed[in_byte]) & 3) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 2) & 3) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte] >> 4) & 3) - 1];
-                unpacked[i + 3] = alphabet[((packed[in_byte] >> 6) & 3) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 3, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 2) & 3, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 4) & 3, alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 6) & 3, alphabet);
                 break;
             case 3:
-                unpacked[i] = alphabet[((packed[in_byte]) & 3) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 2) & 3) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte] >> 4) & 3) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 3, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 2) & 3, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 4) & 3, alphabet);
                 break;
             case 2:
-                unpacked[i] = alphabet[((packed[in_byte]) & 3) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 2) & 3) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 3, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 2) & 3, alphabet);
                 break;
             case 1:
-                unpacked[i] = alphabet[((packed[in_byte]) & 3) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 3, alphabet);
                 break;
         }
         return unpacked;
@@ -86,67 +86,67 @@ namespace tidysq::internal {
 
         lensq i = 0;
         for (; i + 8 <= out_len; i += 8) {
-            unpacked[i] = alphabet[((packed[in_byte]) & 7) - 1];
-            unpacked[i + 1] = alphabet[((packed[in_byte] >> 3) & 7) - 1];
-            unpacked[i + 2] = alphabet[(((packed[in_byte] >> 6) & 3) |
-                                       ((packed[in_byte + 1] << 2) & 7)) - 1];
-            unpacked[i + 3] = alphabet[((packed[in_byte + 1] >> 1) & 7) - 1];
-            unpacked[i + 4] = alphabet[((packed[in_byte + 1] >> 4) & 7) - 1];
-            unpacked[i + 5] = alphabet[(((packed[in_byte + 1] >> 7) & 1) |
-                                       ((packed[in_byte + 2] << 1) & 7)) - 1];
-            unpacked[i + 6] = alphabet[((packed[in_byte + 2] >> 2) & 7) - 1];
-            unpacked[i + 7] = alphabet[((packed[in_byte + 2] >> 5) & 7) - 1];
+            unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 7, alphabet);
+            unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 3) & 7, alphabet);
+            unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte] >> 6) & 3) |
+                                       ((packed[in_byte + 1] << 2) & 7), alphabet);
+            unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 1) & 7, alphabet);
+            unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 4) & 7, alphabet);
+            unpacked[i + 5] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte + 1] >> 7) & 1) |
+                                       ((packed[in_byte + 2] << 1) & 7), alphabet);
+            unpacked[i + 6] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 2] >> 2) & 7, alphabet);
+            unpacked[i + 7] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 2] >> 5) & 7, alphabet);
             in_byte += 3;
         }
         switch (out_len - i) {
             case 7:
-                unpacked[i] = alphabet[((packed[in_byte]) & 7) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 3) & 7) - 1];
-                unpacked[i + 2] = alphabet[(((packed[in_byte] >> 6) & 3) |
-                                           ((packed[in_byte + 1] << 2) & 7)) - 1];
-                unpacked[i + 3] = alphabet[((packed[in_byte + 1] >> 1) & 7) - 1];
-                unpacked[i + 4] = alphabet[((packed[in_byte + 1] >> 4) & 7) - 1];
-                unpacked[i + 5] = alphabet[(((packed[in_byte + 1] >> 7) & 1) |
-                                           ((packed[in_byte + 2] << 1) & 7)) - 1];
-                unpacked[i + 6] = alphabet[((packed[in_byte + 2] >> 2) & 7) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 7, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 3) & 7, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte] >> 6) & 3) |
+                                           ((packed[in_byte + 1] << 2) & 7), alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 1) & 7, alphabet);
+                unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 4) & 7, alphabet);
+                unpacked[i + 5] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte + 1] >> 7) & 1) |
+                                           ((packed[in_byte + 2] << 1) & 7), alphabet);
+                unpacked[i + 6] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 2] >> 2) & 7, alphabet);
                 break;
             case 6:
-                unpacked[i] = alphabet[((packed[in_byte]) & 7) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 3) & 7) - 1];
-                unpacked[i + 2] = alphabet[(((packed[in_byte] >> 6) & 3) |
-                                           ((packed[in_byte + 1] << 2) & 7)) - 1];
-                unpacked[i + 3] = alphabet[((packed[in_byte + 1] >> 1) & 7) - 1];
-                unpacked[i + 4] = alphabet[((packed[in_byte + 1] >> 4) & 7) - 1];
-                unpacked[i + 5] = alphabet[(((packed[in_byte + 1] >> 7) & 1) |
-                                           ((packed[in_byte + 2] << 1) & 7)) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 7, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 3) & 7, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte] >> 6) & 3) |
+                                           ((packed[in_byte + 1] << 2) & 7), alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 1) & 7, alphabet);
+                unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 4) & 7, alphabet);
+                unpacked[i + 5] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte + 1] >> 7) & 1) |
+                                           ((packed[in_byte + 2] << 1) & 7), alphabet);
                 break;
             case 5:
-                unpacked[i] = alphabet[((packed[in_byte]) & 7) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 3) & 7) - 1];
-                unpacked[i + 2] = alphabet[(((packed[in_byte] >> 6) & 3) |
-                                           ((packed[in_byte + 1] << 2) & 7)) - 1];
-                unpacked[i + 3] = alphabet[((packed[in_byte + 1] >> 1) & 7) - 1];
-                unpacked[i + 4] = alphabet[((packed[in_byte + 1] >> 4) & 7) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 7, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 3) & 7, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte] >> 6) & 3) |
+                                           ((packed[in_byte + 1] << 2) & 7), alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 1) & 7, alphabet);
+                unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 4) & 7, alphabet);
                 break;
             case 4:
-                unpacked[i] = alphabet[((packed[in_byte]) & 7) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 3) & 7) - 1];
-                unpacked[i + 2] = alphabet[(((packed[in_byte] >> 6) & 3) |
-                                           ((packed[in_byte + 1] << 2) & 7)) - 1];
-                unpacked[i + 3] = alphabet[((packed[in_byte + 1] >> 1) & 7) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 7, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 3) & 7, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte] >> 6) & 3) |
+                                           ((packed[in_byte + 1] << 2) & 7), alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 1) & 7, alphabet);
                 break;
             case 3:
-                unpacked[i] = alphabet[((packed[in_byte]) & 7) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 3) & 7) - 1];
-                unpacked[i + 2] = alphabet[(((packed[in_byte] >> 6) & 3) |
-                                           ((packed[in_byte + 1] << 2) & 7)) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 7, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 3) & 7, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte] >> 6) & 3) |
+                                           ((packed[in_byte + 1] << 2) & 7), alphabet);
                 break;
             case 2:
-                unpacked[i] = alphabet[((packed[in_byte]) & 7) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 3) & 7) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 7, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 3) & 7, alphabet);
                 break;
             case 1:
-                unpacked[i] = alphabet[((packed[in_byte]) & 7) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 7, alphabet);
                 break;
         }
         return unpacked;
@@ -163,58 +163,58 @@ namespace tidysq::internal {
 
         lensq i = 0;
         for (; i + 8 <= out_len; i += 8) {
-            unpacked[i] = alphabet[((packed[in_byte]) & 15) - 1];
-            unpacked[i + 1] = alphabet[((packed[in_byte] >> 4) & 15) - 1];
-            unpacked[i + 2] = alphabet[((packed[in_byte + 1]) & 15) - 1];
-            unpacked[i + 3] = alphabet[((packed[in_byte + 1] >> 4) & 15) - 1];
-            unpacked[i + 4] = alphabet[((packed[in_byte + 2]) & 15) - 1];
-            unpacked[i + 5] = alphabet[((packed[in_byte + 2] >> 4) & 15) - 1];
-            unpacked[i + 6] = alphabet[((packed[in_byte + 3]) & 15) - 1];
-            unpacked[i + 7] = alphabet[((packed[in_byte + 3] >> 4) & 15) - 1];
+            unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 15, alphabet);
+            unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 4) & 15, alphabet);
+            unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1]) & 15, alphabet);
+            unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 4) & 15, alphabet);
+            unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 2]) & 15, alphabet);
+            unpacked[i + 5] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 2] >> 4) & 15, alphabet);
+            unpacked[i + 6] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 3]) & 15, alphabet);
+            unpacked[i + 7] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 3] >> 4) & 15, alphabet);
             in_byte += 4;
         }
         switch (out_len - i) {
             case 7:
-                unpacked[i] = alphabet[((packed[in_byte]) & 15) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 4) & 15) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte + 1]) & 15) - 1];
-                unpacked[i + 3] = alphabet[((packed[in_byte + 1] >> 4) & 15) - 1];
-                unpacked[i + 4] = alphabet[((packed[in_byte + 2]) & 15) - 1];
-                unpacked[i + 5] = alphabet[((packed[in_byte + 2] >> 4) & 15) - 1];
-                unpacked[i + 6] = alphabet[((packed[in_byte + 3]) & 15) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 15, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 4) & 15, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1]) & 15, alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 4) & 15, alphabet);
+                unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 2]) & 15, alphabet);
+                unpacked[i + 5] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 2] >> 4) & 15, alphabet);
+                unpacked[i + 6] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 3]) & 15, alphabet);
                 break;
             case 6:
-                unpacked[i] = alphabet[((packed[in_byte]) & 15) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 4) & 15) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte + 1]) & 15) - 1];
-                unpacked[i + 3] = alphabet[((packed[in_byte + 1] >> 4) & 15) - 1];
-                unpacked[i + 4] = alphabet[((packed[in_byte + 2]) & 15) - 1];
-                unpacked[i + 5] = alphabet[((packed[in_byte + 2] >> 4) & 15) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 15, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 4) & 15, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1]) & 15, alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 4) & 15, alphabet);
+                unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 2]) & 15, alphabet);
+                unpacked[i + 5] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 2] >> 4) & 15, alphabet);
                 break;
             case 5:
-                unpacked[i] = alphabet[((packed[in_byte]) & 15) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 4) & 15) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte + 1]) & 15) - 1];
-                unpacked[i + 3] = alphabet[((packed[in_byte + 1] >> 4) & 15) - 1];
-                unpacked[i + 4] = alphabet[((packed[in_byte + 2]) & 15) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 15, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 4) & 15, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1]) & 15, alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 4) & 15, alphabet);
+                unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 2]) & 15, alphabet);
                 break;
             case 4:
-                unpacked[i] = alphabet[((packed[in_byte]) & 15) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 4) & 15) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte + 1]) & 15) - 1];
-                unpacked[i + 3] = alphabet[((packed[in_byte + 1] >> 4) & 15) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 15, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 4) & 15, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1]) & 15, alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 4) & 15, alphabet);
                 break;
             case 3:
-                unpacked[i] = alphabet[((packed[in_byte]) & 15) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 4) & 15) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte + 1]) & 15) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 15, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 4) & 15, alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1]) & 15, alphabet);
                 break;
             case 2:
-                unpacked[i] = alphabet[((packed[in_byte]) & 15) - 1];
-                unpacked[i + 1] = alphabet[((packed[in_byte] >> 4) & 15) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 15, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte] >> 4) & 15, alphabet);
                 break;
             case 1:
-                unpacked[i] = alphabet[((packed[in_byte]) & 15) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 15, alphabet);
                 break;
         }
         return unpacked;
@@ -231,76 +231,76 @@ namespace tidysq::internal {
 
         lensq i = 0;
         for (; i + 8 <= out_len; i += 8) {
-            unpacked[i] = alphabet[((packed[in_byte]) & 31) - 1];
-            unpacked[i + 1] = alphabet[(((packed[in_byte] >> 5) & 7) |
-                                       ((packed[in_byte + 1] << 3) & 31)) - 1];
-            unpacked[i + 2] = alphabet[((packed[in_byte + 1] >> 2) & 31) - 1];
-            unpacked[i + 3] = alphabet[(((packed[in_byte + 1] >> 7) & 1) |
-                                       ((packed[in_byte + 2] << 1) & 31)) - 1];
-            unpacked[i + 4] = alphabet[(((packed[in_byte + 2] >> 4) & 15) |
-                                       ((packed[in_byte + 3] << 4) & 31)) - 1];
-            unpacked[i + 5] = alphabet[((packed[in_byte + 3] >> 1) & 31) - 1];
-            unpacked[i + 6] = alphabet[(((packed[in_byte + 3] >> 6) & 3) |
-                                       ((packed[in_byte + 4] << 2) & 31)) - 1];
-            unpacked[i + 7] = alphabet[((packed[in_byte + 4] >> 3) & 31) - 1];
+            unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 31, alphabet);
+            unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte] >> 5) & 7) |
+                                       ((packed[in_byte + 1] << 3) & 31), alphabet);
+            unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 2) & 31, alphabet);
+            unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte + 1] >> 7) & 1) |
+                                       ((packed[in_byte + 2] << 1) & 31), alphabet);
+            unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte + 2] >> 4) & 15) |
+                                       ((packed[in_byte + 3] << 4) & 31), alphabet);
+            unpacked[i + 5] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 3] >> 1) & 31, alphabet);
+            unpacked[i + 6] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte + 3] >> 6) & 3) |
+                                       ((packed[in_byte + 4] << 2) & 31), alphabet);
+            unpacked[i + 7] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 4] >> 3) & 31, alphabet);
             in_byte += 5;
         }
         switch (out_len - i) {
             case 7:
-                unpacked[i] = alphabet[((packed[in_byte]) & 31) - 1];
-                unpacked[i + 1] = alphabet[(((packed[in_byte] >> 5) & 7) |
-                                           ((packed[in_byte + 1] << 3) & 31)) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte + 1] >> 2) & 31) - 1];
-                unpacked[i + 3] = alphabet[(((packed[in_byte + 1] >> 7) & 1) |
-                                           ((packed[in_byte + 2] << 1) & 31)) - 1];
-                unpacked[i + 4] = alphabet[(((packed[in_byte + 2] >> 4) & 15) |
-                                           ((packed[in_byte + 3] << 4) & 31)) - 1];
-                unpacked[i + 5] = alphabet[((packed[in_byte + 3] >> 1) & 31) - 1];
-                unpacked[i + 6] = alphabet[(((packed[in_byte + 3] >> 6) & 3) |
-                                           ((packed[in_byte + 4] << 2) & 31)) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 31, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte] >> 5) & 7) |
+                                           ((packed[in_byte + 1] << 3) & 31), alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 2) & 31, alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte + 1] >> 7) & 1) |
+                                           ((packed[in_byte + 2] << 1) & 31), alphabet);
+                unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte + 2] >> 4) & 15) |
+                                           ((packed[in_byte + 3] << 4) & 31), alphabet);
+                unpacked[i + 5] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 3] >> 1) & 31, alphabet);
+                unpacked[i + 6] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte + 3] >> 6) & 3) |
+                                           ((packed[in_byte + 4] << 2) & 31), alphabet);
                 break;
             case 6:
-                unpacked[i] = alphabet[((packed[in_byte]) & 31) - 1];
-                unpacked[i + 1] = alphabet[(((packed[in_byte] >> 5) & 7) |
-                                           ((packed[in_byte + 1] << 3) & 31)) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte + 1] >> 2) & 31) - 1];
-                unpacked[i + 3] = alphabet[(((packed[in_byte + 1] >> 7) & 1) |
-                                           ((packed[in_byte + 2] << 1) & 31)) - 1];
-                unpacked[i + 4] = alphabet[(((packed[in_byte + 2] >> 4) & 15) |
-                                           ((packed[in_byte + 3] << 4) & 31)) - 1];
-                unpacked[i + 5] = alphabet[((packed[in_byte + 3] >> 1) & 31) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 31, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte] >> 5) & 7) |
+                                           ((packed[in_byte + 1] << 3) & 31), alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 2) & 31, alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte + 1] >> 7) & 1) |
+                                           ((packed[in_byte + 2] << 1) & 31), alphabet);
+                unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte + 2] >> 4) & 15) |
+                                           ((packed[in_byte + 3] << 4) & 31), alphabet);
+                unpacked[i + 5] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 3] >> 1) & 31, alphabet);
                 break;
             case 5:
-                unpacked[i] = alphabet[((packed[in_byte]) & 31) - 1];
-                unpacked[i + 1] = alphabet[(((packed[in_byte] >> 5) & 7) |
-                                           ((packed[in_byte + 1] << 3) & 31)) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte + 1] >> 2) & 31) - 1];
-                unpacked[i + 3] = alphabet[(((packed[in_byte + 1] >> 7) & 1) |
-                                           ((packed[in_byte + 2] << 1) & 31)) - 1];
-                unpacked[i + 4] = alphabet[(((packed[in_byte + 2] >> 4) & 15) |
-                                           ((packed[in_byte + 3] << 4) & 31)) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 31, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte] >> 5) & 7) |
+                                           ((packed[in_byte + 1] << 3) & 31), alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 2) & 31, alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte + 1] >> 7) & 1) |
+                                           ((packed[in_byte + 2] << 1) & 31), alphabet);
+                unpacked[i + 4] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte + 2] >> 4) & 15) |
+                                           ((packed[in_byte + 3] << 4) & 31), alphabet);
                 break;
             case 4:
-                unpacked[i] = alphabet[((packed[in_byte]) & 31) - 1];
-                unpacked[i + 1] = alphabet[(((packed[in_byte] >> 5) & 7) |
-                                           ((packed[in_byte + 1] << 3) & 31)) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte + 1] >> 2) & 31) - 1];
-                unpacked[i + 3] = alphabet[(((packed[in_byte + 1] >> 7) & 1) |
-                                           ((packed[in_byte + 2] << 1) & 31)) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 31, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte] >> 5) & 7) |
+                                           ((packed[in_byte + 1] << 3) & 31), alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 2) & 31, alphabet);
+                unpacked[i + 3] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte + 1] >> 7) & 1) |
+                                           ((packed[in_byte + 2] << 1) & 31), alphabet);
                 break;
             case 3:
-                unpacked[i] = alphabet[((packed[in_byte]) & 31) - 1];
-                unpacked[i + 1] = alphabet[(((packed[in_byte] >> 5) & 7) |
-                                           ((packed[in_byte + 1] << 3) & 31)) - 1];
-                unpacked[i + 2] = alphabet[((packed[in_byte + 1] >> 2) & 31) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 31, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte] >> 5) & 7) |
+                                           ((packed[in_byte + 1] << 3) & 31), alphabet);
+                unpacked[i + 2] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte + 1] >> 2) & 31, alphabet);
                 break;
             case 2:
-                unpacked[i] = alphabet[((packed[in_byte]) & 31) - 1];
-                unpacked[i + 1] = alphabet[(((packed[in_byte] >> 5) & 7) |
-                                           ((packed[in_byte + 1] << 3) & 31)) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 31, alphabet);
+                unpacked[i + 1] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match(((packed[in_byte] >> 5) & 7) |
+                                           ((packed[in_byte + 1] << 3) & 31), alphabet);
                 break;
             case 1:
-                unpacked[i] = alphabet[((packed[in_byte]) & 31) - 1];
+                unpacked[i] = LetterToValueMatcher<INTERNAL_IN, INTERNAL_OUT>::match((packed[in_byte]) & 31, alphabet);
                 break;
         }
         return unpacked;
@@ -310,7 +310,7 @@ namespace tidysq::internal {
             InternalType INTERNAL_OUT>
     SequenceProto<INTERNAL_OUT, STRINGS> unpackSTRINGS(const Sequence<INTERNAL_IN> &packed,
                                                        const Alphabet<INTERNAL_IN> &alphabet) {
-        switch (getAlphabetSize(alphabet)) {
+        switch (alphabet.alphabetSize()) {
             case 2:
                 return unpackSTRINGS2<INTERNAL_IN, INTERNAL_OUT>(packed, alphabet);
             case 3:

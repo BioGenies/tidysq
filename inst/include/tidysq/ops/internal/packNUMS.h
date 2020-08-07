@@ -304,7 +304,7 @@ namespace tidysq::internal {
             InternalType INTERNAL_OUT>
     Sequence<INTERNAL_OUT> packNUMS(const SequenceProto<INTERNAL_IN, PROTO_IN> &unpacked,
                                     const Alphabet<INTERNAL_IN> &alphabet) {
-        switch (getAlphabetSize(alphabet)) {
+        switch (alphabet.alphabetSize()) {
             case 2:
                 return packNUMS2<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(unpacked, alphabet);
             case 3:

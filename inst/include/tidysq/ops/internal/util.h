@@ -4,18 +4,15 @@
 #include <cmath>
 #include "../../types/SequenceSTD.h"
 #include "../../types/SequenceRCPP.h"
+#include "../../types/AlphabetRCPP.h"
+#include "../../types/AlphabetSTD.h"
 
 
 namespace tidysq::internal {
-    template<InternalType INTERNAL>
-    inline sizealph getAlphabetSize(const Alphabet<INTERNAL> &alphabet) {
-        return ceil(log2((double) alphabet.size() + 2));
-    }
-
     template<InternalType INTERNAL,
             ProtoType PROTO>
     inline lensq getPackedLength(const SequenceProto<INTERNAL, PROTO> &unpacked, const Alphabet<INTERNAL> &alphabet) {
-        return (getAlphabetSize(alphabet) * unpacked.size() + 7) / 8;
+        return (alphabet.alphabetSize() * unpacked.size() + 7) / 8;
     }
 
     template<InternalType INTERNAL>
@@ -46,20 +43,52 @@ namespace tidysq::internal {
         return SequenceProto<INTERNAL_OUT, PROTO_OUT>(getOriginalLength(packed));
     }
 
-    template<InternalType INTERNAL>
-    inline letvalue getNAValue(const Alphabet<INTERNAL> &alphabet) {
-        return pow(2, getAlphabetSize(alphabet)) - 1;
-    }
+    template<InternalType INTERNAL_IN>
+    struct ValueToLetterMatcher;
 
-    template<InternalType INTERNAL>
-    inline letvalue match(const std::string &letter, const Alphabet<INTERNAL> &alphabet, const letvalue &value) {
-        for (letvalue i = 0; i < alphabet.size(); i++) {
-            if (letter == alphabet[i]) {
-                return i + 1;
+    template<>
+    struct ValueToLetterMatcher<STD> {
+        inline static letvalue match(const std::string &letter, const Alphabet<STD> &alphabet) {
+            for (letvalue i = 0; i < alphabet.size(); i++) {
+                if (letter == alphabet[i]) {
+                    return i + 1;
+                }
             }
+            return alphabet.NAValue();
         }
-        return value;
-    }
+    };
+
+    template<>
+    struct ValueToLetterMatcher<RCPP> {
+        inline static letvalue match(const Rcpp::StringVector::const_Proxy &letter, const Alphabet<RCPP> &alphabet) {
+            if (Rcpp::StringVector::is_na(letter)) {
+                return alphabet.NAValue();
+            }
+            for (letvalue i = 0; i < alphabet.size(); i++) {
+                if (alphabet[i] == letter) {
+                    return i + 1;
+                }
+            }
+            return alphabet.NAValue();
+        }
+    };
+
+    template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT>
+    struct LetterToValueMatcher;
+
+    template<InternalType INTERNAL_IN>
+    struct LetterToValueMatcher<INTERNAL_IN, STD> {
+        inline static std::string match(const unsigned char &value, const Alphabet<INTERNAL_IN> &alphabet) {
+            return value == alphabet.NAValue() ? alphabet.NALetter() : alphabet[value - 1];
+        }
+    };
+
+    template<InternalType INTERNAL_IN>
+    struct LetterToValueMatcher<INTERNAL_IN, RCPP> {
+        inline static Rcpp::String match(const unsigned char &value, const Alphabet<INTERNAL_IN> &alphabet) {
+            return value == alphabet.NAValue() ? Rcpp::String(NA_STRING) : alphabet[value - 1];
+        }
+    };
 }
 
 #endif //TIDYSQ_UTIL_H

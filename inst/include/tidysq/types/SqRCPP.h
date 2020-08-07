@@ -22,7 +22,7 @@ namespace tidysq {
 
         explicit Sq(Rcpp::List content) :
                 content_(content),
-                alphabet_(content.attr("alphabet")) {};
+                alphabet_(Alphabet<RCPP>(content.attr("alphabet"))) {};
 
         Rcpp::List::Proxy operator[] (lensq index) {
             return content_[index];

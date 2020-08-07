@@ -14,61 +14,60 @@ namespace tidysq::internal {
         lensq outByte = 0;
         lensq i = 0;
         Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, STRINGS, INTERNAL_OUT>(unpacked, alphabet);
-        letvalue NAValue = getNAValue(alphabet);
 
         for (; i + 8 <= unpacked.size(); i += 8) {
-            packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                              (match(unpacked[i + 1], alphabet, NAValue) << 2) |
-                              (match(unpacked[i + 2], alphabet, NAValue) << 4) |
-                              (match(unpacked[i + 3], alphabet, NAValue) << 6);
-            packed[outByte + 1] = (match(unpacked[i + 4], alphabet, NAValue)) |
-                                  (match(unpacked[i + 5], alphabet, NAValue) << 2) |
-                                  (match(unpacked[i + 6], alphabet, NAValue) << 4) |
-                                  (match(unpacked[i + 7], alphabet, NAValue) << 6);
+            packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                              (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 2) |
+                              (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 4) |
+                              (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 6);
+            packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) << 2) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 6], alphabet) << 4) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 7], alphabet) << 6);
             outByte += 2;
         }
         switch (unpacked.size() - i) {
             case 7:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 2) |
-                                  (match(unpacked[i + 2], alphabet, NAValue) << 4) |
-                                  (match(unpacked[i + 3], alphabet, NAValue) << 6);
-                packed[outByte + 1] = (match(unpacked[i + 4], alphabet, NAValue)) |
-                                      (match(unpacked[i + 5], alphabet, NAValue) << 2) |
-                                      (match(unpacked[i + 6], alphabet, NAValue) << 4);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 2) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 4) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 6);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet)) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) << 2) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 6], alphabet) << 4);
                 break;
             case 6:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 2) |
-                                  (match(unpacked[i + 2], alphabet, NAValue) << 4) |
-                                  (match(unpacked[i + 3], alphabet, NAValue) << 6);
-                packed[outByte + 1] = (match(unpacked[i + 4], alphabet, NAValue)) |
-                                      (match(unpacked[i + 5], alphabet, NAValue) << 2);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 2) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 4) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 6);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet)) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) << 2);
                 break;
             case 5:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 2) |
-                                  (match(unpacked[i + 2], alphabet, NAValue) << 4) |
-                                  (match(unpacked[i + 3], alphabet, NAValue) << 6);
-                packed[outByte + 1] = (match(unpacked[i + 4], alphabet, NAValue));
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 2) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 4) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 6);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet));
                 break;
             case 4:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 2) |
-                                  (match(unpacked[i + 2], alphabet, NAValue) << 4) |
-                                  (match(unpacked[i + 3], alphabet, NAValue) << 6);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 2) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 4) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 6);
                 break;
             case 3:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 2) |
-                                  (match(unpacked[i + 2], alphabet, NAValue) << 4);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 2) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 4);
                 break;
             case 2:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 2);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 2);
                 break;
             case 1:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue));
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet));
                 break;
         }
         return packed;
@@ -81,70 +80,69 @@ namespace tidysq::internal {
         lensq outByte = 0;
         lensq i = 0;
         Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, STRINGS, INTERNAL_OUT>(unpacked, alphabet);
-        letvalue NAValue = getNAValue(alphabet);
 
         for (; i + 8 <= unpacked.size(); i += 8) {
-            packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                              (match(unpacked[i + 1], alphabet, NAValue) << 3) |
-                              (match(unpacked[i + 2], alphabet, NAValue) << 6);
-            packed[outByte + 1] = (match(unpacked[i + 2], alphabet, NAValue) >> 2) |
-                                  (match(unpacked[i + 3], alphabet, NAValue) << 1) |
-                                  (match(unpacked[i + 4], alphabet, NAValue) << 4) |
-                                  (match(unpacked[i + 5], alphabet, NAValue) << 7);
-            packed[outByte + 2] = (match(unpacked[i + 5], alphabet, NAValue) >> 1) |
-                                  (match(unpacked[i + 6], alphabet, NAValue) << 2) |
-                                  (match(unpacked[i + 7], alphabet, NAValue) << 5);
+            packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                              (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 3) |
+                              (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 6);
+            packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) >> 2) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 1) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet) << 4) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) << 7);
+            packed[outByte + 2] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) >> 1) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 6], alphabet) << 2) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 7], alphabet) << 5);
             outByte += 3;
         }
         switch (unpacked.size() - i) {
             case 7:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 3) |
-                                  (match(unpacked[i + 2], alphabet, NAValue) << 6);
-                packed[outByte + 1] = (match(unpacked[i + 2], alphabet, NAValue) >> 2) |
-                                      (match(unpacked[i + 3], alphabet, NAValue) << 1) |
-                                      (match(unpacked[i + 4], alphabet, NAValue) << 4) |
-                                      (match(unpacked[i + 5], alphabet, NAValue) << 7);
-                packed[outByte + 2] = (match(unpacked[i + 5], alphabet, NAValue) >> 1) |
-                                      (match(unpacked[i + 6], alphabet, NAValue) << 2);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 3) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 6);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) >> 2) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 1) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet) << 4) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) << 7);
+                packed[outByte + 2] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) >> 1) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 6], alphabet) << 2);
                 break;
             case 6:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 3) |
-                                  (match(unpacked[i + 2], alphabet, NAValue) << 6);
-                packed[outByte + 1] = (match(unpacked[i + 2], alphabet, NAValue) >> 2) |
-                                      (match(unpacked[i + 3], alphabet, NAValue) << 1) |
-                                      (match(unpacked[i + 4], alphabet, NAValue) << 4) |
-                                      (match(unpacked[i + 5], alphabet, NAValue) << 7);
-                packed[outByte + 2] = (match(unpacked[i + 5], alphabet, NAValue) >> 1);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 3) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 6);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) >> 2) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 1) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet) << 4) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) << 7);
+                packed[outByte + 2] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) >> 1);
                 break;
             case 5:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 3) |
-                                  (match(unpacked[i + 2], alphabet, NAValue) << 6);
-                packed[outByte + 1] = (match(unpacked[i + 2], alphabet, NAValue) >> 2) |
-                                      (match(unpacked[i + 3], alphabet, NAValue) << 1) |
-                                      (match(unpacked[i + 4], alphabet, NAValue) << 4);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 3) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 6);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) >> 2) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 1) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet) << 4);
                 break;
             case 4:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 3) |
-                                  (match(unpacked[i + 2], alphabet, NAValue) << 6);
-                packed[outByte + 1] = (match(unpacked[i + 2], alphabet, NAValue) >> 2) |
-                                      (match(unpacked[i + 3], alphabet, NAValue) << 1);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 3) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 6);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) >> 2) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 1);
                 break;
             case 3:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 3) |
-                                  (match(unpacked[i + 2], alphabet, NAValue) << 6);
-                packed[outByte + 1] = (match(unpacked[i + 2], alphabet, NAValue) >> 2);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 3) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 6);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) >> 2);
                 break;
             case 2:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 3);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 3);
                 break;
             case 1:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue));
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet));
                 break;
         }
         return packed;
@@ -157,61 +155,60 @@ namespace tidysq::internal {
         lensq outByte = 0;
         lensq i = 0;
         Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, STRINGS, INTERNAL_OUT>(unpacked, alphabet);
-        letvalue NAValue = getNAValue(alphabet);
 
         for (; i + 8 <= unpacked.size(); i += 8) {
-            packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                              (match(unpacked[i + 1], alphabet, NAValue) << 4);
-            packed[outByte + 1] = (match(unpacked[i + 2], alphabet, NAValue)) |
-                                  (match(unpacked[i + 3], alphabet, NAValue) << 4);
-            packed[outByte + 2] = (match(unpacked[i + 4], alphabet, NAValue)) |
-                                  (match(unpacked[i + 5], alphabet, NAValue) << 4);
-            packed[outByte + 3] = (match(unpacked[i + 6], alphabet, NAValue)) |
-                                  (match(unpacked[i + 7], alphabet, NAValue) << 4);
+            packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                              (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 4);
+            packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 4);
+            packed[outByte + 2] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) << 4);
+            packed[outByte + 3] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 6], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 7], alphabet) << 4);
             outByte += 4;
         }
         switch (unpacked.size() - i) {
             case 7:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 4);
-                packed[outByte + 1] = (match(unpacked[i + 2], alphabet, NAValue)) |
-                                      (match(unpacked[i + 3], alphabet, NAValue) << 4);
-                packed[outByte + 2] = (match(unpacked[i + 4], alphabet, NAValue)) |
-                                      (match(unpacked[i + 5], alphabet, NAValue) << 4);
-                packed[outByte + 3] = (match(unpacked[i + 6], alphabet, NAValue));
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 4);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet)) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 4);
+                packed[outByte + 2] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet)) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) << 4);
+                packed[outByte + 3] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 6], alphabet));
                 break;
             case 6:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 4);
-                packed[outByte + 1] = (match(unpacked[i + 2], alphabet, NAValue)) |
-                                      (match(unpacked[i + 3], alphabet, NAValue) << 4);
-                packed[outByte + 2] = (match(unpacked[i + 4], alphabet, NAValue)) |
-                                      (match(unpacked[i + 5], alphabet, NAValue) << 4);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 4);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet)) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 4);
+                packed[outByte + 2] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet)) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) << 4);
                 break;
             case 5:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 4);
-                packed[outByte + 1] = (match(unpacked[i + 2], alphabet, NAValue)) |
-                                      (match(unpacked[i + 3], alphabet, NAValue) << 4);
-                packed[outByte + 2] = (match(unpacked[i + 4], alphabet, NAValue));
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 4);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet)) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 4);
+                packed[outByte + 2] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet));
                 break;
             case 4:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 4);
-                packed[outByte + 1] = (match(unpacked[i + 2], alphabet, NAValue)) |
-                                      (match(unpacked[i + 3], alphabet, NAValue) << 4);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 4);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet)) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 4);
                 break;
             case 3:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 4);
-                packed[outByte + 1] = (match(unpacked[i + 2], alphabet, NAValue));
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 4);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet));
                 break;
             case 2:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 4);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 4);
                 break;
             case 1:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue));
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet));
                 break;
         }
         return packed;
@@ -224,79 +221,78 @@ namespace tidysq::internal {
         lensq outByte = 0;
         lensq i = 0;
         Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, STRINGS, INTERNAL_OUT>(unpacked, alphabet);
-        letvalue NAValue = getNAValue(alphabet);
 
         for (; i + 8 <= unpacked.size(); i += 8) {
-            packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                              (match(unpacked[i + 1], alphabet, NAValue) << 5);
-            packed[outByte + 1] = (match(unpacked[i + 1], alphabet, NAValue) >> 3) |
-                                  (match(unpacked[i + 2], alphabet, NAValue) << 2) |
-                                  (match(unpacked[i + 3], alphabet, NAValue) << 7);
-            packed[outByte + 2] = (match(unpacked[i + 3], alphabet, NAValue) >> 1) |
-                                  (match(unpacked[i + 4], alphabet, NAValue) << 4);
-            packed[outByte + 3] = (match(unpacked[i + 4], alphabet, NAValue) >> 4) |
-                                  (match(unpacked[i + 5], alphabet, NAValue) << 1) |
-                                  (match(unpacked[i + 6], alphabet, NAValue) << 6);
-            packed[outByte + 4] = (match(unpacked[i + 6], alphabet, NAValue) >> 2) |
-                                  (match(unpacked[i + 7], alphabet, NAValue) << 3);
+            packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                              (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 5);
+            packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) >> 3) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 2) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 7);
+            packed[outByte + 2] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) >> 1) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet) << 4);
+            packed[outByte + 3] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet) >> 4) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) << 1) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 6], alphabet) << 6);
+            packed[outByte + 4] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 6], alphabet) >> 2) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 7], alphabet) << 3);
             outByte += 5;
         }
         switch (unpacked.size() - i) {
             case 7:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 5);
-                packed[outByte + 1] = (match(unpacked[i + 1], alphabet, NAValue) >> 3) |
-                                      (match(unpacked[i + 2], alphabet, NAValue) << 2) |
-                                      (match(unpacked[i + 3], alphabet, NAValue) << 7);
-                packed[outByte + 2] = (match(unpacked[i + 3], alphabet, NAValue) >> 1) |
-                                      (match(unpacked[i + 4], alphabet, NAValue) << 4);
-                packed[outByte + 3] = (match(unpacked[i + 4], alphabet, NAValue) >> 4) |
-                                      (match(unpacked[i + 5], alphabet, NAValue) << 1) |
-                                      (match(unpacked[i + 6], alphabet, NAValue) << 6);
-                packed[outByte + 4] = (match(unpacked[i + 6], alphabet, NAValue) >> 2);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 5);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) >> 3) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 2) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 7);
+                packed[outByte + 2] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) >> 1) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet) << 4);
+                packed[outByte + 3] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet) >> 4) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) << 1) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 6], alphabet) << 6);
+                packed[outByte + 4] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 6], alphabet) >> 2);
                 break;
             case 6:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 5);
-                packed[outByte + 1] = (match(unpacked[i + 1], alphabet, NAValue) >> 3) |
-                                      (match(unpacked[i + 2], alphabet, NAValue) << 2) |
-                                      (match(unpacked[i + 3], alphabet, NAValue) << 7);
-                packed[outByte + 2] = (match(unpacked[i + 3], alphabet, NAValue) >> 1) |
-                                      (match(unpacked[i + 4], alphabet, NAValue) << 4);
-                packed[outByte + 3] = (match(unpacked[i + 4], alphabet, NAValue) >> 4) |
-                                      (match(unpacked[i + 5], alphabet, NAValue) << 1);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 5);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) >> 3) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 2) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 7);
+                packed[outByte + 2] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) >> 1) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet) << 4);
+                packed[outByte + 3] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet) >> 4) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 5], alphabet) << 1);
                 break;
             case 5:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 5);
-                packed[outByte + 1] = (match(unpacked[i + 1], alphabet, NAValue) >> 3) |
-                                      (match(unpacked[i + 2], alphabet, NAValue) << 2) |
-                                      (match(unpacked[i + 3], alphabet, NAValue) << 7);
-                packed[outByte + 2] = (match(unpacked[i + 3], alphabet, NAValue) >> 1) |
-                                      (match(unpacked[i + 4], alphabet, NAValue) << 4);
-                packed[outByte + 3] = (match(unpacked[i + 4], alphabet, NAValue) >> 4);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 5);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) >> 3) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 2) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 7);
+                packed[outByte + 2] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) >> 1) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet) << 4);
+                packed[outByte + 3] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 4], alphabet) >> 4);
                 break;
             case 4:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 5);
-                packed[outByte + 1] = (match(unpacked[i + 1], alphabet, NAValue) >> 3) |
-                                      (match(unpacked[i + 2], alphabet, NAValue) << 2) |
-                                      (match(unpacked[i + 3], alphabet, NAValue) << 7);
-                packed[outByte + 2] = (match(unpacked[i + 3], alphabet, NAValue) >> 1);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 5);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) >> 3) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 2) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) << 7);
+                packed[outByte + 2] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 3], alphabet) >> 1);
                 break;
             case 3:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 5);
-                packed[outByte + 1] = (match(unpacked[i + 1], alphabet, NAValue) >> 3) |
-                                      (match(unpacked[i + 2], alphabet, NAValue) << 2);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 5);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) >> 3) |
+                                      (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 2], alphabet) << 2);
                 break;
             case 2:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue)) |
-                                  (match(unpacked[i + 1], alphabet, NAValue) << 5);
-                packed[outByte + 1] = (match(unpacked[i + 1], alphabet, NAValue) >> 3);
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet)) |
+                                  (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) << 5);
+                packed[outByte + 1] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i + 1], alphabet) >> 3);
                 break;
             case 1:
-                packed[outByte] = (match(unpacked[i], alphabet, NAValue));
+                packed[outByte] = (ValueToLetterMatcher<INTERNAL_IN>::match(unpacked[i], alphabet));
                 break;
         }
         return packed;
@@ -307,7 +303,7 @@ namespace tidysq::internal {
             InternalType INTERNAL_OUT>
     Sequence<INTERNAL_OUT> packSTRINGS(const SequenceProto<INTERNAL_IN, STRINGS> &unpacked,
                                        const Alphabet<INTERNAL_IN> &alphabet) {
-        switch (getAlphabetSize(alphabet)) {
+        switch (alphabet.alphabetSize()) {
             case 2:
                 return packSTRINGS2<INTERNAL_IN, INTERNAL_OUT>(unpacked, alphabet);
             case 3:

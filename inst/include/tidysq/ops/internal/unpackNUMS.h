@@ -311,7 +311,7 @@ namespace tidysq::internal {
             ProtoType PROTO_OUT>
     SequenceProto<INTERNAL_OUT, PROTO_OUT> unpackNUMS(const Sequence<INTERNAL_IN> &packed,
                                              const Alphabet<INTERNAL_IN> &alphabet) {
-        switch (getAlphabetSize(alphabet)) {
+        switch (alphabet.alphabetSize()) {
             case 2:
                 return unpackNUMS2<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed, alphabet);
             case 3:

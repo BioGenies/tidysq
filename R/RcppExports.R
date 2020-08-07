@@ -72,6 +72,11 @@ tmpUnpack2 <- function(raws) {
     .Call('_tidysq_tmpUnpack2', PACKAGE = 'tidysq', raws)
 }
 
+#' @export
+tmpUnpack3 <- function(raws) {
+    .Call('_tidysq_tmpUnpack3', PACKAGE = 'tidysq', raws)
+}
+
 C_unpack_raws <- function(packed, alph_size) {
     .Call('_tidysq_C_unpack_raws', PACKAGE = 'tidysq', packed, alph_size)
 }
