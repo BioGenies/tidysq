@@ -43,6 +43,24 @@ format.encsq <- function(x, ...,
   .format_sq(x, max_sequences, use_color, letters_sep, col_cyan)
 }
 
+#' @importFrom pillar new_ornament
+#' @export
+format.pillar_shaft_sq <- function(x, width, ...) {
+  if (width < attr(x, "min_width"))
+    stop("need at least width ", attr(x, "min_width"), ", requested ", width, ".", call. = FALSE)
+  
+  # TODO: maybe get rid of those intermediate variables?
+  lens <- attr(x, "lens")
+  letters_sep <- attr(x, "letters_sep")
+  body_color <- attr(x, "body_color")
+  align <- attr(x, "align")
+  
+  p_seqs <- .get_p_seqs(x, lens, letters_sep, body_color, width)
+  
+  # cat everything
+  new_ornament(p_seqs, width = width, align = align)
+}
+
 .format_sq <- function(x, max_sequences, use_color, letters_sep, body_color) {
   # select at most max_sequences to print
   num_lines <- min(max_sequences, length(x))
@@ -81,9 +99,8 @@ format.encsq <- function(x, ...,
   vec_restore(ret, sq)
 }
 
+#' @importFrom cli col_blue col_silver
 #' @importFrom crayon col_nchar
-#' @importFrom crayon blue
-#' @importFrom crayon silver
 #' @importFrom utils tail
 .get_p_seqs <- function(x, lens, letters_sep, body_color, width, use_color = .get_color_opt()) {
   # max width of length number
@@ -125,11 +142,11 @@ format.encsq <- function(x, ...,
   
   # add colors to text if necessary
   if (use_color) {
-    p_lens <- blue(p_lens)
+    p_lens <- col_blue(p_lens)
     p_body <- mapply(function(content, len)
-      if (len == 0) silver(content) else body_color(content),
+      if (len == 0) col_silver(content) else body_color(content),
       p_body, lens)
-    p_dots <- silver(p_dots)
+    p_dots <- col_silver(p_dots)
   }
   
   # return pasted everything as a vector of strings, each for one (printed) sequence
@@ -138,14 +155,14 @@ format.encsq <- function(x, ...,
 
 #' @importFrom crayon col_nchar
 #' @importFrom pillar new_pillar_shaft
-.pillar_shaft_sq <- function(x, alph, letters_sep, body_color) {
+.pillar_shaft_sq <- function(x, letters_sep, body_color) {
   p_width <- getOption("width")
   
   # cut sq object so that we don't need to debitify long sequences
   # 6 is minimum length of p_lens and p_inds, 8 is byte length
   sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .unpack_from_sq(sq_cut, "int")
-  sq_cut <- lapply(sq_cut, function(s) alph[s])
+  sq_cut <- lapply(sq_cut, function(s) alphabet(x)[s])
   
   # maximum length of length numbers
   lens <- lengths(x)

@@ -57,6 +57,6 @@ NeedsCompilation: no
 Repository: CRAN
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 LinkingTo: Rcpp,
            RcppParallel

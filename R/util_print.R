@@ -28,9 +28,21 @@ obj_print_footer.sq <- function(x, ...,
   invisible(x)
 }
 
+#' @importFrom cli col_green col_silver
 #' @importFrom pillar pillar_shaft
 #' @export
-pillar_shaft.sq <- function (x, ...) {
-  pillar_shaft(structure(format(x, ...),
-                         class = "pillar_vertical"))
+pillar_shaft.sq <- function(x, ...) {
+  # color NA's
+  na_character(alphabet(x)) <- col_silver(.get_na_char())
+  
+  .pillar_shaft_sq(x, "", col_green)
+}
+
+#' @importFrom cli col_cyan
+#' @importFrom pillar pillar_shaft
+#' @export
+pillar_shaft.encsq <- function(x, ...) {
+  alphabet(x) <- format(alphabet(x), digits = 1, scientific = FALSE)
+  
+  .pillar_shaft_sq(x, "\u00a0", col_cyan)
 }
