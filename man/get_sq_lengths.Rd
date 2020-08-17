@@ -4,7 +4,7 @@
 \alias{get_sq_lengths}
 \title{Get lengths of sequences in sq object}
 \usage{
-get_sq_lengths(x, use.names = TRUE)
+get_sq_lengths(x)
 }
 \arguments{
 \item{x}{an \code{\link{sq}} object.}

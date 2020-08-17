@@ -314,7 +314,7 @@ is.encsq <- function(x) {
 #' 
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
-get_sq_lengths <- function(x, use.names = TRUE) {
+get_sq_lengths <- function(x) {
   if (length(x) == 0) numeric(0)
   else sapply(x, attr, "original_length")
 }
