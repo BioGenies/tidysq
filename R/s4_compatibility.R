@@ -1,0 +1,6 @@
+setOldClass(Classes = c("amisq", "sq"))
+setOldClass(Classes = c("dnasq", "sq"))
+setOldClass(Classes = c("rnasq", "sq"))
+setOldClass(Classes = c("untsq", "sq"))
+setOldClass(Classes = c("atpsq", "sq"))
+setOldClass(Classes = c("encsq", "sq"))
