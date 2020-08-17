@@ -110,7 +110,7 @@
   list(type = "unt", is_clean = NULL)  
 }
 
-# TODO: check what it does
+# TODO check what it does
 .merge_ind <- function(res_ind, begs) {
   n <- length(res_ind)
   m <- length(begs)
