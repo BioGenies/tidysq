@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert sq object into matrix — as.matrix.sq • tidysq</title>
+<title>Get lengths of sequences in sq object — get_sq_lengths • tidysq</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Convert sq object into matrix — as.matrix.sq" />
-<meta property="og:description" content="Coerce sequences from a sq object to a 
-matrix, in which rows correspond to sequences and columns to positions" />
+<meta property="og:title" content="Get lengths of sequences in sq object — get_sq_lengths" />
+<meta property="og:description" content="Function counts number of elements in each sequence in given sq object." />
 
 
 
@@ -109,75 +108,49 @@ matrix, in which rows correspond to sequences and columns to positions" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert sq object into matrix</h1>
+    <h1>Get lengths of sequences in sq object</h1>
     <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util_methods.R'><code>R/util_methods.R</code></a></small>
-    <div class="hidden name"><code>as.matrix.sq.Rd</code></div>
+    <div class="hidden name"><code>get_sq_lengths.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Coerce sequences from a <code><a href='sq.html'>sq</a></code> object to a 
-<code><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></code>, in which rows correspond to sequences and columns to positions</p>
+    <p>Function counts number of elements in each sequence in given <code><a href='sq.html'>sq</a></code> object.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for sq</span>
-<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>get_sq_lengths</span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a <code><a href='sq.html'>sq</a></code> object to be converted.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>further arguments to be passed from or to other methods.</p></td>
+      <td><p>an <code><a href='sq.html'>sq</a></code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></code> with number of rows the same as number of sequences
-and number of columns corresponding to the length of the longest sequence
-in the converted sq object. Matrix is either character (if type of <code>sq</code> is
-<strong>ami</strong>, <strong>dna</strong>, <strong>rna</strong>, <strong>atp</strong> or <strong>unt</strong>)
-or numeric (if type is <strong>enc</strong>).</p>
+    <p>A <code><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></code> vector, where each element gives length of according 
+sequence from <code><a href='sq.html'>sq</a></code> object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This method for class <code>sq</code> allows converting sequences from
-the sq object into a matrix. Each row corresponds to the separate sequence
-from the sq object, whereas each column indicates a single position within 
-a sequence. Dimensions of matrix are determined by the number of sequences 
-(rows) and the length of the longest sequence (columns). If a length of
-sequence is smaller than the length of the longest sequence, the remaining
-columns will be filled with <code><a href='https://rdrr.io/r/base/NA.html'>NA</a></code>. All attributes of the input
-<code>sq</code> are lost during the conversion to matrix.</p>
+    <p>This function allows returning numeric vector of lengths of sequences from
+<code><a href='sq.html'>sq</a></code> object. The numeric vector is as long as number of sequences present 
+in <code><a href='sq.html'>sq</a></code> object.
+The function counts elements in all types of sequences.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code></p></div>
+    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code> <code><a href='construct_sq.html'>construct_sq</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
-<span class='kw'>sq_same_len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CGATAGACA"</span>, <span class='st'>"TGACAAAAC"</span>, <span class='st'>"GTGACCGTA"</span>),
-                            type = <span class='st'>'dna'</span>)
-<span class='kw'>sq_diff_len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CTGAATGCAGTACCGTAAT"</span>, <span class='st'>"ATGCCGTAAATGCCAT"</span>, 
-                              <span class='st'>"CAGACCANNNATAG"</span>), type = <span class='st'>'dna'</span>)
+    <pre class="examples"><div class='input'><span class='co'># Creating an object to work on:</span>
+<span class='kw'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ACGATTAGACG"</span>,<span class='st'>"GGATA"</span>), type = <span class='st'>"dna"</span>)
+<span class='kw'>sq_amino_acids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MMVTAAV"</span>), type = <span class='st'>"ami"</span>)
 
-<span class='co'># Converting sq object containing sequences of the same lengths to matrix:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>sq_same_len</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
-#&gt; [1,] "C"  "G"  "A"  "T"  "A"  "G"  "A"  "C"  "A" 
-#&gt; [2,] "T"  "G"  "A"  "C"  "A"  "A"  "A"  "A"  "C" 
-#&gt; [3,] "G"  "T"  "G"  "A"  "C"  "C"  "G"  "T"  "A" </div><div class='input'>
-<span class='co'># Converting sq object containing sequences of different lengths to </span>
-<span class='co'># matrix - NA introduced:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>sq_diff_len</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]
-#&gt; [1,] "C"  "T"  "G"  "A"  "A"  "T"  "G"  "C"  "A"  "G"   "T"   "A"   "C"   "C"  
-#&gt; [2,] "A"  "T"  "G"  "C"  "C"  "G"  "T"  "A"  "A"  "A"   "T"   "G"   "C"   "C"  
-#&gt; [3,] "C"  "A"  "G"  "A"  "C"  "C"  "A"  "N"  "N"  "N"   "A"   "T"   "A"   "G"  
-#&gt;      [,15] [,16] [,17] [,18] [,19]
-#&gt; [1,] "G"   "T"   "A"   "A"   "T"  
-#&gt; [2,] "A"   "T"   NA    NA    NA   
-#&gt; [3,] NA    NA    NA    NA    NA   </div><div class='input'></div></pre>
+<span class='co'># Counting number of elements in DNA sq object with defined type:</span>
+<span class='fu'>get_sq_lengths</span>(<span class='kw'>sq_dna</span>)</div><div class='output co'>#&gt; [1] 11  5</div><div class='input'>
+<span class='co'># Counting number of elements in amino acid sq object with defined type:</span>
+<span class='fu'>get_sq_lengths</span>(<span class='kw'>sq_amino_acids</span>)</div><div class='output co'>#&gt; [1] 7</div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
