@@ -50,9 +50,9 @@ na_character <- function(alph)
   2 ^ .get_alph_size(alph) - 1
 }
 
-.get_real_alph <- function(sq) {
+.get_real_alph <- function(str_sq) {
   new_vctr(
-    unique(unlist(strsplit(sq, ""))),
+    C_get_real_alph(str_sq),
     na_character = .get_na_char(),
     class = c("sq_alphabet", "character")
   )
