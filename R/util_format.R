@@ -75,7 +75,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   sq_cut <- lapply(sq_cut, function(s) alphabet(sq)[s])
   
   # lengths of sequences
-  lens <- lengths(sq)
+  lens <- get_sq_lengths(sq)
   
   # max width of index number
   inds_width <- nchar(num_lines) + 2
@@ -165,7 +165,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   sq_cut <- lapply(sq_cut, function(s) alphabet(x)[s])
   
   # maximum length of length numbers
-  lens <- lengths(x)
+  lens <- get_sq_lengths(x)
   max_len_width <- max(nchar(lens))
   
   max_str_width <- max(sapply(sq_cut, function(s) sum(col_nchar(s))))
