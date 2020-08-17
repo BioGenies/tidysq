@@ -76,5 +76,5 @@ typify <- function(sq, dest_type) {
   new_list_of(ret,
               ptype = raw(),
               alphabet = dest_alph,
-              class = c(paste0(dest_type, "sq"), "sq", "list"))
+              class = c(paste0(dest_type, "sq"), "sq"))
 }

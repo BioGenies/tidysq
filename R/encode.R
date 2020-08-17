@@ -160,5 +160,5 @@ encode <- function(sq, encoding) {
   new_list_of(sq,
               ptype = raw(),
               alphabet = encoding[alph],
-              class = c("encsq", "sq", "list"))
+              class = c("encsq", "sq"))
 }

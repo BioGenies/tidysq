@@ -149,5 +149,5 @@ substitute_letters <- function(sq, encoding) {
   new_list_of(ret,
               ptype = raw(),
               alphabet = new_alph,
-              class = c("atpsq", "sq", "list"))
+              class = c("atpsq", "sq"))
 }

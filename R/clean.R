@@ -69,5 +69,5 @@ clean <- function(sq, only_elements = FALSE) {
   new_list_of(ret,
               ptype = raw(),
               alphabet = alph_cln,
-              class = c(.get_sq_subclass(sq), "clnsq", "sq", "list"))
+              class = c(.get_sq_subclass(sq), "clnsq", "sq"))
 }

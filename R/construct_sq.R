@@ -485,7 +485,7 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   new_list_of(sq,
               ptype = raw(),
               alphabet = .get_standard_alph(type, is_clean),
-              class = c(paste0(type, "sq"), if (is_clean) "clnsq" else NULL, "sq", "list"))
+              class = c(paste0(type, "sq"), if (is_clean) "clnsq" else NULL, "sq"))
 }
 
 
@@ -525,7 +525,7 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   new_list_of(sq,
               ptype = raw(),
               alphabet = vec_cast(non_standard, sq_alphabet_ptype()),
-              class = c("atpsq", "sq", "list"))
+              class = c("atpsq", "sq"))
 }
 
 .construct_amisq <- function(sq, is_clean) {
@@ -539,7 +539,7 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   new_list_of(sq,
               ptype = raw(),
               alphabet = .get_standard_alph("ami", is_clean),
-              class = c("amisq", if (is_clean) "clnsq" else NULL, "sq", "list"))
+              class = c("amisq", if (is_clean) "clnsq" else NULL, "sq"))
 }
 
 .construct_dnasq <- function(sq, is_clean) {
@@ -553,7 +553,7 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   new_list_of(sq,
               ptype = raw(),
               alphabet = .get_standard_alph("dna", is_clean),
-              class = c("dnasq", if (is_clean) "clnsq" else NULL, "sq", "list"))
+              class = c("dnasq", if (is_clean) "clnsq" else NULL, "sq"))
 }
 
 .construct_rnasq <- function(sq, is_clean) {
@@ -567,7 +567,7 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   new_list_of(sq,
               ptype = raw(),
               alphabet = .get_standard_alph("rna", is_clean),
-              class = c("rnasq", if (is_clean) "clnsq" else NULL, "sq", "list"))
+              class = c("rnasq", if (is_clean) "clnsq" else NULL, "sq"))
 }
 
 .construct_untsq <- function(sq, alph = NULL) {
@@ -580,7 +580,7 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   new_list_of(sq,
               ptype = raw(),
               alphabet = vec_cast(alph, sq_alphabet_ptype()),
-              class = c("untsq", "sq", "list"))
+              class = c("untsq", "sq"))
 }
 
 .construct_sq_ptype <- function(type, is_clean = NULL, alph = character()) {
@@ -597,5 +597,5 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
   new_list_of(list(),
               ptype = raw(),
               alphabet = vec_cast(alph, sq_alphabet_ptype()),
-              class = c(paste0(type, "sq"), if (is_clean) "clnsq" else NULL, "sq", "list"))
+              class = c(paste0(type, "sq"), if (is_clean) "clnsq" else NULL, "sq"))
 }

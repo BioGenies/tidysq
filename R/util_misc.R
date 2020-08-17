@@ -20,6 +20,7 @@
   sq
 }
 
+# TODO: verify if all calls in code don't pass "list" in classes vector
 .construct_sq_s <- function(sq, alph, classes) {
   sq <- .pack_to_sq(sq, alph)
   new_list_of(sq,
