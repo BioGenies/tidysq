@@ -109,7 +109,7 @@ as.character.sq <- function(x, ...) {
 #' @seealso \code{\link{sq}}
 #' @export
 as.matrix.sq <- function(x, ...) {
-  max_len <- max(lengths(x))
+  max_len <- max(get_sq_lengths(x))
   ret <- do.call(rbind, lapply(.unpack_from_sq(x, "char"), function(row) row[1:max_len]))
   ret[ret == .get_na_char()] <- NA
   ret
@@ -292,7 +292,6 @@ is.encsq <- function(x) {
 #' Function counts number of elements in each sequence in given \code{\link{sq}} object.
 #' 
 #' @param x an \code{\link{sq}} object.
-#' @param use.names unused argument, a leftover from default \code{\link{lengths}} method.
 #'  
 #' @return A \code{\link{numeric}} vector, where each element gives length of according 
 #' sequence from \code{\link{sq}} object.
@@ -308,20 +307,14 @@ is.encsq <- function(x) {
 #' sq_amino_acids <- construct_sq(c("MMVTAAV"), type = "ami")
 #' 
 #' # Counting number of elements in DNA sq object with defined type:
-#' lengths(sq_dna)
+#' get_sq_lengths(sq_dna)
 #' 
 #' # Counting number of elements in amino acid sq object with defined type:
-#' lengths(sq_amino_acids)
+#' get_sq_lengths(sq_amino_acids)
 #' 
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
-lengths.sq <- function(x, use.names = TRUE) {
+get_sq_lengths <- function(x, use.names = TRUE) {
   if (length(x) == 0) numeric(0)
   else sapply(x, attr, "original_length")
 }
-
-#' @rdname lengths.sq
-#' @export
-setMethod("lengths", signature("sq"), function(x, use.names = TRUE) {
-  lengths.sq(x, use.names)
-})
