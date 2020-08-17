@@ -430,7 +430,6 @@ lengths.sq <- function(x, use.names = TRUE) {
   else sapply(x, attr, "original_length")
 }
 
-
 #' @rdname lengths.sq
 #' @export
 setMethod("lengths", signature("sq"), function(x, use.names = TRUE) {
