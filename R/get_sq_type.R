@@ -51,7 +51,7 @@
 #' @export
 get_sq_alphabet <- function(sq) {
   .validate_sq(sq)
-  .get_alph(sq)
+  alphabet(sq)
 }
 
 #' Get type of a sq object
