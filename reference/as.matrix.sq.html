@@ -120,7 +120,7 @@ matrix, in which rows correspond to sequences and columns to positions" />
     </div>
 
     <pre class="usage"><span class='co'># S3 method for sq</span>
-<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,23 +158,22 @@ columns will be filled with <code><a href='https://rdrr.io/r/base/NA.html'>NA</a
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
-<span class='no'>sq_same_len</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CGATAGACA"</span>, <span class='st'>"TGACAAAAC"</span>, <span class='st'>"GTGACCGTA"</span>),
-                            <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'dna'</span>)
-<span class='no'>sq_diff_len</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CTGAATGCAGTACCGTAAT"</span>, <span class='st'>"ATGCCGTAAATGCCAT"</span>,
-                              <span class='st'>"CAGACCANNNATAG"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'dna'</span>)
+<span class='kw'>sq_same_len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CGATAGACA"</span>, <span class='st'>"TGACAAAAC"</span>, <span class='st'>"GTGACCGTA"</span>),
+                            type = <span class='st'>'dna'</span>)
+<span class='kw'>sq_diff_len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CTGAATGCAGTACCGTAAT"</span>, <span class='st'>"ATGCCGTAAATGCCAT"</span>, 
+                              <span class='st'>"CAGACCANNNATAG"</span>), type = <span class='st'>'dna'</span>)
 
 <span class='co'># Converting sq object containing sequences of the same lengths to matrix:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>sq_same_len</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4]
+<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>sq_same_len</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4]
 #&gt; [1,] "C"  "G"  "A"  "T" 
 #&gt; [2,] "T"  "G"  "A"  "C" 
 #&gt; [3,] "G"  "T"  "G"  "A" </div><div class='input'>
 <span class='co'># Converting sq object containing sequences of different lengths to </span>
 <span class='co'># matrix - NA introduced:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>sq_diff_len</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
+<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>sq_diff_len</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
 #&gt; [1,] "C"  "T"  "G"  "A"  "A"  "T"  "G"  "C"  "A"  "G"   "T"   "A"  
 #&gt; [2,] "A"  "T"  "G"  "C"  "C"  "G"  "T"  "A"  "A"  "A"   "T"   "G"  
-#&gt; [3,] "C"  "A"  "G"  "A"  "C"  "C"  "A"  "N"  "N"  "N"   "A"   "T"  </div><div class='input'>
-</div></pre>
+#&gt; [3,] "C"  "A"  "G"  "A"  "C"  "C"  "A"  "N"  "N"  "N"   "A"   "T"  </div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -190,7 +189,7 @@ columns will be filled with <code><a href='https://rdrr.io/r/base/NA.html'>NA</a
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

@@ -117,7 +117,7 @@
     <p>Function checks which type of sequences are contained in <code><a href='sq.html'>sq</a></code> object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_sq_type</span>(<span class='no'>sq</span>)</pre>
+    <pre class="usage"><span class='fu'>get_sq_type</span>(<span class='kw'>sq</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,31 +144,30 @@ If the type of sequence is <strong>dna</strong>, <strong>rna</strong>, <strong>a
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Creating an object to work on:</span>
-<span class='no'>sq_dna</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ACGATTAGACG"</span>,<span class='st'>"GGATA"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"dna"</span>)
-<span class='no'>sq_rna</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CCUUACGGC"</span>,<span class='st'>"UUCAAAGCU"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"rna"</span>)
-<span class='no'>sq_amino_acids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MMVTAAV"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"ami"</span>)
-<span class='no'>sq_unt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MMVTAAVXX"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"unt"</span>)
-<span class='no'>sq_atp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='substitute_letters.html'>substitute_letters</a></span>(<span class='no'>sq_amino_acids</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>M</span> <span class='kw'>=</span> <span class='st'>"g1"</span>, <span class='kw'>V</span> <span class='kw'>=</span> <span class='st'>"g2"</span>, <span class='kw'>T</span> <span class='kw'>=</span> <span class='st'>"g1"</span>, <span class='kw'>A</span> <span class='kw'>=</span> <span class='st'>"g3"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='input'><span class='no'>sq_encoded</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='no'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>A</span> <span class='kw'>=</span> <span class='fl'>2.3</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>1.56</span>, <span class='kw'>T</span> <span class='kw'>=</span> <span class='fl'>0.23</span>, <span class='kw'>G</span> <span class='kw'>=</span> <span class='fl'>0.28</span>))
+<span class='kw'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ACGATTAGACG"</span>,<span class='st'>"GGATA"</span>), type = <span class='st'>"dna"</span>)
+<span class='kw'>sq_rna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CCUUACGGC"</span>,<span class='st'>"UUCAAAGCU"</span>), type = <span class='st'>"rna"</span>)
+<span class='kw'>sq_amino_acids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MMVTAAV"</span>), type = <span class='st'>"ami"</span>)
+<span class='kw'>sq_unt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MMVTAAVXX"</span>), type = <span class='st'>"unt"</span>)
+<span class='kw'>sq_atp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='substitute_letters.html'>substitute_letters</a></span>(<span class='kw'>sq_amino_acids</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(M = <span class='st'>"g1"</span>, V = <span class='st'>"g2"</span>, T = <span class='st'>"g1"</span>, A = <span class='st'>"g3"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='input'><span class='kw'>sq_encoded</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(A = <span class='fl'>2.3</span>, C = <span class='fl'>1.56</span>, T = <span class='fl'>0.23</span>, G = <span class='fl'>0.28</span>))
 
 <span class='co'># Getting sq type from DNA sq object:</span>
-<span class='fu'>get_sq_type</span>(<span class='no'>sq_dna</span>)</div><div class='output co'>#&gt; dnasq 
+<span class='fu'>get_sq_type</span>(<span class='kw'>sq_dna</span>)</div><div class='output co'>#&gt; dnasq 
 #&gt; "dna" </div><div class='input'>
 <span class='co'># Getting sq type from RNA sq object:</span>
-<span class='fu'>get_sq_type</span>(<span class='no'>sq_rna</span>)</div><div class='output co'>#&gt; rnasq 
+<span class='fu'>get_sq_type</span>(<span class='kw'>sq_rna</span>)</div><div class='output co'>#&gt; rnasq 
 #&gt; "rna" </div><div class='input'>
 <span class='co'># Getting sq type from amino acid  sq object:</span>
-<span class='fu'>get_sq_type</span>(<span class='no'>sq_amino_acids</span>)</div><div class='output co'>#&gt; amisq 
+<span class='fu'>get_sq_type</span>(<span class='kw'>sq_amino_acids</span>)</div><div class='output co'>#&gt; amisq 
 #&gt; "ami" </div><div class='input'>
 <span class='co'># Getting sq type from untyped sq object:</span>
-<span class='fu'>get_sq_type</span>(<span class='no'>sq_unt</span>)</div><div class='output co'>#&gt; untsq 
+<span class='fu'>get_sq_type</span>(<span class='kw'>sq_unt</span>)</div><div class='output co'>#&gt; untsq 
 #&gt; "unt" </div><div class='input'>
 <span class='co'># Getting sq type from atypical sq object:</span>
-<span class='fu'>get_sq_type</span>(<span class='no'>sq_atp</span>)</div><div class='output co'>#&gt; atpsq 
+<span class='fu'>get_sq_type</span>(<span class='kw'>sq_atp</span>)</div><div class='output co'>#&gt; atpsq 
 #&gt; "atp" </div><div class='input'>
 <span class='co'># Getting sq type from encoded sq object:</span>
-<span class='fu'>get_sq_type</span>(<span class='no'>sq_encoded</span>)</div><div class='output co'>#&gt; encsq 
-#&gt; "enc" </div><div class='input'>
-</div></pre>
+<span class='fu'>get_sq_type</span>(<span class='kw'>sq_encoded</span>)</div><div class='output co'>#&gt; encsq 
+#&gt; "enc" </div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -184,7 +183,7 @@ If the type of sequence is <strong>dna</strong>, <strong>rna</strong>, <strong>a
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

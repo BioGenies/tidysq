@@ -246,7 +246,7 @@ are case sensitive. Thus, in their alphabets both lowercase and uppercase letter
 appear simultaneously and they are treated as different characters. Alphabets of
 <strong>dna</strong>, <strong>rna</strong> and <strong>ami</strong> objects are always uppercase and all functions converts
 other parameters to uppercase when working with <strong>dna</strong>, <strong>rna</strong> or <strong>ami</strong> - e.g.,
-<code><a href='grapes-has-grapes.html'>%has%</a></code> operator converts lower letters to upper when searching for motifs in
+<code><a href='%has%.html'>%has%</a></code> operator converts lower letters to upper when searching for motifs in
 <strong>dna</strong>, <strong>rna</strong> or <strong>ami</strong> object.</p>
 <p><strong>Important note:</strong> maximum length of an alphabet is <strong>30 letters</strong>. You are
 not allowed to read fasta files or construct from character vectors that have more
@@ -263,7 +263,7 @@ substitute one letter with another using <code><a href='substitute_letters.html'
     
 
 <p>There is a possibility of introducing <code><a href='https://rdrr.io/r/base/NA.html'>NA</a></code> values into sequences. <code>NA</code> value
-does not represents gap (which are represented by <code><a href='https://rdrr.io/r/base/Arithmetic.html'>'-'</a></code>) or wildcard elements 
+does not represents gap (which are represented by <code>'-'</code>) or wildcard elements 
 (<code>N</code> in the case of nucleotides and <code>'X'</code> in the case of amino acids), but is used 
 as a representation of an empty position or invalid letters (not represented in nucleotide or 
 amino acid alphabet).
@@ -290,7 +290,7 @@ sequences with <code><a href='remove_na.html'>remove_na</a></code>.</p>
 <code><a href='construct_sq.html'>construct_sq</a></code>,</p></li>
 <li><p>using the <code><a href='clean.html'>clean</a></code> function,</p></li>
 <li><p>using the <code><a href='remove_na.html'>remove_na</a></code> function,</p></li>
-<li><p>subsetting <code>sq</code> object with <a href='sqextract.html'>extract operator</a></p></li>
+<li><p>subsetting <code>sq</code> object with <a href='[.sq.html'>extract operator</a></p></li>
 </ul>
 
     <h2 class="hasAnchor" id="storage-format"><a class="anchor" href="#storage-format"></a>Storage format</h2>
@@ -299,7 +299,7 @@ sequences with <code><a href='remove_na.html'>remove_na</a></code>.</p>
 
 <p><code>sq</code> object is, in fact, <strong>list of raw vectors</strong>. The fact that it is list
 implies that an user can concatenate <code>sq</code> objects using <code><a href='c.sq.html'>c</a></code> method
-and subset them using <code><a href='sqextract.html'>extract operator</a></code>. Alphabet is kept
+and subset them using <code><a href='[.sq.html'>extract operator</a></code>. Alphabet is kept
 as an attribute of the object.</p>
 <p>Raw vectors are the most efficient way of storage - each letter of the sequence has assigned
 an integer (its index in alphabet of <code>sq</code> object). Those integers in binary format
@@ -336,7 +336,7 @@ that it is printed in pretty format.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

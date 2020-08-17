@@ -119,11 +119,11 @@
  nucleotide sequence. The function differentiates between RNA and DNA sequences.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>complement</span>(<span class='no'>sq</span>)
+    <pre class="usage"><span class='fu'>complement</span>(<span class='kw'>sq</span>)
 
-<span class='fu'>complement_dna</span>(<span class='no'>sq</span>)
+<span class='fu'>complement_dna</span>(<span class='kw'>sq</span>)
 
-<span class='fu'>complement_rna</span>(<span class='no'>sq</span>)</pre>
+<span class='fu'>complement_rna</span>(<span class='kw'>sq</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -154,39 +154,38 @@ way of limiting classes <code>complement</code> function is used on.</p>
     <pre class="examples"><div class='input'><span class='co'># Creating objects dna_sequence (with DNA sequences) and rna_sequence </span>
 <span class='co'># (with RNA sequences) to work on:</span>
 
-<span class='no'>dna_sequence</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ACTGCTG"</span>, <span class='st'>"CTTAGA"</span>, <span class='st'>"CCCT"</span>, <span class='st'>"CTGAATGT"</span>),
-                             <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"dna"</span>)
-<span class='no'>rna_sequence</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ACUGCUG"</span>, <span class='st'>"CUUAGA"</span>, <span class='st'>"CCCU"</span>, <span class='st'>"CUGAAUGU"</span>),
-                             <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"rna"</span>)
+<span class='kw'>dna_sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ACTGCTG"</span>, <span class='st'>"CTTAGA"</span>, <span class='st'>"CCCT"</span>, <span class='st'>"CTGAATGT"</span>),
+                             type = <span class='st'>"dna"</span>)
+<span class='kw'>rna_sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ACUGCUG"</span>, <span class='st'>"CUUAGA"</span>, <span class='st'>"CCCU"</span>, <span class='st'>"CUGAAUGU"</span>),
+                             type = <span class='st'>"rna"</span>)
 
 
 <span class='co'># In the following the complement function is used to make a PCR (Polymerase Chain Reaction)</span>
 <span class='co'># primers. Every sequence will be rewritten to its complementary equivalent as </span>
 <span class='co'># following example: AAATTTGGG to TTTAAACCC.</span>
-
+ 
 <span class='co'># creating complementary sequences with the basic function and using wrappers:</span>
-<span class='fu'>complement</span>(<span class='no'>dna_sequence</span>)</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
-#&gt; [1] <span style='color: #00BB00;'>TGACGAC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>GAATCT</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>GGGA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>GACTTACA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'><span class='fu'>complement_dna</span>(<span class='no'>dna_sequence</span>)</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
-#&gt; [1] </span><span style='color: #00BB00;'>TGACGAC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>GAATCT</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>GGGA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>GACTTACA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'>
-<span class='fu'>complement</span>(<span class='no'>rna_sequence</span>)</div><div class='output co'>#&gt; rna (RNA), cln (cleaned) sequences list:
-#&gt; [1] </span><span style='color: #00BB00;'>UGACGAC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>GAAUCU</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>GGGA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>GACUUACA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'><span class='fu'>complement_rna</span>(<span class='no'>rna_sequence</span>)</div><div class='output co'>#&gt; rna (RNA), cln (cleaned) sequences list:
-#&gt; [1] </span><span style='color: #00BB00;'>UGACGAC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>GAAUCU</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>GGGA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>GACUUACA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'>
-# Each sequence from dna_sequence and rna_sequence object have now an own
-# complementary equivalent, which can be helpful during constructing PCR primers.
-
-</div></span></pre>
+<span class='fu'>complement</span>(<span class='kw'>dna_sequence</span>)</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
+#&gt; [1] TGACGAC                                                                  &lt;7&gt;
+#&gt; [2] GAATCT                                                                   &lt;6&gt;
+#&gt; [3] GGGA                                                                     &lt;4&gt;
+#&gt; [4] GACTTACA                                                                 &lt;8&gt;</div><div class='input'><span class='fu'>complement_dna</span>(<span class='kw'>dna_sequence</span>)</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
+#&gt; [1] TGACGAC                                                                  &lt;7&gt;
+#&gt; [2] GAATCT                                                                   &lt;6&gt;
+#&gt; [3] GGGA                                                                     &lt;4&gt;
+#&gt; [4] GACTTACA                                                                 &lt;8&gt;</div><div class='input'>
+<span class='fu'>complement</span>(<span class='kw'>rna_sequence</span>)</div><div class='output co'>#&gt; rna (RNA), cln (cleaned) sequences list:
+#&gt; [1] UGACGAC                                                                  &lt;7&gt;
+#&gt; [2] GAAUCU                                                                   &lt;6&gt;
+#&gt; [3] GGGA                                                                     &lt;4&gt;
+#&gt; [4] GACUUACA                                                                 &lt;8&gt;</div><div class='input'><span class='fu'>complement_rna</span>(<span class='kw'>rna_sequence</span>)</div><div class='output co'>#&gt; rna (RNA), cln (cleaned) sequences list:
+#&gt; [1] UGACGAC                                                                  &lt;7&gt;
+#&gt; [2] GAAUCU                                                                   &lt;6&gt;
+#&gt; [3] GGGA                                                                     &lt;4&gt;
+#&gt; [4] GACUUACA                                                                 &lt;8&gt;</div><div class='input'>
+<span class='co'># Each sequence from dna_sequence and rna_sequence object have now an own</span>
+<span class='co'># complementary equivalent, which can be helpful during constructing PCR primers.</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -202,7 +201,7 @@ way of limiting classes <code>complement</code> function is used on.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

@@ -119,19 +119,19 @@ if it is a sq object with specific type." />
 if it is a <code><a href='sq.html'>sq</a></code> object with specific type.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>is.sq</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>is.sq</span>(<span class='kw'>x</span>)
 
-<span class='fu'>is.amisq</span>(<span class='no'>x</span>)
+<span class='fu'>is.amisq</span>(<span class='kw'>x</span>)
 
-<span class='fu'>is.dnasq</span>(<span class='no'>x</span>)
+<span class='fu'>is.dnasq</span>(<span class='kw'>x</span>)
 
-<span class='fu'>is.rnasq</span>(<span class='no'>x</span>)
+<span class='fu'>is.rnasq</span>(<span class='kw'>x</span>)
 
-<span class='fu'>is.untsq</span>(<span class='no'>x</span>)
+<span class='fu'>is.untsq</span>(<span class='kw'>x</span>)
 
-<span class='fu'>is.atpsq</span>(<span class='no'>x</span>)
+<span class='fu'>is.atpsq</span>(<span class='kw'>x</span>)
 
-<span class='fu'>is.encsq</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>is.encsq</span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,17 +157,17 @@ read <code><a href='sq.html'>sq class</a></code> manual).</p>
     <div class='dont-index'><p><code><a href='sq.html'>sq</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>sq_ami</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CVMPQGQQ"</span>, <span class='st'>"AHLC--PPQ"</span>))
-<span class='no'>sq_dna</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"GGCAT"</span>, <span class='st'>"TATC-A"</span>, <span class='st'>"TGA"</span>))
-<span class='no'>sq_rna</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CGAUUACG"</span>, <span class='st'>"UUCUAGA"</span>, <span class='st'>"UUCA"</span>))
-<span class='no'>sq_unt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='st'>"BAHHAJJ&amp;HAN&amp;JD&amp;"</span>)
-<span class='no'>sq_atp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mALPVQAmAmA"</span>, <span class='st'>"mAmAPQ"</span>), <span class='kw'>non_standard</span> <span class='kw'>=</span> <span class='st'>"mA"</span>)
-<span class='no'>sq_enc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='no'>sq_rna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>A</span> <span class='kw'>=</span> <span class='fl'>1.23</span>, <span class='kw'>C</span> <span class='kw'>=</span> -<span class='fl'>0.72</span>, <span class='kw'>G</span> <span class='kw'>=</span> <span class='fl'>0.97</span>, <span class='kw'>U</span> <span class='kw'>=</span> <span class='fl'>3.01</span>))
+    <pre class="examples"><div class='input'><span class='kw'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CVMPQGQQ"</span>, <span class='st'>"AHLC--PPQ"</span>))
+<span class='kw'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"GGCAT"</span>, <span class='st'>"TATC-A"</span>, <span class='st'>"TGA"</span>))
+<span class='kw'>sq_rna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CGAUUACG"</span>, <span class='st'>"UUCUAGA"</span>, <span class='st'>"UUCA"</span>))
+<span class='kw'>sq_unt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='st'>"BAHHAJJ&amp;HAN&amp;JD&amp;"</span>)
+<span class='kw'>sq_atp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mALPVQAmAmA"</span>, <span class='st'>"mAmAPQ"</span>), non_standard = <span class='st'>"mA"</span>)
+<span class='kw'>sq_enc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_rna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(A = <span class='fl'>1.23</span>, C = <span class='op'>-</span><span class='fl'>0.72</span>, G = <span class='fl'>0.97</span>, U = <span class='fl'>3.01</span>))
 
-<span class='fu'>is.sq</span>(<span class='no'>sq_ami</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='no'>sq_dna</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='no'>sq_rna</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='no'>sq_unt</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='no'>sq_atp</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='no'>sq_enc</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'>is.sq</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>))</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span>(<span class='no'>LETTERS</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span>(<span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>NULL</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-<span class='fu'>is.amisq</span>(<span class='no'>sq_ami</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.dnasq</span>(<span class='no'>sq_dna</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.rnasq</span>(<span class='no'>sq_rna</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.atpsq</span>(<span class='no'>sq_atp</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.untsq</span>(<span class='no'>sq_unt</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.encsq</span>(<span class='no'>sq_enc</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'>is.dnasq</span>(<span class='no'>sq_enc</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.amisq</span>(<span class='no'>sq_atp</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.untsq</span>(<span class='no'>sq_ami</span>)</div><div class='output co'>#&gt; [1] FALSE</div></pre>
+<span class='fu'>is.sq</span>(<span class='kw'>sq_ami</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_dna</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_rna</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_unt</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_atp</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_enc</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='fu'>is.sq</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>))</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>LETTERS</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span>(<span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>NULL</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+<span class='fu'>is.amisq</span>(<span class='kw'>sq_ami</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.dnasq</span>(<span class='kw'>sq_dna</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.rnasq</span>(<span class='kw'>sq_rna</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.atpsq</span>(<span class='kw'>sq_atp</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.untsq</span>(<span class='kw'>sq_unt</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.encsq</span>(<span class='kw'>sq_enc</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='fu'>is.dnasq</span>(<span class='kw'>sq_enc</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.amisq</span>(<span class='kw'>sq_atp</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.untsq</span>(<span class='kw'>sq_ami</span>)</div><div class='output co'>#&gt; [1] FALSE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -183,7 +183,7 @@ read <code><a href='sq.html'>sq class</a></code> manual).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

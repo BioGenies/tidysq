@@ -119,7 +119,7 @@ from sequences in a sq object." />
 from sequences in a <code><a href='sq.html'>sq</a></code> object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>remove_na</span>(<span class='no'>sq</span>, <span class='kw'>only_elements</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>remove_na</span>(<span class='kw'>sq</span>, only_elements = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,56 +162,55 @@ specified.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
-<span class='no'>sq_ami</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MIAANYTWIL"</span>,<span class='st'>"TIAALGNIIYRAIE"</span>,
-                         <span class='st'>"NYERTGHLI"</span>, <span class='st'>"MAYXXXIALN"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"ami"</span>)
-<span class='no'>sq_dna</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ATGCAGGA"</span>, <span class='st'>"GACCGAACGAN"</span>,
-                         <span class='st'>"TGACGAGCTTA"</span>, <span class='st'>"ACTNNAGCN"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"dna"</span>)
+<span class='kw'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MIAANYTWIL"</span>,<span class='st'>"TIAALGNIIYRAIE"</span>, 
+                         <span class='st'>"NYERTGHLI"</span>, <span class='st'>"MAYXXXIALN"</span>), type = <span class='st'>"ami"</span>)
+<span class='kw'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ATGCAGGA"</span>, <span class='st'>"GACCGAACGAN"</span>, 
+                         <span class='st'>"TGACGAGCTTA"</span>, <span class='st'>"ACTNNAGCN"</span>), type = <span class='st'>"dna"</span>)
 
 <span class='co'># Substituting some letters with NA</span>
-<span class='no'>sq_ami_sub</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='substitute_letters.html'>substitute_letters</a></span>(<span class='no'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>E</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>R</span> <span class='kw'>=</span> <span class='fl'>NA</span>))
-<span class='no'>sq_dna_sub</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='substitute_letters.html'>substitute_letters</a></span>(<span class='no'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>NA</span>))
+<span class='kw'>sq_ami_sub</span> <span class='op'>&lt;-</span> <span class='fu'><a href='substitute_letters.html'>substitute_letters</a></span>(<span class='kw'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(E = <span class='fl'>NA</span>, R = <span class='fl'>NA</span>))
+<span class='kw'>sq_dna_sub</span> <span class='op'>&lt;-</span> <span class='fu'><a href='substitute_letters.html'>substitute_letters</a></span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(N = <span class='fl'>NA</span>))
 
 <span class='co'># Biting sequences out of range</span>
-<span class='no'>sq_bitten</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bite.html'>bite</a></span>(<span class='no'>sq_ami</span>, <span class='fl'>1</span>:<span class='fl'>15</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: some sequences are subsetted with index bigger than length - NA introduced</span></div><div class='input'>
+<span class='kw'>sq_bitten</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bite.html'>bite</a></span>(<span class='kw'>sq_ami</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>15</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: some sequences are subsetted with index bigger than length - NA introduced</span></div><div class='input'>
 <span class='co'># Printing them</span>
-<span class='no'>sq_ami_sub</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] <span style='color: #00BB00;'>MIAANYTWIL</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>TIAALGNIIY</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>AI</span><span style='color: #555555;'>!</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>NY</span><span style='color: #555555;'>!!</span><span style='color: #00BB00;'>TGHLI</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>MAYXXXIALN</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span></div><div class='input'><span class='no'>sq_dna_sub</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>GACCGAACGA</span><span style='color: #555555;'>!</span><span>                                                             </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>TGACGAGCTTA</span><span>                                                             </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>ACT</span><span style='color: #555555;'>!!</span><span style='color: #00BB00;'>AGC</span><span style='color: #555555;'>!</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span></div><div class='input'>
+<span class='kw'>sq_ami_sub</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] MIAANYTWIL                                                              &lt;10&gt;
+#&gt; [2] TIAALGNIIY!AI!                                                          &lt;14&gt;
+#&gt; [3] NY!!TGHLI                                                                &lt;9&gt;
+#&gt; [4] MAYXXXIALN                                                              &lt;10&gt;</div><div class='input'><span class='kw'>sq_dna_sub</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] ATGCAGGA                                                                 &lt;8&gt;
+#&gt; [2] GACCGAACGA!                                                             &lt;11&gt;
+#&gt; [3] TGACGAGCTTA                                                             &lt;11&gt;
+#&gt; [4] ACT!!AGC!                                                                &lt;9&gt;</div><div class='input'>
 <span class='co'># Removing sequences containing NA</span>
-<span class='fu'>remove_na</span>(<span class='no'>sq_ami_sub</span>)</div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] </span><span style='color: #00BB00;'>MIAANYTWIL</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt; [2] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
-#&gt; [3] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>MAYXXXIALN</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span></div><div class='input'><span class='fu'>remove_na</span>(<span class='no'>sq_dna_sub</span>)</div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
-#&gt; [2] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>TGACGAGCTTA</span><span>                                                             </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
-#&gt; [4] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span></div><div class='input'><span class='fu'>remove_na</span>(<span class='no'>sq_bitten</span>)</div><div class='output co'>#&gt; ami (amino acids) sequences list:
-#&gt; [1] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
-#&gt; [2] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
-#&gt; [3] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
-#&gt; [4] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span></div><div class='input'>
+<span class='fu'>remove_na</span>(<span class='kw'>sq_ami_sub</span>)</div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] MIAANYTWIL                                                              &lt;10&gt;
+#&gt; [2] &lt;NULL&gt;                                                                   &lt;0&gt;
+#&gt; [3] &lt;NULL&gt;                                                                   &lt;0&gt;
+#&gt; [4] MAYXXXIALN                                                              &lt;10&gt;</div><div class='input'><span class='fu'>remove_na</span>(<span class='kw'>sq_dna_sub</span>)</div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] ATGCAGGA                                                                 &lt;8&gt;
+#&gt; [2] &lt;NULL&gt;                                                                   &lt;0&gt;
+#&gt; [3] TGACGAGCTTA                                                             &lt;11&gt;
+#&gt; [4] &lt;NULL&gt;                                                                   &lt;0&gt;</div><div class='input'><span class='fu'>remove_na</span>(<span class='kw'>sq_bitten</span>)</div><div class='output co'>#&gt; ami (amino acids) sequences list:
+#&gt; [1] &lt;NULL&gt;                                                                   &lt;0&gt;
+#&gt; [2] &lt;NULL&gt;                                                                   &lt;0&gt;
+#&gt; [3] &lt;NULL&gt;                                                                   &lt;0&gt;
+#&gt; [4] &lt;NULL&gt;                                                                   &lt;0&gt;</div><div class='input'>
 <span class='co'># Removing only NA elements</span>
-<span class='fu'>remove_na</span>(<span class='no'>sq_ami_sub</span>, <span class='kw'>only_elements</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] </span><span style='color: #00BB00;'>MIAANYTWIL</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>TIAALGNIIYAI</span><span>                                                            </span><span style='color: #0000BB;'>&lt;12&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>NYTGHLI</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>MAYXXXIALN</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span></div><div class='input'><span class='fu'>remove_na</span>(<span class='no'>sq_dna_sub</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>GACCGAACGA</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>TGACGAGCTTA</span><span>                                                             </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>ACTAGC</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span></div><div class='input'><span class='fu'>remove_na</span>(<span class='no'>sq_bitten</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; ami (amino acids) sequences list:
-#&gt; [1] </span><span style='color: #00BB00;'>MIAANYTWIL</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>TIAALGNIIYRAIE</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>NYERTGHLI</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>MAYXXXIALN</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span></div><div class='input'>
-</div></span></pre>
+<span class='fu'>remove_na</span>(<span class='kw'>sq_ami_sub</span>, only_elements = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] MIAANYTWIL                                                              &lt;10&gt;
+#&gt; [2] TIAALGNIIYAI                                                            &lt;12&gt;
+#&gt; [3] NYTGHLI                                                                  &lt;7&gt;
+#&gt; [4] MAYXXXIALN                                                              &lt;10&gt;</div><div class='input'><span class='fu'>remove_na</span>(<span class='kw'>sq_dna_sub</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] ATGCAGGA                                                                 &lt;8&gt;
+#&gt; [2] GACCGAACGA                                                              &lt;10&gt;
+#&gt; [3] TGACGAGCTTA                                                             &lt;11&gt;
+#&gt; [4] ACTAGC                                                                   &lt;6&gt;</div><div class='input'><span class='fu'>remove_na</span>(<span class='kw'>sq_bitten</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; ami (amino acids) sequences list:
+#&gt; [1] MIAANYTWIL                                                              &lt;10&gt;
+#&gt; [2] TIAALGNIIYRAIE                                                          &lt;14&gt;
+#&gt; [3] NYERTGHLI                                                                &lt;9&gt;
+#&gt; [4] MAYXXXIALN                                                              &lt;10&gt;</div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -227,7 +226,7 @@ specified.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

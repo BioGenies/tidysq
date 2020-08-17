@@ -119,7 +119,7 @@ positions." />
 positions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>find_motifs</span>(<span class='no'>sq</span>, <span class='no'>name</span>, <span class='no'>motifs</span>)</pre>
+    <pre class="usage"><span class='fu'>find_motifs</span>(<span class='kw'>sq</span>, <span class='kw'>name</span>, <span class='kw'>motifs</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,25 +179,56 @@ find the motifs: "MAJ", "MAL" and "MAI".</p>
 <code><a href='aminoacids_df.html'>aminoacids_df</a></code> and <code><a href='nucleotides_df.html'>nucleotides_df</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code> <code><a href='substitute_letters.html'>substitute_letters</a></code> <code><a href='grapes-has-grapes.html'>%has%</a></code></p></div>
+    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code> <code><a href='substitute_letters.html'>substitute_letters</a></code> <code><a href='%has%.html'>%has%</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
-<span class='no'>sq_ami</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"AGNTYIKFGGAYTI"</span>, <span class='st'>"MATEGILIAADGYTWIL"</span>,
-                         <span class='st'>"MIPADHICAANGIENAGIK"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'ami'</span>)
-<span class='no'>sqtbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_fasta.html'>read_fasta</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tidysq"</span>, <span class='st'>"example_aa.fasta"</span>),
-                    <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"ami"</span>)
+<span class='kw'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"AGNTYIKFGGAYTI"</span>, <span class='st'>"MATEGILIAADGYTWIL"</span>, 
+                         <span class='st'>"MIPADHICAANGIENAGIK"</span>), type = <span class='st'>'ami'</span>)
+<span class='kw'>sqtbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_fasta.html'>read_fasta</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(package = <span class='st'>"tidysq"</span>, <span class='st'>"example_aa.fasta"</span>), 
+                    type = <span class='st'>"ami"</span>)
 
 <span class='co'># Find motif of two alanines followed by aspartic acid or asparagine </span>
 <span class='co'># ('AAB' motif will match 'AAB', 'AAD' and 'AAN'):</span>
-<span class='fu'>find_motifs</span>(<span class='no'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sq1"</span>, <span class='st'>"sq2"</span>, <span class='st'>"sq3"</span>), <span class='st'>"AAB"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in vec_cast(x, character()): nie udało się znaleźć funkcji 'vec_cast'</span></div><div class='input'>
+<span class='fu'>find_motifs</span>(<span class='kw'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sq1"</span>, <span class='st'>"sq2"</span>, <span class='st'>"sq3"</span>), <span class='st'>"AAB"</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 6
+#&gt;   name  sq                      sought found    start   end
+#&gt;   &lt;chr&gt; &lt;(c)ami&gt;                &lt;chr&gt;  &lt;(c)ami&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 sq2   MATEGILIAADGYTWIL  &lt;17&gt; AAB    AAD  &lt;3&gt;     9    11
+#&gt; 2 sq3   MIPADHICAANGIEN... &lt;19&gt; AAB    AAN  &lt;3&gt;     9    11</div><div class='input'>
 <span class='co'># Find motif 'VHH' at the beginning of sequences:</span>
-<span class='fu'>find_motifs</span>(<span class='no'>sqtbl</span><span class='kw'>[[</span><span class='st'>"sq"</span>]], <span class='no'>sqtbl</span><span class='kw'>[[</span><span class='st'>"name"</span>]], <span class='st'>"^VHH"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in vec_cast(x, character()): nie udało się znaleźć funkcji 'vec_cast'</span></div><div class='input'>
+<span class='fu'>find_motifs</span>(<span class='kw'>sqtbl</span>[[<span class='st'>"sq"</span>]], <span class='kw'>sqtbl</span>[[<span class='st'>"name"</span>]], <span class='st'>"^VHH"</span>)</div><div class='output co'>#&gt; # A tibble: 7 x 6
+#&gt;   name                            sq                  sought found   start   end
+#&gt;   &lt;chr&gt;                           &lt;(c)ami&gt;            &lt;chr&gt;  &lt;(c)am&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 AMY25|HABP3|Amyloid beta A4 pe… VHHPKLVFFAE... &lt;15&gt; ^VHH   VHH &lt;3&gt;     1     3
+#&gt; 2 AMY26|HABP4|Amyloid beta A4 pe… VHHQPLVFFAE... &lt;15&gt; ^VHH   VHH &lt;3&gt;     1     3
+#&gt; 3 AMY34|HABP12|Amyloid beta A4 p… VHHQEKLVFFA... &lt;16&gt; ^VHH   VHH &lt;3&gt;     1     3
+#&gt; 4 AMY35|HABP13|Amyloid beta A4 p… VHHQEKLVFFA... &lt;16&gt; ^VHH   VHH &lt;3&gt;     1     3
+#&gt; 5 AMY36|HABP14|Amyloid beta A4 p… VHHQEKLVFFA... &lt;16&gt; ^VHH   VHH &lt;3&gt;     1     3
+#&gt; 6 AMY38|HABP16|Amyloid beta A4 p… VHHQKLVFFAE... &lt;15&gt; ^VHH   VHH &lt;3&gt;     1     3
+#&gt; 7 AMY43|AB5|Amyloid beta A4 pept… VHHQKLVFFAEDV  &lt;13&gt; ^VHH   VHH &lt;3&gt;     1     3</div><div class='input'>
 <span class='co'># Find motif 'DPGS' at the end of sequences:</span>
-<span class='fu'>find_motifs</span>(<span class='no'>sqtbl</span><span class='kw'>[[</span><span class='st'>"sq"</span>]], <span class='no'>sqtbl</span><span class='kw'>[[</span><span class='st'>"name"</span>]], <span class='st'>"DPGS$"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in vec_cast(x, character()): nie udało się znaleźć funkcji 'vec_cast'</span></div><div class='input'>
+<span class='fu'>find_motifs</span>(<span class='kw'>sqtbl</span>[[<span class='st'>"sq"</span>]], <span class='kw'>sqtbl</span>[[<span class='st'>"name"</span>]], <span class='st'>"DPGS$"</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 6
+#&gt;   name                           sq                  sought found    start   end
+#&gt;   &lt;chr&gt;                          &lt;(c)ami&gt;            &lt;chr&gt;  &lt;(c)ami&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 AMY35|HABP13|Amyloid beta A4 … VHHQEKLVFFA... &lt;16&gt; DPGS$  DPGS &lt;4&gt;    13    16</div><div class='input'>
 <span class='co'># Find multiple motifs:</span>
-<span class='fu'>find_motifs</span>(<span class='no'>sqtbl</span><span class='kw'>[[</span><span class='st'>"sq"</span>]], <span class='no'>sqtbl</span><span class='kw'>[[</span><span class='st'>"name"</span>]], <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"^LIV"</span>, <span class='st'>"XXKK"</span>, <span class='st'>"EN$"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in vec_cast(x, character()): nie udało się znaleźć funkcji 'vec_cast'</span></div><div class='input'>
-</div></pre>
+<span class='fu'>find_motifs</span>(<span class='kw'>sqtbl</span>[[<span class='st'>"sq"</span>]], <span class='kw'>sqtbl</span>[[<span class='st'>"name"</span>]], <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"^LIV"</span>, <span class='st'>"XXKK"</span>, <span class='st'>"EN$"</span>))</div><div class='output co'>#&gt; # A tibble: 14 x 6
+#&gt;    name                          sq                  sought found    start   end
+#&gt;    &lt;chr&gt;                         &lt;(c)ami&gt;            &lt;chr&gt;  &lt;(c)ami&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1 AMY835|Untitled|De novo       LIVAAD          &lt;6&gt; ^LIV   LIV  &lt;3&gt;     1     3
+#&gt;  2 AMY836|Untitled|De novo       LIVAGD          &lt;6&gt; ^LIV   LIV  &lt;3&gt;     1     3
+#&gt;  3 AMY837|Untitled|De novo       LIVAGE          &lt;6&gt; ^LIV   LIV  &lt;3&gt;     1     3
+#&gt;  4 AMY838|Untitled|De novo       LIVAGK          &lt;6&gt; ^LIV   LIV  &lt;3&gt;     1     3
+#&gt;  5 AMY839|Untitled|De novo       LIVAGS          &lt;6&gt; ^LIV   LIV  &lt;3&gt;     1     3
+#&gt;  6 AMY840|Untitled|De novo       LIVAGT          &lt;6&gt; ^LIV   LIV  &lt;3&gt;     1     3
+#&gt;  7 AMY95|C helix|Myohemerithrin  EVVPHKKMHKD... &lt;19&gt; XXKK   PHKK &lt;4&gt;     4     7
+#&gt;  8 AMY176|PL B1 114-138 pH 2.4|… KGTFEKATSEA... &lt;25&gt; XXKK   TLKK &lt;4&gt;    17    20
+#&gt;  9 AMY456|Untitled|Lysozyme (he… GSTDYGILQIN... &lt;53&gt; XXKK   CAKK &lt;4&gt;    46    49
+#&gt; 10 AMY464|Untitled|Alpha synucl… GKTKEGVLYVG... &lt;79&gt; XXKK   FVKK &lt;4&gt;    64    67
+#&gt; 11 AMY1382|Untitled|ABri         EASNCFAIRHF... &lt;34&gt; XXKK   TVKK &lt;4&gt;    25    28
+#&gt; 12 AMY1383|A helix|Myohemerithr… AM-YEQLDEEH... &lt;24&gt; XXKK   EHKK &lt;4&gt;    10    13
+#&gt; 13 AMY392|Untitled|Insulin       LYQLEN          &lt;6&gt; EN$    EN   &lt;2&gt;     5     6
+#&gt; 14 AMY1382|Untitled|ABri         EASNCFAIRHF... &lt;34&gt; EN$    EN   &lt;2&gt;    33    34</div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -213,7 +244,7 @@ find the motifs: "MAJ", "MAL" and "MAI".</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

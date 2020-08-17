@@ -117,10 +117,10 @@
     <p>Function counts number of elements in each sequence in given <code><a href='sq.html'>sq</a></code> object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lengths.sq</span>(<span class='no'>x</span>, <span class='kw'>use.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>lengths.sq</span>(<span class='kw'>x</span>, use.names = <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for sq</span>
-<span class='fu'><a href='https://rdrr.io/r/base/lengths.html'>lengths</a></span>(<span class='no'>x</span>, <span class='kw'>use.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/lengths.html'>lengths</a></span>(<span class='kw'>x</span>, use.names = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,14 +151,13 @@ The function counts elements in all types of sequences.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Creating an object to work on:</span>
-<span class='no'>sq_dna</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ACGATTAGACG"</span>,<span class='st'>"GGATA"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"dna"</span>)
-<span class='no'>sq_amino_acids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MMVTAAV"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"ami"</span>)
+<span class='kw'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ACGATTAGACG"</span>,<span class='st'>"GGATA"</span>), type = <span class='st'>"dna"</span>)
+<span class='kw'>sq_amino_acids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MMVTAAV"</span>), type = <span class='st'>"ami"</span>)
 
 <span class='co'># Counting number of elements in DNA sq object with defined type:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/lengths.html'>lengths</a></span>(<span class='no'>sq_dna</span>)</div><div class='output co'>#&gt; [1] 5 2</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/lengths.html'>lengths</a></span>(<span class='kw'>sq_dna</span>)</div><div class='output co'>#&gt; [1] 5 2</div><div class='input'>
 <span class='co'># Counting number of elements in amino acid sq object with defined type:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/lengths.html'>lengths</a></span>(<span class='no'>sq_amino_acids</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
-</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/lengths.html'>lengths</a></span>(<span class='kw'>sq_amino_acids</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -174,7 +173,7 @@ The function counts elements in all types of sequences.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
