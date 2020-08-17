@@ -24,7 +24,7 @@ namespace tidysq {
         }
     }
 
-    inline Rcpp::CharacterVector C_get_real_alph(Rcpp::CharacterVector x) {
+    inline Rcpp::CharacterVector C_get_real_alph(Rcpp::CharacterVector sq) {
         typedef SEXP(*Ptr_C_get_real_alph)(SEXP);
         static Ptr_C_get_real_alph p_C_get_real_alph = NULL;
         if (p_C_get_real_alph == NULL) {
@@ -34,7 +34,7 @@ namespace tidysq {
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_C_get_real_alph(Shield<SEXP>(Rcpp::wrap(x)));
+            rcpp_result_gen = p_C_get_real_alph(Shield<SEXP>(Rcpp::wrap(sq)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

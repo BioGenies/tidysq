@@ -9,20 +9,20 @@
 using namespace Rcpp;
 
 // C_get_real_alph
-Rcpp::CharacterVector C_get_real_alph(Rcpp::CharacterVector x);
-static SEXP _tidysq_C_get_real_alph_try(SEXP xSEXP) {
+Rcpp::CharacterVector C_get_real_alph(Rcpp::CharacterVector sq);
+static SEXP _tidysq_C_get_real_alph_try(SEXP sqSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(C_get_real_alph(x));
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type sq(sqSEXP);
+    rcpp_result_gen = Rcpp::wrap(C_get_real_alph(sq));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _tidysq_C_get_real_alph(SEXP xSEXP) {
+RcppExport SEXP _tidysq_C_get_real_alph(SEXP sqSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_tidysq_C_get_real_alph_try(xSEXP));
+        rcpp_result_gen = PROTECT(_tidysq_C_get_real_alph_try(sqSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
