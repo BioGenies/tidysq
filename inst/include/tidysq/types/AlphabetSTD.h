@@ -40,6 +40,15 @@ namespace tidysq {
         [[nodiscard]] const sizealph &alphabetSize() const {
             return alphabetSize_;
         }
+
+        [[nodiscard]] bool isSimple() const {
+            for (int i = 0; i < size(); i++) {
+                if (at(i).size() > 1) {
+                    return false;
+                }
+            }
+            return true;
+        }
     };
 }
 

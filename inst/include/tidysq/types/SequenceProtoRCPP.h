@@ -2,7 +2,9 @@
 #define TIDYSQ_SEQUENCEPROTORCPP_H
 
 #include <Rcpp.h>
+
 #include "general.h"
+#include "SequenceProtoSTD.h"
 
 namespace tidysq {
     template<>
@@ -21,8 +23,13 @@ namespace tidysq {
     };
 
     template<>
-    class SequenceProto<RCPP, STRING> : public Rcpp::StringVector {
-        using Rcpp::StringVector::StringVector;
+    class SequenceProto<RCPP, STRING> : public Rcpp::String {
+    public:
+        using Rcpp::String::String;
+
+        explicit operator SequenceProto<STD, STRING>() const {
+            return SequenceProto<STD, STRING>(get_cstring());
+        }
     };
 }
 

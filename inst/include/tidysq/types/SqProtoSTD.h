@@ -45,11 +45,6 @@ namespace tidysq {
         Sq<INTERNAL_OUT> pack() const {
             return sqapply<SqProto<STD, PROTO>, Sq<INTERNAL_OUT>, AlphabetType>(*this, ops::OperationPack<STD, PROTO, INTERNAL_OUT>());
         }
-
-        Rcpp::List exportToR() {
-            content_.attr("alphabet") = alphabet_;
-            return content_;
-        }
     };
 }
 

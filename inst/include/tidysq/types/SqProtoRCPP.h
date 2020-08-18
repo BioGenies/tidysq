@@ -51,6 +51,49 @@ namespace tidysq {
             return content_;
         }
     };
+
+    template<>
+    class SqProto<RCPP, STRING> {
+        Rcpp::StringVector content_;
+        Alphabet<RCPP> alphabet_;
+    public:
+        typedef SequenceProto<RCPP, STRING> SequenceType;
+        typedef Alphabet<RCPP> AlphabetType;
+
+        SqProto(const Rcpp::StringVector& content, AlphabetType alphabet) :
+                content_(content),
+                alphabet_(std::move(alphabet)) {};
+
+        SqProto(lensq length, AlphabetType alphabet) :
+                content_(Rcpp::StringVector(length)),
+                alphabet_(std::move(alphabet)) {};
+
+        Rcpp::StringVector::Proxy operator[] (lensq index) {
+            return content_[index];
+        }
+
+        Rcpp::StringVector::const_Proxy operator[] (lensq index) const {
+            return content_[index];
+        }
+
+        [[nodiscard]] lensq length() const {
+            return content_.size();
+        }
+
+        [[nodiscard]] AlphabetType alphabet() const {
+            return alphabet_;
+        }
+
+        template<InternalType INTERNAL_OUT>
+        Sq<INTERNAL_OUT> pack() const {
+            return sqapply<SqProto<RCPP, STRING>, Sq<INTERNAL_OUT>, AlphabetType>(*this, ops::OperationPack<RCPP, STRING, INTERNAL_OUT>());
+        }
+
+        Rcpp::StringVector exportToR() {
+            content_.attr("alphabet") = alphabet_;
+            return content_;
+        }
+    };
 }
 
 #endif //TIDYSQ_SQPROTORCPP_H

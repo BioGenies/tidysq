@@ -56,6 +56,15 @@ namespace tidysq::internal {
             }
             return alphabet.NAValue();
         }
+
+        inline static letvalue matchStandard(const char &letter, const Alphabet<STD> &alphabet) {
+            for (letvalue i = 0; i < alphabet.size(); i++) {
+                if (letter == alphabet[i][0]) {
+                    return i + 1;
+                }
+            }
+            return alphabet.NAValue();
+        }
     };
 
     template<>

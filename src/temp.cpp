@@ -16,6 +16,14 @@ List tmpPack(List raws, StringVector alphabet) {
 
 //' @export
 //[[Rcpp::export]]
+List tmpPack2(StringVector raws, StringVector alphabet) {
+  return SqProto<RCPP, STRING>(raws, Alphabet<RCPP>(alphabet))
+  .pack<RCPP>()
+  .exportToR();
+}
+
+//' @export
+//[[Rcpp::export]]
 List tmpUnpack(List raws) {
   return Sq<RCPP>(raws)
     .unpack<RCPP, RAWS>()

@@ -273,6 +273,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// tmpPack2
+List tmpPack2(StringVector raws, StringVector alphabet);
+RcppExport SEXP _tidysq_tmpPack2(SEXP rawsSEXP, SEXP alphabetSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< StringVector >::type raws(rawsSEXP);
+    Rcpp::traits::input_parameter< StringVector >::type alphabet(alphabetSEXP);
+    rcpp_result_gen = Rcpp::wrap(tmpPack2(raws, alphabet));
+    return rcpp_result_gen;
+END_RCPP
+}
 // tmpUnpack
 List tmpUnpack(List raws);
 RcppExport SEXP _tidysq_tmpUnpack(SEXP rawsSEXP) {
@@ -567,6 +579,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_read_fasta_file", (DL_FUNC) &_tidysq_read_fasta_file, 2},
     {"_tidysq_find_alph", (DL_FUNC) &_tidysq_find_alph, 1},
     {"_tidysq_tmpPack", (DL_FUNC) &_tidysq_tmpPack, 2},
+    {"_tidysq_tmpPack2", (DL_FUNC) &_tidysq_tmpPack2, 2},
     {"_tidysq_tmpUnpack", (DL_FUNC) &_tidysq_tmpUnpack, 1},
     {"_tidysq_tmpUnpack2", (DL_FUNC) &_tidysq_tmpUnpack2, 1},
     {"_tidysq_tmpUnpack3", (DL_FUNC) &_tidysq_tmpUnpack3, 1},

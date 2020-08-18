@@ -4,6 +4,7 @@
 #include <Rcpp.h>
 
 #include "general.h"
+#include "AlphabetSTD.h"
 
 namespace tidysq {
     template<>
@@ -40,6 +41,23 @@ namespace tidysq {
 
         [[nodiscard]] const sizealph &alphabetSize() const {
             return alphabetSize_;
+        }
+
+        bool isSimple() const {
+            for (int i = 0; i < size(); i++) {
+                if (Rcpp::as<std::string>(at(i)).size() > 1) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        explicit operator Alphabet<STD>() const {
+            std::vector<std::string> content(size());
+            for (int i = 0; i < size(); i++) {
+                content[i] = at(i);
+            }
+            return Alphabet<STD>(content, Rcpp::as<std::string>(NALetter_[0]));
         }
     };
 }
