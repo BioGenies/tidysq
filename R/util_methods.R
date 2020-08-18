@@ -380,24 +380,81 @@ NULL
 
 #' Concatenate sq objects
 #' 
-#' @description Merges multiple \code{\link{sq}} and \code{character} objects into one larger
-#' \code{sq}.
+#' @description Merges multiple \code{\link{sq}} and maybe \code{character} objects
+#' into one larger \code{sq} object.
 #' 
-#' @param ... multiple \code{\link{sq}} and \code{character} objects. All of them have to have the same type and
-#' subtype. If type is \strong{atp}, \strong{unt} or \strong{enc} also their alphabets have to
-#' be exactly identical.
+#' @param ... multiple \code{\link{sq}} and \code{character} objects. For exact behaviour,
+#' check Details section. First argument must be of \code{sq} class due to R mechanism of
+#' single dispatch. If this is a problem, recommended alternative is \code{\link[vctrs]{vec_c}}
+#' method from \code{vctrs} package.
 #' 
 #' @return A \code{\link{sq}} object with length equal to sum of lengths of individual objects
 #' passed as parameters. Elements of \code{\link{sq}} are concatenated just as if they were normal
 #' lists (see \code{\link[base]{c}})
 #' 
-#' @examples 
-#' sq_1 <- construct_sq(c("TAGACTAG", "", "CCGTAGATG"))
-#' sq_2 <- construct_sq(c("TTGATAACG", "TGTATGTGA"))
-#' sq_3 <- construct_sq(character(0))
-#' sq_4 <- construct_sq("gaGG")
+#' @details Whenever all passed objects are either \code{dnasq}, \code{rnasq} or \code{amisq},
+#' returned object is also of the same class. If all of them contain \code{clnsq} subtype,
+#' resulting object contains it as well, else \code{clnsq} subtype is dropped.
 #' 
-#' c(sq_1, sq_2, sq_3, sq_4)
+#' Mixing \code{dnasq}, \code{rnasq} and \code{amisq} is prohibited, as interpretation of
+#' symbols differ depending on the type.
+#' 
+#' Whenever all objects are either \code{untsq} or \code{atpsq}, returned object is also
+#' of the same class. These classes are not used with \code{clnsq} subtype, so it never
+#' appears in this context. Resulting object has alphabet equal to the set union of all
+#' alphabets of the involved objects.
+#' 
+#' Moreover, \code{untsq} objects may be concatenated with \code{dnasq}, \code{rnasq}
+#' and \code{amisq} objects, resulting in an \code{untsq} object with alphabet equal
+#' to the set union of all alphabets involved. However, user is strongly encouraged
+#' to use this possibility with caution, as it may result in unwanted concatenation
+#' of DNA and amino acid sequences.
+#' 
+#' Whenever character vectors are passed as second and later argument, they don't influence
+#' resulting \code{sq} object type. Each element of vector is interpreted as separate
+#' sequence. If resulting \code{sq} is predicted to have \code{clnsq} subtype, then passing
+#' character vector with characters not included in the resulting alphabet will cause code
+#' to fail with an exception. If result doesn't have \code{clnsq} subtype, all "foreign"
+#' characters will be silently replaced will \code{NA}.
+#' 
+#' Due to R dispatch mechanism passing character vector as first will return class-less
+#' list. This behaviour is effectively impossible and definitely unrecommended to fix, as
+#' fixing it would involve changing \code{c} primitive. If such possibility is necessary,
+#' \code{\link[vctrs]{vec_c}} is a better alternative.
+#' 
+#' @examples
+#' cdnasq_1 <- construct_sq(c("GGACTGCA", "CTAGTA", ""), type = "dna")
+#' cdnasq_2 <- construct_sq(c("ATGACA", "AC-G", "-CCAT"), type = "dna")
+#' cdnasq_3 <- construct_sq(character(), type = "dna")
+#' dnasq_1 <- construct_sq(c("BNACV", "GDBADHH"), type = "dna")
+#' crnasq_1 <- construct_sq(c("UAUGCA", "UAGCCG"), type = "rna")
+#' rnasq_1 <- construct_sq(c("-AHVRYA", "G-U-HYR"), type = "rna")
+#' rnasq_2 <- construct_sq("AUHUCHYRBNN--", type = "rna")
+#' camisq_1 <- construct_sq("ACHNK-IFK-VYW", type = "ami")
+#' untsq_1 <- construct_sq("AF:gf;PPQ^&XN")
+#' 
+#' # Concatenating same-type sequences
+#' # Only clean sequences
+#' c(cdnasq_1, cdnasq_2, cdnasq_3)
+#' # Only not clean sequences
+#' c(rnasq_1, rnasq_2)
+#' # Both clean and unclean sequences
+#' c(cdnasq3, dnasq_1, cdnasq_2)
+#' 
+#' # Mixing DNA and RNA sequences don't work
+#' \dontrun{
+#' c(cdnasq_1, crnasq_1)
+#' }
+#' 
+#' # untsq can be mixed with DNA, RNA and amino acids
+#' c(camisq_1, untsq_1)
+#' c(untsq_1, crnasq_1, rnasq_1)
+#' c(cdnasq_2, untsq_1, cdnasq_3)
+#' 
+#' # Character vectors are also acceptable
+#' c(cdnasq2, "TGCA-GA")
+#' c(rnasq_1, c("UACUGGGACUG", "AUGUBNAABNRYYRAU"), rnasq_2)
+#' c(untsq_1, "&#JIA$O02t30,9ec", camisq_1)
 #' 
 #' @name sqconcatenate
 #' @aliases sq-concatenate
