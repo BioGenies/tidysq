@@ -1,6 +1,5 @@
 # SETUP ----
 na_char <- .get_na_char()
-na_char_2 <- "$"
 
 char_shortened <- c("A", "C", "G")
 char_short <- c("A", "C", "G", "T")
@@ -55,7 +54,6 @@ test_that("indexing works as always for indices different from 2^len - 1 value",
   expect_equal(alph_short[3], char_short[3])
   expect_equal(alph_medium[2:7], char_medium[2:7])
   expect_equal(alph_long[-6:-19], char_long[-6:-19])
-  # expect_equal(alph_short[0], char_short[0])
   expect_equal(alph_short[727], char_short[727])
 })
 
