@@ -318,3 +318,87 @@ get_sq_lengths <- function(x) {
   if (length(x) == 0) numeric(0)
   else sapply(x, attr, "original_length")
 }
+
+#' Extract parts of a sq object
+#' 
+#' @description Operator to extract subsets of sq objects.
+#' 
+#' @param x sq object from which to extract element(s)
+#' @param i,j,... indices specifying elements to extract. They may be 
+#' \code{\link{numeric}}, \code{\link{character}} or \code{\link{logical}} vectors or empty. 
+#' This function follows \code{\link[vctrs]{vctrs-package}} conventions regarding argument
+#' interpretation for indexing vectors, which are a bit stricter that normal R
+#' conventions, for example implicit argument recycling is prohibited.
+#' 
+#' @return \code{\link{sq}} object of the same type as input sq, containing
+#' extracted elements
+#' 
+#' @details This function allows extracting specified sequences from the 
+#' sq object and follows the normal R conventions. For details refer to the 
+#' R documentation (see 
+#' \url{https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Index-vectors}). 
+#' Subsetting of the sq object does not affect its attributes (class and alphabet 
+#' of the object). Attempt to extract elements using indices not present in
+#' the object will return an error.
+#' 
+#' @examples 
+#' # Creating objects to work on:
+#' sq_unt <- construct_sq(c("AHSNLVSCTK$SH%&VS", "YQTVKA&#BSKJGY", 
+#'                          "IAKVGDCTWCTY&GT", "AVYI#VSV&*DVGDJCFA"))
+#' sq_ami <- construct_sq(c(s1 = "MAIATNCEPILLKNYAS", s2 = "YASDGLIPAKNTEWYTV", 
+#'                          s3 = "TIKSNAALIETRY"), type = "ami")
+#' 
+#' # Subsetting using numeric vectors
+#' # Extracting second element of the object:
+#' sq_unt[2]
+#' 
+#' # Extracting elements from second to fourth:
+#' sq_unt[2:4]
+#' 
+#' # Extracting all elements except the third:
+#' sq_unt[-3]
+#' 
+#' # Extracting first and third element:
+#' sq_unt[c(1,3)]
+#' 
+#' # Subsetting using character vectors
+#' # Extracting elements named 's1' and 's3':
+#' sq_ami[c('s1', 's3')]
+#' 
+#' # Subsetting using logical vectors
+#' # Extracing first and third element:
+#' sq_ami[c(TRUE, FALSE, TRUE)]
+#' 
+#' # Subsetting using empty vector
+#' # Empty index will return all values:
+#' sq_unt[]
+#' 
+#' @seealso \code{\link{sq}} \code{\link{bite}}
+#' @name sqextract
+#' @aliases sq-extract
+NULL
+
+#' Concatenate sq objects
+#' 
+#' @description Merges multiple \code{\link{sq}} and \code{character} objects into one larger
+#' \code{sq}.
+#' 
+#' @param ... multiple \code{\link{sq}} and \code{character} objects. All of them have to have the same type and
+#' subtype. If type is \strong{atp}, \strong{unt} or \strong{enc} also their alphabets have to
+#' be exactly identical.
+#' 
+#' @return A \code{\link{sq}} object with length equal to sum of lengths of individual objects
+#' passed as parameters. Elements of \code{\link{sq}} are concatenated just as if they were normal
+#' lists (see \code{\link[base]{c}})
+#' 
+#' @examples 
+#' sq_1 <- construct_sq(c("TAGACTAG", "", "CCGTAGATG"))
+#' sq_2 <- construct_sq(c("TTGATAACG", "TGTATGTGA"))
+#' sq_3 <- construct_sq(character(0))
+#' sq_4 <- construct_sq("gaGG")
+#' 
+#' c(sq_1, sq_2, sq_3, sq_4)
+#' 
+#' @name sqconcatenate
+#' @aliases sq-concatenate
+NULL

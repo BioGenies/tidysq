@@ -31,7 +31,7 @@
 #' reverse(clean(sq_ami))
 #' reverse(clean(sq_dna))
 #' 
-#' @seealso \code{\link{sq}} \code{\link{clean}} \code{\link{print.sq}}
+#' @seealso \code{\link{sq}} \code{\link{clean}} \code{\link{sq-print}}
 #' 
 #' @export
 reverse <- function(sq) {

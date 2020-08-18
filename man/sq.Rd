@@ -82,7 +82,7 @@ Only \strong{ami}, \strong{dna} or \strong{rna} \code{sq} objects may have this 
 It indicates that sequences do not contain ambiguous letters (see "alphabets" section below).
 
 \code{sq} object type is printed when using overloaded method 
-\code{\link[=print.sq]{print}}. It can be also checked by using \code{\link{get_sq_type}}
+\code{\link[=sq-print]{print}}. It can be also checked by using \code{\link{get_sq_type}}
 }
 
 \section{Alphabet}{
@@ -197,9 +197,9 @@ sequences with \code{\link{remove_na}}.
 \section{Storage format}{
 
 \code{sq} object is, in fact, \strong{list of raw vectors}. The fact that it is list
-implies that an user can concatenate \code{sq} objects using \code{\link[=c.sq]{c}} method
-and subset them using \code{\link[=sq-extract]{extract operator}}. Alphabet is kept
-as an attribute of the object. 
+implies that an user can concatenate \code{sq} objects using \code{\link[=sq-concatenate]{c}}
+method and subset them using \code{\link[=sq-extract]{extract operator}}. Alphabet is kept
+as an attribute of the object.
 
 Raw vectors are the most efficient way of storage - each letter of the sequence has assigned
 an integer (its index in alphabet of \code{sq} object). Those integers in binary format
