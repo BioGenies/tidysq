@@ -67,7 +67,7 @@ c(cdnasq_1, cdnasq_2, cdnasq_3)
 # Only not clean sequences
 c(rnasq_1, rnasq_2)
 # Both clean and unclean sequences
-c(cdnasq3, dnasq_1, cdnasq_2)
+c(cdnasq_3, dnasq_1, cdnasq_2)
 
 # Mixing DNA and RNA sequences don't work
 \dontrun{
@@ -80,7 +80,7 @@ c(untsq_1, crnasq_1, rnasq_1)
 c(cdnasq_2, untsq_1, cdnasq_3)
 
 # Character vectors are also acceptable
-c(cdnasq2, "TGCA-GA")
+c(cdnasq_2, "TGCA-GA")
 c(rnasq_1, c("UACUGGGACUG", "AUGUBNAABNRYYRAU"), rnasq_2)
 c(untsq_1, "&#JIA$O02t30,9ec", camisq_1)
 
