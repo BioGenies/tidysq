@@ -1,3 +1,5 @@
+# general checks - used basically everywhere ----
+
 .check_simple <- function(check, argname, msg) {
   if (check) stop(argname, " ", msg, call. = FALSE)
 }
@@ -141,8 +143,7 @@
 }
 
 
-
-### specific checks - used mainly once
+# specific checks - used mainly once ----
 
 .check_real_alph_clean <- function(real_alph, type, is_clean) {
   if (!is.null(is_clean) &&
@@ -216,7 +217,7 @@
 }
 
 .check_alph_is_subset <- function(sq, alph) {
-  if (!all(alph %in% .get_alph(sq)))
+  if (!all(alph %in% alphabet(sq)))
     stop("'alph' contains letters that aren't elements of alphabet of 'sq'", call. = FALSE)
 }
 

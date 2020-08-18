@@ -9,7 +9,7 @@
     stop("'object' doesn't have 'alphabet' attribute", call. = FALSE)
   alph <- alphabet(object)
   if (!is.character(alph) &&
-      !is.numeric(alph))
+    !is.numeric(alph))
     stop("attribute 'alphabet' is neither a character nor a numeric vector", call. = FALSE)
   if (!is.numeric(get_sq_lengths(object)))
     stop("'get_sq_lengths()' method does not return numeric vector", call. = FALSE)
@@ -67,8 +67,8 @@
       stop("attribute 'alphabet' isn't identical to standard aminoacids alphabet", call. = FALSE)
   } else if (!identical(alph, .get_standard_alph("ami", TRUE)))
     stop("attribute 'alphabet' isn't identical to cleaned aminoacids alphabet", call. = FALSE)
-  
-  
+
+
   invisible(object)
 }
 
@@ -78,7 +78,7 @@
   alph <- alphabet(object)
   if (!is.character(alph))
     stop("attribute 'alphabet' isn't a character vector", call. = FALSE)
-  
+
   invisible(object)
 }
 
@@ -88,7 +88,7 @@
   alph <- alphabet(object)
   if (!is.character(alph))
     stop("attribute 'alphabet' isn't a character vector", call. = FALSE)
-  
+
   invisible(object)
 }
 
@@ -98,6 +98,6 @@
   alph <- alphabet(object)
   if (!is.numeric(alph))
     stop("attribute 'alphabet' isn't a numeric vector", call. = FALSE)
-  
+
   invisible(object)
 }

@@ -130,16 +130,17 @@
 #' @export
 encode <- function(sq, encoding) {
   .validate_sq(sq)
-  type <- .get_sq_type(sq)
   .check_isnt_missing(encoding, "'encoding'")
   .check_is_named(encoding, "'encoding'")
   .check_numeric(encoding, "'encoding'", allow_zero = TRUE, allow_negative = TRUE, 
                  allow_na = TRUE, allow_nan = TRUE, allow_inf = TRUE)
   .check_is_unique(names(encoding), "'encoding'")
+  
+  type <- .get_sq_type(sq)
   if (type %in% c("ami", "dna", "rna"))
     names(encoding) <- toupper(names(encoding))
   
-  alph <- .get_alph(sq)
+  alph <- alphabet(sq)
   alph_size <- .get_alph_size(alph)
   is_given <- alph %in% names(encoding)
   if (!all(is_given)) {

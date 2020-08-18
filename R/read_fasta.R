@@ -44,7 +44,7 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
     if (!is.null(non_standard)) {
       .nonst_read_fasta(file, type, is_clean, non_standard)
     } else {
-      alph <- find_alph(file)
+      alph <- vec_cast(find_alph(file), sq_alphabet_ptype())
       if (!is.null(type) && type %in% c("ami", "dna", "rna")) alph <- toupper(alph)
       .check_alph_matches_type(alph, type, is_clean)
       

@@ -432,6 +432,8 @@ NULL
 #' 
 #' @seealso \code{\link{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}} 
 #' \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}
+#' 
+#' @importFrom zeallot `%<-%`
 #' @export
 construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) {
   .check_character(sq, "'sq'", allow_zero_len = TRUE)
@@ -444,9 +446,7 @@ construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) 
     } else {
       .check_logical(is_clean, "'is_clean'", allow_null = TRUE, single_elem = TRUE)
       if (is.null(type)) {
-        type_clean <- .guess_sq_type_subtype(sq)
-        type <- type_clean[["type"]]
-        if (is.null(is_clean) && type != "unt") is_clean <- type_clean[["is_clean"]]
+        c(type, is_clean) %<-% .guess_sq_type_subtype(sq)
       }
       .check_type(type, allow_unt = TRUE)
       switch(type,
@@ -570,8 +570,10 @@ construct_sq_rna <- function(sq, is_clean = NULL) {
               class = c("rnasq", if (is_clean) "clnsq" else NULL, "sq"))
 }
 
-.construct_untsq <- function(sq) {
-  alph <- .get_real_alph(sq)
+.construct_untsq <- function(sq, alph = NULL) {
+  if (is.null(alph)) {
+    alph <- .get_real_alph(sq)
+  }
   .check_alph_length(alph)
   
   sq <- .pack_to_sq(sq, alph)
