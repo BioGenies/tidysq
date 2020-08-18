@@ -7,9 +7,9 @@
     stop("'object' should have exactly one of classes: 'amisq', 'dnasq', 'rnasq', 'untsq', 'encsq', 'atpsq'", call. = FALSE)
   if (is.null(attr(object, "alphabet")))
     stop("'object' doesn't have 'alphabet' attribute", call. = FALSE)
-  alph <- .get_alph(object)
+  alph <- alphabet(object)
   if (!is.character(alph) &&
-    !is.numeric(alph))
+      !is.numeric(alph))
     stop("attribute 'alphabet' is neither a character nor a numeric vector", call. = FALSE)
   if (!is.numeric(get_sq_lengths(object)))
     stop("'get_sq_lengths()' method does not return numeric vector", call. = FALSE)
@@ -35,7 +35,7 @@
 .validate_dnasq <- function(object) {
   if (!"dnasq" %in% class(object))
     stop("'object' doesn't inherit class 'dnasq'", call. = FALSE)
-  alph <- .get_alph(object)
+  alph <- alphabet(object)
   if (!"clnsq" %in% class(object)) {
     if (!identical(alph, .get_standard_alph("dna", FALSE)))
       stop("attribute 'alphabet' isn't identical to standard DNA alphabet", call. = FALSE)
@@ -48,7 +48,7 @@
 .validate_rnasq <- function(object) {
   if (!"rnasq" %in% class(object))
     stop("'object' doesn't inherit class 'rnasq'", call. = FALSE)
-  alph <- .get_alph(object)
+  alph <- alphabet(object)
   if (!"clnsq" %in% class(object)) {
     if (!identical(alph, .get_standard_alph("rna", FALSE)))
       stop("attribute 'alphabet' isn't identical to standard RNA alphabet", call. = FALSE)
@@ -61,43 +61,43 @@
 .validate_amisq <- function(object) {
   if (!"amisq" %in% class(object))
     stop("'object' doesn't inherit class 'amisq'", call. = FALSE)
-  alph <- .get_alph(object)
+  alph <- alphabet(object)
   if (!"clnsq" %in% class(object)) {
     if (!identical(alph, .get_standard_alph("ami", FALSE)))
       stop("attribute 'alphabet' isn't identical to standard aminoacids alphabet", call. = FALSE)
   } else if (!identical(alph, .get_standard_alph("ami", TRUE)))
     stop("attribute 'alphabet' isn't identical to cleaned aminoacids alphabet", call. = FALSE)
-
-
+  
+  
   invisible(object)
 }
 
 .validate_untsq <- function(object) {
   if (!"untsq" %in% class(object))
     stop("'object' doesn't inherit class 'untsq'", call. = FALSE)
-  alph <- .get_alph(object)
+  alph <- alphabet(object)
   if (!is.character(alph))
     stop("attribute 'alphabet' isn't a character vector", call. = FALSE)
-
+  
   invisible(object)
 }
 
 .validate_atpsq <- function(object) {
   if (!"atpsq" %in% class(object))
     stop("'object' doesn't inherit class 'atpsq'", call. = FALSE)
-  alph <- .get_alph(object)
+  alph <- alphabet(object)
   if (!is.character(alph))
     stop("attribute 'alphabet' isn't a character vector", call. = FALSE)
-
+  
   invisible(object)
 }
 
 .validate_encsq <- function(object) {
   if (!"encsq" %in% class(object))
     stop("'object' doesn't inherit class 'encsq'", call. = FALSE)
-  alph <- .get_alph(object)
+  alph <- alphabet(object)
   if (!is.numeric(alph))
     stop("attribute 'alphabet' isn't a numeric vector", call. = FALSE)
-
+  
   invisible(object)
 }
