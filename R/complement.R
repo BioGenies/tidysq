@@ -92,7 +92,7 @@ complement.rnasq <- function(sq) {
 #' @rdname complement
 #' @export
 complement_dna <- function(sq) {
-  UseMethod("complement")
+  UseMethod("complement_dna")
 }
 
 #' @export
@@ -108,7 +108,7 @@ complement_dna.dnasq <- function(sq) {
 #' @rdname complement
 #' @export
 complement_rna <- function(sq) {
-  UseMethod("complement")
+  UseMethod("complement_rna")
 }
 
 #' @export
