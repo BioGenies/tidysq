@@ -156,6 +156,8 @@ encode <- function(sq, encoding) {
     encoding <- c(encoding, non_given)
   }
   
-  sq <- .set_alph(sq, encoding[alph])
-  .set_class(sq, "enc", FALSE)
+  new_list_of(sq,
+              ptype = raw(),
+              alphabet = encoding[alph],
+              class = c("encsq", "sq"))
 }

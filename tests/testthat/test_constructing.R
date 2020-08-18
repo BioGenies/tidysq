@@ -1,20 +1,27 @@
-alph_amb_dna <- c("A", "C", "G", "T", "W", "S", "M", "K", "R", "Y", "B", "D", "H", 
-                  "V", "N", "-")
-alph_cln_dna <- c("A", "C", "G", "T", "-")
-alph_amb_rna <- c("A", "C", "G", "U", "W", "S", "M", "K", "R", "Y", "B", "D", "H", 
-                  "V", "N", "-")
-alph_cln_rna <- c("A", "C", "G", "U", "-")
-alph_amb_ami <- c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", 
-                  "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "-", "*")
-alph_cln_ami <- c("A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "P", "Q", 
-                  "R", "S", "T", "V", "W", "Y", "-", "*")
+alph_amb_dna <- sq_alphabet(
+  c("A", "C", "G", "T", "W", "S", "M", "K", "R", "Y", "B", "D", "H", "V", "N", "-")
+)
+alph_cln_dna <- sq_alphabet(c("A", "C", "G", "T", "-"))
+alph_amb_rna <- sq_alphabet(
+  c("A", "C", "G", "U", "W", "S", "M", "K", "R", "Y", "B", "D", "H", "V", "N", "-")
+)
+alph_cln_rna <- sq_alphabet(c("A", "C", "G", "U", "-"))
+alph_amb_ami <- sq_alphabet(
+  c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+    "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "-", "*")
+)
+alph_cln_ami <- sq_alphabet(
+  c("A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "P", "Q",
+    "R", "S", "T", "V", "W", "Y", "-", "*")
+)
 
 
 test_that("single short ambiguous DNA sequence constructing", {
   expect_identical(construct_sq("ATGN", type = "dna"),
                    structure(list(structure(as.raw(c(0x81, 0x8c, 0x07)), original_length = 4L)), 
                              alphabet = alph_amb_dna, 
-                             class = c("dnasq", "sq", "list")))
+                             ptype = raw(),
+                             class = c("dnasq", "sq", "vctrs_list_of", "vctrs_vctr", "list")))
 })
 
 test_that("multiple short ambiguous DNA sequences constructing", {
@@ -45,7 +52,8 @@ test_that("multiple short ambiguous DNA sequences constructing", {
                                   structure(as.raw(c(0x2f, 0x29, 0x74, 0x4c, 0x59, 0xac, 0xb9, 0x97, 0x14, 0x3a, 0xa6,
                                            0x2c, 0xd6, 0x1c)), original_length = 22L)),
                              alphabet = alph_amb_dna, 
-                             class = c("dnasq", "sq", "list")))
+                             ptype = raw(),
+                             class = c("dnasq", "sq", "vctrs_list_of", "vctrs_vctr", "list")))
 })
 
 test_that("single medium-length ambiguous DNA sequence constructing", {
@@ -59,7 +67,8 @@ test_that("single medium-length ambiguous DNA sequence constructing", {
                                            0x53, 0x42, 0x0b, 0x62, 0x29, 0x42, 0x52, 0x60, 0x4f, 0x20, 0x66, 
                                            0x46, 0x33, 0x6e, 0x31)), original_length = 123L)), 
                              alphabet = alph_amb_dna, 
-                             class = c("dnasq", "sq", "list")))
+                             ptype = raw(),
+                             class = c("dnasq", "sq", "vctrs_list_of", "vctrs_vctr", "list")))
 })
 
 test_that("multiple medium-length ambiguous DNA sequences constructing", {
@@ -157,7 +166,8 @@ test_that("multiple medium-length ambiguous DNA sequences constructing", {
                           0x0a, 0xec, 0xb4, 0xa6, 0xc2, 0x5b, 0x45, 0x2d, 0x73, 0x4a, 0x10, 
                           0xab, 0x11, 0x84, 0xc2, 0x03)), original_length = 71L)), 
             alphabet = alph_amb_dna, 
-            class = c("dnasq", "sq", "list"))
+            ptype = raw(),
+            class = c("dnasq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -387,7 +397,8 @@ test_that("single long ambiguous DNA sequence constructing", {
                           0x6a, 0x99, 0x42, 0xdc, 0x58, 0xa2, 0xb5, 0xa3, 0xd4, 0x78, 0x41, 
                           0x2d, 0xf4, 0xcc, 0x12, 0xa7, 0xad, 0x63, 0x9c, 0x6a)), original_length = 3880L)), 
             alphabet = alph_amb_dna, 
-            class = c("dnasq", "sq", "list"))
+            ptype = raw(),
+            class = c("dnasq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -908,7 +919,8 @@ test_that("multiple long ambiguous DNA sequences constructing", {
                           0xa7, 0x18, 0x92, 0xce, 0x79, 0x06, 0x09, 0xe1, 0xdc, 0x19, 
                           0xa2, 0x09, 0xd3, 0x86, 0x02)),original_length = 1279L)), 
             alphabet = alph_amb_dna, 
-            class = c("dnasq", "sq", "list"))
+            ptype = raw(),
+            class = c("dnasq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -916,7 +928,8 @@ test_that("single short non-ambiguous DNA sequence constructing", {
   expect_identical(construct_sq("ATG"),
                    structure(list(structure(as.raw(c(0xe1, 0x00)),original_length = 3L)), 
                              alphabet = alph_cln_dna, 
-                             class = c("clnsq", "dnasq", "sq", "list")))
+                             ptype = raw(),
+                             class = c("dnasq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list")))
 })
 
 test_that("multiple short non-ambiguous DNA sequences constructing", {
@@ -937,7 +950,8 @@ test_that("multiple short non-ambiguous DNA sequences constructing", {
                           0x70, 0x9c, 0x48, 0x52)), original_length = 32L),
                  structure(as.raw(c(0xe2, 0x98, 0x49, 0x02)), original_length = 9L)), 
             alphabet = alph_cln_dna,
-            class = c("clnsq", "dnasq", "sq", "list"))
+            ptype = raw(),
+            class = c("dnasq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -951,8 +965,9 @@ test_that("single medium-length non-ambiguous DNA sequence constructing", {
                           0x91, 0x9c, 0x48, 0x89, 0x19, 0x49, 0x89, 0xdb, 0x34, 0x72, 0x99, 
                           0x38, 0x92, 0x62, 0x92, 0x28, 0x8b, 0x92, 0x8d, 0x89, 0x38, 0x92, 
                           0x61, 0x28, 0x86, 0x4c, 0x92, 0x0d)), original_length = 151L)), 
-            alphabet = alph_cln_dna, 
-            class = c("clnsq", "dnasq", "sq", "list"))
+            alphabet = alph_cln_dna,
+            ptype = raw(),
+            class = c("dnasq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -966,7 +981,8 @@ test_that("multiple medium-length non-ambiguous DNA sequences constructing", {
                                   structure(as.raw(c(0xdb, 0x98, 0x2d, 0xcc, 0x26, 0x66, 0x61, 
                                            0x06)), original_length = 20L)), 
                              alphabet = alph_cln_dna, 
-                             class = c("clnsq", "dnasq", "sq", "list")))
+                             ptype = raw(),
+                             class = c("dnasq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list")))
 })
 
 test_that("single long non-ambiguous DNA sequence constructing", {
@@ -1168,7 +1184,8 @@ test_that("single long non-ambiguous DNA sequence constructing", {
                           0x21, 0x19, 0x26, 0xdb, 0x42, 0x92, 0x93, 0x16, 0x92, 0xda, 0x24, 
                           0x86, 0xdc, 0x48)), original_length = 5629L)), 
             alphabet = alph_cln_dna, 
-            class = c("clnsq", "dnasq", "sq", "list"))
+            ptype = raw(),
+            class = c("dnasq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -1668,7 +1685,8 @@ test_that("multiple long non-ambiguous DNA sequences constructing", {
                           0xa4, 0x28, 0x8e, 0x1b, 0xc5, 0x48, 0x0b, 0x37, 0x8a, 0x21
                  )), original_length = 634L)), 
             alphabet = alph_cln_dna, 
-            class = c("clnsq", "dnasq", "sq", "list"))
+            ptype = raw(),
+            class = c("dnasq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -1677,7 +1695,8 @@ test_that("single short ambiguous aminoacids sequences constructing", {
                    structure(list(structure(as.raw(c(0x33, 0xc9, 0x49, 0x4d, 0x44, 0xf0, 0x40, 
                                            0xf4, 0x48, 0x88, 0x65, 0x3a, 0x61, 0x00)), original_length = 21L)), 
                              alphabet = alph_amb_ami,
-                             class = c("amisq", "sq", "list"))
+                             ptype = raw(),
+                             class = c("amisq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -1704,7 +1723,8 @@ test_that("multiple short ambiguous aminoacids sequences constructing", {
                           0x8b, 0x1c, 0x37, 0x17, 0x0d, 0xa7, 0x39, 0xc3, 0x32)), original_length = 30L), 
                  structure(as.raw(c(0x6b, 0x2a, 0xa6, 0x14, 0xd4, 0xe8, 0x65, 0x43, 0x65, 0xc8)), original_length = 16L)), 
             alphabet = alph_amb_ami, 
-            class = c("amisq", "sq", "list"))
+            ptype = raw(),
+            class = c("amisq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -1721,7 +1741,8 @@ test_that("single medium-length ambiguous aminoacids sequences constructing", {
                           0xeb, 0x02, 0xbc, 0x19, 0x39, 0x3b, 0x94, 0xa1, 0xa4, 0xe9, 0x9b, 
                           0x09, 0x04)), original_length = 119L)), 
             alphabet = alph_amb_ami, 
-            class = c("amisq", "sq", "list"))
+            ptype = raw(),
+            class = c("amisq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -1765,7 +1786,8 @@ test_that("multiple medium-length ambiguous aminoacids sequences constructing", 
                           0x5c, 0x72, 0x9c, 0x20, 0x1a, 0x12, 0x52, 0x45, 0x1a, 0xd6, 0x0e, 
                           0xf1, 0x1c, 0x09, 0x0b, 0xda, 0x43, 0x4f, 0x18, 0x04)), original_length = 321L)), 
             alphabet = alph_amb_ami, 
-            class = c("amisq", "sq", "list"))
+            ptype = raw(),
+            class = c("amisq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -1988,7 +2010,8 @@ test_that("single long ambiguous aminoacids sequences constructing", {
                           0x54, 0x64, 0x62, 0xad, 0xd1, 0xe0, 0x30, 0x4a, 0x8a, 0xc7, 0x8e, 
                           0x3a, 0x3a, 0xcb, 0x77, 0xd3, 0x6c, 0x94, 0x5e)), original_length = 3755L)), 
             alphabet = alph_amb_ami, 
-            class = c("amisq", "sq", "list"))
+            ptype = raw(),
+            class = c("amisq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2232,7 +2255,8 @@ test_that("multiple long ambiguous aminoacids sequences constructing", {
                           0x16, 0xad, 0xc6, 0x41, 0xa1, 0xb4, 0xa6, 0x39, 0xb1, 0xec, 0x66, 
                           0xc9, 0xf4, 0xc8, 0xcc, 0x66, 0x30, 0x72, 0x1e)), original_length = 2595L)), 
             alphabet = alph_amb_ami, 
-            class = c("amisq", "sq", "list"))
+            ptype = raw(),
+            class = c("amisq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2240,7 +2264,8 @@ test_that("single short non-ambiguous aminoacids sequences constructing", {
   expect_identical(construct_sq("PQKH"),
                    structure(list(structure(as.raw(c(0xcd, 0xa5, 0x03)), original_length = 4L)), 
                              alphabet = alph_cln_ami, 
-                             class = c("clnsq", "amisq", "sq", "list")))
+                             ptype = raw(),
+                             class = c("amisq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list")))
 })
 
 test_that("multiple short non-ambiguous aminoacids sequences constructing", {
@@ -2261,7 +2286,8 @@ test_that("multiple short non-ambiguous aminoacids sequences constructing", {
                           0x11, 0x3c, 0x26, 0x96, 0x92, 0x22, 0x81, 0x03, 0x41, 0xb2, 0x64, 
                           0x02)), original_length = 47L)), 
             alphabet = alph_cln_ami, 
-            class = c("clnsq", "amisq", "sq", "list"))
+            ptype = raw(),
+            class = c("amisq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2288,7 +2314,8 @@ test_that("single medium-length non-ambiguous aminoacids sequences constructing"
                           0xe9, 0x0e, 0x3b, 0x25, 0xc5, 0xc1, 0xd2, 0x13, 0x87, 0x31, 0x45, 
                           0xd3, 0x02)), original_length = 295L)), 
             alphabet = alph_cln_ami, 
-            class = c("clnsq", "amisq", "sq", "list"))
+            ptype = raw(),
+            class = c("amisq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2348,7 +2375,8 @@ test_that("multiple medium-length non-ambiguous aminoacids sequences constructin
                           0x8d, 0x32, 0xe4, 0x90, 0xcb, 0xbc, 0xa7, 0xd2, 0x61, 0x26, 0x2c, 
                           0x94, 0x8c, 0x28, 0x12, 0x91, 0x48, 0x1e)), original_length = 110L)), 
             alphabet = alph_cln_ami, 
-            class = c("clnsq", "amisq", "sq", "list"))
+            ptype = raw(),
+            class = c("amisq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2532,7 +2560,8 @@ test_that("single long non-ambiguous aminoacids sequences constructing", {
                           0x0a, 0x82, 0x1c, 0x94, 0x86, 0x10, 0x28, 0x89, 0xc5, 0xda, 0x93, 
                           0x63, 0x39, 0x21, 0xe4, 0x1c)), original_length = 3064L)), 
             alphabet = alph_cln_ami, 
-            class = c("clnsq", "amisq", "sq", "list"))
+            ptype = raw(),
+            class = c("amisq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2839,7 +2868,8 @@ test_that("multiple long non-ambiguous aminoacids sequences constructing", {
                           0x6f, 0xca, 0xe1, 0xd0, 0x20, 0x54, 0x3c, 0x49, 0xc4, 0x7a, 0xa1, 
                           0xa1, 0x12, 0x1a, 0x85, 0x54, 0x96, 0x34, 0x43, 0x08)), original_length = 2568L)), 
             alphabet = alph_cln_ami, 
-            class = c("clnsq", "amisq", "sq", "list"))
+            ptype = raw(),
+            class = c("amisq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2847,14 +2877,16 @@ test_that("ambiguous DNA with specified type sequences constructing", {
   expect_equal(construct_sq("GGNWGATCGANN", type = "dna"),
                structure(list(structure(as.raw(c(0x63, 0xbc, 0x32, 0x02, 0x11, 0x23, 0xbc, 0x07)), original_length = 12L)), 
                          alphabet = alph_amb_dna, 
-                         class = c("dnasq", "sq", "list")))
+                         ptype = raw(),
+                         class = c("dnasq", "sq", "vctrs_list_of", "vctrs_vctr", "list")))
 })
 
 test_that("non-ambiguous RNA with specified type sequences constructing", {
   expect_identical(construct_sq("GCUUAUGU", type = "rna"),
                    structure(list(structure(as.raw(c(0x13, 0x19, 0x8e)), original_length = 8L)), 
                              alphabet = alph_cln_rna, 
-                             class = c("clnsq", "rnasq", "sq", "list"))
+                             ptype = raw(),
+                             class = c("rnasq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2863,7 +2895,8 @@ test_that("ambiguous aminoacids with specified type sequences constructing", {
                    structure(list(structure(as.raw(c(0xb0, 0xb1, 0x57, 0xde, 0xa4, 0xcc, 0x0e, 
                                            0x1d, 0x97, 0xc8, 0xd6, 0x01)), original_length = 18L)), 
                              alphabet = alph_amb_ami, 
-                             class = c("amisq", "sq", "list"))
+                             ptype = raw(),
+                             class = c("amisq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2872,7 +2905,8 @@ test_that("non-ambiguous aminoacids with specified type sequences constructing",
                    structure(list(structure(as.raw(c(0x63, 0x88, 0x25, 0x57, 0x79, 0x21, 0x44, 
                                            0x88, 0x1e, 0x05)), original_length = 15L)), 
                              alphabet = alph_cln_ami, 
-                             class = c("clnsq", "amisq", "sq", "list"))
+                             ptype = raw(),
+                             class = c("amisq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2881,7 +2915,8 @@ test_that("ambiguous RNA with specified is_clean sequences constructing", {
                    structure(list(structure(as.raw(c(0x21, 0x11, 0x12, 0x08, 0x11, 0x83, 0x94, 
                                            0x20, 0x42, 0x08, 0xc1, 0x90, 0x21, 0xc8, 0x08)), original_length = 24L)), 
                              alphabet = alph_amb_rna, 
-                             class = c("rnasq", "sq", "list"))
+                             ptype = raw(),
+                             class = c("rnasq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2889,7 +2924,8 @@ test_that("non-ambiguous DNA with specified is_clean sequences constructing", {
   expect_identical(construct_sq("GCTTATGT", is_clean = TRUE),
                    structure(list(structure(as.raw(c(0x13, 0x19, 0x8e)), original_length = 8L)), 
                              alphabet = alph_cln_dna, 
-                             class = c("clnsq", "dnasq", "sq", "list"))
+                             ptype = raw(),
+                             class = c("dnasq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2898,7 +2934,8 @@ test_that("ambiguous aminoacids with specified is_clean sequences constructing",
                    structure(list(structure(as.raw(c(0xb0, 0xb1, 0x57, 0xde, 0xa4, 0xcc, 0x0e, 
                                            0x1d, 0x97, 0xc8, 0xd6, 0x01)), original_length = 18L)), 
                              alphabet = alph_amb_ami, 
-                             class = c("amisq", "sq", "list"))
+                             ptype = raw(),
+                             class = c("amisq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2907,7 +2944,8 @@ test_that("non-ambiguous aminoacids with specified is_clean sequences constructi
                    structure(list(structure(as.raw(c(0x63, 0x88, 0x25, 0x57, 0x79, 0x21, 0x44, 
                                            0x88, 0x1e, 0x05)), original_length = 15L)), 
                              alphabet = alph_cln_ami, 
-                             class = c("clnsq", "amisq", "sq", "list"))
+                             ptype = raw(),
+                             class = c("amisq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2916,7 +2954,8 @@ test_that("ambiguous RNA with specified both type and is_clean sequences constru
                    structure(list(structure(as.raw(c(0x21, 0x11, 0x12, 0x08, 0x11, 0x83, 0x94, 
                                            0x20, 0x42, 0x08, 0xc1, 0x90, 0x21, 0xc8, 0x08)), original_length = 24L)), 
                              alphabet = alph_amb_rna, 
-                             class = c("rnasq", "sq", "list"))
+                             ptype = raw(),
+                             class = c("rnasq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2924,7 +2963,8 @@ test_that("non-ambiguous DNA with specified both type and is_clean sequences con
   expect_identical(construct_sq("GCTTATGT", type = "dna", is_clean = TRUE),
                    structure(list(structure(as.raw(c(0x13, 0x19, 0x8e)), original_length = 8L)), 
                              alphabet = alph_cln_dna, 
-                             class = c("clnsq", "dnasq", "sq", "list"))
+                             ptype = raw(),
+                             class = c("dnasq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2933,7 +2973,8 @@ test_that("ambiguous aminoacids with specified both type and is_clean sequences 
                    structure(list(structure(as.raw(c(0xb0, 0xb1, 0x57, 0xde, 0xa4, 0xcc, 0x0e, 
                                            0x1d, 0x97, 0xc8, 0xd6, 0x01)), original_length = 18L)), 
                              alphabet = alph_amb_ami, 
-                             class = c("amisq", "sq", "list"))
+                             ptype = raw(),
+                             class = c("amisq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })
 
@@ -2942,6 +2983,7 @@ test_that("non-ambiguous aminoacids with specified both type and is_clean sequen
                    structure(list(structure(as.raw(c(0x63, 0x88, 0x25, 0x57, 0x79, 0x21, 0x44, 
                                            0x88, 0x1e, 0x05)), original_length = 15L)), 
                              alphabet = alph_cln_ami, 
-                             class = c("clnsq", "amisq", "sq", "list"))
+                             ptype = raw(),
+                             class = c("amisq", "clnsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"))
   )
 })

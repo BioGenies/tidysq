@@ -55,12 +55,7 @@
   sq
 }
 
-.set_class_alph <- function(new_sq, sq) {
-  class(new_sq) <- class(sq)
-  attr(new_sq, "alphabet") <- .get_alph(sq)
-  new_sq
-}
-
+# TODO: verify if all calls in code don't pass "list" in classes vector
 .construct_sq_s <- function(sq, alph, classes) {
   sq <- .pack_to_sq(sq, alph)
   attr(sq, "alphabet") <- alph

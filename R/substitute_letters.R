@@ -147,7 +147,9 @@ substitute_letters <- function(sq, encoding) {
     .handle_opt_txt("tidysq_a_cln_sub_letters",
                     "'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it")
   }
-
-  ret <- .set_alph(ret, new_alph)
-  .set_class(ret, "atp")
+  
+  new_list_of(ret,
+              ptype = raw(),
+              alphabet = new_alph,
+              class = c("atpsq", "sq"))
 }

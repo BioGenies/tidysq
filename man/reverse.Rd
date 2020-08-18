@@ -23,7 +23,7 @@ Empty sequences are left with no effect. This operation does not change
 the type of the input object nor its alphabet.
 
 Since the function \code{reverse} returns a \code{\link{sq}} object, the 
-\code{\link{print.sq}} function is implicitly called.
+\code{\link[=sq-print]{print}} function is implicitly called.
 }
 \examples{
 # Creating sq objects using construct_sq:
@@ -43,5 +43,5 @@ reverse(clean(sq_dna))
 
 }
 \seealso{
-\code{\link{sq}} \code{\link{clean}} \code{\link{print.sq}}
+\code{\link{sq}} \code{\link{clean}} \code{\link{sq-print}}
 }
