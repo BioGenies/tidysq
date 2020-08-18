@@ -46,3 +46,11 @@ List tmpUnpack3(List raws) {
   .unpack<RCPP, STRINGS>()
   .exportToR();
 }
+
+//' @export
+//[[Rcpp::export]]
+StringVector tmpUnpack4(List raws) {
+  return Sq<RCPP>(raws)
+  .unpack<RCPP, STRING>()
+  .exportToR();
+}

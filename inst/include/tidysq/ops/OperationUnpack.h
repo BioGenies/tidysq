@@ -4,6 +4,7 @@
 #include "interface/Operation.h"
 #include "internal/unpackNUMS.h"
 #include "internal/unpackSTRINGS.h"
+#include "internal/unpackSTRING.h"
 
 namespace tidysq::ops {
     template<InternalType INTERNAL_IN,
@@ -47,6 +48,30 @@ namespace tidysq::ops {
         SequenceProto<INTERNAL_OUT, STRINGS> operator()(const Sequence<INTERNAL_IN> &sequence,
                                                         const Alphabet<INTERNAL_IN> &alphabet) const override {
             return internal::unpackSTRINGS<INTERNAL_IN, INTERNAL_OUT>(sequence, alphabet);
+        }
+    };
+
+    template<InternalType INTERNAL_IN>
+    class OperationUnpack<INTERNAL_IN, STD, STRING> :
+            public OperationSq<Sequence<INTERNAL_IN>,
+                    SequenceProto<STD, STRING>,
+                    Alphabet<INTERNAL_IN>> {
+    public:
+        SequenceProto<STD, STRING> operator()(const Sequence<INTERNAL_IN> &sequence,
+                                              const Alphabet<INTERNAL_IN> &alphabet) const override {
+            return internal::unpackSTRING_STD<INTERNAL_IN>(sequence, alphabet);
+        }
+    };
+
+    template<InternalType INTERNAL_IN>
+    class OperationUnpack<INTERNAL_IN, RCPP, STRING> :
+            public OperationSq<Sequence<INTERNAL_IN>,
+                    SequenceProto<RCPP, STRING>,
+                    Alphabet<INTERNAL_IN>> {
+    public:
+        SequenceProto<RCPP, STRING> operator()(const Sequence<INTERNAL_IN> &sequence,
+                                               const Alphabet<INTERNAL_IN> &alphabet) const override {
+            return internal::unpackSTRING_RCPP<INTERNAL_IN>(sequence, alphabet);
         }
     };
 }

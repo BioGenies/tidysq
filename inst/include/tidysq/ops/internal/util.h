@@ -85,10 +85,21 @@ namespace tidysq::internal {
     template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT>
     struct LetterToValueMatcher;
 
-    template<InternalType INTERNAL_IN>
-    struct LetterToValueMatcher<INTERNAL_IN, STD> {
-        inline static std::string match(const unsigned char &value, const Alphabet<INTERNAL_IN> &alphabet) {
+    template<>
+    struct LetterToValueMatcher<RCPP, STD> {
+        inline static std::string match(const unsigned char &value, const Alphabet<RCPP> &alphabet) {
             return value == alphabet.NAValue() ? alphabet.NALetter() : alphabet[value - 1];
+        }
+    };
+
+    template<>
+    struct LetterToValueMatcher<STD, STD> {
+        inline static std::string match(const unsigned char &value, const Alphabet<STD> &alphabet) {
+            return value == alphabet.NAValue() ? alphabet.NALetter() : alphabet[value - 1];
+        }
+
+        inline static char matchStandard(const unsigned char &value, const Alphabet<STD> &alphabet) {
+            return value == alphabet.NAValue() ? alphabet.NALetter()[0] : alphabet[value - 1][0];
         }
     };
 

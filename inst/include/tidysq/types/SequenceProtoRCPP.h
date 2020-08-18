@@ -30,6 +30,10 @@ namespace tidysq {
         explicit operator SequenceProto<STD, STRING>() const {
             return SequenceProto<STD, STRING>(get_cstring());
         }
+
+        static SequenceProto <STD, STRING> steal(const SequenceProto <STD, STRING> &proto) {
+            return SequenceProto<STD, STRING>(std::move(proto));
+        }
     };
 }
 
