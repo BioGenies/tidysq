@@ -39,7 +39,7 @@ sqapply <- function(sq, fun, ..., paste_char = FALSE,
   .check_logical(use_na_char, "'use_na_char'", single_elem = TRUE)
   .check_paste_or_na(paste_char, use_na_char)
   
-  na_char <- .get_na_char()
+  na_char <- na_character(alphabet(sq))
   type <- .get_sq_type(sq)
   .apply_sq(sq, if (paste_char) "string" else "char", "none", function(s) {
     if (!use_na_char) s[s == na_char] <- NA

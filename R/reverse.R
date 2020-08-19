@@ -10,7 +10,7 @@
 #' the type of the input object nor its alphabet.
 #' 
 #' Since the function \code{reverse} returns a \code{\link{sq}} object, the 
-#' \code{\link{print.sq}} function is implicitly called.
+#' \code{\link[=sq-print]{print}} function is implicitly called.
 #' 
 #' @return A \code{\link{sq}} object of the same type as input object but 
 #' each sequence is reversed.
@@ -31,12 +31,11 @@
 #' reverse(clean(sq_ami))
 #' reverse(clean(sq_dna))
 #' 
-#' @seealso \code{\link{sq}} \code{\link{clean}} \code{\link{print.sq}}
+#' @seealso \code{\link{sq}} \code{\link{clean}} \code{\link{sq-print}}
 #' 
 #' @export
 reverse <- function(sq) {
   .validate_sq(sq)
-  alph_size <- .get_alph_size(.get_alph(sq))
   ret <- .apply_sq(sq, "int", "int", rev)
-  .set_class_alph(ret, sq)
+  vec_restore(ret, sq)
 }

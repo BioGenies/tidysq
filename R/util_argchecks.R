@@ -1,3 +1,5 @@
+# general checks - used basically everywhere ----
+
 .check_simple <- function(check, argname, msg) {
   if (check) stop(argname, " ", msg, call. = FALSE)
 }
@@ -141,8 +143,7 @@
 }
 
 
-
-### specific checks - used mainly once
+# specific checks - used mainly once ----
 
 .check_real_alph_clean <- function(real_alph, type, is_clean) {
   if (!is.null(is_clean) &&
@@ -216,12 +217,12 @@
 }
 
 .check_alph_is_subset <- function(sq, alph) {
-  if (!all(alph %in% .get_alph(sq)))
+  if (!all(alph %in% alphabet(sq)))
     stop("'alph' contains letters that aren't elements of alphabet of 'sq'", call. = FALSE)
 }
 
 .check_dists_prop_len <- function(sq, dists) {
-  min_sq_len <- min(lengths(sq))
+  min_sq_len <- min(get_sq_lengths(sq))
   if (is.list(dists)) {
     if (any(sapply(dists, function(d) sum(d) + length(d) + 1) > min_sq_len))
       stop("some sequences in 'sq' are shorter than some of kmers to extract ", call. = FALSE)
