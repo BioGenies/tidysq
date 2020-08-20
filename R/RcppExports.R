@@ -23,7 +23,7 @@ CPP_pack_STRING <- function(proto, alphabet) {
 
 #' @export
 CPP_unpack_RAWS <- function(sq) {
-    invisible(.Call('_tidysq_CPP_unpack_RAWS', PACKAGE = 'tidysq', sq))
+    .Call('_tidysq_CPP_unpack_RAWS', PACKAGE = 'tidysq', sq)
 }
 
 #' @export
@@ -41,3 +41,11 @@ CPP_unpack_STRING <- function(sq) {
     .Call('_tidysq_CPP_unpack_STRING', PACKAGE = 'tidysq', sq)
 }
 
+C_get_real_alph <- function(sq) {
+    .Call('_tidysq_C_get_real_alph', PACKAGE = 'tidysq', sq)
+}
+
+# Register entry points for exported C++ functions
+methods::setLoadAction(function(ns) {
+    .Call('_tidysq_RcppExport_registerCCallable', PACKAGE = 'tidysq')
+})

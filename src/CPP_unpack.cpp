@@ -7,11 +7,10 @@ using namespace tidysq;
 
 //' @export
 //[[Rcpp::export]]
-void CPP_unpack_RAWS(Rcpp::List sq) {
-  Sq<RCPP> a(sq);
-  //return //Sq<RCPP>(sq)
-  //.unpack<RCPP, RAWS>()
-  //.exportToR();
+Rcpp::List CPP_unpack_RAWS(Rcpp::List sq) {
+  return Sq<RCPP>(sq)
+  .unpack<RCPP, RAWS>()
+  .exportToR();
 }
 
 //' @export

@@ -66,10 +66,10 @@ remove_na <- function(sq, only_elements = FALSE) {
       s[s != na_val]
     }) 
   } else {
-    ret <- lapply(sq, function(s) {
-      st <- C_unpack_ints(s, alph_size)
-      if (any(st == na_val)) structure(raw(), original_length = 0) else s
-    })
+    ret <- do.call(c, lapply(1:length(sq), function(i) {
+      st <- CPP_unpack_INTS(sq[i])[[1]]
+      if (any(st == na_val)) construct_sq("", type = .get_sq_type(sq), is_clean = .is_cleaned(sq)) else sq[i]
+    }))
   }
   vec_restore(ret, sq)
 }

@@ -146,7 +146,7 @@ encode <- function(sq, encoding) {
   if (!all(is_given)) {
     ind <- (1:length(alph))[!is_given]
     for (s in sq) {
-      if (any(C_unpack_ints(s, alph_size) %in% ind)) {
+      if (any(CPP_unpack_INTS(s)[[1]] %in% ind)) {
         .handle_opt_txt("tidysq_a_no_given_enc",
                         "there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA")
         break
