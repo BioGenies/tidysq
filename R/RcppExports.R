@@ -3,46 +3,46 @@
 
 #' @export
 CPP_pack_RAWS <- function(proto, alphabet) {
-    .Call('_tidysq_CPP_pack_RAWS', PACKAGE = 'tidysq', proto, alphabet)
+    .Call(`_tidysq_CPP_pack_RAWS`, proto, alphabet)
 }
 
 #' @export
 CPP_pack_INTS <- function(proto, alphabet) {
-    .Call('_tidysq_CPP_pack_INTS', PACKAGE = 'tidysq', proto, alphabet)
+    .Call(`_tidysq_CPP_pack_INTS`, proto, alphabet)
 }
 
 #' @export
 CPP_pack_STRINGS <- function(proto, alphabet) {
-    .Call('_tidysq_CPP_pack_STRINGS', PACKAGE = 'tidysq', proto, alphabet)
+    .Call(`_tidysq_CPP_pack_STRINGS`, proto, alphabet)
 }
 
 #' @export
 CPP_pack_STRING <- function(proto, alphabet) {
-    .Call('_tidysq_CPP_pack_STRING', PACKAGE = 'tidysq', proto, alphabet)
+    .Call(`_tidysq_CPP_pack_STRING`, proto, alphabet)
 }
 
 #' @export
 CPP_unpack_RAWS <- function(sq) {
-    .Call('_tidysq_CPP_unpack_RAWS', PACKAGE = 'tidysq', sq)
+    .Call(`_tidysq_CPP_unpack_RAWS`, sq)
 }
 
 #' @export
 CPP_unpack_INTS <- function(sq) {
-    .Call('_tidysq_CPP_unpack_INTS', PACKAGE = 'tidysq', sq)
+    .Call(`_tidysq_CPP_unpack_INTS`, sq)
 }
 
 #' @export
 CPP_unpack_STRINGS <- function(sq) {
-    .Call('_tidysq_CPP_unpack_STRINGS', PACKAGE = 'tidysq', sq)
+    .Call(`_tidysq_CPP_unpack_STRINGS`, sq)
 }
 
 #' @export
 CPP_unpack_STRING <- function(sq) {
-    .Call('_tidysq_CPP_unpack_STRING', PACKAGE = 'tidysq', sq)
+    .Call(`_tidysq_CPP_unpack_STRING`, sq)
 }
 
 C_get_real_alph <- function(sq) {
-    .Call('_tidysq_C_get_real_alph', PACKAGE = 'tidysq', sq)
+    .Call(`_tidysq_C_get_real_alph`, sq)
 }
 
 # Register entry points for exported C++ functions

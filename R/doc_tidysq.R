@@ -12,7 +12,7 @@
 #' @aliases tidysq
 NULL
 
-#' @useDynLib tidysq
+#' @useDynLib tidysq, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 #' @importFrom RcppParallel RcppParallelLibs
 NULL

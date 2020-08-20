@@ -151,6 +151,8 @@ RcppExport SEXP _tidysq_RcppExport_registerCCallable() {
     return R_NilValue;
 }
 
+RcppExport SEXP run_testthat_tests();
+
 static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_pack_RAWS", (DL_FUNC) &_tidysq_CPP_pack_RAWS, 2},
     {"_tidysq_CPP_pack_INTS", (DL_FUNC) &_tidysq_CPP_pack_INTS, 2},
@@ -162,6 +164,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_unpack_STRING", (DL_FUNC) &_tidysq_CPP_unpack_STRING, 1},
     {"_tidysq_C_get_real_alph", (DL_FUNC) &_tidysq_C_get_real_alph, 1},
     {"_tidysq_RcppExport_registerCCallable", (DL_FUNC) &_tidysq_RcppExport_registerCCallable, 0},
+    {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 0},
     {NULL, NULL, 0}
 };
 

@@ -52,11 +52,13 @@ Suggests: AmyloGram (>= 1.0),
 License: GPL (>= 2)
 URL: https://github.com/michbur/tidysq
 BugReports: https://github.com/michbur/tidysq/issues
-SystemRequirements: GNU make
+SystemRequirements: GNU make,
+                    C++17
 NeedsCompilation: no
 Repository: CRAN
 Encoding: UTF-8
 Language: en-US
 RoxygenNote: 7.1.1
 LinkingTo: Rcpp,
-           RcppParallel
+           RcppParallel,
+           testthat
