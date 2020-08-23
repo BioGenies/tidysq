@@ -83,7 +83,7 @@ find_motifs.sq <- function(sq, name, motifs) {
   .check_motifs_proper_alph(motifs_c, .get_sq_type(sq), alphabet(sq))
   
   motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
-  motifs_regex <- ifelse(motifs_l == 1,
+  motifs_regex <- ifelse(motif_lengths == 1,
                          motifs,
                          paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
   
@@ -99,7 +99,7 @@ find_motifs.dnasq <- function(sq, name, motifs) {
   .check_motifs_proper_alph(motifs, "dna")
   
   motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
-  motifs_regex <- ifelse(motifs_l == 1,
+  motifs_regex <- ifelse(motif_lengths == 1,
                          motifs,
                          paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
   motifs_regex <- .replace_dna_motif(motifs_regex)
@@ -116,7 +116,7 @@ find_motifs.rnasq <- function(sq, name, motifs) {
   .check_motifs_proper_alph(motifs, "rna")
   
   motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
-  motifs_regex <- ifelse(motifs_l == 1,
+  motifs_regex <- ifelse(motif_lengths == 1,
                          motifs,
                          paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
   motifs_regex <- .replace_rna_motif(motifs_regex)
@@ -133,7 +133,7 @@ find_motifs.amisq <- function(sq, name, motifs) {
   .check_motifs_proper_alph(motifs, "ami")
   
   motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
-  motifs_regex <- ifelse(motifs_l == 1,
+  motifs_regex <- ifelse(motif_lengths == 1,
                          motifs,
                          paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
   motifs_regex <- .replace_ami_motif(motifs_regex)
