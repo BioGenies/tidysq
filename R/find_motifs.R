@@ -75,69 +75,109 @@ find_motifs.default <- function(sq, name, motifs) {
   stop("method 'find_motifs' isn't implemented for this type of object")
 }
 
-
+#' @export
+#' @importFrom stringi stri_sub
+find_motifs.sq <- function(sq, name, motifs) {
+  .find_motifs_validate(sq, name, motifs)
+  
+  .check_motifs_proper_alph(motifs_c, .get_sq_type(sq), alphabet(sq))
+  
+  motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
+  motifs_regex <- ifelse(motifs_l == 1,
+                         motifs,
+                         paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
+  
+  .find_motifs_sq(sq, name, motifs, motifs_regex, motif_lengths)
+}
 
 #' @export
-#' @importFrom dplyr bind_rows
-#' @importFrom stringi stri_sub stri_locate_all_regex stri_count_regex
-#' @importFrom tibble add_column
-find_motifs.sq <- function(sq, name, motifs) {
+#' @importFrom stringi stri_sub
+find_motifs.dnasq <- function(sq, name, motifs) {
+  .find_motifs_validate(sq, name, motifs)
+  
+  motifs <- toupper(motifs)
+  .check_motifs_proper_alph(motifs, "dna")
+  
+  motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
+  motifs_regex <- ifelse(motifs_l == 1,
+                         motifs,
+                         paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
+  motifs_regex <- .replace_dna_motif(motifs_regex)
+  
+  .find_motifs_sq(sq, name, motifs, motifs_regex, motif_lengths)
+}
+
+#' @export
+#' @importFrom stringi stri_sub
+find_motifs.rnasq <- function(sq, name, motifs) {
+  .find_motifs_validate(sq, name, motifs)
+  
+  motifs <- toupper(motifs)
+  .check_motifs_proper_alph(motifs, "rna")
+  
+  motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
+  motifs_regex <- ifelse(motifs_l == 1,
+                         motifs,
+                         paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
+  motifs_regex <- .replace_rna_motif(motifs_regex)
+  
+  .find_motifs_sq(sq, name, motifs, motifs_regex, motif_lengths)
+}
+
+#' @export
+#' @importFrom stringi stri_sub
+find_motifs.amisq <- function(sq, name, motifs) {
+  .find_motifs_validate(sq, name, motifs)
+  
+  motifs <- toupper(motifs)
+  .check_motifs_proper_alph(motifs, "ami")
+  
+  motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
+  motifs_regex <- ifelse(motifs_l == 1,
+                         motifs,
+                         paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
+  motifs_regex <- .replace_ami_motif(motifs_regex)
+  
+  .find_motifs_sq(sq, name, motifs, motifs_regex, motif_lengths)
+}
+
+.find_motifs_validate <- function(sq, name, motifs) {
   .validate_sq(sq)
   .check_character(name, "'name'")
   .check_eq_lens(sq, name, "'sq'", "'name'")
   .check_character(motifs, "'motifs'")
-  type <- .get_sq_type(sq)
-  
-  sq_c <- sq
-  if (type %in% c("ami", "dna", "rna"))
-    motifs <- toupper(motifs)
-  motifs_c <- motifs
-  # Needed positive look-ahead to allow overlapping matches
-  motifs_l <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
-  motifs <- ifelse(motifs_l == 1,
-                   motifs, 
-                   paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
-  
-  alph <- alphabet(sq)
-  sq <- as.character(sq)
-  
-  if (type == "ami") {
-    .check_motifs_proper_alph(motifs_c, "ami")
-    motifs <- .replace_ami_motif(motifs)
-  } else if (type == "dna") {
-    .check_motifs_proper_alph(motifs_c, "dna")
-    motifs <- .replace_dna_motif(motifs)
-  } else if (type == "rna") {
-    .check_motifs_proper_alph(motifs_c, "rna")
-    motifs <- .replace_rna_motif(motifs)
-  } else {
-    .check_motifs_proper_alph(motifs_c, type, alph)
-  }
+}
+
+#' @importFrom dplyr bind_rows
+#' @importFrom stringi stri_sub stri_locate_all_regex stri_count_regex
+#' @importFrom tibble add_column
+.find_motifs_sq <- function(sq, name, motifs, motifs_regex, motif_lengths) {
+  sq_character <- as.character(sq)
   
   # Has to pass motifs_c so that sought column can be set
-  ret_tibble <- mapply(function(motif, motif_name, motif_length) {
-    ret <- stri_locate_all_regex(sq, motif, omit_no_match = TRUE)
+  ret_tibble <- mapply(function(motif_name, motif_regex, motif_length) {
+    ret <- stri_locate_all_regex(sq_character, motif_regex, omit_no_match = TRUE)
     sequence_index <- vapply(ret, nrow, integer(1))
     ret <- add_column(
       as_tibble(do.call(rbind, ret)),
       name = rep(name, sequence_index),
-      sq = rep(sq_c, sequence_index),
+      sq = rep(sq, sequence_index),
       sought = motif_name,
       .before = "start"
     )
     ret[["end"]] <- ret[["end"]] + rep(motif_length, nrow(ret)) - 1
-    found <- stri_sub(rep(as.character(sq_c), sequence_index),
+    found <- stri_sub(rep(as.character(sq), sequence_index),
                       from = ret[["start"]],
                       to = ret[["end"]])
     ret <- add_column(
       ret,
       # TODO: replace .construct_sq_s with something... cleaner?
-      found = .construct_sq_s(found, alph,
-                              c(.get_sq_subclass(sq_c), if (.is_cleaned(sq_c)) "clnsq", "sq")),
+      found = .construct_sq_s(found, alphabet(sq),
+                              c(.get_sq_subclass(sq), if (.is_cleaned(sq)) "clnsq", "sq")),
       .before = "start"
     )
     # ret[!is.na(ret[, "start"]), , drop = FALSE]
-  }, motifs, motifs_c, motifs_l, SIMPLIFY = FALSE)
+  }, motifs, motifs_regex, motif_lengths, SIMPLIFY = FALSE)
   
   # While base::rbind would be nicer dependency-wise, it doesn't work for sq object.
   # Don't expect this to change as shown in the issue below
