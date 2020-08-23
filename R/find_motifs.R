@@ -65,9 +65,23 @@
 #' 
 #' @seealso \code{\link{sq}} \code{\link{substitute_letters}} \code{\link{\%has\%}}
 #' 
-#' @importFrom stringi stri_sub stri_locate_all_regex stri_count_regex
 #' @export
 find_motifs <- function(sq, name, motifs) {
+  UseMethod("find_motifs")
+}
+
+#' @export
+find_motifs.default <- function(sq, name, motifs) {
+  stop("method 'find_motifs' isn't implemented for this type of object")
+}
+
+
+
+#' @export
+#' @importFrom dplyr bind_rows
+#' @importFrom stringi stri_sub stri_locate_all_regex stri_count_regex
+#' @importFrom tibble add_column
+find_motifs.sq <- function(sq, name, motifs) {
   .validate_sq(sq)
   .check_character(name, "'name'")
   .check_eq_lens(sq, name, "'sq'", "'name'")
@@ -75,80 +89,58 @@ find_motifs <- function(sq, name, motifs) {
   type <- .get_sq_type(sq)
   
   sq_c <- sq
+  if (type %in% c("ami", "dna", "rna"))
+    motifs <- toupper(motifs)
   motifs_c <- motifs
+  # Needed positive look-ahead to allow overlapping matches
   motifs_l <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
   motifs <- ifelse(motifs_l == 1,
                    motifs, 
                    paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
-  motifs <- strsplit(motifs, "")
   
   alph <- alphabet(sq)
+  sq <- as.character(sq)
   
   if (type == "ami") {
-    motifs <- lapply(motifs, toupper)
     .check_motifs_proper_alph(motifs_c, "ami")
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "*", "\\*"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "B", "[BDN]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "J", "[JIL]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "X", "[A-Z]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "Z", "[ZEQ]"))
-    motifs <- sapply(motifs, function(motif) paste(motif, collapse = ""))
+    motifs <- .replace_ami_motif(motifs)
   } else if (type == "dna") {
-    # TODO: consider reworking it a bit
-    motifs <- lapply(motifs, toupper)
-    .check_motifs_proper_alph(motifs_c, type)
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "W", "[WAT]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "S", "[SCG]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "M", "[MAC]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "K", "[KGT]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "R", "[RAG]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "Y", "[YCT]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "B", "[BCTG]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "D", "[DATG]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "H", "[HACT]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "V", "[VACG]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "N", "[NACTGWSMKRYBDHV]"))
-    motifs <- sapply(motifs, function(motif) paste(motif, collapse = ""))
+    .check_motifs_proper_alph(motifs_c, "dna")
+    motifs <- .replace_dna_motif(motifs)
   } else if (type == "rna") {
-    motifs <- lapply(motifs, toupper)
-    .check_motifs_proper_alph(motifs_c, type)
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "W", "[WAU]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "S", "[SCG]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "M", "[MAC]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "K", "[KGU]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "R", "[RAG]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "Y", "[YCU]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "B", "[BCGU]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "D", "[DAGU]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "H", "[HACU]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "V", "[VACG]"))
-    motifs <- lapply(motifs, function(motif) replace(motif, motif == "N", "[NACGUWSMKRYBDHV]"))
-    motifs <- sapply(motifs, function(motif) paste(motif, collapse = ""))
+    .check_motifs_proper_alph(motifs_c, "rna")
+    motifs <- .replace_rna_motif(motifs)
   } else {
     .check_motifs_proper_alph(motifs_c, type, alph)
   }
-
-  sq <- as.character(sq)
-  n <- length(sq)
-  m <- length(motifs)
-  match_inds <- lapply(1:m, function(i) {
-    ret <- stri_locate_all_regex(sq, motifs[i])
-    ret <- cbind(do.call(rbind, ret), s_ind = unlist(lapply(1:n, function(i) rep(i, nrow(ret[[i]])))))
-    ret <- ret[!is.na(ret[,"start"]), , drop = FALSE]
-    ret[, "end"] <- ret[, "end"] + rep(motifs_l[i], nrow(ret)) - 1
-    ret
-  })
   
-  matched_inds <- cbind(do.call(rbind, match_inds)) 
-  sought <-  unlist(lapply(1:m, function(j) rep(motifs_c[j], nrow(match_inds[[j]]))))
+  # Has to pass motifs_c so that sought column can be set
+  ret_tibble <- mapply(function(motif, motif_name, motif_length) {
+    ret <- stri_locate_all_regex(sq, motif, omit_no_match = TRUE)
+    sequence_index <- vapply(ret, nrow, integer(1))
+    ret <- add_column(
+      as_tibble(do.call(rbind, ret)),
+      name = rep(name, sequence_index),
+      sq = rep(sq_c, sequence_index),
+      sought = motif_name,
+      .before = "start"
+    )
+    ret[["end"]] <- ret[["end"]] + rep(motif_length, nrow(ret)) - 1
+    found <- stri_sub(rep(as.character(sq_c), sequence_index),
+                      from = ret[["start"]],
+                      to = ret[["end"]])
+    ret <- add_column(
+      ret,
+      # TODO: replace .construct_sq_s with something... cleaner?
+      found = .construct_sq_s(found, alph,
+                              c(.get_sq_subclass(sq_c), if (.is_cleaned(sq_c)) "clnsq", "sq")),
+      .before = "start"
+    )
+    # ret[!is.na(ret[, "start"]), , drop = FALSE]
+  }, motifs, motifs_c, motifs_l, SIMPLIFY = FALSE)
   
-  sq_col <- sq_c[matched_inds[, "s_ind"]]
-  nm_col <- name[matched_inds[, "s_ind"]]
-  found <- stri_sub(sq[matched_inds[, "s_ind"]], from = matched_inds[, "start"], to = matched_inds[, "end"])
-  tibble(name = nm_col, 
-         sq = sq_col, 
-         sought = sought, 
-         found = .construct_sq_s(found, alph, class(sq_c)), 
-         start = matched_inds[, "start"], 
-         end = matched_inds[, "end"])
+  # While base::rbind would be nicer dependency-wise, it doesn't work for sq object.
+  # Don't expect this to change as shown in the issue below
+  # https://github.com/tidyverse/tibble/issues/34
+  do.call(bind_rows, ret_tibble)
 }
