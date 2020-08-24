@@ -29,11 +29,14 @@ test_that("sq_alphabet object coerces to original character vector", {
 # PROTOTYPE ACCEPTANCE ----
 test_that("sq_alphabet method accepts character vectors of single characters", {
   expect_vector(alph_short,
-                ptype = sq_alphabet_ptype(), size = length(char_short))
+                ptype = sq_alphabet_ptype(),
+                size = length(char_short))
   expect_vector(alph_medium,
-                ptype = sq_alphabet_ptype(), size = length(char_medium))
+                ptype = sq_alphabet_ptype(),
+                size = length(char_medium))
   expect_vector(alph_long,
-                ptype = sq_alphabet_ptype(), size = length(char_long))
+                ptype = sq_alphabet_ptype(),
+                size = length(char_long))
 })
 
 # NA_CHARACTER EXTRACTION ----
@@ -89,14 +92,17 @@ test_that(".skip_characters doesn't fail while removing letters that aren't pres
 # EDGE CASES BEHAVIOUR ----
 test_that("sq_alphabet method accepts arbitrary strings as characters", {
   expect_vector(sq_alphabet(""),
-                ptype = sq_alphabet_ptype(), size = 1)
+                ptype = sq_alphabet_ptype(),
+                size = 1)
   expect_vector(sq_alphabet(c("Lorem", "ipsum", "dolor", "sit", "amet")),
-                ptype = sq_alphabet_ptype(), size = 5)
+                ptype = sq_alphabet_ptype(),
+                size = 5)
 })
 
 test_that("sq_alphabet method accepts character vector of length 0", {
   expect_vector(alph_empty <- sq_alphabet(character()),
-                ptype = sq_alphabet_ptype(), size = 0)
+                ptype = sq_alphabet_ptype(),
+                size = 0)
   expect_s3_class(alph_empty, "character", exact = FALSE)
   expect_equal(na_character(alph_empty), na_char)
   expect_equal(alph_empty[1], na_char)
