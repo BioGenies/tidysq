@@ -3,10 +3,10 @@
     list()
   else if (is.numeric(proto[[1]]))
     CPP_pack_INTS(proto, alph)
-  else if (any(lengths(proto) > 1)) 
-    CPP_pack_STRINGS(proto, alph)
-  else 
+  else if (is.character(proto))
     CPP_pack_STRING(proto, alph)
+  else
+    CPP_pack_STRINGS(proto, alph)
 }
 
 .nc_pack_to_sq <- function(proto, type, is_clean) {
