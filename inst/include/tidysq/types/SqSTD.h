@@ -6,7 +6,7 @@
 
 #include "general.h"
 #include "SequenceSTD.h"
-#include "AlphabetSTD.h"
+#include "Alphabet.h"
 #include "../ops/OperationUnpack.h"
 #include "../sqapply.h"
 
@@ -14,12 +14,14 @@ namespace tidysq {
     template<>
     class Sq<STD> {
         std::vector<Sequence<STD>> content_;
-        Alphabet<STD> alphabet_;
+        Alphabet alphabet_;
     public:
         typedef Sequence<STD> SequenceType;
-        typedef Alphabet<STD> AlphabetType;
 
-        Sq(lensq length, AlphabetType alphabet) :
+        explicit Sq(Alphabet alphabet) :
+                Sq(0, std::move(alphabet)) {};
+
+        Sq(lensq length, Alphabet alphabet) :
                 content_(std::vector<Sequence<STD>>(length)),
                 alphabet_(std::move(alphabet)) {};
 
@@ -35,14 +37,14 @@ namespace tidysq {
             return content_.size();
         }
 
-        [[nodiscard]] AlphabetType alphabet() const {
+        [[nodiscard]] const Alphabet& alphabet() const {
             return alphabet_;
         }
 
         template<InternalType INTERNAL_OUT,
                 ProtoType PROTO_OUT>
         SqProto<INTERNAL_OUT, PROTO_OUT> unpack() const {
-            return sqapply<Sq<STD>, SqProto<INTERNAL_OUT, PROTO_OUT>, AlphabetType>(*this, ops::OperationUnpack<STD, INTERNAL_OUT, PROTO_OUT>());
+            return sqapply<Sq<STD>, SqProto<INTERNAL_OUT, PROTO_OUT>>(*this, ops::OperationUnpack<STD, INTERNAL_OUT, PROTO_OUT>());
         }
     };
 }

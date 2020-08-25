@@ -10,10 +10,11 @@ namespace tidysq::internal {
     template<InternalType INTERNAL_IN,
             InternalType INTERNAL_OUT,
             ProtoType PROTO_OUT>
-    SequenceProto<INTERNAL_OUT, PROTO_OUT> unpackNUMS2(const Sequence<INTERNAL_IN> &packed,
-                                              const Alphabet<INTERNAL_IN> &alphabet) {
+    SequenceProto <INTERNAL_OUT, PROTO_OUT> unpackNUMS2(const Sequence <INTERNAL_IN> &packed,
+                                                        const Alphabet &alphabet) {
         lensq in_byte = 0;
-        SequenceProto<INTERNAL_OUT, PROTO_OUT> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed);
+        SequenceProto<INTERNAL_OUT, PROTO_OUT> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(
+                packed);
         lensq out_len = unpacked.size();
 
         lensq i = 0;
@@ -78,10 +79,11 @@ namespace tidysq::internal {
     template<InternalType INTERNAL_IN,
             InternalType INTERNAL_OUT,
             ProtoType PROTO_OUT>
-    SequenceProto<INTERNAL_OUT, PROTO_OUT> unpackNUMS3(const Sequence<INTERNAL_IN> &packed,
-                                              const Alphabet<INTERNAL_IN> &alphabet) {
+    SequenceProto <INTERNAL_OUT, PROTO_OUT> unpackNUMS3(const Sequence <INTERNAL_IN> &packed,
+                                                        const Alphabet &alphabet) {
         lensq in_byte = 0;
-        SequenceProto<INTERNAL_OUT, PROTO_OUT> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed);
+        SequenceProto<INTERNAL_OUT, PROTO_OUT> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(
+                packed);
         lensq out_len = unpacked.size();
 
         lensq i = 0;
@@ -155,10 +157,11 @@ namespace tidysq::internal {
     template<InternalType INTERNAL_IN,
             InternalType INTERNAL_OUT,
             ProtoType PROTO_OUT>
-    SequenceProto<INTERNAL_OUT, PROTO_OUT> unpackNUMS4(const Sequence<INTERNAL_IN> &packed,
-                                              const Alphabet<INTERNAL_IN> &alphabet) {
+    SequenceProto <INTERNAL_OUT, PROTO_OUT> unpackNUMS4(const Sequence <INTERNAL_IN> &packed,
+                                                        const Alphabet &alphabet) {
         lensq in_byte = 0;
-        SequenceProto<INTERNAL_OUT, PROTO_OUT> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed);
+        SequenceProto<INTERNAL_OUT, PROTO_OUT> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(
+                packed);
         lensq out_len = unpacked.size();
 
         lensq i = 0;
@@ -223,10 +226,11 @@ namespace tidysq::internal {
     template<InternalType INTERNAL_IN,
             InternalType INTERNAL_OUT,
             ProtoType PROTO_OUT>
-    SequenceProto<INTERNAL_OUT, PROTO_OUT> unpackNUMS5(const Sequence<INTERNAL_IN> &packed,
-                                              const Alphabet<INTERNAL_IN> &alphabet) {
+    SequenceProto <INTERNAL_OUT, PROTO_OUT> unpackNUMS5(const Sequence <INTERNAL_IN> &packed,
+                                                        const Alphabet &alphabet) {
         lensq in_byte = 0;
-        SequenceProto<INTERNAL_OUT, PROTO_OUT> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed);
+        SequenceProto<INTERNAL_OUT, PROTO_OUT> unpacked = reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(
+                packed);
         lensq out_len = unpacked.size();
 
         lensq i = 0;
@@ -309,8 +313,8 @@ namespace tidysq::internal {
     template<InternalType INTERNAL_IN,
             InternalType INTERNAL_OUT,
             ProtoType PROTO_OUT>
-    SequenceProto<INTERNAL_OUT, PROTO_OUT> unpackNUMS(const Sequence<INTERNAL_IN> &packed,
-                                             const Alphabet<INTERNAL_IN> &alphabet) {
+    SequenceProto <INTERNAL_OUT, PROTO_OUT> unpackNUMS(const Sequence <INTERNAL_IN> &packed,
+                                                       const Alphabet &alphabet) {
         switch (alphabet.alphabetSize()) {
             case 2:
                 return unpackNUMS2<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed, alphabet);

@@ -7,7 +7,7 @@ namespace tidysq::internal {
     template<InternalType INTERNAL_IN,
             InternalType INTERNAL_OUT>
     Sequence<INTERNAL_OUT> packSTRING(const SequenceProto<INTERNAL_IN, STRING> &unpacked,
-                                      const Alphabet<INTERNAL_IN> &alphabet) {
+                                      const Alphabet &alphabet) {
         if (alphabet.isSimple()) {
             return packSTRING_STANDARD<INTERNAL_OUT>(unpacked, alphabet);
         }

@@ -24,9 +24,6 @@ namespace tidysq {
     template<InternalType INTERNAL = STD>
     class Sq;
 
-    template<InternalType INTERNAL = STD>
-    class Alphabet;
-
     template<InternalType INTERNAL = STD,
             ProtoType PROTO = RAWS>
     class SequenceProto;
@@ -34,6 +31,8 @@ namespace tidysq {
     template<InternalType INTERNAL = STD,
             ProtoType PROTO = RAWS>
     class SqProto;
+
+    class Alphabet;
 }
 
 #endif //TIDYSQ_GENERAL_H

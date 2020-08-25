@@ -9,8 +9,8 @@
 
 namespace tidysq::internal {
     template<InternalType INTERNAL_IN>
-    SequenceProto<STD, STRING> unpackSTRING_STANDARD2(const Sequence <INTERNAL_IN> &packed,
-                                                      const Alphabet<STD> &alphabet) {
+    SequenceProto <STD, STRING> unpackSTRING_STANDARD2(const Sequence <INTERNAL_IN> &packed,
+                                                       const Alphabet &alphabet) {
         lensq in_byte = 0;
         SequenceProto<STD, STRING> unpacked = SequenceProto<STD, STRING>();
         lensq out_len = getOriginalLength(packed);
@@ -70,9 +70,9 @@ namespace tidysq::internal {
                 break;
             case 3:
                 unpacked += {
-                    LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte]) & 3, alphabet),
-                    LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte] >> 2) & 3, alphabet),
-                    LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte] >> 4) & 3, alphabet)
+                        LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte]) & 3, alphabet),
+                        LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte] >> 2) & 3, alphabet),
+                        LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte] >> 4) & 3, alphabet)
                 };
                 break;
             case 2:
@@ -89,8 +89,8 @@ namespace tidysq::internal {
     }
 
     template<InternalType INTERNAL_IN>
-    SequenceProto<STD, STRING> unpackSTRING_STANDARD3(const Sequence<INTERNAL_IN> &packed,
-                                                      const Alphabet<STD> &alphabet) {
+    SequenceProto <STD, STRING> unpackSTRING_STANDARD3(const Sequence <INTERNAL_IN> &packed,
+                                                       const Alphabet &alphabet) {
         lensq in_byte = 0;
         SequenceProto<STD, STRING> unpacked = SequenceProto<STD, STRING>();
         lensq out_len = getOriginalLength(packed);
@@ -102,11 +102,11 @@ namespace tidysq::internal {
                     LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte]) & 7, alphabet),
                     LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte] >> 3) & 7, alphabet),
                     LetterToValueMatcher<STD, STD>::matchStandard(((packed[in_byte] >> 6) & 3) |
-                    ((packed[in_byte + 1] << 2) & 7), alphabet),
+                                                                  ((packed[in_byte + 1] << 2) & 7), alphabet),
                     LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte + 1] >> 1) & 7, alphabet),
                     LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte + 1] >> 4) & 7, alphabet),
                     LetterToValueMatcher<STD, STD>::matchStandard(((packed[in_byte + 1] >> 7) & 1) |
-                    ((packed[in_byte + 2] << 1) & 7), alphabet),
+                                                                  ((packed[in_byte + 2] << 1) & 7), alphabet),
                     LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte + 2] >> 2) & 7, alphabet),
                     LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte + 2] >> 5) & 7, alphabet)
             };
@@ -118,17 +118,17 @@ namespace tidysq::internal {
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte]) & 7, alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte] >> 3) & 7, alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard(((packed[in_byte] >> 6) & 3) |
-                        ((packed[in_byte + 1] << 2) & 7),
-                        alphabet),
+                                                                      ((packed[in_byte + 1] << 2) & 7),
+                                                                      alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte + 1] >> 1) & 7,
-                        alphabet),
+                                                                      alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte + 1] >> 4) & 7,
-                        alphabet),
+                                                                      alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard(((packed[in_byte + 1] >> 7) & 1) |
-                        ((packed[in_byte + 2] << 1) & 7),
-                        alphabet),
+                                                                      ((packed[in_byte + 2] << 1) & 7),
+                                                                      alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte + 2] >> 2) & 7,
-                        alphabet)
+                                                                      alphabet)
                 };
                 break;
             case 6:
@@ -136,15 +136,15 @@ namespace tidysq::internal {
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte]) & 7, alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte] >> 3) & 7, alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard(((packed[in_byte] >> 6) & 3) |
-                        ((packed[in_byte + 1] << 2) & 7),
-                        alphabet),
+                                                                      ((packed[in_byte + 1] << 2) & 7),
+                                                                      alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte + 1] >> 1) & 7,
-                        alphabet),
+                                                                      alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte + 1] >> 4) & 7,
-                        alphabet),
+                                                                      alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard(((packed[in_byte + 1] >> 7) & 1) |
-                        ((packed[in_byte + 2] << 1) & 7),
-                        alphabet)
+                                                                      ((packed[in_byte + 2] << 1) & 7),
+                                                                      alphabet)
                 };
                 break;
             case 5:
@@ -152,12 +152,12 @@ namespace tidysq::internal {
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte]) & 7, alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte] >> 3) & 7, alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard(((packed[in_byte] >> 6) & 3) |
-                        ((packed[in_byte + 1] << 2) & 7),
-                        alphabet),
+                                                                      ((packed[in_byte + 1] << 2) & 7),
+                                                                      alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte + 1] >> 1) & 7,
-                        alphabet),
+                                                                      alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte + 1] >> 4) & 7,
-                        alphabet)
+                                                                      alphabet)
                 };
                 break;
             case 4:
@@ -165,10 +165,10 @@ namespace tidysq::internal {
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte]) & 7, alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte] >> 3) & 7, alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard(((packed[in_byte] >> 6) & 3) |
-                        ((packed[in_byte + 1] << 2) & 7),
-                        alphabet),
+                                                                      ((packed[in_byte + 1] << 2) & 7),
+                                                                      alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte + 1] >> 1) & 7,
-                        alphabet)
+                                                                      alphabet)
                 };
                 break;
             case 3:
@@ -176,8 +176,8 @@ namespace tidysq::internal {
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte]) & 7, alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard((packed[in_byte] >> 3) & 7, alphabet),
                         LetterToValueMatcher<STD, STD>::matchStandard(((packed[in_byte] >> 6) & 3) |
-                        ((packed[in_byte + 1] << 2) & 7),
-                        alphabet)
+                                                                      ((packed[in_byte + 1] << 2) & 7),
+                                                                      alphabet)
                 };
                 break;
             case 2:
@@ -194,8 +194,8 @@ namespace tidysq::internal {
     }
 
     template<InternalType INTERNAL_IN>
-    SequenceProto<STD, STRING> unpackSTRING_STANDARD4(const Sequence <INTERNAL_IN> &packed,
-                                                         const Alphabet<STD> &alphabet) {
+    SequenceProto <STD, STRING> unpackSTRING_STANDARD4(const Sequence <INTERNAL_IN> &packed,
+                                                       const Alphabet &alphabet) {
         lensq in_byte = 0;
         SequenceProto<STD, STRING> unpacked = SequenceProto<STD, STRING>();
         lensq out_len = getOriginalLength(packed);
@@ -281,8 +281,8 @@ namespace tidysq::internal {
     }
 
     template<InternalType INTERNAL_IN>
-    SequenceProto<STD, STRING> unpackSTRING_STANDARD5(const Sequence <INTERNAL_IN> &packed,
-                                                         const Alphabet<STD> &alphabet) {
+    SequenceProto <STD, STRING> unpackSTRING_STANDARD5(const Sequence <INTERNAL_IN> &packed,
+                                                       const Alphabet &alphabet) {
         lensq in_byte = 0;
         SequenceProto<STD, STRING> unpacked = SequenceProto<STD, STRING>();
         lensq out_len = getOriginalLength(packed);
@@ -405,8 +405,8 @@ namespace tidysq::internal {
     }
 
     template<InternalType INTERNAL_IN>
-    SequenceProto<STD, STRING> unpackSTRING_STANDARD(const Sequence <INTERNAL_IN> &packed,
-                                                       const Alphabet<STD> &alphabet) {
+    SequenceProto <STD, STRING> unpackSTRING_STANDARD(const Sequence <INTERNAL_IN> &packed,
+                                                      const Alphabet &alphabet) {
         switch (alphabet.alphabetSize()) {
             case 2:
                 return unpackSTRING_STANDARD2<INTERNAL_IN>(packed, alphabet);

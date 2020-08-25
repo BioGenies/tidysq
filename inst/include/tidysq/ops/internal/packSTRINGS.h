@@ -10,7 +10,7 @@ namespace tidysq::internal {
     template<InternalType INTERNAL_IN,
             InternalType INTERNAL_OUT>
     Sequence<INTERNAL_OUT> packSTRINGS2(const SequenceProto<INTERNAL_IN, STRINGS> &unpacked,
-                                        const Alphabet<INTERNAL_IN> &alphabet) {
+                                        const Alphabet &alphabet) {
         lensq outByte = 0;
         lensq i = 0;
         Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, STRINGS, INTERNAL_OUT>(unpacked, alphabet);
@@ -76,7 +76,7 @@ namespace tidysq::internal {
     template<InternalType INTERNAL_IN,
             InternalType INTERNAL_OUT>
     Sequence<INTERNAL_OUT> packSTRINGS3(const SequenceProto<INTERNAL_IN, STRINGS> &unpacked,
-                                        const Alphabet<INTERNAL_IN> &alphabet) {
+                                        const Alphabet &alphabet) {
         lensq outByte = 0;
         lensq i = 0;
         Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, STRINGS, INTERNAL_OUT>(unpacked, alphabet);
@@ -151,7 +151,7 @@ namespace tidysq::internal {
     template<InternalType INTERNAL_IN,
             InternalType INTERNAL_OUT>
     Sequence<INTERNAL_OUT> packSTRINGS4(const SequenceProto<INTERNAL_IN, STRINGS> &unpacked,
-                                     const Alphabet<INTERNAL_IN> &alphabet) {
+                                     const Alphabet &alphabet) {
         lensq outByte = 0;
         lensq i = 0;
         Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, STRINGS, INTERNAL_OUT>(unpacked, alphabet);
@@ -217,7 +217,7 @@ namespace tidysq::internal {
     template<InternalType INTERNAL_IN,
             InternalType INTERNAL_OUT>
     Sequence<INTERNAL_OUT> packSTRINGS5(const SequenceProto<INTERNAL_IN, STRINGS> &unpacked,
-                                     const Alphabet<INTERNAL_IN> &alphabet) {
+                                     const Alphabet &alphabet) {
         lensq outByte = 0;
         lensq i = 0;
         Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<INTERNAL_IN, STRINGS, INTERNAL_OUT>(unpacked, alphabet);
@@ -302,7 +302,7 @@ namespace tidysq::internal {
     template<InternalType INTERNAL_IN,
             InternalType INTERNAL_OUT>
     Sequence<INTERNAL_OUT> packSTRINGS(const SequenceProto<INTERNAL_IN, STRINGS> &unpacked,
-                                       const Alphabet<INTERNAL_IN> &alphabet) {
+                                       const Alphabet &alphabet) {
         switch (alphabet.alphabetSize()) {
             case 2:
                 return packSTRINGS2<INTERNAL_IN, INTERNAL_OUT>(unpacked, alphabet);

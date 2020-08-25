@@ -16,11 +16,10 @@ namespace tidysq::ops {
             InternalType INTERNAL_OUT>
     class OperationUnpack<INTERNAL_IN, INTERNAL_OUT, RAWS> :
             public OperationSq<Sequence<INTERNAL_IN>,
-                    SequenceProto<INTERNAL_OUT, RAWS>,
-                    Alphabet<INTERNAL_IN>> {
+                    SequenceProto<INTERNAL_OUT, RAWS>> {
     public:
         SequenceProto<INTERNAL_OUT, RAWS> operator()(const Sequence<INTERNAL_IN> &sequence,
-                                                          const Alphabet<INTERNAL_IN> &alphabet) const override {
+                                                          const Alphabet &alphabet) const override {
             return internal::unpackNUMS<INTERNAL_IN, INTERNAL_OUT, RAWS>(sequence, alphabet);
         }
     };
@@ -29,11 +28,10 @@ namespace tidysq::ops {
             InternalType INTERNAL_OUT>
     class OperationUnpack<INTERNAL_IN, INTERNAL_OUT, INTS> :
             public OperationSq<Sequence<INTERNAL_IN>,
-                    SequenceProto<INTERNAL_OUT, INTS>,
-                    Alphabet<INTERNAL_IN>> {
+                    SequenceProto<INTERNAL_OUT, INTS>> {
     public:
         SequenceProto<INTERNAL_OUT, INTS> operator()(const Sequence<INTERNAL_IN> &sequence,
-                                                     const Alphabet<INTERNAL_IN> &alphabet) const override {
+                                                     const Alphabet &alphabet) const override {
             return internal::unpackNUMS<INTERNAL_IN, INTERNAL_OUT, INTS>(sequence, alphabet);
         }
     };
@@ -42,11 +40,10 @@ namespace tidysq::ops {
             InternalType INTERNAL_OUT>
     class OperationUnpack<INTERNAL_IN, INTERNAL_OUT, STRINGS> :
             public OperationSq<Sequence<INTERNAL_IN>,
-                    SequenceProto<INTERNAL_OUT, STRINGS>,
-                    Alphabet<INTERNAL_IN>> {
+                    SequenceProto<INTERNAL_OUT, STRINGS>> {
     public:
         SequenceProto<INTERNAL_OUT, STRINGS> operator()(const Sequence<INTERNAL_IN> &sequence,
-                                                        const Alphabet<INTERNAL_IN> &alphabet) const override {
+                                                        const Alphabet &alphabet) const override {
             return internal::unpackSTRINGS<INTERNAL_IN, INTERNAL_OUT>(sequence, alphabet);
         }
     };
@@ -54,11 +51,10 @@ namespace tidysq::ops {
     template<InternalType INTERNAL_IN>
     class OperationUnpack<INTERNAL_IN, STD, STRING> :
             public OperationSq<Sequence<INTERNAL_IN>,
-                    SequenceProto<STD, STRING>,
-                    Alphabet<INTERNAL_IN>> {
+                    SequenceProto<STD, STRING>> {
     public:
         SequenceProto<STD, STRING> operator()(const Sequence<INTERNAL_IN> &sequence,
-                                              const Alphabet<INTERNAL_IN> &alphabet) const override {
+                                              const Alphabet &alphabet) const override {
             return internal::unpackSTRING_STD<INTERNAL_IN>(sequence, alphabet);
         }
     };
@@ -66,11 +62,10 @@ namespace tidysq::ops {
     template<InternalType INTERNAL_IN>
     class OperationUnpack<INTERNAL_IN, RCPP, STRING> :
             public OperationSq<Sequence<INTERNAL_IN>,
-                    SequenceProto<RCPP, STRING>,
-                    Alphabet<INTERNAL_IN>> {
+                    SequenceProto<RCPP, STRING>> {
     public:
         SequenceProto<RCPP, STRING> operator()(const Sequence<INTERNAL_IN> &sequence,
-                                               const Alphabet<INTERNAL_IN> &alphabet) const override {
+                                               const Alphabet &alphabet) const override {
             return internal::unpackSTRING_RCPP<INTERNAL_IN>(sequence, alphabet);
         }
     };

@@ -5,13 +5,13 @@
 
 #include "../../types/general.h"
 #include "../../types/SequenceProtoRCPP.h"
-#include "../../types/AlphabetRCPP.h"
+#include "../../types/Alphabet.h"
 #include "util.h"
 
 namespace tidysq::internal {
     template<InternalType INTERNAL_OUT>
     Sequence<INTERNAL_OUT> packSTRING_STANDARD2(const SequenceProto<STD, STRING> &unpacked,
-                                                const Alphabet<STD> &alphabet) {
+                                                const Alphabet &alphabet) {
         lensq outByte = 0;
         lensq i = 0;
         Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<STD, STRING, INTERNAL_OUT>(unpacked, alphabet);
@@ -76,7 +76,7 @@ namespace tidysq::internal {
 
     template<InternalType INTERNAL_OUT>
     Sequence<INTERNAL_OUT> packSTRING_STANDARD3(const SequenceProto<STD, STRING> &unpacked,
-                                       const Alphabet<STD> &alphabet) {
+                                       const Alphabet &alphabet) {
         lensq outByte = 0;
         lensq i = 0;
         Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<STD, STRING, INTERNAL_OUT>(unpacked, alphabet);
@@ -150,7 +150,7 @@ namespace tidysq::internal {
 
     template<InternalType INTERNAL_OUT>
     Sequence<INTERNAL_OUT> packSTRING_STANDARD4(const SequenceProto<STD, STRING> &unpacked,
-                                       const Alphabet<STD> &alphabet) {
+                                       const Alphabet &alphabet) {
         lensq outByte = 0;
         lensq i = 0;
         Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<STD, STRING, INTERNAL_OUT>(unpacked, alphabet);
@@ -215,7 +215,7 @@ namespace tidysq::internal {
 
     template<InternalType INTERNAL_OUT>
     Sequence<INTERNAL_OUT> packSTRING_STANDARD5(const SequenceProto<STD, STRING> &unpacked,
-                                       const Alphabet<STD> &alphabet) {
+                                       const Alphabet &alphabet) {
         lensq outByte = 0;
         lensq i = 0;
         Sequence<INTERNAL_OUT> packed = reserveSpaceForPacked<STD, STRING, INTERNAL_OUT>(unpacked, alphabet);
@@ -299,7 +299,7 @@ namespace tidysq::internal {
 
     template<InternalType INTERNAL_OUT>
     Sequence<INTERNAL_OUT> packSTRING_STANDARD(const SequenceProto<STD, STRING> &unpacked,
-                                      const Alphabet<STD> &alphabet) {
+                                      const Alphabet &alphabet) {
         switch (alphabet.alphabetSize()) {
             case 2:
                 return packSTRING_STANDARD2<INTERNAL_OUT>(unpacked, alphabet);
@@ -316,10 +316,10 @@ namespace tidysq::internal {
 
     template<InternalType INTERNAL_OUT>
     Sequence<INTERNAL_OUT> packSTRING_STANDARD(const SequenceProto<RCPP, STRING> &unpacked,
-                                               const Alphabet<RCPP> &alphabet) {
+                                               const Alphabet &alphabet) {
 
         return packSTRING_STANDARD<INTERNAL_OUT>(static_cast<SequenceProto<STD, STRING>>(unpacked),
-                                                 static_cast<Alphabet<STD>>(alphabet));
+                                                 alphabet);
     }
 }
 
