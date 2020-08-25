@@ -1,7 +1,6 @@
 #include <Rcpp.h>
-#include "tidysq/types/SqRCPP.h"
-#include "tidysq/types/SqProtoRCPP.h"
-#include "tidysq/types/AlphabetRCPP.h"
+
+#include "tidysq/tidysq.h"
 
 using namespace tidysq;
 

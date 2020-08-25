@@ -1,10 +1,7 @@
 #include <Rcpp.h>
 #include <testthat.h>
 
-#include "tidysq/types/general.h"
-#include "tidysq/types/SqSTD.h"
-#include "tidysq/types/SqProtoSTD.h"
-#include "tidysq/types/SequenceSTD.h"
+#include "tidysq/tidysq.h"
 
 using namespace tidysq;
 
