@@ -14,10 +14,10 @@ config.status
 
 src/tidysq.dll
 
-inst/include/tidysq/.idea/
+src/main.cpp
 
-inst/include/tidysq/cmake-build-debug/
+.idea/
 
-inst/include/tidysq/CMakeLists.txt
+cmake-build-debug/
 
-inst/include/tidysq/main.cpp
+CMakeLists.txt
