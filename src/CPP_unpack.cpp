@@ -5,7 +5,6 @@
 
 using namespace tidysq;
 
-//' @export
 //[[Rcpp::export]]
 Rcpp::List CPP_unpack_RAWS(Rcpp::List sq) {
   return Sq<RCPP>(sq)
@@ -13,7 +12,6 @@ Rcpp::List CPP_unpack_RAWS(Rcpp::List sq) {
   .exportToR();
 }
 
-//' @export
 //[[Rcpp::export]]
 Rcpp::List CPP_unpack_INTS(Rcpp::List sq) {
   return Sq<RCPP>(sq)
@@ -21,7 +19,6 @@ Rcpp::List CPP_unpack_INTS(Rcpp::List sq) {
   .exportToR();
 }
 
-//' @export
 //[[Rcpp::export]]
 Rcpp::List CPP_unpack_STRINGS(Rcpp::List sq) {
   return Sq<RCPP>(sq)
@@ -29,7 +26,6 @@ Rcpp::List CPP_unpack_STRINGS(Rcpp::List sq) {
   .exportToR();
 }
 
-//' @export
 //[[Rcpp::export]]
 Rcpp::StringVector CPP_unpack_STRING(Rcpp::List sq) {
   return Sq<RCPP>(sq)
