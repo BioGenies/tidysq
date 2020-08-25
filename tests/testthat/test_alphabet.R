@@ -11,6 +11,10 @@ alph_short <- sq_alphabet(char_short)
 alph_medium <- sq_alphabet(char_medium)
 alph_long <- sq_alphabet(char_long)
 
+sq_dna <- construct_sq_dna(c("ACTGTC", "CGCGTTA"), is_clean = TRUE)
+sq_ami <- construct_sq_ami(c("APOPNIQEV", "CSVMIBF"), is_clean = FALSE)
+sq_unt <- construct_sq(c("GO%NC@E(123)RO", "NFI%(#)VT;"))
+
 # CONSTRUCTED ALPHABET VALUE ----
 test_that("sq_alphabet object is a subclass of character vector", {
   expect_s3_class(alph_short, "character", exact = FALSE)
@@ -24,6 +28,25 @@ test_that("sq_alphabet object coerces to original character vector", {
   expect_equivalent(as.character(alph_short), char_short)
   expect_equivalent(as.character(alph_medium), char_medium)
   expect_equivalent(as.character(alph_long), char_long)
+})
+
+# ALPHABET EXTRACTION ----
+test_that("get_sq_alphabet() extracts an object of sq_alphabet class", {
+  expect_vector(get_sq_alphabet(sq_dna),
+                ptype = sq_alphabet_ptype())
+  expect_vector(get_sq_alphabet(sq_ami),
+                ptype = sq_alphabet_ptype())
+  expect_vector(get_sq_alphabet(sq_unt),
+                ptype = sq_alphabet_ptype())
+})
+
+test_that("get_sq_alphabet() extracts \"alphabet\" attribute", {
+  expect_reference(get_sq_alphabet(sq_dna),
+                   attr(sq_dna, "alphabet"))
+  expect_reference(get_sq_alphabet(sq_ami),
+                   attr(sq_ami, "alphabet"))
+  expect_reference(get_sq_alphabet(sq_unt),
+                   attr(sq_unt, "alphabet"))
 })
 
 # PROTOTYPE ACCEPTANCE ----
