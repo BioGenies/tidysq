@@ -46,6 +46,11 @@ get_invalid_letters <- function(sq, dest_type) {
   .validate_sq(sq)
   .check_type(dest_type, "'dest_type'")
   
+  # TODO: remove after fixing .apply_sq()
+  if (length(sq) == 0) {
+    return(list())
+  }
+  
   dest_alph <- .get_standard_alph(dest_type, FALSE)
   dest_alph <- c(as.character(dest_alph),
                  tolower(as.character(dest_alph)),
