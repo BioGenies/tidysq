@@ -10,7 +10,7 @@ sq_4 <- construct_sq(character(), "dna")
 test_that("get_invalid_letters() returns a list of correct length", {
   expect_vector(get_invalid_letters(sq_1, "dna"),
                 ptype = list(),
-                size = length(sq_1))
+                size = vec_size(sq_1))
 })
 
 test_that("each element of get_invalid_letters() is a character vector", {
