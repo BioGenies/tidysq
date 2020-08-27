@@ -5,7 +5,10 @@
 #include <Rcpp.h>
 
 namespace tidysq::util {
-    std::string getNACharacterAsString(const Rcpp::StringVector &alphabet);
+    template<int DUMMY>
+    std::string getNACharacterAsString(const Rcpp::StringVector &alphabet) {
+        return Rcpp::as<std::string>(Rcpp::as<Rcpp::StringVector>(alphabet.attr("na_character"))[0]);
+    }
 }
 
 #endif //TIDYSQ_TRANSITION_H
