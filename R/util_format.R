@@ -11,7 +11,7 @@ format.sq <- function(x, ...,
                    allow_zero_len = TRUE, allow_null = TRUE)
   
   # color NA's
-  na_character(alphabet(x)) <- if (use_color) col_silver(.get_na_char()) else .get_na_char()
+  na_letter(alphabet(x)) <- if (use_color) col_silver(.get_na_letter()) else .get_na_letter()
   alph <- alphabet(x)
   
   # if parameter is NULL and all letters are length one, no space

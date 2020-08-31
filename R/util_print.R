@@ -33,7 +33,7 @@ obj_print_footer.sq <- function(x, ...,
 #' @export
 pillar_shaft.sq <- function(x, ...) {
   # color NA's
-  na_character(alphabet(x)) <- col_silver(.get_na_char())
+  na_letter(alphabet(x)) <- col_silver(.get_na_letter())
   
   .pillar_shaft_sq(x, "", col_green)
 }
