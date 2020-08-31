@@ -31,7 +31,7 @@
 #' maximum number of printed sequences
 #' in \code{\link[=sq-print]{print sq}},
 #' (see \code{\link[=sq-print]{print sq}})
-#' \item tidysq_p_na_char (default = "!") -  a \code{\link{character}} string which character
+#' \item tidysq_p_na_letter (default = "!") -  a \code{\link{character}} string which character
 #' string to pring when 
 #' \code{\link{NA}} values appear in sequences,
 #' \item tidysq_p_use_color (default \code{TRUE}) - a \code{\link{logical}} value if to

@@ -15,6 +15,6 @@ get_tidysq_options <- function() {
               "tidysq_g_fast_mode",
               "tidysq_p_max_pillar_width",
               "tidysq_p_max_sequences",
-              "tidysq_p_na_char",
+              "tidysq_p_na_letter",
               "tidysq_p_use_color")]
 }

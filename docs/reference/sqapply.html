@@ -114,7 +114,7 @@ parameter.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sqapply</span>(<span class='no'>sq</span>, <span class='no'>fun</span>, <span class='no'>...</span>, <span class='kw'>paste_char</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>use_na_char</span> <span class='kw'>=</span> <span class='no'>paste_char</span>)</pre>
+    <pre class="usage"><span class='fu'>sqapply</span>(<span class='no'>sq</span>, <span class='no'>fun</span>, <span class='no'>...</span>, <span class='kw'>paste_char</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>use_na_letter</span> <span class='kw'>=</span> <span class='no'>paste_char</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,12 +139,12 @@ passed to the function <code>fun</code>; if <code>FALSE</code> (default), they w
 vectors, if <code>TRUE</code>, they will be pasted into a single string.</p></td>
     </tr>
     <tr>
-      <th>use_na_char</th>
+      <th>use_na_letter</th>
       <td><p>a <code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></code> value indicating whether to use a printing character
 to represent <code><a href='https://www.rdocumentation.org/packages/base/topics/NA'>NA</a></code> values; if <code>TRUE</code>, letter from option "tidysq_na_print_char"
 will be used instead of <code>NA</code> values (default value for this option is "!", for details
 see <code><a href='tidysq-options.html'>tidysq-options</a></code>), otherwise just <code>NA</code> values will be used; default value
-for this parameter is equal to <code>paste_char</code> value; <code>use_na_char</code> cannot be 
+for this parameter is equal to <code>paste_char</code> value; <code>use_na_letter</code> cannot be
 <code>FALSE</code> if <code>paste_char</code> is <code>TRUE</code>.</p></td>
     </tr>
     </table>

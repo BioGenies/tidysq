@@ -1,5 +1,5 @@
 # SETUP ----
-na_char <- .get_na_char()
+na_letter <- .get_na_letter()
 
 char_shortened <- c("A", "C", "G")
 char_short <- c("A", "C", "G", "T")
@@ -37,16 +37,16 @@ test_that("sq_alphabet method accepts character vectors of single characters", {
 })
 
 # NA_CHARACTER EXTRACTION ----
-test_that("sq_alphabet object has na_character attribute", {
-  expect_equal(attr(alph_short, "na_character"), na_char)
-  expect_equal(attr(alph_medium, "na_character"), na_char)
-  expect_equal(attr(alph_long, "na_character"), na_char)
+test_that("sq_alphabet object has na_letter attribute", {
+  expect_equal(attr(alph_short, "na_letter"), na_letter)
+  expect_equal(attr(alph_medium, "na_letter"), na_letter)
+  expect_equal(attr(alph_long, "na_letter"), na_letter)
 })
 
-test_that("na_character method extracts na_character attribute", {
-  expect_equal(na_character(alph_short), na_char)
-  expect_equal(na_character(alph_medium), na_char)
-  expect_equal(na_character(alph_long), na_char)
+test_that("na_letter method extracts na_letter attribute", {
+  expect_equal(na_letter(alph_short), na_letter)
+  expect_equal(na_letter(alph_medium), na_letter)
+  expect_equal(na_letter(alph_long), na_letter)
 })
 
 # INDEXING ----
@@ -57,10 +57,10 @@ test_that("indexing works as always for indices different from 2^len - 1 value",
   expect_equal(alph_short[727], char_short[727])
 })
 
-test_that("2^len - 1 index extracts na_character attribute", {
-  expect_equal(alph_short[7], na_char)
-  expect_equal(alph_medium[31], na_char)
-  expect_equal(alph_long[63], na_char)
+test_that("2^len - 1 index extracts na_letter attribute", {
+  expect_equal(alph_short[7], na_letter)
+  expect_equal(alph_medium[31], na_letter)
+  expect_equal(alph_long[63], na_letter)
 })
 
 # REMOVING CHARACTERS ----
@@ -98,6 +98,6 @@ test_that("sq_alphabet method accepts character vector of length 0", {
   expect_vector(alph_empty <- sq_alphabet(character()),
                 ptype = sq_alphabet_ptype(), size = 0)
   expect_s3_class(alph_empty, "character", exact = FALSE)
-  expect_equal(na_character(alph_empty), na_char)
-  expect_equal(alph_empty[1], na_char)
+  expect_equal(na_letter(alph_empty), na_letter)
+  expect_equal(alph_empty[1], na_letter)
 })

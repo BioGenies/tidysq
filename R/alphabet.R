@@ -10,10 +10,10 @@ alphabet <- function(sq)
 
 # alphabet creation ----
 
-sq_alphabet <- function(alph, na_char = .get_na_char()) {
+sq_alphabet <- function(alph, na_letter = .get_na_letter()) {
   new_vctr(
     alph,
-    na_character = na_char,
+    na_letter = na_letter,
     class = c("sq_alphabet", "character")
   )
 }
@@ -28,15 +28,15 @@ sq_alphabet_ptype <- function()
 
 `[.sq_alphabet` <- function(x, i) {
   ret <- vec_data(x)[i]
-  ret[i == .get_na_val(x)] <- na_character(x)
+  ret[i == .get_na_val(x)] <- na_letter(x)
   ret
 }
 
-na_character <- function(alph)
-  attr(alph, "na_character")
+na_letter <- function(alph)
+  attr(alph, "na_letter")
 
-`na_character<-` <- function(alph, value) {
-  attr(alph, "na_character") <- value
+`na_letter<-` <- function(alph, value) {
+  attr(alph, "na_letter") <- value
   alph
 }
 
@@ -53,7 +53,7 @@ na_character <- function(alph)
 .get_real_alph <- function(str_sq) {
   new_vctr(
     C_get_real_alph(str_sq),
-    na_character = .get_na_char(),
+    na_letter = .get_na_letter(),
     class = c("sq_alphabet", "character")
   )
 }
@@ -72,7 +72,7 @@ na_character <- function(alph)
       nucleotides_df[nucleotides_df[["rna"]], "one"]
     else if (type == "rna" && !is_clean)
       nucleotides_df[nucleotides_df[["rna"]] | nucleotides_df[["amb"]], "one"],
-    na_character = .get_na_char(),
+    na_letter = .get_na_letter(),
     class = c("sq_alphabet", "character")
   )
 }

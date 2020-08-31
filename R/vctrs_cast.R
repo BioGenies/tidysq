@@ -58,10 +58,10 @@ vec_cast.character.atpsq <- function(x, to, ...) unlist(.unpack_from_sq(x, "stri
 # sq_alphabet ----
 #' @export
 vec_cast.sq_alphabet.sq_alphabet <- function(x, to, ...) {
-  na_character(x) <- na_character(to)
+  na_letter(x) <- na_letter(to)
   x
 }
 #' @export
-vec_cast.sq_alphabet.character <- function(x, to, ...) sq_alphabet(x, na_character(to))
+vec_cast.sq_alphabet.character <- function(x, to, ...) sq_alphabet(x, na_letter(to))
 #' @export
 vec_cast.character.sq_alphabet <- function(x, to, ...) vec_data(x)
