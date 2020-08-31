@@ -31,7 +31,7 @@ namespace tidysq {
 
         void checkNALetter() const {
             if (NALetter_.empty()) {
-                throw std::invalid_argument(R"("na_character" should not be empty!)");
+                throw std::invalid_argument(R"("na_letter" should not be empty!)");
             }
         }
 
@@ -76,7 +76,7 @@ namespace tidysq {
 
         explicit operator Rcpp::StringVector() {
             Rcpp::StringVector ret(util::convertStringVector<0>(letters_));
-            ret.attr("na_character") = NALetter_;
+            ret.attr("na_letter") = NALetter_;
             return ret;
         }
 

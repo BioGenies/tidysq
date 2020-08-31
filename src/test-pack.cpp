@@ -29,7 +29,7 @@ context("test_packing") {
     SequenceProto<RCPP, RAWS> sequence_proto_3{'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'};
     
     Rcpp::StringVector alph_content{"A", "C", "G", "T", "-"};
-    alph_content.attr("na_character") = "!";
+    alph_content.attr("na_letter") = "!";
     
     Alphabet alphabet(alph_content);
     
