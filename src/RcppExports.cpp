@@ -366,22 +366,22 @@ RcppExport SEXP _tidysq_C_unpack_ints(SEXP packedSEXP, SEXP alph_sizeSEXP) {
     return rcpp_result_gen;
 }
 // C_unpack_chars
-Rcpp::CharacterVector C_unpack_chars(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_char);
-static SEXP _tidysq_C_unpack_chars_try(SEXP packedSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
+Rcpp::CharacterVector C_unpack_chars(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_letter);
+static SEXP _tidysq_C_unpack_chars_try(SEXP packedSEXP, SEXP alphSEXP, SEXP na_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type packed(packedSEXP);
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type na_char(na_charSEXP);
-    rcpp_result_gen = Rcpp::wrap(C_unpack_chars(packed, alph, na_char));
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type na_letter(na_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(C_unpack_chars(packed, alph, na_letter));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _tidysq_C_unpack_chars(SEXP packedSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
+RcppExport SEXP _tidysq_C_unpack_chars(SEXP packedSEXP, SEXP alphSEXP, SEXP na_letterSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_tidysq_C_unpack_chars_try(packedSEXP, alphSEXP, na_charSEXP));
+        rcpp_result_gen = PROTECT(_tidysq_C_unpack_chars_try(packedSEXP, alphSEXP, na_letterSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -402,22 +402,22 @@ RcppExport SEXP _tidysq_C_unpack_chars(SEXP packedSEXP, SEXP alphSEXP, SEXP na_c
     return rcpp_result_gen;
 }
 // C_unpack_string
-Rcpp::CharacterVector C_unpack_string(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_char);
-static SEXP _tidysq_C_unpack_string_try(SEXP packedSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
+Rcpp::CharacterVector C_unpack_string(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_letter);
+static SEXP _tidysq_C_unpack_string_try(SEXP packedSEXP, SEXP alphSEXP, SEXP na_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type packed(packedSEXP);
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type na_char(na_charSEXP);
-    rcpp_result_gen = Rcpp::wrap(C_unpack_string(packed, alph, na_char));
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type na_letter(na_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(C_unpack_string(packed, alph, na_letter));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _tidysq_C_unpack_string(SEXP packedSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
+RcppExport SEXP _tidysq_C_unpack_string(SEXP packedSEXP, SEXP alphSEXP, SEXP na_letterSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_tidysq_C_unpack_string_try(packedSEXP, alphSEXP, na_charSEXP));
+        rcpp_result_gen = PROTECT(_tidysq_C_unpack_string_try(packedSEXP, alphSEXP, na_letterSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {

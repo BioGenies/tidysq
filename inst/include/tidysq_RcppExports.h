@@ -171,7 +171,7 @@ namespace tidysq {
         return Rcpp::as<Rcpp::IntegerVector >(rcpp_result_gen);
     }
 
-    inline Rcpp::CharacterVector C_unpack_chars(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_char) {
+    inline Rcpp::CharacterVector C_unpack_chars(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_letter) {
         typedef SEXP(*Ptr_C_unpack_chars)(SEXP,SEXP,SEXP);
         static Ptr_C_unpack_chars p_C_unpack_chars = NULL;
         if (p_C_unpack_chars == NULL) {
@@ -181,7 +181,7 @@ namespace tidysq {
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_C_unpack_chars(Shield<SEXP>(Rcpp::wrap(packed)), Shield<SEXP>(Rcpp::wrap(alph)), Shield<SEXP>(Rcpp::wrap(na_char)));
+            rcpp_result_gen = p_C_unpack_chars(Shield<SEXP>(Rcpp::wrap(packed)), Shield<SEXP>(Rcpp::wrap(alph)), Shield<SEXP>(Rcpp::wrap(na_letter)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -192,7 +192,7 @@ namespace tidysq {
         return Rcpp::as<Rcpp::CharacterVector >(rcpp_result_gen);
     }
 
-    inline Rcpp::CharacterVector C_unpack_string(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_char) {
+    inline Rcpp::CharacterVector C_unpack_string(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_letter) {
         typedef SEXP(*Ptr_C_unpack_string)(SEXP,SEXP,SEXP);
         static Ptr_C_unpack_string p_C_unpack_string = NULL;
         if (p_C_unpack_string == NULL) {
@@ -202,7 +202,7 @@ namespace tidysq {
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_C_unpack_string(Shield<SEXP>(Rcpp::wrap(packed)), Shield<SEXP>(Rcpp::wrap(alph)), Shield<SEXP>(Rcpp::wrap(na_char)));
+            rcpp_result_gen = p_C_unpack_string(Shield<SEXP>(Rcpp::wrap(packed)), Shield<SEXP>(Rcpp::wrap(alph)), Shield<SEXP>(Rcpp::wrap(na_letter)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

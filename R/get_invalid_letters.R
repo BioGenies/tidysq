@@ -54,7 +54,7 @@ get_invalid_letters <- function(sq, dest_type) {
   dest_alph <- .get_standard_alph(dest_type, FALSE)
   dest_alph <- c(as.character(dest_alph),
                  tolower(as.character(dest_alph)),
-                 na_character(dest_alph))
+                 na_letter(dest_alph))
   
   .apply_sq(sq, "char", "none", function(s) setdiff(s, dest_alph))
 }

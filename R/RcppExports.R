@@ -69,12 +69,12 @@ C_unpack_ints <- function(packed, alph_size) {
     .Call('_tidysq_C_unpack_ints', PACKAGE = 'tidysq', packed, alph_size)
 }
 
-C_unpack_chars <- function(packed, alph, na_char) {
-    .Call('_tidysq_C_unpack_chars', PACKAGE = 'tidysq', packed, alph, na_char)
+C_unpack_chars <- function(packed, alph, na_letter) {
+    .Call('_tidysq_C_unpack_chars', PACKAGE = 'tidysq', packed, alph, na_letter)
 }
 
-C_unpack_string <- function(packed, alph, na_char) {
-    .Call('_tidysq_C_unpack_string', PACKAGE = 'tidysq', packed, alph, na_char)
+C_unpack_string <- function(packed, alph, na_letter) {
+    .Call('_tidysq_C_unpack_string', PACKAGE = 'tidysq', packed, alph, na_letter)
 }
 
 #' Match index of letter in alphabet for each letter
