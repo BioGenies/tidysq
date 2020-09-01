@@ -9,21 +9,30 @@
 #include "Alphabet.h"
 #include "../ops/OperationUnpack.h"
 #include "../sqapply.h"
+#include "tidysq/util/alphabet.h"
 
 namespace tidysq {
     template<>
     class Sq<STD> {
         std::vector<Sequence<STD>> content_;
         Alphabet alphabet_;
+        SqType type_;
     public:
         typedef Sequence<STD> SequenceType;
 
-        explicit Sq(Alphabet alphabet) :
-                Sq(0, std::move(alphabet)) {};
+        Sq(lensq length, Alphabet alphabet, const SqType &type) :
+                content_(std::vector<Sequence<STD>>(length)),
+                alphabet_(std::move(alphabet)),
+                type_(type) {};
+
+        Sq(Alphabet alphabet, const SqType &type) :
+                Sq(0, std::move(alphabet), type) {};
 
         Sq(lensq length, Alphabet alphabet) :
-                content_(std::vector<Sequence<STD>>(length)),
-                alphabet_(std::move(alphabet)) {};
+                Sq(length, std::move(alphabet), util::guessSqType<0>(alphabet)) {};
+
+        explicit Sq(Alphabet alphabet) :
+                Sq(std::move(alphabet), util::guessSqType<0>(alphabet)) {};
 
         SequenceType &operator[] (lensq index) {
             return content_[index];
@@ -39,6 +48,10 @@ namespace tidysq {
 
         [[nodiscard]] const Alphabet& alphabet() const {
             return alphabet_;
+        }
+
+        [[nodiscard]] const SqType& type() const {
+            return type_;
         }
 
         template<InternalType INTERNAL_OUT,

@@ -18,6 +18,18 @@ namespace tidysq {
         STRING
     };
 
+    enum SqType {
+        AMI,
+        AMI_CLN,
+        DNA,
+        DNA_CLN,
+        RNA,
+        RNA_CLN,
+        UNT,
+        ATP,
+        ENC
+    };
+
     template<InternalType INTERNAL = STD>
     class Sequence;
 

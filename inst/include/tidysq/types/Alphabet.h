@@ -103,6 +103,11 @@ namespace tidysq {
         [[nodiscard]] inline bool isSimple() const {
             return simple_;
         }
+
+        bool operator==(const Alphabet &another) {
+            if (letters_ == another.letters_) return true;
+            return false;
+        }
     };
 }
 

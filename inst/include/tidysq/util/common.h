@@ -33,6 +33,10 @@ namespace tidysq::util {
         return ret;
     }
 
+    template<int DUMMY>
+    std::string getScalarStringValue(const Rcpp::StringVector &vector, const unsigned int index = 0) {
+        return Rcpp::as<std::string>(vector[index]);
+    }
 }
 
 #endif //TIDYSQ_COMMON_H
