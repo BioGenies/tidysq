@@ -20,25 +20,25 @@ namespace tidysq {
     public:
         typedef Sequence<STD> SequenceType;
 
-        Sq(lensq length, Alphabet alphabet, const SqType &type) :
+        Sq(const lensq length, const Alphabet &alphabet, const SqType &type) :
                 content_(std::vector<Sequence<STD>>(length)),
-                alphabet_(std::move(alphabet)),
+                alphabet_(alphabet),
                 type_(type) {};
 
-        Sq(Alphabet alphabet, const SqType &type) :
-                Sq(0, std::move(alphabet), type) {};
+        Sq(const Alphabet &alphabet, const SqType &type) :
+                Sq(0, alphabet, type) {};
 
-        Sq(lensq length, const SqType &type) :
+        Sq(const lensq length, const SqType &type) :
                 Sq(length, util::getStandardAlphabet<0>(type), type) {};
 
         explicit Sq(const SqType &type) :
                 Sq(util::getStandardAlphabet<0>(type), type) {};
 
-        Sq(lensq length, Alphabet alphabet) :
-                Sq(length, std::move(alphabet), util::guessSqType<0>(alphabet)) {};
+        Sq(const lensq length, const Alphabet &alphabet) :
+                Sq(length, alphabet, util::guessSqType<0>(alphabet)) {};
 
-        explicit Sq(Alphabet alphabet) :
-                Sq(std::move(alphabet), util::guessSqType<0>(alphabet)) {};
+        explicit Sq(const Alphabet& alphabet) :
+                Sq(alphabet, util::guessSqType<0>(alphabet)) {};
 
         SequenceType &operator[] (lensq index) {
             return content_[index];

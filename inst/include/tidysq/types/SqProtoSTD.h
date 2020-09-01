@@ -7,22 +7,36 @@
 #include "Alphabet.h"
 #include "../ops/OperationPack.h"
 #include "../sqapply.h"
+#include "tidysq/util/alphabet.h"
 
 namespace tidysq {
     template<ProtoType PROTO>
     class SqProto<STD, PROTO> {
         std::vector<SequenceProto<STD, PROTO>> content_;
         Alphabet alphabet_;
+        SqType type_;
     public:
         typedef SequenceProto<STD, PROTO> SequenceType;
 
-        SqProto(const std::vector<SequenceProto<STD, PROTO>> &content, Alphabet alphabet) :
+        SqProto(const std::vector<SequenceType> &content, Alphabet alphabet, const SqType &type) :
                 content_(content),
-                alphabet_(std::move(alphabet)) {};
+                alphabet_(std::move(alphabet)),
+                type_(type) {};
 
-        SqProto(lensq length, Alphabet alphabet) :
-                content_(std::vector<SequenceProto<STD, PROTO>>(length)),
-                alphabet_(std::move(alphabet)) {};
+        SqProto(const lensq length, Alphabet alphabet, const SqType &type) :
+                SqProto(std::vector<SequenceType>(length), std::move(alphabet), type) {};
+
+        SqProto(const std::vector<SequenceType> &content, Alphabet alphabet) :
+                SqProto(content, std::move(alphabet), util::guessSqType<0>(alphabet)) {};
+
+        SqProto(const lensq length, Alphabet alphabet) :
+                SqProto(length, std::move(alphabet), util::guessSqType<0>(alphabet)) {};
+
+        SqProto(const std::vector<SequenceType> &content, const SqType &type) :
+                SqProto(length, util::getStandardAlphabet<0>(type), type) {};
+
+        SqProto(const lensq length, const SqType &type) :
+                SqProto(length, util::getStandardAlphabet<0>(type), type) {};
 
         SequenceType &operator[] (lensq index) {
             return content_[index];
@@ -39,6 +53,10 @@ namespace tidysq {
         [[nodiscard]] const Alphabet &alphabet() const {
             return alphabet_;
         }
+
+        [[nodiscard]] const SqType &type() const {
+            return type_;
+        };
 
         template<InternalType INTERNAL_OUT>
         Sq<INTERNAL_OUT> pack() const {

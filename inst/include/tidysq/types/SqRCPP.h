@@ -19,7 +19,7 @@ namespace tidysq {
     public:
         typedef Sequence<RCPP> SequenceType;
 
-        Sq(lensq length, Alphabet alphabet, const SqType &type) :
+        Sq(const lensq length, Alphabet alphabet, const SqType &type) :
                 content_(Rcpp::List(length)),
                 alphabet_(std::move(alphabet)),
                 type_(type) {};
@@ -27,13 +27,13 @@ namespace tidysq {
         Sq(Alphabet alphabet, const SqType &type) :
                 Sq(0, std::move(alphabet), type) {};
 
-        Sq(lensq length, const SqType &type) :
+        Sq(const lensq length, const SqType &type) :
                 Sq(length, util::getStandardAlphabet<0>(type), type) {};
 
         explicit Sq(const SqType &type) :
                 Sq(util::getStandardAlphabet<0>(type), type) {};
 
-        Sq(lensq length, Alphabet alphabet) :
+        Sq(const lensq length, Alphabet alphabet) :
                 Sq(length, std::move(alphabet), util::guessSqType<0>(alphabet)) {};
 
         explicit Sq(Alphabet alphabet) :
