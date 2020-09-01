@@ -60,6 +60,10 @@ namespace tidysq {
             return alphabet_;
         }
 
+        [[nodiscard]] const SqType &type() const {
+            return type_;
+        }
+
         template<InternalType INTERNAL_OUT,
                 ProtoType PROTO_OUT>
         SqProto<INTERNAL_OUT, PROTO_OUT> unpack() const {

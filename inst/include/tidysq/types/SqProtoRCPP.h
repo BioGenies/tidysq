@@ -54,6 +54,10 @@ namespace tidysq {
             return alphabet_;
         }
 
+        [[nodiscard]] const SqType &type() const {
+            return type_;
+        }
+
         template<InternalType INTERNAL_OUT>
         Sq<INTERNAL_OUT> pack() const {
             return sqapply<SqProto<RCPP, PROTO>, Sq<INTERNAL_OUT>>(*this, ops::OperationPack<RCPP, PROTO, INTERNAL_OUT>());
@@ -106,6 +110,10 @@ namespace tidysq {
 
         [[nodiscard]] const Alphabet &alphabet() const {
             return alphabet_;
+        }
+
+        [[nodiscard]] const SqType &type() const {
+            return type_;
         }
 
         template<InternalType INTERNAL_OUT>
