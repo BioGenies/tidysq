@@ -27,13 +27,13 @@ namespace tidysq::util {
                 letters = {"A", "C", "G", "T", "W", "S", "M", "K", "R", "Y", "B", "D", "H", "V", "N", "-"};
                 break;
             case DNA_CLN:
-                letters = {"C", "A", "G", "T", "-"};
+                letters = {"A", "C", "G", "T", "-"};
                 break;
             case RNA:
                 letters = {"A", "C", "G", "U", "W", "S", "M", "K", "R", "Y", "B", "D", "H", "V", "N", "-"};
                 break;
             case RNA_CLN:
-                letters = {"C", "A", "G", "U", "-"};
+                letters = {"A", "C", "G", "U", "-"};
                 break;
             default:
                 throw std::invalid_argument("Provided type does not have a predefined standard alphabet!");
