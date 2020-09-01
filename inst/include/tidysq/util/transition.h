@@ -3,6 +3,7 @@
 
 #include <string>
 #include <Rcpp.h>
+#include <stdexcept>
 
 #include "tidysq/types/general.h"
 
@@ -50,12 +51,10 @@ namespace tidysq::util {
         } else if (type == "rnasq") {
             if (getScalarStringValue<0>(classVector, 1) == "clnsq") return RNA_CLN;
             return RNA;
-        } else if (type == "untsq") {
-            return UNT;
-        } else if (type == "atpsq") {
-            return ATP;
-        }
-        return ENC;
+        } else if (type == "untsq") return UNT;
+        else if (type == "atpsq") return ATP;
+        else if (type == "encsq") return ENC;
+        else throw std::invalid_argument("Object does not have a proper sq subtype!");
     }
 }
 
