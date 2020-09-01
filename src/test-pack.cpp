@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 #include <testthat.h>
 
-#include "tidysq/tidysq.h"
+#include "tidysq/exports.h"
 
 using namespace tidysq;
 
