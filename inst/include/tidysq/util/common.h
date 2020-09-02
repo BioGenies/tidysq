@@ -7,8 +7,7 @@
 
 
 namespace tidysq::util {
-    template<int DUMMY>
-    std::vector<std::string> convertStringVector(const Rcpp::StringVector &vector) {
+    inline std::vector<std::string> convertStringVector(const Rcpp::StringVector &vector) {
         std::vector<std::string> ret(vector.size());
         auto iterIn = vector.begin();
         auto iterOut = ret.begin();
@@ -20,8 +19,7 @@ namespace tidysq::util {
         return ret;
     }
 
-    template<int DUMMY>
-    Rcpp::StringVector convertStringVector(const std::vector<std::string> &vector) {
+    inline Rcpp::StringVector convertStringVector(const std::vector<std::string> &vector) {
         Rcpp::StringVector ret(vector.size());
         auto iterIn = vector.begin();
         auto iterOut = ret.begin();
@@ -33,8 +31,7 @@ namespace tidysq::util {
         return ret;
     }
 
-    template<int DUMMY>
-    std::string getScalarStringValue(const Rcpp::StringVector &vector, const unsigned int index = 0) {
+    inline std::string getScalarStringValue(const Rcpp::StringVector &vector, const unsigned int index = 0) {
         return Rcpp::as<std::string>(vector[index]);
     }
 }

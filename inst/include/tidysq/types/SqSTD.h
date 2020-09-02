@@ -29,16 +29,16 @@ namespace tidysq {
                 Sq(0, alphabet, type) {};
 
         Sq(const lensq length, const SqType &type) :
-                Sq(length, util::getStandardAlphabet<0>(type), type) {};
+                Sq(length, util::getStandardAlphabet(type), type) {};
 
         explicit Sq(const SqType &type) :
-                Sq(util::getStandardAlphabet<0>(type), type) {};
+                Sq(util::getStandardAlphabet(type), type) {};
 
         Sq(const lensq length, const Alphabet &alphabet) :
-                Sq(length, alphabet, util::guessSqType<0>(alphabet)) {};
+                Sq(length, alphabet, util::guessSqType(alphabet)) {};
 
         explicit Sq(const Alphabet& alphabet) :
-                Sq(alphabet, util::guessSqType<0>(alphabet)) {};
+                Sq(alphabet, util::guessSqType(alphabet)) {};
 
         SequenceType &operator[] (lensq index) {
             return content_[index];
@@ -64,6 +64,10 @@ namespace tidysq {
                 ProtoType PROTO_OUT>
         SqProto<INTERNAL_OUT, PROTO_OUT> unpack() const {
             return sqapply<Sq<STD>, SqProto<INTERNAL_OUT, PROTO_OUT>>(*this, ops::OperationUnpack<STD, INTERNAL_OUT, PROTO_OUT>());
+        }
+
+        void pushBack(const SequenceType &sequence) {
+            content_.push_back(sequence);
         }
     };
 }

@@ -28,21 +28,21 @@ namespace tidysq {
                 Sq(0, std::move(alphabet), type) {};
 
         Sq(const lensq length, const SqType &type) :
-                Sq(length, util::getStandardAlphabet<0>(type), type) {};
+                Sq(length, util::getStandardAlphabet(type), type) {};
 
         explicit Sq(const SqType &type) :
-                Sq(util::getStandardAlphabet<0>(type), type) {};
+                Sq(util::getStandardAlphabet(type), type) {};
 
         Sq(const lensq length, Alphabet alphabet) :
-                Sq(length, std::move(alphabet), util::guessSqType<0>(alphabet)) {};
+                Sq(length, std::move(alphabet), util::guessSqType(alphabet)) {};
 
         explicit Sq(Alphabet alphabet) :
-                Sq(std::move(alphabet), util::guessSqType<0>(alphabet)) {};
+                Sq(std::move(alphabet), util::guessSqType(alphabet)) {};
 
         explicit Sq(const Rcpp::List &content) :
                 content_(content),
                 alphabet_(Alphabet(content.attr("alphabet"))),
-                type_(util::getSqType<0>(content.attr("class"))) {};
+                type_(util::getSqType(content.attr("class"))) {};
 
         Rcpp::List::Proxy operator[] (lensq index) {
             return content_[index];
@@ -70,9 +70,13 @@ namespace tidysq {
             return sqapply<Sq<RCPP>, SqProto<INTERNAL_OUT, PROTO_OUT>>(*this, ops::OperationUnpack<RCPP, INTERNAL_OUT, PROTO_OUT>());
         }
 
+        void pushBack(const SequenceType &sequence) {
+            content_.push_back(sequence);
+        }
+
         Rcpp::List exportToR() {
             content_.attr("alphabet") = static_cast<Rcpp::StringVector>(alphabet_);
-            content_.attr("class") = util::getClassStringVector<0>(type_);
+            content_.attr("class") = util::getClassStringVector(type_);
             return content_;
         }
     };

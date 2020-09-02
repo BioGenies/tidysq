@@ -8,13 +8,11 @@
 #include "tidysq/types/general.h"
 
 namespace tidysq::util {
-    template<int DUMMY>
-    std::string getNACharacterAsString(const Rcpp::StringVector &alphabet) {
+    inline std::string getNACharacterAsString(const Rcpp::StringVector &alphabet) {
         return Rcpp::as<std::string>(Rcpp::as<Rcpp::StringVector>(alphabet.attr("na_letter"))[0]);
     }
 
-    template<int DUMMY>
-    std::vector<std::string> getClassStringVector(const SqType &type) {
+    inline std::vector<std::string> getClassStringVector(const SqType &type) {
         switch (type) {
             case AMI:
                 return {"amisq", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
@@ -39,17 +37,16 @@ namespace tidysq::util {
         }
     }
 
-    template<int DUMMY>
-    SqType getSqType(const Rcpp::StringVector &classVector) {
-        std::string type = getScalarStringValue<0>(classVector);
+    inline SqType getSqType(const Rcpp::StringVector &classVector) {
+        std::string type = getScalarStringValue(classVector);
         if (type == "amisq") {
-            if (getScalarStringValue<0>(classVector, 1) == "clnsq") return AMI_CLN;
+            if (getScalarStringValue(classVector, 1) == "clnsq") return AMI_CLN;
             return AMI;
         } else if (type == "dnasq") {
-            if (getScalarStringValue<0>(classVector, 1) == "clnsq") return DNA_CLN;
+            if (getScalarStringValue(classVector, 1) == "clnsq") return DNA_CLN;
             return DNA;
         } else if (type == "rnasq") {
-            if (getScalarStringValue<0>(classVector, 1) == "clnsq") return RNA_CLN;
+            if (getScalarStringValue(classVector, 1) == "clnsq") return RNA_CLN;
             return RNA;
         } else if (type == "untsq") return UNT;
         else if (type == "atpsq") return ATP;

@@ -27,16 +27,16 @@ namespace tidysq {
                 SqProto(std::vector<SequenceType>(length), std::move(alphabet), type) {};
 
         SqProto(const std::vector<SequenceType> &content, Alphabet alphabet) :
-                SqProto(content, std::move(alphabet), util::guessSqType<0>(alphabet)) {};
+                SqProto(content, std::move(alphabet), util::guessSqType(alphabet)) {};
 
         SqProto(const lensq length, Alphabet alphabet) :
-                SqProto(length, std::move(alphabet), util::guessSqType<0>(alphabet)) {};
+                SqProto(length, std::move(alphabet), util::guessSqType(alphabet)) {};
 
         SqProto(const std::vector<SequenceType> &content, const SqType &type) :
-                SqProto(length, util::getStandardAlphabet<0>(type), type) {};
+                SqProto(length, util::getStandardAlphabet(type), type) {};
 
         SqProto(const lensq length, const SqType &type) :
-                SqProto(length, util::getStandardAlphabet<0>(type), type) {};
+                SqProto(length, util::getStandardAlphabet(type), type) {};
 
         SequenceType &operator[] (lensq index) {
             return content_[index];

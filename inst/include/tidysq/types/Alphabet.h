@@ -64,8 +64,8 @@ namespace tidysq {
         }
 
         explicit Alphabet(const Rcpp::StringVector &alphabet) :
-                Alphabet(util::convertStringVector<0>(alphabet),
-                         util::getNACharacterAsString<0>(alphabet)) {};
+                Alphabet(util::convertStringVector(alphabet),
+                         util::getNACharacterAsString(alphabet)) {};
 
         explicit Alphabet(Rcpp::List::const_AttributeProxy alphabet) :
                 Alphabet(Rcpp::as<Rcpp::StringVector>(alphabet)) {};
@@ -75,7 +75,7 @@ namespace tidysq {
         Alphabet(Alphabet &&other) = default;
 
         explicit operator Rcpp::StringVector() {
-            Rcpp::StringVector ret(util::convertStringVector<0>(letters_));
+            Rcpp::StringVector ret(util::convertStringVector(letters_));
             ret.attr("na_letter") = NALetter_;
             return ret;
         }

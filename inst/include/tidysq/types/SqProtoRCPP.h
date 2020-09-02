@@ -27,16 +27,16 @@ namespace tidysq {
                 SqProto(Rcpp::List(length), std::move(alphabet), type) {};
 
         SqProto(const Rcpp::List &content, Alphabet alphabet) :
-                SqProto(content, std::move(alphabet), util::guessSqType<0>(alphabet)) {};
+                SqProto(content, std::move(alphabet), util::guessSqType(alphabet)) {};
 
         SqProto(const lensq length, Alphabet alphabet) :
-                SqProto(length, std::move(alphabet), util::guessSqType<0>(alphabet)) {};
+                SqProto(length, std::move(alphabet), util::guessSqType(alphabet)) {};
 
         SqProto(const Rcpp::List &content, const SqType &type) :
-                SqProto(content, util::getStandardAlphabet<0>(type), type) {};
+                SqProto(content, util::getStandardAlphabet(type), type) {};
 
         SqProto(const lensq length, const SqType &type) :
-                SqProto(length, util::getStandardAlphabet<0>(type), type) {};
+                SqProto(length, util::getStandardAlphabet(type), type) {};
 
         Rcpp::List::Proxy operator[] (lensq index) {
             return content_[index];
@@ -85,16 +85,16 @@ namespace tidysq {
                 SqProto(Rcpp::StringVector(length), alphabet, type) {};
 
         SqProto(const Rcpp::StringVector &content, const Alphabet& alphabet) :
-                SqProto(content, alphabet, util::guessSqType<0>(alphabet)) {};
+                SqProto(content, alphabet, util::guessSqType(alphabet)) {};
 
         SqProto(const lensq length, const Alphabet& alphabet) :
-                SqProto(length, alphabet, util::guessSqType<0>(alphabet)) {};
+                SqProto(length, alphabet, util::guessSqType(alphabet)) {};
 
         SqProto(const Rcpp::StringVector &content, const SqType &type) :
-                SqProto(content, util::getStandardAlphabet<0>(type), type) {};
+                SqProto(content, util::getStandardAlphabet(type), type) {};
 
         SqProto(const lensq length, const SqType &type) :
-                SqProto(length, util::getStandardAlphabet<0>(type), type) {};
+                SqProto(length, util::getStandardAlphabet(type), type) {};
 
         Rcpp::StringVector::Proxy operator[] (lensq index) {
             return content_[index];

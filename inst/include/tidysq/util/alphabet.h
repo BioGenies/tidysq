@@ -6,13 +6,11 @@
 #include "tidysq/types/Alphabet.h"
 
 namespace tidysq::util {
-    template<int DUMMY>
-    std::string getDefaultNALetter() {
+    inline std::string getDefaultNALetter() {
         return "!";
     }
 
-    template<int DUMMY>
-    Alphabet getStandardAlphabet(const SqType &type) {
+    inline Alphabet getStandardAlphabet(const SqType &type) {
         std::vector<std::string> letters;
         switch (type) {
             case AMI:
@@ -38,13 +36,12 @@ namespace tidysq::util {
             default:
                 throw std::invalid_argument("Provided type does not have a predefined standard alphabet!");
         }
-        return Alphabet(letters, getDefaultNALetter<0>());
+        return Alphabet(letters, getDefaultNALetter());
     }
 
-    template<int DUMMY>
-    SqType guessSqType(const Alphabet &alphabet) {
+    inline SqType guessSqType(const Alphabet &alphabet) {
         for (auto &type : {DNA, DNA_CLN, RNA, RNA_CLN, AMI, AMI_CLN}) {
-            if (getStandardAlphabet<0>(type) == alphabet) return type;
+            if (getStandardAlphabet(type) == alphabet) return type;
         }
         return UNT;
     }
