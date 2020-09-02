@@ -87,6 +87,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPP_read_fasta
+Rcpp::DataFrame CPP_read_fasta(Rcpp::StringVector file_name, Rcpp::StringVector alphabet);
+RcppExport SEXP _tidysq_CPP_read_fasta(SEXP file_nameSEXP, SEXP alphabetSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::StringVector >::type file_name(file_nameSEXP);
+    Rcpp::traits::input_parameter< Rcpp::StringVector >::type alphabet(alphabetSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_read_fasta(file_name, alphabet));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_unpack_RAWS
 Rcpp::List CPP_unpack_RAWS(const Rcpp::List& sq, const Rcpp::StringVector& NA_letter);
 RcppExport SEXP _tidysq_CPP_unpack_RAWS(SEXP sqSEXP, SEXP NA_letterSEXP) {
