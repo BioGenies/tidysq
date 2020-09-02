@@ -35,6 +35,16 @@ namespace tidysq {
             }
         }
 
+        static std::vector<std::string> convertSetToVector(const std::set<char> &letters) {
+            std::vector<std::string> ret(letters.size());
+            auto iterator = letters.begin();
+            while (iterator != letters.end()) {
+                ret.emplace_back(std::string({*iterator}));
+                iterator++;
+            }
+            return ret;
+        }
+
         [[nodiscard]] sizealph calculateAlphabetSize() const {
             return ceil(log2((double) letters_.size() + 2));
         }
@@ -69,6 +79,9 @@ namespace tidysq {
 
         explicit Alphabet(Rcpp::List::const_AttributeProxy alphabet) :
                 Alphabet(Rcpp::as<Rcpp::StringVector>(alphabet)) {};
+
+        Alphabet(const std::set<char> &letters, std::string NALetter) :
+                Alphabet(convertSetToVector(letters), std::move(NALetter)) {};
 
         Alphabet(const Alphabet &other) = default;
 
