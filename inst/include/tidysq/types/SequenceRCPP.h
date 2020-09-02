@@ -29,7 +29,7 @@ namespace tidysq {
             return BaseType::operator[](index);
         }
 
-        BaseType::const_AttributeProxy attr(const std::string& name) const {
+        [[nodiscard]] BaseType::const_AttributeProxy attr(const std::string& name) const {
             return BaseType::attr(name);
         }
 
