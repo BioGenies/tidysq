@@ -318,7 +318,7 @@ namespace tidysq::internal {
     Sequence<INTERNAL_OUT> packSTRING_STANDARD(const SequenceProto<RCPP, STRING> &unpacked,
                                                const Alphabet &alphabet) {
 
-        return packSTRING_STANDARD<INTERNAL_OUT>(static_cast<SequenceProto<STD, STRING>>(unpacked),
+        return packSTRING_STANDARD<INTERNAL_OUT>(unpacked.toSequenceProtoSTD(),
                                                  alphabet);
     }
 }

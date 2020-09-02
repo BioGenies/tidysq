@@ -18,12 +18,18 @@ namespace tidysq {
 
     template<>
     class SequenceProto<STD, STRINGS> : public std::vector<std::string> {
+    public:
         using std::vector<std::string>::vector;
+        explicit SequenceProto(const std::vector<std::string> &sequence) :
+                std::vector<std::string>::vector(sequence) {};
     };
 
     template<>
     class SequenceProto<STD, STRING> : public std::string {
+    public:
         using std::string::string;
+        explicit SequenceProto(const std::string &sequence) :
+                std::string(sequence) {};
     };
 
 }

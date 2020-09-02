@@ -27,12 +27,12 @@ namespace tidysq {
     public:
         using Rcpp::String::String;
 
-        explicit operator SequenceProto<STD, STRING>() const {
+        [[nodiscard]] SequenceProto<STD, STRING> toSequenceProtoSTD() const {
             return SequenceProto<STD, STRING>(get_cstring());
         }
 
         static SequenceProto <STD, STRING> steal(const SequenceProto <STD, STRING> &proto) {
-            return SequenceProto<STD, STRING>(std::move(proto));
+            return SequenceProto<STD, STRING>(proto);
         }
     };
 }
