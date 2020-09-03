@@ -164,29 +164,35 @@ can be identified using <code><a href='is_null_sq.html'>is_null_sq</a></code> fu
                          <span class='st'>"TGACGAGCTTA"</span>, <span class='st'>"ACTNNAGCN"</span>), type = <span class='st'>"dna"</span>)
 
 <span class='co'># Removing sequences with ambiguous elements:</span>
-<span class='fu'>clean</span>(<span class='kw'>sq_ami</span>)</div><div class='output co'>#&gt; ami (amino acids), cln (cleaned) sequences list:
-#&gt; [1] MIAANYTWIL                                                              &lt;10&gt;
-#&gt; [2] TIAALGNIIYRAIE                                                          &lt;14&gt;
-#&gt; [3] NYERTGHLI                                                                &lt;9&gt;
-#&gt; [4] &lt;NULL&gt;                                                                   &lt;0&gt;</div><div class='input'><span class='fu'>clean</span>(<span class='kw'>sq_dna</span>)</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
-#&gt; [1] ATGCAGGA                                                                 &lt;8&gt;
-#&gt; [2] &lt;NULL&gt;                                                                   &lt;0&gt;
-#&gt; [3] TGACGAGCTTA                                                             &lt;11&gt;
-#&gt; [4] &lt;NULL&gt;                                                                   &lt;0&gt;</div><div class='input'>
+<span class='fu'>clean</span>(<span class='kw'>sq_ami</span>)
+</div><div class='output co'>#&gt; ami (amino acids), cln (cleaned) sequences list:
+#&gt; [1] <span style='color: #00BB00;'>MIAANYTWIL</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TIAALGNIIYRAIE</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>NYERTGHLI</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt; [4] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span></div><div class='input'><span class='fu'>clean</span>(<span class='kw'>sq_dna</span>)
+</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt; [2] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TGACGAGCTTA</span><span>                                                             </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
+#&gt; [4] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span></div><div class='input'>
 <span class='co'># Removing ambiguous elements from sequences:</span>
-<span class='fu'>clean</span>(<span class='kw'>sq_ami</span>, only_elements = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; ami (amino acids), cln (cleaned) sequences list:
-#&gt; [1] MIAANYTWIL                                                              &lt;10&gt;
-#&gt; [2] TIAALGNIIYRAIE                                                          &lt;14&gt;
-#&gt; [3] NYERTGHLI                                                                &lt;9&gt;
-#&gt; [4] MAYIALN                                                                  &lt;7&gt;</div><div class='input'><span class='fu'>clean</span>(<span class='kw'>sq_dna</span>, only_elements = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
-#&gt; [1] ATGCAGGA                                                                 &lt;8&gt;
-#&gt; [2] GACCGAACGA                                                              &lt;10&gt;
-#&gt; [3] TGACGAGCTTA                                                             &lt;11&gt;
-#&gt; [4] ACTAGC                                                                   &lt;6&gt;</div><div class='input'>
+<span class='fu'>clean</span>(<span class='kw'>sq_ami</span>, only_elements = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; ami (amino acids), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>MIAANYTWIL</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TIAALGNIIYRAIE</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>NYERTGHLI</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>MAYIALN</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span></div><div class='input'><span class='fu'>clean</span>(<span class='kw'>sq_dna</span>, only_elements = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>GACCGAACGA</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TGACGAGCTTA</span><span>                                                             </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>ACTAGC</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span></div><div class='input'>
 <span class='co'># Testing for presence of empty sequences after cleaning:</span>
 <span class='kw'>cln_sq</span> <span class='op'>&lt;-</span> <span class='fu'>clean</span>(<span class='kw'>sq_ami</span>)
-<span class='fu'><a href='is_null_sq.html'>is_null_sq</a></span>(<span class='kw'>cln_sq</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE  TRUE</div><div class='input'>
-</div></pre>
+<span class='fu'><a href='is_null_sq.html'>is_null_sq</a></span>(<span class='kw'>cln_sq</span>)
+</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE  TRUE</div><div class='input'>
+
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -164,10 +164,29 @@ read <code><a href='sq.html'>sq class</a></code> manual).</p>
 <span class='kw'>sq_atp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mALPVQAmAmA"</span>, <span class='st'>"mAmAPQ"</span>), non_standard = <span class='st'>"mA"</span>)
 <span class='kw'>sq_enc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_rna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(A = <span class='fl'>1.23</span>, C = <span class='op'>-</span><span class='fl'>0.72</span>, G = <span class='fl'>0.97</span>, U = <span class='fl'>3.01</span>))
 
-<span class='fu'>is.sq</span>(<span class='kw'>sq_ami</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_dna</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_rna</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_unt</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_atp</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_enc</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'>is.sq</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>))</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>LETTERS</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span>(<span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>NULL</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-<span class='fu'>is.amisq</span>(<span class='kw'>sq_ami</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.dnasq</span>(<span class='kw'>sq_dna</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.rnasq</span>(<span class='kw'>sq_rna</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.atpsq</span>(<span class='kw'>sq_atp</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.untsq</span>(<span class='kw'>sq_unt</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.encsq</span>(<span class='kw'>sq_enc</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'>is.dnasq</span>(<span class='kw'>sq_enc</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.amisq</span>(<span class='kw'>sq_atp</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.untsq</span>(<span class='kw'>sq_ami</span>)</div><div class='output co'>#&gt; [1] FALSE</div></pre>
+<span class='fu'>is.sq</span>(<span class='kw'>sq_ami</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_dna</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_rna</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_unt</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_atp</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>sq_enc</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='fu'>is.sq</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>))
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>LETTERS</span>)
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span>(<span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span>(<span class='kw'>NULL</span>)
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+<span class='fu'>is.amisq</span>(<span class='kw'>sq_ami</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.dnasq</span>(<span class='kw'>sq_dna</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.rnasq</span>(<span class='kw'>sq_rna</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.atpsq</span>(<span class='kw'>sq_atp</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.untsq</span>(<span class='kw'>sq_unt</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.encsq</span>(<span class='kw'>sq_enc</span>)
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='fu'>is.dnasq</span>(<span class='kw'>sq_enc</span>)
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.amisq</span>(<span class='kw'>sq_atp</span>)
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.untsq</span>(<span class='kw'>sq_ami</span>)
+</div><div class='output co'>#&gt; [1] FALSE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

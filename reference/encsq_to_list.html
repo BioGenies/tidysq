@@ -195,17 +195,23 @@ are letters of original sequences.</p>
 
 <span class='kw'>e1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_dna</span>, <span class='kw'>enc_dna</span>)
 <span class='kw'>e2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_ami</span>, <span class='kw'>enc_ami</span>)
-<span class='kw'>e3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_dna</span>, <span class='kw'>enc_rna_ex</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA</span></div><div class='input'><span class='kw'>e4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_ami</span>, <span class='kw'>enc_ami_ex</span>)
-<span class='kw'>e5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_rna_ex</span>, <span class='kw'>enc_dna</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA</span></div><div class='input'><span class='kw'>e6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_ami_ex</span>, <span class='kw'>enc_ami</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA</span></div><div class='input'><span class='kw'>e7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_rna_ex</span>, <span class='kw'>enc_rna_ex</span>)
+<span class='kw'>e3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_dna</span>, <span class='kw'>enc_rna_ex</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA</span></div><div class='input'><span class='kw'>e4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_ami</span>, <span class='kw'>enc_ami_ex</span>)
+<span class='kw'>e5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_rna_ex</span>, <span class='kw'>enc_dna</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA</span></div><div class='input'><span class='kw'>e6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_ami_ex</span>, <span class='kw'>enc_ami</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA</span></div><div class='input'><span class='kw'>e7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_rna_ex</span>, <span class='kw'>enc_rna_ex</span>)
 <span class='kw'>e8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_ami_ex</span>, <span class='kw'>enc_ami_ex</span>)
-<span class='kw'>e9</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(A = <span class='fl'>1</span>, G = <span class='fl'>0.02</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA</span></div><div class='input'><span class='kw'>e10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(A = <span class='fl'>5</span>, H = <span class='fl'>5</span>, I = <span class='fl'>0.3</span>, K = <span class='op'>-</span><span class='fl'>2</span>, 
-                        L = <span class='op'>-</span><span class='fl'>3.1</span>, M = <span class='fl'>5</span>, N = <span class='fl'>6</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA</span></div><div class='input'><span class='kw'>e_aa</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_ami</span>, <span class='kw'>enc_aa</span>)
+<span class='kw'>e9</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(A = <span class='fl'>1</span>, G = <span class='fl'>0.02</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA</span></div><div class='input'><span class='kw'>e10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(A = <span class='fl'>5</span>, H = <span class='fl'>5</span>, I = <span class='fl'>0.3</span>, K = <span class='op'>-</span><span class='fl'>2</span>, 
+                        L = <span class='op'>-</span><span class='fl'>3.1</span>, M = <span class='fl'>5</span>, N = <span class='fl'>6</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA</span></div><div class='input'><span class='kw'>e_aa</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_ami</span>, <span class='kw'>enc_aa</span>)
 
 
 <span class='co'># Transform \code{\link{encode}} result to a list:</span>
 
 <span class='co'>## Sequence with a standard alphabet, encoding with a standard alphabet</span>
-<span class='fu'>encsq_to_list</span>(<span class='kw'>e1</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>encsq_to_list</span>(<span class='kw'>e1</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt; T A T G A A T T A G C T G T C T T T G C T G C T T T G G T T A T C T A T G A 
 #&gt; 2 1 2 2 1 1 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2 2 2 1 2 2 1 
 #&gt; 
@@ -232,7 +238,8 @@ are letters of original sequences.</p>
 #&gt; [[7]]
 #&gt; C T G A A T G T 
 #&gt; 2 2 2 1 1 2 2 2 
-#&gt; </div><div class='input'><span class='fu'>encsq_to_list</span>(<span class='kw'>e2</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>encsq_to_list</span>(<span class='kw'>e2</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt; N Y M I T G G R E E Y E R T V I Y R A I A L N A A N Y T W I L 
 #&gt; 6 4 5 3 6 1 1 2 6 6 4 6 2 6 3 3 4 2 5 3 5 3 6 5 5 6 4 6 4 3 3 
 #&gt; 
@@ -257,7 +264,8 @@ are letters of original sequences.</p>
 #&gt; 6 5 5 5 6 
 #&gt; </div><div class='input'>
 <span class='co'>## Sequence with a standard alphabet, encoding with an extended alphabet</span>
-<span class='fu'>encsq_to_list</span>(<span class='kw'>e3</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>encsq_to_list</span>(<span class='kw'>e3</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt;  T  A  T  G  A  A  T  T  A  G  C  T  G  T  C  T  T  T  G  C  T  G  C  T  T  T 
 #&gt; NA  1 NA  2  1  1 NA NA  1  2  1 NA  2 NA  1 NA NA NA  2  1 NA  2  1 NA NA NA 
 #&gt;  G  G  T  T  A  T  C  T  A  T  G  A 
@@ -286,7 +294,8 @@ are letters of original sequences.</p>
 #&gt; [[7]]
 #&gt;  C  T  G  A  A  T  G  T 
 #&gt;  1 NA  2  1  1 NA  2 NA 
-#&gt; </div><div class='input'><span class='fu'>encsq_to_list</span>(<span class='kw'>e4</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>encsq_to_list</span>(<span class='kw'>e4</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt; N Y M I T G G R E E Y E R T V I Y R A I A L N A A N Y T W I L 
 #&gt; 6 4 5 3 6 1 1 2 6 6 4 6 2 6 3 3 4 2 5 3 5 3 6 5 5 6 4 6 4 3 3 
 #&gt; 
@@ -311,7 +320,8 @@ are letters of original sequences.</p>
 #&gt; 6 5 5 5 6 
 #&gt; </div><div class='input'>
 <span class='co'>## Sequence with an extended alphabet, encoding with a standard alphabet</span>
-<span class='fu'>encsq_to_list</span>(<span class='kw'>e5</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>encsq_to_list</span>(<span class='kw'>e5</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt;  V  A  H  C  H  A  G  D  U  G  B  B  V  G 
 #&gt; NA  1 NA  2 NA  1  2 NA NA  2 NA NA NA  2 
 #&gt; 
@@ -330,7 +340,8 @@ are letters of original sequences.</p>
 #&gt; [[5]]
 #&gt;  C  U  H  A  A  B  B  U 
 #&gt;  2 NA NA  1  1 NA NA NA 
-#&gt; </div><div class='input'><span class='fu'>encsq_to_list</span>(<span class='kw'>e6</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>encsq_to_list</span>(<span class='kw'>e6</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt;  M  A  Y  U  O  U  O  N  N  N  I  A  L  N 
 #&gt;  5  5  4 NA NA NA NA  6  6  6  3  5  3  6 
 #&gt; 
@@ -343,7 +354,8 @@ are letters of original sequences.</p>
 #&gt; 6 5 5 1 5 6 
 #&gt; </div><div class='input'>
 <span class='co'>## Sequence with an extended alphabet, encoding with an extended alphabet</span>
-<span class='fu'>encsq_to_list</span>(<span class='kw'>e7</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>encsq_to_list</span>(<span class='kw'>e7</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt;  V  A  H  C  H  A  G  D  U  G  B  B  V  G 
 #&gt; 21  1 13  1 13  1  2  8  3  2  5  5 21  2 
 #&gt; 
@@ -362,7 +374,8 @@ are letters of original sequences.</p>
 #&gt; [[5]]
 #&gt;  C  U  H  A  A  B  B  U 
 #&gt;  1  3 13  1  1  5  5  3 
-#&gt; </div><div class='input'><span class='fu'>encsq_to_list</span>(<span class='kw'>e8</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>encsq_to_list</span>(<span class='kw'>e8</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt;      M      A      Y      U      O      U      O      N      N      N      I 
 #&gt;  5.000  5.000  4.000 -0.100  0.753 -0.100  0.753  6.000  6.000  6.000  3.000 
 #&gt;      A      L      N 
@@ -377,7 +390,8 @@ are letters of original sequences.</p>
 #&gt; 6 5 5 1 5 6 
 #&gt; </div><div class='input'>
 <span class='co'>## Sequence with standard alphabet, encoding without all letters assigned</span>
-<span class='fu'>encsq_to_list</span>(<span class='kw'>e9</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>encsq_to_list</span>(<span class='kw'>e9</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt;    T    A    T    G    A    A    T    T    A    G    C    T    G    T    C    T 
 #&gt;   NA 1.00   NA 0.02 1.00 1.00   NA   NA 1.00 0.02   NA   NA 0.02   NA   NA   NA 
 #&gt;    T    T    G    C    T    G    C    T    T    T    G    G    T    T    A    T 
@@ -410,7 +424,8 @@ are letters of original sequences.</p>
 #&gt; [[7]]
 #&gt;    C    T    G    A    A    T    G    T 
 #&gt;   NA   NA 0.02 1.00 1.00   NA 0.02   NA 
-#&gt; </div><div class='input'><span class='fu'>encsq_to_list</span>(<span class='kw'>e10</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; </div><div class='input'><span class='fu'>encsq_to_list</span>(<span class='kw'>e10</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt;    N    Y    M    I    T    G    G    R    E    E    Y    E    R    T    V    I 
 #&gt;  6.0   NA  5.0  0.3   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA   NA  0.3 
 #&gt;    Y    R    A    I    A    L    N    A    A    N    Y    T    W    I    L 
@@ -437,7 +452,8 @@ are letters of original sequences.</p>
 #&gt;  6  5  5  5 NA 
 #&gt; </div><div class='input'>
 <span class='co'>## Import encoding from other sources</span>
-<span class='fu'>encsq_to_list</span>(<span class='kw'>e_aa</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>encsq_to_list</span>(<span class='kw'>e_aa</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt;     N     Y     M     I     T     G     G     R     E     E     Y     E     R 
 #&gt; 0.229 0.429 0.375 0.411 0.388 0.312 0.312 0.362 0.262 0.262 0.429 0.262 0.362 
 #&gt;     T     V     I     Y     R     A     I     A     L     N     A     A     N 
@@ -471,8 +487,10 @@ are letters of original sequences.</p>
 <span class='co'># What encoding is assigned to a letter</span>
 
 <span class='kw'>ee1</span> <span class='op'>&lt;-</span> <span class='fu'>encsq_to_list</span>(<span class='kw'>e1</span>)
-<span class='kw'>ee1</span>[[<span class='fl'>1</span>]][<span class='st'>"T"</span>]</div><div class='output co'>#&gt; T 
-#&gt; 2 </div><div class='input'></div></pre>
+<span class='kw'>ee1</span>[[<span class='fl'>1</span>]][<span class='st'>"T"</span>]
+</div><div class='output co'>#&gt; T 
+#&gt; 2 </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

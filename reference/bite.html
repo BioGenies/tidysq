@@ -186,7 +186,8 @@ a message or no information (you can check details in <code><a href='tidysq-opti
 <span class='co'># The first four isomiRs sequences have lengths of 15, 14, 14 and 15</span>
 <span class='co'># nucleotides. The remaining artificial sequences have lengths of 5, 4, 3 </span>
 <span class='co'># and 5 nucleotides, respectively.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>sq</span>)</div><div class='output co'>#&gt;      Length Class  Mode
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>sq</span>)
+</div><div class='output co'>#&gt;      Length Class  Mode
 #&gt; [1,] 9      -none- raw 
 #&gt; [2,] 9      -none- raw 
 #&gt; [3,] 9      -none- raw 
@@ -198,89 +199,99 @@ a message or no information (you can check details in <code><a href='tidysq-opti
 <span class='co'># Working with the first four miRNA/isomiR</span>
 <span class='co'># Removing first letter from the first four sequences (miRNAs/isomiRs).</span>
 <span class='co'># The sequence 1, 3 and 4 appear to be more similar.</span>
-<span class='fu'>bite</span>(<span class='kw'>sq</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>], <span class='op'>-</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
-#&gt; [1] CTTTGGTTATCTAGCTGTATGA                                                  &lt;22&gt;
-#&gt; [2] TTTGGTTATCTAGCTGTATGA                                                   &lt;21&gt;
-#&gt; [3] CTTTGGTTATCTAGCTGTATG                                                   &lt;21&gt;
-#&gt; [4] CTTTGGTTATCTAGCTGTATGAA                                                 &lt;23&gt;</div><div class='input'>
+<span class='fu'>bite</span>(<span class='kw'>sq</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>], <span class='op'>-</span><span class='fl'>1</span>)
+</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
+#&gt; [1] <span style='color: #00BB00;'>CTTTGGTTATCTAGCTGTATGA</span><span>                                                  </span><span style='color: #0000BB;'>&lt;22&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TTTGGTTATCTAGCTGTATGA</span><span>                                                   </span><span style='color: #0000BB;'>&lt;21&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>CTTTGGTTATCTAGCTGTATG</span><span>                                                   </span><span style='color: #0000BB;'>&lt;21&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>CTTTGGTTATCTAGCTGTATGAA</span><span>                                                 </span><span style='color: #0000BB;'>&lt;23&gt;</span><span></div><div class='input'>
 <span class='co'># Extracting first five letters from each miRNA/ismomiR sequence:</span>
-<span class='fu'>bite</span>(<span class='kw'>sq</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>], <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>)</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
-#&gt; [1] TCTTT                                                                    &lt;5&gt;
-#&gt; [2] CTTTG                                                                    &lt;5&gt;
-#&gt; [3] TCTTT                                                                    &lt;5&gt;
-#&gt; [4] TCTTT                                                                    &lt;5&gt;</div><div class='input'>
+<span class='fu'>bite</span>(<span class='kw'>sq</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>], <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>)
+</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>TCTTT</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>CTTTG</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TCTTT</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>TCTTT</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
 <span class='co'># Working with all sequences</span>
 <span class='co'># Extracting first letter from each sequence:</span>
-<span class='fu'>bite</span>(<span class='kw'>sq</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
-#&gt; [1] T                                                                        &lt;1&gt;
-#&gt; [2] C                                                                        &lt;1&gt;
-#&gt; [3] T                                                                        &lt;1&gt;
-#&gt; [4] T                                                                        &lt;1&gt;
-#&gt; [5] A                                                                        &lt;1&gt;
-#&gt; [6] C                                                                        &lt;1&gt;
-#&gt; [7] C                                                                        &lt;1&gt;
-#&gt; [8] C                                                                        &lt;1&gt;</div><div class='input'>
+<span class='fu'>bite</span>(<span class='kw'>sq</span>, <span class='fl'>1</span>)
+</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>T</span><span>                                                                        </span><span style='color: #0000BB;'>&lt;1&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>C</span><span>                                                                        </span><span style='color: #0000BB;'>&lt;1&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>T</span><span>                                                                        </span><span style='color: #0000BB;'>&lt;1&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>T</span><span>                                                                        </span><span style='color: #0000BB;'>&lt;1&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>A</span><span>                                                                        </span><span style='color: #0000BB;'>&lt;1&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>C</span><span>                                                                        </span><span style='color: #0000BB;'>&lt;1&gt;</span><span>
+#&gt; [7] </span><span style='color: #00BB00;'>C</span><span>                                                                        </span><span style='color: #0000BB;'>&lt;1&gt;</span><span>
+#&gt; [8] </span><span style='color: #00BB00;'>C</span><span>                                                                        </span><span style='color: #0000BB;'>&lt;1&gt;</span><span></div><div class='input'>
 <span class='co'># Extracting first three letters from each sequence:</span>
-<span class='fu'>bite</span>(<span class='kw'>sq</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>)</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
-#&gt; [1] TCT                                                                      &lt;3&gt;
-#&gt; [2] CTT                                                                      &lt;3&gt;
-#&gt; [3] TCT                                                                      &lt;3&gt;
-#&gt; [4] TCT                                                                      &lt;3&gt;
-#&gt; [5] ACT                                                                      &lt;3&gt;
-#&gt; [6] CTT                                                                      &lt;3&gt;
-#&gt; [7] CCC                                                                      &lt;3&gt;
-#&gt; [8] CTG                                                                      &lt;3&gt;</div><div class='input'>
+<span class='fu'>bite</span>(<span class='kw'>sq</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>)
+</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>TCT</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>CTT</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TCT</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>TCT</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>ACT</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>CTT</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>
+#&gt; [7] </span><span style='color: #00BB00;'>CCC</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>
+#&gt; [8] </span><span style='color: #00BB00;'>CTG</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;3&gt;</span><span></div><div class='input'>
 <span class='co'># Extracting second, fourth, third and second letters:</span>
-<span class='fu'>bite</span>(<span class='kw'>sq</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>2</span>))</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
-#&gt; [1] CTTC                                                                     &lt;4&gt;
-#&gt; [2] TTTT                                                                     &lt;4&gt;
-#&gt; [3] CTTC                                                                     &lt;4&gt;
-#&gt; [4] CTTC                                                                     &lt;4&gt;
-#&gt; [5] CGTC                                                                     &lt;4&gt;
-#&gt; [6] TATT                                                                     &lt;4&gt;
-#&gt; [7] CTCC                                                                     &lt;4&gt;
-#&gt; [8] TAGT                                                                     &lt;4&gt;</div><div class='input'>
+<span class='fu'>bite</span>(<span class='kw'>sq</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>2</span>))
+</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>CTTC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TTTT</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>CTTC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>CTTC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>CGTC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>TATT</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [7] </span><span style='color: #00BB00;'>CTCC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [8] </span><span style='color: #00BB00;'>TAGT</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span></div><div class='input'>
 <span class='co'># Extracting second to fifth letter - NA introduced:</span>
-<span class='fu'>bite</span>(<span class='kw'>sq</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: some sequences are subsetted with index bigger than length - NA introduced</span></div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
-#&gt; [1] CTTT                                                                     &lt;4&gt;
-#&gt; [2] TTTG                                                                     &lt;4&gt;
-#&gt; [3] CTTT                                                                     &lt;4&gt;
-#&gt; [4] CTTT                                                                     &lt;4&gt;
-#&gt; [5] CTGC                                                                     &lt;4&gt;
-#&gt; [6] TTAG                                                                     &lt;4&gt;
-#&gt; [7] CCT!                                                                     &lt;4&gt;
-#&gt; [8] TGAA                                                                     &lt;4&gt;</div><div class='input'>
+<span class='fu'>bite</span>(<span class='kw'>sq</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: some sequences are subsetted with index bigger than length - NA introduced</span></div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>CTTT</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TTTG</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>CTTT</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>CTTT</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>CTGC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>TTAG</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [7] </span><span style='color: #00BB00;'>CCT</span><span style='color: #555555;'>!</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [8] </span><span style='color: #00BB00;'>TGAA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span></div><div class='input'>
 <span class='co'># Extracting all from first to twentieth - NA introduced:</span>
-<span class='fu'>bite</span>(<span class='kw'>sq</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: some sequences are subsetted with index bigger than length - NA introduced</span></div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
-#&gt; [1] TCTTTGGTTATCTAGCTGTA                                                    &lt;20&gt;
-#&gt; [2] CTTTGGTTATCTAGCTGTAT                                                    &lt;20&gt;
-#&gt; [3] TCTTTGGTTATCTAGCTGTA                                                    &lt;20&gt;
-#&gt; [4] TCTTTGGTTATCTAGCTGTA                                                    &lt;20&gt;
-#&gt; [5] ACTGCTG!!!!!!!!!!!!!                                                    &lt;20&gt;
-#&gt; [6] CTTAGA!!!!!!!!!!!!!!                                                    &lt;20&gt;
-#&gt; [7] CCCT!!!!!!!!!!!!!!!!                                                    &lt;20&gt;
-#&gt; [8] CTGAATGT!!!!!!!!!!!!                                                    &lt;20&gt;</div><div class='input'>
+<span class='fu'>bite</span>(<span class='kw'>sq</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: some sequences are subsetted with index bigger than length - NA introduced</span></div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>TCTTTGGTTATCTAGCTGTA</span><span>                                                    </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>CTTTGGTTATCTAGCTGTAT</span><span>                                                    </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TCTTTGGTTATCTAGCTGTA</span><span>                                                    </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>TCTTTGGTTATCTAGCTGTA</span><span>                                                    </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>ACTGCTG</span><span style='color: #555555;'>!!!!!!!!!!!!!</span><span>                                                    </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>CTTAGA</span><span style='color: #555555;'>!!!!!!!!!!!!!!</span><span>                                                    </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
+#&gt; [7] </span><span style='color: #00BB00;'>CCCT</span><span style='color: #555555;'>!!!!!!!!!!!!!!!!</span><span>                                                    </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
+#&gt; [8] </span><span style='color: #00BB00;'>CTGAATGT</span><span style='color: #555555;'>!!!!!!!!!!!!</span><span>                                                    </span><span style='color: #0000BB;'>&lt;20&gt;</span><span></div><div class='input'>
 <span class='co'># Extracting all excluding first letter of sequence:</span>
-<span class='fu'>bite</span>(<span class='kw'>sq</span>, <span class='op'>-</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
-#&gt; [1] CTTTGGTTATCTAGCTGTATGA                                                  &lt;22&gt;
-#&gt; [2] TTTGGTTATCTAGCTGTATGA                                                   &lt;21&gt;
-#&gt; [3] CTTTGGTTATCTAGCTGTATG                                                   &lt;21&gt;
-#&gt; [4] CTTTGGTTATCTAGCTGTATGAA                                                 &lt;23&gt;
-#&gt; [5] CTGCTG                                                                   &lt;6&gt;
-#&gt; [6] TTAGA                                                                    &lt;5&gt;
-#&gt; [7] CCT                                                                      &lt;3&gt;
-#&gt; [8] TGAATGT                                                                  &lt;7&gt;</div><div class='input'>
+<span class='fu'>bite</span>(<span class='kw'>sq</span>, <span class='op'>-</span><span class='fl'>1</span>)
+</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>CTTTGGTTATCTAGCTGTATGA</span><span>                                                  </span><span style='color: #0000BB;'>&lt;22&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TTTGGTTATCTAGCTGTATGA</span><span>                                                   </span><span style='color: #0000BB;'>&lt;21&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>CTTTGGTTATCTAGCTGTATG</span><span>                                                   </span><span style='color: #0000BB;'>&lt;21&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>CTTTGGTTATCTAGCTGTATGAA</span><span>                                                 </span><span style='color: #0000BB;'>&lt;23&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>CTGCTG</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>TTAGA</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [7] </span><span style='color: #00BB00;'>CCT</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>
+#&gt; [8] </span><span style='color: #00BB00;'>TGAATGT</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span></div><div class='input'>
 <span class='co'># Extracting all excluding second and sixth letter of sequence:</span>
-<span class='fu'>bite</span>(<span class='kw'>sq</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>6</span>))</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
-#&gt; [1] TTTTGTTATCTAGCTGTATGA                                                   &lt;21&gt;
-#&gt; [2] CTTGTTATCTAGCTGTATGA                                                    &lt;20&gt;
-#&gt; [3] TTTTGTTATCTAGCTGTATG                                                    &lt;20&gt;
-#&gt; [4] TTTTGTTATCTAGCTGTATGAA                                                  &lt;22&gt;
-#&gt; [5] ATGCG                                                                    &lt;5&gt;
-#&gt; [6] CTAG                                                                     &lt;4&gt;
-#&gt; [7] CCT                                                                      &lt;3&gt;
-#&gt; [8] CGAAGT                                                                   &lt;6&gt;</div><div class='input'>
-</div></pre>
+<span class='fu'>bite</span>(<span class='kw'>sq</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>6</span>))
+</div><div class='output co'>#&gt; dna (DNA), cln (cleaned) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>TTTTGTTATCTAGCTGTATGA</span><span>                                                   </span><span style='color: #0000BB;'>&lt;21&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>CTTGTTATCTAGCTGTATGA</span><span>                                                    </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TTTTGTTATCTAGCTGTATG</span><span>                                                    </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>TTTTGTTATCTAGCTGTATGAA</span><span>                                                  </span><span style='color: #0000BB;'>&lt;22&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>ATGCG</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>CTAG</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [7] </span><span style='color: #00BB00;'>CCT</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>
+#&gt; [8] </span><span style='color: #00BB00;'>CGAAGT</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span></div><div class='input'>
+
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

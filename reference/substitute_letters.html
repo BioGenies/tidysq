@@ -199,75 +199,84 @@ cannot be separated in future operations into single letters.</p>
 
 <span class='co'># Replace single letter of alphabet with single character encoding:</span>
 
-<span class='fu'>substitute_letters</span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(T = <span class='st'>"t"</span>, A = <span class='st'>"a"</span>, C = <span class='st'>"H"</span>, G = <span class='st'>"Z"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] tatZaattaZHtZtHtttZHtZHtttZZttatHtatZa                                  &lt;38&gt;
-#&gt; [2] HtttZZttatHtaZHtZtatZa                                                  &lt;22&gt;
-#&gt; [3] tatHtaZHtZtatZ                                                          &lt;14&gt;
-#&gt; [4] HtZHtZ                                                                   &lt;6&gt;
-#&gt; [5] HttaZa                                                                   &lt;6&gt;
-#&gt; [6] HHHt                                                                     &lt;4&gt;
-#&gt; [7] HtZaatZt                                                                 &lt;8&gt;</div><div class='input'><span class='fu'>substitute_letters</span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(T = <span class='fl'>1</span>, A = <span class='fl'>2</span>, C = <span class='fl'>3</span>, G = <span class='fl'>4</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] 12142211243141311143143111441121312142                                  &lt;38&gt;
-#&gt; [2] 3111441121312431412142                                                  &lt;22&gt;
-#&gt; [3] 12131243141214                                                          &lt;14&gt;
-#&gt; [4] 314314                                                                   &lt;6&gt;
-#&gt; [5] 311242                                                                   &lt;6&gt;
-#&gt; [6] 3331                                                                     &lt;4&gt;
-#&gt; [7] 31422141                                                                 &lt;8&gt;</div><div class='input'>
-<span class='fu'>substitute_letters</span>(<span class='kw'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(M = <span class='st'>"m"</span>, Q = <span class='st'>"g"</span>, R = <span class='st'>"#"</span>, D = <span class='st'>"$"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] NYmITGG#EEYE#TVIY#AIALNAANYTWIL                                         &lt;31&gt;
-#&gt; [2] TIAALGNIIY#AIE                                                          &lt;14&gt;
-#&gt; [3] NYE#TGHLI                                                                &lt;9&gt;
-#&gt; [4] mAYNNNIALN                                                              &lt;10&gt;
-#&gt; [5] mN                                                                       &lt;2&gt;
-#&gt; [6] NAAAT                                                                    &lt;5&gt;</div><div class='input'><span class='fu'>substitute_letters</span>(<span class='kw'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(M = <span class='st'>"2"</span>, Q = <span class='st'>"5"</span>, R = <span class='st'>"9"</span>, D = <span class='st'>"7"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] NY2ITGG9EEYE9TVIY9AIALNAANYTWIL                                         &lt;31&gt;
-#&gt; [2] TIAALGNIIY9AIE                                                          &lt;14&gt;
-#&gt; [3] NYE9TGHLI                                                                &lt;9&gt;
-#&gt; [4] 2AYNNNIALN                                                              &lt;10&gt;
-#&gt; [5] 2N                                                                       &lt;2&gt;
-#&gt; [6] NAAAT                                                                    &lt;5&gt;</div><div class='input'>
+<span class='fu'>substitute_letters</span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(T = <span class='st'>"t"</span>, A = <span class='st'>"a"</span>, C = <span class='st'>"H"</span>, G = <span class='st'>"Z"</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] <span style='color: #00BB00;'>tatZaattaZHtZtHtttZHtZHtttZZttatHtatZa</span><span>                                  </span><span style='color: #0000BB;'>&lt;38&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>HtttZZttatHtaZHtZtatZa</span><span>                                                  </span><span style='color: #0000BB;'>&lt;22&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>tatHtaZHtZtatZ</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>HtZHtZ</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>HttaZa</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>HHHt</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [7] </span><span style='color: #00BB00;'>HtZaatZt</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'><span class='fu'>substitute_letters</span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(T = <span class='fl'>1</span>, A = <span class='fl'>2</span>, C = <span class='fl'>3</span>, G = <span class='fl'>4</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>12142211243141311143143111441121312142</span><span>                                  </span><span style='color: #0000BB;'>&lt;38&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>3111441121312431412142</span><span>                                                  </span><span style='color: #0000BB;'>&lt;22&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>12131243141214</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>314314</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>311242</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>3331</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [7] </span><span style='color: #00BB00;'>31422141</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'>
+<span class='fu'>substitute_letters</span>(<span class='kw'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(M = <span class='st'>"m"</span>, Q = <span class='st'>"g"</span>, R = <span class='st'>"#"</span>, D = <span class='st'>"$"</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>NYmITGG#EEYE#TVIY#AIALNAANYTWIL</span><span>                                         </span><span style='color: #0000BB;'>&lt;31&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TIAALGNIIY#AIE</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>NYE#TGHLI</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>mAYNNNIALN</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>mN</span><span>                                                                       </span><span style='color: #0000BB;'>&lt;2&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>NAAAT</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'><span class='fu'>substitute_letters</span>(<span class='kw'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(M = <span class='st'>"2"</span>, Q = <span class='st'>"5"</span>, R = <span class='st'>"9"</span>, D = <span class='st'>"7"</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>NY2ITGG9EEYE9TVIY9AIALNAANYTWIL</span><span>                                         </span><span style='color: #0000BB;'>&lt;31&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TIAALGNIIY9AIE</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>NYE9TGHLI</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>2AYNNNIALN</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>2N</span><span>                                                                       </span><span style='color: #0000BB;'>&lt;2&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>NAAAT</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
 
 <span class='co'># Replace single letter of alphabet with multiple character encoding:</span>
 
-<span class='fu'>substitute_letters</span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(T = <span class='st'>"th"</span>, A = <span class='st'>"ad"</span>, C = <span class='st'>"cy"</span>, G = <span class='st'>"gu"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] th ad th gu ad ad th th ad gu cy th gu th cy th th th gu cy th gu cy... &lt;38&gt;
-#&gt; [2] cy th th th gu gu th th ad th cy th ad gu cy th gu th ad th gu ad       &lt;22&gt;
-#&gt; [3] th ad th cy th ad gu cy th gu th ad th gu                               &lt;14&gt;
-#&gt; [4] cy th gu cy th gu                                                        &lt;6&gt;
-#&gt; [5] cy th th ad gu ad                                                        &lt;6&gt;
-#&gt; [6] cy cy cy th                                                              &lt;4&gt;
-#&gt; [7] cy th gu ad ad th gu th                                                  &lt;8&gt;</div><div class='input'><span class='fu'>substitute_letters</span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(T = <span class='fl'>111</span>, A = <span class='fl'>222</span>, C = <span class='fl'>333</span>, G = <span class='fl'>444</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] 111 222 111 444 222 222 111 111 222 444 333 111 444 111 333 111 111...  &lt;38&gt;
-#&gt; [2] 333 111 111 111 444 444 111 111 222 111 333 111 222 444 333 111 444...  &lt;22&gt;
-#&gt; [3] 111 222 111 333 111 222 444 333 111 444 111 222 111 444                 &lt;14&gt;
-#&gt; [4] 333 111 444 333 111 444                                                  &lt;6&gt;
-#&gt; [5] 333 111 111 222 444 222                                                  &lt;6&gt;
-#&gt; [6] 333 333 333 111                                                          &lt;4&gt;
-#&gt; [7] 333 111 444 222 222 111 444 111                                          &lt;8&gt;</div><div class='input'>
-<span class='fu'>substitute_letters</span>(<span class='kw'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(M = <span class='st'>"Met"</span>, Q = <span class='st'>"Gln"</span>, R = <span class='st'>"Arg"</span>, D = <span class='st'>"Asp"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] N Y Met I T G G Arg E E Y E Arg T V I Y Arg A I A L N A A N Y T W I L   &lt;31&gt;
-#&gt; [2] T I A A L G N I I Y Arg A I E                                           &lt;14&gt;
-#&gt; [3] N Y E Arg T G H L I                                                      &lt;9&gt;
-#&gt; [4] Met A Y N N N I A L N                                                   &lt;10&gt;
-#&gt; [5] Met N                                                                    &lt;2&gt;
-#&gt; [6] N A A A T                                                                &lt;5&gt;</div><div class='input'><span class='fu'>substitute_letters</span>(<span class='kw'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(M = <span class='st'>"222"</span>, Q = <span class='st'>"555"</span>, R = <span class='st'>"999"</span>, D = <span class='st'>"777"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] N Y 222 I T G G 999 E E Y E 999 T V I Y 999 A I A L N A A N Y T W I L   &lt;31&gt;
-#&gt; [2] T I A A L G N I I Y 999 A I E                                           &lt;14&gt;
-#&gt; [3] N Y E 999 T G H L I                                                      &lt;9&gt;
-#&gt; [4] 222 A Y N N N I A L N                                                   &lt;10&gt;
-#&gt; [5] 222 N                                                                    &lt;2&gt;
-#&gt; [6] N A A A T                                                                &lt;5&gt;</div><div class='input'>
+<span class='fu'>substitute_letters</span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(T = <span class='st'>"th"</span>, A = <span class='st'>"ad"</span>, C = <span class='st'>"cy"</span>, G = <span class='st'>"gu"</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>th ad th gu ad ad th th ad gu cy th gu th cy th th th gu cy th gu cy</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;38&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>cy th th th gu gu th th ad th cy th ad gu cy th gu th ad th gu ad</span><span>       </span><span style='color: #0000BB;'>&lt;22&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>th ad th cy th ad gu cy th gu th ad th gu</span><span>                               </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>cy th gu cy th gu</span><span>                                                        </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>cy th th ad gu ad</span><span>                                                        </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>cy cy cy th</span><span>                                                              </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [7] </span><span style='color: #00BB00;'>cy th gu ad ad th gu th</span><span>                                                  </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'><span class='fu'>substitute_letters</span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(T = <span class='fl'>111</span>, A = <span class='fl'>222</span>, C = <span class='fl'>333</span>, G = <span class='fl'>444</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>111 222 111 444 222 222 111 111 222 444 333 111 444 111 333 111 111</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;38&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>333 111 111 111 444 444 111 111 222 111 333 111 222 444 333 111 444</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;22&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>111 222 111 333 111 222 444 333 111 444 111 222 111 444</span><span>                 </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>333 111 444 333 111 444</span><span>                                                  </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>333 111 111 222 444 222</span><span>                                                  </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>333 333 333 111</span><span>                                                          </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [7] </span><span style='color: #00BB00;'>333 111 444 222 222 111 444 111</span><span>                                          </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'>
+<span class='fu'>substitute_letters</span>(<span class='kw'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(M = <span class='st'>"Met"</span>, Q = <span class='st'>"Gln"</span>, R = <span class='st'>"Arg"</span>, D = <span class='st'>"Asp"</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>N Y Met I T G G Arg E E Y E Arg T V I Y Arg A I A L N A A N Y T W I L</span><span>   </span><span style='color: #0000BB;'>&lt;31&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>T I A A L G N I I Y Arg A I E</span><span>                                           </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>N Y E Arg T G H L I</span><span>                                                      </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>Met A Y N N N I A L N</span><span>                                                   </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>Met N</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;2&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>N A A A T</span><span>                                                                </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'><span class='fu'>substitute_letters</span>(<span class='kw'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(M = <span class='st'>"222"</span>, Q = <span class='st'>"555"</span>, R = <span class='st'>"999"</span>, D = <span class='st'>"777"</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>N Y 222 I T G G 999 E E Y E 999 T V I Y 999 A I A L N A A N Y T W I L</span><span>   </span><span style='color: #0000BB;'>&lt;31&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>T I A A L G N I I Y 999 A I E</span><span>                                           </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>N Y E 999 T G H L I</span><span>                                                      </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>222 A Y N N N I A L N</span><span>                                                   </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>222 N</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;2&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>N A A A T</span><span>                                                                </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
 <span class='co'># Replace single letter of alphabet with NA value:</span>
 
-<span class='fu'>substitute_letters</span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(A = <span class='fl'>NA</span>, G = <span class='fl'>NA</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] T!T!!!TT!!CT!TCTTT!CT!CTTT!!TT!TCT!T!!                                  &lt;38&gt;
-#&gt; [2] CTTT!!TT!TCT!!CT!T!T!!                                                  &lt;22&gt;
-#&gt; [3] T!TCT!!CT!T!T!                                                          &lt;14&gt;
-#&gt; [4] CT!CT!                                                                   &lt;6&gt;
-#&gt; [5] CTT!!!                                                                   &lt;6&gt;
-#&gt; [6] CCCT                                                                     &lt;4&gt;
-#&gt; [7] CT!!!T!T                                                                 &lt;8&gt;</div><div class='input'>
+<span class='fu'>substitute_letters</span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(A = <span class='fl'>NA</span>, G = <span class='fl'>NA</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>T</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>T</span><span style='color: #555555;'>!!!</span><span style='color: #00BB00;'>TT</span><span style='color: #555555;'>!!</span><span style='color: #00BB00;'>CT</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>TCTTT</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>CT</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>CTTT</span><span style='color: #555555;'>!!</span><span style='color: #00BB00;'>TT</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>TCT</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>T</span><span style='color: #555555;'>!!</span><span>                                  </span><span style='color: #0000BB;'>&lt;38&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>CTTT</span><span style='color: #555555;'>!!</span><span style='color: #00BB00;'>TT</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>TCT</span><span style='color: #555555;'>!!</span><span style='color: #00BB00;'>CT</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>T</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>T</span><span style='color: #555555;'>!!</span><span>                                                  </span><span style='color: #0000BB;'>&lt;22&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>T</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>TCT</span><span style='color: #555555;'>!!</span><span style='color: #00BB00;'>CT</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>T</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>T</span><span style='color: #555555;'>!</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>CT</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>CT</span><span style='color: #555555;'>!</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>CTT</span><span style='color: #555555;'>!!!</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>CCCT</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [7] </span><span style='color: #00BB00;'>CT</span><span style='color: #555555;'>!!!</span><span style='color: #00BB00;'>T</span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>T</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'>
 
 <span class='co'># Use created encoding</span>
 
@@ -275,20 +284,22 @@ cannot be separated in future operations into single letters.</p>
 <span class='kw'>sub_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(M = <span class='st'>"Met"</span>, Q = <span class='st'>"Gln"</span>, R = <span class='st'>"Arg"</span>, D = <span class='st'>"Asp"</span>, 
              H = <span class='st'>"His"</span>, K = <span class='st'>"Lys"</span>, A = <span class='st'>"Ala"</span>)
 
-<span class='fu'>substitute_letters</span>(<span class='kw'>sq_dna</span>, <span class='kw'>sub_dna</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] tatgaattagctgtctttgctgctttggttatctatga                                  &lt;38&gt;
-#&gt; [2] ctttggttatctagctgtatga                                                  &lt;22&gt;
-#&gt; [3] tatctagctgtatg                                                          &lt;14&gt;
-#&gt; [4] ctgctg                                                                   &lt;6&gt;
-#&gt; [5] cttaga                                                                   &lt;6&gt;
-#&gt; [6] ccct                                                                     &lt;4&gt;
-#&gt; [7] ctgaatgt                                                                 &lt;8&gt;</div><div class='input'><span class='fu'>substitute_letters</span>(<span class='kw'>sq_ami</span>, <span class='kw'>sub_ami</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] N Y Met I T G G Arg E E Y E Arg T V I Y Arg Ala I Ala L N Ala Ala N...  &lt;31&gt;
-#&gt; [2] T I Ala Ala L G N I I Y Arg Ala I E                                     &lt;14&gt;
-#&gt; [3] N Y E Arg T G His L I                                                    &lt;9&gt;
-#&gt; [4] Met Ala Y N N N I Ala L N                                               &lt;10&gt;
-#&gt; [5] Met N                                                                    &lt;2&gt;
-#&gt; [6] N Ala Ala Ala T                                                          &lt;5&gt;</div><div class='input'>
+<span class='fu'>substitute_letters</span>(<span class='kw'>sq_dna</span>, <span class='kw'>sub_dna</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>tatgaattagctgtctttgctgctttggttatctatga</span><span>                                  </span><span style='color: #0000BB;'>&lt;38&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>ctttggttatctagctgtatga</span><span>                                                  </span><span style='color: #0000BB;'>&lt;22&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>tatctagctgtatg</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>ctgctg</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>cttaga</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>ccct</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [7] </span><span style='color: #00BB00;'>ctgaatgt</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'><span class='fu'>substitute_letters</span>(<span class='kw'>sq_ami</span>, <span class='kw'>sub_ami</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>N Y Met I T G G Arg E E Y E Arg T V I Y Arg Ala I Ala L N Ala Ala N</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;31&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>T I Ala Ala L G N I I Y Arg Ala I E</span><span>                                     </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>N Y E Arg T G His L I</span><span>                                                    </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>Met Ala Y N N N I Ala L N</span><span>                                               </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>Met N</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;2&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>N Ala Ala Ala T</span><span>                                                          </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
 
 <span class='co'># Use created encoding from other package </span>
 <span class='co'># (ex. AmyloGram::AmyloGram_model)</span>
@@ -299,15 +310,18 @@ cannot be separated in future operations into single letters.</p>
 
 <span class='kw'>sub_AG</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/substr.html'>substr</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>AG_sub_raw</span>), <span class='fl'>1</span>, <span class='fl'>1</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>sub_AG</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>toupper</a></span>(<span class='kw'>AG_sub_raw</span>)
-<span class='kw'>sub_AG</span> </div><div class='output co'>#&gt;   G   K   P   R   I   L   V   F   W   Y   A   C   H   M   D   E   N   Q   S   T 
+<span class='kw'>sub_AG</span> 
+</div><div class='output co'>#&gt;   G   K   P   R   I   L   V   F   W   Y   A   C   H   M   D   E   N   Q   S   T 
 #&gt; "1" "2" "2" "2" "3" "3" "3" "4" "4" "4" "5" "5" "5" "5" "6" "6" "6" "6" "6" "6" </div><div class='input'>
-<span class='fu'>substitute_letters</span>(<span class='kw'>sq_ami</span>, <span class='kw'>sub_AG</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
-#&gt; [1] 6453611266462633425353655646433                                         &lt;31&gt;
-#&gt; [2] 63553163342536                                                          &lt;14&gt;
-#&gt; [3] 646261533                                                                &lt;9&gt;
-#&gt; [4] 5546663536                                                              &lt;10&gt;
-#&gt; [5] 56                                                                       &lt;2&gt;
-#&gt; [6] 65556                                                                    &lt;5&gt;</div><div class='input'></div></pre>
+<span class='fu'>substitute_letters</span>(<span class='kw'>sq_ami</span>, <span class='kw'>sub_AG</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='output co'>#&gt; atp (atypical alphabet) sequences list:
+#&gt; [1] </span><span style='color: #00BB00;'>6453611266462633425353655646433</span><span>                                         </span><span style='color: #0000BB;'>&lt;31&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>63553163342536</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>646261533</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>5546663536</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>56</span><span>                                                                       </span><span style='color: #0000BB;'>&lt;2&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>65556</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

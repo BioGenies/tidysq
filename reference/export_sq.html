@@ -150,13 +150,16 @@ class; it should be one of the following: "seqinr::SeqFastaAA", "ape::AAbin",
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MVVGL"</span>, <span class='st'>"LAVPP"</span>))
-<span class='fu'>export_sq</span>(<span class='kw'>sq_ami</span>, <span class='st'>"ape::AAbin"</span>)</div><div class='output co'>#&gt; 2 amino acid sequences in a list
+<span class='fu'>export_sq</span>(<span class='kw'>sq_ami</span>, <span class='st'>"ape::AAbin"</span>)
+</div><div class='output co'>#&gt; 2 amino acid sequences in a list
 #&gt; 
 #&gt; All sequences of the same length: 5 
-#&gt; </div><div class='input'><span class='fu'>export_sq</span>(<span class='kw'>sq_ami</span>, <span class='st'>"Biostrings::AAStringSet"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"one"</span>, <span class='st'>"two"</span>))</div><div class='output co'>#&gt; AAStringSet object of length 2:
+#&gt; </div><div class='input'><span class='fu'>export_sq</span>(<span class='kw'>sq_ami</span>, <span class='st'>"Biostrings::AAStringSet"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"one"</span>, <span class='st'>"two"</span>))
+</div><div class='output co'>#&gt; AAStringSet object of length 2:
 #&gt;     width seq                                               names               
 #&gt; [1]     5 MVVGL                                             one
-#&gt; [2]     5 LAVPP                                             two</div><div class='input'><span class='fu'>export_sq</span>(<span class='kw'>sq_ami</span>, <span class='st'>"seqinr::SeqFastaAA"</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [2]     5 LAVPP                                             two</div><div class='input'><span class='fu'>export_sq</span>(<span class='kw'>sq_ami</span>, <span class='st'>"seqinr::SeqFastaAA"</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] "M" "V" "V" "G" "L"
 #&gt; attr(,"class")
 #&gt; [1] "SeqFastaAA"
@@ -167,7 +170,8 @@ class; it should be one of the following: "seqinr::SeqFastaAA", "ape::AAbin",
 #&gt; [1] "SeqFastaAA"
 #&gt; </div><div class='input'>
 <span class='kw'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"TGATGAAGCGCA"</span>, <span class='st'>"TTGATGGGAA"</span>))
-<span class='fu'>export_sq</span>(<span class='kw'>sq_dna</span>, <span class='st'>"ape::DNAbin"</span>, name = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"one"</span>, <span class='st'>"two"</span>))</div><div class='output co'>#&gt; 2 DNA sequences in binary format stored in a list.
+<span class='fu'>export_sq</span>(<span class='kw'>sq_dna</span>, <span class='st'>"ape::DNAbin"</span>, name = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"one"</span>, <span class='st'>"two"</span>))
+</div><div class='output co'>#&gt; 2 DNA sequences in binary format stored in a list.
 #&gt; 
 #&gt; Mean sequence length: 11 
 #&gt;    Shortest sequence: 10 
@@ -180,10 +184,12 @@ class; it should be one of the following: "seqinr::SeqFastaAA", "ape::AAbin",
 #&gt; Base composition:
 #&gt;     a     c     g     t 
 #&gt; 0.318 0.091 0.364 0.227 
-#&gt; (Total: 22 bases)</div><div class='input'><span class='fu'>export_sq</span>(<span class='kw'>sq_dna</span>, <span class='st'>"Biostrings::DNAStringSet"</span>)</div><div class='output co'>#&gt; DNAStringSet object of length 2:
+#&gt; (Total: 22 bases)</div><div class='input'><span class='fu'>export_sq</span>(<span class='kw'>sq_dna</span>, <span class='st'>"Biostrings::DNAStringSet"</span>)
+</div><div class='output co'>#&gt; DNAStringSet object of length 2:
 #&gt;     width seq
-#&gt; [1]    12 TGATGAAGCGCA
-#&gt; [2]    10 TTGATGGGAA</div><div class='input'><span class='fu'>export_sq</span>(<span class='kw'>sq_dna</span>, <span class='st'>"seqinr::SeqFastadna"</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [1]    12 <span style='color: #000000;background-color: #BBBBBB;'>TGATGAAGCGCA</span><span>
+#&gt; [2]    10 </span><span style='color: #000000;background-color: #BBBBBB;'>TTGATGGGAA</span><span></div><div class='input'><span class='fu'>export_sq</span>(<span class='kw'>sq_dna</span>, <span class='st'>"seqinr::SeqFastadna"</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt;  [1] "T" "G" "A" "T" "G" "A" "A" "G" "C" "G" "C" "A"
 #&gt; attr(,"class")
 #&gt; [1] "SeqFastadna"
@@ -192,7 +198,7 @@ class; it should be one of the following: "seqinr::SeqFastaAA", "ape::AAbin",
 #&gt;  [1] "T" "T" "G" "A" "T" "G" "G" "G" "A" "A"
 #&gt; attr(,"class")
 #&gt; [1] "SeqFastadna"
-#&gt; </div></pre>
+#&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

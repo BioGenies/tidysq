@@ -151,17 +151,20 @@ sequences had names, output <code><a href='https://tibble.tidyverse.org/referenc
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## ape example</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://ape-package.ird.fr'>ape</a></span>)</div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://ape-package.ird.fr'>ape</a></span>)
+</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘ape’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:tidysq’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    complement</span></div><div class='input'><span class='kw'>ape_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ape/man/as.alignment.html'>as.DNAbin</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(one = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"C"</span>, <span class='st'>"T"</span>, <span class='st'>"C"</span>, <span class='st'>"A"</span>), two = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"T"</span>, <span class='st'>"G"</span>, <span class='st'>"A"</span>, <span class='st'>"G"</span>, <span class='st'>"G"</span>)))
-<span class='fu'>import_sq</span>(<span class='kw'>ape_dna</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
+<span class='fu'>import_sq</span>(<span class='kw'>ape_dna</span>)
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 2</span><span>
 #&gt;   name  sq       
-#&gt;   &lt;chr&gt; &lt;(c)dna&gt; 
-#&gt; 1 one   CTCA  &lt;4&gt;
-#&gt; 2 two   TGAGG &lt;5&gt;</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;(c)dna&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> one   </span><span style='color: #00BB00;'>CTCA</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> two   </span><span style='color: #00BB00;'>TGAGG</span><span> </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
 <span class='co'>## Biostrings example</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>Biostrings</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: BiocGenerics</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: parallel</span></div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>Biostrings</span>)
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: BiocGenerics</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: parallel</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘BiocGenerics’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:parallel’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,</span>
@@ -189,24 +192,28 @@ sequences had names, output <code><a href='https://tibble.tidyverse.org/referenc
 #&gt; <span class='message'>    complement</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    strsplit</span></div><div class='input'><span class='kw'>Biostrings_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/XStringSet-class.html'>DNAStringSet</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(one = <span class='st'>"CTCA"</span>, two = <span class='st'>"TGAGG"</span>))
-<span class='fu'>import_sq</span>(<span class='kw'>Biostrings_dna</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 2
+<span class='fu'>import_sq</span>(<span class='kw'>Biostrings_dna</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 2</span><span>
 #&gt;   name  sq       
-#&gt;   &lt;chr&gt; &lt;(c)dna&gt; 
-#&gt; 1 one   CTCA  &lt;4&gt;
-#&gt; 2 two   TGAGG &lt;5&gt;</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;(c)dna&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> one   </span><span style='color: #00BB00;'>CTCA</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> two   </span><span style='color: #00BB00;'>TGAGG</span><span> </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
 <span class='co'>## seqinr example</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://seqinr.r-forge.r-project.org'>seqinr</a></span>)</div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://seqinr.r-forge.r-project.org'>seqinr</a></span>)
+</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘seqinr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:Biostrings’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    translate</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:ape’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    as.alignment, consensus</span></div><div class='input'><span class='kw'>seqinr_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/seqinr/man/SeqFastadna.html'>as.SeqFastadna</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(one = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"C"</span>, <span class='st'>"T"</span>, <span class='st'>"C"</span>, <span class='st'>"A"</span>), 
                                   two = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"T"</span>, <span class='st'>"G"</span>, <span class='st'>"A"</span>, <span class='st'>"G"</span>, <span class='st'>"G"</span>)))
-<span class='fu'>import_sq</span>(<span class='kw'>seqinr_dna</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
+<span class='fu'>import_sq</span>(<span class='kw'>seqinr_dna</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 1</span><span>
 #&gt;   sq       
-#&gt;   &lt;(c)dna&gt; 
-#&gt; 1 CTCA  &lt;4&gt;
-#&gt; 2 TGAGG &lt;5&gt;</div><div class='input'></div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;(c)dna&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #00BB00;'>CTCA</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #00BB00;'>TGAGG</span><span> </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

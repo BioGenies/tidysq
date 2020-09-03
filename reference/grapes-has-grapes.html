@@ -179,16 +179,22 @@ find motifs: "MAJ", "MAL" and "MAI".</p>
                          <span class='st'>"MIPADHICAANGIENAGIK"</span>), type = <span class='st'>'ami'</span>)
                          
 <span class='co'># Test if DNA sequences contain start codon 'ATG':</span>
-<span class='kw'>sq_dna</span> <span class='op'>%has%</span> <span class='st'>'ATG'</span></div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'>
+<span class='kw'>sq_dna</span> <span class='op'>%has%</span> <span class='st'>'ATG'</span>
+</div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'>
 <span class='co'># Test if DNA sequences begin with start codon 'ATG'</span>
-<span class='kw'>sq_dna</span> <span class='op'>%has%</span> <span class='st'>'^ATG'</span></div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE</div><div class='input'>
+<span class='kw'>sq_dna</span> <span class='op'>%has%</span> <span class='st'>'^ATG'</span>
+</div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE</div><div class='input'>
 <span class='co'># Test if DNA sequences end with 'TAG' (one of the stop codons):</span>
-<span class='kw'>sq_dna</span> <span class='op'>%has%</span> <span class='st'>'TAG$'</span></div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE</div><div class='input'>
+<span class='kw'>sq_dna</span> <span class='op'>%has%</span> <span class='st'>'TAG$'</span>
+</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE</div><div class='input'>
 <span class='co'># Test if amino acid sequences contain motif of two alanines followed by</span>
 <span class='co'># aspartic acid or asparagine ('AAB' motif will match 'AAB', 'AAD' and 'AAN'):</span>
-<span class='kw'>sq_ami</span> <span class='op'>%has%</span> <span class='st'>'AAB'</span></div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE</div><div class='input'>
+<span class='kw'>sq_ami</span> <span class='op'>%has%</span> <span class='st'>'AAB'</span>
+</div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE</div><div class='input'>
 <span class='co'># Test if amino acid sequences contain two motifs:</span>
-<span class='kw'>sq_ami</span> <span class='op'>%has%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"AAXG"</span>, <span class='st'>"mat"</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE</div><div class='input'></div></pre>
+<span class='kw'>sq_ami</span> <span class='op'>%has%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"AAXG"</span>, <span class='st'>"mat"</span>)
+</div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

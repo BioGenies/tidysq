@@ -167,7 +167,8 @@ for this parameter is equal to <code>paste_char</code> value; <code>use_na_char<
     <pre class="examples"><div class='input'><span class='kw'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"YCYWIFTSRIK"</span>, <span class='st'>"GGWGDVKCG"</span>, <span class='st'>"KTKHIEQKL"</span>))
 
 <span class='co'># count how many times "K" appears in each sequence:</span>
-<span class='fu'>sqapply</span>(<span class='kw'>sq_ami</span>, <span class='fu'>function</span>(<span class='kw'>sequence</span>) <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>sequence</span> <span class='op'>==</span> <span class='st'>"K"</span>))</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>sqapply</span>(<span class='kw'>sq_ami</span>, <span class='fu'>function</span>(<span class='kw'>sequence</span>) <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>sequence</span> <span class='op'>==</span> <span class='st'>"K"</span>))
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 1
 #&gt; 
 #&gt; [[2]]
@@ -178,10 +179,12 @@ for this parameter is equal to <code>paste_char</code> value; <code>use_na_char<
 #&gt; </div><div class='input'>
 <span class='co'># duplicate each element of sequence, then paste it and construct new sq</span>
 <span class='kw'>duplicated</span> <span class='op'>&lt;-</span> <span class='fu'>sqapply</span>(<span class='kw'>sq_ami</span>, <span class='fu'>function</span>(<span class='kw'>sequence</span>) <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='kw'>sequence</span>, each = <span class='fl'>2</span>), collapse = <span class='st'>""</span>))
-<span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span>(<span class='kw'>duplicated</span>))</div><div class='output co'>#&gt; ami (amino acids), cln (cleaned) sequences list:
-#&gt; [1] YYCCYYWWIIFFTTSSRRIIKK                                                  &lt;22&gt;
-#&gt; [2] GGGGWWGGDDVVKKCCGG                                                      &lt;18&gt;
-#&gt; [3] KKTTKKHHIIEEQQKKLL                                                      &lt;18&gt;</div><div class='input'></div></pre>
+<span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span>(<span class='kw'>duplicated</span>))
+</div><div class='output co'>#&gt; ami (amino acids), cln (cleaned) sequences list:
+#&gt; [1] <span style='color: #00BB00;'>YYCCYYWWIIFFTTSSRRIIKK</span><span>                                                  </span><span style='color: #0000BB;'>&lt;22&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>GGGGWWGGDDVVKKCCGG</span><span>                                                      </span><span style='color: #0000BB;'>&lt;18&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>KKTTKKHHIIEEQQKKLL</span><span>                                                      </span><span style='color: #0000BB;'>&lt;18&gt;</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -165,19 +165,22 @@ only <code><a href='sq.html'>NULL</a></code> elements.</p>
 <span class='kw'>sq_amino_acids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"QWERTYUIZXCVBNM"</span>,<span class='st'>"LKJHGFDSAZXCVBN"</span>))
 
 <span class='co'># Creating lists of mismatched elements from nucleotide sq object:</span>
-<span class='fu'>get_invalid_letters</span>(<span class='kw'>sq_nucleotides</span>, <span class='st'>"dna"</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>get_invalid_letters</span>(<span class='kw'>sq_nucleotides</span>, <span class='st'>"dna"</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] "P" "O" "I" "U"
 #&gt; 
 #&gt; [[2]]
 #&gt; [1] "F"
 #&gt; </div><div class='input'>
 <span class='co'># Creating lists of mismatched elements from amino acid sq object:</span>
-<span class='fu'>get_invalid_letters</span>(<span class='kw'>sq_amino_acids</span>, <span class='st'>"ami"</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>get_invalid_letters</span>(<span class='kw'>sq_amino_acids</span>, <span class='st'>"ami"</span>)
+</div><div class='output co'>#&gt; [[1]]
 #&gt; character(0)
 #&gt; 
 #&gt; [[2]]
 #&gt; character(0)
-#&gt; </div><div class='input'></div></pre>
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

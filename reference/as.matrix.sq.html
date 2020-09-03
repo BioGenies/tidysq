@@ -164,20 +164,23 @@ columns will be filled with <code><a href='https://rdrr.io/r/base/NA.html'>NA</a
                               <span class='st'>"CAGACCANNNATAG"</span>), type = <span class='st'>'dna'</span>)
 
 <span class='co'># Converting sq object containing sequences of the same lengths to matrix:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>sq_same_len</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
+<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>sq_same_len</span>)
+</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
 #&gt; [1,] "C"  "G"  "A"  "T"  "A"  "G"  "A"  "C"  "A" 
 #&gt; [2,] "T"  "G"  "A"  "C"  "A"  "A"  "A"  "A"  "C" 
 #&gt; [3,] "G"  "T"  "G"  "A"  "C"  "C"  "G"  "T"  "A" </div><div class='input'>
 <span class='co'># Converting sq object containing sequences of different lengths to </span>
 <span class='co'># matrix - NA introduced:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>sq_diff_len</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]
+<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>sq_diff_len</span>)
+</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]
 #&gt; [1,] "C"  "T"  "G"  "A"  "A"  "T"  "G"  "C"  "A"  "G"   "T"   "A"   "C"   "C"  
 #&gt; [2,] "A"  "T"  "G"  "C"  "C"  "G"  "T"  "A"  "A"  "A"   "T"   "G"   "C"   "C"  
 #&gt; [3,] "C"  "A"  "G"  "A"  "C"  "C"  "A"  "N"  "N"  "N"   "A"   "T"   "A"   "G"  
 #&gt;      [,15] [,16] [,17] [,18] [,19]
 #&gt; [1,] "G"   "T"   "A"   "A"   "T"  
 #&gt; [2,] "A"   "T"   NA    NA    NA   
-#&gt; [3,] NA    NA    NA    NA    NA   </div><div class='input'></div></pre>
+#&gt; [3,] NA    NA    NA    NA    NA   </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
