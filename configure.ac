@@ -4,11 +4,11 @@
 ##  the RcppArmadillo package. Licensed under GPL-2 or later
 ##  This file is a subset of the configure.ac used by
 ##  RcppArmadillo, adapted to the tidysq package by
-##  Dominik Rafacz, basing on directions of Sebastian 
+##  Dominik Rafacz, basing on directions of Sebastian
 ##  Ankargren found here:
 ##  https://ankargren.github.io/avoiding-openmp-problems-in-rcpparmadillo-dependent-packages-on-os-x
 ##  To create configure file, you should run:
-##  autoconf --output=configure configure.ac  
+##  autoconf --output=configure configure.ac
 ##  on Linux in root of this package
 
 
