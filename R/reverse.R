@@ -19,24 +19,23 @@
 #' # Creating sq objects using construct_sq:
 #' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
 #'                          "NYERTGHLI", "MAYXXXIALN"), type = "ami")
-#' sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
-#'                          ""), type = "nuc")
+#' sq_dna <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", ""), type = "dna")
 #' sq_unt <- construct_sq(c("ATGCAGGA!", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
 #' 
 #' # Reverse sequences:
 #' reverse(sq_ami)
-#' reverse(sq_nuc)
+#' reverse(sq_dna)
 #' reverse(sq_unt)
 #' 
 #' # Reverse cleaned sequences:
 #' reverse(clean(sq_ami))
-#' reverse(clean(sq_nuc))
+#' reverse(clean(sq_dna))
 #' 
 #' @seealso \code{\link{sq}} \code{\link{clean}} \code{\link{print.sq}}
 #' 
 #' @export
 reverse <- function(sq) {
-  validate_sq(sq)
+  .validate_sq(sq)
   alph_size <- .get_alph_size(.get_alph(sq))
   ret <- .apply_sq(sq, "int", "int", rev)
   .set_class_alph(ret, sq)

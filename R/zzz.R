@@ -2,15 +2,15 @@
   prev_options <- options()
   
   new_options <- list(
-    tidysq_bite_na_action = "warning",
-    tidysq_substitute_letters_cln = "warning",
-    tidysq_typify_small_cap_let = "warning",
-    tidysq_encode_no_given_action = "warning",
-    tidysq_max_pillar_sq_width = 15,
-    tidysq_max_print_sequences = 10,
-    tidysq_colorful_sq_print = TRUE,
-    tidysq_na_print_char = "!",
-    tidysq_fast_mode = FALSE
+    tidysq_a_bite_na = "warning",
+    tidysq_a_cln_sub_letters = "warning",
+    tidysq_a_no_given_enc = "warning",
+    tidysq_a_typify_small_cap_let = "warning",
+    tidysq_g_fast_mode = FALSE,
+    tidysq_p_max_pillar_width = 15,
+    tidysq_p_max_sequences = 10,
+    tidysq_p_na_char = "!",
+    tidysq_p_use_color = TRUE
   )
   
   unset_inds <- !(names(new_options) %in% names(prev_options))

@@ -26,35 +26,35 @@
 #' # Creating objects to work on:
 #' sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
 #'                          "NYERTGHLI", "MAYXXXIALN"), type = "ami")
-#' sq_nuc <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
-#'                          "TGACGAGCTTA", "ACTNNAGCN"), type = "nuc")
+#' sq_dna <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
+#'                          "TGACGAGCTTA", "ACTNNAGCN"), type = "dna")
 #' 
 #' # Substituting some letters with NA
 #' sq_ami_sub <- substitute_letters(sq_ami, c(E = NA, R = NA))
-#' sq_nuc_sub <- substitute_letters(sq_nuc, c(N = NA))
+#' sq_dna_sub <- substitute_letters(sq_dna, c(N = NA))
 #' 
 #' # Biting sequences out of range
 #' sq_bitten <- bite(sq_ami, 1:15)
 #' 
 #' # Printing them
 #' sq_ami_sub
-#' sq_nuc_sub
+#' sq_dna_sub
 #' 
 #' # Removing sequences containing NA
 #' remove_na(sq_ami_sub)
-#' remove_na(sq_nuc_sub)
+#' remove_na(sq_dna_sub)
 #' remove_na(sq_bitten)
 #' 
 #' # Removing only NA elements
 #' remove_na(sq_ami_sub, only_elements = TRUE)
-#' remove_na(sq_nuc_sub, TRUE)
+#' remove_na(sq_dna_sub, TRUE)
 #' remove_na(sq_bitten, TRUE)
 #' 
 #' @seealso \code{\link{sq}} \code{\link{is_null_sq}} \code{\link{substitute_letters}}
 #' \code{\link{bite}}
 #' @export
 remove_na <- function(sq, only_elements = FALSE) {
-  validate_sq(sq)
+  .validate_sq(sq)
   .check_logical(only_elements, "'only_elements'", single_elem = TRUE)
   
   alph <- .get_alph(sq)
@@ -67,8 +67,12 @@ remove_na <- function(sq, only_elements = FALSE) {
     }) 
   } else {
     ret <- lapply(sq, function(s) {
-      st <- unpack_ints(s, alph_size)
-      if (any(st == na_val)) raw(0) else s
+      st <- C_unpack_ints(s, alph_size)
+      if (any(st == na_val)) {
+        empty_sq <- raw(0)
+        attr(empty_sq, "original_length") <- 0
+        empty_sq
+      } else s
     })
   }
   

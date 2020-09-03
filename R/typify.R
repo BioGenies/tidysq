@@ -1,12 +1,14 @@
 #' Set type of untyped and atypical sequences
 #' 
-#' Function to set type of \strong{atp} or \strong{unt} sequences to \strong{ami} or 
-#' \strong{nuc} provided that they do not have invalid letters (which can be checked
-#' using \code{\link{get_sq_alphabet}} and \code{\link{get_invalid_letters}}).
+#' Function to set type of \strong{atp} or \strong{unt} sequences to \strong{ami},
+#' \strong{dna} or \strong{rna} provided that they do not have invalid letters
+#' (which can be checked using \code{\link{get_sq_alphabet}} and
+#' \code{\link{get_invalid_letters}}).
 #' 
 #' @param sq an object of class \code{\link{sq}} with one of the types \strong{ami}, 
-#' \strong{nuc}, \strong{unt} or \strong{atp}.
-#' @param dest_type \code{\link{character}} string, destination type, either "ami" or "nuc".
+#' \strong{dna}, \strong{rna}, \strong{unt} or \strong{atp}.
+#' @param dest_type \code{\link{character}} string, destination type, one of "ami",
+#' "dna" or "rna".
 #' 
 #' @return An object of class \code{sq} that represents the same sequences as input \code{sq},
 #' but with type as specified in \code{dest_type}.
@@ -18,8 +20,8 @@
 #' \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}}). In consequence, newly created
 #' \code{sq} objects might have other type - \strong{atp} or \strong{unt}. After removal of those
 #' non-standard letters (using \code{\link{substitute_letters}}), user might want to set type of 
-#' \code{sq} object to one of standard types - \strong{ami} and \strong{nuc} - this is demanded
-#' by some functions. This is what this function is designed for.
+#' \code{sq} object to one of standard types - \strong{ami}, \strong{dna} and \strong{rna} -
+#' as this is demanded by some functions. This is what this function is designed for.
 #' 
 #' If \code{dest_type} is equal to type of \code{sq}, function does not do anything.
 #' 
@@ -46,7 +48,7 @@
 #' 
 #' @export 
 typify <- function(sq, dest_type) {
-  validate_sq(sq)
+  .validate_sq(sq)
   .check_type(dest_type, "'dest_type'")
   type <- .get_sq_type(sq)
   if (type == dest_type) {
@@ -58,11 +60,15 @@ typify <- function(sq, dest_type) {
   
   .check_all_up_alph_proper(up_alph, dest_alph)
   if (!(length(alph) == length(up_alph))) {
-    .handle_opt_txt("tidysq_typify_small_cap_let",
+    .handle_opt_txt("tidysq_a_typify_small_cap_let",
                     "in 'alphabet' attribute of 'sq' some letters appear as both lower and capital")
   }
   
-  pack_fun <- if (dest_type == "ami") nc_pack_ami else nc_pack_nuc
+  pack_fun <- switch(dest_type,
+    "ami" = nc_pack_ami,
+    "dna" = nc_pack_dna,
+    "rna" = nc_pack_rna
+  )
   ret <- .apply_sq(sq, "char", "char", function(s) {
     toupper(s)
   }, im_alph = dest_alph)

@@ -37,7 +37,7 @@
 #' }
 #'
 #' @section Types of sq:
-#' This package is meant to handle both amino acids and nucleotides sequences 
+#' This package is meant to handle both amino acid, DNA and RNA sequences, 
 #' thus there is need to differentiate \code{sq} objects that keep them. In 
 #' addition, there are special types for handling non-standard sequence 
 #' formats and encodings.
@@ -46,17 +46,18 @@
 #' \itemize{
 #' \item \strong{ami} - (\emph{amino acids}) represents a list of sequences of amino acids
 #' (peptides or proteins),
-#' \item \strong{nuc} - (\emph{nucleotides}) represents a list of nucleotide sequences (RNA or 
-#' DNA),
+#' \item \strong{dna} - (\emph{DNA}) represents a list of DNA sequences,
+#' \item \strong{rna} - (\emph{RNA}) represents a list of RNA sequences (together with
+#' \strong{dna} above often collectively called "nucleotide sequences"),
 #' \item \strong{unt} - (\emph{untyped}) represents a list of sequences that do not have 
 #' specified type. They are mainly result of reading sequences from a file that 
 #' contains some letters that are not in standard nucleotide or amino acid alphabets 
-#' and user has not specified them explicitly. They should be converted to \strong{ami} 
-#' or \strong{nuc} sequences (using functions like \code{\link{substitute_letters}} or 
-#' \code{\link{typify}}).
+#' and user has not specified them explicitly. They should be converted to \strong{ami} ,
+#' \strong{dna} or \strong{rna} sequences (using functions like \code{\link{substitute_letters}}
+#' or \code{\link{typify}}).
 #' \item \strong{atp} - (\emph{atypical}) represents sequences that have an alphabet
-#' different from standard \strong{ami} or \strong{nuc} alphabets - similarly to 
-#' \strong{unt}, but user has explicitly informed about it. They are
+#' different from standard \strong{ami}, \strong{dna} or \strong{rna} alphabets - similarly
+#' to \strong{unt}, but user has explicitly informed about it. They are
 #' result of constructing sequences or reading from file with specifying 
 #' \code{non_standard} parameter (for details see \code{\link{read_fasta}}
 #' and \code{\link{construct_sq}}). They are also result of using function
@@ -68,8 +69,8 @@
 #' }
 #' 
 #' Additionally, there is a special subtype \strong{cln} (standing for \emph{clean}).
-#' Only \strong{ami} and \strong{nuc} \code{sq} objects may have this subtype. It indicates
-#' that sequences do not contain ambiguous letters (see "alphabets" section below).
+#' Only \strong{ami}, \strong{dna} or \strong{rna} \code{sq} objects may have this subtype.
+#' It indicates that sequences do not contain ambiguous letters (see "alphabets" section below).
 #' 
 #' \code{sq} object type is printed when using overloaded method 
 #' \code{\link[=print.sq]{print}}. It can be also checked by using \code{\link{get_sq_type}}
@@ -79,17 +80,20 @@
 #' Alphabet is kept mostly as a character vector, where each element represents one
 #' \strong{letter}.
 #'
-#' \code{sq} objects of type \strong{ami} or \strong{nuc} have fixed alphabets (depending
-#' also if object has \strong{cln} subtype). In other words, if two \code{sq} objects have
-#' exactly the same type - \strong{ami} or \strong{nuc} - and either both have or both do
-#' not have a \strong{cln} subtype, they are ensured to have the same alphabets.
+#' \code{sq} objects of type \strong{ami}, \strong{dna} or \strong{rna} have fixed alphabets
+#' (depending also if object has \strong{cln} subtype). In other words, if two \code{sq}
+#' objects have exactly the same type - \strong{ami}, \strong{dna} or \strong{rna} - and
+#' either both have or both do not have a \strong{cln} subtype, they are ensured to have
+#' the same alphabets.
 #'
 #' Here are listed alphabets for these types:
 #' \itemize{
 #' \item \strong{ami} \strong{cln} - ACDEFGHIKLMNPQRSTVWY-*
 #' \item \strong{ami}, (not \strong{cln}) - ABCDEFGHIJKLMNOPQRSTUVWXYZ-*
-#' \item \strong{nuc} \strong{cln} - ACGTU-
-#' \item \strong{nuc}, (not \strong{cln}) - ACGTUWSMKRYBDHVN-
+#' \item \strong{dna} \strong{cln} - ACGT-
+#' \item \strong{dna}, (not \strong{cln}) - ACGTWSMKRYBDHVN-
+#' \item \strong{rna} \strong{cln} - ACGU-
+#' \item \strong{rna}, (not \strong{cln}) - ACGUWSMKRYBDHVN-
 #' }
 #'
 #' To see details of these alphabets see \code{\link{aminoacids_df}} and 
@@ -109,9 +113,10 @@
 #' and replace the longer alphabet with symbols of groups. To check details, see 
 #' \code{\link{read_fasta}}, \code{\link{construct_sq}} and \code{\link{substitute_letters}}.
 #'
-#' All of the types: \strong{ami}, \strong{nuc}, \strong{atp}, \strong{unt} have alphabets
-#' that are character vectors while \strong{enc} objects have alphabets that are numeric
-#' vectors. They are result of \code{\link{encode}} function, see its manual for details.
+#' All of the types: \strong{ami}, \strong{dna}, \strong{rna}, \strong{atp}, \strong{unt}
+#' have alphabets that are character vectors while \strong{enc} objects have alphabets that
+#' are numeric vectors. They are result of \code{\link{encode}} function, see its manual
+#' for details.
 #'
 #' \strong{Important note:} in \strong{atp} alphabets there is possibility of appearance of
 #' letters that consists of more than one character - this functionality is provided in
@@ -119,31 +124,29 @@
 #' indicating methylated alanine).
 #'
 #' \strong{Important note:} alphabets of \strong{atp} and \strong{unt} \code{sq} objects
-#' are case sensitive. Thus, in their alphabets there can appear both lowercase and
-#' uppercase letters simultaneously and they are treated as different characters. Alphabets of
-#' \strong{nuc} and \strong{ami} objects are always uppercase and all functions converts
-#' other parameters to uppercase when working with \strong{ami} or \strong{nuc} - e. g.,
+#' are case sensitive. Thus, in their alphabets both lowercase and uppercase letters can
+#' appear simultaneously and they are treated as different characters. Alphabets of
+#' \strong{dna}, \strong{rna} and \strong{ami} objects are always uppercase and all functions converts
+#' other parameters to uppercase when working with \strong{dna}, \strong{rna} or \strong{ami} - e.g.,
 #' \code{\link{\%has\%}} operator converts lower letters to upper when searching for motifs in
-#' \strong{ami} or \strong{nuc} object.
+#' \strong{dna}, \strong{rna} or \strong{ami} object.
 #' 
 #' \strong{Important note:} maximum length of an alphabet is \strong{30 letters}. You are
 #' not allowed to read fasta files or construct from character vectors that have more
 #' than 30 distinct characters in sequences (with exception of reading or constructing
-#' \strong{ami} or \strong{nuc} objects - during their construction lowercase letters
-#' are automatically converted to uppercase).
+#' \strong{ami}, \strong{dna} or \strong{rna} objects - during their construction lowercase
+#' letters are automatically converted to uppercase).
 #'
 #' You can obtain an alphabet of the \code{sq} object using the \code{\link{get_sq_alphabet}}
-#' function. You can
-#' check which letters are invalid (are not represented in standard amino acids or nucleotides 
-#' alphabet)
-#' in each sequence of given \code{sq} object of type \strong{unt} or \strong{atp} by using
-#' \code{\link{get_invalid_letters}}. You can substitute one letter with another using
-#' \code{\link{substitute_letters}}.
+#' function. You can check which letters are invalid (are not represented in standard
+#' amino acid or nucleotide alphabet) in each sequence of given \code{sq} object of type
+#' \strong{unt} or \strong{atp} by using \code{\link{get_invalid_letters}}. You can
+#' substitute one letter with another using \code{\link{substitute_letters}}.
 #'
 #' @section Missing/Not Available values:
 #' There is a possibility of introducing \code{\link{NA}} values into sequences. \code{NA} value
 #' does not represents gap (which are represented by \code{'-'}) or wildcard elements 
-#' (\code{N} in he case of nucleotides and \code{'X'} in the case of amino acids), but is used 
+#' (\code{N} in the case of nucleotides and \code{'X'} in the case of amino acids), but is used 
 #' as a representation of an empty position or invalid letters (not represented in nucleotide or 
 #' amino acid alphabet).
 #' \code{NA} does not belong to any alphabet (with exception of \strong{enc} objects where some of
@@ -156,7 +159,7 @@
 #' \item reading fasta file with non-standard letters in
 #' \code{\link[=fast-mode]{fast mode}} with \code{\link{read_fasta}},
 #' \item replacing a letter with \code{NA} value with \code{\link{substitute_letters}},
-#' \item subsetting sequences out of their lengths with \code{\link{bite}}.
+#' \item subsetting sequences beyond their lengths with \code{\link{bite}}.
 #' }
 #'
 #' An user can convert sequences that contain \code{NA} values into \code{NULL}
@@ -188,11 +191,11 @@
 #' require unpacking and repacking sequences, but this cost is relatively low in comparison
 #' to amount of saved memory.
 #' 
-#' For example - \strong{nuc} \strong{cln} alphabet consist of 6 values: ACGTU-. They are 
-#' assigned numbers 1 to 6 respectively. Those numbers in binary format take form: \code{001},
-#' \code{010}, \code{011}, \code{100}, \code{101}, \code{110}. Each of the letters can 
-#' be coded with just 3 bits instead of 8 which is demanded by \code{char} - this allows
-#' us to save more than 60\% of memory spent on storage of nucleotides sequences.
+#' For example - \strong{dna} \strong{cln} alphabet consist of 6 values: ACGT-. They are 
+#' assigned numbers 1 to 5 respectively. Those numbers in binary format take form: \code{001},
+#' \code{010}, \code{011}, \code{100}, \code{101}. Each of the letters can  be coded with
+#' just 3 bits instead of 8 which is demanded by \code{char} - this allows
+#' us to save more than 60\% of memory spent on storage of nucleotide sequences.
 #' 
 #' @section tibble compatibility:
 #' \code{sq} objects are compatible with \code{\link[tibble]{tibble}} class - that means one can 
@@ -210,7 +213,8 @@ NULL
 #' @param sq a \code{\link{character}} vector.
 #' @param type a \code{\link{character}} string indicating type of \code{sq} object that
 #' is going to be constructed; supported values are "ami" for amino acid sequences,
-#' "nuc" for nucleotide sequences, "unt" for and \code{NULL} for type guessing (see details)
+#' "dna" for DNA sequences, "rna" for RNA sequences, "unt" for and \code{NULL} for
+#' type guessing (see details)
 #' @param is_clean a \code{\link{logical}} value indicating if sequences are clean.
 #' or in other words - they don't contain ambiguous values; supported values are \code{TRUE} 
 #' for clean sequences, \code{FALSE} for unclean sequences and \code{NULL} for auto detecting
@@ -220,7 +224,7 @@ NULL
 #' of length more than one. Each element of this parameter should be at least two characters 
 #' long.
 #' @return object of \code{\link[=sq]{class sq}} with appropriate type (one of: \strong{ami},
-#' \strong{nuc}, \strong{unt}, \strong{atp}).
+#' \strong{dna}, \strong{rna}, \strong{unt}, \strong{atp}).
 #' 
 #' @details 
 #' Function \code{construct_sq} covers all possibilities of standard and non-standard types and 
@@ -228,13 +232,14 @@ NULL
 #' documentation. Below there is a guide how function operates and how the program behaves 
 #' according to the given arguments and the letters in the sequences.
 #' 
-#' Functions \code{construct_sq_ami} and \code{construct_sq_nuc} are wrappers around 
-#' \code{construct_sq} with specified \code{type} parameter - accordingly "ami" or "nuc". You
-#' can also pass "is_clean" parameter to those functions, but you cannot pass "non_standard".
+#' Functions \code{construct_sq_ami}, \code{construct_sq_dna} and \code{construct_sq_rna} are
+#' wrappers around \code{construct_sq} with specified \code{type} parameter - accordingly
+#' "ami", "dna" or "rna". You can also pass "is_clean" parameter to those functions, but you
+#' cannot pass "non_standard".
 #' 
 #' \code{sq} parameter should be a character vector. Each element of this vector is a biological 
 #' sequence. If this parameter has length 0, object of class \code{sq} with 0 sequences will be 
-#' created (if not specified, it will have \strong{nuc} \strong{cln} type, which is a result of 
+#' created (if not specified, it will have \strong{dna} \strong{cln} type, which is a result of 
 #' rules written below). If it contains sequences of length 0, \code{\link[=sq]{NULL}} sequences
 #' will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[=sq]{sq class}}).
 #' 
@@ -270,19 +275,24 @@ NULL
 #' \item If you don't specify any other parameter than \code{sq}, function will try to guess
 #' sequence type and if it is clean (it will check in exactly this order):
 #' \enumerate{
-#' \item If it contains only ACGTU- letters, either lowercase or 
-#' uppercase, type will be set to \strong{nuc} \strong{cln}.
-#' \item If it contains any letters from 1. and additionally letters DEFHIKLMNPQRSVWY*, either
-#' lowercase or uppercase, type will be set to \strong{ami} \strong{cln}. 
+#' \item If it contains only ACGT- letters, either lowercase or uppercase, type will be set
+#' to \strong{dna} \strong{cln}.
+#' \item If it contains only ACGU- letters, either lowercase or uppercase, type will be set
+#' to \strong{dna} \strong{cln}.
+#' \item If it contains any letters from 1. and 2. and additionally letters DEFHIKLMNPQRSVWY*,
+#' either lowercase or uppercase, type will be set to \strong{ami} \strong{cln}.
 #' \item If it contains any letters from 1. and additionally letters WSMKRYBDHVN, either
 #' lowercase or uppercase, and does not contain any other letter, type will be set to 
-#' \strong{nuc} without \strong{cln} subtype.
-#' \item If it contains any letters from 1., 2., 3. and additionally letters JOUXZ, type will
+#' \strong{dna} without \strong{cln} subtype.
+#' \item If it contains any letters from 2. and additionally letters WSMKRYBDHVN, either
+#' lowercase or uppercase, and does not contain any other letter, type will be set to 
+#' \strong{rna} without \strong{cln} subtype.
+#' \item If it contains any letters from previous points and additionally letters JOUXZ, type will
 #' be set to \strong{ami} without \strong{cln} subtype.
 #' \item If it contains any letters that exceed all groups mentioned above, type will be set
 #' to "unt".
 #' }
-#' \item If you specify \code{type} parameter as "ami" or "nuc" (and do not specify neither 
+#' \item If you specify \code{type} parameter as "ami", "dna" or "rna" (and do not specify neither 
 #' \code{is_clean} nor \code{non_standard}) type will be checked during construction: 
 #' \enumerate{
 #' \item If all letters in sequences fit the clean alphabet of given type, type will be set to 
@@ -295,9 +305,9 @@ NULL
 #' \item If you specify both \code{type} and \code{is_clean}, function checks if letters
 #' in sequences matches exactly specified alphabet (with capitalisation accuracy). If they do, 
 #' type will be set to it. Otherwise, an error will be thrown.
-#' \item If you specify \code{type} as "unt" and won't neither \code{is_clean} nor 
-#' \code{non_standard}, type will be set to \strong{unt}. Letters won't be converted to uppercase, 
-#' alphabet will consist of all letters found in sequences. 
+#' \item If you specify \code{type} as "unt" and neither \code{is_clean} nor \code{non_standard},
+#' type will be set to \strong{unt}. Letters won't be converted to uppercase, alphabet will
+#' consist of all letters found in sequences. 
 #' \item If you do not specify neither \code{type} nor \code{is_clean} and specify 
 #' \code{non_standard} parameter, which should be character vector where each element is at least 
 #' two characters long, all strings as specified will be detected in sequences and treated as 
@@ -305,27 +315,30 @@ NULL
 #' \item All other combinations of parameters are incorrect.
 #' }
 #' 
-#' In \code{\link[=fast-mode]{fast mode}} you have to specify \code{type} (it has to have either
-#' "ami" or "nuc" value) and \code{is_clean} (\code{TRUE} or \code{FALSE}). You cannot specify
-#' \code{non_standard}. All letters that aren't elements of destination alphabet (with a letter 
-#' size accuracy) will be treated as \code{NA} values.
+#' In \code{\link[=fast-mode]{fast mode}} you have to specify \code{type} (it has to have one of
+#' "ami", "dna" or "rna" values) and \code{is_clean} (\code{TRUE} or \code{FALSE}). You cannot
+#' specify \code{non_standard}. All letters that aren't elements of destination alphabet (with
+#' a letter size accuracy) will be treated as \code{NA} values.
 #' 
-#' @section Handling with atp and unt sq and NA values:
+#' @section Handling atp and unt sequences and NA values:
 #' You can convert letters into another using \code{\link{substitute_letters}} and then you
-#' can use \code{\link{typify}} function to set of \code{sq} to \strong{ami} or \strong{nuc}.
-#' If your sequences contain \code{NA} values, use \code{\link{remove_na}}
+#' can use \code{\link{typify}} function to set of \code{sq} to \strong{ami}, \strong{dna}
+#' or \strong{rna}. If your sequences contain \code{NA} values, use \code{\link{remove_na}}
 #' 
 #' @examples 
 #' # saving option:
-#' previous_option <- getOption("tidysq_fast_mode")
+#' previous_option <- getOption("tidysq_g_fast_mode")
 #' 
 #' #### constructing sq in normal mode:
 #' ## setting an option:
-#' options(tidysq_fast_mode = FALSE)
+#' options(tidysq_g_fast_mode = FALSE)
 #' 
 #' ## constructing sq without specifying type
-#' # nuc cln sq
-#' construct_sq(c("ATGC", "TCGTTA", "TT--AG")) 
+#' # dna cln sq
+#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"))
+#' 
+#' # rna cln sq
+#' construct_sq(c("CUUAC", "UACCGGC", "GCA-ACGU"))
 #' 
 #' # ami cln sq
 #' construct_sq(c("YQQPAVVM", "PQCFL"))
@@ -333,7 +346,10 @@ NULL
 #' # ami cln sq can contain * - letter meaning end of translation:
 #' construct_sq(c("MMDF*", "SYIHR*", "MGG*"))
 #' 
-#' # nuc sq
+#' # dna sq
+#' construct_sq(c("TMVCCDA", "BASDT-CNN"))
+#' 
+#' # rna sq
 #' construct_sq(c("WHDHKYN", "GCYVCYU"))
 #' 
 #' # ami sq
@@ -344,22 +360,26 @@ NULL
 #' 
 #' ## constructing sq with type 
 #' # all above examples will result in an identical if specified type as guessed
-#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "nuc") 
+#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "dna")
+#' construct_sq(c("CUUAC", "UACCGGC", "GCA-ACGU"), "rna")
 #' construct_sq(c("YQQPAVVM", "PQCFL"), "ami")
 #' construct_sq(c("MMDF*", "SYIHR*", "MGG*"), "ami")
-#' construct_sq(c("WHDHKYN", "GCYVCYU"), "nuc")
+#' construct_sq(c("TMVCCDA", "BASDT-CNN"), "dna")
+#' construct_sq(c("WHDHKYN", "GCYVCYU"), "rna")
 #' construct_sq(c("XYOQWWKCNJLO"), "ami")
 #' construct_sq(c("%%YAPLAA", "PLAA"), "unt")
 #' 
 #' # you can also use wrappers instead of parameters
-#' construct_sq_nuc(c("ATGC", "TCGTTA", "TT--AG")) 
+#' construct_sq_dna(c("ATGC", "TCGTTA", "TT--AG"))
+#' construct_sq_rna(c("CUUAC", "UACCGGC", "GCA-ACGU"))
 #' construct_sq_ami(c("YQQPAVVM", "PQCFL"))
 #' construct_sq_ami(c("MMDF*", "SYIHR*", "MGG*"))
-#' construct_sq_nuc(c("WHDHKYN", "GCYVCYU"))
+#' construct_sq_dna(c("TMVCCDA", "BASDT-CNN"))
+#' construct_sq_rna(c("WHDHKYN", "GCYVCYU"))
 #' construct_sq_ami(c("XYOQWWKCNJLO"))
 #' 
 #' # One can force type other than guessed (if letters fit in the destination alphabet)
-#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "nuc", is_clean = FALSE)
+#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "dna", is_clean = FALSE)
 #' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "ami")
 #' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "ami", is_clean = FALSE)
 #' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "unt")
@@ -373,13 +393,13 @@ NULL
 #' 
 #' #### constructing in fast mode:
 #' ## setting fast mode on
-#' options(tidysq_fast_mode = TRUE)
+#' options(tidysq_g_fast_mode = TRUE)
 #' 
 #' # you cannot construct without specifying type
 #' \dontrun{
 #' construct_sq("CTGA")
 #' }
-#' construct_sq("CTGA", "nuc", TRUE)
+#' construct_sq("CTGA", "dna", TRUE)
 #' 
 #' # you cannot construct with specifying non_standard
 #' \dontrun{
@@ -387,13 +407,14 @@ NULL
 #' }
 #' 
 #' # letters other than in specified alphabet will be treated as NA:
-#' construct_sq("NCTGCNA", "nuc", TRUE)
+#' construct_sq("NCTGCNA", "dna", TRUE)
 #' 
 #' #### Other examples:
 #' ## setting fast mode off again:
-#' options(tidysq_fast_mode = FALSE)
+#' options(tidysq_g_fast_mode = FALSE)
 #' 
-#' # lowercase letters are converted to uppercase if detected type is "ami" or "nuc"
+#' # lowercase letters are converted to uppercase if detected type is
+#' # "ami", "dna" or "rna"
 #' construct_sq(c("aTGc", "tcgTTA", "tt--AG"))
 #' construct_sq(c("XYOqwwKCNJLo"))
 #' 
@@ -407,7 +428,7 @@ NULL
 #' construct_sq(c("AGTGGC", "", "CATGA", ""))
 #' 
 #' ## reseting an option
-#' options(tidysq_fast_mode = previous_option)
+#' options(tidysq_g_fast_mode = previous_option)
 #' 
 #' @seealso \code{\link{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}} 
 #' \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}
@@ -430,7 +451,8 @@ construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) 
       .check_type(type, allow_unt = TRUE)
       switch(type,
              ami = .construct_amisq(sq, is_clean),
-             nuc = .construct_nucsq(sq, is_clean),
+             dna = .construct_dnasq(sq, is_clean),
+             rna = .construct_rnasq(sq, is_clean),
              unt = .construct_untsq(sq))
     }
   }
@@ -445,15 +467,21 @@ construct_sq_ami <- function(sq, is_clean = NULL) {
 
 #' @rdname construct_sq
 #' @export
-construct_sq_nuc <- function(sq, is_clean = NULL) {
-  construct_sq(sq, type = "nuc", is_clean)
+construct_sq_dna <- function(sq, is_clean = NULL) {
+  construct_sq(sq, type = "dna", is_clean)
+}
+
+#' @rdname construct_sq
+#' @export
+construct_sq_rna <- function(sq, is_clean = NULL) {
+  construct_sq(sq, type = "rna", is_clean)
 }
 
 .nc_construct_sq <- function(sq, type, is_clean) {
   .check_type(type)
   .check_logical(is_clean, single_elem = TRUE)
   
-  sq <- .nc_bitify_sq(sq, type, is_clean)
+  sq <- .nc_pack_to_sq(sq, type, is_clean)
   sq <- .set_class(sq, type, is_clean)
   .set_alph(sq, .get_standard_alph(type, is_clean))
 }
@@ -493,7 +521,7 @@ construct_sq_nuc <- function(sq, is_clean = NULL) {
   
   alph <- unique(unlist(sq))
   .check_alph_length(alph)
-  sq <- .bitify_sq(sq, alph)
+  sq <- .pack_to_sq(sq, alph)
   sq <- .set_alph(sq, alph)
   .set_class(sq, "atp")
 }
@@ -505,114 +533,40 @@ construct_sq_nuc <- function(sq, is_clean = NULL) {
   if (is.null(is_clean)) {
     is_clean <- .guess_ami_is_clean(real_alph)
   }
-  sq <- .nc_bitify_sq(sq, "ami", is_clean)
+  sq <- .nc_pack_to_sq(sq, "ami", is_clean)
   sq <- .set_alph(sq, .get_standard_alph("ami", is_clean))
   .set_class(sq, "ami", is_clean)
 }
 
-.construct_nucsq <- function(sq, is_clean) {
+.construct_dnasq <- function(sq, is_clean) {
   sq <- toupper(sq)
   real_alph <- .get_real_alph(sq)
-  .check_real_alph_clean(real_alph, "nuc", is_clean)
+  .check_real_alph_clean(real_alph, "dna", is_clean)
   if (is.null(is_clean)) {
-    is_clean <- .guess_nuc_is_clean(real_alph)
+    is_clean <- .guess_dna_is_clean(real_alph)
   }
-  sq <- .nc_bitify_sq(sq, "nuc", is_clean)
-  sq <- .set_alph(sq, .get_standard_alph("nuc", is_clean))
-  .set_class(sq, "nuc", is_clean)
+  sq <- .nc_pack_to_sq(sq, "dna", is_clean)
+  sq <- .set_alph(sq, .get_standard_alph("dna", is_clean))
+  .set_class(sq, "dna", is_clean)
+}
+
+.construct_rnasq <- function(sq, is_clean) {
+  sq <- toupper(sq)
+  real_alph <- .get_real_alph(sq)
+  .check_real_alph_clean(real_alph, "rna", is_clean)
+  if (is.null(is_clean)) {
+    is_clean <- .guess_rna_is_clean(real_alph)
+  }
+  sq <- .nc_pack_to_sq(sq, "rna", is_clean)
+  sq <- .set_alph(sq, .get_standard_alph("rna", is_clean))
+  .set_class(sq, "rna", is_clean)
 }
 
 .construct_untsq <- function(sq) {
   alph <- .get_real_alph(sq)
   .check_alph_length(alph)
   
-  sq <- .bitify_sq(sq, alph)
+  sq <- .pack_to_sq(sq, alph)
   sq <- .set_alph(sq, alph)
   .set_class(sq, "unt", FALSE)
-}
-
-validate_sq <- function(object, type = NULL) {
-  argname <- deparse(substitute(object))
-  if (!"sq" %in% class(object))
-    stop(argname, " doesn't inherit class 'sq'", call. = FALSE)
-  sqtype <- .get_sq_subclass(object)
-  if (length(sqtype) != 1) 
-    stop("'object' should have exactly one of classes: 'amisq', 'nucsq', 'untsq', 'encsq', 'atpsq'", call. = FALSE)
-  if (is.null(attr(object, "alphabet"))) 
-    stop("'object' doesn't 'alphabet' attribute", call. = FALSE)
-  alph <- .get_alph(object)
-  if (!is.character(alph) &&
-      !is.numeric(alph))
-    stop("attribute 'alphabet' is neither a character nor a numeric vector", call. = FALSE)
-  if (!is.list(object))
-    stop("'object' isn't a list", call. = FALSE)
-  if (!all(sapply(object, is.raw))) 
-    stop("'object' isn't a list of raw vectors", call. = FALSE)
-  if (!is.null(type)) {
-    switch(type,
-           ami = .validate_amisq(object),
-           nuc = .validate_nucsq(object),
-           unt = .validate_untsq(object),
-           atp = .validate_atpsq(object),
-           enc = .validate_encsq(object),
-           invisible(object)
-    )
-  }
-}
-
-.validate_nucsq <- function(object) {
-  if (!"nucsq" %in% class(object))
-    stop("'object' doesn't inherit class 'nucsq'", call. = FALSE)
-  alph <- .get_alph(object)
-  if (!"clnsq" %in% class(object)) {
-    if (!identical(alph, .get_standard_alph("nuc", FALSE)))
-      stop("attribute 'alphabet' isn't identical to standard nucleotides alphabet", call. = FALSE)
-  } else if (!identical(alph, .get_standard_alph("nuc", TRUE)))
-      stop("attribute 'alphabet' isn't identical to cleaned nucleotides alphabet", call. = FALSE)
-  
-  invisible(object)
-}
-
-.validate_amisq <- function(object) {
-  if (!"amisq" %in% class(object)) 
-    stop("'object' doesn't inherit class 'amisq'", call. = FALSE)
-  alph <- .get_alph(object)
-  if (!"clnsq" %in% class(object)) {
-    if (!identical(alph, .get_standard_alph("ami", FALSE)))
-      stop("attribute 'alphabet' isn't identical to standard aminoacids alphabet", call. = FALSE)
-  } else if (!identical(alph, .get_standard_alph("ami", TRUE))) 
-      stop("attribute 'alphabet' isn't identical to cleaned aminoacids alphabet", call. = FALSE)
-  
-  
-  invisible(object)
-}
-
-.validate_untsq <- function(object) {
-  alph <- .get_alph(object)
-  if (!is.character(alph))
-    stop("attribute 'alphabet' isn't a character vector", call. = FALSE)
-  if (!"untsq" %in% class(object))
-    stop("'object' doesn't inherit class 'untsq'", call. = FALSE)
-  
-  invisible(object)
-}
-
-.validate_atpsq <- function(object) {
-  if (!"atpsq" %in% class(object))
-    stop("'object' doesn't inherit class 'atpsq'", call. = FALSE)
-  alph <- .get_alph(object)
-  if (!is.character(alph))
-    stop("attribute 'alphabet' isn't a character vector", call. = FALSE)
-  
-  invisible(object)
-}
-
-.validate_encsq <- function(object) {
-  if (!"encsq" %in% class(object))
-    stop("'object' doesn't inherit class 'encsq'", call. = FALSE)
-  alph <- .get_alph(object)
-  if (!is.numeric(alph))
-    stop("attribute 'alphabet' isn't a numeric vector", call. = FALSE)
-  
-  invisible(object)
 }
