@@ -45,3 +45,16 @@ test_that("substitute_letters() keep original_lengths unchanged", {
     get_sq_lengths(sq_ami)
   )
 })
+
+# SURJECTIVITY OF SUBSTITUTION ----
+test_that("substitute_letters() is a surjection regarding the alphabets", {
+  expect_lte(
+    vec_size(alphabet(substitute_letters(sq_dna, c(T = "U")))),
+    vec_size(alphabet(sq_dna))
+  )
+  expect_lte(
+    vec_size(alphabet(substitute_letters(sq_ami, c(P = "Q", O = "W", I = "E", U = "R", Y = "T", G = "V",
+                                                   L = "A", K = "S", J = "D", H = "F", M = "Z", N = "X", B = "C")))),
+    vec_size(alphabet(sq_ami))
+  )
+})
