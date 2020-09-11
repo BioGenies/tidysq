@@ -9,6 +9,8 @@ import_sq(object, ...)
 \arguments{
 \item{object}{- an object of one of classes: \code{AAbin}, \code{DNAbin}, \code{AAStringSet}, 
 \code{DNAStringSet}, \code{SeqFastaAA}, \code{SeqFastadna}.}
+
+\item{...}{- additional arguments passed to the function.}
 }
 \value{
 A \code{\link[tibble]{tibble}} with \code{sq} column of \code{\link{sq}} type 

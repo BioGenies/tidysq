@@ -7,6 +7,8 @@
 #' 
 #' @param object - an object of one of classes: \code{AAbin}, \code{DNAbin}, \code{AAStringSet}, 
 #' \code{DNAStringSet}, \code{SeqFastaAA}, \code{SeqFastadna}.
+#' @param ... - additional arguments passed to the function.
+#' 
 #' @return A \code{\link[tibble]{tibble}} with \code{sq} column of \code{\link{sq}} type 
 #' representing the same 
 #' sequences as given object; the object has a type corresponding to the input type; if given
@@ -149,17 +151,19 @@ import_sq.XStringSetList <- function(object, separate = TRUE, ...) {
     do.call(bind_rows, lapply(object, import_sq))
 }
 
+# TODO: verify how objects are created in seqinr
+
 #' @export
 import_sq.SeqFastaAA <- function(object, ...) {
   # From package `seqinr`
-  sq <- construct_sq_ami(paste(object, collapse = ""))
+  sq <- construct_sq_ami(vapply(object, paste, character(1), collapse = ""))
   .return_sqibble(sq, attr(object, "name"))
 }
 
 #' @export
 import_sq.SeqFastadna <- function(object, ...) {
   # From package `seqinr`
-  sq <- construct_sq_dna(paste(object, collapse = ""))
+  sq <- construct_sq_dna(vapply(object, paste, character(1), collapse = ""))
   .return_sqibble(sq, attr(object, "name"))
 }
 
