@@ -4,7 +4,7 @@
 \alias{import_sq}
 \title{Import sq objects from other objects}
 \usage{
-import_sq(object)
+import_sq(object, ...)
 }
 \arguments{
 \item{object}{- an object of one of classes: \code{AAbin}, \code{DNAbin}, \code{AAStringSet}, 
