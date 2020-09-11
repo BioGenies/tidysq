@@ -46,6 +46,30 @@ test_that("construct_sq() returns object with alphabet attribute that contains e
   )
 })
 
+# REVERSING TO CHARACTER ----
+test_that("applying to.character() returns original character vector", {
+  expect_equivalent(
+    as.character(construct_sq(str_dna, type = "dna", is_clean = TRUE)),
+    str_dna
+  )
+  expect_equivalent(
+    as.character(construct_sq(str_rna, type = "rna", is_clean = FALSE)),
+    str_rna
+  )
+  expect_equivalent(
+    as.character(construct_sq(str_ami, type = "ami", is_clean = FALSE)),
+    str_ami
+  )
+  expect_equivalent(
+    as.character(construct_sq(str_unt, type = "unt")),
+    str_unt
+  )
+  expect_equivalent(
+    as.character(construct_sq(str_atp, non_standard = c("mA", "mY", "nbA", "nsA"))),
+    str_atp
+  )
+})
+
 # SHORTHAND FUNCTIONS ----
 test_that("construct_sq_dna() return identical value as construct_sq() with \"dna\" type", {
   expect_identical(construct_sq_dna(str_dna, is_clean = TRUE),
