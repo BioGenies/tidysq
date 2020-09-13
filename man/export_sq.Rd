@@ -4,7 +4,7 @@
 \alias{export_sq}
 \title{Export sq objects into other formats}
 \usage{
-export_sq(sq, export_format, name)
+export_sq(sq, export_format, name = NULL, ...)
 }
 \arguments{
 \item{sq}{a \code{\link{sq}} object.}
@@ -14,6 +14,8 @@ class; it should be one of the following: "seqinr::SeqFastaAA", "ape::AAbin",
 "Biostrings::AAStringSet", "seqinr::SeqFastadna", "ape::DNAbin", "Biostrings::DNAStringSet".}
 
 \item{name}{a \code{\link{character}} vector of length equal to \code{sq} length.}
+
+\item{...}{- additional arguments passed to the function.}
 }
 \description{
 Convert object of class \code{\link{sq}} to another class from another package. Currently 
