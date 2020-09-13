@@ -31,8 +31,7 @@
 #' 
 #' ## seqinr example
 #' library(seqinr)
-#' seqinr_dna <- as.SeqFastadna(list(one = c("C", "T", "C", "A"), 
-#'                                   two = c("T", "G", "A", "G", "G")))
+#' seqinr_dna <- as.SeqFastadna(c("C", "T", "C", "A"), name = "one")
 #' import_sq(seqinr_dna)
 #' 
 #' @seealso \code{\link{export_sq}} \code{\link{sq}}
@@ -86,85 +85,91 @@ import_sq.alignment <- function(object, ...) {
 
 #' @export
 import_sq.AAString <- function(object, ...) {
-  # From package `BioStrings`
+  # From package `Biostrings`
   sq <- construct_sq_ami(as.character(object))
   .return_sqibble(sq, names(object))
 }
 
 #' @export
 import_sq.AAStringSet <- function(object, ...) {
-  # From package `BioStrings`
+  # From package `Biostrings`
   sq <- construct_sq_ami(as.character(object))
   .return_sqibble(sq, names(object))
 }
 
 #' @export
 import_sq.DNAString <- function(object, ...) {
-  # From package `BioStrings`
+  # From package `Biostrings`
   sq <- construct_sq_dna(as.character(object))
   .return_sqibble(sq, names(object))
 }
 
 #' @export
 import_sq.DNAStringSet <- function(object, ...) {
-  # From package `BioStrings`
+  # From package `Biostrings`
   sq <- construct_sq_dna(as.character(object))
   .return_sqibble(sq, names(object))
 }
 
 #' @export
 import_sq.RNAString <- function(object, ...) {
-  # From package `BioStrings`
+  # From package `Biostrings`
   sq <- construct_sq_rna(as.character(object))
   .return_sqibble(sq, names(object))
 }
 
 #' @export
 import_sq.RNAStringSet <- function(object, ...) {
-  # From package `BioStrings`
+  # From package `Biostrings`
   sq <- construct_sq_rna(as.character(object))
   .return_sqibble(sq, names(object))
 }
 
 #' @export
 import_sq.BString <- function(object, ...) {
-  # From package `BioStrings`
+  # From package `Biostrings`
   sq <- construct_sq(as.character(object), type = "unt")
   .return_sqibble(sq, names(object))
 }
 
 #' @export
 import_sq.BStringSet <- function(object, ...) {
-  # From package `BioStrings`
+  # From package `Biostrings`
   sq <- construct_sq(as.character(object), type = "unt")
   .return_sqibble(sq, names(object))
 }
 
-#' @importFrom dplyr bind_rows
 #' @export
-import_sq.XStringSetList <- function(object, separate = TRUE, ...) {
-  # From package `BioStrings`
+import_sq.XStringSetList <- function(object, ...) {
+  # From package `Biostrings`
   # Allowing the user to choose whether import should preserve there being separate sets
-  if (separate)
-    lapply(object, import_sq)
-  else
-    do.call(bind_rows, lapply(object, import_sq))
+  # Is not a list even though behaves like a list (for us), so can't rely on this dispatch
+  import_sq.list(object, ...)
 }
-
-# TODO: verify how objects are created in seqinr
 
 #' @export
 import_sq.SeqFastaAA <- function(object, ...) {
   # From package `seqinr`
-  sq <- construct_sq_ami(vapply(object, paste, character(1), collapse = ""))
+  sq <- construct_sq_ami(paste(object, collapse = ""))
   .return_sqibble(sq, attr(object, "name"))
 }
 
 #' @export
 import_sq.SeqFastadna <- function(object, ...) {
   # From package `seqinr`
-  sq <- construct_sq_dna(vapply(object, paste, character(1), collapse = ""))
+  sq <- construct_sq_dna(paste(object, collapse = ""))
   .return_sqibble(sq, attr(object, "name"))
+}
+
+#' @importFrom dplyr bind_rows
+#' @export
+import_sq.list <- function(object, separate = TRUE, ...) {
+  # Whenever a class is attributed to each element and not to the whole list
+  # For example - `seqinr` and its SeqFastadna
+  if (separate)
+    lapply(object, import_sq)
+  else
+    do.call(bind_rows, lapply(object, import_sq))
 }
 
 .return_sqibble <- function(sq, name = NULL) {

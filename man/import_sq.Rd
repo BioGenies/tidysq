@@ -41,8 +41,7 @@ import_sq(Biostrings_dna)
 
 ## seqinr example
 library(seqinr)
-seqinr_dna <- as.SeqFastadna(list(one = c("C", "T", "C", "A"), 
-                                  two = c("T", "G", "A", "G", "G")))
+seqinr_dna <- as.SeqFastadna(c("C", "T", "C", "A"), name = "one")
 import_sq(seqinr_dna)
 
 }
