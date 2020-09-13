@@ -33,7 +33,7 @@ export_sq <- function(sq, export_format, name = NULL, ...) {
 }
 
 #' @export
-export_sq.default <- function(object, ...) {
+export_sq.default <- function(sq, export_format, name = NULL, ...) {
   stop("export_sq() function cannot export objects of this class", call. = FALSE)
 }
 
