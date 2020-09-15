@@ -105,7 +105,7 @@ export_sq.dnasq <- function(sq, export_format, name = NULL, ...) {
 }
 
 #' @export
-export_sq.rnasq <- function(sq, export_format, name, ...) {
+export_sq.rnasq <- function(sq, export_format, name = NULL, ...) {
   switch (export_format,
     `Biostrings::RNAString` = {
       .check_is_installed("Biostrings")
