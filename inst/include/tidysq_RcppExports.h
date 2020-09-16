@@ -129,17 +129,17 @@ namespace tidysq {
         return Rcpp::as<Rcpp::RawVector >(rcpp_result_gen);
     }
 
-    inline Rcpp::RawVector C_unpack_raws(Rcpp::RawVector packed, const unsigned short alph_size) {
-        typedef SEXP(*Ptr_C_unpack_raws)(SEXP,SEXP);
-        static Ptr_C_unpack_raws p_C_unpack_raws = NULL;
-        if (p_C_unpack_raws == NULL) {
-            validateSignature("Rcpp::RawVector(*C_unpack_raws)(Rcpp::RawVector,const unsigned short)");
-            p_C_unpack_raws = (Ptr_C_unpack_raws)R_GetCCallable("tidysq", "_tidysq_C_unpack_raws");
+    inline unsigned short C_get_alph_size(Rcpp::CharacterVector alph) {
+        typedef SEXP(*Ptr_C_get_alph_size)(SEXP);
+        static Ptr_C_get_alph_size p_C_get_alph_size = NULL;
+        if (p_C_get_alph_size == NULL) {
+            validateSignature("unsigned short(*C_get_alph_size)(Rcpp::CharacterVector)");
+            p_C_get_alph_size = (Ptr_C_get_alph_size)R_GetCCallable("tidysq", "_tidysq_C_get_alph_size");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_C_unpack_raws(Shield<SEXP>(Rcpp::wrap(packed)), Shield<SEXP>(Rcpp::wrap(alph_size)));
+            rcpp_result_gen = p_C_get_alph_size(Shield<SEXP>(Rcpp::wrap(alph)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -147,20 +147,20 @@ namespace tidysq {
             throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<Rcpp::RawVector >(rcpp_result_gen);
+        return Rcpp::as<unsigned short >(rcpp_result_gen);
     }
 
-    inline Rcpp::IntegerVector C_unpack_ints(Rcpp::RawVector packed, const unsigned short alph_size) {
-        typedef SEXP(*Ptr_C_unpack_ints)(SEXP,SEXP);
-        static Ptr_C_unpack_ints p_C_unpack_ints = NULL;
-        if (p_C_unpack_ints == NULL) {
-            validateSignature("Rcpp::IntegerVector(*C_unpack_ints)(Rcpp::RawVector,const unsigned short)");
-            p_C_unpack_ints = (Ptr_C_unpack_ints)R_GetCCallable("tidysq", "_tidysq_C_unpack_ints");
+    inline std::vector<unsigned char> unpack_raws_to_std_vector(Rcpp::RawVector v, unsigned short alphabet_size) {
+        typedef SEXP(*Ptr_unpack_raws_to_std_vector)(SEXP,SEXP);
+        static Ptr_unpack_raws_to_std_vector p_unpack_raws_to_std_vector = NULL;
+        if (p_unpack_raws_to_std_vector == NULL) {
+            validateSignature("std::vector<unsigned char>(*unpack_raws_to_std_vector)(Rcpp::RawVector,unsigned short)");
+            p_unpack_raws_to_std_vector = (Ptr_unpack_raws_to_std_vector)R_GetCCallable("tidysq", "_tidysq_unpack_raws_to_std_vector");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_C_unpack_ints(Shield<SEXP>(Rcpp::wrap(packed)), Shield<SEXP>(Rcpp::wrap(alph_size)));
+            rcpp_result_gen = p_unpack_raws_to_std_vector(Shield<SEXP>(Rcpp::wrap(v)), Shield<SEXP>(Rcpp::wrap(alphabet_size)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -168,7 +168,7 @@ namespace tidysq {
             throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<Rcpp::IntegerVector >(rcpp_result_gen);
+        return Rcpp::as<std::vector<unsigned char> >(rcpp_result_gen);
     }
 
     inline Rcpp::CharacterVector C_unpack_chars(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_letter) {
@@ -189,7 +189,7 @@ namespace tidysq {
             throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<Rcpp::CharacterVector >(rcpp_result_gen);
+        return Rcpp::as<unsigned int >(rcpp_result_gen);
     }
 
     inline Rcpp::CharacterVector C_unpack_string(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_letter) {

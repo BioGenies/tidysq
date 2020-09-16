@@ -90,6 +90,14 @@ C_get_alph_size <- function(alph) {
     .Call('_tidysq_C_get_alph_size', PACKAGE = 'tidysq', alph)
 }
 
+unpack_raws_to_std_vector <- function(v, alphabet_size) {
+    .Call('_tidysq_unpack_raws_to_std_vector', PACKAGE = 'tidysq', v, alphabet_size)
+}
+
+C_get_out_len <- function(packed, alph_size) {
+    .Call('_tidysq_C_get_out_len', PACKAGE = 'tidysq', packed, alph_size)
+}
+
 C_get_na_val <- function(alph_size) {
     .Call('_tidysq_C_get_na_val', PACKAGE = 'tidysq', alph_size)
 }

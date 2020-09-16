@@ -297,83 +297,61 @@ END_RCPP
 }
 // C_unpack_raws
 Rcpp::RawVector C_unpack_raws(Rcpp::RawVector packed, const unsigned short alph_size);
-static SEXP _tidysq_C_unpack_raws_try(SEXP packedSEXP, SEXP alph_sizeSEXP) {
+RcppExport SEXP _tidysq_C_unpack_raws(SEXP packedSEXP, SEXP alph_sizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type packed(packedSEXP);
     Rcpp::traits::input_parameter< const unsigned short >::type alph_size(alph_sizeSEXP);
     rcpp_result_gen = Rcpp::wrap(C_unpack_raws(packed, alph_size));
     return rcpp_result_gen;
-END_RCPP_RETURN_ERROR
-}
-RcppExport SEXP _tidysq_C_unpack_raws(SEXP packedSEXP, SEXP alph_sizeSEXP) {
-    SEXP rcpp_result_gen;
-    {
-        Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_tidysq_C_unpack_raws_try(packedSEXP, alph_sizeSEXP));
-    }
-    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
-    if (rcpp_isInterrupt_gen) {
-        UNPROTECT(1);
-        Rf_onintr();
-    }
-    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
-    if (rcpp_isLongjump_gen) {
-        Rcpp::internal::resumeJump(rcpp_result_gen);
-    }
-    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
-    if (rcpp_isError_gen) {
-        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
-        UNPROTECT(1);
-        Rf_error(CHAR(rcpp_msgSEXP_gen));
-    }
-    UNPROTECT(1);
-    return rcpp_result_gen;
+END_RCPP
 }
 // C_unpack_ints
 Rcpp::IntegerVector C_unpack_ints(Rcpp::RawVector packed, const unsigned short alph_size);
-static SEXP _tidysq_C_unpack_ints_try(SEXP packedSEXP, SEXP alph_sizeSEXP) {
+RcppExport SEXP _tidysq_C_unpack_ints(SEXP packedSEXP, SEXP alph_sizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type packed(packedSEXP);
     Rcpp::traits::input_parameter< const unsigned short >::type alph_size(alph_sizeSEXP);
     rcpp_result_gen = Rcpp::wrap(C_unpack_ints(packed, alph_size));
     return rcpp_result_gen;
-END_RCPP_RETURN_ERROR
-}
-RcppExport SEXP _tidysq_C_unpack_ints(SEXP packedSEXP, SEXP alph_sizeSEXP) {
-    SEXP rcpp_result_gen;
-    {
-        Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_tidysq_C_unpack_ints_try(packedSEXP, alph_sizeSEXP));
-    }
-    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
-    if (rcpp_isInterrupt_gen) {
-        UNPROTECT(1);
-        Rf_onintr();
-    }
-    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
-    if (rcpp_isLongjump_gen) {
-        Rcpp::internal::resumeJump(rcpp_result_gen);
-    }
-    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
-    if (rcpp_isError_gen) {
-        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
-        UNPROTECT(1);
-        Rf_error(CHAR(rcpp_msgSEXP_gen));
-    }
-    UNPROTECT(1);
-    return rcpp_result_gen;
+END_RCPP
 }
 // C_unpack_chars
 Rcpp::CharacterVector C_unpack_chars(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_letter);
 static SEXP _tidysq_C_unpack_chars_try(SEXP packedSEXP, SEXP alphSEXP, SEXP na_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RawVector >::type packed(packedSEXP);
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type na_letter(na_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(C_unpack_chars(packed, alph, na_letter));
+    return rcpp_result_gen;
+END_RCPP
+}
+// C_unpack_string
+Rcpp::CharacterVector C_unpack_string(Rcpp::RawVector packed, Rcpp::CharacterVector alph, Rcpp::CharacterVector na_char);
+RcppExport SEXP _tidysq_C_unpack_string(SEXP packedSEXP, SEXP alphSEXP, SEXP na_charSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type packed(packedSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type na_char(na_charSEXP);
+    rcpp_result_gen = Rcpp::wrap(C_unpack_string(packed, alph, na_char));
+    return rcpp_result_gen;
+END_RCPP
+}
+// C_get_alph_size
+unsigned short C_get_alph_size(Rcpp::CharacterVector alph);
+static SEXP _tidysq_C_get_alph_size_try(SEXP alphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
+    rcpp_result_gen = Rcpp::wrap(C_get_alph_size(alph));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
@@ -437,21 +415,22 @@ RcppExport SEXP _tidysq_C_unpack_string(SEXP packedSEXP, SEXP alphSEXP, SEXP na_
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// C_get_alph_size
-unsigned short C_get_alph_size(Rcpp::CharacterVector alph);
-static SEXP _tidysq_C_get_alph_size_try(SEXP alphSEXP) {
+// C_get_out_len
+unsigned int C_get_out_len(Rcpp::RawVector packed, const unsigned short alph_size);
+static SEXP _tidysq_C_get_out_len_try(SEXP packedSEXP, SEXP alph_sizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type alph(alphSEXP);
-    rcpp_result_gen = Rcpp::wrap(C_get_alph_size(alph));
+    Rcpp::traits::input_parameter< Rcpp::RawVector >::type packed(packedSEXP);
+    Rcpp::traits::input_parameter< const unsigned short >::type alph_size(alph_sizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(C_get_out_len(packed, alph_size));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _tidysq_C_get_alph_size(SEXP alphSEXP) {
+RcppExport SEXP _tidysq_C_get_out_len(SEXP packedSEXP, SEXP alph_sizeSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_tidysq_C_get_alph_size_try(alphSEXP));
+        rcpp_result_gen = PROTECT(_tidysq_C_get_out_len_try(packedSEXP, alph_sizeSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -515,11 +494,9 @@ static int _tidysq_RcppExport_validate(const char* sig) {
         signatures.insert("Rcpp::RawVector(*C_pack_ints)(Rcpp::IntegerVector,const unsigned short)");
         signatures.insert("Rcpp::RawVector(*C_pack_chars)(Rcpp::CharacterVector,Rcpp::CharacterVector)");
         signatures.insert("Rcpp::RawVector(*C_pack_string)(Rcpp::RawVector,Rcpp::CharacterVector)");
-        signatures.insert("Rcpp::RawVector(*C_unpack_raws)(Rcpp::RawVector,const unsigned short)");
-        signatures.insert("Rcpp::IntegerVector(*C_unpack_ints)(Rcpp::RawVector,const unsigned short)");
-        signatures.insert("Rcpp::CharacterVector(*C_unpack_chars)(Rcpp::RawVector,Rcpp::CharacterVector,Rcpp::CharacterVector)");
-        signatures.insert("Rcpp::CharacterVector(*C_unpack_string)(Rcpp::RawVector,Rcpp::CharacterVector,Rcpp::CharacterVector)");
         signatures.insert("unsigned short(*C_get_alph_size)(Rcpp::CharacterVector)");
+        signatures.insert("std::vector<unsigned char>(*unpack_raws_to_std_vector)(Rcpp::RawVector,unsigned short)");
+        signatures.insert("unsigned int(*C_get_out_len)(Rcpp::RawVector,const unsigned short)");
         signatures.insert("unsigned short(*C_get_na_val)(const unsigned short)");
     }
     return signatures.find(sig) != signatures.end();
@@ -532,11 +509,9 @@ RcppExport SEXP _tidysq_RcppExport_registerCCallable() {
     R_RegisterCCallable("tidysq", "_tidysq_C_pack_ints", (DL_FUNC)_tidysq_C_pack_ints_try);
     R_RegisterCCallable("tidysq", "_tidysq_C_pack_chars", (DL_FUNC)_tidysq_C_pack_chars_try);
     R_RegisterCCallable("tidysq", "_tidysq_C_pack_string", (DL_FUNC)_tidysq_C_pack_string_try);
-    R_RegisterCCallable("tidysq", "_tidysq_C_unpack_raws", (DL_FUNC)_tidysq_C_unpack_raws_try);
-    R_RegisterCCallable("tidysq", "_tidysq_C_unpack_ints", (DL_FUNC)_tidysq_C_unpack_ints_try);
-    R_RegisterCCallable("tidysq", "_tidysq_C_unpack_chars", (DL_FUNC)_tidysq_C_unpack_chars_try);
-    R_RegisterCCallable("tidysq", "_tidysq_C_unpack_string", (DL_FUNC)_tidysq_C_unpack_string_try);
     R_RegisterCCallable("tidysq", "_tidysq_C_get_alph_size", (DL_FUNC)_tidysq_C_get_alph_size_try);
+    R_RegisterCCallable("tidysq", "_tidysq_unpack_raws_to_std_vector", (DL_FUNC)_tidysq_unpack_raws_to_std_vector_try);
+    R_RegisterCCallable("tidysq", "_tidysq_C_get_out_len", (DL_FUNC)_tidysq_C_get_out_len_try);
     R_RegisterCCallable("tidysq", "_tidysq_C_get_na_val", (DL_FUNC)_tidysq_C_get_na_val_try);
     R_RegisterCCallable("tidysq", "_tidysq_RcppExport_validate", (DL_FUNC)_tidysq_RcppExport_validate);
     return R_NilValue;
@@ -563,6 +538,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_C_unpack_chars", (DL_FUNC) &_tidysq_C_unpack_chars, 3},
     {"_tidysq_C_unpack_string", (DL_FUNC) &_tidysq_C_unpack_string, 3},
     {"_tidysq_C_get_alph_size", (DL_FUNC) &_tidysq_C_get_alph_size, 1},
+    {"_tidysq_unpack_raws_to_std_vector", (DL_FUNC) &_tidysq_unpack_raws_to_std_vector, 2},
+    {"_tidysq_C_get_out_len", (DL_FUNC) &_tidysq_C_get_out_len, 2},
     {"_tidysq_C_get_na_val", (DL_FUNC) &_tidysq_C_get_na_val, 1},
     {"_tidysq_RcppExport_registerCCallable", (DL_FUNC) &_tidysq_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}

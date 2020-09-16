@@ -1,19 +1,30 @@
 #include <Rcpp.h>
 #include <cmath>
 #include <iostream>
+#include <tidysq_generic.h>
 
 // [[Rcpp::interfaces(cpp, r)]]
-
 // [[Rcpp::export]]
 unsigned short C_get_alph_size(Rcpp::CharacterVector alph) {
-  return ceil(log2(alph.size() + 2));
+  return tidysq::get_alph_size_internal(alph);
+}
+
+// [[Rcpp::interfaces(cpp, r)]]
+// [[Rcpp::export]]
+std::vector<unsigned char> unpack_raws_to_std_vector(Rcpp::RawVector v, unsigned short alphabet_size) {
+    return tidysq::unpack_raws_internal<Rcpp::RawVector, std::vector<unsigned char>>(v, alphabet_size);
+}
+
+// [[Rcpp::export]]
+unsigned int C_get_out_len(Rcpp::RawVector packed,
+                           const unsigned short alph_size) {
+    return tidysq::get_out_len_internal<Rcpp::RawVector>(packed, alph_size);
 }
 
 // [[Rcpp::export]]
 unsigned short C_get_na_val(const unsigned short alph_size) {
   return (1 << alph_size) - 1;
 }
-
 
 //' Match index of letter in alphabet for each letter
 Rcpp::RawVector C_match(Rcpp::CharacterVector letters,
