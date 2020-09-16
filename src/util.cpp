@@ -68,12 +68,12 @@ Rcpp::RawVector C_match(Rcpp::RawVector letters,
 //' Match index of letter in alphabet for each letter
 Rcpp::CharacterVector C_match(Rcpp::RawVector letters,
                               Rcpp::CharacterVector alph,
-                              Rcpp::CharacterVector na_char) {
+                              Rcpp::CharacterVector na_letter) {
   Rcpp::CharacterVector ret(letters.size());
   unsigned char na_val = C_get_na_val(C_get_alph_size(alph));
   for (int i = 0; i < letters.size(); i++) {
     if (letters[i] == na_val) {
-      ret[i] = na_char[0];
+      ret[i] = na_letter[0];
     } else {
       ret[i] = alph[letters[i] - 1];
     }

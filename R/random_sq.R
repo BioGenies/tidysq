@@ -30,6 +30,7 @@
 #' random_sq(50, 8, "dna", FALSE, sd = 3)
 #' random_sq(6, 100, "ami", TRUE, use_gap = TRUE)
 #' @seealso \code{\link{construct_sq}} \code{\link{sq}}
+#' @importFrom stringi stri_rand_strings stri_paste
 #' @export
 random_sq <- function(n, len, type, is_clean, sd = NULL, use_gap = FALSE) {
   .check_integer(n, "'n'", single_elem = TRUE)
@@ -40,15 +41,16 @@ random_sq <- function(n, len, type, is_clean, sd = NULL, use_gap = FALSE) {
   .check_logical(use_gap, "'use_gap'", single_elem = TRUE)
   
   alph <- .get_standard_alph(type, is_clean)
-  if (!use_gap) alph <- setdiff(alph, "-")
-  if (type == "ami") alph <- setdiff(alph, "*")
+  if (!use_gap) alph <- .skip_characters(alph, "-")
+  if (type == "ami") alph <- .skip_characters(alph, "*")
   
-  if (is.null(sd))
-    sq <- sapply(1:n, function(i) paste0(sample(alph, len, replace = TRUE), collapse = ""))
-  else {
+  alph_regex <- stri_paste("[", stri_paste(alph, collapse = ""), "]")
+  if (!is.null(sd)) {
+    # TODO: consider using other distribution than normal maybe?
     len <- round(rnorm(n, len, sd))
     len <- ifelse(len <= 0, 1, len)
-    sq <- sapply(1:n, function(i) paste0(sample(alph, len[i], replace = TRUE), collapse = ""))
   }
+  
+  sq <- stri_rand_strings(n, len, alph_regex)
   construct_sq(sq, type, is_clean)
 }

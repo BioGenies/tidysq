@@ -118,36 +118,36 @@
 
 substitute_letters <- function(sq, encoding) {
   .validate_sq(sq)
-  alph <- .get_alph(sq)
+  alph <- alphabet(sq)
   .check_isnt_missing(encoding, "'encoding'")
   .check_isnt_null(encoding, "'encoding'")
   .check_is_named(encoding, "'encoding'")
   .check_enc_names_in_alph(encoding, alph)
   .check_is_unique(names(encoding), "names of 'encoding'")
+  
   if (is.numeric(encoding)) {
     .check_integer(encoding, "if is numeric 'encoding'", allow_na = TRUE)
-    name <- names(encoding)
-    encoding <- as.character(encoding)
-    names(encoding) <- name
+    # Changes storage mode, because it preserves attributes
+    # (and we want to preserve names)
+    mode(encoding) <- "character"
   } else if (is.character(encoding)) {
     .check_character(encoding, "if is character 'encoding'", allow_na = TRUE)
   } else .check_simple(!all(is.na(encoding)), "if is neither numeric nor character 'encoding'", "has to contain only NA values")
   
   inds_fun <- alph
   inds_fun[match(names(encoding), alph)] <- encoding
-  new_alph <- na.omit(unique(inds_fun))
-  names(inds_fun) <- as.character(1:length(alph))
+  new_alph <- vec_cast(na.omit(unique(inds_fun)), sq_alphabet_ptype())
   inds_fun <- match(inds_fun, new_alph)
   inds_fun[is.na(inds_fun)] <- .get_na_val(new_alph)
   
-  ret <- .apply_sq(sq, "int", "int", function(s) {
-    inds_fun[s]
-  }, new_alph)
+  ret <- .apply_sq(sq, "int", "int", function(s) inds_fun[s], new_alph)
   if (.is_cleaned(sq)) {
     .handle_opt_txt("tidysq_a_cln_sub_letters",
                     "'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it")
   }
-
-  ret <- .set_alph(ret, new_alph)
-  .set_class(ret, "atp")
+  
+  new_list_of(ret,
+              ptype = raw(),
+              alphabet = new_alph,
+              class = c("atpsq", "sq"))
 }

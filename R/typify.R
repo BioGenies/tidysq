@@ -50,11 +50,12 @@
 typify <- function(sq, dest_type) {
   .validate_sq(sq)
   .check_type(dest_type, "'dest_type'")
-  type <- .get_sq_type(sq)
-  if (type == dest_type) {
+  
+  if (.get_sq_type(sq) == dest_type) {
     return(sq)
   }
-  alph <- .get_alph(sq)
+  
+  alph <- alphabet(sq)
   up_alph <- unique(toupper(alph))
   dest_alph <- .get_standard_alph(dest_type, FALSE)
   
@@ -64,15 +65,9 @@ typify <- function(sq, dest_type) {
                     "in 'alphabet' attribute of 'sq' some letters appear as both lower and capital")
   }
   
-  pack_fun <- switch(dest_type,
-    "ami" = nc_pack_ami,
-    "dna" = nc_pack_dna,
-    "rna" = nc_pack_rna
-  )
-  ret <- .apply_sq(sq, "char", "char", function(s) {
-    toupper(s)
-  }, im_alph = dest_alph)
-  
-  ret <- .set_alph(ret, dest_alph)
-  .set_class(ret, dest_type)
+  ret <- .apply_sq(sq, "char", "char", toupper, im_alph = dest_alph)
+  new_list_of(ret,
+              ptype = raw(),
+              alphabet = dest_alph,
+              class = c(paste0(dest_type, "sq"), "sq"))
 }

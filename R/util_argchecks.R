@@ -1,3 +1,5 @@
+# general checks - used basically everywhere ----
+
 .check_simple <- function(check, argname, msg) {
   if (check) stop(argname, " ", msg, call. = FALSE)
 }
@@ -141,8 +143,7 @@
 }
 
 
-
-### specific checks - used mainly once
+# specific checks - used mainly once ----
 
 .check_real_alph_clean <- function(real_alph, type, is_clean) {
   if (!is.null(is_clean) &&
@@ -173,14 +174,6 @@
   }
 }
 
-# TODO: verify if RNA is exportable to these formats
-# TODO: are parentheses right?
-.check_type_matches_format <- function(type, export_format, ami_formats, nuc_formats) {
-  if (type == "ami" && !(export_format %in% ami_formats) ||
-      type %in% c("dna", "rna") && !(export_format %in% nuc_formats)) 
-    stop("'sq' object type doesn't match 'export_format'", call. = FALSE)
-}
-
 .check_enc_names_in_alph <- function(encoding, alph) {
   if (!all(names(encoding) %in% alph)) 
     stop("all names of 'encoding' has to be letters from alphabet (elements of 'alphabet' attribute of 'sq')", call. = FALSE)
@@ -199,9 +192,9 @@
     stop("some sequences have levels that are invalid for given 'dest_type'; you can check them with 'get_invalid_letters' function and fix them with 'substitute_letters'", call. = FALSE)
 }
 
-.check_paste_or_na <- function(paste_char, use_na_char) {
-  if (paste_char && !use_na_char) 
-    stop("'paste_char' can be TRUE if and only if 'use_na_char' is FALSE", call. = FALSE)
+.check_paste_or_na <- function(paste_char, use_na_letter) {
+  if (paste_char && !use_na_letter)
+    stop("'paste_char' can be TRUE if and only if 'use_na_letter' is FALSE", call. = FALSE)
 }
 
 .check_list_dists <- function(dists) {
@@ -216,7 +209,7 @@
 }
 
 .check_alph_is_subset <- function(sq, alph) {
-  if (!all(alph %in% .get_alph(sq)))
+  if (!all(alph %in% alphabet(sq)))
     stop("'alph' contains letters that aren't elements of alphabet of 'sq'", call. = FALSE)
 }
 

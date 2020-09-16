@@ -24,6 +24,27 @@ namespace tidysq {
         }
     }
 
+    inline Rcpp::CharacterVector C_get_real_alph(Rcpp::CharacterVector sq) {
+        typedef SEXP(*Ptr_C_get_real_alph)(SEXP);
+        static Ptr_C_get_real_alph p_C_get_real_alph = NULL;
+        if (p_C_get_real_alph == NULL) {
+            validateSignature("Rcpp::CharacterVector(*C_get_real_alph)(Rcpp::CharacterVector)");
+            p_C_get_real_alph = (Ptr_C_get_real_alph)R_GetCCallable("tidysq", "_tidysq_C_get_real_alph");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_C_get_real_alph(Shield<SEXP>(Rcpp::wrap(sq)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::CharacterVector >(rcpp_result_gen);
+    }
+
     inline Rcpp::RawVector C_pack_raws(Rcpp::RawVector unpacked, const unsigned short alph_size) {
         typedef SEXP(*Ptr_C_pack_raws)(SEXP,SEXP);
         static Ptr_C_pack_raws p_C_pack_raws = NULL;

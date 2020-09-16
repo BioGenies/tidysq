@@ -11,11 +11,11 @@
 #' @param paste_char a \code{\link{logical}} value indicating in which form sequences should be
 #' passed to the function \code{fun}; if \code{FALSE} (default), they will be treated as character
 #' vectors, if \code{TRUE}, they will be pasted into a single string.
-#' @param use_na_char a \code{\link{logical}} value indicating whether to use a printing character
-#' to represent \code{\link{NA}} values; if \code{TRUE}, letter from option "tidysq_p_na_char"
+#' @param use_na_letter a \code{\link{logical}} value indicating whether to use a printing character
+#' to represent \code{\link{NA}} values; if \code{TRUE}, letter from option "tidysq_p_na_letter"
 #' will be used instead of \code{NA} values (default value for this option is "!", for details
 #' see \code{\link{tidysq-options}}), otherwise just \code{NA} values will be used; default value
-#' for this parameter is equal to \code{paste_char} value; \code{use_na_char} cannot be 
+#' for this parameter is equal to \code{paste_char} value; \code{use_na_letter} cannot be
 #' \code{FALSE} if \code{paste_char} is \code{TRUE}.
 #' 
 #' @return A list of values returned by function for each sequence in corresponding order.
@@ -33,16 +33,16 @@
 #' @seealso \code{\link{sq}} \code{\link[base]{lapply}}
 #' @export 
 sqapply <- function(sq, fun, ..., paste_char = FALSE, 
-                    use_na_char = paste_char) {
+                    use_na_letter = paste_char) {
   .validate_sq(sq)
   .check_logical(paste_char, "'paste_char'", single_elem = TRUE)
-  .check_logical(use_na_char, "'use_na_char'", single_elem = TRUE)
-  .check_paste_or_na(paste_char, use_na_char)
+  .check_logical(use_na_letter, "'use_na_letter'", single_elem = TRUE)
+  .check_paste_or_na(paste_char, use_na_letter)
   
-  na_char <- .get_na_char()
+  na_letter <- na_letter(alphabet(sq))
   type <- .get_sq_type(sq)
   .apply_sq(sq, if (paste_char) "string" else "char", "none", function(s) {
-    if (!use_na_char) s[s == na_char] <- NA
+    if (!use_na_letter) s[s == na_letter] <- NA
     if (type == "enc") s <- as.numeric(s)
     fun(s, ...)
   })

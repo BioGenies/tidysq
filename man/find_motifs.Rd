@@ -38,7 +38,7 @@ within a sequence.
 
 Note if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
 search for motifs cannot be performed and an error will be displayed (with 
-exception of sq objects of type ami - in their alphabet there is '*' letter 
+exception of sq objects of type ami - there is '*' letter in their alphabet
 and it can be contained in sought motif). To search for motifs with those 
 characters, you have to replace them first using 
 \code{\link{substitute_letters}}. 

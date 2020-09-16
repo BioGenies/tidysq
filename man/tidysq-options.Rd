@@ -33,9 +33,9 @@ fast mode (see
 pillar_shaft_sq width
 \item tidysq_p_max_sequences (default 10) - an \code{\link{integer}} value specifying
 maximum number of printed sequences
-in \code{\link[=print.sq]{print sq}},
-(see \code{\link[=print.sq]{print sq}})
-\item tidysq_p_na_char (default = "!") -  a \code{\link{character}} string which character
+in \code{\link[=sq-print]{print sq}},
+(see \code{\link[=sq-print]{print sq}})
+\item tidysq_p_na_letter (default = "!") -  a \code{\link{character}} string which character
 string to pring when 
 \code{\link{NA}} values appear in sequences,
 \item tidysq_p_use_color (default \code{TRUE}) - a \code{\link{logical}} value if to

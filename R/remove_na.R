@@ -57,7 +57,7 @@ remove_na <- function(sq, only_elements = FALSE) {
   .validate_sq(sq)
   .check_logical(only_elements, "'only_elements'", single_elem = TRUE)
   
-  alph <- .get_alph(sq)
+  alph <- alphabet(sq)
   alph_size <- .get_alph_size(alph)
   na_val <- .get_na_val(alph)
   
@@ -68,13 +68,8 @@ remove_na <- function(sq, only_elements = FALSE) {
   } else {
     ret <- lapply(sq, function(s) {
       st <- C_unpack_ints(s, alph_size)
-      if (any(st == na_val)) {
-        empty_sq <- raw(0)
-        attr(empty_sq, "original_length") <- 0
-        empty_sq
-      } else s
+      if (any(st == na_val)) structure(raw(), original_length = 0) else s
     })
   }
-  
-  .set_class_alph(ret, sq)
+  vec_restore(ret, sq)
 }

@@ -76,15 +76,14 @@
 #' @export
 `%has%.sq` <- function(x, y) {
   .check_character(y, "'y', right-hand side object,")
-  alph <- .get_alph(x)
+  alph <- alphabet(x)
   type <- .get_sq_type(x)
   .check_motifs_proper_alph(y, type, alph)
+  
   x <- as.character(x)
-  ret <- sapply(y, function(s) grepl(s, x))
-  if(!is.matrix(ret))
-    ret <- as.matrix(ret)
-  ret <- apply(ret, 1, all)
-  ret
+  
+  ret <- do.call(cbind, lapply(y, function(s) grepl(s, x)))
+  apply(ret, 1, all)
 }
 
 #' @export
@@ -92,22 +91,12 @@
   .check_character(y, "'y', right hand side object,")
   y <- toupper(y)
   .check_motifs_proper_alph(y, "ami")
-  y <- strsplit(y, "")
-  y <- lapply(y, function(s) replace(s, s == "*", "\\*"))
-  y <- lapply(y, function(s) replace(s, s == "B", "[BDN]"))
-  y <- lapply(y, function(s) replace(s, s == "J", "[JIL]"))
-  y <- lapply(y, function(s) replace(s, s == "Z", "[ZEQ]"))
-  y <- lapply(y, function(s) replace(s, s == "X", "[A-Z]"))
-  y <- sapply(y, function(s) paste(s, collapse = ""))
   
-  alph <- .get_alph(x)
+  y <- .replace_ami_motif(y)
   x <- as.character(x)
   
-  ret <- sapply(y, function(s) grepl(s, x))
-  if(!is.matrix(ret))
-    ret <- as.matrix(ret)
-  ret <- apply(ret, 1, all)
-  ret
+  ret <- do.call(cbind, lapply(y, function(s) grepl(s, x)))
+  apply(ret, 1, all)
 }
 
 #' @export
@@ -115,32 +104,12 @@
   .check_character(y, "'y', right hand side object,")
   y <- toupper(y)
   .check_motifs_proper_alph(y, "dna")
-  y <- strsplit(y, "")
-  y <- lapply(y, function(s) replace(s, s == "W", "[WAT]"))
-  y <- lapply(y, function(s) replace(s, s == "S", "[SCG]"))
   
-  y <- lapply(y, function(s) replace(s, s == "M", "[MAC]"))
-  y <- lapply(y, function(s) replace(s, s == "K", "[KGT]"))
-  y <- lapply(y, function(s) replace(s, s == "R", "[RAG]"))
-  y <- lapply(y, function(s) replace(s, s == "Y", "[YCT]"))
-  
-  y <- lapply(y, function(s) replace(s, s == "B", "[BCTG]"))
-  y <- lapply(y, function(s) replace(s, s == "D", "[DATG]"))
-  y <- lapply(y, function(s) replace(s, s == "H", "[HACT]"))
-  y <- lapply(y, function(s) replace(s, s == "V", "[VACG]"))
-  
-  y <- lapply(y, function(s) replace(s, s == "N", "[ACTGWSMKRYBDHVN]"))
-  
-  y <- sapply(y, function(s) paste(s, collapse = ""))
-  
-  alph <- .get_alph(x)
+  y <- .replace_dna_motif(y)
   x <- as.character(x)
   
-  ret <- sapply(y, function(s) grepl(s, x))
-  if(!is.matrix(ret))
-    ret <- as.matrix(ret)
-  ret <- apply(ret, 1, all)
-  ret
+  ret <- do.call(cbind, lapply(y, function(s) grepl(s, x)))
+  apply(ret, 1, all)
 }
 
 #' @export
@@ -148,30 +117,44 @@
   .check_character(y, "'y', right hand side object,")
   y <- toupper(y)
   .check_motifs_proper_alph(y, "rna")
-  y <- strsplit(y, "")
-  y <- lapply(y, function(s) replace(s, s == "W", "[WAU]"))
-  y <- lapply(y, function(s) replace(s, s == "S", "[SCG]"))
   
-  y <- lapply(y, function(s) replace(s, s == "M", "[MAC]"))
-  y <- lapply(y, function(s) replace(s, s == "K", "[KGU]"))
-  y <- lapply(y, function(s) replace(s, s == "R", "[RAG]"))
-  y <- lapply(y, function(s) replace(s, s == "Y", "[YCU]"))
-  
-  y <- lapply(y, function(s) replace(s, s == "B", "[BCGU]"))
-  y <- lapply(y, function(s) replace(s, s == "D", "[DAGU]"))
-  y <- lapply(y, function(s) replace(s, s == "H", "[HACU]"))
-  y <- lapply(y, function(s) replace(s, s == "V", "[VACG]"))
-  
-  y <- lapply(y, function(s) replace(s, s == "N", "[ACGUWSMKRYBDHVN]"))
-  
-  y <- sapply(y, function(s) paste(s, collapse = ""))
-  
-  alph <- .get_alph(x)
+  y <- .replace_rna_motif(y)
   x <- as.character(x)
   
-  ret <- sapply(y, function(s) grepl(s, x))
-  if(!is.matrix(ret))
-    ret <- as.matrix(ret)
-  ret <- apply(ret, 1, all)
-  ret
+  ret <- do.call(cbind, lapply(y, function(s) grepl(s, x)))
+  apply(ret, 1, all)
+}
+
+#' @importFrom stringi stri_replace_all_regex
+.replace_ami_motif <- function(motif) {
+  stri_replace_all_regex(
+    motif,
+    c("\\*", "B", "J", "Z", "X"),
+    c("\\\\*", "[BDN]", "[JIL]", "[ZEQ]", "[A-Z]"),
+    vectorize_all = FALSE
+  )
+}
+
+#' @importFrom stringi stri_replace_all_regex
+.replace_dna_motif <- function(motif) {
+  stri_replace_all_regex(
+    motif,
+    c("W", "S", "M", "K", "R", "Y", "B", "D", "H", "V", "N"),
+    c("[WAT]", "[SCG]", "[MAC]", "[KGT]", "[RAG]", "[YCT]",
+      "[BSKYCTG]", "[DWKRATG]", "[HWMYACT]", "[VSMRACG]",
+      "[NBDHVWSMKRYACTG]"),
+    vectorize_all = FALSE
+  )
+}
+
+#' @importFrom stringi stri_replace_all_regex
+.replace_rna_motif <- function(motif) {
+  stri_replace_all_regex(
+    motif,
+    c("W", "S", "M", "K", "R", "Y", "B", "D", "H", "V", "N"),
+    c("[WAU]", "[SCG]", "[MAC]", "[KGU]", "[RAG]", "[YCU]",
+      "[BSKYCUG]", "[DWKRAUG]", "[HWMYACU]", "[VSMRACG]",
+      "[NBDHVWSMKRYACUG]"),
+    vectorize_all = FALSE
+  )
 }
