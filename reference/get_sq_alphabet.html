@@ -73,7 +73,7 @@ object type." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@ object type." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get alphabet of given sq object.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/get_sq_type.R'><code>R/get_sq_type.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/alphabet.R'><code>R/alphabet.R</code></a></small>
     <div class="hidden name"><code>get_sq_alphabet.Rd</code></div>
     </div>
 
@@ -165,14 +165,16 @@ class documentation.</p>
 
 <span class='co'># Testing DNA sq object with defined type:</span>
 <span class='fu'>get_sq_alphabet</span>(<span class='kw'>sq_dna</span>)
-</div><div class='output co'>#&gt; [1] "A" "C" "G" "T" "-"</div><div class='input'>
+</div><div class='output co'>#&gt; &lt;tidysq alphabet[5]&gt;
+#&gt; [1] A C G T -</div><div class='input'>
 <span class='co'># Testing amino acid sq object with defined type:</span>
 <span class='fu'>get_sq_alphabet</span>(<span class='kw'>sq_amino_acids</span>)
-</div><div class='output co'>#&gt;  [1] "A" "C" "D" "E" "F" "G" "H" "I" "K" "L" "M" "N" "P" "Q" "R" "S" "T" "V" "W"
-#&gt; [20] "Y" "-" "*"</div><div class='input'>
+</div><div class='output co'>#&gt; &lt;tidysq alphabet[22]&gt;
+#&gt;  [1] A C D E F G H I K L M N P Q R S T V W Y - *</div><div class='input'>
 <span class='co'># Testing nucleotide sq object without defined type:</span>
 <span class='fu'>get_sq_alphabet</span>(<span class='kw'>sq_untyped</span>)
-</div><div class='output co'>#&gt; [1] "A" "C" "G" "&amp;" "T"</div><div class='input'>
+</div><div class='output co'>#&gt; &lt;tidysq alphabet[5]&gt;
+#&gt; [1] A C G &amp; T</div><div class='input'>
   
 </div></pre>
   </div>
@@ -190,7 +192,7 @@ class documentation.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -139,10 +139,10 @@ each sequence is reversed.</p>
 Empty sequences are left with no effect. This operation does not change 
 the type of the input object nor its alphabet.</p>
 <p>Since the function <code>reverse</code> returns a <code><a href='sq.html'>sq</a></code> object, the 
-<code><a href='print.sq.html'>print.sq</a></code> function is implicitly called.</p>
+<code><a href='sqprint.html'>print</a></code> function is implicitly called.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code> <code><a href='clean.html'>clean</a></code> <code><a href='print.sq.html'>print.sq</a></code></p></div>
+    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code> <code><a href='clean.html'>clean</a></code> <code><a href='sqprint.html'>sq-print</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Creating sq objects using construct_sq:</span>
@@ -158,8 +158,8 @@ the type of the input object nor its alphabet.</p>
 </div><div class='output co'>#&gt; <span class='error'>Error in (function (classes, fdef, mtable) {    methods &lt;- .findInheritedMethods(classes, fdef, mtable)    if (length(methods) == 1L)         return(methods[[1L]])    else if (length(methods) == 0L) {        cnames &lt;- paste0("\"", vapply(classes, as.character,             ""), "\"", collapse = ", ")        stop(gettextf("unable to find an inherited method for function %s for signature %s",             sQuote(fdef@generic), sQuote(cnames)), domain = NA)    }    else stop("Internal error in finding inherited methods; didn't return a unique method",         domain = NA)})(list("untsq"), new("standardGeneric", .Data = function (x,     ...) standardGeneric("reverse"), generic = structure("reverse", package = "IRanges"),     package = "IRanges", group = list(), valueClass = character(0),     signature = "x", default = NULL, skeleton = (function (x,         ...)     stop("invalid call in method dispatch to 'reverse' (no default method)",         domain = NA))(x, ...)), &lt;environment&gt;): unable to find an inherited method for function ‘reverse’ for signature ‘"untsq"’</span></div><div class='input'>
 <span class='co'># Reverse cleaned sequences:</span>
 <span class='fu'>reverse</span>(<span class='fu'><a href='clean.html'>clean</a></span>(<span class='kw'>sq_ami</span>))
-</div><div class='output co'>#&gt; <span class='error'>Error in (function (classes, fdef, mtable) {    methods &lt;- .findInheritedMethods(classes, fdef, mtable)    if (length(methods) == 1L)         return(methods[[1L]])    else if (length(methods) == 0L) {        cnames &lt;- paste0("\"", vapply(classes, as.character,             ""), "\"", collapse = ", ")        stop(gettextf("unable to find an inherited method for function %s for signature %s",             sQuote(fdef@generic), sQuote(cnames)), domain = NA)    }    else stop("Internal error in finding inherited methods; didn't return a unique method",         domain = NA)})(list("clnsq"), new("standardGeneric", .Data = function (x,     ...) standardGeneric("reverse"), generic = structure("reverse", package = "IRanges"),     package = "IRanges", group = list(), valueClass = character(0),     signature = "x", default = NULL, skeleton = (function (x,         ...)     stop("invalid call in method dispatch to 'reverse' (no default method)",         domain = NA))(x, ...)), &lt;environment&gt;): unable to find an inherited method for function ‘reverse’ for signature ‘"clnsq"’</span></div><div class='input'><span class='fu'>reverse</span>(<span class='fu'><a href='clean.html'>clean</a></span>(<span class='kw'>sq_dna</span>))
-</div><div class='output co'>#&gt; <span class='error'>Error in (function (classes, fdef, mtable) {    methods &lt;- .findInheritedMethods(classes, fdef, mtable)    if (length(methods) == 1L)         return(methods[[1L]])    else if (length(methods) == 0L) {        cnames &lt;- paste0("\"", vapply(classes, as.character,             ""), "\"", collapse = ", ")        stop(gettextf("unable to find an inherited method for function %s for signature %s",             sQuote(fdef@generic), sQuote(cnames)), domain = NA)    }    else stop("Internal error in finding inherited methods; didn't return a unique method",         domain = NA)})(list("clnsq"), new("standardGeneric", .Data = function (x,     ...) standardGeneric("reverse"), generic = structure("reverse", package = "IRanges"),     package = "IRanges", group = list(), valueClass = character(0),     signature = "x", default = NULL, skeleton = (function (x,         ...)     stop("invalid call in method dispatch to 'reverse' (no default method)",         domain = NA))(x, ...)), &lt;environment&gt;): unable to find an inherited method for function ‘reverse’ for signature ‘"clnsq"’</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in (function (classes, fdef, mtable) {    methods &lt;- .findInheritedMethods(classes, fdef, mtable)    if (length(methods) == 1L)         return(methods[[1L]])    else if (length(methods) == 0L) {        cnames &lt;- paste0("\"", vapply(classes, as.character,             ""), "\"", collapse = ", ")        stop(gettextf("unable to find an inherited method for function %s for signature %s",             sQuote(fdef@generic), sQuote(cnames)), domain = NA)    }    else stop("Internal error in finding inherited methods; didn't return a unique method",         domain = NA)})(list("amisq"), new("standardGeneric", .Data = function (x,     ...) standardGeneric("reverse"), generic = structure("reverse", package = "IRanges"),     package = "IRanges", group = list(), valueClass = character(0),     signature = "x", default = NULL, skeleton = (function (x,         ...)     stop("invalid call in method dispatch to 'reverse' (no default method)",         domain = NA))(x, ...)), &lt;environment&gt;): unable to find an inherited method for function ‘reverse’ for signature ‘"amisq"’</span></div><div class='input'><span class='fu'>reverse</span>(<span class='fu'><a href='clean.html'>clean</a></span>(<span class='kw'>sq_dna</span>))
+</div><div class='output co'>#&gt; <span class='error'>Error in (function (classes, fdef, mtable) {    methods &lt;- .findInheritedMethods(classes, fdef, mtable)    if (length(methods) == 1L)         return(methods[[1L]])    else if (length(methods) == 0L) {        cnames &lt;- paste0("\"", vapply(classes, as.character,             ""), "\"", collapse = ", ")        stop(gettextf("unable to find an inherited method for function %s for signature %s",             sQuote(fdef@generic), sQuote(cnames)), domain = NA)    }    else stop("Internal error in finding inherited methods; didn't return a unique method",         domain = NA)})(list("dnasq"), new("standardGeneric", .Data = function (x,     ...) standardGeneric("reverse"), generic = structure("reverse", package = "IRanges"),     package = "IRanges", group = list(), valueClass = character(0),     signature = "x", default = NULL, skeleton = (function (x,         ...)     stop("invalid call in method dispatch to 'reverse' (no default method)",         domain = NA))(x, ...)), &lt;environment&gt;): unable to find an inherited method for function ‘reverse’ for signature ‘"dnasq"’</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -176,7 +176,7 @@ the type of the input object nor its alphabet.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

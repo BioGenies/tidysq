@@ -75,7 +75,7 @@ seqinr (SeqFastaAA, SeqFastadna)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@ Currently supported packages are <span class="pkg">ape</span> with its formats (
 <span class="pkg">seqinr</span> (<code>SeqFastaAA</code>, <code>SeqFastadna</code>).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>import_sq</span>(<span class='kw'>object</span>)</pre>
+    <pre class="usage"><span class='fu'>import_sq</span>(<span class='kw'>object</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -132,6 +132,10 @@ Currently supported packages are <span class="pkg">ape</span> with its formats (
       <th>object</th>
       <td><p>- an object of one of classes: <code>AAbin</code>, <code>DNAbin</code>, <code>AAStringSet</code>, 
 <code>DNAStringSet</code>, <code>SeqFastaAA</code>, <code>SeqFastadna</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>- additional arguments passed to the function.</p></td>
     </tr>
     </table>
 
@@ -160,8 +164,8 @@ sequences had names, output <code><a href='https://tibble.tidyverse.org/referenc
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 2</span><span>
 #&gt;   name  sq       
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;(c)dna&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>1</span><span> one   </span><span style='color: #00BB00;'>CTCA</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>2</span><span> two   </span><span style='color: #00BB00;'>TGAGG</span><span> </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span> one   </span><span style='color: #00BB00;'>CTCA</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> two   </span><span style='color: #00BB00;'>TGAGG</span><span> </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
 <span class='co'>## Biostrings example</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>Biostrings</span>)
 </div><div class='output co'>#&gt; <span class='message'>Loading required package: BiocGenerics</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: parallel</span></div><div class='output co'>#&gt; <span class='message'></span>
@@ -196,8 +200,8 @@ sequences had names, output <code><a href='https://tibble.tidyverse.org/referenc
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 2</span><span>
 #&gt;   name  sq       
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;(c)dna&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>1</span><span> one   </span><span style='color: #00BB00;'>CTCA</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>2</span><span> two   </span><span style='color: #00BB00;'>TGAGG</span><span> </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span> one   </span><span style='color: #00BB00;'>CTCA</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> two   </span><span style='color: #00BB00;'>TGAGG</span><span> </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
 <span class='co'>## seqinr example</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://seqinr.r-forge.r-project.org'>seqinr</a></span>)
 </div><div class='output co'>#&gt; <span class='message'></span>
@@ -205,14 +209,12 @@ sequences had names, output <code><a href='https://tibble.tidyverse.org/referenc
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    translate</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:ape’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    as.alignment, consensus</span></div><div class='input'><span class='kw'>seqinr_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/seqinr/man/SeqFastadna.html'>as.SeqFastadna</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(one = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"C"</span>, <span class='st'>"T"</span>, <span class='st'>"C"</span>, <span class='st'>"A"</span>), 
-                                  two = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"T"</span>, <span class='st'>"G"</span>, <span class='st'>"A"</span>, <span class='st'>"G"</span>, <span class='st'>"G"</span>)))
+#&gt; <span class='message'>    as.alignment, consensus</span></div><div class='input'><span class='kw'>seqinr_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/seqinr/man/SeqFastadna.html'>as.SeqFastadna</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"C"</span>, <span class='st'>"T"</span>, <span class='st'>"C"</span>, <span class='st'>"A"</span>), name = <span class='st'>"one"</span>)
 <span class='fu'>import_sq</span>(<span class='kw'>seqinr_dna</span>)
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 1</span><span>
-#&gt;   sq       
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;(c)dna&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #00BB00;'>CTCA</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #00BB00;'>TGAGG</span><span> </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 2</span><span>
+#&gt;   name  sq      
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;(c)dna&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> one   </span><span style='color: #00BB00;'>CTCA</span><span> </span><span style='color: #0000BB;'>&lt;4&gt;</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -229,7 +231,7 @@ sequences had names, output <code><a href='https://tibble.tidyverse.org/referenc
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

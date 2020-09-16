@@ -75,7 +75,7 @@ as possible (details below)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -196,7 +196,7 @@ numeric value.</p></li>
 Only <strong>ami</strong>, <strong>dna</strong> or <strong>rna</strong> <code>sq</code> objects may have this subtype.
 It indicates that sequences do not contain ambiguous letters (see "alphabets" section below).</p>
 <p><code>sq</code> object type is printed when using overloaded method 
-<code><a href='print.sq.html'>print</a></code>. It can be also checked by using <code><a href='get_sq_type.html'>get_sq_type</a></code></p>
+<code><a href='sqprint.html'>print</a></code>. It can be also checked by using <code><a href='get_sq_type.html'>get_sq_type</a></code></p>
     <h2 class="hasAnchor" id="alphabet"><a class="anchor" href="#alphabet"></a>Alphabet</h2>
 
     
@@ -290,7 +290,7 @@ sequences with <code><a href='remove_na.html'>remove_na</a></code>.</p>
 <code><a href='construct_sq.html'>construct_sq</a></code>,</p></li>
 <li><p>using the <code><a href='clean.html'>clean</a></code> function,</p></li>
 <li><p>using the <code><a href='remove_na.html'>remove_na</a></code> function,</p></li>
-<li><p>subsetting <code>sq</code> object with <a href='[.sq.html'>extract operator</a></p></li>
+<li><p>subsetting <code>sq</code> object with <a href='sqextract.html'>extract operator</a></p></li>
 </ul>
 
     <h2 class="hasAnchor" id="storage-format"><a class="anchor" href="#storage-format"></a>Storage format</h2>
@@ -298,8 +298,8 @@ sequences with <code><a href='remove_na.html'>remove_na</a></code>.</p>
     
 
 <p><code>sq</code> object is, in fact, <strong>list of raw vectors</strong>. The fact that it is list
-implies that an user can concatenate <code>sq</code> objects using <code><a href='c.sq.html'>c</a></code> method
-and subset them using <code><a href='[.sq.html'>extract operator</a></code>. Alphabet is kept
+implies that an user can concatenate <code>sq</code> objects using <code><a href='sqconcatenate.html'>c</a></code>
+method and subset them using <code><a href='sqextract.html'>extract operator</a></code>. Alphabet is kept
 as an attribute of the object.</p>
 <p>Raw vectors are the most efficient way of storage - each letter of the sequence has assigned
 an integer (its index in alphabet of <code>sq</code> object). Those integers in binary format
@@ -336,7 +336,7 @@ that it is printed in pretty format.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

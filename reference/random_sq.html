@@ -73,7 +73,7 @@ and given type." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -171,48 +171,42 @@ in generating <strong>ami</strong> sequences.</p>
 
 <span class='co'># generating random sequences</span>
 <span class='fu'>random_sq</span>(<span class='fl'>10</span>, <span class='fl'>10</span>, <span class='st'>"ami"</span>, <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; ami (amino acids), cln (cleaned) sequences list:
-#&gt;  [1] <span style='color: #00BB00;'>ARMIYQYTLD</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [2] </span><span style='color: #00BB00;'>GKWPIQYIMI</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [3] </span><span style='color: #00BB00;'>QTMRSGWGMP</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [4] </span><span style='color: #00BB00;'>HKVVAKKAFE</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [5] </span><span style='color: #00BB00;'>FFKCDYQKMH</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [6] </span><span style='color: #00BB00;'>SEFDRVYMDT</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [7] </span><span style='color: #00BB00;'>FANDHVQKLE</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [8] </span><span style='color: #00BB00;'>LCQAHYVPQW</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [9] </span><span style='color: #00BB00;'>RLNAYHDNMT</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt; [10] </span><span style='color: #00BB00;'>CWKKVEESLW</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span></div><div class='input'><span class='fu'>random_sq</span>(<span class='fl'>25</span>, <span class='fl'>18</span>, <span class='st'>"rna"</span>, <span class='fl'>TRUE</span>, sd = <span class='fl'>6</span>)
-</div><div class='output co'>#&gt; rna (RNA), cln (cleaned) sequences list:
-#&gt;  [1] </span><span style='color: #00BB00;'>UCCCACCUGUGAGU</span><span>                                                         </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
-#&gt;  [2] </span><span style='color: #00BB00;'>UUGUGGUAAGUGAUCAUG</span><span>                                                     </span><span style='color: #0000BB;'>&lt;18&gt;</span><span>
-#&gt;  [3] </span><span style='color: #00BB00;'>CGAUGACUCAAAUCGGUAUAGGG</span><span>                                                </span><span style='color: #0000BB;'>&lt;23&gt;</span><span>
-#&gt;  [4] </span><span style='color: #00BB00;'>UACUUGCCUGUGCCCAGCCCC</span><span>                                                  </span><span style='color: #0000BB;'>&lt;21&gt;</span><span>
-#&gt;  [5] </span><span style='color: #00BB00;'>UAAGGCCGGAC</span><span>                                                            </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
-#&gt;  [6] </span><span style='color: #00BB00;'>AAUUCAAUUUUGGUAUAUUUGAUU</span><span>                                               </span><span style='color: #0000BB;'>&lt;24&gt;</span><span>
-#&gt;  [7] </span><span style='color: #00BB00;'>AAA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>
-#&gt;  [8] </span><span style='color: #00BB00;'>UGCGCUAUACAACUGCACACA</span><span>                                                  </span><span style='color: #0000BB;'>&lt;21&gt;</span><span>
-#&gt;  [9] </span><span style='color: #00BB00;'>UAAAGAUAAAUCC</span><span>                                                          </span><span style='color: #0000BB;'>&lt;13&gt;</span><span>
-#&gt; [10] </span><span style='color: #00BB00;'>GUUUGGCCCUGCACCGUGUGAGGAC</span><span>                                              </span><span style='color: #0000BB;'>&lt;25&gt;</span><span>
-#&gt; printed 10 out of 25</div><div class='input'><span class='fu'>random_sq</span>(<span class='fl'>50</span>, <span class='fl'>8</span>, <span class='st'>"dna"</span>, <span class='fl'>FALSE</span>, sd = <span class='fl'>3</span>)
-</div><div class='output co'>#&gt; dna (DNA) sequences list:
-#&gt;  [1] </span><span style='color: #00BB00;'>YBCHRGBGNGM</span><span>                                                            </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
-#&gt;  [2] </span><span style='color: #00BB00;'>NKWT</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
-#&gt;  [3] </span><span style='color: #00BB00;'>SCVNWYTDBNNNT</span><span>                                                          </span><span style='color: #0000BB;'>&lt;13&gt;</span><span>
-#&gt;  [4] </span><span style='color: #00BB00;'>NHTRHW</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
-#&gt;  [5] </span><span style='color: #00BB00;'>NTTMVBGA</span><span>                                                                </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
-#&gt;  [6] </span><span style='color: #00BB00;'>BBY</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>
-#&gt;  [7] </span><span style='color: #00BB00;'>RTGBKT</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
-#&gt;  [8] </span><span style='color: #00BB00;'>BSCSWGVSWN</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [9] </span><span style='color: #00BB00;'>VCMS</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
-#&gt; [10] </span><span style='color: #00BB00;'>AWSKSCYS</span><span>                                                                </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
-#&gt; printed 10 out of 50</div><div class='input'><span class='fu'>random_sq</span>(<span class='fl'>6</span>, <span class='fl'>100</span>, <span class='st'>"ami"</span>, <span class='fl'>TRUE</span>, use_gap = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; ami (amino acids), cln (cleaned) sequences list:
-#&gt; [1] </span><span style='color: #00BB00;'>AWH-RDRESWCKMLAYAYSAMSFKQSQYQDGSDDDWISTLTITPCIRWMYQHIWT-CMHSCGDQSLP</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>S-YDQEWPKIVIADS-EVKAEDVDRTH--HQCTSTERCQDMHH-VDPERFCHHNMVYGIEE-GKWRP</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>HFGAQNPDWLD-RWYCATPYGCKCAEIPEMKTL-KLLELVRLNLM-AACQHTPWEIDRMNKMPSVRM</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>AC-VKFLPKDMEYKCVKNRPDT-SSYDPNHSRLMVKNLK-MLLWDWL-LKP-GFFQHPKLEVELDVF</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
-#&gt; [5] </span><span style='color: #00BB00;'>-QQTACNYEKRMQFQRSKLCSPENKLCYVHWIVAHVERL-FTGFYIEFRGPQHWYSKYYDGWNPQSM</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
-#&gt; [6] </span><span style='color: #00BB00;'>ITSPLNMPMFNPHLTLSQDSCSDH--LNLPAKPNAGS--GRYR-NVASGPKPTVYKLIIIWEITKP-</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span></div></span></pre>
+</div><div class='output co'>#&gt; <span class='message'>ami (amino acids), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt;  [1] <span style='color: #00BB00;'>QFLFVHCTVD</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [2] </span><span style='color: #00BB00;'>HNEQMFTQRC</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [3] </span><span style='color: #00BB00;'>YTMKFPYYSL</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [4] </span><span style='color: #00BB00;'>AVRVQLGVVH</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [5] </span><span style='color: #00BB00;'>AKICKSWGES</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [6] </span><span style='color: #00BB00;'>WMVHTPSSNT</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [7] </span><span style='color: #00BB00;'>GYNTLDELEC</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [8] </span><span style='color: #00BB00;'>PKRLNCPIIE</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [9] </span><span style='color: #00BB00;'>CNYWNWIDGE</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt; [10] </span><span style='color: #00BB00;'>PTMPRGRLLY</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span></div><div class='input'><span class='fu'>random_sq</span>(<span class='fl'>25</span>, <span class='fl'>18</span>, <span class='st'>"rna"</span>, <span class='fl'>TRUE</span>, sd = <span class='fl'>6</span>)
+</div><div class='output co'>#&gt; <span class='message'>rna (RNA), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt;  [1] </span><span style='color: #00BB00;'>GUCUAUCUUCGCACU</span><span>                                                        </span><span style='color: #0000BB;'>&lt;15&gt;</span><span>
+#&gt;  [2] </span><span style='color: #00BB00;'>UACGUAAUCCGGAGGUGUAAG</span><span>                                                  </span><span style='color: #0000BB;'>&lt;21&gt;</span><span>
+#&gt;  [3] </span><span style='color: #00BB00;'>GGGAGUAUAGCUCGUGAAGCG</span><span>                                                  </span><span style='color: #0000BB;'>&lt;21&gt;</span><span>
+#&gt;  [4] </span><span style='color: #00BB00;'>CGUGUCGGCACGAUC</span><span>                                                        </span><span style='color: #0000BB;'>&lt;15&gt;</span><span>
+#&gt;  [5] </span><span style='color: #00BB00;'>CCAACAUUUUCCGC</span><span>                                                         </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt;  [6] </span><span style='color: #00BB00;'>UACUCAAGUCUGUUGCGGUCAGACACU</span><span>                                            </span><span style='color: #0000BB;'>&lt;27&gt;</span><span>
+#&gt;  [7] </span><span style='color: #00BB00;'>AUCCCACGAAAGAAGUGAGG</span><span>                                                   </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
+#&gt;  [8] </span><span style='color: #00BB00;'>ACGUCAGGGCAGACGGCUCC</span><span>                                                   </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
+#&gt;  [9] </span><span style='color: #00BB00;'>CUCACAUGCGUACAAUUGGC</span><span>                                                   </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
+#&gt; [10] </span><span style='color: #00BB00;'>UGAGUUGCGU</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span></div><div class='output co'>#&gt; <span class='message'>printed 10 out of 25</span></div><div class='input'><span class='fu'>random_sq</span>(<span class='fl'>50</span>, <span class='fl'>8</span>, <span class='st'>"dna"</span>, <span class='fl'>FALSE</span>, sd = <span class='fl'>3</span>)
+</div><div class='output co'>#&gt; <span class='message'>dna (DNA) sequences list:</span></div><div class='output co'>#&gt;  [1] </span><span style='color: #00BB00;'>VCRCSGYW</span><span>                                                                </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt;  [2] </span><span style='color: #00BB00;'>TCGWKKGKTV</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [3] </span><span style='color: #00BB00;'>TNHDDSD</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt;  [4] </span><span style='color: #00BB00;'>TYWVAVTWWRC</span><span>                                                            </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
+#&gt;  [5] </span><span style='color: #00BB00;'>VGKBHBHDSVWRH</span><span>                                                          </span><span style='color: #0000BB;'>&lt;13&gt;</span><span>
+#&gt;  [6] </span><span style='color: #00BB00;'>YG</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;2&gt;</span><span>
+#&gt;  [7] </span><span style='color: #00BB00;'>AMBWW</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt;  [8] </span><span style='color: #00BB00;'>YMSAS</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt;  [9] </span><span style='color: #00BB00;'>YWARKSC</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt; [10] </span><span style='color: #00BB00;'>HMRRVTARK</span><span>                                                               </span><span style='color: #0000BB;'>&lt;9&gt;</span><span></div><div class='output co'>#&gt; <span class='message'>printed 10 out of 50</span></div><div class='input'><span class='fu'>random_sq</span>(<span class='fl'>6</span>, <span class='fl'>100</span>, <span class='st'>"ami"</span>, <span class='fl'>TRUE</span>, use_gap = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; <span class='message'>ami (amino acids), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>GHK-QFPESSVFFMSEPIAAWCRMYYWFWHSPIIHRVPYWKWHKS-TRCLMPPVKAQQCWA-FCQAL</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>SP-GGRAFPFVVMWHHVNSVHCYDWSHVTEC-YHDELIYSQESRLEQMQLPYIIWELLTK-REVSQH</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>DQGQQR-GGISHHDMHNYNNVFWIRWLHVNGPMLTPK-HVWLCPMWWAMEQGP-DNRLNCQHIPNYP</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>MQMKMMQCKREVIGLHQAFQMMQVHWCKKCP-EIMPHYWVICVQQCK-NQTVITICCNEAGHYTSCL</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>KL-P-CPRIDTPGKF-SHYDP---WKMFFYINPVQWDWCQRPRMMVHWRPECYFVRLREASPAGYTM</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>WNGILTAQCQEEIYKRWTGHQGRMHC-MWVHKGTFIQPNWKGGHWPPWTSLDCSQWYCQC-DMPVTH</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -228,7 +222,7 @@ in generating <strong>ami</strong> sequences.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

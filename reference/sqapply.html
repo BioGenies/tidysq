@@ -74,7 +74,7 @@ parameter." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -121,7 +121,7 @@ parameter." />
 parameter.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sqapply</span>(<span class='kw'>sq</span>, <span class='kw'>fun</span>, <span class='kw'>...</span>, paste_char = <span class='fl'>FALSE</span>, use_na_char = <span class='kw'>paste_char</span>)</pre>
+    <pre class="usage"><span class='fu'>sqapply</span>(<span class='kw'>sq</span>, <span class='kw'>fun</span>, <span class='kw'>...</span>, paste_char = <span class='fl'>FALSE</span>, use_na_letter = <span class='kw'>paste_char</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,12 +146,12 @@ passed to the function <code>fun</code>; if <code>FALSE</code> (default), they w
 vectors, if <code>TRUE</code>, they will be pasted into a single string.</p></td>
     </tr>
     <tr>
-      <th>use_na_char</th>
+      <th>use_na_letter</th>
       <td><p>a <code><a href='https://rdrr.io/r/base/logical.html'>logical</a></code> value indicating whether to use a printing character
-to represent <code><a href='https://rdrr.io/r/base/NA.html'>NA</a></code> values; if <code>TRUE</code>, letter from option "tidysq_p_na_char"
+to represent <code><a href='https://rdrr.io/r/base/NA.html'>NA</a></code> values; if <code>TRUE</code>, letter from option "tidysq_p_na_letter"
 will be used instead of <code>NA</code> values (default value for this option is "!", for details
 see <code><a href='tidysq-options.html'>tidysq-options</a></code>), otherwise just <code>NA</code> values will be used; default value
-for this parameter is equal to <code>paste_char</code> value; <code>use_na_char</code> cannot be 
+for this parameter is equal to <code>paste_char</code> value; <code>use_na_letter</code> cannot be
 <code>FALSE</code> if <code>paste_char</code> is <code>TRUE</code>.</p></td>
     </tr>
     </table>
@@ -180,10 +180,9 @@ for this parameter is equal to <code>paste_char</code> value; <code>use_na_char<
 <span class='co'># duplicate each element of sequence, then paste it and construct new sq</span>
 <span class='kw'>duplicated</span> <span class='op'>&lt;-</span> <span class='fu'>sqapply</span>(<span class='kw'>sq_ami</span>, <span class='fu'>function</span>(<span class='kw'>sequence</span>) <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='kw'>sequence</span>, each = <span class='fl'>2</span>), collapse = <span class='st'>""</span>))
 <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span>(<span class='kw'>duplicated</span>))
-</div><div class='output co'>#&gt; ami (amino acids), cln (cleaned) sequences list:
-#&gt; [1] <span style='color: #00BB00;'>YYCCYYWWIIFFTTSSRRIIKK</span><span>                                                  </span><span style='color: #0000BB;'>&lt;22&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>GGGGWWGGDDVVKKCCGG</span><span>                                                      </span><span style='color: #0000BB;'>&lt;18&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>KKTTKKHHIIEEQQKKLL</span><span>                                                      </span><span style='color: #0000BB;'>&lt;18&gt;</span><span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>ami (amino acids), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>YYCCYYWWIIFFTTSSRRIIKK</span><span>                                                  </span><span style='color: #0000BB;'>&lt;22&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>GGGGWWGGDDVVKKCCGG</span><span>                                                      </span><span style='color: #0000BB;'>&lt;18&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>KKTTKKHHIIEEQQKKLL</span><span>                                                      </span><span style='color: #0000BB;'>&lt;18&gt;</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -200,7 +199,7 @@ for this parameter is equal to <code>paste_char</code> value; <code>use_na_char<
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
