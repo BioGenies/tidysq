@@ -1,8 +1,8 @@
 Package: tidysq
 Type: Package
 Title: Tidy processing and analysis of biological sequences
-Version: 0.4.0
-Date: 2020-08-05
+Version: 0.5.0
+Date: 2020-09-16
 Authors@R: c(person("Michal", "Burdukiewicz", 
            email = "michalburdukiewicz@gmail.com", 
            comment = c(ORCID = "0000-0001-8926-582X"),
