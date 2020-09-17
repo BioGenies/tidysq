@@ -174,14 +174,6 @@
   }
 }
 
-# TODO: verify if RNA is exportable to these formats
-# TODO: are parentheses right?
-.check_type_matches_format <- function(type, export_format, ami_formats, nuc_formats) {
-  if (type == "ami" && !(export_format %in% ami_formats) ||
-      type %in% c("dna", "rna") && !(export_format %in% nuc_formats)) 
-    stop("'sq' object type doesn't match 'export_format'", call. = FALSE)
-}
-
 .check_enc_names_in_alph <- function(encoding, alph) {
   if (!all(names(encoding) %in% alph)) 
     stop("all names of 'encoding' has to be letters from alphabet (elements of 'alphabet' attribute of 'sq')", call. = FALSE)

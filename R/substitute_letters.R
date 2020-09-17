@@ -124,11 +124,12 @@ substitute_letters <- function(sq, encoding) {
   .check_is_named(encoding, "'encoding'")
   .check_enc_names_in_alph(encoding, alph)
   .check_is_unique(names(encoding), "names of 'encoding'")
+  
   if (is.numeric(encoding)) {
     .check_integer(encoding, "if is numeric 'encoding'", allow_na = TRUE)
-    name <- names(encoding)
-    encoding <- as.character(encoding)
-    names(encoding) <- name
+    # Changes storage mode, because it preserves attributes
+    # (and we want to preserve names)
+    mode(encoding) <- "character"
   } else if (is.character(encoding)) {
     .check_character(encoding, "if is character 'encoding'", allow_na = TRUE)
   } else .check_simple(!all(is.na(encoding)), "if is neither numeric nor character 'encoding'", "has to contain only NA values")
@@ -136,7 +137,6 @@ substitute_letters <- function(sq, encoding) {
   inds_fun <- alph
   inds_fun[match(names(encoding), alph)] <- encoding
   new_alph <- vec_cast(na.omit(unique(inds_fun)), sq_alphabet_ptype())
-  names(inds_fun) <- as.character(1:length(alph))
   inds_fun <- match(inds_fun, new_alph)
   inds_fun[is.na(inds_fun)] <- .get_na_val(new_alph)
   

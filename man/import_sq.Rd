@@ -4,11 +4,13 @@
 \alias{import_sq}
 \title{Import sq objects from other objects}
 \usage{
-import_sq(object)
+import_sq(object, ...)
 }
 \arguments{
 \item{object}{- an object of one of classes: \code{AAbin}, \code{DNAbin}, \code{AAStringSet}, 
 \code{DNAStringSet}, \code{SeqFastaAA}, \code{SeqFastadna}.}
+
+\item{...}{- additional arguments passed to the function.}
 }
 \value{
 A \code{\link[tibble]{tibble}} with \code{sq} column of \code{\link{sq}} type 
@@ -39,8 +41,7 @@ import_sq(Biostrings_dna)
 
 ## seqinr example
 library(seqinr)
-seqinr_dna <- as.SeqFastadna(list(one = c("C", "T", "C", "A"), 
-                                  two = c("T", "G", "A", "G", "G")))
+seqinr_dna <- as.SeqFastadna(c("C", "T", "C", "A"), name = "one")
 import_sq(seqinr_dna)
 
 }
