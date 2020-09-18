@@ -3,15 +3,21 @@
 
 namespace tidysq {
     typedef unsigned long long int lensq;
-    typedef short sizealph;
-    typedef short letvalue;
+    typedef unsigned char ElemRaws;
+    typedef unsigned short int ElemInts;
+    typedef std::string ElemStrings;
+    typedef char ElemString;
+    typedef unsigned short int sizealph;
+    typedef unsigned short int letvalue;
 
     enum InternalType {
+        ANY_INTERNAL,
         STD,
         RCPP
     };
 
     enum ProtoType {
+        ANY_PROTO,
         RAWS,
         INTS,
         STRINGS,
