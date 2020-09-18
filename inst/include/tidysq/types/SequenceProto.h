@@ -3,7 +3,8 @@
 
 #include <utility>
 #include <vector>
-#include "general.h"
+
+#include "tidysq/types/general.h"
 
 namespace tidysq {
     template<>
@@ -70,6 +71,37 @@ namespace tidysq {
 
     template<>
     class SequenceProto<RCPP, RAWS> : public SequenceProto<ANY_INTERNAL, ANY_PROTO> {
+        Rcpp::RawVector content_;
+    public:
+        typedef ElemRaws ElementType;
+
+        explicit SequenceProto(const Rcpp::RawVector& content) :
+                SequenceProto<ANY_INTERNAL, ANY_PROTO>(),
+                content_(content) {};
+
+        SequenceProto(std::initializer_list<ElementType> list) :
+                SequenceProto<ANY_INTERNAL, ANY_PROTO>(),
+                content_(Rcpp::RawVector(list)) {};
+
+        SequenceProto(const SequenceProto &other) noexcept = default;
+
+        SequenceProto(SequenceProto &&other) noexcept = default;
+
+        inline Rcpp::RawVector::const_Proxy operator[](lensq index) const {
+            return content_[index];
+        }
+
+        inline Rcpp::RawVector::Proxy operator[](lensq index) {
+            return content_[index];
+        }
+
+        [[nodiscard]] inline lensq size() const override {
+            return content_.size();
+        }
+
+        [[nodiscard]] inline letvalue getLetterValue(const lensq index, const Alphabet &alphabet) const override {
+            return content_[index];
+        }
     };
 
     template<>
