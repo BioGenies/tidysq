@@ -61,6 +61,14 @@ find_alph <- function(file) {
     .Call('_tidysq_find_alph', PACKAGE = 'tidysq', file)
 }
 
+extractCodons <- function(sequence) {
+    .Call('_tidysq_extractCodons', PACKAGE = 'tidysq', sequence)
+}
+
+codonsToAminoAcids <- function(codons) {
+    .Call('_tidysq_codonsToAminoAcids', PACKAGE = 'tidysq', codons)
+}
+
 C_unpack_raws <- function(packed, alph_size) {
     .Call('_tidysq_C_unpack_raws', PACKAGE = 'tidysq', packed, alph_size)
 }
