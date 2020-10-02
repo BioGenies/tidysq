@@ -295,25 +295,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// extractCodons
-Rcpp::CharacterVector extractCodons(std::string sequence);
-RcppExport SEXP _tidysq_extractCodons(SEXP sequenceSEXP) {
+// Cpp_translate
+Rcpp::CharacterVector Cpp_translate(std::vector<std::string> sq);
+RcppExport SEXP _tidysq_Cpp_translate(SEXP sqSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type sequence(sequenceSEXP);
-    rcpp_result_gen = Rcpp::wrap(extractCodons(sequence));
-    return rcpp_result_gen;
-END_RCPP
-}
-// codonsToAminoAcids
-Rcpp::String codonsToAminoAcids(Rcpp::CharacterVector codons);
-RcppExport SEXP _tidysq_codonsToAminoAcids(SEXP codonsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type codons(codonsSEXP);
-    rcpp_result_gen = Rcpp::wrap(codonsToAminoAcids(codons));
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type sq(sqSEXP);
+    rcpp_result_gen = Rcpp::wrap(Cpp_translate(sq));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -554,8 +543,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_nc_read_fasta_file", (DL_FUNC) &_tidysq_nc_read_fasta_file, 3},
     {"_tidysq_read_fasta_file", (DL_FUNC) &_tidysq_read_fasta_file, 2},
     {"_tidysq_find_alph", (DL_FUNC) &_tidysq_find_alph, 1},
-    {"_tidysq_extractCodons", (DL_FUNC) &_tidysq_extractCodons, 1},
-    {"_tidysq_codonsToAminoAcids", (DL_FUNC) &_tidysq_codonsToAminoAcids, 1},
+    {"_tidysq_Cpp_translate", (DL_FUNC) &_tidysq_Cpp_translate, 1},
     {"_tidysq_C_unpack_raws", (DL_FUNC) &_tidysq_C_unpack_raws, 2},
     {"_tidysq_C_unpack_ints", (DL_FUNC) &_tidysq_C_unpack_ints, 2},
     {"_tidysq_C_unpack_chars", (DL_FUNC) &_tidysq_C_unpack_chars, 3},

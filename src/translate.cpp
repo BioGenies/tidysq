@@ -24,19 +24,13 @@ std::unordered_map<Rcpp::String, Rcpp::String> codonTable1 = {
 };
 
 // [[Rcpp::export]]
-Rcpp::CharacterVector extractCodons(std::string sequence) {
-  Rcpp::CharacterVector ret(0);
-  for (int i = 0; i <= (double)sequence.length() / 3 - 1; i++) {
-    ret.push_back(sequence.substr(3 * i, 3));
-  }
-  return ret;
-}
-
-// [[Rcpp::export]]
-Rcpp::String codonsToAminoAcids(Rcpp::CharacterVector codons) {
-  Rcpp::String ret = "";
-  for (Rcpp::CharacterVector::iterator i = codons.begin(); i != codons.end(); ++i) {
-    ret += codonTable1[*i];
+Rcpp::CharacterVector Cpp_translate(std::vector<std::string> sq) {
+  Rcpp::CharacterVector ret(sq.size());
+  for (std::size_t sq_index = 0; sq_index < sq.size(); sq_index++) {
+    std::string sequence = sq[sq_index];
+    for (int i = 0; i <= (double)sequence.length() / 3 - 1; i++) {
+      ret[sq_index] += codonTable1[sequence.substr(3 * i, 3)];
+    }
   }
   return ret;
 }
