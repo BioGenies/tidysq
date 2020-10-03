@@ -61,8 +61,8 @@ find_alph <- function(file) {
     .Call('_tidysq_find_alph', PACKAGE = 'tidysq', file)
 }
 
-Cpp_translate <- function(sq) {
-    .Call('_tidysq_Cpp_translate', PACKAGE = 'tidysq', sq)
+Cpp_translate <- function(sq, table) {
+    .Call('_tidysq_Cpp_translate', PACKAGE = 'tidysq', sq, table)
 }
 
 C_unpack_raws <- function(packed, alph_size) {
