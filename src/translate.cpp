@@ -29,11 +29,12 @@ std::unordered_map<int, std::unordered_map<Rcpp::String, Rcpp::String> > codonTa
 
 // [[Rcpp::export]]
 Rcpp::CharacterVector Cpp_translate(std::vector<std::string> sq, int table) {
+  std::unordered_map<Rcpp::String, Rcpp::String> codonTable = codonTables[table];
   Rcpp::CharacterVector ret(sq.size());
   for (std::size_t sq_index = 0; sq_index < sq.size(); sq_index++) {
     std::string sequence = sq[sq_index];
     for (int i = 0; i <= (double)sequence.length() / 3 - 1; i++) {
-      ret[sq_index] += codonTables[table][sequence.substr(3 * i, 3)];
+      ret[sq_index] += codonTable[sequence.substr(3 * i, 3)];
     }
   }
   return ret;
