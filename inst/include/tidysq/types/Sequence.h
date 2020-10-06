@@ -13,6 +13,11 @@ namespace tidysq {
 namespace Rcpp {
     template<>
     SEXP wrap(const tidysq::Sequence<tidysq::RCPP> &);
+
+    namespace traits {
+        template<>
+        class Exporter<tidysq::Sequence<tidysq::RCPP>>;
+    }
 }
 
 #include "tidysq/types/TypeMapper.h"
@@ -75,6 +80,28 @@ namespace Rcpp {
     template<>
     inline SEXP wrap(const tidysq::Sequence<tidysq::RCPP> &obj) {
         return obj.getContent();
+    }
+
+    namespace traits {
+        template<>
+        class Exporter<tidysq::Sequence<tidysq::RCPP>> {
+            typedef typename tidysq::Sequence<tidysq::RCPP> OUT ;
+            Rcpp::RawVector vec_;
+
+        public:
+            explicit Exporter(SEXP x) :
+                    vec_(x) {
+                if (TYPEOF(x) != RAWSXP)
+                    throw std::invalid_argument("Wrong R type!");
+                if (!vec_.hasAttribute("original_length"))
+                    throw std::invalid_argument("No 'original_length' attribute!");
+            }
+
+            OUT get() {
+                OUT ret(OUT(vec_, vec_.attr("original_length")));
+                return ret;
+            }
+        };
     }
 }
 
