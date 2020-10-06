@@ -1,107 +1,81 @@
 #ifndef TIDYSQ_SEQUENCE_H
 #define TIDYSQ_SEQUENCE_H
 
-#include <vector>
-#include <Rcpp.h>
-
 #include "tidysq/types/general.h"
-#include "tidysq/types/SequenceProto.h"
 
 namespace tidysq {
-    template<>
-    class Sequence<ANY_INTERNAL> {
-        lensq originalLength_;
-    protected:
-        Sequence() :
-                Sequence(0) {};
+    template<InternalType>
+    class Sequence;
+}
 
-        explicit Sequence(lensq originalLength) :
-                originalLength_(originalLength) {};
+#include <RcppCommon.h>
+
+namespace Rcpp {
+    template<>
+    SEXP wrap(const tidysq::Sequence<tidysq::RCPP> &);
+}
+
+#include "tidysq/types/TypeMapper.h"
+#include "tidysq/types/ProtoSequence.h"
+
+namespace tidysq {
+    template<InternalType INTERNAL>
+    class Sequence {
+        typename InternalTypeMapper<INTERNAL>::SequenceContentType content_;
+        LenSq originalLength_;
+    public:
 
     public:
-        typedef ElemRaws ElementType;
+        typedef typename InternalTypeMapper<INTERNAL>::SequenceContentType ContentType;
+        typedef typename InternalTypeMapper<INTERNAL>::SequenceElementType ElementType;
+        typedef typename InternalTypeMapper<INTERNAL>::SequenceAccessType AccessType;
+        typedef typename InternalTypeMapper<INTERNAL>::SequenceConstAccessType ConstAccessType;
+
+        Sequence(const ContentType &content, const LenSq originalLength) :
+                content_(content),
+                originalLength_(originalLength) {};
+
+        Sequence(const LenSq contentLength, const LenSq originalLength) :
+                Sequence(ContentType(contentLength), originalLength) {};
+
+        Sequence() :
+                Sequence(0, 0) {};
 
         Sequence(const Sequence &other) noexcept = default;
 
         Sequence(Sequence &&other) noexcept = default;
 
-        virtual const ElementType &operator[](lensq index) const = 0;
+        Sequence& operator=(const Sequence &other) noexcept = default;
 
-        virtual ElementType &operator[](lensq index) = 0;
+        Sequence& operator=(Sequence &&other) noexcept = default;
 
-        [[nodiscard]] lensq originalLength() const {
+        inline AccessType operator[](const LenSq index) {
+            return content_[index];
+        }
+
+        inline ConstAccessType operator[](const LenSq index) const {
+             return content_[index];
+        }
+
+        [[nodiscard]] inline LenSq originalLength() const {
             return originalLength_;
         }
 
-        [[nodiscard]] virtual lensq size() const = 0;
-    };
-
-    template<>
-    class Sequence<STD> : public Sequence<ANY_INTERNAL> {
-        std::vector<unsigned char> content_;
-    public:
-        typedef unsigned char ElementType;
-
-        Sequence() :
-                Sequence(0, 0) {};
-
-        Sequence(lensq packedLength, lensq originalLength) :
-                Sequence<ANY_INTERNAL>(originalLength),
-                content_(packedLength) {};
-
-        Sequence(const Sequence &other) noexcept = default;
-
-        Sequence(Sequence &&other) noexcept = default;
-
-        inline const ElementType &operator[](lensq index) const override {
-            return content_[index];
-        }
-
-        inline ElementType &operator[](lensq index) override {
-            return content_[index];
-        }
-
-        [[nodiscard]] inline lensq size() const override {
+        [[nodiscard]] inline LenSq length() const {
             return content_.size();
         }
-    };
 
+        [[nodiscard]] inline ContentType getContent() const {
+            return content_;
+        }
+    };
+}
+
+namespace Rcpp {
     template<>
-    class Sequence<RCPP> : public Sequence<ANY_INTERNAL> {
-        Rcpp::RawVector content_;
-    public:
-        typedef unsigned char ElementType;
-
-        Sequence() :
-                Sequence(0, 0) {};
-
-        Sequence(lensq packedLength, lensq originalLength) :
-                Sequence<ANY_INTERNAL>(originalLength),
-                content_(packedLength) {};
-
-        explicit Sequence(const Rcpp::RawVector& content) :
-                Sequence<ANY_INTERNAL>(content.attr("original_length")),
-                content_(content) {
-            if (!content.hasAttribute("original_length"))
-                throw std::invalid_argument(R"("content" argument in Sequence should have "original_length" attribute!)");
-        };
-
-        Sequence(const Sequence &other) noexcept = default;
-
-        Sequence(Sequence &&other) noexcept = default;
-
-        inline Rcpp::RawVector::const_Proxy operator[] (lensq index) const override {
-            return content_(index);
-        }
-
-        inline Rcpp::RawVector::Proxy operator[] (lensq index) override {
-            return content_(index);
-        }
-
-        [[nodiscard]] inline lensq size() const override {
-            return content_.size();
-        }
-    };
+    inline SEXP wrap(const tidysq::Sequence<tidysq::RCPP> &obj) {
+        return obj.getContent();
+    }
 }
 
 #endif //TIDYSQ_SEQUENCE_H

@@ -1,23 +1,24 @@
 #ifndef TIDYSQ_GENERAL_H
 #define TIDYSQ_GENERAL_H
 
+#include <string>
+
 namespace tidysq {
-    typedef unsigned long long int lensq;
-    typedef unsigned char ElemRaws;
-    typedef unsigned short int ElemInts;
-    typedef std::string ElemStrings;
-    typedef char ElemString;
-    typedef unsigned short int sizealph;
-    typedef unsigned short int letvalue;
+    typedef unsigned long long int  LenSq;
+    typedef unsigned char           ElemPacked;
+    typedef unsigned char           ElemRaws;
+    typedef unsigned short int      ElemInts;
+    typedef std::string             ElemStrings;
+    typedef char                    ElemString;
+    typedef unsigned short int      AlphSize;
+    typedef unsigned short int      LetValue;
 
     enum InternalType {
-        ANY_INTERNAL,
         STD,
         RCPP
     };
 
     enum ProtoType {
-        ANY_PROTO,
         RAWS,
         INTS,
         STRINGS,
@@ -35,22 +36,6 @@ namespace tidysq {
         ATP,
         ENC
     };
-
-    template<InternalType INTERNAL = STD>
-    class Sequence;
-
-    template<InternalType INTERNAL = STD>
-    class Sq;
-
-    template<InternalType INTERNAL = STD,
-            ProtoType PROTO = RAWS>
-    class SequenceProto;
-
-    template<InternalType INTERNAL = STD,
-            ProtoType PROTO = RAWS>
-    class SqProto;
-
-    class Alphabet;
 }
 
 #endif //TIDYSQ_GENERAL_H

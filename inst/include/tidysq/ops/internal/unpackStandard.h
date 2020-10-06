@@ -5,17 +5,17 @@
 
 #include "tidysq/types/Alphabet.h"
 #include "tidysq/types/Sequence.h"
-#include "tidysq/types/SequenceProto.h"
-#include "tidysq/ops/internal/utilp.h"
+#include "tidysq/types/ProtoSequence.h"
+#include "tidysq/ops/internal/util.h"
 
 namespace tidysq::internal {
     template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT, ProtoType PROTO_OUT>
     void unpackStandard3(const Sequence<INTERNAL_IN> &packed,
-                         SequenceProto<INTERNAL_OUT, PROTO_OUT> &unpacked,
+                         ProtoSequence<INTERNAL_OUT, PROTO_OUT> &unpacked,
                          const Alphabet &alphabet) {
-        lensq in_byte = 0;
-        lensq out_len = unpacked.size();
-        lensq i = 0;
+        LenSq in_byte = 0;
+        LenSq out_len = unpacked.size();
+        LenSq i = 0;
         for (; i + 8 <= out_len; i += 8) {
             unpacked[i] = matchLetter<PROTO_OUT>((packed[in_byte]) & 7, alphabet);
             unpacked[i + 1] = matchLetter<PROTO_OUT>((packed[in_byte] >> 3) & 7, alphabet);
@@ -85,7 +85,7 @@ namespace tidysq::internal {
 
     template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT, ProtoType PROTO_OUT>
     void unpackStandard(const Sequence<INTERNAL_IN> &packed,
-                        SequenceProto<INTERNAL_OUT, PROTO_OUT> &unpacked,
+                        ProtoSequence<INTERNAL_OUT, PROTO_OUT> &unpacked,
                         const Alphabet &alphabet) {
         switch (alphabet.alphabetSize()) {
             case 3:

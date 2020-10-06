@@ -5,16 +5,16 @@
 
 #include "tidysq/types/Alphabet.h"
 #include "tidysq/types/Sequence.h"
-#include "tidysq/types/SequenceProto.h"
+#include "tidysq/types/ProtoSequence.h"
 
 namespace tidysq::internal {
     template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT>
-    void packStandard3(const SequenceProto<INTERNAL_IN, PROTO_IN> &unpacked,
+    void packStandard3(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
                Sequence<INTERNAL_OUT> &packed,
                const Alphabet &alphabet) {
-        lensq outByte = 0;
-        lensq i = 0;
-        for (; i + 8 <= unpacked.size(); i += 8) {
+        LenSq outByte = 0;
+        LenSq i = 0;
+        for (; i + 8 <= unpacked.length(); i += 8) {
             packed[outByte] = (unpacked.getLetterValue(i, alphabet)) |
                               (unpacked.getLetterValue(i + 1, alphabet) << 3u) |
                               (unpacked.getLetterValue(i + 2, alphabet) << 6u);
@@ -27,7 +27,7 @@ namespace tidysq::internal {
                                   (unpacked.getLetterValue(i + 7, alphabet) << 5u);
             outByte += 3;
         }
-        switch (unpacked.size() - i) {
+        switch (unpacked.length() - i) {
             case 7:
                 packed[outByte] = (unpacked.getLetterValue(i, alphabet)) |
                                   (unpacked.getLetterValue(i + 1, alphabet) << 3u) |
@@ -81,7 +81,7 @@ namespace tidysq::internal {
     }
 
     template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT>
-    void packStandard(const SequenceProto<INTERNAL_IN, PROTO_IN> &unpacked,
+    void packStandard(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
                       Sequence<INTERNAL_OUT> &packed,
                       const Alphabet &alphabet) {
         switch (alphabet.alphabetSize()) {

@@ -1,7 +1,7 @@
 #ifndef TIDYSQ_OPERATION_H
 #define TIDYSQ_OPERATION_H
 
-#include "../../types/general.h"
+#include "tidysq/types/Alphabet.h"
 
 namespace tidysq {
     template<typename SEQUENCE_IN,

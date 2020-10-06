@@ -8,17 +8,17 @@
 #include <stdexcept>
 #include <Rcpp.h>
 
-#include "general.h"
-#include "../util/common.h"
-#include "../util/transition.h"
+#include "tidysq/types/general.h"
+#include "tidysq/util/common.h"
+#include "tidysq/util/transition.h"
 
 namespace tidysq {
     class Alphabet {
     private:
         const std::vector<std::string> letters_;
         const std::string NALetter_;
-        const letvalue NAValue_;
-        const sizealph alphabetSize_;
+        const LetValue NAValue_;
+        const AlphSize alphabetSize_;
         const bool simple_;
 
         void checkLetters() const {
@@ -45,11 +45,11 @@ namespace tidysq {
             return ret;
         }
 
-        [[nodiscard]] sizealph calculateAlphabetSize() const {
+        [[nodiscard]] AlphSize calculateAlphabetSize() const {
             return ceil(log2((double) letters_.size() + 2));
         }
 
-        [[nodiscard]] letvalue calculateNAValue() const {
+        [[nodiscard]] LetValue calculateNAValue() const {
             return pow(2, alphabetSize_) - 1;
         }
 
@@ -93,23 +93,23 @@ namespace tidysq {
             return ret;
         }
 
-        [[nodiscard]] inline letvalue length() const {
+        [[nodiscard]] inline LetValue length() const {
             return letters_.size();
         }
 
-        inline const std::string &operator[](letvalue index) const {
+        inline const std::string &operator[](LetValue index) const {
             return letters_[index];
         }
 
-        [[nodiscard]] inline const letvalue &NAValue() const {
+        [[nodiscard]] inline const LetValue &NAValue() const {
             return NAValue_;
-        };
+        }
 
         [[nodiscard]] inline const std::string &NALetter() const {
             return NALetter_;
         }
 
-        [[nodiscard]] inline const sizealph &alphabetSize() const {
+        [[nodiscard]] inline const AlphSize &alphabetSize() const {
             return alphabetSize_;
         }
 

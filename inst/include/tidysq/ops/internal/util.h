@@ -1,113 +1,34 @@
 #ifndef TIDYSQ_UTIL_H
 #define TIDYSQ_UTIL_H
 
-#include <cmath>
-#include "../../types/SequenceSTD.h"
-#include "../../types/SequenceRCPP.h"
-#include "../../types/Alphabet.h"
-
+#include "tidysq/types/Sequence.h"
+#include "tidysq/types/ProtoSequence.h"
+#include "tidysq/types/Alphabet.h"
 
 namespace tidysq::internal {
-    template<InternalType INTERNAL,
-            ProtoType PROTO>
-    inline lensq getPackedLength(const SequenceProto<INTERNAL, PROTO> &unpacked, const Alphabet &alphabet) {
-        return (alphabet.alphabetSize() * unpacked.size() + 7) / 8;
-    }
-
-    template<InternalType INTERNAL>
-    inline lensq getOriginalLength(const Sequence<INTERNAL> &packed);
+    template<ProtoType PROTO_OUT>
+    auto matchLetter(LetValue value, const Alphabet &alphabet) -> typename ProtoSequence<STD, PROTO_OUT>::ElementType;
 
     template<>
-    inline lensq getOriginalLength<STD>(const Sequence<STD> &packed) {
-        return packed.originalLength();
+    inline ElemRaws matchLetter<RAWS>(const LetValue value, const Alphabet &alphabet) {
+        return value;
     }
 
-    template<>
-    inline lensq getOriginalLength<RCPP>(const Sequence<RCPP> &packed) {
-        return packed.attr("original_length");
+    template<InternalType INTERNAL, ProtoType PROTO>
+    inline LenSq calculatePackedLength(const ProtoSequence<INTERNAL, PROTO> &unpacked, const Alphabet &alphabet) {
+        return (alphabet.alphabetSize() * unpacked.length() + 7) / 8;
     }
 
-    template<InternalType INTERNAL_IN,
-            ProtoType PROTO_IN,
-            InternalType INTERNAL_OUT>
-    inline Sequence<INTERNAL_OUT> reserveSpaceForPacked(const SequenceProto<INTERNAL_IN, PROTO_IN> &unpacked,
+    template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT>
+    inline Sequence<INTERNAL_OUT> reserveSpaceForPacked(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
                                                         const Alphabet &alphabet) {
-        return Sequence<INTERNAL_OUT>(getPackedLength(unpacked, alphabet), unpacked.size());
+        return Sequence<INTERNAL_OUT>(calculatePackedLength(unpacked, alphabet), unpacked.length());
     }
 
-    template<InternalType INTERNAL_IN,
-            InternalType INTERNAL_OUT,
-            ProtoType PROTO_OUT>
-    inline SequenceProto<INTERNAL_OUT, PROTO_OUT> reserveSpaceForUnpacked(const Sequence<INTERNAL_IN> &packed) {
-        return SequenceProto<INTERNAL_OUT, PROTO_OUT>(getOriginalLength(packed));
+    template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT, ProtoType PROTO_OUT>
+    inline ProtoSequence<INTERNAL_OUT, PROTO_OUT> reserveSpaceForUnpacked(const Sequence<INTERNAL_IN> &packed) {
+        return ProtoSequence<INTERNAL_OUT, PROTO_OUT>(packed.originalLength());
     }
-
-    template<InternalType INTERNAL_IN>
-    struct ValueToLetterMatcher;
-
-    template<>
-    struct ValueToLetterMatcher<STD> {
-        inline static letvalue match(const std::string &letter, const Alphabet &alphabet) {
-            for (letvalue i = 0; i < alphabet.length(); i++) {
-                if (letter == alphabet[i]) {
-                    return i + 1;
-                }
-            }
-            return alphabet.NAValue();
-        }
-
-        inline static letvalue matchStandard(const char &letter, const Alphabet &alphabet) {
-            for (letvalue i = 0; i < alphabet.length(); i++) {
-                if (letter == alphabet[i][0]) {
-                    return i + 1;
-                }
-            }
-            return alphabet.NAValue();
-        }
-    };
-
-    template<>
-    struct ValueToLetterMatcher<RCPP> {
-        inline static letvalue match(const Rcpp::StringVector::const_Proxy &letter, const Alphabet &alphabet) {
-            if (Rcpp::StringVector::is_na(letter)) {
-                return alphabet.NAValue();
-            }
-            for (letvalue i = 0; i < alphabet.length(); i++) {
-                if (letter == alphabet[i]) {
-                    return i + 1;
-                }
-            }
-            return alphabet.NAValue();
-        }
-    };
-
-    template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT>
-    struct LetterToValueMatcher;
-
-    template<>
-    struct LetterToValueMatcher<RCPP, STD> {
-        inline static std::string match(const unsigned char &value, const Alphabet &alphabet) {
-            return value == alphabet.NAValue() ? alphabet.NALetter() : alphabet[value - 1];
-        }
-    };
-
-    template<>
-    struct LetterToValueMatcher<STD, STD> {
-        inline static std::string match(const unsigned char &value, const Alphabet &alphabet) {
-            return value == alphabet.NAValue() ? alphabet.NALetter() : alphabet[value - 1];
-        }
-
-        inline static char matchStandard(const unsigned char &value, const Alphabet &alphabet) {
-            return value == alphabet.NAValue() ? alphabet.NALetter()[0] : alphabet[value - 1][0];
-        }
-    };
-
-    template<InternalType INTERNAL_IN>
-    struct LetterToValueMatcher<INTERNAL_IN, RCPP> {
-        inline static Rcpp::String match(const unsigned char &value, const Alphabet &alphabet) {
-            return value == alphabet.NAValue() ? Rcpp::String(NA_STRING) : static_cast<Rcpp::String>(alphabet[value - 1]);
-        }
-    };
 }
 
 #endif //TIDYSQ_UTIL_H

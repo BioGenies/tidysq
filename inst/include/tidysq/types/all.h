@@ -1,14 +1,10 @@
 #ifndef TIDYSQ_ALL_H
 #define TIDYSQ_ALL_H
 
-#include "SequenceRCPP.h"
-#include "SequenceSTD.h"
-#include "SequenceRCPP.h"
-#include "SequenceSTD.h"
-#include "SqProtoRCPP.h"
-#include "SqProtoSTD.h"
-#include "SqRCPP.h"
-#include "SqSTD.h"
-#include "Alphabet.h"
+#include "tidysq/types/Sequence.h"
+#include "tidysq/types/ProtoSequence.h"
+#include "tidysq/types/Sq.h"
+#include "tidysq/types/ProtoSq.h"
+#include "tidysq/types/Alphabet.h"
 
 #endif //TIDYSQ_ALL_H
