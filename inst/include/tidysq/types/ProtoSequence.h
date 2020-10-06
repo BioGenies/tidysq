@@ -1,9 +1,22 @@
 #ifndef TIDYSQ_PROTOSEQUENCE_H
 #define TIDYSQ_PROTOSEQUENCE_H
 
+#include "tidysq/types/general.h"
+
+namespace tidysq {
+    template<InternalType>
+    class Sequence;
+}
+
+#include <RcppCommon.h>
+
+namespace Rcpp::traits {
+    template<tidysq::ProtoType PROTO>
+    SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, PROTO> &);
+}
+
 #include <utility>
 
-#include "tidysq/types/general.h"
 #include "tidysq/types/Alphabet.h"
 #include "tidysq/types/TypeMapper.h"
 
@@ -53,10 +66,17 @@ namespace tidysq {
             return content_[index];
         }
 
-        explicit operator ContentType() {
+        [[nodiscard]] inline ContentType getContent() const {
             return content_;
         }
     };
+}
+
+namespace Rcpp::traits {
+    template<tidysq::ProtoType PROTO>
+    inline SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, PROTO> &obj) {
+        return obj.getContent();
+    }
 }
 
 #endif //TIDYSQ_PROTOSEQUENCE_H
