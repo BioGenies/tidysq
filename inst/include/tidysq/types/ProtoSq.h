@@ -63,11 +63,20 @@ namespace tidysq {
             return type_;
         }
 
+        inline Rcpp::List exportToR() {
+            throw std::exception();
+        }
+
         template<InternalType INTERNAL_OUT>
         Sq<INTERNAL_OUT> pack() {
             return sqapply<ProtoSq<INTERNAL, PROTO>, Sq<INTERNAL_OUT>>(*this, ops::OperationPack<INTERNAL, PROTO, INTERNAL_OUT>());
         }
     };
+
+    template<>
+    inline Rcpp::List ProtoSq<RCPP, RAWS>::exportToR() {
+        return content_;
+    }
 
     template<ProtoType PROTO>
     ProtoSq<RCPP, PROTO> importProtoFromR(const Rcpp::List &proto,

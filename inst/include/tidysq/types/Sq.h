@@ -5,8 +5,13 @@
 #include "tidysq/types/Alphabet.h"
 #include "tidysq/types/TypeMapper.h"
 #include "tidysq/util/alphabet.h"
+#include "tidysq/ops/OperationUnpack.h"
+#include "tidysq/sqapply.h"
 
 namespace tidysq {
+    template<InternalType INTERNAL, ProtoType PROTO>
+    class ProtoSq;
+
     template<InternalType INTERNAL>
     class Sq {
         typename InternalTypeMapper<INTERNAL>::SqContentType content_;
@@ -22,6 +27,9 @@ namespace tidysq {
                 content_(content),
                 alphabet_(alphabet),
                 type_(type) {};
+
+        Sq(const ContentType &content, const Alphabet &alphabet) :
+                Sq(content, alphabet, util::guessSqType(alphabet)) {};
 
         Sq(const LenSq length, const Alphabet &alphabet, const SqType &type) :
                 Sq(ContentType(length), alphabet, type) {};
@@ -68,6 +76,11 @@ namespace tidysq {
         inline Rcpp::List exportToR() {
             throw std::exception();
         }
+
+        template<InternalType INTERNAL_OUT, ProtoType PROTO_OUT>
+        ProtoSq<INTERNAL_OUT, PROTO_OUT> unpack() {
+            return sqapply<Sq<INTERNAL>, ProtoSq<INTERNAL_OUT, PROTO_OUT>>(*this, ops::OperationUnpack<INTERNAL, INTERNAL_OUT, PROTO_OUT>());
+        }
     };
 
     template<>
@@ -78,6 +91,11 @@ namespace tidysq {
             content_[i] = static_cast<Rcpp::RawVector>(content_[i]);
         }
         return content_;
+    }
+
+    inline Sq<RCPP> importFromR(const Rcpp::List &sq) {
+        if (!sq.hasAttribute("alphabet")) throw std::exception();
+        return Sq<RCPP>(sq, Alphabet(sq.attr("alphabet")));
     }
 }
 

@@ -4,12 +4,12 @@
 
 using namespace tidysq;
 
-////[[Rcpp::export]]
-//Rcpp::List CPP_unpack_RAWS(Rcpp::List sq) {
-//  return Sq<RCPP>(sq)
-//  .unpack<RCPP, RAWS>()
-//  .exportToR();
-//}
+//[[Rcpp::export]]
+Rcpp::List CPP_unpack_RAWS(Rcpp::List sq) {
+  return importFromR(sq)
+  .unpack<RCPP, RAWS>()
+  .exportToR();
+}
 //
 ////[[Rcpp::export]]
 //Rcpp::List CPP_unpack_INTS(Rcpp::List sq) {
