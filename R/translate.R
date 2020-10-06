@@ -63,7 +63,7 @@ translate.rnasq <- function(sq, table = 1, ...) {
   }
   # a hack to avoid creating duplicate codon tables, at least for now
   # optimally should be deleted once the code operates without unpacking
-  sq <- substitute_letters(sq, c(U = "T"))
-  construct_sq_ami(Cpp_translate(as.character(sq), table),
+  sq <- gsub("U", "T", as.character(sq))
+  construct_sq_ami(Cpp_translate(sq, table),
                    is_clean = TRUE)
 }
