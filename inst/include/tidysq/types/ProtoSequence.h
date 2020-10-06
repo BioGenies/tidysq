@@ -4,15 +4,15 @@
 #include "tidysq/types/general.h"
 
 namespace tidysq {
-    template<InternalType>
-    class Sequence;
+    template<InternalType, ProtoType>
+    class ProtoSequence;
 }
 
 #include <RcppCommon.h>
 
-namespace Rcpp::traits {
-    template<tidysq::ProtoType PROTO>
-    SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, PROTO> &);
+namespace Rcpp {
+    template<>
+    SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::RAWS> &);
 }
 
 #include <utility>
@@ -72,9 +72,9 @@ namespace tidysq {
     };
 }
 
-namespace Rcpp::traits {
-    template<tidysq::ProtoType PROTO>
-    inline SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, PROTO> &obj) {
+namespace Rcpp {
+    template<>
+    inline SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::RAWS> &obj) {
         return obj.getContent();
     }
 }
