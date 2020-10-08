@@ -70,7 +70,7 @@ namespace tidysq {
             return content_.size();
         }
 
-        [[nodiscard]] inline ContentType getContent() const {
+        [[nodiscard]] inline ContentType content() const {
             return content_;
         }
     };
@@ -79,7 +79,9 @@ namespace tidysq {
 namespace Rcpp {
     template<>
     inline SEXP wrap(const tidysq::Sequence<tidysq::RCPP> &obj) {
-        return obj.getContent();
+        Rcpp::RawVector ret = obj.content();
+        ret.attr("original_length") = obj.originalLength();
+        return ret;
     }
 
     namespace traits {
