@@ -13,12 +13,19 @@ namespace tidysq {
 namespace Rcpp {
     template<>
     SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::RAWS> &);
+
+    template<>
+    SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::INTS> &);
+
+    template<>
+    SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::STRINGS> &);
 }
 
 #include <utility>
 
 #include "tidysq/types/Alphabet.h"
 #include "tidysq/types/TypeMapper.h"
+#include "tidysq/ops/internal/util.h"
 
 namespace tidysq {
     template<InternalType INTERNAL, ProtoType PROTO>
@@ -66,7 +73,7 @@ namespace tidysq {
             return content_[index];
         }
 
-        [[nodiscard]] inline ContentType getContent() const {
+        [[nodiscard]] inline ContentType content() const {
             return content_;
         }
 
@@ -78,12 +85,32 @@ namespace tidysq {
             return !operator==(other);
         }
     };
+
+    template<>
+    inline LetValue ProtoSequence<RCPP, STRINGS>::getLetterValue(const LetValue index, const Alphabet &alphabet) const {
+        return internal::matchValue<RCPP, STRINGS>(Rcpp::String(content_[index]), alphabet);
+    }
+
+    template<>
+    inline LetValue ProtoSequence<STD, STRINGS>::getLetterValue(const LetValue index, const Alphabet &alphabet) const {
+        return internal::matchValue<STD, STRINGS>(content_[index], alphabet);
+    }
 }
 
 namespace Rcpp {
     template<>
     inline SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::RAWS> &obj) {
-        return obj.getContent();
+        return obj.content();
+    }
+
+    template<>
+    inline SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::INTS> &obj) {
+        return obj.content();
+    }
+
+    template<>
+    inline SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::STRINGS> &obj) {
+        return obj.content();
     }
 }
 

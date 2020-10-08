@@ -5,8 +5,24 @@ CPP_pack_RAWS <- function(proto, alphabet) {
     .Call(`_tidysq_CPP_pack_RAWS`, proto, alphabet)
 }
 
+CPP_pack_INTS <- function(proto, alphabet) {
+    .Call(`_tidysq_CPP_pack_INTS`, proto, alphabet)
+}
+
+CPP_pack_STRINGS <- function(proto, alphabet) {
+    .Call(`_tidysq_CPP_pack_STRINGS`, proto, alphabet)
+}
+
 CPP_unpack_RAWS <- function(sq) {
     .Call(`_tidysq_CPP_unpack_RAWS`, sq)
+}
+
+CPP_unpack_INTS <- function(sq) {
+    .Call(`_tidysq_CPP_unpack_INTS`, sq)
+}
+
+CPP_unpack_STRINGS <- function(sq) {
+    .Call(`_tidysq_CPP_unpack_STRINGS`, sq)
 }
 
 C_get_real_alph <- function(sq) {

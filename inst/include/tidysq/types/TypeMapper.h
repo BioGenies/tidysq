@@ -92,6 +92,60 @@ namespace tidysq {
         typedef const   Rcpp::List::const_Proxy         ProtoSqConstAccessType;
     };
 
+    template<>
+    struct TypeMapper<STD, INTS> {
+        typedef ElemInts                                ProtoSequenceElementType;
+        typedef std::vector<ProtoSequenceElementType>   ProtoSequenceContentType;
+        typedef         ProtoSequenceElementType &      ProtoSequenceAccessType;
+        typedef const   ProtoSequenceElementType &      ProtoSequenceConstAccessType;
+
+        typedef std::vector<ProtoSequence<STD, INTS>>   ProtoSqContentType;
+        typedef ProtoSequence<STD, INTS>                ProtoSqElementType;
+        typedef         ProtoSequence<STD, INTS> &      ProtoSqAccessType;
+        typedef const   ProtoSequence<STD, INTS> &      ProtoSqConstAccessType;
+
+    };
+
+    template<>
+    struct TypeMapper<RCPP, INTS> {
+        typedef ElemInts                                ProtoSequenceElementType;
+        typedef Rcpp::IntegerVector                     ProtoSequenceContentType;
+        typedef Rcpp::IntegerVector::Proxy              ProtoSequenceAccessType;
+        typedef Rcpp::IntegerVector::const_Proxy        ProtoSequenceConstAccessType;
+
+        typedef Rcpp::List                              ProtoSqContentType;
+        typedef ProtoSequence<RCPP, INTS>               ProtoSqElementType;
+        typedef         Rcpp::List::Proxy               ProtoSqAccessType;
+        typedef const   Rcpp::List::const_Proxy         ProtoSqConstAccessType;
+    };
+
+    template<>
+    struct TypeMapper<STD, STRINGS> {
+        typedef ElemStrings                             ProtoSequenceElementType;
+        typedef std::vector<ProtoSequenceElementType>   ProtoSequenceContentType;
+        typedef         ProtoSequenceElementType &      ProtoSequenceAccessType;
+        typedef const   ProtoSequenceElementType &      ProtoSequenceConstAccessType;
+
+        typedef std::vector<ProtoSequence<STD, RAWS>>   ProtoSqContentType;
+        typedef ProtoSequence<STD, RAWS>                ProtoSqElementType;
+        typedef         ProtoSequence<STD, RAWS> &      ProtoSqAccessType;
+        typedef const   ProtoSequence<STD, RAWS> &      ProtoSqConstAccessType;
+
+    };
+
+    template<>
+    struct TypeMapper<RCPP, STRINGS> {
+        typedef ElemStrings                             ProtoSequenceElementType;
+        typedef Rcpp::StringVector                      ProtoSequenceContentType;
+        typedef Rcpp::StringVector::Proxy               ProtoSequenceAccessType;
+        typedef Rcpp::StringVector::const_Proxy         ProtoSequenceConstAccessType;
+
+        typedef Rcpp::List                              ProtoSqContentType;
+        typedef ProtoSequence<RCPP, STRINGS>            ProtoSqElementType;
+        typedef         Rcpp::List::Proxy               ProtoSqAccessType;
+        typedef const   Rcpp::List::const_Proxy         ProtoSqConstAccessType;
+    };
+
 }
 
 #endif //TIDYSQ_TYPEMAPPER_H
