@@ -78,6 +78,18 @@ namespace tidysq {
             throw std::exception();
         }
 
+        inline bool operator==(const Sq<INTERNAL> &other) {
+            if ((alphabet_ != other.alphabet_) || (content_.size() != other.content_.size())) return false;
+            for (LenSq i = 0; i < content_.size(); i++) {
+                if (!Rcpp::is_true(Rcpp::all(ElementUnderlyingType(content_[i]) == ElementUnderlyingType(other.content_[i])))) return false;
+            }
+            return true;
+        }
+
+        inline bool operator!=(const Sq<INTERNAL> &other) {
+            return !operator==(other);
+        }
+
         template<InternalType INTERNAL_OUT, ProtoType PROTO_OUT>
         ProtoSq<INTERNAL_OUT, PROTO_OUT> unpack() {
             return sqapply<Sq<INTERNAL>, ProtoSq<INTERNAL_OUT, PROTO_OUT>>(*this, ops::OperationUnpack<INTERNAL, INTERNAL_OUT, PROTO_OUT>());

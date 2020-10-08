@@ -44,11 +44,11 @@ namespace tidysq {
         ProtoSq(const LenSq length, const SqType &type) :
                 ProtoSq(length, util::getStandardAlphabet(type), type) {};
 
-        inline AccessType operator[] (const LenSq index) {
+        inline AccessType operator[](const LenSq index) {
             return content_[index];
         }
 
-        inline ConstAccessType operator[] (const LenSq index) const {
+        inline ConstAccessType operator[](const LenSq index) const {
             return content_[index];
         }
 
@@ -70,7 +70,20 @@ namespace tidysq {
 
         template<InternalType INTERNAL_OUT>
         Sq<INTERNAL_OUT> pack() {
-            return sqapply<ProtoSq<INTERNAL, PROTO>, Sq<INTERNAL_OUT>>(*this, ops::OperationPack<INTERNAL, PROTO, INTERNAL_OUT>());
+            return sqapply<ProtoSq<INTERNAL, PROTO>, Sq<INTERNAL_OUT>>(*this,
+                                                                       ops::OperationPack<INTERNAL, PROTO, INTERNAL_OUT>());
+        }
+
+        inline bool operator==(const ProtoSq<INTERNAL, PROTO> &other) {
+           if ((alphabet_ != other.alphabet_) || (content_.size() != other.content_.size())) return false;
+           for (LenSq i = 0; i < content_.size(); i++) {
+               if (!Rcpp::is_true(Rcpp::all(ElementUnderlyingType(content_[i]) == ElementUnderlyingType(other.content_[i])))) return false;
+           }
+           return true;
+        }
+
+        inline bool operator!=(const ProtoSq<INTERNAL, PROTO> &other) {
+            return !operator==(other);
         }
     };
 

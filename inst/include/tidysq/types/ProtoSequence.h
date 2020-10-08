@@ -69,6 +69,14 @@ namespace tidysq {
         [[nodiscard]] inline ContentType getContent() const {
             return content_;
         }
+
+        inline bool operator==(const ProtoSequence<INTERNAL, PROTO> &other) const {
+            return content_ == other.content_;
+        }
+
+        inline bool operator!=(const ProtoSequence<INTERNAL, PROTO> &other) const {
+            return !operator==(other);
+        }
     };
 }
 

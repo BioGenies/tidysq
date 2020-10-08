@@ -117,9 +117,12 @@ namespace tidysq {
             return simple_;
         }
 
-        bool operator==(const Alphabet &another) {
-            if (letters_ == another.letters_) return true;
-            return false;
+        inline bool operator==(const Alphabet &other) const {
+            return letters_ == other.letters_;
+        }
+
+        inline bool operator!=(const Alphabet &other) const {
+            return !operator==(other);
         }
     };
 }
