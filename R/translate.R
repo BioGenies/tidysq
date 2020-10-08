@@ -49,6 +49,9 @@ translate.default <- function(sq, table = 1, ...) {
 
 #' @export
 translate.dnasq <- function(sq, table = 1, ...) {
+  .validate_sq(sq, type = "dna")
+  .check_integer(table, "'table'", single_elem = TRUE)
+  
   if (!.is_cleaned(sq)) {
     stop("sequence has to be cleaned to translate", call. = FALSE)
   }
@@ -58,6 +61,9 @@ translate.dnasq <- function(sq, table = 1, ...) {
 
 #' @export
 translate.rnasq <- function(sq, table = 1, ...) {
+  .validate_sq(sq, type = "rna")
+  .check_integer(table, "'table'", single_elem = TRUE)
+  
   if (!.is_cleaned(sq)) {
     stop("sequence has to be cleaned to translate", call. = FALSE)
   }
