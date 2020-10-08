@@ -1,50 +1,56 @@
 #' @export
-vec_ptype_abbr.sq <- function(x, ...) ""
+vec_ptype_abbr.sq_dna_bsc <- function(x, ...) "dna_bsc"
 
 #' @export
-vec_ptype_full.sq <- function(x, ...) ""
+vec_ptype_full.sq_dna_bsc <- function(x, ...) "basic DNA"
 
 #' @export
-vec_ptype_abbr.clnsq <- function(x, ...) "(c)"
+vec_ptype_abbr.sq_dna_ext <- function(x, ...) "dna_ext"
 
 #' @export
-vec_ptype_full.clnsq <- function(x, ...) ", cln (cleaned)"
+vec_ptype_full.sq_dna_ext <- function(x, ...) "extended DNA"
 
 #' @export
-vec_ptype_abbr.amisq <- function(x, ...) paste0(NextMethod(), "ami")
+vec_ptype_abbr.sq_rna_bsc <- function(x, ...) "rna_bsc"
 
 #' @export
-vec_ptype_full.amisq <- function(x, ...) paste0("ami (amino acids)", NextMethod())
+vec_ptype_full.sq_rna_bsc <- function(x, ...) "basic RNA"
 
 #' @export
-vec_ptype_abbr.dnasq <- function(x, ...) paste0(NextMethod(), "dna")
+vec_ptype_abbr.sq_rna_ext <- function(x, ...) "rna_ext"
 
 #' @export
-vec_ptype_full.dnasq <- function(x, ...) paste0("dna (DNA)", NextMethod())
+vec_ptype_full.sq_rna_ext <- function(x, ...) "extended RNA"
 
 #' @export
-vec_ptype_abbr.rnasq <- function(x, ...) paste0(NextMethod(), "rna")
+vec_ptype_abbr.sq_ami_bsc <- function(x, ...) "ami_bsc"
 
 #' @export
-vec_ptype_full.rnasq <- function(x, ...) paste0("rna (RNA)", NextMethod())
+vec_ptype_full.sq_ami_bsc <- function(x, ...) "basic amino acid"
 
 #' @export
-vec_ptype_abbr.untsq <- function(x, ...) paste0(NextMethod(), "unt")
+vec_ptype_abbr.sq_ami_ext <- function(x, ...) "ami_ext"
 
 #' @export
-vec_ptype_full.untsq <- function(x, ...) paste0("unt (unspecified type)", NextMethod())
+vec_ptype_full.sq_ami_ext <- function(x, ...) "extended amino acid"
 
 #' @export
-vec_ptype_abbr.atpsq <- function(x, ...) paste0(NextMethod(), "atp")
+vec_ptype_abbr.sq_unt <- function(x, ...) "unt"
 
 #' @export
-vec_ptype_full.atpsq <- function(x, ...) paste0("atp (atypical alphabet)", NextMethod())
+vec_ptype_full.sq_unt <- function(x, ...) "unt (unspecified type)"
 
 #' @export
-vec_ptype_abbr.encsq <- function(x, ...) paste0(NextMethod(), "enc")
+vec_ptype_abbr.sq_atp <- function(x, ...) "atp"
 
 #' @export
-vec_ptype_full.encsq <- function(x, ...) paste0("enc (encoded values)", NextMethod())
+vec_ptype_full.sq_atp <- function(x, ...) "atp (atypical alphabet)"
+
+#' @export
+vec_ptype_abbr.sq_enc <- function(x, ...) "enc"
+
+#' @export
+vec_ptype_full.sq_enc <- function(x, ...) "enc (encoded values)"
 
 #' @export
 vec_ptype_abbr.sq_alphabet <- function(x, ...) "sq_alph"
