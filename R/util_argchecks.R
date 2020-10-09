@@ -1,4 +1,18 @@
 # general checks - used basically everywhere ----
+assert_sq_type <- function(type, null.ok = FALSE, unt.ok = FALSE) {
+  assert_choice(type,
+                choices = c("ami", "dna", "rna", if (unt.ok) "unt"),
+                null.ok = null.ok)
+}
+
+.check_type <- function(obj, argname = "'type'", allow_null = FALSE, allow_unt = FALSE) {
+  .check_isnt_missing(obj, argname)
+  if (!allow_null) .check_isnt_null(obj, argname)
+  else if (!is.null(obj)) {
+    allowed <- c("ami", "dna", "rna", if (allow_unt) "unt")
+    .check_simple(!obj %in% allowed, argname, paste0("has to be one of '", paste(allowed, collapse = "', '"), "'")) 
+  }
+}
 
 .check_simple <- function(check, argname, msg) {
   if (check) stop(argname, " ", msg, call. = FALSE)
@@ -90,15 +104,6 @@
   .check_numeric(obj, argname, ...)
   if (!is.null(obj)) 
     .check_simple(any(floor(obj) != obj), argname, "has to be integer")
-}
-
-.check_type <- function(obj, argname = "'type'", allow_null = FALSE, allow_unt = FALSE) {
-  .check_isnt_missing(obj, argname)
-  if (!allow_null) .check_isnt_null(obj, argname)
-  else if (!is.null(obj)) {
-    allowed <- c("ami", "dna", "rna", if (allow_unt) "unt")
-    .check_simple(!obj %in% allowed, argname, paste0("has to be one of '", paste(allowed, collapse = "', '"), "'")) 
-  }
 }
 
 .check_sq_has_type <- function(sq, argname, type) {
