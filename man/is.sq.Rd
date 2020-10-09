@@ -2,27 +2,12 @@
 % Please edit documentation in R/util_methods.R
 \name{is.sq}
 \alias{is.sq}
-\alias{is.amisq}
-\alias{is.dnasq}
-\alias{is.rnasq}
-\alias{is.untsq}
-\alias{is.atpsq}
-\alias{is.encsq}
+\alias{is.sq_ami_bsc}
 \title{Check if object has specified type}
 \usage{
 is.sq(x)
 
-is.amisq(x)
-
-is.dnasq(x)
-
-is.rnasq(x)
-
-is.untsq(x)
-
-is.atpsq(x)
-
-is.encsq(x)
+is.sq_ami_bsc(x)
 }
 \arguments{
 \item{x}{an object to be checked.}
