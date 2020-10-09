@@ -21,25 +21,25 @@ void test_pack_RCPP(const std::vector<typename TypeMapper<RCPP, PROTO>::ProtoSeq
 
 context("test_packing") {
   test_that("pack RCPP RAWS") {
-        test_pack_RCPP<RAWS>({{1}},
+        test_pack_RCPP<RAWS>({{0}},
                             util::getStandardAlphabet(DNA_CLN));
 
         test_pack_RCPP<RAWS>({
-                                    {1, 2, 3, 4},
-                                    {1, 1},
-                                    {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
-                                    {7, 1, 7},
+                                    {0, 1, 2, 3},
+                                    {0, 0},
+                                    {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+                                    {7, 0, 7},
                                     {}
                             }, util::getStandardAlphabet(DNA_CLN));
 
-        test_pack_RCPP<INTS>({{1}},
+        test_pack_RCPP<INTS>({{0}},
                              util::getStandardAlphabet(DNA_CLN));
 
         test_pack_RCPP<INTS>({
-                                     {1, 2, 3, 4},
-                                     {1, 1},
-                                     {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
-                                     {7, 1, 7},
+                                     {0, 1, 2, 3},
+                                     {0, 0},
+                                     {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+                                     {7, 0, 7},
                                      {}
                              }, util::getStandardAlphabet(DNA_CLN));
 
