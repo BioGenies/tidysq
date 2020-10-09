@@ -126,10 +126,10 @@ namespace tidysq {
         typedef         ProtoSequenceElementType &      ProtoSequenceAccessType;
         typedef const   ProtoSequenceElementType &      ProtoSequenceConstAccessType;
 
-        typedef std::vector<ProtoSequence<STD, RAWS>>   ProtoSqContentType;
-        typedef ProtoSequence<STD, RAWS>                ProtoSqElementType;
-        typedef         ProtoSequence<STD, RAWS> &      ProtoSqAccessType;
-        typedef const   ProtoSequence<STD, RAWS> &      ProtoSqConstAccessType;
+        typedef std::vector<ProtoSequence<STD, STRINGS>>ProtoSqContentType;
+        typedef ProtoSequence<STD, STRINGS>             ProtoSqElementType;
+        typedef         ProtoSequence<STD, STRINGS> &   ProtoSqAccessType;
+        typedef const   ProtoSequence<STD, STRINGS> &   ProtoSqConstAccessType;
 
     };
 
