@@ -84,18 +84,11 @@ sq_alphabet_ptype <- function()
 
 # alphabet reading ----
 
-`[.sq_alphabet` <- function(x, i) {
+`[.sq_alphabet` <- function(x, i,
+                            NA_letter = getOption("tidysq_NA_letter")) {
   ret <- vec_data(x)[i]
-  ret[i == .get_na_val(x)] <- na_letter(x)
+  ret[i == .get_na_val(x)] <- NA_letter
   ret
-}
-
-na_letter <- function(alph)
-  attr(alph, "na_letter")
-
-`na_letter<-` <- function(alph, value) {
-  attr(alph, "na_letter") <- value
-  alph
 }
 
 # various internal methods put together (to check!) ----
@@ -133,28 +126,4 @@ na_letter <- function(alph)
     na_letter = .get_na_letter(),
     class = c("sq_alphabet", "character")
   )
-}
-
-.guess_ami_is_clean <- function(real_alph) {
-  if (all(real_alph %in% .get_standard_alph("ami", TRUE)))
-    TRUE
-  else if (all(real_alph %in% .get_standard_alph("ami", FALSE)))
-    FALSE
-  else stop("there are letters that aren't in IUPAC standard! (see: aminoacids_df)")
-}
-
-.guess_dna_is_clean <- function(real_alph) {
-  if (all(real_alph %in% .get_standard_alph("dna", TRUE)))
-    TRUE
-  else if (all(real_alph %in% .get_standard_alph("dna", FALSE)))
-    FALSE
-  else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
-}
-
-.guess_rna_is_clean <- function(real_alph) {
-  if (all(real_alph %in% .get_standard_alph("rna", TRUE)))
-    TRUE
-  else if (all(real_alph %in% .get_standard_alph("rna", FALSE)))
-    FALSE
-  else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
 }
