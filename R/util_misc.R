@@ -10,15 +10,6 @@
   x
 }
 
-# TODO: verify if all calls in code don't pass "list" in classes vector
-.construct_sq_s <- function(x, alph, classes) {
-  x <- .pack_to_sq(x, alph)
-  new_list_of(x,
-              ptype = raw(),
-              alphabet = alph,
-              class = classes)
-}
-
 # TODO: outsource
 .get_readable_file <- function(file) {
   if (test_file_exists(file)) {
