@@ -106,7 +106,7 @@ as.character.sq <- function(x, ...)
 #' @export
 as.matrix.sq <- function(x, ...) {
   max_len <- max(get_sq_lengths(x))
-  ret <- do.call(rbind, lapply(.unpack_from_sq(x, "char"), function(row) row[1:max_len]))
+  ret <- do.call(rbind, lapply(unpack(x, "STRINGS"), function(row) row[1:max_len]))
   ret[ret == .get_na_letter()] <- NA
   ret
 }

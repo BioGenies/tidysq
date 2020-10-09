@@ -13,7 +13,7 @@ write_fasta <- function(x, name, file, nchar = 80) {
   assert_string(file)
   assert_count(nchar, positive = TRUE)
   
-  x <- .unpack_from_sq(x, "char")
+  x <- unpack(x, "STRINGS")
   char_vec <- unlist(lapply(1L:length(x), function(i) {
     s <- x[[i]]
     s <- lapply(split(s, floor((0:(length(s) - 1))/nchar)), function(l) paste(l, collapse = ""))

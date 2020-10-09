@@ -53,7 +53,7 @@ complement.default <- function(x)
 complement.sq_dna_bsc <- function(x) {
   alph <- alphabet(x)
   alph_size <- .get_alph_size(alph)
-  ret <- .unpack_from_sq(x, "int")
+  ret <- unpack(x, "INTS")
   
   dict <- c(G = "C", C = "G", T = "A", A = "T", `-` = "-")
   
@@ -69,7 +69,7 @@ complement.sq_dna_bsc <- function(x) {
 complement.sq_rna_bsc <- function(x) {
   alph <- alphabet(x)
   alph_size <- .get_alph_size(alph)
-  ret <- .unpack_from_sq(x, "int")
+  ret <- unpack(x, "INTS")
   
   dict <- c(G = "C", C = "G", U = "A", A = "U", `-` = "-")
   

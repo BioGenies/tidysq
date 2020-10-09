@@ -72,7 +72,7 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
         
         # TODO: replace with adding length inside C++ code
         sqtibble[["sq"]] <- .set_original_length(sqtibble[["sq"]],
-                                                 sapply(.unpack_from_sq(sqtibble[["sq"]], "char"), length))
+                                                 sapply(unpack(sqtibble[["sq"]], "STRINGS"), length))
         as_tibble(sqtibble)
       }
     }
@@ -106,7 +106,7 @@ read_fasta_rna <- function(file, is_clean = NULL) {
   
   # TODO: replace with adding length inside C++ code
   sqtibble[["sq"]] <- .set_original_length(sqtibble[["sq"]],
-                                           sapply(.unpack_from_sq(sqtibble[["sq"]], "char"), length))
+                                           sapply(unpack(sqtibble[["sq"]], "STRINGS"), length))
   as_tibble(sqtibble)
 }
 
