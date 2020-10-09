@@ -1,4 +1,6 @@
-pack <- function(x, alphabet, NA_letter, safe_mode) {
+pack <- function(x, alphabet,
+                 NA_letter = getOption("tidysq_NA_letter"),
+                 safe_mode = getOption("tidysq_safe_mode")) {
   UseMethod("pack")
 }
 
