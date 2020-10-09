@@ -1,6 +1,7 @@
-# sq_enc
+# sq_enc ----
+#' @export
 vec_cast.list.sq_enc <- function(x, to, ...)
-  .apply_sq(x, "int", "none", function(s) alphabet(encsq)[s])
+  .apply_sq(x, "int", "none", function(s) alphabet(x)[s])
 
 # TODO: rewrite all this shit
 
