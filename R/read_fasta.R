@@ -35,12 +35,13 @@ read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) 
   file <- .get_readable_file(file)
   
   if (.is_fast_mode()) {
-    .check_logical(is_clean, "'is_clean'", single_elem = TRUE)
-    .check_type(type)
+    assert_flag(is_clean)
+    assert_sq_type(type)
+    
     .nc_read_fasta(file, type, is_clean)
   } else {
-    .check_logical(is_clean, "'is_clean'", single_elem = TRUE, allow_null = TRUE)
-    .check_type(type, allow_unt = TRUE, allow_null = TRUE)
+    assert_flag(is_clean, null.ok = TRUE)
+    assert_sq_type(type, null.ok = TRUE, unt.ok = TRUE)
     
     if (!is.null(non_standard)) {
       .nonst_read_fasta(file, type, is_clean, non_standard)

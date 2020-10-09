@@ -47,7 +47,7 @@
   list(type = "unt", is_clean = NULL)  
 }
 
-# TODO check what it does
+# TODO: check what it does
 .merge_ind <- function(res_ind, begs) {
   n <- length(res_ind)
   m <- length(begs)
@@ -71,11 +71,13 @@
 }
 
 .get_readable_file <- function(file) {
-  if (!file.exists(file)) {
+  if (test_file_exists(file)) {
+    normalizePath(file)
+  } else {
     tmp <- tempfile()
     download.file(file, tmp)
     tmp
-  } else normalizePath(file)
+  }
 }
 
 #' @importFrom stringi stri_replace_all_regex stri_match_all_regex stri_split_regex

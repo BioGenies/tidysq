@@ -5,15 +5,6 @@ assert_sq_type <- function(type, null.ok = FALSE, unt.ok = FALSE) {
                 null.ok = null.ok)
 }
 
-.check_type <- function(obj, argname = "'type'", allow_null = FALSE, allow_unt = FALSE) {
-  .check_isnt_missing(obj, argname)
-  if (!allow_null) .check_isnt_null(obj, argname)
-  else if (!is.null(obj)) {
-    allowed <- c("ami", "dna", "rna", if (allow_unt) "unt")
-    .check_simple(!obj %in% allowed, argname, paste0("has to be one of '", paste(allowed, collapse = "', '"), "'")) 
-  }
-}
-
 .check_simple <- function(check, argname, msg) {
   if (check) stop(argname, " ", msg, call. = FALSE)
 }
@@ -23,46 +14,6 @@ assert_sq_type <- function(type, null.ok = FALSE, unt.ok = FALSE) {
 }
 
 
-
-.check_isnt_missing <- function(obj, argname) {
-  .check_simple(missing(obj), argname, "is missing")
-}
-
-.check_isnt_null <- function(obj, argname) {
-  .check_simple(is.null(obj), argname, "cannot be NULL")
-}
-
-.check_is_single_elem <- function(obj, argname) {
-  .check_simple(length(obj) != 1, argname, "should have length 1")
-}
-
-.check_isnt_zero_len <- function(obj, argname) {
-  .check_simple(length(obj) == 0, argname, "cannot have length 0")
-}
-
-.check_has_no_na <- function(obj, argname) {
-  .check_simple(any(is.na(obj)), argname, "cannot contain NA")
-}
-
-.check_is_unique <- function(obj, argname) {
-  .check_simple(length(unique(obj)) != length(obj), argname, "has to have unique elements")
-}
-
-.check_is_named <- function(obj, argname) {
-  .check_simple(is.null(names(obj)), argname, "should be named")
-}
-
-.check_class_character <- function(obj, argname) {
-  .check_simple(!is.character(obj), argname, "has to be character")
-}
-
-.check_class_logical <- function(obj, argname) {
-  .check_simple(!is.logical(obj), argname, "has to be logical")
-}
-
-.check_class_numeric <- function(obj, argname) {
-  .check_simple(!is.numeric(obj), argname, "has to be numeric")
-}
 
 .standard_checks <- function(obj, argname,
                              allow_null = FALSE, 
@@ -75,35 +26,6 @@ assert_sq_type <- function(type, null.ok = FALSE, unt.ok = FALSE) {
   if (single_elem    ) .check_is_single_elem(obj, argname)
   if (!allow_zero_len) .check_isnt_zero_len(obj, argname)
   if (!allow_na      ) .check_has_no_na(obj, argname)
-}
-
-.check_character <- function(obj, argname, ...) {
-  .standard_checks(obj, argname, ...)
-  if (!is.null(obj)) .check_class_character(obj, argname)
-}
-
-.check_logical <- function(obj, argname, ...) {
-  .standard_checks(obj, argname, ...)
-  if (!is.null(obj)) .check_class_logical(obj, argname)
-}
-
-.check_numeric <- function(obj, argname, ..., 
-                           allow_nan = FALSE, allow_inf = FALSE, allow_negative = FALSE,
-                           allow_zero = TRUE) {
-  .standard_checks(obj, argname, ...)
-  if (!is.null(obj)) {
-    .check_class_numeric(obj, argname)
-    if (!allow_nan )     .check_simple(any(is.nan(obj)),       argname, "cannot contain NaN values")
-    if (!allow_inf )     .check_simple(any(is.infinite(obj)),  argname, "cannot contain infinite values")
-    if (!allow_zero)     .check_simple(any(obj == 0),          argname, "cannot be equal to 0")
-    if (!allow_negative) .check_simple(any(obj < 0),           argname, "cannot be negative")
-  }
-}
-
-.check_integer <- function(obj, argname, ...) {
-  .check_numeric(obj, argname, ...)
-  if (!is.null(obj)) 
-    .check_simple(any(floor(obj) != obj), argname, "has to be integer")
 }
 
 .check_sq_has_type <- function(sq, argname, type) {
@@ -143,10 +65,6 @@ assert_sq_type <- function(type, null.ok = FALSE, unt.ok = FALSE) {
     stop("max length of alphabet is 30 letters, sequences that are being constructed exceed this limit", call. = FALSE)
 }
 
-.check_eq_lens <- function(obj_1, obj_2, name_1, name_2){
-  .check_simple(length(obj_1) != length(obj_2), paste0(name_1, " and ", name_2), "have to have equal lengths")
-}
-
 
 # specific checks - used mainly once ----
 
@@ -172,42 +90,10 @@ assert_sq_type <- function(type, null.ok = FALSE, unt.ok = FALSE) {
       stop("you need to install '", package, "' package to export object to its formats", call. = FALSE)
 }
 
-.check_export_format <- function(export_format, ami_formats, nuc_formats) {
-  if (missing(export_format) ||
-      !(export_format %in% c(ami_formats, nuc_formats))) {
-    stop("you need to specify proper 'export_format'; check manual for possible formats", call. = FALSE)
-  }
-}
-
 .check_motifs_proper_alph <- function(motifs, type, alph = NULL) {
   if (type %in% c("ami", "dna", "rna")) {
     if (!all(unlist(strsplit(motifs, "")) %in% c(.get_standard_alph(type, FALSE), "^", "$"))) 
       stop("motifs that you're searching for in the 'sq' object needs to consist of letters from its alphabet and optionally '^' or '$' characters", call. = FALSE)
   } else if (any(alph %in% c("^", "$", "?", "(", "=", ")", "\\", ".", "|", "+", "*", "{", "}", "[", "]"))) 
     stop("you cannot search for motifs if any of those characters: ^$?=()\\.|+*{}[] are elements of 'sq' alphabet; if you use them, please substitute those letters with some other using 'substitute_letters'", call. = FALSE)
-}
-
-.check_list_dists <- function(dists) {
-  .check_simple(!all(sapply(dists, is.numeric)), "each element of 'dists' has to be integer")
-  dists_f <- unlist(dists)
-  .check_isnt_null(dists_f, "any of elements of 'dists'")
-  .check_has_no_na(dists_f, "any of elements of 'dists'")
-  .check_simple(any(is.nan(dists_f)), "any of elements of 'dists'", "cannot contain NaN values")
-  .check_simple(any(is.infinite(dists_f)), "any of elements of 'dists'", "cannot contain infinite values")
-  .check_simple(any(dists_f < 0), "any of elements of 'dists'", "cannot be negative")
-  #.check_is_unique(dists, "'dists'")
-}
-
-.check_alph_is_subset <- function(sq, alph) {
-  if (!all(alph %in% alphabet(sq)))
-    stop("'alph' contains letters that aren't elements of alphabet of 'sq'", call. = FALSE)
-}
-
-.check_dists_prop_len <- function(sq, dists) {
-  min_sq_len <- min(get_sq_lengths(sq))
-  if (is.list(dists)) {
-    if (any(sapply(dists, function(d) sum(d) + length(d) + 1) > min_sq_len))
-      stop("some sequences in 'sq' are shorter than some of kmers to extract ", call. = FALSE)
-  } else if (sum(dists) + length(dists) + 1 > min_sq_len)
-    stop("some sequences in 'sq' are shorter than given kmers", call. = FALSE)
 }

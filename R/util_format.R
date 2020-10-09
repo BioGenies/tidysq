@@ -5,10 +5,9 @@ format.sq <- function(x, ...,
                       max_sequences = getOption("tidysq_p_max_sequences"),
                       use_color = getOption("tidysq_p_use_color"),
                       letters_sep = NULL) {
-  .check_integer(max_sequences, "'max_sequences'")
-  .check_logical(use_color, "'use_color'")
-  .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
-                   allow_zero_len = TRUE, allow_null = TRUE)
+  assert_count(max_sequences)
+  assert_flag(use_color)
+  assert_string(letters_sep, null.ok = TRUE)
   
   # color NA's
   na_letter(alphabet(x)) <- if (use_color) col_silver(.get_na_letter()) else .get_na_letter()
@@ -28,11 +27,10 @@ format.encsq <- function(x, ...,
                          use_color = getOption("tidysq_p_use_color"),
                          letters_sep = NULL,
                          digits = 2) {
-  .check_integer(max_sequences, "'max_sequences'")
-  .check_logical(use_color, "'use_color'")
-  .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
-                   allow_zero_len = TRUE, allow_null = TRUE)
-  .check_integer(digits, "'digits'", allow_zero = TRUE)
+  assert_count(max_sequences)
+  assert_flag(use_color)
+  assert_string(letters_sep, null.ok = TRUE)
+  assert_count(digits)
   
   alphabet(x) <- format(alphabet(x), digits = digits, scientific = FALSE)
   

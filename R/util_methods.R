@@ -24,19 +24,16 @@
 #' 
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
-as.sq <- function(x, ...) {
+as.sq <- function(x, ...)
   UseMethod("as.sq")
-}
 
 #' @export
-as.sq.default <- function(x, ...) {
+as.sq.default <- function(x, ...)
   stop("'as.sq' cannot handle objects with this class")
-}
 
 #' @export
-as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL, ...) {
+as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL, ...)
   construct_sq(x, type, is_clean, non_standard)
-}
 
 #' Convert sq object into character vector
 #' 
@@ -65,9 +62,8 @@ as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL
 #'
 #' @seealso sq
 #' @export
-as.character.sq <- function(x, ...) {
+as.character.sq <- function(x, ...)
   vec_cast(x, character())
-}
 
 #' Convert sq object into matrix
 #' 
@@ -168,45 +164,14 @@ as.matrix.encsq <- function(x, ...) {
 #' is.untsq(sq_ami)
 #' @seealso \code{\link{sq}}
 #' @export
-is.sq <- function(x) {
-  tryCatch({.validate_sq(x); TRUE}, error = function(e) FALSE)
-}
+is.sq <- function(x)
+  test_class(x, "sq")
 
+# TODO: Are these necessary? Should we create e.g. is.sq_ami() that check for either one?
 #' @rdname is.sq
 #' @export
-is.amisq <- function(x) {
-  tryCatch({.validate_sq(x, type = "ami"); TRUE}, error = function(e) FALSE)
-}
-
-#' @rdname is.sq
-#' @export
-is.dnasq <- function(x) {
-  tryCatch({.validate_sq(x, type = "dna"); TRUE}, error = function(e) FALSE)
-}
-
-#' @rdname is.sq
-#' @export
-is.rnasq <- function(x) {
-  tryCatch({.validate_sq(x, type = "rna"); TRUE}, error = function(e) FALSE)
-}
-
-#' @rdname is.sq
-#' @export
-is.untsq <- function(x) {
-  tryCatch({.validate_sq(x, type = "unt"); TRUE}, error = function(e) FALSE)
-}
-
-#' @rdname is.sq
-#' @export
-is.atpsq <- function(x) {
-  tryCatch({.validate_sq(x, type = "atp"); TRUE}, error = function(e) FALSE)
-}
-
-#' @rdname is.sq
-#' @export
-is.encsq <- function(x) {
-  tryCatch({.validate_sq(x, type = "enc"); TRUE}, error = function(e) FALSE)
-}
+is.sq_ami_bsc <- function(x)
+  test_class(x, "sq_ami_bsc")
 
 #' Compare sq objects
 #' @description Compares input \code{\link{sq}} object with another given.
@@ -273,7 +238,7 @@ is.encsq <- function(x) {
 #' @seealso \code{\link{sq}} \code{\link{as.character}} \code{\link{is.sq}}
 #' @export
 `==.sq` <- function(x1, x2) {
-  #TODO make it faster and lighter, maybe?
+  # TODO: make it faster and lighter, maybe?
   if (is.sq(x2)) {
     x2 <- as.character(x2)
   } else if (!is.character(x2)) {
