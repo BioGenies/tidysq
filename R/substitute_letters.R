@@ -116,9 +116,9 @@
 #' @seealso \code{\link{sq}} 
 #' @export
 
-substitute_letters <- function(sq, encoding) {
-  assert_class(sq, "sq")
-  alph <- alphabet(sq)
+substitute_letters <- function(x, encoding) {
+  assert_class(x, "sq")
+  alph <- alphabet(x)
   assert_atomic_vector(encoding, names = "unique")
   assert_subset(names(encoding), alph)
   
@@ -140,8 +140,8 @@ substitute_letters <- function(sq, encoding) {
   inds_fun <- match(inds_fun, new_alph)
   inds_fun[is.na(inds_fun)] <- .get_na_val(new_alph)
   
-  ret <- .apply_sq(sq, "int", "int", function(s) inds_fun[s], new_alph)
-  if (.is_cleaned(sq)) {
+  ret <- .apply_sq(x, "int", "int", function(s) inds_fun[s], new_alph)
+  if (.is_cleaned(x)) {
     .handle_opt_txt("tidysq_a_cln_sub_letters",
                     "'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it")
   }

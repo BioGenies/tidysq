@@ -5,7 +5,7 @@
 #' Function returns amino acid, DNA, RNA or atypical alphabet based on a \code{\link{sq}} 
 #' object type. 
 #' 
-#' @param sq a \code{\link{sq}} object to be recognized. 
+#' @param x a \code{\link{sq}} object to be recognized.
 #'  
 #' @return A character vector of letters of the alphabet.
 #' 
@@ -51,17 +51,17 @@
 #'   
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}} \code{\link{encode}}
 #' @export
-get_sq_alphabet <- function(sq) {
-  assert_class(sq, "sq")
-  alphabet(sq)
+get_sq_alphabet <- function(x) {
+  assert_class(x, "sq")
+  alphabet(x)
 }
 
-alphabet <- function(sq)
-  attr(sq, "alphabet")
+alphabet <- function(x)
+  attr(x, "alphabet")
 
-`alphabet<-` <- function(sq, value) {
-  attr(sq, "alphabet") <- value
-  sq
+`alphabet<-` <- function(x, value) {
+  attr(x, "alphabet") <- value
+  x
 }
 
 # alphabet creation ----

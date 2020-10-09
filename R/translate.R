@@ -4,7 +4,7 @@
 #' acquire sequences of corresponding proteins, where correspondence is encoded
 #' in specified table.
 #' 
-#' @param sq an object of class \code{\link{sq}} with either \strong{dna} or
+#' @param x an object of class \code{\link{sq}} with either \strong{dna} or
 #' \strong{rna} type
 #' @param table integer number of translation table used, as specified
 #' \href{https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi}{here}
@@ -38,33 +38,33 @@
 #' translate(sq_dna)
 #' 
 #' @export
-translate <- function(sq, table = 1, ...) {
+translate <- function(x, table = 1, ...) {
   assert_int(table)
   
   UseMethod("translate")
 }
 
 #' @export
-translate.default <- function(sq, table = 1, ...)
+translate.default <- function(x, table = 1, ...)
   stop("cannot translate something that is neither DNA nor RNA sequence", call. = FALSE)
 
 #' @export
-translate.dnasq <- function(sq, table = 1, ...) {
-  if (!.is_cleaned(sq)) {
+translate.dnasq <- function(x, table = 1, ...) {
+  if (!.is_cleaned(x)) {
     stop("sequence has to be cleaned to translate", call. = FALSE)
   }
-  construct_sq_ami(Cpp_translate(as.character(sq), table),
+  construct_sq_ami(Cpp_translate(as.character(x), table),
                    is_clean = TRUE)
 }
 
 #' @export
-translate.rnasq <- function(sq, table = 1, ...) {
-  if (!.is_cleaned(sq)) {
+translate.rnasq <- function(x, table = 1, ...) {
+  if (!.is_cleaned(x)) {
     stop("sequence has to be cleaned to translate", call. = FALSE)
   }
   # a hack to avoid creating duplicate codon tables, at least for now
   # optimally should be deleted once the code operates without unpacking
-  sq <- gsub("U", "T", as.character(sq))
-  construct_sq_ami(Cpp_translate(sq, table),
+  x <- gsub("U", "T", as.character(x))
+  construct_sq_ami(Cpp_translate(x, table),
                    is_clean = TRUE)
 }

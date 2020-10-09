@@ -32,16 +32,16 @@
 #' 
 #' @seealso \code{\link{sq}} \code{\link[base]{lapply}}
 #' @export 
-sqapply <- function(sq, fun, ..., paste_char = FALSE, 
+sqapply <- function(x, fun, ..., paste_char = FALSE,
                     use_na_letter = paste_char) {
-  assert_class(sq, "sq")
+  assert_class(x, "sq")
   assert_flag(paste_char)
   assert_flag(use_na_letter)
   assert_false(paste_char && use_na_letter)
   
-  na_letter <- na_letter(alphabet(sq))
-  type <- .get_sq_type(sq)
-  .apply_sq(sq, if (paste_char) "string" else "char", "none", function(s) {
+  na_letter <- na_letter(alphabet(x))
+  type <- .get_sq_type(x)
+  .apply_sq(x, if (paste_char) "string" else "char", "none", function(s) {
     if (!use_na_letter) s[s == na_letter] <- NA
     if (type == "enc") s <- as.numeric(s)
     fun(s, ...)

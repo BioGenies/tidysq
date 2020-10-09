@@ -3,7 +3,7 @@
 #' Function finds elements in given sequence not matching to amino acid or nucleotide 
 #' alphabet. 
 #' 
-#' @param sq a \code{\link{sq}} object to be checked.
+#' @param x a \code{\link{sq}} object to be checked.
 #' 
 #' @param dest_type a \code{\link{character}} string denoting destination type - it may be 
 #' "dna" for \strong{dna} type (DNA), "rna" for \strong{rna} type (RNA) or
@@ -42,13 +42,13 @@
 #' 
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
-get_invalid_letters <- function(sq, dest_type) {
+get_invalid_letters <- function(x, dest_type) {
   # TODO: make generic
-  assert_class(sq, "sq")
+  assert_class(x, "sq")
   assert_sq_type(dest_type)
   
   # TODO: remove after fixing .apply_sq()
-  if (length(sq) == 0) {
+  if (length(x) == 0) {
     return(list())
   }
   
@@ -57,5 +57,5 @@ get_invalid_letters <- function(sq, dest_type) {
                  tolower(as.character(dest_alph)),
                  na_letter(dest_alph))
   
-  .apply_sq(sq, "char", "none", function(s) setdiff(s, dest_alph))
+  .apply_sq(x, "char", "none", function(s) setdiff(s, dest_alph))
 }

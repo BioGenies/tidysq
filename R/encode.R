@@ -128,21 +128,21 @@
 #' @seealso \code{\link{sq}} \code{\link{as.matrix}} or \code{\link{encsq_to_list}}
 #' 
 #' @export
-encode <- function(sq, encoding) {
+encode <- function(x, encoding) {
   # TODO: make generic
-  assert_class(sq, "sq")
+  assert_class(x, "sq")
   assert_numeric(encoding, names = "unique")
   
-  type <- .get_sq_type(sq)
+  type <- .get_sq_type(x)
   if (type %in% c("ami", "dna", "rna"))
     names(encoding) <- toupper(names(encoding))
   
-  alph <- alphabet(sq)
+  alph <- alphabet(x)
   alph_size <- .get_alph_size(alph)
   is_given <- alph %in% names(encoding)
   if (!all(is_given)) {
     ind <- (1:length(alph))[!is_given]
-    for (s in sq) {
+    for (s in x) {
       if (any(C_unpack_ints(s, alph_size) %in% ind)) {
         .handle_opt_txt("tidysq_a_no_given_enc",
                         "there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA")
@@ -154,7 +154,7 @@ encode <- function(sq, encoding) {
     encoding <- c(encoding, non_given)
   }
   
-  new_list_of(sq,
+  new_list_of(x,
               ptype = raw(),
               alphabet = encoding[alph],
               class = c("encsq", "sq"))
