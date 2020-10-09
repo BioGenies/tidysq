@@ -129,12 +129,9 @@
 #' 
 #' @export
 encode <- function(sq, encoding) {
-  .validate_sq(sq)
-  .check_isnt_missing(encoding, "'encoding'")
-  .check_is_named(encoding, "'encoding'")
-  .check_numeric(encoding, "'encoding'", allow_zero = TRUE, allow_negative = TRUE, 
-                 allow_na = TRUE, allow_nan = TRUE, allow_inf = TRUE)
-  .check_is_unique(names(encoding), "'encoding'")
+  # TODO: make generic
+  assert_class(sq, "sq")
+  assert_numeric(encoding, names = "unique")
   
   type <- .get_sq_type(sq)
   if (type %in% c("ami", "dna", "rna"))

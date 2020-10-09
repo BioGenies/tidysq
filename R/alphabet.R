@@ -52,7 +52,7 @@
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}} \code{\link{encode}}
 #' @export
 get_sq_alphabet <- function(sq) {
-  .validate_sq(sq)
+  assert_class(sq, "sq")
   alphabet(sq)
 }
 
@@ -66,16 +66,18 @@ alphabet <- function(sq)
 
 # alphabet creation ----
 
-sq_alphabet <- function(alph, na_letter = .get_na_letter()) {
+sq_alphabet <- function(alph, type) {
+  # if exported add asserts
   new_vctr(
     alph,
-    na_letter = na_letter,
+    type = type,
     class = c("sq_alphabet", "character")
   )
 }
 
+# TODO: verify
 sq_alphabet_ptype <- function()
-  sq_alphabet(character())
+  sq_alphabet(character(), character())
 
 .skip_characters <- function(alph, chars)
   vec_restore(setdiff(alph, chars), alph)

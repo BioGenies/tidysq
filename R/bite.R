@@ -89,8 +89,8 @@
 #' @seealso \code{\link{sq}} \code{\link{remove_na}} \code{\link{tidysq-options}}
 #' @export
 bite <- function(sq, indices) {
-  .validate_sq(sq)
-  .check_numeric(indices, "'indices'", allow_negative = TRUE)
+  assert_class(sq, "sq")
+  assert_integerish(indices, any.missing = FALSE, null.ok = TRUE)
   
   na_introduced <- FALSE
   alph <- alphabet(sq)

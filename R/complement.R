@@ -42,20 +42,15 @@
 #' 
 #' @seealso \code{\link{sq}}
 #' @export
-complement <- function(sq) {
+complement <- function(sq)
   UseMethod("complement")
-}
 
 #' @export
-complement.default <- function(sq) {
-  stop("method 'complement' isn't implemented for this type of object")
-}
+complement.default <- function(sq)
+  stop("method 'complement' isn't implemented for this type of object", call. = FALSE)
 
 #' @export
-complement.dnasq <- function(sq) {
-  .validate_sq(sq, "dna")
-  
-  .check_is_clean(sq, "'dnasq'")
+complement.sq_dna_bsc <- function(sq) {
   alph <- alphabet(sq)
   alph_size <- .get_alph_size(alph)
   ret <- .unpack_from_sq(sq, "int")
@@ -71,10 +66,7 @@ complement.dnasq <- function(sq) {
 }
 
 #' @export
-complement.rnasq <- function(sq) {
-  .validate_sq(sq, "rna")
-  
-  .check_is_clean(sq, "'rnasq'")
+complement.sq_rna_bsc <- function(sq) {
   alph <- alphabet(sq)
   alph_size <- .get_alph_size(alph)
   ret <- .unpack_from_sq(sq, "int")
@@ -91,32 +83,26 @@ complement.rnasq <- function(sq) {
 
 #' @rdname complement
 #' @export
-complement_dna <- function(sq) {
+complement_dna <- function(sq)
   UseMethod("complement_dna")
-}
 
 #' @export
-complement_dna.default <- function(sq) {
-  stop("method 'complement_dna' isn't implemented for this type of object")
-}
+complement_dna.default <- function(sq)
+  stop("method 'complement_dna' isn't implemented for this type of object", call. = FALSE)
 
 #' @export
-complement_dna.dnasq <- function(sq) {
-  complement.dnasq(sq)
-}
+complement_dna.sq_dna_bsc <- function(sq)
+  complement.sq_dna_bsc(sq)
 
 #' @rdname complement
 #' @export
-complement_rna <- function(sq) {
+complement_rna <- function(sq)
   UseMethod("complement_rna")
-}
 
 #' @export
-complement_rna.default <- function(sq) {
-  stop("method 'complement_rna' isn't implemented for this type of object")
-}
+complement_rna.default <- function(sq)
+  stop("method 'complement_rna' isn't implemented for this type of object", call. = FALSE)
 
 #' @export
-complement_rna.rnasq <- function(sq) {
-  complement.rnasq(sq)
-}
+complement_rna.sq_rna_bsc <- function(sq)
+  complement.sq_rna_bsc(sq)

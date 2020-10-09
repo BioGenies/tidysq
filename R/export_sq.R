@@ -23,19 +23,15 @@
 #' @seealso \code{\link{sq}} \code{\link{import_sq}}
 #' @export
 export_sq <- function(sq, export_format, name = NULL, ...) {
-  .validate_sq(sq)
-  if (!is.null(name)) {
-    .check_character(name, "'name'")
-    .check_eq_lens(sq, name, "'sq'", "'name'")
-  }
+  assert_string(export_format)
+  assert_character(name, len = vec_size(sq), null.ok = TRUE)
   
   UseMethod("export_sq")
 }
 
 #' @export
-export_sq.default <- function(sq, export_format, name = NULL, ...) {
+export_sq.default <- function(sq, export_format, name = NULL, ...)
   stop("export_sq() function cannot export objects of this class", call. = FALSE)
-}
 
 #' @export
 export_sq.amisq <- function(sq, export_format, name = NULL, ...) {
