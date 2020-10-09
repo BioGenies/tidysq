@@ -36,14 +36,12 @@
 #' 
 #' @seealso \code{\link{export_sq}} \code{\link{sq}}
 #' @export
-import_sq <- function(object, ...) {
+import_sq <- function(object, ...)
   UseMethod("import_sq")
-}
 
 #' @export
-import_sq.default <- function(object, ...) {
+import_sq.default <- function(object, ...)
   stop("import_sq() function cannot handle objects with this class", call. = FALSE)
-}
 
 #' @export
 import_sq.AAbin <- function(object, ...) {

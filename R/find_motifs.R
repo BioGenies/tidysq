@@ -67,19 +67,19 @@
 #' 
 #' @export
 find_motifs <- function(sq, name, motifs) {
+  assert_character(name, len = vec_size(sq))
+  assert_character(motifs, any.missing = FALSE)
+  
   UseMethod("find_motifs")
 }
 
 #' @export
-find_motifs.default <- function(sq, name, motifs) {
+find_motifs.default <- function(sq, name, motifs)
   stop("method 'find_motifs' isn't implemented for this type of object")
-}
 
 #' @export
 #' @importFrom stringi stri_sub
 find_motifs.sq <- function(sq, name, motifs) {
-  .find_motifs_validate(sq, name, motifs)
-  
   .check_motifs_proper_alph(motifs_c, .get_sq_type(sq), alphabet(sq))
   
   motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
@@ -93,8 +93,6 @@ find_motifs.sq <- function(sq, name, motifs) {
 #' @export
 #' @importFrom stringi stri_sub
 find_motifs.dnasq <- function(sq, name, motifs) {
-  .find_motifs_validate(sq, name, motifs)
-  
   motifs <- toupper(motifs)
   .check_motifs_proper_alph(motifs, "dna")
   
@@ -110,8 +108,6 @@ find_motifs.dnasq <- function(sq, name, motifs) {
 #' @export
 #' @importFrom stringi stri_sub
 find_motifs.rnasq <- function(sq, name, motifs) {
-  .find_motifs_validate(sq, name, motifs)
-  
   motifs <- toupper(motifs)
   .check_motifs_proper_alph(motifs, "rna")
   
@@ -127,8 +123,6 @@ find_motifs.rnasq <- function(sq, name, motifs) {
 #' @export
 #' @importFrom stringi stri_sub
 find_motifs.amisq <- function(sq, name, motifs) {
-  .find_motifs_validate(sq, name, motifs)
-  
   motifs <- toupper(motifs)
   .check_motifs_proper_alph(motifs, "ami")
   
@@ -139,13 +133,6 @@ find_motifs.amisq <- function(sq, name, motifs) {
   motifs_regex <- .replace_ami_motif(motifs_regex)
   
   .find_motifs_sq(sq, name, motifs, motifs_regex, motif_lengths)
-}
-
-.find_motifs_validate <- function(sq, name, motifs) {
-  .validate_sq(sq)
-  .check_character(name, "'name'")
-  .check_eq_lens(sq, name, "'sq'", "'name'")
-  .check_character(motifs, "'motifs'")
 }
 
 #' @importFrom dplyr bind_rows

@@ -43,8 +43,9 @@
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
 get_invalid_letters <- function(sq, dest_type) {
-  .validate_sq(sq)
-  .check_type(dest_type, "'dest_type'")
+  # TODO: make generic
+  assert_class(sq, "sq")
+  assert_sq_type(dest_type)
   
   # TODO: remove after fixing .apply_sq()
   if (length(sq) == 0) {

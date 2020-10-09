@@ -30,7 +30,8 @@
 #' @importFrom stringi stri_detect_regex stri_join
 #' @export
 read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) {
-  .check_character(file, "'file'", single_elem = TRUE)
+  # TODO: consult, there's a lot things going on that may not be used anymore
+  assert_string(file)
   file <- .get_readable_file(file)
   
   if (.is_fast_mode()) {

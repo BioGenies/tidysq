@@ -69,13 +69,12 @@
 }
 
 #' @export
-`%has%.default` <- function(x, y) {
+`%has%.default` <- function(x, y)
   stop("operator '%has%' is not overloaded for this type of objects")
-}
 
 #' @export
 `%has%.sq` <- function(x, y) {
-  .check_character(y, "'y', right-hand side object,")
+  assert_character(y, any.missing = FALSE, min.len = 1)
   alph <- alphabet(x)
   type <- .get_sq_type(x)
   .check_motifs_proper_alph(y, type, alph)
@@ -88,7 +87,7 @@
 
 #' @export
 `%has%.amisq` <- function(x, y) {
-  .check_character(y, "'y', right hand side object,")
+  assert_character(y, any.missing = FALSE, min.len = 1)
   y <- toupper(y)
   .check_motifs_proper_alph(y, "ami")
   
@@ -101,7 +100,7 @@
 
 #' @export
 `%has%.dnasq` <- function(x, y) {
-  .check_character(y, "'y', right hand side object,")
+  assert_character(y, any.missing = FALSE, min.len = 1)
   y <- toupper(y)
   .check_motifs_proper_alph(y, "dna")
   
@@ -114,7 +113,7 @@
 
 #' @export
 `%has%.rnasq` <- function(x, y) {
-  .check_character(y, "'y', right hand side object,")
+  assert_character(y, any.missing = FALSE, min.len = 1)
   y <- toupper(y)
   .check_motifs_proper_alph(y, "rna")
   

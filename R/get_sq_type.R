@@ -42,6 +42,6 @@
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
 get_sq_type <- function(sq) {
-  .validate_sq(sq)
+  assert_class(sq, "sq")
   .get_sq_type(sq)
 }

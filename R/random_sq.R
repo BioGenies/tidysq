@@ -33,12 +33,12 @@
 #' @importFrom stringi stri_rand_strings stri_paste
 #' @export
 random_sq <- function(n, len, type, is_clean, sd = NULL, use_gap = FALSE) {
-  .check_integer(n, "'n'", single_elem = TRUE)
-  .check_integer(len, "'len'", single_elem = TRUE)
-  .check_type(type)
-  .check_logical(is_clean, "'is_clean'", single_elem = TRUE)
-  .check_numeric(sd, "'sd'", allow_null = TRUE, single_elem = TRUE)
-  .check_logical(use_gap, "'use_gap'", single_elem = TRUE)
+  assert_count(n)
+  assert_count(len)
+  assert_sq_type(type)
+  assert_flag(is_clean)
+  assert_number(sd, null.ok = TRUE)
+  assert_flag(use_gap)
   
   alph <- .get_standard_alph(type, is_clean)
   if (!use_gap) alph <- .skip_characters(alph, "-")
