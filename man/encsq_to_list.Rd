@@ -4,7 +4,7 @@
 \alias{encsq_to_list}
 \title{Transform encoded sequence to a list}
 \usage{
-encsq_to_list(encsq)
+encsq_to_list(x)
 }
 \arguments{
 \item{encsq}{a \code{\link{sq}} object with \strong{enc} type, which was encoded 
