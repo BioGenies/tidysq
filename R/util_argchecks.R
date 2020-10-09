@@ -5,36 +5,7 @@ assert_sq_type <- function(type, null.ok = FALSE, unt.ok = FALSE) {
                 null.ok = null.ok)
 }
 
-.check_simple <- function(check, argname, msg) {
-  if (check) stop(argname, " ", msg, call. = FALSE)
-}
 
-.check_all_elem <- function(check, argname, msg) {
-  if (check) stop("all elements of ", argname, " ", msg, call. = FALSE)
-}
-
-
-
-.standard_checks <- function(obj, argname,
-                             allow_null = FALSE, 
-                             single_elem = FALSE, 
-                             allow_zero_len = FALSE,
-                             allow_na = FALSE) {
-  
-                       .check_isnt_missing(obj, argname)
-  if (!allow_null    ) .check_isnt_null(obj, argname) else if (is.null(obj)) return()
-  if (single_elem    ) .check_is_single_elem(obj, argname)
-  if (!allow_zero_len) .check_isnt_zero_len(obj, argname)
-  if (!allow_na      ) .check_has_no_na(obj, argname)
-}
-
-.check_sq_has_type <- function(sq, argname, type) {
-  .check_simple(!type %in% .get_sq_type(sq), argname, paste0("has to have '", type, "' type"))
-}
-
-.check_is_clean <- function(sq, argname) {
-  .check_simple(!.is_cleaned(sq), argname, "has to be clean (has to have 'cln' subtype)")
-}
 
 
 .check_nchar <- function(obj, argname, allow_zero_nchar = FALSE, requested_nchar = NULL,
