@@ -179,27 +179,12 @@ assert_sq_type <- function(type, null.ok = FALSE, unt.ok = FALSE) {
   }
 }
 
-.check_enc_names_in_alph <- function(encoding, alph) {
-  if (!all(names(encoding) %in% alph)) 
-    stop("all names of 'encoding' has to be letters from alphabet (elements of 'alphabet' attribute of 'sq')", call. = FALSE)
-}
-
 .check_motifs_proper_alph <- function(motifs, type, alph = NULL) {
   if (type %in% c("ami", "dna", "rna")) {
     if (!all(unlist(strsplit(motifs, "")) %in% c(.get_standard_alph(type, FALSE), "^", "$"))) 
       stop("motifs that you're searching for in the 'sq' object needs to consist of letters from its alphabet and optionally '^' or '$' characters", call. = FALSE)
   } else if (any(alph %in% c("^", "$", "?", "(", "=", ")", "\\", ".", "|", "+", "*", "{", "}", "[", "]"))) 
     stop("you cannot search for motifs if any of those characters: ^$?=()\\.|+*{}[] are elements of 'sq' alphabet; if you use them, please substitute those letters with some other using 'substitute_letters'", call. = FALSE)
-}
-
-.check_all_up_alph_proper <- function(up_alph, dest_alph) {
-  if (!all(up_alph %in% dest_alph)) 
-    stop("some sequences have levels that are invalid for given 'dest_type'; you can check them with 'get_invalid_letters' function and fix them with 'substitute_letters'", call. = FALSE)
-}
-
-.check_paste_or_na <- function(paste_char, use_na_letter) {
-  if (paste_char && !use_na_letter)
-    stop("'paste_char' can be TRUE if and only if 'use_na_letter' is FALSE", call. = FALSE)
 }
 
 .check_list_dists <- function(dists) {

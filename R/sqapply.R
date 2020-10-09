@@ -34,10 +34,10 @@
 #' @export 
 sqapply <- function(sq, fun, ..., paste_char = FALSE, 
                     use_na_letter = paste_char) {
-  .validate_sq(sq)
-  .check_logical(paste_char, "'paste_char'", single_elem = TRUE)
-  .check_logical(use_na_letter, "'use_na_letter'", single_elem = TRUE)
-  .check_paste_or_na(paste_char, use_na_letter)
+  assert_class(sq, "sq")
+  assert_flag(paste_char)
+  assert_flag(use_na_letter)
+  assert_false(paste_char && use_na_letter)
   
   na_letter <- na_letter(alphabet(sq))
   type <- .get_sq_type(sq)

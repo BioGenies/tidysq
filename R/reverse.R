@@ -35,7 +35,7 @@
 #' 
 #' @export
 reverse <- function(sq) {
-  .validate_sq(sq)
+  assert_class(sq, "sq")
   ret <- .apply_sq(sq, "int", "int", rev)
   vec_restore(ret, sq)
 }

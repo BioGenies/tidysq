@@ -117,22 +117,22 @@
 #' @export
 
 substitute_letters <- function(sq, encoding) {
-  .validate_sq(sq)
+  assert_class(sq, "sq")
   alph <- alphabet(sq)
-  .check_isnt_missing(encoding, "'encoding'")
-  .check_isnt_null(encoding, "'encoding'")
-  .check_is_named(encoding, "'encoding'")
-  .check_enc_names_in_alph(encoding, alph)
-  .check_is_unique(names(encoding), "names of 'encoding'")
+  assert_atomic_vector(encoding, names = "unique")
+  assert_subset(names(encoding), alph)
   
   if (is.numeric(encoding)) {
-    .check_integer(encoding, "if is numeric 'encoding'", allow_na = TRUE)
+    assert_integerish(encoding)
     # Changes storage mode, because it preserves attributes
     # (and we want to preserve names)
     mode(encoding) <- "character"
   } else if (is.character(encoding)) {
-    .check_character(encoding, "if is character 'encoding'", allow_na = TRUE)
-  } else .check_simple(!all(is.na(encoding)), "if is neither numeric nor character 'encoding'", "has to contain only NA values")
+    assert_character(encoding)
+  } else {
+    # TODO: what the hell is this?
+    assert_false(all(is.na(encoding)))
+  }
   
   inds_fun <- alph
   inds_fun[match(names(encoding), alph)] <- encoding

@@ -8,11 +8,10 @@
 #' characters to put in each line of file.
 #' @export
 write_fasta <- function(sq, name, file, nchar = 80) {
-  .validate_sq(sq)
-  .check_character(name, "'name'")
-  .check_character(file, "'file'", single_elem = TRUE)
-  .check_integer(nchar, "'nchar'", single_elem = TRUE, allow_negative = FALSE, allow_zero = FALSE)
-  .check_eq_lens(sq, name, "'sq'", "'name'")
+  assert_class(sq, "sq")
+  assert_character(name, len = vec_size(sq), any.missing = FALSE)
+  assert_string(file)
+  assert_count(nchar, positive = TRUE)
   
   sq <- .unpack_from_sq(sq, "char")
   char_vec <- unlist(lapply(1L:length(sq), function(i) {

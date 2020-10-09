@@ -48,8 +48,8 @@
 #' 
 #' @export 
 typify <- function(sq, dest_type) {
-  .validate_sq(sq)
-  .check_type(dest_type, "'dest_type'")
+  assert_class(sq, "sq")
+  assert_sq_type(dest_type)
   
   if (.get_sq_type(sq) == dest_type) {
     return(sq)
@@ -59,7 +59,7 @@ typify <- function(sq, dest_type) {
   up_alph <- unique(toupper(alph))
   dest_alph <- .get_standard_alph(dest_type, FALSE)
   
-  .check_all_up_alph_proper(up_alph, dest_alph)
+  assert_subset(up_alph, dest_alph)
   if (!(length(alph) == length(up_alph))) {
     .handle_opt_txt("tidysq_a_typify_small_cap_let",
                     "in 'alphabet' attribute of 'sq' some letters appear as both lower and capital")
