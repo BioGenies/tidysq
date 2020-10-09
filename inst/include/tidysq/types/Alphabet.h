@@ -16,9 +16,9 @@ namespace tidysq {
     class Alphabet {
     private:
         const std::vector<std::string> letters_;
+        const AlphSize alphabetSize_;
         const std::string NALetter_;
         const LetValue NAValue_;
-        const AlphSize alphabetSize_;
         const bool simple_;
 
         void checkLetters() const {
@@ -98,7 +98,7 @@ namespace tidysq {
         }
 
         inline const std::string &operator[](LetValue index) const {
-            return letters_[index];
+            return index == NAValue_ ? NALetter_ : letters_[index];
         }
 
         [[nodiscard]] inline const LetValue &NAValue() const {
