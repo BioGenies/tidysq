@@ -35,7 +35,31 @@ context("test_packing") {
         test_pack_RCPP<INTS>({{1}},
                              util::getStandardAlphabet(DNA_CLN));
 
+        test_pack_RCPP<INTS>({
+                                     {1, 2, 3, 4},
+                                     {1, 1},
+                                     {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+                                     {7, 1, 7},
+                                     {}
+                             }, util::getStandardAlphabet(DNA_CLN));
+
         test_pack_RCPP<STRINGS>({{"A"}},
                                 util::getStandardAlphabet(DNA_CLN));
+
+        test_pack_RCPP<STRINGS>({
+                                     {"A", "C", "G", "T"},
+                                     Rcpp::StringVector::create("A", "A"),
+                                     {"G", "G", "G", "G", "G", "G", "G", "G", "G", "G", "G", "G"},
+                                     Rcpp::StringVector::create("!", "A", "!"),
+                                     {}
+                             }, util::getStandardAlphabet(DNA_CLN));
+
+//        test_pack_RCPP<STRING>({
+//            "ACTG",
+//            "AA",
+//            "GGGGGGGGGGGGGG",
+//            "!A!",
+//            ""
+//        }, util::getStandardAlphabet(DNA_CLN));
   }
 }
