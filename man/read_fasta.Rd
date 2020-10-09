@@ -17,21 +17,6 @@ read_fasta_rna(file, is_clean = NULL)
 }
 \arguments{
 \item{file}{a \code{\link{character}} string indicating path to file or url.}
-
-\item{type}{a \code{\link{character}} string indicating type of \code{sq} object that
-is going to be constructed; supported values are "ami" for amino acid sequences,
-"dna" for DNA sequences, "rna" for RNA sequences, "unt" for and \code{NULL} for
-type guessing (see details)}
-
-\item{is_clean}{a \code{\link{logical}} value indicating if sequences are clean.
-or in other words - they don't contain ambiguous values; supported values are \code{TRUE} 
-for clean sequences, \code{FALSE} for unclean sequences and \code{NULL} for auto detecting
-(see details).}
-
-\item{non_standard}{a \code{\link{character}} vector indicating non-standard letters
-contained in sequences. If \code{NULL}, sequences will not be searched for non-standard letters
-of length more than one. Each element of this parameter should be at least two characters 
-long.}
 }
 \value{
 A \code{\link[tibble]{tibble}} with number of rows equal to the number of sequences 

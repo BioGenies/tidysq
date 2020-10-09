@@ -433,169 +433,25 @@ NULL
 #' @seealso \code{\link{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}} 
 #' \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}
 #' 
-#' @importFrom zeallot `%<-%`
+#' @importFrom checkmate assert_character assert_flag assert_string
 #' @export
-construct_sq <- function(sq, type = NULL, is_clean = NULL, non_standard = NULL) {
-  .check_character(sq, "'sq'", allow_zero_len = TRUE)
-  if (.is_fast_mode()) {
-    .nc_construct_sq(sq, type, is_clean)
+sq <- function(x,
+               alphabet = guess_sq_type(x),
+               NA_letter = getOption("tidysq_NA_letter"),
+               safe_mode = getOption("tidysq_safe_mode")) {
+  assert_character(x, any.missing = FALSE)
+  assert_flag(safe_mode)
+  assert_string(NA_letter)
+  assert_character(alphabet, any.missing = FALSE, min.len = 1, unique = TRUE)
+  
+  if (length(alphabet) == 1) {
+    type <- interpret_type(alphabet)
+    # we can suppose that case is not important (for now)
+    alphabet <- get_standard_alphabet(type)
   } else {
-    .check_type_or_nonst_alph(type, is_clean, non_standard)
-    if (!is.null(non_standard)) {
-      .nonst_construct_sq(sq, non_standard)
-    } else {
-      .check_logical(is_clean, "'is_clean'", allow_null = TRUE, single_elem = TRUE)
-      if (is.null(type)) {
-        c(type, is_clean) %<-% .guess_sq_type_subtype(sq)
-      }
-      .check_type(type, allow_unt = TRUE)
-      switch(type,
-             ami = .construct_amisq(sq, is_clean),
-             dna = .construct_dnasq(sq, is_clean),
-             rna = .construct_rnasq(sq, is_clean),
-             unt = .construct_untsq(sq))
-    }
+    type <- "atp"
   }
-}
-
-
-#' @rdname construct_sq
-#' @export
-construct_sq_ami <- function(sq, is_clean = NULL) {
-  construct_sq(sq, type = "ami", is_clean)
-}
-
-#' @rdname construct_sq
-#' @export
-construct_sq_dna <- function(sq, is_clean = NULL) {
-  construct_sq(sq, type = "dna", is_clean)
-}
-
-#' @rdname construct_sq
-#' @export
-construct_sq_rna <- function(sq, is_clean = NULL) {
-  construct_sq(sq, type = "rna", is_clean)
-}
-
-.nc_construct_sq <- function(sq, type, is_clean) {
-  .check_type(type)
-  .check_logical(is_clean, single_elem = TRUE)
+  alphabet <- sq_alphabet(alphabet, type)
   
-  sq <- .nc_pack_to_sq(sq, type, is_clean)
-  new_list_of(sq,
-              ptype = raw(),
-              alphabet = .get_standard_alph(type, is_clean),
-              class = c(paste0(type, "sq"), if (is_clean) "clnsq" else NULL, "sq"))
-}
-
-
-#' @importFrom stringi stri_sub
-#' @importFrom stringi stri_locate_all_regex
-.nonst_construct_sq <- function(sq, non_standard) {
-  .check_character(non_standard, "'non_standard'")
-  .check_nchar(non_standard, "'non_standard'", minimal_nchar = 2)
-  
-  sq <- lapply(sq, function(s) {
-    pos <- stri_locate_all_regex(s, non_standard)
-    binded <- apply(na.omit(do.call(rbind, pos)), 2, sort)
-    if (length(binded) == 0) {
-      strsplit(s, "")[[1]]
-    } else {
-      if (length(binded) == 2) {
-        binded <- t(as.matrix(binded))
-        res_ind <- binded[1]:binded[2]
-      } else {
-        res_ind <- apply(binded, 1, function(row) row[1]:row[2])
-        res_ind <- if (is.list(res_ind)) unlist(res_ind) else as.integer(res_ind)
-      }
-      sin_ind <- setdiff(1:nchar(s), res_ind)
-      ind <- .merge_ind(sin_ind, binded[,1])
-      n <- nrow(binded) + length(sin_ind)
-      begs <- integer(n)
-      ends <- integer(n)
-      begs[(1:n)[ind]] <- sin_ind
-      ends[(1:n)[ind]] <- sin_ind
-      begs[(1:n)[!ind]] <- binded[,1]
-      ends[(1:n)[!ind]] <- binded[,2]
-      stri_sub(s, begs, ends)
-    }
-  })
-  
-  sq <- .pack_to_sq(sq, non_standard)
-  new_list_of(sq,
-              ptype = raw(),
-              alphabet = vec_cast(non_standard, sq_alphabet_ptype()),
-              class = c("atpsq", "sq"))
-}
-
-.construct_amisq <- function(sq, is_clean) {
-  sq <- toupper(sq)
-  real_alph <- .get_real_alph(sq)
-  .check_real_alph_clean(real_alph, "ami", is_clean)
-  if (is.null(is_clean)) {
-    is_clean <- .guess_ami_is_clean(real_alph)
-  }
-  sq <- .nc_pack_to_sq(sq, "ami", is_clean)
-  new_list_of(sq,
-              ptype = raw(),
-              alphabet = .get_standard_alph("ami", is_clean),
-              class = c("amisq", if (is_clean) "clnsq" else NULL, "sq"))
-}
-
-.construct_dnasq <- function(sq, is_clean) {
-  sq <- toupper(sq)
-  real_alph <- .get_real_alph(sq)
-  .check_real_alph_clean(real_alph, "dna", is_clean)
-  if (is.null(is_clean)) {
-    is_clean <- .guess_dna_is_clean(real_alph)
-  }
-  sq <- .nc_pack_to_sq(sq, "dna", is_clean)
-  new_list_of(sq,
-              ptype = raw(),
-              alphabet = .get_standard_alph("dna", is_clean),
-              class = c("dnasq", if (is_clean) "clnsq" else NULL, "sq"))
-}
-
-.construct_rnasq <- function(sq, is_clean) {
-  sq <- toupper(sq)
-  real_alph <- .get_real_alph(sq)
-  .check_real_alph_clean(real_alph, "rna", is_clean)
-  if (is.null(is_clean)) {
-    is_clean <- .guess_rna_is_clean(real_alph)
-  }
-  sq <- .nc_pack_to_sq(sq, "rna", is_clean)
-  new_list_of(sq,
-              ptype = raw(),
-              alphabet = .get_standard_alph("rna", is_clean),
-              class = c("rnasq", if (is_clean) "clnsq" else NULL, "sq"))
-}
-
-.construct_untsq <- function(sq, alph = NULL) {
-  if (is.null(alph)) {
-    alph <- .get_real_alph(sq)
-  }
-  .check_alph_length(alph)
-  
-  sq <- .pack_to_sq(sq, alph)
-  new_list_of(sq,
-              ptype = raw(),
-              alphabet = vec_cast(alph, sq_alphabet_ptype()),
-              class = c("untsq", "sq"))
-}
-
-.construct_sq_ptype <- function(type, is_clean = NULL, alph = character()) {
-  if (!is.null(is_clean)) {
-    if (type %in% c("ami", "dna", "rna")) {
-      alph <- .get_standard_alph(type, is_clean)
-    } else {
-      stop(paste0("you cannot specify 'is_clean' with type ", type), call. = FALSE)
-    }
-  } else {
-    # Easier to write if (is_clean) than to include is.null() in the check as well
-    is_clean <- FALSE
-  }
-  new_list_of(list(),
-              ptype = raw(),
-              alphabet = vec_cast(alph, sq_alphabet_ptype()),
-              class = c(paste0(type, "sq"), if (is_clean) "clnsq" else NULL, "sq"))
+  pack(x, alphabet, NA_letter, safe_mode)
 }
