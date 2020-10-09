@@ -117,9 +117,3 @@ vec_ptype2.character.sq_atp <- function(x, y, ...) y
 vec_ptype2.sq_alphabet.character <- function(x, y, ...) x
 #' @export
 vec_ptype2.character.sq_alphabet <- function(x, y, ...) y
-
-# utils ----
-sq_ptype <- function(str_alphabet, type)
-  new_list_of(ptype = "raw",
-              alphabet = sq_alphabet(str_alphabet, type),
-              class = c(type_as_class(type), "sq"))

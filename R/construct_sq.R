@@ -455,3 +455,8 @@ sq <- function(x,
   
   pack(x, alphabet, NA_letter, safe_mode)
 }
+
+sq_ptype <- function(str_alphabet, type)
+  new_list_of(ptype = "raw",
+              alphabet = sq_alphabet(str_alphabet, type),
+              class = c(type_as_class(type), "sq"))
