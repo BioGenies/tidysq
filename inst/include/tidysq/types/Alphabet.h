@@ -46,7 +46,7 @@ namespace tidysq {
         }
 
         [[nodiscard]] AlphSize calculateAlphabetSize() const {
-            return ceil(log2((double) letters_.size() + 2));
+            return ceil(log2((double) letters_.size() + 1));
         }
 
         [[nodiscard]] LetValue calculateNAValue() const {
