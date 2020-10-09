@@ -221,9 +221,3 @@
   } else if (sum(dists) + length(dists) + 1 > min_sq_len)
     stop("some sequences in 'sq' are shorter than given kmers", call. = FALSE)
 }
-
-#' @importFrom stringi stri_detect
-.check_digest_pattern <- function(digest_pattern) {
-  if (!stri_detect_regex(digest_pattern, "^((\\[[ACDEFGHIKLMNPQRSTVWY]+\\]|\\<[ACDEFGHIKLMNPQRSTVWY]+\\>)+\\.|(\\[[ACDEFGHIKLMNPQRSTVWY]+\\]|\\<[ACDEFGHIKLMNPQRSTVWY]+\\>)*\\.(\\[[ACDEFGHIKLMNPQRSTVWY]+\\]|\\<[ACDEFGHIKLMNPQRSTVWY]+\\>)+)$"))
-    stop("'digest_pattern' is incorrect!", call. = FALSE)
-}
