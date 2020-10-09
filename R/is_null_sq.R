@@ -42,7 +42,7 @@
 #' 
 #' @seealso \code{\link{sq}} \code{\link{clean}}
 #' @export
-is_null_sq <- function(sq) {
-  assert_class(sq, "sq")
-  get_sq_lengths(sq) == 0
+is_null_sq <- function(x) {
+  assert_class(x, "sq")
+  get_sq_lengths(x) == 0
 }
