@@ -99,7 +99,7 @@ na_letter <- function(alph)
 # various internal methods put together (to check!) ----
 
 .get_alph_size <- function(alph) {
-  ceiling(log2(length(alph) + 2))
+  ceiling(log2(length(alph) + 1))
 }
 
 .get_na_val <- function(alph) {

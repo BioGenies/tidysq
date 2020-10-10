@@ -72,7 +72,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   # 6 is minimum length of p_lens and p_inds, 8 is byte length
   sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- .unpack_from_sq(sq_cut, "int")
-  sq_cut <- lapply(sq_cut, function(s) alphabet(sq)[s])
+  sq_cut <- lapply(sq_cut, function(s) alphabet(sq)[s + 1])
   
   # lengths of sequences
   lens <- get_sq_lengths(sq)
@@ -111,7 +111,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
       structure("<NULL>", dots = "")
     } else {
       # we count how much characters can we print by counting cumulative extent
-      cum_lens <- cumsum(col_nchar(sq)) + (0:(length(sq) - 1)) * nchar(letters_sep)
+      cum_lens <- cumsum(col_nchar(sq[1:len])) + (0:(len - 1)) * nchar(letters_sep)
       # max length of this line is its width minus the lens_width
       res_lens <- width - lens_width - 1
       

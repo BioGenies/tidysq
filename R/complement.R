@@ -61,9 +61,8 @@ complement.dnasq <- function(sq) {
   
   dict <- c(G = "C", C = "G", T = "A", A = "T", `-` = "-")
   
-  inds_fun <- match(dict[alph], alph)
-  names(inds_fun) <- as.character(1:length(alph))
-  ret <- do.call(c, lapply(ret, function(s)  CPP_pack_INTS(list(inds_fun[s]), alph)))
+  inds_fun <- match(dict[alph], alph) - 1
+  ret <- do.call(c, lapply(ret, function(s)  CPP_pack_INTS(list(inds_fun[s + 1]), alph)))
   
   vec_restore(ret, sq)
 }
@@ -79,9 +78,8 @@ complement.rnasq <- function(sq) {
   
   dict <- c(G = "C", C = "G", U = "A", A = "U", `-` = "-")
   
-  inds_fun <- match(dict[alph], alph)
-  names(inds_fun) <- as.character(1:length(alph))
-  ret <- do.call(c, lapply(ret, function(s)  CPP_pack_INTS(list(inds_fun[s]), alph)))
+  inds_fun <- match(dict[alph], alph) - 1
+  ret <- do.call(c, lapply(ret, function(s)  CPP_pack_INTS(list(inds_fun[s + 1]), alph)))
   
   vec_restore(ret, sq)
 }
