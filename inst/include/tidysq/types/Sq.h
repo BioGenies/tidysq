@@ -58,6 +58,14 @@ namespace tidysq {
             return content_[index];
         }
 
+        [[nodiscard]] inline ElementType get(const LenSq index) const {
+            return content_[index];
+        }
+
+        inline void set(const LenSq index, const ElementType &value) {
+            content_[index] = value;
+        }
+
         [[nodiscard]] LenSq length() const {
             return content_.size();
         }

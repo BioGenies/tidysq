@@ -25,9 +25,9 @@ Rcpp::List CPP_unpack_STRINGS(Rcpp::List sq) {
   .exportToR();
 }
 
-////[[Rcpp::export]]
-//Rcpp::StringVector CPP_unpack_STRING(Rcpp::List sq) {
-//  return Sq<RCPP>(sq)
-//  .unpack<RCPP, STRING>()
-//  .exportToR();
-//}
+//[[Rcpp::export]]
+Rcpp::StringVector CPP_unpack_STRING(Rcpp::List sq) {
+  return importFromR(sq)
+  .unpack<RCPP, STRING>()
+  .exportToR();
+}

@@ -19,6 +19,9 @@ namespace Rcpp {
 
     template<>
     SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::STRINGS> &);
+
+    template<>
+    SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::STRING> &);
 }
 
 #include <utility>
@@ -95,6 +98,24 @@ namespace tidysq {
     inline LetValue ProtoSequence<STD, STRINGS>::getLetterValue(const LetValue index, const Alphabet &alphabet) const {
         return internal::matchValue<STD, STRINGS>(content_[index], alphabet);
     }
+
+    template<>
+    inline LetValue ProtoSequence<RCPP, STRING>::getLetterValue(const LetValue index, const Alphabet &alphabet) const {
+        return internal::matchValue<RCPP, STRING>(content_[index], alphabet);
+    }
+
+    template<>
+    inline LetValue ProtoSequence<STD, STRING>::getLetterValue(const LetValue index, const Alphabet &alphabet) const {
+        return internal::matchValue<STD, STRING>(content_[index], alphabet);
+    }
+
+    template<>
+    inline ProtoSequence<STD, STRING>::ProtoSequence(const LenSq length) :
+            ProtoSequence(ContentType(length, ' ')) {};
+
+    template<>
+    inline ProtoSequence<RCPP, STRING>::ProtoSequence(const LenSq length) :
+            ProtoSequence(ContentType(length, ' ')) {};
 }
 
 namespace Rcpp {
@@ -111,6 +132,11 @@ namespace Rcpp {
     template<>
     inline SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::STRINGS> &obj) {
         return obj.content();
+    }
+
+    template<>
+    inline SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::STRING> &obj) {
+        return Rcpp::StringVector(obj.content());
     }
 }
 

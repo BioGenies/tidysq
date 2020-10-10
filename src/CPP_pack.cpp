@@ -24,10 +24,10 @@ Rcpp::List CPP_pack_STRINGS(Rcpp::List proto, Rcpp::StringVector alphabet) {
   .pack<RCPP>()
   .exportToR();
 }
-//
-////[[Rcpp::export]]
-//Rcpp::List CPP_pack_STRING(Rcpp::StringVector proto, Rcpp::StringVector alphabet) {
-//  return ProtoSq<RCPP, STRING>(proto, Alphabet(alphabet))
-//  .pack<RCPP>()
-//  .exportToR();
-//}
+
+//[[Rcpp::export]]
+Rcpp::List CPP_pack_STRING(Rcpp::StringVector proto, Rcpp::StringVector alphabet) {
+  return importProtoFromR<STRING>(proto, alphabet)
+  .pack<RCPP>()
+  .exportToR();
+}

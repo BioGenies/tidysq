@@ -44,6 +44,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPP_pack_STRING
+Rcpp::List CPP_pack_STRING(Rcpp::StringVector proto, Rcpp::StringVector alphabet);
+RcppExport SEXP _tidysq_CPP_pack_STRING(SEXP protoSEXP, SEXP alphabetSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::StringVector >::type proto(protoSEXP);
+    Rcpp::traits::input_parameter< Rcpp::StringVector >::type alphabet(alphabetSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_pack_STRING(proto, alphabet));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_unpack_RAWS
 Rcpp::List CPP_unpack_RAWS(Rcpp::List sq);
 RcppExport SEXP _tidysq_CPP_unpack_RAWS(SEXP sqSEXP) {
@@ -74,6 +86,17 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::List >::type sq(sqSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_unpack_STRINGS(sq));
+    return rcpp_result_gen;
+END_RCPP
+}
+// CPP_unpack_STRING
+Rcpp::StringVector CPP_unpack_STRING(Rcpp::List sq);
+RcppExport SEXP _tidysq_CPP_unpack_STRING(SEXP sqSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List >::type sq(sqSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_unpack_STRING(sq));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -134,9 +157,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_pack_RAWS", (DL_FUNC) &_tidysq_CPP_pack_RAWS, 2},
     {"_tidysq_CPP_pack_INTS", (DL_FUNC) &_tidysq_CPP_pack_INTS, 2},
     {"_tidysq_CPP_pack_STRINGS", (DL_FUNC) &_tidysq_CPP_pack_STRINGS, 2},
+    {"_tidysq_CPP_pack_STRING", (DL_FUNC) &_tidysq_CPP_pack_STRING, 2},
     {"_tidysq_CPP_unpack_RAWS", (DL_FUNC) &_tidysq_CPP_unpack_RAWS, 1},
     {"_tidysq_CPP_unpack_INTS", (DL_FUNC) &_tidysq_CPP_unpack_INTS, 1},
     {"_tidysq_CPP_unpack_STRINGS", (DL_FUNC) &_tidysq_CPP_unpack_STRINGS, 1},
+    {"_tidysq_CPP_unpack_STRING", (DL_FUNC) &_tidysq_CPP_unpack_STRING, 1},
     {"_tidysq_C_get_real_alph", (DL_FUNC) &_tidysq_C_get_real_alph, 1},
     {"_tidysq_RcppExport_registerCCallable", (DL_FUNC) &_tidysq_RcppExport_registerCCallable, 0},
     {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 0},

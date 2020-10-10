@@ -52,6 +52,14 @@ namespace tidysq {
             return content_[index];
         }
 
+        inline ElementType get(const LenSq index) const {
+            return content_[index];
+        }
+
+        inline void set(const LenSq index, const ElementType &value) {
+            content_[index] = value;
+        }
+
         [[nodiscard]] inline LenSq length() const {
             return content_.size();
         }
@@ -64,7 +72,7 @@ namespace tidysq {
             return type_;
         }
 
-        inline Rcpp::List exportToR() {
+        inline ContentType exportToR() {
             throw std::exception();
         }
 
@@ -88,12 +96,37 @@ namespace tidysq {
     };
 
     template<>
-    inline Rcpp::List ProtoSq<RCPP, RAWS>::exportToR() {
+    inline ProtoSq<RCPP, RAWS>::ContentType ProtoSq<RCPP, RAWS>::exportToR() {
         return content_;
     }
 
+    template<>
+    inline ProtoSq<RCPP, INTS>::ContentType ProtoSq<RCPP, INTS>::exportToR() {
+        return content_;
+    }
+
+    template<>
+    inline ProtoSq<RCPP, STRINGS>::ContentType ProtoSq<RCPP, STRINGS>::exportToR() {
+        return content_;
+    }
+
+    template<>
+    inline ProtoSq<RCPP, STRING>::ContentType ProtoSq<RCPP, STRING>::exportToR() {
+        return content_;
+    }
+
+    template<>
+    inline ProtoSq<RCPP, STRING>::ElementType ProtoSq<RCPP, STRING>::get(const LenSq index) const {
+        return ProtoSq<RCPP, STRING>::ElementType(static_cast<std::string>(Rcpp::StringVector(content_[index].get())[0]));
+    }
+
+    template<>
+    inline void ProtoSq<RCPP, STRING>::set(const LenSq index, const ElementType &value) {
+        content_[index] = value.content();
+    }
+
     template<ProtoType PROTO>
-    ProtoSq<RCPP, PROTO> importProtoFromR(const Rcpp::List &proto,
+    ProtoSq<RCPP, PROTO> importProtoFromR(const typename ProtoSq<RCPP, PROTO>::ContentType &proto,
                                           const Rcpp::StringVector &alphabet) {
         return ProtoSq<RCPP, PROTO>(proto, Alphabet(alphabet));
     }

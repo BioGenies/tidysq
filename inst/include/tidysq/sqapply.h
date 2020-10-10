@@ -9,7 +9,7 @@ namespace tidysq {
     TYPE_OUT sqapply(const TYPE_IN &sq, const OperationSq<typename TYPE_IN::ElementType, typename TYPE_OUT::ElementType> &op) {
         TYPE_OUT ret(sq.length(), sq.alphabet(), sq.type());
         for (LenSq i = 0; i < sq.length(); i++) {
-            ret[i] = op(sq[i], sq.alphabet());
+            ret.set(i, op(sq.get(i), sq.alphabet()));
         }
         return ret;
     }

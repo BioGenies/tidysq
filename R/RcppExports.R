@@ -13,6 +13,10 @@ CPP_pack_STRINGS <- function(proto, alphabet) {
     .Call(`_tidysq_CPP_pack_STRINGS`, proto, alphabet)
 }
 
+CPP_pack_STRING <- function(proto, alphabet) {
+    .Call(`_tidysq_CPP_pack_STRING`, proto, alphabet)
+}
+
 CPP_unpack_RAWS <- function(sq) {
     .Call(`_tidysq_CPP_unpack_RAWS`, sq)
 }
@@ -23,6 +27,10 @@ CPP_unpack_INTS <- function(sq) {
 
 CPP_unpack_STRINGS <- function(sq) {
     .Call(`_tidysq_CPP_unpack_STRINGS`, sq)
+}
+
+CPP_unpack_STRING <- function(sq) {
+    .Call(`_tidysq_CPP_unpack_STRING`, sq)
 }
 
 C_get_real_alph <- function(sq) {
