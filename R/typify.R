@@ -57,7 +57,7 @@ typify <- function(x, dest_type) {
   
   alph <- alphabet(x)
   uppercase_alph <- unique(toupper(alph))
-  dest_alph <- .get_standard_alph(dest_type, FALSE)
+  dest_alph <- get_standard_alph(dest_type)
   
   assert_subset(uppercase_alph, dest_alph)
   if (!(length(alph) == length(uppercase_alph))) {
