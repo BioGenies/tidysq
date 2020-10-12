@@ -75,6 +75,9 @@ sq_alphabet <- function(alph, type) {
   )
 }
 
+sq_alphabet_ptype <- function()
+  sq_alphabet(character(), character())
+
 get_standard_alph <- function(type) {
   sq_alphabet(
     switch (type,
@@ -88,10 +91,6 @@ get_standard_alph <- function(type) {
     type
   )
 }
-
-# TODO: verify
-sq_alphabet_ptype <- function()
-  sq_alphabet(character(), character())
 
 .skip_characters <- function(alph, chars)
   vec_restore(setdiff(alph, chars), alph)
