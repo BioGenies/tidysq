@@ -4,7 +4,7 @@
 \alias{substitute_letters}
 \title{Substitute letters in a sequence}
 \usage{
-substitute_letters(x, encoding)
+substitute_letters(x, encoding, ...)
 }
 \arguments{
 \item{x}{a \code{\link{sq}} object.}

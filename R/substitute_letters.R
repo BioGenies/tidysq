@@ -114,9 +114,23 @@
 #' substitute_letters(sq_ami, sub_AG)
 #' 
 #' @seealso \code{\link{sq}} 
+#' 
 #' @export
+substitute_letters <- function(x, encoding, ...)
+  UseMethod("substitute_letters")
 
-substitute_letters <- function(x, encoding) {
+#' @export
+substitute_letters.default <- function(x, encoding, ...)
+  stop("cannot substitute letters in this type of object", call. = FALSE)
+
+#' @importFrom checkmate assert_atomic_vector
+#' @importFrom checkmate assert_character
+#' @importFrom checkmate assert_class
+#' @importFrom checkmate assert_false
+#' @importFrom checkmate assert_integerish
+#' @importFrom checkmate assert_subset
+#' @export
+substitute_letters.sq <- function(x, encoding, ...) {
   assert_class(x, "sq")
   alph <- alphabet(x)
   assert_atomic_vector(encoding, names = "unique")
@@ -141,11 +155,6 @@ substitute_letters <- function(x, encoding) {
   inds_fun[is.na(inds_fun)] <- .get_na_val(new_alph)
   
   ret <- .apply_sq(x, "int", "int", function(s) inds_fun[s], new_alph)
-  if (.is_cleaned(x)) {
-    .handle_opt_txt("tidysq_a_cln_sub_letters",
-                    "'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it")
-  }
-  
   new_list_of(ret,
               ptype = raw(),
               alphabet = new_alph,
