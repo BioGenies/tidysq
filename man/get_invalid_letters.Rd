@@ -4,7 +4,7 @@
 \alias{get_invalid_letters}
 \title{Find elements which are not suitable for specified type.}
 \usage{
-get_invalid_letters(x, dest_type)
+get_invalid_letters(x, dest_type, ...)
 }
 \arguments{
 \item{x}{a \code{\link{sq}} object to be checked.}

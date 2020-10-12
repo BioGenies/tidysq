@@ -42,9 +42,15 @@
 #' 
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
-get_invalid_letters <- function(x, dest_type) {
-  # TODO: make generic
-  assert_class(x, "sq")
+get_invalid_letters <- function(x, dest_type, ...)
+  UseMethod("get_invalid_letters")
+
+#' @export
+get_invalid_letters.default <- function(x, dest_type, ...)
+  stop("method 'get_invalid_letters' isn't implemented for this type of object", call. = FALSE)
+
+#' @export
+get_invalid_letters.sq <- function(x, dest_type, ...) {
   assert_sq_type(dest_type)
   
   # TODO: remove after fixing .apply_sq()
@@ -52,7 +58,7 @@ get_invalid_letters <- function(x, dest_type) {
     return(list())
   }
   
-  dest_alph <- .get_standard_alph(dest_type, FALSE)
+  dest_alph <- get_standard_alph(dest_type)
   dest_alph <- c(as.character(dest_alph),
                  tolower(as.character(dest_alph)),
                  getOption("tidysq_NA_letter"))

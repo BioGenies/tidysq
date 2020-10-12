@@ -51,6 +51,8 @@ type_as_class <- function(type)
 #' get_sq_type(sq_encoded)
 #' 
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
+#' 
+#' @importFrom checkmate assert_class
 #' @export
 get_sq_type <- function(x) {
   # TODO: a generic, maybe?
