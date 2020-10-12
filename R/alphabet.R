@@ -75,6 +75,20 @@ sq_alphabet <- function(alph, type) {
   )
 }
 
+get_standard_alph <- function(type) {
+  sq_alphabet(
+    switch (type,
+            dna_bsc = nucleotides_df[nucleotides_df[["dna"]], "one"],
+            dna_ext = nucleotides_df[nucleotides_df[["dna"]] | nucleotides_df[["amb"]], "one"],
+            rna_bsc = nucleotides_df[nucleotides_df[["rna"]], "one"],
+            rna_ext = nucleotides_df[nucleotides_df[["rna"]] | nucleotides_df[["amb"]], "one"],
+            ami_bsc = aminoacids_df[!aminoacids_df[["amb"]], "one"],
+            ami_ext = aminoacids_df[, "one"]
+    ),
+    type
+  )
+}
+
 # TODO: verify
 sq_alphabet_ptype <- function()
   sq_alphabet(character(), character())
@@ -104,25 +118,6 @@ sq_alphabet_ptype <- function()
 .get_real_alph <- function(str_sq) {
   new_vctr(
     C_get_real_alph(str_sq),
-    na_letter = .get_na_letter(),
-    class = c("sq_alphabet", "character")
-  )
-}
-
-.get_standard_alph <- function(type, is_clean) {
-  new_vctr(
-    if (type == "ami" &&  is_clean)
-      aminoacids_df[!aminoacids_df[["amb"]], "one"]
-    else if (type == "ami" && !is_clean)
-      aminoacids_df[, "one"]
-    else if (type == "dna" &&  is_clean)
-      nucleotides_df[nucleotides_df[["dna"]], "one"]
-    else if (type == "dna" && !is_clean)
-      nucleotides_df[nucleotides_df[["dna"]] | nucleotides_df[["amb"]], "one"]
-    else if (type == "rna" &&  is_clean)
-      nucleotides_df[nucleotides_df[["rna"]], "one"]
-    else if (type == "rna" && !is_clean)
-      nucleotides_df[nucleotides_df[["rna"]] | nucleotides_df[["amb"]], "one"],
     na_letter = .get_na_letter(),
     class = c("sq_alphabet", "character")
   )
