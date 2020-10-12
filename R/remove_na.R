@@ -58,7 +58,6 @@ remove_na <- function(x, by_letter = FALSE) {
   assert_flag(by_letter)
   
   alph <- alphabet(x)
-  alph_size <- .get_alph_size(alph)
   na_val <- .get_na_val(alph)
   
   if (by_letter) {
@@ -67,7 +66,7 @@ remove_na <- function(x, by_letter = FALSE) {
     })
   } else {
     ret <- lapply(x, function(s) {
-      st <- C_unpack_ints(s, alph_size)
+      st <- unpack(s, "INTS")
       if (any(st == na_val)) structure(raw(), original_length = 0) else s
     })
   }

@@ -1,12 +1,14 @@
-# general checks - used basically everywhere ----
 assert_sq_type <- function(type, null.ok = FALSE, unt.ok = FALSE) {
+  # TODO: rethink the idea
   assert_choice(type,
-                choices = c("ami", "dna", "rna", if (unt.ok) "unt"),
+                choices = c("dna_bsc", "dna_ext", "rna_bsc", "rna_ext",
+                            "ami_bsc", "ami_ext", if (unt.ok) "unt"),
                 null.ok = null.ok)
 }
 
 
 
+# general checks - used basically everywhere ----
 
 .check_nchar <- function(obj, argname, allow_zero_nchar = FALSE, requested_nchar = NULL,
                          demand_eq_len = FALSE, minimal_nchar = NULL) {

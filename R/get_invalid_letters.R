@@ -55,7 +55,7 @@ get_invalid_letters <- function(x, dest_type) {
   dest_alph <- .get_standard_alph(dest_type, FALSE)
   dest_alph <- c(as.character(dest_alph),
                  tolower(as.character(dest_alph)),
-                 na_letter(dest_alph))
+                 getOption("tidysq_NA_letter"))
   
   .apply_sq(x, "char", "none", function(s) setdiff(s, dest_alph))
 }

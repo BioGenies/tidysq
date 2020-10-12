@@ -4,7 +4,7 @@
 \alias{remove_na}
 \title{Remove sequences containing NA values}
 \usage{
-remove_na(sq, by_letter = FALSE)
+remove_na(x, by_letter = FALSE)
 }
 \value{
 A \code{\link{sq}} object with the same type as input type. Sequences not containing

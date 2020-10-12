@@ -10,8 +10,10 @@ format.sq <- function(x, ...,
   assert_string(letters_sep, null.ok = TRUE)
   
   # color NA's
-  na_letter(alphabet(x)) <- if (use_color) col_silver(.get_na_letter()) else .get_na_letter()
   alph <- alphabet(x)
+  attr(alph, "na_letter") <- if (use_color)
+    col_silver(getOption("tidysq_NA_letter")) else
+      getOption("tidysq_NA_letter")
   
   # if parameter is NULL and all letters are length one, no space
   if (is.null(letters_sep))
@@ -62,18 +64,18 @@ format.pillar_shaft_sq <- function(x, width, ...) {
 .format_sq <- function(x, max_sequences, use_color, letters_sep, body_color) {
   # select at most max_sequences to print
   num_lines <- min(max_sequences, length(x))
-  sq <- x[1:num_lines]
+  x <- x[1:num_lines]
   
   p_width <- getOption("width")
   
   # cut sq object so that we don't need to debitify long sequences
   # 6 is minimum length of p_lens and p_inds, 8 is byte length
-  sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
+  sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
   sq_cut <- unpack(sq_cut, "INTS")
-  sq_cut <- lapply(sq_cut, function(s) alphabet(sq)[s])
+  sq_cut <- lapply(sq_cut, function(s) alphabet(x)[s])
   
   # lengths of sequences
-  lens <- get_sq_lengths(sq)
+  lens <- get_sq_lengths(x)
   
   # max width of index number
   inds_width <- nchar(num_lines) + 2

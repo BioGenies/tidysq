@@ -52,15 +52,14 @@ complement.default <- function(x)
 #' @export
 complement.sq_dna_bsc <- function(x) {
   alph <- alphabet(x)
-  alph_size <- .get_alph_size(alph)
   ret <- unpack(x, "INTS")
   
   dict <- c(G = "C", C = "G", T = "A", A = "T", `-` = "-")
   
   inds_fun <- match(dict[alph], alph)
   names(inds_fun) <- as.character(1:length(alph))
-  ret <- lapply(ret, function(s)  structure(C_pack_ints(inds_fun[s], alph_size),
-                                            original_length = attr(s, "original_length")))
+  ret <- lapply(ret, function(s) structure(pack(inds_fun[s], "INTS"),
+                                           original_length = attr(s, "original_length")))
   
   vec_restore(ret, x)
 }
@@ -68,15 +67,14 @@ complement.sq_dna_bsc <- function(x) {
 #' @export
 complement.sq_rna_bsc <- function(x) {
   alph <- alphabet(x)
-  alph_size <- .get_alph_size(alph)
   ret <- unpack(x, "INTS")
   
   dict <- c(G = "C", C = "G", U = "A", A = "U", `-` = "-")
   
   inds_fun <- match(dict[alph], alph)
   names(inds_fun) <- as.character(1:length(alph))
-  ret <- lapply(ret, function(s)  structure(C_pack_ints(inds_fun[s], alph_size),
-                                            original_length = attr(s, "original_length")))
+  ret <- lapply(ret, function(s) structure(pack(inds_fun[s], "INTS"),
+                                           original_length = attr(s, "original_length")))
   
   vec_restore(ret, x)
 }

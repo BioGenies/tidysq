@@ -1,7 +1,3 @@
-.is_cleaned <- function(x) {
-  "clnsq" %in% class(x)
-}
-
 .set_original_length <- function(x, orig_lengths) {
   if (length(x) == 0) return(x)
   for (index in 1:length(x)) {

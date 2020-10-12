@@ -1,11 +1,8 @@
 #' @importFrom cli cli_text
 #' @export
 obj_print_header.sq <- function(x, ...) {
-  if (length(.get_sq_type(x)) != 1)
-    cli_text("sq (improper subtype!)")
-  else
-    cli_text("{vec_ptype_full(x)} sequences list",
-             if (length(x) == 0) " of length 0" else ":")
+  cli_text("{vec_ptype_full(x)} sequences list",
+           if (length(x) == 0) " of length 0" else ":")
 }
 
 #' @importFrom cli cat_line
@@ -33,7 +30,7 @@ obj_print_footer.sq <- function(x, ...,
 #' @export
 pillar_shaft.sq <- function(x, ...) {
   # color NA's
-  na_letter(alphabet(x)) <- col_silver(.get_na_letter())
+  attr(alphabet(x), "na_letter") <- col_silver(getOption("tidysq_NA_letter"))
   
   .pillar_shaft_sq(x, "", col_green)
 }
@@ -42,6 +39,8 @@ pillar_shaft.sq <- function(x, ...) {
 #' @importFrom pillar pillar_shaft
 #' @export
 pillar_shaft.encsq <- function(x, ...) {
+  # We can do this because it's an evaluation environment
+  # and any changes to x are not permanent
   alphabet(x) <- format(alphabet(x), digits = 1, scientific = FALSE)
   
   .pillar_shaft_sq(x, "\u00a0", col_cyan)

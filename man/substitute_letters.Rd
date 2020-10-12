@@ -4,10 +4,10 @@
 \alias{substitute_letters}
 \title{Substitute letters in a sequence}
 \usage{
-substitute_letters(sq, encoding)
+substitute_letters(x, encoding)
 }
 \arguments{
-\item{sq}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link{sq}} object.}
 
 \item{encoding}{a vector of letters to be replaced together with their replacements.
 One letter can be replaced with multiple symbols. 

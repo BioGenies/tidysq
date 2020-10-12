@@ -76,7 +76,7 @@
 `%has%.sq` <- function(x, y) {
   assert_character(y, any.missing = FALSE, min.len = 1)
   alph <- alphabet(x)
-  type <- .get_sq_type(x)
+  type <- get_sq_type(x)
   .check_motifs_proper_alph(y, type, alph)
   
   x <- as.character(x)

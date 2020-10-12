@@ -46,25 +46,17 @@ translate <- function(x, table = 1, ...) {
 
 #' @export
 translate.default <- function(x, table = 1, ...)
-  stop("cannot translate something that is neither DNA nor RNA sequence", call. = FALSE)
+  stop("cannot translate something that is neither basic DNA nor RNA sequence", call. = FALSE)
 
 #' @export
-translate.dnasq <- function(x, table = 1, ...) {
-  if (!.is_cleaned(x)) {
-    stop("sequence has to be cleaned to translate", call. = FALSE)
-  }
-  construct_sq_ami(Cpp_translate(as.character(x), table),
-                   is_clean = TRUE)
+translate.sq_dna_bsc <- function(x, table = 1, ...) {
+  sq(Cpp_translate(as.character(x), table), "sq_ami_bsc")
 }
 
 #' @export
-translate.rnasq <- function(x, table = 1, ...) {
-  if (!.is_cleaned(x)) {
-    stop("sequence has to be cleaned to translate", call. = FALSE)
-  }
+translate.sq_rna_bsc <- function(x, table = 1, ...) {
   # a hack to avoid creating duplicate codon tables, at least for now
   # optimally should be deleted once the code operates without unpacking
   x <- gsub("U", "T", as.character(x))
-  construct_sq_ami(Cpp_translate(x, table),
-                   is_clean = TRUE)
+  sq(Cpp_translate(x, table), "sq_ami_bsc")
 }

@@ -4,10 +4,10 @@
 \alias{typify}
 \title{Set type of untyped and atypical sequences}
 \usage{
-typify(sq, dest_type)
+typify(x, dest_type)
 }
 \arguments{
-\item{sq}{an object of class \code{\link{sq}} with one of the types \strong{ami}, 
+\item{x}{an object of class \code{\link{sq}} with one of the types \strong{ami},
 \strong{dna}, \strong{rna}, \strong{unt} or \strong{atp}.}
 
 \item{dest_type}{\code{\link{character}} string, destination type, one of "ami",

@@ -128,22 +128,60 @@
 #' @seealso \code{\link{sq}} \code{\link{as.matrix}} or \code{\link{encsq_to_list}}
 #' 
 #' @export
-encode <- function(x, encoding) {
-  # TODO: make generic
-  assert_class(x, "sq")
+encode <- function(x, encoding, ...) {
   assert_numeric(encoding, names = "unique")
   
-  type <- .get_sq_type(x)
-  if (type %in% c("ami", "dna", "rna"))
-    names(encoding) <- toupper(names(encoding))
-  
+  UseMethod("encode")
+}
+
+#' @export
+encode.default <- function(x, encoding, ...)
+  stop("method 'encode()' isn't implemented for this type of object", call. = FALSE)
+
+#' @export
+encode.sq_dna_bsc <- function(x, encoding, ...) {
+  names(encoding) <- toupper(names(encoding))
+  NextMethod()
+}
+
+#' @export
+encode.sq_dna_ext <- function(x, encoding, ...) {
+  names(encoding) <- toupper(names(encoding))
+  NextMethod()
+}
+
+#' @export
+encode.sq_rna_bsc <- function(x, encoding, ...) {
+  names(encoding) <- toupper(names(encoding))
+  NextMethod()
+}
+
+#' @export
+encode.sq_rna_ext <- function(x, encoding, ...) {
+  names(encoding) <- toupper(names(encoding))
+  NextMethod()
+}
+
+#' @export
+encode.sq_ami_bsc <- function(x, encoding, ...) {
+  names(encoding) <- toupper(names(encoding))
+  NextMethod()
+}
+
+#' @export
+encode.sq_ami_ext <- function(x, encoding, ...) {
+  names(encoding) <- toupper(names(encoding))
+  NextMethod()
+}
+
+#' @export
+encode.sq <- function(x, encoding, ...) {
   alph <- alphabet(x)
-  alph_size <- .get_alph_size(alph)
   is_given <- alph %in% names(encoding)
   if (!all(is_given)) {
     ind <- (1:length(alph))[!is_given]
     for (s in x) {
-      if (any(C_unpack_ints(s, alph_size) %in% ind)) {
+      if (any(unpack(s, "INTS") %in% ind)) {
         .handle_opt_txt("tidysq_a_no_given_enc",
                         "there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA")
         break
@@ -157,5 +195,5 @@ encode <- function(x, encoding) {
   new_list_of(x,
               ptype = raw(),
               alphabet = encoding[alph],
-              class = c("encsq", "sq"))
+              class = c("sq_enc", "sq"))
 }

@@ -4,10 +4,10 @@
 \alias{reverse}
 \title{Reverse sequence}
 \usage{
-reverse(sq)
+reverse(x)
 }
 \arguments{
-\item{sq}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link{sq}} object.}
 }
 \value{
 A \code{\link{sq}} object of the same type as input object but 

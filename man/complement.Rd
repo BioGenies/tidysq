@@ -6,14 +6,14 @@
 \alias{complement_rna}
 \title{Create complement sequence from dnasq or rnasq object}
 \usage{
-complement(sq)
+complement(x)
 
-complement_dna(sq)
+complement_dna(x)
 
-complement_rna(sq)
+complement_rna(x)
 }
 \arguments{
-\item{sq}{a \code{\link{sq}} object of type \strong{dna} or \strong{rna}.}
+\item{x}{a \code{\link{sq}} object of type \strong{dna} or \strong{rna}.}
 }
 \value{
 \code{sq} object of the same type as input \code{dnasq} (\strong{dna})

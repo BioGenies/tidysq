@@ -4,10 +4,10 @@
 \alias{get_invalid_letters}
 \title{Find elements which are not suitable for specified type.}
 \usage{
-get_invalid_letters(sq, dest_type)
+get_invalid_letters(x, dest_type)
 }
 \arguments{
-\item{sq}{a \code{\link{sq}} object to be checked.}
+\item{x}{a \code{\link{sq}} object to be checked.}
 
 \item{dest_type}{a \code{\link{character}} string denoting destination type - it may be 
 "dna" for \strong{dna} type (DNA), "rna" for \strong{rna} type (RNA) or

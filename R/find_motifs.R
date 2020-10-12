@@ -158,9 +158,7 @@ find_motifs.amisq <- function(x, name, motifs) {
                       to = ret[["end"]])
     ret <- add_column(
       ret,
-      # TODO: replace .construct_sq_s with something... cleaner?
-      found = .construct_sq_s(found, alphabet(x),
-                              c(.get_sq_subclass(x), if (.is_cleaned(x)) "clnsq", "sq")),
+      found = sq(found, get_sq_type(x)),
       .before = "start"
     )
     # ret[!is.na(ret[, "start"]), , drop = FALSE]

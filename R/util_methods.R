@@ -32,8 +32,11 @@ as.sq.default <- function(x, ...)
   stop("'as.sq' cannot handle objects with this class")
 
 #' @export
-as.sq.character <- function(x, type = NULL, is_clean = NULL, non_standard = NULL, ...)
-  construct_sq(x, type, is_clean, non_standard)
+as.sq.character <- function(x,
+                            alphabet = guess_sq_type(x),
+                            NA_letter = getOption("tidysq_NA_letter"),
+                            safe_mode = getOption("tidysq_safe_mode"))
+  sq(x, alphabet, NA_letter, safe_mode)
 
 #' Convert sq object into character vector
 #' 
@@ -107,12 +110,12 @@ as.character.sq <- function(x, ...)
 as.matrix.sq <- function(x, ...) {
   max_len <- max(get_sq_lengths(x))
   ret <- do.call(rbind, lapply(unpack(x, "STRINGS"), function(row) row[1:max_len]))
-  ret[ret == .get_na_letter()] <- NA
+  ret[ret == getOption("tidysq_NA_letter")] <- NA
   ret
 }
 
 #' @export
-as.matrix.encsq <- function(x, ...) {
+as.matrix.sq_enc <- function(x, ...) {
   ret <- NextMethod()
   storage.mode(ret) <- "numeric"
   ret
@@ -281,7 +284,7 @@ is.sq_ami_bsc <- function(x)
 #' @export
 get_sq_lengths <- function(x) {
   if (length(x) == 0) numeric(0)
-  else sapply(x, attr, "original_length")
+  else vapply(x, attr, numeric(1), "original_length")
 }
 
 #' Extract parts of a sq object

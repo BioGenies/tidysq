@@ -98,10 +98,10 @@ bite <- function(x, indices) {
   na_val <- .get_na_val(alph)
   
   ret <- lapply(x, function(s) {
-    s <- C_unpack_ints(s, alph_size)[indices]
+    s <- unpack(s, "INTS")[indices]
     if (any(is.na(s))) na_introduced <<- TRUE
     s[is.na(s)] <- na_val
-    structure(C_pack_ints(s, alph_size), original_length = length(s))
+    structure(pack(s, "INTS"), original_length = length(s))
   })
   if (na_introduced) {
     .handle_opt_txt("tidysq_a_bite_na",

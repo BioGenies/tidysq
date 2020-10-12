@@ -32,15 +32,14 @@
 #' @seealso \code{\link{construct_sq}} \code{\link{sq}}
 #' @importFrom stringi stri_rand_strings stri_paste
 #' @export
-random_sq <- function(n, len, type, is_clean, sd = NULL, use_gap = FALSE) {
+random_sq <- function(n, len, type, sd = NULL, use_gap = FALSE) {
   assert_count(n)
   assert_count(len)
   assert_sq_type(type)
-  assert_flag(is_clean)
   assert_number(sd, null.ok = TRUE)
   assert_flag(use_gap)
   
-  alph <- .get_standard_alph(type, is_clean)
+  alph <- .get_standard_alph(type)
   if (!use_gap) alph <- .skip_characters(alph, "-")
   if (type == "ami") alph <- .skip_characters(alph, "*")
   
@@ -52,5 +51,5 @@ random_sq <- function(n, len, type, is_clean, sd = NULL, use_gap = FALSE) {
   }
   
   sq <- stri_rand_strings(n, len, alph_regex)
-  construct_sq(sq, type, is_clean)
+  sq(sq, type)
 }

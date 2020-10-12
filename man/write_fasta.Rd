@@ -4,10 +4,10 @@
 \alias{write_fasta}
 \title{Save sq to fasta file}
 \usage{
-write_fasta(sq, name, file, nchar = 80)
+write_fasta(x, name, file, nchar = 80)
 }
 \arguments{
-\item{sq}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link{sq}} object.}
 
 \item{name}{a \code{\link{character}} vector of length equal to \code{sq} length.}
 

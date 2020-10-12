@@ -4,10 +4,10 @@
 \alias{find_motifs}
 \title{Find given motifs}
 \usage{
-find_motifs(sq, name, motifs)
+find_motifs(x, name, motifs)
 }
 \arguments{
-\item{sq}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link{sq}} object.}
 
 \item{name}{a non-\code{NULL} \code{character} vector without \code{\link{NA}} values, 
 containing names of the sequences in the sq. It has to be of the same length 
