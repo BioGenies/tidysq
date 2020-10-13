@@ -41,6 +41,10 @@ CPP_bite <- function(x, indices) {
     .Call(`_tidysq_CPP_bite`, x, indices)
 }
 
+CPP_find_invalid_letters <- function(x, dest_type) {
+    .Call(`_tidysq_CPP_find_invalid_letters`, x, dest_type)
+}
+
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
     .Call('_tidysq_RcppExport_registerCCallable', PACKAGE = 'tidysq')
