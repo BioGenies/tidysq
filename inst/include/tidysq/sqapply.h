@@ -7,7 +7,7 @@
 namespace tidysq {
     template <typename TYPE_IN, typename TYPE_OUT>
     TYPE_OUT sqapply(const TYPE_IN &sq, const OperationSq<typename TYPE_IN::ElementType, typename TYPE_OUT::ElementType> &op) {
-        TYPE_OUT ret(sq.length(), sq.alphabet(), sq.type());
+        TYPE_OUT ret(sq.length(), sq.alphabet());
         for (LenSq i = 0; i < sq.length(); i++) {
             ret.set(i, op(sq.get(i), sq.alphabet()));
         }
