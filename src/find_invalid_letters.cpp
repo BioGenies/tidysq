@@ -23,5 +23,15 @@ Rcpp::List CPP_find_invalid_letters(Rcpp::List x,
       invalid_indices.push_back(i);
     }
   }
+  
+  Rcpp::List ret = Rcpp::List::create();
+  for (LetValue i = 0; i < sq.length(); ++i) {
+    ret.push_back(Rcpp::StringVector());
+  }
+  
+  if (invalid_indices.empty()) {
+    return ret;
+  }
+  
   return Rcpp::List::create(invalid_indices);
 }
