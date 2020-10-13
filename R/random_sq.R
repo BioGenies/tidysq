@@ -50,6 +50,6 @@ random_sq <- function(n, len, type, sd = NULL, use_gap = FALSE) {
     len <- ifelse(len <= 0, 1, len)
   }
   
-  sq <- stri_rand_strings(n, len, alph_regex)
-  sq(sq, type)
+  ret <- stri_rand_strings(n, len, alph_regex)
+  sq(ret, type)
 }
