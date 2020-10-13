@@ -35,13 +35,13 @@ namespace tidysq::internal {
         return alphabet[value][0];
     }
 
+    inline LenSq calculatePackedLength(const LenSq unpackedLength, const Alphabet &alphabet) {
+        return (alphabet.alphabetSize() * unpackedLength + 7) / 8;
+    }
+
     template<InternalType INTERNAL, ProtoType PROTO>
     inline LenSq calculatePackedLength(const ProtoSequence<INTERNAL, PROTO> &unpacked, const Alphabet &alphabet) {
         return calculatePackedLength(unpacked.length(), alphabet);
-    }
-
-    inline LenSq calculatePackedLength(const LenSq unpackedLength, const Alphabet &alphabet) {
-        return (alphabet.alphabetSize() * unpackedLength + 7) / 8;
     }
 
     template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT>
