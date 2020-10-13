@@ -4,7 +4,6 @@
 #include "tidysq/types/general.h"
 #include "tidysq/types/Alphabet.h"
 #include "tidysq/types/TypeMapper.h"
-#include "tidysq/util/alphabet.h"
 #include "tidysq/sqapply.h"
 #include "tidysq/ops/OperationPack.h"
 
@@ -16,7 +15,6 @@ namespace tidysq {
     class ProtoSq {
         typename TypeMapper<INTERNAL, PROTO>::ProtoSqContentType content_;
         Alphabet alphabet_;
-        SqType type_;
     public:
         typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSqContentType ContentType;
         typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSqElementType ElementType;
@@ -24,25 +22,18 @@ namespace tidysq {
         typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSqAccessType AccessType;
         typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSqConstAccessType ConstAccessType;
 
-        ProtoSq(const ContentType &content, const Alphabet &alphabet, const SqType &type) :
-                content_(content),
-                alphabet_(alphabet),
-                type_(type) {};
-
-        ProtoSq(const LenSq length, const Alphabet &alphabet, const SqType &type) :
-                ProtoSq(ContentType(length), alphabet, type) {};
-
         ProtoSq(const ContentType &content, const Alphabet &alphabet) :
-                ProtoSq(content, alphabet, util::guessSqType(alphabet)) {};
+                content_(content),
+                alphabet_(alphabet) {};
 
         ProtoSq(const LenSq length, const Alphabet &alphabet) :
-                ProtoSq(length, alphabet, util::guessSqType(alphabet)) {};
+                ProtoSq(ContentType(length), alphabet) {};
 
         ProtoSq(const ContentType &content, const SqType &type) :
-                ProtoSq(length, util::getStandardAlphabet(type), type) {};
+                ProtoSq(length, Alphabet(type)) {};
 
         ProtoSq(const LenSq length, const SqType &type) :
-                ProtoSq(length, util::getStandardAlphabet(type), type) {};
+                ProtoSq(length, Alphabet(type)) {};
 
         inline AccessType operator[](const LenSq index) {
             return content_[index];
@@ -69,7 +60,7 @@ namespace tidysq {
         }
 
         [[nodiscard]] inline const SqType &type() const {
-            return type_;
+            return alphabet_.type();
         }
 
         inline ContentType exportToR() {
@@ -127,8 +118,9 @@ namespace tidysq {
 
     template<ProtoType PROTO>
     ProtoSq<RCPP, PROTO> importProtoFromR(const typename ProtoSq<RCPP, PROTO>::ContentType &proto,
-                                          const Rcpp::StringVector &alphabet) {
-        return ProtoSq<RCPP, PROTO>(proto, Alphabet(alphabet));
+                                          const Rcpp::StringVector &alphabet,
+                                          const Rcpp::StringVector &NA_letter) {
+        return ProtoSq<RCPP, PROTO>(proto, Alphabet(alphabet, NA_letter));
     }
 }
 

@@ -22,7 +22,7 @@ void test_pack_RCPP(const std::vector<typename TypeMapper<RCPP, PROTO>::ProtoSeq
 context("test_packing") {
   test_that("pack RCPP RAWS") {
         test_pack_RCPP<RAWS>({{0}},
-                            util::getStandardAlphabet(DNA_CLN));
+                             Alphabet(DNA_CLN));
 
         test_pack_RCPP<RAWS>({
                                     {0, 1, 2, 3},
@@ -30,10 +30,10 @@ context("test_packing") {
                                     {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
                                     {7, 0, 7},
                                     {}
-                            }, util::getStandardAlphabet(DNA_CLN));
+                            }, Alphabet(DNA_CLN));
 
         test_pack_RCPP<INTS>({{0}},
-                             util::getStandardAlphabet(DNA_CLN));
+                             Alphabet(DNA_CLN));
 
         test_pack_RCPP<INTS>({
                                      {0, 1, 2, 3},
@@ -41,10 +41,10 @@ context("test_packing") {
                                      {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
                                      {7, 0, 7},
                                      {}
-                             }, util::getStandardAlphabet(DNA_CLN));
+                             }, Alphabet(DNA_CLN));
 
         test_pack_RCPP<STRINGS>({{"A"}},
-                                util::getStandardAlphabet(DNA_CLN));
+                                Alphabet(DNA_CLN));
 
         test_pack_RCPP<STRINGS>({
                                      {"A", "C", "G", "T"},
@@ -52,7 +52,7 @@ context("test_packing") {
                                      {"G", "G", "G", "G", "G", "G", "G", "G", "G", "G", "G", "G"},
                                      Rcpp::StringVector::create("!", "A", "!"),
                                      {}
-                             }, util::getStandardAlphabet(DNA_CLN));
+                             }, Alphabet(DNA_CLN));
 
 //        test_pack_RCPP<STRING>({
 //            "ACTG",
