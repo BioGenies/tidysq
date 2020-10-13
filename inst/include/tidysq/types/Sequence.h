@@ -46,9 +46,9 @@ namespace tidysq {
         Sequence() :
                 Sequence(0, 0) {};
 
-        Sequence(const Sequence &other) noexcept = default;
+        Sequence(const Sequence &other) = default;
 
-        Sequence(Sequence &&other) noexcept = default;
+        Sequence(Sequence &&other) = default;
 
         Sequence& operator=(const Sequence &other) noexcept = default;
 

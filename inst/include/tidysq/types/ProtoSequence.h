@@ -52,9 +52,9 @@ namespace tidysq {
         ProtoSequence(const std::initializer_list<ElementType> &list) :
                 content_(ContentType(list)) {};
 
-        ProtoSequence(const ProtoSequence &other) noexcept = default;
+        ProtoSequence(const ProtoSequence &other) = default;
 
-        ProtoSequence(ProtoSequence &&other) noexcept = default;
+        ProtoSequence(ProtoSequence &&other) = default;
 
         ProtoSequence& operator=(const ProtoSequence &other) noexcept = default;
 
