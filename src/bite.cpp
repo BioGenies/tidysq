@@ -9,12 +9,12 @@ using namespace tidysq;
 Rcpp::List CPP_bite(Rcpp::List x, Rcpp::IntegerVector indices) {
   const Sq<RCPP> sq = importFromR(x, "!");
   Sq<RCPP> ret(sq.length(), sq.alphabet());
-  AlphSize alph_size = sq.alphabet().alphabetSize();
+  const AlphSize alph_size = sq.alphabet().alphabetSize();
   bool warning_called = false;
   Rcpp::StringVector NA_warning = R_NilValue;
   
   for (LenSq i = 0; i < sq.length(); ++i) {
-    Sequence<RCPP> sequence = sq[i];
+    const Sequence<RCPP> sequence = sq[i];
     Sequence<RCPP> out_sequence(
         internal::calculatePackedLength(indices.length(), sq.alphabet()),
         indices.length()
