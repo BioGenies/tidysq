@@ -7,10 +7,11 @@ using namespace tidysq;
 
 // [[Rcpp::export]]
 Rcpp::List CPP_bite(Rcpp::List x, Rcpp::IntegerVector indices) {
-  const Sq<RCPP> sq = importFromR(x);
-  Sq<RCPP> ret(sq.length(), sq.alphabet(), sq.type());
+  const Sq<RCPP> sq = importFromR(x, "!");
+  Sq<RCPP> ret(sq.length(), sq.alphabet());
   AlphSize alph_size = sq.alphabet().alphabetSize();
-  std::string NA_warning("");
+  bool warning_called = false;
+  Rcpp::StringVector NA_warning = R_NilValue;
   
   for (LenSq i = 0; i < sq.length(); ++i) {
     Sequence<RCPP> sequence = sq[i];
@@ -32,8 +33,9 @@ Rcpp::List CPP_bite(Rcpp::List x, Rcpp::IntegerVector indices) {
         bitten_element = bitten_element &
           ((sequence[seq_lowest_byte_index] >> seq_lowest_bit_in_byte_index) |
           (sequence[seq_highest_byte_index] << (8 - seq_lowest_bit_in_byte_index)));
-      } else if (NA_warning.empty()) {
+      } else if (warning_called) {
         NA_warning = "some sequences are subsetted with index bigger than length - NA introduced";
+        warning_called = true;
       }
       
       LenSq out_lowest_bit_index = alph_size * j;
