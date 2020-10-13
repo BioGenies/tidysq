@@ -37,21 +37,21 @@ export_sq.default <- function(x, export_format, name = NULL, ...)
 export_sq.amisq <- function(x, export_format, name = NULL, ...) {
   switch (export_format,
     `ape::AAbin` = {
-      .check_is_installed("ape")
+      assert_package_installed("ape")
       ape::as.AAbin(setNames(lapply(unpack(x, "STRINGS"), `attributes<-`, NULL), name))
     },
     `Biostrings::AAString` = {
-      .check_is_installed("Biostrings")
+      assert_package_installed("Biostrings")
       if (vec_size(x) != 1)
         stop("sq object must contain exactly one sentence; otherwise use \"Biostrings::AAStringSet\"", call. = FALSE)
       Biostrings::AAString(setNames(unlist(unpack(x, "STRING")), name))
     },
     `Biostrings::AAStringSet` = {
-      .check_is_installed("Biostrings")
+      assert_package_installed("Biostrings")
       Biostrings::AAStringSet(setNames(unlist(unpack(x, "STRING")), name))
     },
     `seqinr::SeqFastaAA` = {
-      .check_is_installed("seqinr")
+      assert_package_installed("seqinr")
       if (is.null(name)) {
         lapply(unpack(x, "STRINGS"), seqinr::as.SeqFastaAA)
       } else {
@@ -71,21 +71,21 @@ export_sq.amisq <- function(x, export_format, name = NULL, ...) {
 export_sq.dnasq <- function(x, export_format, name = NULL, ...) {
   switch (export_format,
     `ape::DNAbin` = {
-      .check_is_installed("ape")
+      assert_package_installed("ape")
       ape::as.DNAbin(setNames(lapply(unpack(x, "STRINGS"), `attributes<-`, NULL), name))
     },
     `Biostrings::DNAString` = {
-      .check_is_installed("Biostrings")
+      assert_package_installed("Biostrings")
       if (vec_size(x) != 1)
         stop("sq object must contain exactly one sentence; otherwise use \"Biostrings::DNAStringSet\"", call. = FALSE)
       Biostrings::DNAString(setNames(unlist(unpack(x, "STRING")), name))
     },
     `Biostrings::DNAStringSet` = {
-      .check_is_installed("Biostrings")
+      assert_package_installed("Biostrings")
       Biostrings::DNAStringSet(setNames(unlist(unpack(x, "STRING")), name))
     },
     `seqinr::SeqFastadna` = {
-      .check_is_installed("seqinr")
+      assert_package_installed("seqinr")
       if (is.null(name)) {
         lapply(unpack(x, "STRINGS"), seqinr::as.SeqFastadna)
       } else {
@@ -104,13 +104,13 @@ export_sq.dnasq <- function(x, export_format, name = NULL, ...) {
 export_sq.rnasq <- function(x, export_format, name = NULL, ...) {
   switch (export_format,
     `Biostrings::RNAString` = {
-      .check_is_installed("Biostrings")
+      assert_package_installed("Biostrings")
       if (vec_size(x) != 1)
         stop("sq object must contain exactly one sentence; otherwise use \"Biostrings::RNAStringSet\"", call. = FALSE)
       Biostrings::RNAString(setNames(unlist(unpack(x, "STRING")), name))
     },
     `Biostrings::RNAStringSet` = {
-      .check_is_installed("Biostrings")
+      assert_package_installed("Biostrings")
       Biostrings::RNAStringSet(setNames(unlist(unpack(x, "STRING")), name))
     },
     {
