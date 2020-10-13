@@ -42,15 +42,15 @@
 #' 
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
-get_invalid_letters <- function(x, dest_type, ...)
-  UseMethod("get_invalid_letters")
+find_invalid_letters <- function(x, dest_type, ...)
+  UseMethod("find_invalid_letters")
 
 #' @export
-get_invalid_letters.default <- function(x, dest_type, ...)
-  stop("method 'get_invalid_letters' isn't implemented for this type of object", call. = FALSE)
+find_invalid_letters.default <- function(x, dest_type, ...)
+  stop("method 'find_invalid_letters' isn't implemented for this type of object", call. = FALSE)
 
 #' @export
-get_invalid_letters.sq <- function(x, dest_type, ...) {
+find_invalid_letters.sq <- function(x, dest_type, ...) {
   assert_sq_type(dest_type)
   
   # TODO: remove after fixing .apply_sq()
