@@ -13,7 +13,7 @@ namespace tidysq::ops {
         ProtoSequence<INTERNAL_OUT, PROTO_OUT> operator()(const Sequence<INTERNAL_IN> &packed,
                                                           const Alphabet &alphabet) const override {
             ProtoSequence<INTERNAL_OUT, PROTO_OUT> unpacked = internal::reserveSpaceForUnpacked<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed);
-            internal::unpackStandard<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed, unpacked, alphabet);
+            internal::unpack<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed, unpacked, alphabet);
             return unpacked;
         }
     };
