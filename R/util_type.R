@@ -57,24 +57,3 @@ get_sq_type <- function(x) {
   assert_class(x, "sq")
   vec_ptype_abbr(x)
 }
-
-
-# TODO: sort that rubbish
-
-.guess_sq_type_subtype <- function(x) {
-  real_alph <- toupper(.get_real_alph(x))
-  .guess_type_subtype_by_alph(real_alph)
-}
-
-.guess_type_subtype_by_alph <- function(alph) {
-  # TODO: any better idea for it?
-  possib_rets <- list(list(type = "dna", is_clean = TRUE),
-                      list(type = "rna", is_clean = TRUE),
-                      list(type = "ami", is_clean = TRUE),
-                      list(type = "dna", is_clean = FALSE),
-                      list(type = "rna", is_clean = FALSE),
-                      list(type = "ami", is_clean = FALSE))
-  for (ret in possib_rets)
-    if (all(alph %in% .get_standard_alph(ret[["type"]], ret[["is_clean"]]))) return(ret)
-  list(type = "unt", is_clean = NULL)  
-}
