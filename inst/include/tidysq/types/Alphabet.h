@@ -16,8 +16,8 @@ namespace tidysq {
     class Alphabet {
     private:
         const std::vector<std::string> letters_;
-        const AlphSize alphabetSize_;
         const std::string NALetter_;
+        const AlphSize alphabetSize_;
         const LetValue NAValue_;
         const bool simple_;
 
