@@ -117,7 +117,7 @@ get_standard_alph <- function(type) {
 .get_real_alph <- function(str_sq) {
   new_vctr(
     C_get_real_alph(str_sq),
-    na_letter = .get_na_letter(),
+    na_letter = getOption("tidysq_NA_letter"),
     class = c("sq_alphabet", "character")
   )
 }
