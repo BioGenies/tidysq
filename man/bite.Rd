@@ -4,7 +4,7 @@
 \alias{bite}
 \title{Subset sequences from sq objects}
 \usage{
-bite(x, indices)
+bite(x, indices, ...)
 }
 \arguments{
 \item{x}{a \code{\link{sq}} object.}
