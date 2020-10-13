@@ -432,8 +432,6 @@ NULL
 #' 
 #' @seealso \code{\link{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}} 
 #' \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}
-#' 
-#' @importFrom checkmate assert_character assert_flag assert_string
 #' @export
 sq <- function(x,
                alphabet = guess_sq_type(x),

@@ -1,4 +1,3 @@
-#' @importFrom checkmate assert_choice
 assert_sq_type <- function(type, null.ok = FALSE, unt.ok = FALSE) {
   # TODO: rethink the idea
   assert_choice(type,

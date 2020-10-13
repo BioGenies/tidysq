@@ -123,12 +123,6 @@ substitute_letters <- function(x, encoding, ...)
 substitute_letters.default <- function(x, encoding, ...)
   stop("cannot substitute letters in this type of object", call. = FALSE)
 
-#' @importFrom checkmate assert_atomic_vector
-#' @importFrom checkmate assert_character
-#' @importFrom checkmate assert_class
-#' @importFrom checkmate assert_false
-#' @importFrom checkmate assert_integerish
-#' @importFrom checkmate assert_subset
 #' @export
 substitute_letters.sq <- function(x, encoding, ...) {
   assert_class(x, "sq")
@@ -144,8 +138,7 @@ substitute_letters.sq <- function(x, encoding, ...) {
   } else if (is.character(encoding)) {
     assert_character(encoding)
   } else {
-    # TODO: what the hell is this?
-    assert_false(all(is.na(encoding)))
+    stop("encoding must be either numeric of character vector", call. = FALSE)
   }
   
   inds_fun <- alph
