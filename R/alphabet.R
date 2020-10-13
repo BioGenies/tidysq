@@ -78,7 +78,7 @@ sq_alphabet <- function(alph, type) {
 sq_alphabet_ptype <- function()
   sq_alphabet(character(), character())
 
-get_standard_alph <- function(type) {
+get_standard_alphabet <- function(type) {
   sq_alphabet(
     switch (type,
             dna_bsc = nucleotides_df[nucleotides_df[["dna"]], "one"],

@@ -14,7 +14,7 @@ assert_package_installed <- function(package) {
 
 .check_motifs_proper_alph <- function(motifs, type, alph = NULL) {
   if (type %in% c("ami", "dna", "rna")) {
-    if (!all(unlist(strsplit(motifs, "")) %in% c(get_standard_alph(type), "^", "$"))) 
+    if (!all(unlist(strsplit(motifs, "")) %in% c(get_standard_alphabet(type), "^", "$")))
       stop("motifs that you're searching for in the 'sq' object needs to consist of letters from its alphabet and optionally '^' or '$' characters", call. = FALSE)
   } else if (any(alph %in% c("^", "$", "?", "(", "=", ")", "\\", ".", "|", "+", "*", "{", "}", "[", "]"))) 
     stop("you cannot search for motifs if any of those characters: ^$?=()\\.|+*{}[] are elements of 'sq' alphabet; if you use them, please substitute those letters with some other using 'substitute_letters'", call. = FALSE)

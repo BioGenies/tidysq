@@ -58,7 +58,7 @@ find_invalid_letters.sq <- function(x, dest_type, ...) {
     return(list())
   }
   
-  dest_alph <- get_standard_alph(dest_type)
+  dest_alph <- get_standard_alphabet(dest_type)
   dest_alph <- c(as.character(dest_alph),
                  tolower(as.character(dest_alph)),
                  getOption("tidysq_NA_letter"))
