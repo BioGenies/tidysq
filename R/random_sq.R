@@ -39,7 +39,7 @@ random_sq <- function(n, len, type, sd = NULL, use_gap = FALSE) {
   assert_number(sd, null.ok = TRUE)
   assert_flag(use_gap)
   
-  alph <- .get_standard_alph(type)
+  alph <- get_standard_alph(type)
   if (!use_gap) alph <- .skip_characters(alph, "-")
   if (type == "ami") alph <- .skip_characters(alph, "*")
   
