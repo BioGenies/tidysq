@@ -134,6 +134,18 @@ RcppExport SEXP _tidysq_C_get_real_alph(SEXP sqSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// CPP_bite
+Rcpp::List CPP_bite(Rcpp::List x, Rcpp::IntegerVector indices);
+RcppExport SEXP _tidysq_CPP_bite(SEXP xSEXP, SEXP indicesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type indices(indicesSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_bite(x, indices));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 // validate (ensure exported C++ functions exist before calling them)
 static int _tidysq_RcppExport_validate(const char* sig) { 
@@ -163,6 +175,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_unpack_STRINGS", (DL_FUNC) &_tidysq_CPP_unpack_STRINGS, 1},
     {"_tidysq_CPP_unpack_STRING", (DL_FUNC) &_tidysq_CPP_unpack_STRING, 1},
     {"_tidysq_C_get_real_alph", (DL_FUNC) &_tidysq_C_get_real_alph, 1},
+    {"_tidysq_CPP_bite", (DL_FUNC) &_tidysq_CPP_bite, 2},
     {"_tidysq_RcppExport_registerCCallable", (DL_FUNC) &_tidysq_RcppExport_registerCCallable, 0},
     {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 0},
     {NULL, NULL, 0}

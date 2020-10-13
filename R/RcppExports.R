@@ -37,6 +37,10 @@ C_get_real_alph <- function(sq) {
     .Call(`_tidysq_C_get_real_alph`, sq)
 }
 
+CPP_bite <- function(x, indices) {
+    .Call(`_tidysq_CPP_bite`, x, indices)
+}
+
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
     .Call('_tidysq_RcppExport_registerCCallable', PACKAGE = 'tidysq')
