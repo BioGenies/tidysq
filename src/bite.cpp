@@ -33,7 +33,7 @@ Rcpp::List CPP_bite(Rcpp::List x, Rcpp::IntegerVector indices) {
         bitten_element = bitten_element &
           ((sequence[seq_lowest_byte_index] >> seq_lowest_bit_in_byte_index) |
           (sequence[seq_highest_byte_index] << (8 - seq_lowest_bit_in_byte_index)));
-      } else if (warning_called) {
+      } else if (!warning_called) {
         NA_warning = "some sequences are subsetted with index bigger than length - NA introduced";
         warning_called = true;
       }
