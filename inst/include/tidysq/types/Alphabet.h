@@ -35,6 +35,7 @@ namespace tidysq {
         const AlphSize alphabet_size_;
         const LetterValue NA_value_;
         const SqType type_;
+        const bool is_simple_;
 
         void check_letters() const {
             for (auto &letter : letters_) {
@@ -54,6 +55,10 @@ namespace tidysq {
 
         [[nodiscard]] LetterValue calculate_NA_value() const {
             return pow(2, alphabet_size_) - 1;
+        }
+
+        [[nodiscard]] bool calculate_is_simple() const {
+            return std::all_of(letters_.begin(), letters_.end(), [](const Letter& letter){ return letter.size() == 1; });
         }
         
         Rcpp::StringVector export_letters() {
@@ -76,6 +81,7 @@ namespace tidysq {
                 NA_letter_(NA_letter),
                 alphabet_size_(calculate_alphabet_size()),
                 NA_value_(calculate_NA_value()),
+                is_simple_(calculate_is_simple()),
                 type_(type) {
             check_letters();
             check_NA_letter();
@@ -140,6 +146,10 @@ namespace tidysq {
 
         [[nodiscard]] inline const AlphSize &alphabet_size() const {
             return alphabet_size_;
+        }
+
+        [[nodiscard]] inline bool is_simple() const {
+            return is_simple_;
         }
 
         inline bool operator==(const Alphabet &other) const {
