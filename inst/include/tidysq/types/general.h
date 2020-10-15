@@ -11,7 +11,8 @@ namespace tidysq {
     typedef std::string             ElemStrings;
     typedef char                    ElemString;
     typedef unsigned short int      AlphSize;
-    typedef unsigned short int      LetValue;
+    typedef unsigned short int      LetterValue;
+    typedef std::string             Letter;
 
     enum InternalType {
         STD,

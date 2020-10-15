@@ -7,30 +7,30 @@
 
 namespace tidysq::internal {
     template<ProtoType PROTO_OUT>
-    auto matchLetter(LetValue value, const Alphabet &alphabet)
+    auto matchLetter(LetterValue value, const Alphabet &alphabet)
             -> typename ProtoTypeMapper<PROTO_OUT>::ProtoSequenceElementType;
 
     template<>
-    inline auto matchLetter<RAWS>(const LetValue value, const Alphabet &alphabet)
+    inline auto matchLetter<RAWS>(const LetterValue value, const Alphabet &alphabet)
             -> typename ProtoTypeMapper<RAWS>::ProtoSequenceElementType {
         return value;
     }
 
     template<>
-    inline auto matchLetter<INTS>(const LetValue value, const Alphabet &alphabet)
+    inline auto matchLetter<INTS>(const LetterValue value, const Alphabet &alphabet)
             -> typename ProtoTypeMapper<INTS>::ProtoSequenceElementType {
         return value;
     }
 
     template<>
-    inline auto matchLetter<STRINGS>(const LetValue value, const Alphabet &alphabet)
+    inline auto matchLetter<STRINGS>(const LetterValue value, const Alphabet &alphabet)
             -> typename ProtoTypeMapper<STRINGS>::ProtoSequenceElementType {
         return alphabet[value];
     }
 
     //TODO: fix case of single-character alphabets
     template<>
-    inline auto matchLetter<STRING>(const LetValue value, const Alphabet &alphabet)
+    inline auto matchLetter<STRING>(const LetterValue value, const Alphabet &alphabet)
             -> typename ProtoTypeMapper<STRING>::ProtoSequenceElementType {
         return alphabet[value][0];
     }
@@ -57,7 +57,7 @@ namespace tidysq::internal {
 
     //TODO: fix case of single-character alphabets
     template<InternalType INTERNAL, ProtoType PROTO>
-    inline LetValue matchValue(const typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceElementType &element, const Alphabet &alphabet) {
+    inline LetterValue matchValue(const typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceElementType &element, const Alphabet &alphabet) {
         for (unsigned int i = 0; i < alphabet.length(); i++) {
             if (element == alphabet[i]) return i;
         }
@@ -65,7 +65,7 @@ namespace tidysq::internal {
     }
 
     template<>
-    inline LetValue matchValue<RCPP, STRING>(const typename TypeMapper<RCPP, STRING>::ProtoSequenceElementType &element, const Alphabet &alphabet) {
+    inline LetterValue matchValue<RCPP, STRING>(const typename TypeMapper<RCPP, STRING>::ProtoSequenceElementType &element, const Alphabet &alphabet) {
         for (unsigned int i = 0; i < alphabet.length(); i++) {
             if (std::string{element} == alphabet[i]) return i;
         }
@@ -73,7 +73,7 @@ namespace tidysq::internal {
     }
 
     template<>
-    inline LetValue matchValue<STD, STRING>(const typename TypeMapper<STD, STRING>::ProtoSequenceElementType &element, const Alphabet &alphabet) {
+    inline LetterValue matchValue<STD, STRING>(const typename TypeMapper<STD, STRING>::ProtoSequenceElementType &element, const Alphabet &alphabet) {
         for (unsigned int i = 0; i < alphabet.length(); i++) {
             if (std::string{element} == alphabet[i]) return i;
         }

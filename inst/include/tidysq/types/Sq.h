@@ -94,8 +94,8 @@ namespace tidysq {
 
     template<>
     inline Rcpp::List Sq<RCPP>::exportToR() {
-        content_.attr("alphabet") = static_cast<Rcpp::StringVector>(alphabet_);
-        content_.attr("class") = util::getClassStringVector(type());
+        content_.attr("alphabet") = alphabet_.exportToR();
+        content_.attr("class") = util::getSqClassStringVector(type());
         return content_;
     }
 

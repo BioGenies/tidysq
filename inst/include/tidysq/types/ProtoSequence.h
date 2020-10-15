@@ -72,7 +72,7 @@ namespace tidysq {
             return content_.size();
         }
 
-        [[nodiscard]] inline LetValue getLetterValue(const LetValue index, const Alphabet &alphabet) const {
+        [[nodiscard]] inline LetterValue getLetterValue(const LetterValue index, const Alphabet &alphabet) const {
             return content_[index];
         }
 
@@ -90,22 +90,22 @@ namespace tidysq {
     };
 
     template<>
-    inline LetValue ProtoSequence<RCPP, STRINGS>::getLetterValue(const LetValue index, const Alphabet &alphabet) const {
+    inline LetterValue ProtoSequence<RCPP, STRINGS>::getLetterValue(const LetterValue index, const Alphabet &alphabet) const {
         return internal::matchValue<RCPP, STRINGS>(Rcpp::String(content_[index]), alphabet);
     }
 
     template<>
-    inline LetValue ProtoSequence<STD, STRINGS>::getLetterValue(const LetValue index, const Alphabet &alphabet) const {
+    inline LetterValue ProtoSequence<STD, STRINGS>::getLetterValue(const LetterValue index, const Alphabet &alphabet) const {
         return internal::matchValue<STD, STRINGS>(content_[index], alphabet);
     }
 
     template<>
-    inline LetValue ProtoSequence<RCPP, STRING>::getLetterValue(const LetValue index, const Alphabet &alphabet) const {
+    inline LetterValue ProtoSequence<RCPP, STRING>::getLetterValue(const LetterValue index, const Alphabet &alphabet) const {
         return internal::matchValue<RCPP, STRING>(content_[index], alphabet);
     }
 
     template<>
-    inline LetValue ProtoSequence<STD, STRING>::getLetterValue(const LetValue index, const Alphabet &alphabet) const {
+    inline LetterValue ProtoSequence<STD, STRING>::getLetterValue(const LetterValue index, const Alphabet &alphabet) const {
         return internal::matchValue<STD, STRING>(content_[index], alphabet);
     }
 

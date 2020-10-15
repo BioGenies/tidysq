@@ -7,83 +7,83 @@
 #include <cmath>
 #include <stdexcept>
 #include <Rcpp.h>
+#include <variant>
 
 #include "tidysq/types/general.h"
 #include "tidysq/util/common.h"
 
 namespace tidysq {
     namespace util {
-        SqType guessSqType(const std::vector<std::string> &letters);
-        std::vector<std::string> getStandardLetters(const SqType &type);
-        std::vector<std::string> getClassStringVector(const SqType &type);
+        SqType guessSqType(const std::vector<Letter> &letters);
+
+        Letter getDefaultNA_letter();
+
+        std::vector<Letter> getStandardLetters(const SqType &type);
+
+        std::vector<std::string> getSqClassStringVector(const SqType &type);
+
         SqType getSqType(const Rcpp::StringVector &classVector);
-        std::string getDefaultNA_letter();
+
         std::string getSqTypeAbbr(const SqType &type);
     }
 
     class Alphabet {
-    private:
-        const std::vector<std::string> letters_;
-        const std::string NA_letter_;
+        const std::vector<Letter> letters_;
+        const Letter NA_letter_;
         const AlphSize alphabetSize_;
-        const LetValue NAValue_;
-        const bool simple_;
+        const LetterValue NAValue_;
         const SqType type_;
 
         void checkLetters() const {
-            for (const auto &letter : letters_) {
-                if (letter.empty()) {
-                    throw std::invalid_argument(R"(All letters in the alphabet should have length greater than 0!)");
-                }
+            for (auto &letter : letters_) {
+                if (letters_.empty())
+                    throw std::invalid_argument("each \"letter\" has to have at least one character!");
             }
         }
 
         void checkNA_letter() const {
-            if (NA_letter_.empty()) {
-                throw std::invalid_argument(R"("na_letter" should not be empty!)");
-            }
-        }
-
-        static std::vector<std::string> convertSetToVector(const std::set<char> &letters) {
-            std::vector<std::string> ret(letters.size());
-            auto iterator = letters.begin();
-            while (iterator != letters.end()) {
-                ret.emplace_back(std::string({*iterator}));
-                iterator++;
-            }
-            return ret;
+            if (NA_letter_.empty())
+                throw std::invalid_argument("\"NA_letter\" has to have at least one character!");
         }
 
         [[nodiscard]] AlphSize calculateAlphabetSize() const {
             return ceil(log2((double) letters_.size() + 1));
         }
 
-        [[nodiscard]] LetValue calculateNAValue() const {
+        [[nodiscard]] LetterValue calculateNAValue() const {
             return pow(2, alphabetSize_) - 1;
         }
-
-        [[nodiscard]] bool calculateSimple() const {
-            for (const auto &letter : letters_) {
-                if (letter.size() > 1) {
-                    return false;
-                }
+        
+        Rcpp::StringVector exportLetters() {
+            Rcpp::StringVector ret(letters_.size());
+            auto iterator_in = letters_.begin();
+            auto iterator_out = ret.begin();
+            while (iterator_in != letters_.end()) {
+                *iterator_out = *iterator_in;
+                iterator_in++;
+                iterator_out++;
             }
-            return true;
+            return ret;
         }
 
     public:
-        Alphabet(const std::vector<std::string> &letters,
+        Alphabet(const std::vector<Letter> &letters,
                  const SqType &type,
-                 const std::string &NA_letter = util::getDefaultNA_letter()) :
+                 const Letter &NA_letter = util::getDefaultNA_letter()) :
                 letters_(letters),
                 NA_letter_(NA_letter),
                 alphabetSize_(calculateAlphabetSize()),
                 NAValue_(calculateNAValue()),
-                simple_(calculateSimple()),
                 type_(type) {
             checkLetters();
             checkNA_letter();
         }
+
+        explicit Alphabet(const SqType &type,
+                          const Letter &NA_letter = util::getDefaultNA_letter()) :
+                      Alphabet(util::getStandardLetters(type),
+                              type,
+                              NA_letter) {};
 
         Alphabet(const Rcpp::StringVector &letters,
                  const SqType &type,
@@ -99,64 +99,36 @@ namespace tidysq {
                          type,
                          util::getScalarStringValue(NA_letter)) {};
 
-        Alphabet(const std::set<char> &letters,
-                 const SqType &type,
-                 const std::string &NA_letter = util::getDefaultNA_letter()) :
-                Alphabet(convertSetToVector(letters),
-                         type,
+        explicit Alphabet(const Rcpp::StringVector &letters,
+                          const Rcpp::StringVector &NA_letter = util::getDefaultNA_letter()) :
+                Alphabet(letters,
+                         util::guessSqType(util::convertStringVector(letters)),
                          NA_letter) {};
-
-        explicit Alphabet(const std::vector<std::string> &letters,
-                 const std::string &NA_letter = util::getDefaultNA_letter()) :
-                 Alphabet(letters,
-                          util::guessSqType(letters),
-                          NA_letter) {};
-
-        explicit Alphabet(const Rcpp::StringVector &alphabet,
-                 const Rcpp::StringVector &NA_letter = util::getDefaultNA_letter()) :
-                Alphabet(util::convertStringVector(alphabet),
-                         util::getSqType(alphabet.attr("class")),
-                         util::getScalarStringValue(NA_letter)) {};
-
-        explicit Alphabet(const Rcpp::List::const_AttributeProxy &alphabet,
-                 const Rcpp::StringVector &NA_letter = util::getDefaultNA_letter()) :
-                Alphabet(Rcpp::as<Rcpp::StringVector>(alphabet),
-                         util::getSqType(Rcpp::as<Rcpp::StringVector>(alphabet).attr("class")),
-                         util::getScalarStringValue(NA_letter)) {};
-
-        explicit Alphabet(const std::set<char> &letters,
-                 const std::string &NA_letter = util::getDefaultNA_letter()) :
-                Alphabet(convertSetToVector(letters),
-                         NA_letter) {};
-
-        explicit Alphabet(const SqType &type,
-                          const std::string &NA_letter = util::getDefaultNA_letter()) :
-                Alphabet(util::getStandardLetters(type), type, NA_letter) {};
 
         Alphabet(const Alphabet &other) = default;
 
-        Alphabet(Alphabet &&other) = default;
+        Alphabet(Alphabet &&other) noexcept = default;
 
-        explicit operator Rcpp::StringVector() {
-            Rcpp::StringVector ret(util::convertStringVector(letters_));
+        Rcpp::StringVector exportToR() {
+            Rcpp::StringVector ret(exportLetters());
             ret.attr("type") = util::getSqTypeAbbr(type_);
             ret.attr("class") = Rcpp::StringVector{"sq_alphabet", "character", "vctrs_vctr"};
             return ret;
         }
 
-        [[nodiscard]] inline LetValue length() const {
+        [[nodiscard]] inline LetterValue length() const {
             return letters_.size();
         }
 
-        inline const std::string &operator[](LetValue index) const {
+        inline const Letter &operator[](LetterValue index) const {
             return index == NAValue_ ? NA_letter_ : letters_[index];
         }
 
-        [[nodiscard]] inline const LetValue &NAValue() const {
+        [[nodiscard]] inline const LetterValue &NAValue() const {
             return NAValue_;
         }
 
-        [[nodiscard]] inline const std::string &NA_letter() const {
+        [[nodiscard]] inline const Letter &NA_letter() const {
             return NA_letter_;
         }
 
@@ -166,10 +138,6 @@ namespace tidysq {
 
         [[nodiscard]] inline const AlphSize &alphabetSize() const {
             return alphabetSize_;
-        }
-
-        [[nodiscard]] inline bool isSimple() const {
-            return simple_;
         }
 
         inline bool operator==(const Alphabet &other) const {
@@ -182,12 +150,12 @@ namespace tidysq {
     };
 
     namespace util {
-        inline std::string getDefaultNA_letter() {
+        inline Letter getDefaultNA_letter() {
             return "!";
         }
 
-        inline std::vector<std::string> getStandardLetters(const SqType &type) {
-            std::vector<std::string> letters;
+        inline std::vector<Letter> getStandardLetters(const SqType &type) {
+            std::vector<Letter> letters;
             switch (type) {
                 case AMI:
                     letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
@@ -215,7 +183,7 @@ namespace tidysq {
             return letters;
         }
 
-        inline SqType guessSqType(const std::vector<std::string> &letters) {
+        inline SqType guessSqType(const std::vector<Letter> &letters) {
             for (auto &type : {DNA, DNA_CLN, RNA, RNA_CLN, AMI, AMI_CLN}) {
                 if (getStandardLetters(type) == letters) return type;
             }
@@ -237,7 +205,7 @@ namespace tidysq {
             }
         }
 
-        inline std::vector<std::string> getClassStringVector(const SqType &type) {
+        inline std::vector<std::string> getSqClassStringVector(const SqType &type) {
             switch (type) {
                 case AMI:
                     return {"amisq", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
