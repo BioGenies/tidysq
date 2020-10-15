@@ -1,5 +1,5 @@
-#ifndef TIDYSQ_PACKSTANDARD_H
-#define TIDYSQ_PACKSTANDARD_H
+#ifndef TIDYSQ_PACK_SIMPLE_H
+#define TIDYSQ_PACK_SIMPLE_H
 
 #include <stdexcept>
 
@@ -289,9 +289,9 @@ namespace tidysq::internal {
     }
 
     template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT>
-    void pack(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
-              Sequence<INTERNAL_OUT> &packed,
-              const Alphabet &alphabet) {
+    void pack_simple(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
+                     Sequence<INTERNAL_OUT> &packed,
+                     const Alphabet &alphabet) {
         switch (alphabet.alphabet_size()) {
             case 2:
                 pack2(unpacked, packed, alphabet);
@@ -311,4 +311,4 @@ namespace tidysq::internal {
     }
 }
 
-#endif //TIDYSQ_PACKSTANDARD_H
+#endif //TIDYSQ_PACK_SIMPLE_H
