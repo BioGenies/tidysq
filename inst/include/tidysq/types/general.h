@@ -5,11 +5,12 @@
 
 namespace tidysq {
     typedef unsigned long long int  LenSq;
-    typedef unsigned char           ElemPacked;
-    typedef unsigned char           ElemRaws;
-    typedef unsigned short int      ElemInts;
-    typedef std::string             ElemStrings;
-    typedef char                    ElemString;
+    typedef unsigned char           ElementPacked;
+    typedef unsigned char           ElementRaws;
+    typedef unsigned short int      ElementInts;
+    typedef std::string             ElementStrings;
+    typedef char                    ElementStringSimple;
+    typedef std::string             ElementStringMultichar;
     typedef unsigned short int      AlphSize;
     typedef unsigned short int      LetterValue;
     typedef std::string             Letter;

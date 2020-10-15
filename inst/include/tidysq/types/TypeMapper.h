@@ -18,8 +18,8 @@ namespace tidysq {
 
     template<>
     struct InternalTypeMapper<STD> {
-        typedef ElemPacked                                                      SequenceElementType;
-        typedef std::vector<ElemPacked>                                         SequenceContentType;
+        typedef ElementPacked                                                      SequenceElementType;
+        typedef std::vector<ElementPacked>                                         SequenceContentType;
         typedef         SequenceElementType &                                   SequenceAccessType;
         typedef const   SequenceElementType &                                   SequenceConstAccessType;
 
@@ -31,7 +31,7 @@ namespace tidysq {
 
     template<>
     struct InternalTypeMapper<RCPP> {
-        typedef ElemPacked                                                      SequenceElementType;
+        typedef ElementPacked                                                      SequenceElementType;
         typedef Rcpp::RawVector                                                 SequenceContentType;
         typedef Rcpp::RawVector::Proxy                                          SequenceAccessType;
         typedef Rcpp::RawVector::const_Proxy                                    SequenceConstAccessType;
@@ -47,25 +47,25 @@ namespace tidysq {
 
     template<>
     struct ProtoTypeMapper<RAWS> {
-        typedef ElemRaws                                                        ProtoSequenceElementType;
+        typedef ElementRaws                                                        ProtoSequenceElementType;
         typedef Rcpp::RawVector                                                 ProtoSequenceRcppContentType;
     };
 
     template<>
     struct ProtoTypeMapper<INTS> {
-        typedef ElemInts                                                        ProtoSequenceElementType;
+        typedef ElementInts                                                        ProtoSequenceElementType;
         typedef Rcpp::IntegerVector                                             ProtoSequenceRcppContentType;
     };
 
     template<>
     struct ProtoTypeMapper<STRINGS> {
-        typedef ElemStrings                                                     ProtoSequenceElementType;
+        typedef ElementStrings                                                     ProtoSequenceElementType;
         typedef Rcpp::StringVector                                              ProtoSequenceRcppContentType;
     };
 
     template<>
     struct ProtoTypeMapper<STRING> {
-        typedef ElemString                                                      ProtoSequenceElementType;
+        typedef ElementStringSimple                                                      ProtoSequenceElementType;
         typedef std::string                                                     ProtoSequenceRcppContentType;
     };
 

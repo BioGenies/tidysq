@@ -21,7 +21,7 @@ Rcpp::List CPP_bite(Rcpp::List x, Rcpp::IntegerVector indices) {
     );
     for (LenSq j = 0; j < indices.length(); ++j) {
       LenSq index = indices[j] - 1;
-      ElemPacked bitten_element = 0xff >> (8 - alph_size);
+      ElementPacked bitten_element = 0xff >> (8 - alph_size);
 
       if (index <= sequence.originalLength()) {
         LenSq seq_lowest_bit_index = alph_size * index;
