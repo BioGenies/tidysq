@@ -9,7 +9,7 @@ using namespace tidysq;
 Rcpp::List CPP_bite(Rcpp::List x, Rcpp::IntegerVector indices) {
   const Sq<RCPP> sq = importFromR(x, "!");
   Sq<RCPP> ret(sq.length(), sq.alphabet());
-  const AlphSize alph_size = sq.alphabet().alphabetSize();
+  const AlphSize alph_size = sq.alphabet().alphabet_size();
   bool warning_called = false;
   Rcpp::StringVector NA_warning = R_NilValue;
   

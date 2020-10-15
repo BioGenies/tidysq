@@ -297,7 +297,7 @@ namespace tidysq::internal {
     void unpack(const Sequence<INTERNAL_IN> &packed,
                 ProtoSequence<INTERNAL_OUT, PROTO_OUT> &unpacked,
                 const Alphabet &alphabet) {
-        switch (alphabet.alphabetSize()) {
+        switch (alphabet.alphabet_size()) {
             case 2:
                 unpack2(packed, unpacked, alphabet);
                 return;

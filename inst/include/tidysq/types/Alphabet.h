@@ -14,18 +14,19 @@
 
 namespace tidysq {
     namespace util {
-        SqType guessSqType(const std::vector<Letter> &letters);
+        SqType guess_sq_type(const std::vector<Letter> &letters);
 
-        Letter getDefaultNA_letter();
+        Letter default_NA_letter();
 
-        std::vector<Letter> getStandardLetters(const SqType &type);
+        std::vector<Letter> standard_letters_for_type(const SqType &type);
 
-        std::vector<std::string> getSqClassStringVector(const SqType &type);
+        std::vector<std::string> sq_R_style_class_for_type(const SqType &type);
 
-        SqType get_sq_type_from_class_vec(const Rcpp::StringVector &classVector);
+        SqType sq_type_from_R_style_class(const Rcpp::StringVector &classVector);
 
-        std::string getSqTypeAbbr(const SqType &type);
-        SqType get_sq_type_from_abbr(const Rcpp::StringVector &type_vector);
+        std::string sq_type_abbr_for_type(const SqType &type);
+
+        SqType sq_type_for_abbr(const Rcpp::StringVector &type_vector);
     }
 
     class Alphabet {
@@ -35,27 +36,27 @@ namespace tidysq {
         const LetterValue NAValue_;
         const SqType type_;
 
-        void checkLetters() const {
+        void check_letters() const {
             for (auto &letter : letters_) {
                 if (letters_.empty())
                     throw std::invalid_argument("each \"letter\" has to have at least one character!");
             }
         }
 
-        void checkNA_letter() const {
+        void check_NA_letter() const {
             if (NA_letter_.empty())
                 throw std::invalid_argument("\"NA_letter\" has to have at least one character!");
         }
 
-        [[nodiscard]] AlphSize calculateAlphabetSize() const {
+        [[nodiscard]] AlphSize calculate_alphabet_size() const {
             return ceil(log2((double) letters_.size() + 1));
         }
 
-        [[nodiscard]] LetterValue calculateNAValue() const {
+        [[nodiscard]] LetterValue calculate_NA_value() const {
             return pow(2, alphabetSize_) - 1;
         }
         
-        Rcpp::StringVector exportLetters() {
+        Rcpp::StringVector export_letters() {
             Rcpp::StringVector ret(letters_.size());
             auto iterator_in = letters_.begin();
             auto iterator_out = ret.begin();
@@ -70,49 +71,49 @@ namespace tidysq {
     public:
         Alphabet(const std::vector<Letter> &letters,
                  const SqType &type,
-                 const Letter &NA_letter = util::getDefaultNA_letter()) :
+                 const Letter &NA_letter = util::default_NA_letter()) :
                 letters_(letters),
                 NA_letter_(NA_letter),
-                alphabetSize_(calculateAlphabetSize()),
-                NAValue_(calculateNAValue()),
+                alphabetSize_(calculate_alphabet_size()),
+                NAValue_(calculate_NA_value()),
                 type_(type) {
-            checkLetters();
-            checkNA_letter();
+            check_letters();
+            check_NA_letter();
         }
 
         explicit Alphabet(const SqType &type,
-                          const Letter &NA_letter = util::getDefaultNA_letter()) :
-                      Alphabet(util::getStandardLetters(type),
+                          const Letter &NA_letter = util::default_NA_letter()) :
+                      Alphabet(util::standard_letters_for_type(type),
                               type,
                               NA_letter) {};
 
         Alphabet(const Rcpp::StringVector &letters,
                  const SqType &type,
-                 const Rcpp::StringVector &NA_letter = util::getDefaultNA_letter()) :
+                 const Rcpp::StringVector &NA_letter = util::default_NA_letter()) :
                 Alphabet(util::convertStringVector(letters),
                          type,
                          util::getScalarStringValue(NA_letter)) {};
 
         Alphabet(const Rcpp::List::const_AttributeProxy &letters,
                  const SqType &type,
-                 const Rcpp::StringVector &NA_letter = util::getDefaultNA_letter()) :
+                 const Rcpp::StringVector &NA_letter = util::default_NA_letter()) :
                 Alphabet(Rcpp::as<Rcpp::StringVector>(letters),
                          type,
                          util::getScalarStringValue(NA_letter)) {};
 
         explicit Alphabet(const Rcpp::StringVector &letters,
-                          const Rcpp::StringVector &NA_letter = util::getDefaultNA_letter()) :
+                          const Rcpp::StringVector &NA_letter = util::default_NA_letter()) :
                 Alphabet(letters,
-                         util::guessSqType(util::convertStringVector(letters)),
+                         util::guess_sq_type(util::convertStringVector(letters)),
                          NA_letter) {};
 
         Alphabet(const Alphabet &other) = default;
 
         Alphabet(Alphabet &&other) noexcept = default;
 
-        Rcpp::StringVector exportToR() {
-            Rcpp::StringVector ret(exportLetters());
-            ret.attr("type") = util::getSqTypeAbbr(type_);
+        Rcpp::StringVector export_to_R() {
+            Rcpp::StringVector ret(export_letters());
+            ret.attr("type") = util::sq_type_abbr_for_type(type_);
             ret.attr("class") = Rcpp::StringVector{"sq_alphabet", "character", "vctrs_vctr"};
             return ret;
         }
@@ -125,7 +126,7 @@ namespace tidysq {
             return index == NAValue_ ? NA_letter_ : letters_[index];
         }
 
-        [[nodiscard]] inline const LetterValue &NAValue() const {
+        [[nodiscard]] inline const LetterValue &NA_value() const {
             return NAValue_;
         }
 
@@ -137,7 +138,7 @@ namespace tidysq {
             return type_;
         }
 
-        [[nodiscard]] inline const AlphSize &alphabetSize() const {
+        [[nodiscard]] inline const AlphSize &alphabet_size() const {
             return alphabetSize_;
         }
 
@@ -151,11 +152,11 @@ namespace tidysq {
     };
 
     namespace util {
-        inline Letter getDefaultNA_letter() {
+        inline Letter default_NA_letter() {
             return "!";
         }
 
-        inline std::vector<Letter> getStandardLetters(const SqType &type) {
+        inline std::vector<Letter> standard_letters_for_type(const SqType &type) {
             std::vector<Letter> letters;
             switch (type) {
                 case AMI_EXT:
@@ -184,14 +185,14 @@ namespace tidysq {
             return letters;
         }
 
-        inline SqType guessSqType(const std::vector<Letter> &letters) {
+        inline SqType guess_sq_type(const std::vector<Letter> &letters) {
             for (auto &type : {DNA_EXT, DNA_BSC, RNA_EXT, RNA_BSC, AMI_EXT, AMI_BSC}) {
-                if (getStandardLetters(type) == letters) return type;
+                if (standard_letters_for_type(type) == letters) return type;
             }
             return UNT;
         }
 
-        inline std::string getSqTypeAbbr(const SqType &type) {
+        inline std::string sq_type_abbr_for_type(const SqType &type) {
             switch (type) {
                 case AMI_EXT:   return "ami_ext";
                 case AMI_BSC:   return "ami_bsc";
@@ -206,7 +207,7 @@ namespace tidysq {
             }
         }
 
-        inline std::vector<std::string> getSqClassStringVector(const SqType &type) {
+        inline std::vector<std::string> sq_R_style_class_for_type(const SqType &type) {
             switch (type) {
                 case AMI_EXT:
                     return {"ami_ext_sq", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
@@ -231,7 +232,7 @@ namespace tidysq {
             }
         }
 
-        inline SqType get_sq_type_from_class_vec(const Rcpp::StringVector &classVector) {
+        inline SqType sq_type_from_R_style_class(const Rcpp::StringVector &classVector) {
             std::string type = getScalarStringValue(classVector);
             if (type == "ami_bsc_sq") return AMI_BSC;
             if (type == "ami_ext_sq") return AMI_EXT;
@@ -245,7 +246,7 @@ namespace tidysq {
             throw std::invalid_argument("Object does not have a proper sq subtype!");
         }
     
-        inline SqType get_sq_type_from_abbr(const Rcpp::StringVector &type_vector) {
+        inline SqType sq_type_for_abbr(const Rcpp::StringVector &type_vector) {
             std::string type = getScalarStringValue(type_vector);
             if (type == "ami_bsc") return AMI_BSC;
             if (type == "ami_ext") return AMI_EXT;

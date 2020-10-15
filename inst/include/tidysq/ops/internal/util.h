@@ -36,7 +36,7 @@ namespace tidysq::internal {
     }
 
     inline LenSq calculatePackedLength(const LenSq unpackedLength, const Alphabet &alphabet) {
-        return (alphabet.alphabetSize() * unpackedLength + 7) / 8;
+        return (alphabet.alphabet_size() * unpackedLength + 7) / 8;
     }
 
     template<InternalType INTERNAL, ProtoType PROTO>
@@ -61,7 +61,7 @@ namespace tidysq::internal {
         for (unsigned int i = 0; i < alphabet.length(); i++) {
             if (element == alphabet[i]) return i;
         }
-        return alphabet.NAValue();
+        return alphabet.NA_value();
     }
 
     template<>
@@ -69,7 +69,7 @@ namespace tidysq::internal {
         for (unsigned int i = 0; i < alphabet.length(); i++) {
             if (std::string{element} == alphabet[i]) return i;
         }
-        return alphabet.NAValue();
+        return alphabet.NA_value();
     }
 
     template<>
@@ -77,7 +77,7 @@ namespace tidysq::internal {
         for (unsigned int i = 0; i < alphabet.length(); i++) {
             if (std::string{element} == alphabet[i]) return i;
         }
-        return alphabet.NAValue();
+        return alphabet.NA_value();
     }
 }
 
