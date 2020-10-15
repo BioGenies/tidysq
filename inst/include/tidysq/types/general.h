@@ -27,12 +27,12 @@ namespace tidysq {
     };
 
     enum SqType {
-        AMI,
-        AMI_CLN,
-        DNA,
-        DNA_CLN,
-        RNA,
-        RNA_CLN,
+        AMI_EXT,
+        AMI_BSC,
+        DNA_EXT,
+        DNA_BSC,
+        RNA_EXT,
+        RNA_BSC,
         UNT,
         ATP,
         ENC
