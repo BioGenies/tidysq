@@ -25,6 +25,7 @@ namespace tidysq {
         SqType getSqType(const Rcpp::StringVector &classVector);
 
         std::string getSqTypeAbbr(const SqType &type);
+        SqType get_sq_type_from_abbr(const Rcpp::StringVector &type_vector);
     }
 
     class Alphabet {
@@ -245,6 +246,20 @@ namespace tidysq {
             else if (type == "atpsq") return ATP;
             else if (type == "encsq") return ENC;
             else throw std::invalid_argument("Object does not have a proper sq subtype!");
+        }
+    
+        inline SqType get_sq_type_from_abbr(const Rcpp::StringVector &type_vector) {
+            std::string type = getScalarStringValue(type_vector);
+            if (type == "ami_bsc") return AMI_CLN;
+            else if (type == "ami_ext") return AMI;
+            else if (type == "dna_bsc") return DNA_CLN;
+            else if (type == "dna_ext") return DNA;
+            else if (type == "rna_bsc") return RNA_CLN;
+            else if (type == "rna_ext") return RNA;
+            else if (type == "unt") return UNT;
+            else if (type == "atp") return ATP;
+            else if (type == "enc") return ENC;
+            else throw std::invalid_argument("404: type doesn't exist");
         }
     }
 }
