@@ -32,8 +32,8 @@ namespace tidysq {
     class Alphabet {
         const std::vector<Letter> letters_;
         const Letter NA_letter_;
-        const AlphSize alphabetSize_;
-        const LetterValue NAValue_;
+        const AlphSize alphabet_size_;
+        const LetterValue NA_value_;
         const SqType type_;
 
         void check_letters() const {
@@ -53,7 +53,7 @@ namespace tidysq {
         }
 
         [[nodiscard]] LetterValue calculate_NA_value() const {
-            return pow(2, alphabetSize_) - 1;
+            return pow(2, alphabet_size_) - 1;
         }
         
         Rcpp::StringVector export_letters() {
@@ -74,8 +74,8 @@ namespace tidysq {
                  const Letter &NA_letter = util::default_NA_letter()) :
                 letters_(letters),
                 NA_letter_(NA_letter),
-                alphabetSize_(calculate_alphabet_size()),
-                NAValue_(calculate_NA_value()),
+                alphabet_size_(calculate_alphabet_size()),
+                NA_value_(calculate_NA_value()),
                 type_(type) {
             check_letters();
             check_NA_letter();
@@ -123,11 +123,11 @@ namespace tidysq {
         }
 
         inline const Letter &operator[](LetterValue index) const {
-            return index == NAValue_ ? NA_letter_ : letters_[index];
+            return index == NA_value_ ? NA_letter_ : letters_[index];
         }
 
         [[nodiscard]] inline const LetterValue &NA_value() const {
-            return NAValue_;
+            return NA_value_;
         }
 
         [[nodiscard]] inline const Letter &NA_letter() const {
@@ -139,7 +139,7 @@ namespace tidysq {
         }
 
         [[nodiscard]] inline const AlphSize &alphabet_size() const {
-            return alphabetSize_;
+            return alphabet_size_;
         }
 
         inline bool operator==(const Alphabet &other) const {
