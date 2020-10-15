@@ -16,8 +16,8 @@ Rcpp::List CPP_find_invalid_letters(Rcpp::List x,
   std::vector<std::string> dest_alph =
           util::standard_letters_for_type(util::sq_type_for_abbr(dest_type));
   
-  std::vector<LetValue> invalid_indices;
-  for (LetValue i = 0; i < alph.length(); ++i) {
+  std::vector<LetterValue> invalid_indices;
+  for (LetterValue i = 0; i < alph.length(); ++i) {
     if (std::none_of(dest_alph.begin(), dest_alph.end(),
                      [alph, i](std::string letter){ return alph[i] == letter; })) {
       invalid_indices.push_back(i);
@@ -25,7 +25,7 @@ Rcpp::List CPP_find_invalid_letters(Rcpp::List x,
   }
   
   Rcpp::List ret = Rcpp::List::create();
-  for (LetValue i = 0; i < sq.length(); ++i) {
+  for (LetterValue i = 0; i < sq.length(); ++i) {
     ret.push_back(Rcpp::StringVector());
   }
   
