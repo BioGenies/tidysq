@@ -58,7 +58,8 @@ namespace tidysq {
         }
 
         [[nodiscard]] bool calculate_is_simple() const {
-            return std::all_of(letters_.begin(), letters_.end(), [](const Letter& letter){ return letter.size() == 1; });
+            return NA_letter_.size() == 1 &&
+                std::all_of(letters_.begin(), letters_.end(), [](const Letter& letter){ return letter.size() == 1; });
         }
         
         Rcpp::StringVector export_letters() {
