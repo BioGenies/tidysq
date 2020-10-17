@@ -36,6 +36,8 @@ namespace tidysq {
         const LetterValue NA_value_;
         const SqType type_;
         const bool is_simple_;
+        const std::vector<char> simple_letters_;
+        const char simple_NA_letter_;
 
         void check_letters() const {
             for (auto &letter : letters_) {
@@ -61,7 +63,20 @@ namespace tidysq {
             return NA_letter_.size() == 1 &&
                 std::all_of(letters_.begin(), letters_.end(), [](const Letter& letter){ return letter.size() == 1; });
         }
-        
+
+        [[nodiscard]] std::vector<char> create_simple_letters() const {
+            if (!is_simple_) return {};
+            auto ret = std::vector<char>(letters_.size());
+            for(LetterValue i = 0; i < letters_.size(); i++) {
+                ret[i] = letters_[i][0];
+            }
+            return ret;
+        }
+
+        [[nodiscard]] char create_simple_NA_letter() const {
+            return NA_letter_[0];
+        }
+
         Rcpp::StringVector export_letters() {
             Rcpp::StringVector ret(letters_.size());
             auto iterator_in = letters_.begin();
@@ -83,6 +98,8 @@ namespace tidysq {
                 alphabet_size_(calculate_alphabet_size()),
                 NA_value_(calculate_NA_value()),
                 is_simple_(calculate_is_simple()),
+                simple_letters_(create_simple_letters()),
+                simple_NA_letter_(create_simple_NA_letter()),
                 type_(type) {
             check_letters();
             check_NA_letter();
@@ -107,6 +124,12 @@ namespace tidysq {
                 Alphabet(Rcpp::as<Rcpp::StringVector>(letters),
                          type,
                          util::getScalarStringValue(NA_letter)) {};
+
+        explicit Alphabet(std::vector<Letter> letters,
+                          const Letter &NA_letter = util::default_NA_letter()) :
+                Alphabet(letters,
+                         util::guess_sq_type(letters),
+                         NA_letter) {};
 
         explicit Alphabet(const Rcpp::StringVector &letters,
                           const Rcpp::StringVector &NA_letter = util::default_NA_letter()) :
@@ -159,6 +182,30 @@ namespace tidysq {
 
         inline bool operator!=(const Alphabet &other) const {
             return !operator==(other);
+        }
+
+        [[nodiscard]] inline LetterValue match_value(const ElementRaws &letter) const {
+            if (letter < letters_.size()) return letter;
+            return NA_value_;
+        }
+
+        [[nodiscard]] inline LetterValue match_value(const ElementInts &letter) const {
+            if (letter < letters_.size()) return letter;
+            return NA_value_;
+        }
+
+        [[nodiscard]] inline LetterValue match_value(const ElementStringSimple &letter) const {
+            for(LetterValue i = 0; i < letters_.size(); i++) {
+                if (letter == simple_letters_[i]) return i;
+            }
+            return NA_value_;
+        }
+
+        [[nodiscard]] inline LetterValue match_value(const Letter &letter) const {
+            for(LetterValue i = 0; i < letters_.size(); i++) {
+                if (letter == letters_[i]) return i;
+            }
+            return NA_value_;
         }
     };
 

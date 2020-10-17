@@ -29,8 +29,12 @@ namespace Rcpp {
 #include "tidysq/types/Alphabet.h"
 #include "tidysq/types/TypeMapper.h"
 #include "tidysq/ops/internal/util.h"
+#include "tidysq/types/ProtoSequenceInputInterpreter.h"
 
 namespace tidysq {
+    template<InternalType INTERNAL, ProtoType PROTO, bool SIMPLE>
+    class ProtoSequenceInputInterpreter;
+
     template<InternalType INTERNAL, ProtoType PROTO>
     class ProtoSequence {
         typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceContentType content_;
@@ -72,11 +76,7 @@ namespace tidysq {
             return content_.size();
         }
 
-        [[nodiscard]] inline LetterValue getLetterValue(const LetterValue index, const Alphabet &alphabet) const {
-            return content_[index];
-        }
-
-        [[nodiscard]] inline ContentType content() const {
+        [[nodiscard]] inline const ContentType &content() const {
             return content_;
         }
 
@@ -87,27 +87,12 @@ namespace tidysq {
         inline bool operator!=(const ProtoSequence<INTERNAL, PROTO> &other) const {
             return !operator==(other);
         }
+
+        template<bool SIMPLE>
+        inline ProtoSequenceInputInterpreter<INTERNAL, PROTO, SIMPLE> content_interpreter(const Alphabet &alphabet) const {
+            return ProtoSequenceInputInterpreter<INTERNAL, PROTO, SIMPLE>(content_.cbegin(), content_.cend(), alphabet);
+        }
     };
-
-    template<>
-    inline LetterValue ProtoSequence<RCPP, STRINGS>::getLetterValue(const LetterValue index, const Alphabet &alphabet) const {
-        return internal::matchValue<RCPP, STRINGS>(Rcpp::String(content_[index]), alphabet);
-    }
-
-    template<>
-    inline LetterValue ProtoSequence<STD, STRINGS>::getLetterValue(const LetterValue index, const Alphabet &alphabet) const {
-        return internal::matchValue<STD, STRINGS>(content_[index], alphabet);
-    }
-
-    template<>
-    inline LetterValue ProtoSequence<RCPP, STRING>::getLetterValue(const LetterValue index, const Alphabet &alphabet) const {
-        return internal::matchValue<RCPP, STRING>(content_[index], alphabet);
-    }
-
-    template<>
-    inline LetterValue ProtoSequence<STD, STRING>::getLetterValue(const LetterValue index, const Alphabet &alphabet) const {
-        return internal::matchValue<STD, STRING>(content_[index], alphabet);
-    }
 
     template<>
     inline ProtoSequence<STD, STRING>::ProtoSequence(const LenSq length) :

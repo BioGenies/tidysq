@@ -54,31 +54,6 @@ namespace tidysq::internal {
     inline ProtoSequence<INTERNAL_OUT, PROTO_OUT> reserveSpaceForUnpacked(const Sequence<INTERNAL_IN> &packed) {
         return ProtoSequence<INTERNAL_OUT, PROTO_OUT>(packed.originalLength());
     }
-
-    //TODO: fix case of single-character alphabets
-    template<InternalType INTERNAL, ProtoType PROTO>
-    inline LetterValue matchValue(const typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceElementType &element, const Alphabet &alphabet) {
-        for (unsigned int i = 0; i < alphabet.length(); i++) {
-            if (element == alphabet[i]) return i;
-        }
-        return alphabet.NA_value();
-    }
-
-    template<>
-    inline LetterValue matchValue<RCPP, STRING>(const typename TypeMapper<RCPP, STRING>::ProtoSequenceElementType &element, const Alphabet &alphabet) {
-        for (unsigned int i = 0; i < alphabet.length(); i++) {
-            if (std::string{element} == alphabet[i]) return i;
-        }
-        return alphabet.NA_value();
-    }
-
-    template<>
-    inline LetterValue matchValue<STD, STRING>(const typename TypeMapper<STD, STRING>::ProtoSequenceElementType &element, const Alphabet &alphabet) {
-        for (unsigned int i = 0; i < alphabet.length(); i++) {
-            if (std::string{element} == alphabet[i]) return i;
-        }
-        return alphabet.NA_value();
-    }
 }
 
 #endif //TIDYSQ_UTIL_H
