@@ -12,8 +12,8 @@ using namespace tidysq;
 Rcpp::List CPP_find_invalid_letters(Rcpp::List x,
                                     Rcpp::StringVector dest_type) {
   const Sq<RCPP> sq = importFromR(x, "!");
-  Alphabet alph = sq.alphabet();
-  std::vector<std::string> dest_alph =
+  const Alphabet alph = sq.alphabet();
+  const std::vector<std::string> dest_alph =
           util::standard_letters_for_type(util::sq_type_for_abbr(dest_type));
   
   std::vector<LetterValue> invalid_indices;
@@ -29,9 +29,20 @@ Rcpp::List CPP_find_invalid_letters(Rcpp::List x,
     ret.push_back(Rcpp::StringVector());
   }
   
-  if (invalid_indices.empty()) {
-    return ret;
+  // Process only whenever we know there are invalid letters
+  // Might remove that, as iterating over invalid_indices does basically the same thing
+  if (!invalid_indices.empty()) {
+    for (LenSq i = 0; i < sq.length(); ++i) {
+      const Sequence<RCPP> sequence = sq[i];
+      std::vector<LetterValue> invalid_found = {};
+      for (LetterValue index : invalid_indices) {
+        // We need input iterator to make it work
+        if (std::any_of(sequence.begin(), sequence.end(), [=](ElementPacked elem){ return elem == index; })) {
+          ret[i].push_back(alph[index]);
+        }
+      }
+    }
   }
   
-  return Rcpp::List::create(invalid_indices);
+  return ret;
 }
