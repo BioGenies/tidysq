@@ -1,5 +1,4 @@
-#ifndef TIDYSQ_PROTOSEQUENCE_H
-#define TIDYSQ_PROTOSEQUENCE_H
+#pragma once
 
 #include "tidysq/types/general.h"
 
@@ -58,7 +57,7 @@ namespace tidysq {
 
         ProtoSequence(const ProtoSequence &other) = default;
 
-        ProtoSequence(ProtoSequence &&other) = default;
+        ProtoSequence(ProtoSequence &&other)  noexcept = default;
 
         ProtoSequence& operator=(const ProtoSequence &other) noexcept = default;
 
@@ -124,5 +123,3 @@ namespace Rcpp {
         return Rcpp::StringVector(obj.content());
     }
 }
-
-#endif //TIDYSQ_PROTOSEQUENCE_H

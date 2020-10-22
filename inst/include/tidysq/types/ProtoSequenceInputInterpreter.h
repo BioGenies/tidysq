@@ -1,13 +1,10 @@
-#ifndef TIDYSQ_PROTOSEQUENCEINPUTINTERPRETER_H
-#define TIDYSQ_PROTOSEQUENCEINPUTINTERPRETER_H
-
-#include "tidysq/types/ProtoSequence.h"
+#pragma once
 
 namespace tidysq {
     template<InternalType INTERNAL, ProtoType PROTO, bool SIMPLE>
     class ProtoSequenceInputInterpreter {
-        typedef typename ProtoSequence<INTERNAL, PROTO>::ContentType ContentType;
-        typedef typename ProtoSequence<INTERNAL, PROTO>::ElementType ElementType;
+        typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceContentType ContentType;
+        typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceElementType ElementType;
         typedef typename ContentType::const_iterator ContentConstIteratorType;
 
               ContentConstIteratorType internal_iterator_;
@@ -42,6 +39,10 @@ namespace tidysq {
 
         friend class ProtoSequence<INTERNAL, PROTO>;
     };
+
+    template<>
+    inline LetterValue ProtoSequenceInputInterpreter<RCPP, STRINGS, true>::operator*() const {
+        return reached_end_ ? 0 : alphabet_.match_value((ElementType) internal_iterator_[0]);
+    }
 }
 
-#endif //TIDYSQ_PROTOSEQUENCEINPUTINTERPRETER_H
