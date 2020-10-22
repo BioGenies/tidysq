@@ -7,9 +7,10 @@ namespace tidysq {
     template<InternalType INTERNAL, ProtoType PROTO, bool SIMPLE>
     class ProtoSequenceInputInterpreter {
         typedef typename ProtoSequence<INTERNAL, PROTO>::ContentType ContentType;
+        typedef typename ProtoSequence<INTERNAL, PROTO>::ElementType ElementType;
         typedef typename ContentType::const_iterator ContentConstIteratorType;
 
-        ContentConstIteratorType internal_iterator_;
+              ContentConstIteratorType internal_iterator_;
         const ContentConstIteratorType end_;
         const Alphabet &alphabet_;
         bool reached_end_;
@@ -32,7 +33,7 @@ namespace tidysq {
         }
 
         inline LetterValue operator*() const {
-            return reached_end_ ? 0 : alphabet_.match_value(*internal_iterator_);
+            return reached_end_ ? 0 : alphabet_.match_value((ElementType) *internal_iterator_);
         }
 
         [[nodiscard]] inline bool reached_end() const {
