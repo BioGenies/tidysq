@@ -116,6 +116,15 @@ namespace tidysq {
         content_[index] = value.content();
     }
 
+    template<>
+    inline bool ProtoSq<RCPP, STRING>::operator==(const ProtoSq<RCPP, STRING> &other) {
+        if ((alphabet_ != other.alphabet_) || (content_.size() != other.content_.size())) return false;
+        for (LenSq i = 0; i < content_.size(); i++) {
+            if (ElementUnderlyingType(content_[i]) != ElementUnderlyingType(other.content_[i])) return false;
+        }
+        return true;
+    }
+
     template<ProtoType PROTO>
     ProtoSq<RCPP, PROTO> importProtoFromR(const typename ProtoSq<RCPP, PROTO>::ContentType &proto,
                                           const Rcpp::StringVector &alphabet,

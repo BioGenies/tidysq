@@ -19,6 +19,14 @@ void test_pack_RCPP(const std::vector<typename TypeMapper<RCPP, PROTO>::ProtoSeq
     expect_true(repacked == sq_proto);
 }
 
+template<>
+void test_pack_RCPP<STRING>(const std::vector<typename TypeMapper<RCPP, STRING>::ProtoSequenceContentType> &proto, const Alphabet &alphabet) {
+    ProtoSq<RCPP, STRING> sq_proto = ProtoSq<RCPP, STRING>(util::convertStringVector(proto), alphabet);
+    ProtoSq<RCPP, STRING> repacked = sq_proto.template pack<RCPP>().template unpack<RCPP, STRING>();
+
+    expect_true(repacked == sq_proto);
+}
+
 context("test_packing") {
   test_that("pack RCPP RAWS") {
         test_pack_RCPP<RAWS>({{0}},
@@ -54,12 +62,12 @@ context("test_packing") {
                                      {}
                              }, Alphabet(DNA_BSC));
 
-//        test_pack_RCPP<STRING>({
-//            "ACTG",
-//            "AA",
-//            "GGGGGGGGGGGGGG",
-//            "!A!",
-//            ""
-//        }, util::getStandardAlphabet(DNA_CLN));
+        test_pack_RCPP<STRING>({
+            "ACTG",
+            "AA",
+            "GGGGGGGGGGGGGG",
+            "!A!",
+            ""
+        }, Alphabet(DNA_BSC));
   }
 }
