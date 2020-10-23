@@ -26,7 +26,7 @@ namespace tidysq {
     template<InternalType INTERNAL>
     class Sequence {
         typename InternalTypeMapper<INTERNAL>::SequenceContentType content_;
-        LenSq originalLength_;
+        LenSq original_length_;
     public:
 
     public:
@@ -37,7 +37,7 @@ namespace tidysq {
 
         Sequence(const ContentType &content, const LenSq originalLength) :
                 content_(content),
-                originalLength_(originalLength) {};
+                original_length_(originalLength) {};
 
         Sequence(const LenSq contentLength, const LenSq originalLength) :
                 Sequence(ContentType(contentLength), originalLength) {};
@@ -62,7 +62,7 @@ namespace tidysq {
         }
 
         [[nodiscard]] inline LenSq originalLength() const {
-            return originalLength_;
+            return original_length_;
         }
 
         [[nodiscard]] inline LenSq length() const {
@@ -75,6 +75,7 @@ namespace tidysq {
 
         void trim(const LenSq packed_length, const Alphabet &alphabet) {
             content_.erase(content_.begin() + internal::calculate_packed_internal_length(packed_length, alphabet), content_.end());
+            original_length_ = packed_length;
         }
 
     };
