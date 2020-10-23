@@ -143,13 +143,13 @@ RcppExport SEXP _tidysq_C_get_real_alph(SEXP sqSEXP) {
     return rcpp_result_gen;
 }
 // CPP_bite
-Rcpp::List CPP_bite(Rcpp::List x, Rcpp::IntegerVector indices);
+Rcpp::List CPP_bite(const Rcpp::List& x, const Rcpp::IntegerVector& indices);
 RcppExport SEXP _tidysq_CPP_bite(SEXP xSEXP, SEXP indicesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::List >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type indices(indicesSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type indices(indicesSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_bite(x, indices));
     return rcpp_result_gen;
 END_RCPP
