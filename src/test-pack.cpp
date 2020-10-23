@@ -69,5 +69,12 @@ context("test_packing") {
             "!A!",
             ""
         }, Alphabet(DNA_BSC));
+
+        test_pack_RCPP<STRING>({
+                                       "XDXdxDxd",
+                                       "XDXd",
+                                       "XdXdXdXd",
+                                       ""
+                               }, Alphabet(std::vector<Letter>{"XD", "xd", "xD"}, "Xd"));
   }
 }
