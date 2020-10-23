@@ -29,45 +29,5 @@ void test_pack_RCPP<STRING>(const std::vector<typename TypeMapper<RCPP, STRING>:
 
 context("test_packing") {
   test_that("pack RCPP RAWS") {
-        test_pack_RCPP<RAWS>({{0}},
-                             Alphabet(DNA_BSC));
-
-        test_pack_RCPP<RAWS>({
-                                    {0, 1, 2, 3},
-                                    {0, 0},
-                                    {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-                                    {7, 0, 7},
-                                    {}
-                            }, Alphabet(DNA_BSC));
-
-        test_pack_RCPP<INTS>({{0}},
-                             Alphabet(DNA_BSC));
-
-        test_pack_RCPP<INTS>({
-                                     {0, 1, 2, 3},
-                                     {0, 0},
-                                     {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-                                     {7, 0, 7},
-                                     {}
-                             }, Alphabet(DNA_BSC));
-
-        test_pack_RCPP<STRINGS>({{"A"}},
-                                Alphabet(DNA_BSC));
-
-        test_pack_RCPP<STRINGS>({
-                                     {"A", "C", "G", "T"},
-                                     Rcpp::StringVector::create("A", "A"),
-                                     {"G", "G", "G", "G", "G", "G", "G", "G", "G", "G", "G", "G"},
-                                     Rcpp::StringVector::create("!", "A", "!"),
-                                     {}
-                             }, Alphabet(DNA_BSC));
-
-        test_pack_RCPP<STRING>({
-            "ACTG",
-            "AA",
-            "GGGGGGGGGGGGGG",
-            "!A!",
-            ""
-        }, Alphabet(DNA_BSC));
   }
 }

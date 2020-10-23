@@ -155,13 +155,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // CPP_find_invalid_letters
-Rcpp::List CPP_find_invalid_letters(Rcpp::List x, Rcpp::StringVector dest_type);
+Rcpp::List CPP_find_invalid_letters(const Rcpp::List& x, const Rcpp::StringVector& dest_type);
 RcppExport SEXP _tidysq_CPP_find_invalid_letters(SEXP xSEXP, SEXP dest_typeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::List >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::StringVector >::type dest_type(dest_typeSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type dest_type(dest_typeSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_find_invalid_letters(x, dest_type));
     return rcpp_result_gen;
 END_RCPP

@@ -22,14 +22,13 @@ namespace Rcpp {
 
 #include "tidysq/types/TypeMapper.h"
 #include "tidysq/types/ProtoSequence.h"
+#include "tidysq/types/SequenceIterator.h"
 
 namespace tidysq {
     template<InternalType INTERNAL>
     class Sequence {
         typename InternalTypeMapper<INTERNAL>::SequenceContentType content_;
         LenSq originalLength_;
-    public:
-
     public:
         typedef typename InternalTypeMapper<INTERNAL>::SequenceContentType ContentType;
         typedef typename InternalTypeMapper<INTERNAL>::SequenceElementType ElementType;
@@ -60,6 +59,14 @@ namespace tidysq {
 
         inline ConstAccessType operator[](const LenSq index) const {
              return content_[index];
+        }
+        
+        SequenceIterator<INTERNAL> begin(const Alphabet& alph) const {
+            return SequenceIterator<INTERNAL>(content_, originalLength_, alph);
+        }
+        
+        SequenceIterator<INTERNAL> end(const Alphabet& alph) const {
+            return SequenceIterator<INTERNAL>(content_, originalLength_, alph, originalLength_);
         }
 
         [[nodiscard]] inline LenSq originalLength() const {
