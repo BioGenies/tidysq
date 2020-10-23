@@ -87,6 +87,10 @@ namespace tidysq {
             return !operator==(other);
         }
 
+        inline ProtoSequence<INTERNAL, PROTO>& operator+=(std::string &&letter) {
+            throw std::exception();
+        }
+
         template<bool SIMPLE>
         inline ProtoSequenceInputInterpreter<INTERNAL, PROTO, SIMPLE> content_interpreter(const Alphabet &alphabet) const {
             return ProtoSequenceInputInterpreter<INTERNAL, PROTO, SIMPLE>(content_.cbegin(), content_.cend(), alphabet);
@@ -100,6 +104,20 @@ namespace tidysq {
     template<>
     inline ProtoSequence<RCPP, STRING>::ProtoSequence(const LenSq length) :
             ProtoSequence(ContentType(length, ' ')) {};
+
+
+    template<>
+    inline ProtoSequence<RCPP, STRING>& ProtoSequence<RCPP, STRING>::operator+=(std::string &&letter) {
+        content_ += letter;
+        return *this;
+    }
+
+    template<>
+    inline ProtoSequence<STD, STRING>& ProtoSequence<STD, STRING>::operator+=(std::string &&letter) {
+        std::string x;
+        content_ += letter;
+        return *this;
+    }
 }
 
 namespace Rcpp {
