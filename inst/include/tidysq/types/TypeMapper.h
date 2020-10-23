@@ -47,25 +47,29 @@ namespace tidysq {
 
     template<>
     struct ProtoTypeMapper<RAWS> {
-        typedef ElementRaws                                                        ProtoSequenceElementType;
+        typedef ElementRaws                                                     ProtoSequenceElementType;
+        typedef std::vector<ElementRaws>                                        ProtoSequenceStdContentType;
         typedef Rcpp::RawVector                                                 ProtoSequenceRcppContentType;
     };
 
     template<>
     struct ProtoTypeMapper<INTS> {
-        typedef ElementInts                                                        ProtoSequenceElementType;
+        typedef ElementInts                                                     ProtoSequenceElementType;
+        typedef std::vector<ElementInts>                                        ProtoSequenceStdContentType;
         typedef Rcpp::IntegerVector                                             ProtoSequenceRcppContentType;
     };
 
     template<>
     struct ProtoTypeMapper<STRINGS> {
-        typedef ElementStrings                                                     ProtoSequenceElementType;
+        typedef ElementStrings                                                  ProtoSequenceElementType;
+        typedef std::vector<ElementStrings>                                     ProtoSequenceStdContentType;
         typedef Rcpp::StringVector                                              ProtoSequenceRcppContentType;
     };
 
     template<>
     struct ProtoTypeMapper<STRING> {
-        typedef ElementStringSimple                                                      ProtoSequenceElementType;
+        typedef ElementStringSimple                                             ProtoSequenceElementType;
+        typedef std::string                                                     ProtoSequenceStdContentType;
         typedef std::string                                                     ProtoSequenceRcppContentType;
     };
 
@@ -75,7 +79,7 @@ namespace tidysq {
     template<ProtoType PROTO>
     struct TypeMapper<STD, PROTO> {
         typedef typename ProtoTypeMapper<PROTO>::ProtoSequenceElementType       ProtoSequenceElementType;
-        typedef std::vector<ProtoSequenceElementType>                           ProtoSequenceContentType;
+        typedef typename ProtoTypeMapper<PROTO>::ProtoSequenceStdContentType    ProtoSequenceContentType;
         typedef         ProtoSequenceElementType &                              ProtoSequenceAccessType;
         typedef const   ProtoSequenceElementType &                              ProtoSequenceConstAccessType;
 
