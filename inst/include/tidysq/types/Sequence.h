@@ -1,5 +1,4 @@
-#ifndef TIDYSQ_SEQUENCE_H
-#define TIDYSQ_SEQUENCE_H
+#pragma once
 
 #include "tidysq/types/general.h"
 
@@ -73,6 +72,11 @@ namespace tidysq {
         [[nodiscard]] inline ContentType content() const {
             return content_;
         }
+
+        void trim(const LenSq packed_length, const Alphabet &alphabet) {
+            content_.erase(content_.begin() + internal::calculate_packed_internal_length(packed_length, alphabet), content_.end());
+        }
+
     };
 }
 
@@ -106,5 +110,3 @@ namespace Rcpp {
         };
     }
 }
-
-#endif //TIDYSQ_SEQUENCE_H

@@ -36,8 +36,8 @@ namespace tidysq {
         const LetterValue NA_value_;
         const SqType type_;
         const bool is_simple_;
-        const std::vector<char> simple_letters_;
-        const char simple_NA_letter_;
+        const std::vector<SimpleLetter> simple_letters_;
+        const SimpleLetter simple_NA_letter_;
 
         void check_letters() const {
             for (auto &letter : letters_) {
@@ -154,6 +154,14 @@ namespace tidysq {
 
         inline const Letter &operator[](LetterValue index) const {
             return index == NA_value_ ? NA_letter_ : letters_[index];
+        }
+
+        inline const SimpleLetter &get_simple_letter(LetterValue index) const {
+            return index == NA_value_ ? simple_NA_letter_ : simple_letters_[index];
+        }
+
+        [[nodiscard]] inline const std::vector<Letter> &letters() const {
+            return letters_;
         }
 
         [[nodiscard]] inline const LetterValue &NA_value() const {

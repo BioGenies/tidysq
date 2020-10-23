@@ -28,26 +28,29 @@ namespace tidysq::internal {
         return alphabet[value];
     }
 
-    //TODO: fix case of single-character alphabets
     template<>
     inline auto matchLetter<STRING>(const LetterValue value, const Alphabet &alphabet)
             -> typename ProtoTypeMapper<STRING>::ProtoSequenceElementType {
-        return alphabet[value][0];
+        return alphabet.get_simple_letter(value);
     }
 
-    inline LenSq calculatePackedLength(const LenSq unpackedLength, const Alphabet &alphabet) {
-        return (alphabet.alphabet_size() * unpackedLength + 7) / 8;
+    inline Letter matchLetterMultichar(const LetterValue value, const Alphabet &alphabet) {
+        return alphabet[value];
+    }
+
+    inline LenSq calculate_packed_internal_length(const LenSq unpackedLength, const Alphabet &alphabet) {
+        return (alphabet.alphabet_size() * unpackedLength + 7);
     }
 
     template<InternalType INTERNAL, ProtoType PROTO>
-    inline LenSq calculatePackedLength(const ProtoSequence<INTERNAL, PROTO> &unpacked, const Alphabet &alphabet) {
-        return calculatePackedLength(unpacked.length(), alphabet);
+    inline LenSq calculate_packed_internal_length(const ProtoSequence<INTERNAL, PROTO> &unpacked, const Alphabet &alphabet) {
+        return calculate_packed_internal_length(unpacked.length(), alphabet);
     }
 
     template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT>
     inline Sequence<INTERNAL_OUT> reserveSpaceForPacked(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
                                                         const Alphabet &alphabet) {
-        return Sequence<INTERNAL_OUT>(calculatePackedLength(unpacked, alphabet), unpacked.length());
+        return Sequence<INTERNAL_OUT>(calculate_packed_internal_length(unpacked, alphabet), unpacked.length());
     }
 
     template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT, ProtoType PROTO_OUT>

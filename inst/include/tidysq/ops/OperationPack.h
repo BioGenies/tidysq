@@ -2,7 +2,7 @@
 #define TIDYSQ_OPERATIONPACK_H
 
 #include "tidysq/ops/interface/Operation.h"
-#include "tidysq/ops/internal/pack_simple.h"
+#include "tidysq/ops/internal/pack.h"
 #include "tidysq/ops/internal/util.h"
 
 namespace tidysq::ops {
@@ -14,9 +14,9 @@ namespace tidysq::ops {
                                            const Alphabet &alphabet) const override {
             Sequence<INTERNAL_OUT> packed = internal::reserveSpaceForPacked<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(unpacked, alphabet);
             if (alphabet.is_simple()) {
-                internal::pack_simple<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(unpacked, packed, alphabet);
+                internal::pack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT, true>(unpacked, packed, alphabet);
             } else {
-
+                internal::pack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT, false>(unpacked, packed, alphabet);
             }
             return packed;
         }
