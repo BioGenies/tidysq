@@ -39,7 +39,7 @@ namespace tidysq::internal {
     }
 
     inline LenSq calculate_packed_internal_length(const LenSq unpackedLength, const Alphabet &alphabet) {
-        return (alphabet.alphabet_size() * unpackedLength + 7);
+        return (alphabet.alphabet_size() * unpackedLength + 7) / 8;
     }
 
     template<InternalType INTERNAL, ProtoType PROTO>
