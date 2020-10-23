@@ -53,17 +53,5 @@ find_invalid_letters.default <- function(x, dest_type, ...)
 find_invalid_letters.sq <- function(x, dest_type, ...) {
   assert_sq_type(dest_type)
   
-  if (length(x) == 0) {
-    return(list())
-  }
-  
-  dest_alph <- get_standard_alphabet(dest_type)
-  dest_alph <- c(as.character(dest_alph),
-                 tolower(as.character(dest_alph)),
-                 getOption("tidysq_NA_letter"))
-  if (test_subset(alphabet(x), dest_alph)) {
-    return(replicate(vec_size, character()))
-  }
-  
-  .apply_sq(x, "char", "none", function(s) setdiff(s, dest_alph))
+  CPP_find_invalid_letters(x, dest_type)
 }
