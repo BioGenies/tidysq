@@ -80,7 +80,7 @@ find_motifs.default <- function(x, name, motifs)
 #' @export
 #' @importFrom stringi stri_sub
 find_motifs.sq <- function(x, name, motifs) {
-  .check_motifs_proper_alph(motifs_c, .get_sq_type(x), alphabet(x))
+  assert_alph_regex_friendly(alphabet(x))
   
   motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
   motifs_regex <- ifelse(motif_lengths == 1,
@@ -94,7 +94,7 @@ find_motifs.sq <- function(x, name, motifs) {
 #' @importFrom stringi stri_sub
 find_motifs.dnasq <- function(x, name, motifs) {
   motifs <- toupper(motifs)
-  .check_motifs_proper_alph(motifs, "dna")
+  assert_motifs_for_type(motifs, "dna")
   
   motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
   motifs_regex <- ifelse(motif_lengths == 1,
@@ -109,7 +109,7 @@ find_motifs.dnasq <- function(x, name, motifs) {
 #' @importFrom stringi stri_sub
 find_motifs.rnasq <- function(x, name, motifs) {
   motifs <- toupper(motifs)
-  .check_motifs_proper_alph(motifs, "rna")
+  assert_motifs_for_type(motifs, "rna")
   
   motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
   motifs_regex <- ifelse(motif_lengths == 1,
@@ -124,7 +124,7 @@ find_motifs.rnasq <- function(x, name, motifs) {
 #' @importFrom stringi stri_sub
 find_motifs.amisq <- function(x, name, motifs) {
   motifs <- toupper(motifs)
-  .check_motifs_proper_alph(motifs, "ami")
+  assert_motifs_for_type(motifs, "ami")
   
   motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
   motifs_regex <- ifelse(motif_lengths == 1,
