@@ -1,7 +1,6 @@
 #include <Rcpp.h>
 
 #include "tidysq/exports.h"
-#include "tidysq/ops/internal/util.h"
 
 using namespace tidysq;
 
