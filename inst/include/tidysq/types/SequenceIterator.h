@@ -87,8 +87,46 @@ namespace tidysq {
             return !operator==(other);
         }
 
-        inline ElementPacked operator[](LenSq index) {
-            pointer_ += index;
+        inline bool operator>(const SequenceIterator& other) const {
+            return pointer_ > other.pointer_;
+        }
+
+        inline bool operator<(const SequenceIterator& other) const {
+            return pointer_ < other.pointer_;
+        }
+
+        inline bool operator>=(const SequenceIterator& other) const {
+            return !operator<(other);
+        }
+
+        inline bool operator<=(const SequenceIterator& other) const {
+            return !operator>(other);
+        }
+
+        inline SequenceIterator operator+(LenSq i) const {
+            SequenceIterator tmp(*this);
+            tmp.pointer_ += i;
+            return tmp;
+        }
+
+        inline SequenceIterator& operator+=(LenSq i) {
+            pointer_ += i;
+            return this;
+        }
+
+        inline SequenceIterator operator-(LenSq i) const {
+            SequenceIterator tmp(*this);
+            tmp.pointer_ -= i;
+            return tmp;
+        }
+
+        inline SequenceIterator& operator-=(LenSq i) {
+            pointer_ -= i;
+            return this;
+        }
+
+        inline ElementPacked operator[](LenSq i) {
+            pointer_ += i;
             return operator*();
         }
 
