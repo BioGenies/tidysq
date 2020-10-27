@@ -16,7 +16,7 @@ Rcpp::List CPP_bite(const Rcpp::List& x, const Rcpp::IntegerVector& indices) {
     for (LenSq i = 0; i < sq.length(); ++i) {
         const Sequence<RCPP> sequence = sq[i];
         Sequence<RCPP> out_sequence(
-                internal::calculatePackedLength(indices.length(), sq.alphabet()),
+                internal::calculate_packed_internal_length(indices.length(), sq.alphabet()),
                 indices.length()
         );
 

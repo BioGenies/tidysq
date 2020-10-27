@@ -45,6 +45,10 @@ CPP_find_invalid_letters <- function(x, dest_type) {
     .Call(`_tidysq_CPP_find_invalid_letters`, x, dest_type)
 }
 
+CPP_has <- function(x, motifs) {
+    .Call(`_tidysq_CPP_has`, x, motifs)
+}
+
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
     .Call('_tidysq_RcppExport_registerCCallable', PACKAGE = 'tidysq')

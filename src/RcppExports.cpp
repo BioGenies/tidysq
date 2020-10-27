@@ -166,6 +166,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPP_has
+Rcpp::LogicalVector CPP_has(const Rcpp::List& x, const Rcpp::StringVector& motifs);
+RcppExport SEXP _tidysq_CPP_has(SEXP xSEXP, SEXP motifsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type motifs(motifsSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_has(x, motifs));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 // validate (ensure exported C++ functions exist before calling them)
 static int _tidysq_RcppExport_validate(const char* sig) { 
@@ -197,6 +209,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_C_get_real_alph", (DL_FUNC) &_tidysq_C_get_real_alph, 1},
     {"_tidysq_CPP_bite", (DL_FUNC) &_tidysq_CPP_bite, 2},
     {"_tidysq_CPP_find_invalid_letters", (DL_FUNC) &_tidysq_CPP_find_invalid_letters, 2},
+    {"_tidysq_CPP_has", (DL_FUNC) &_tidysq_CPP_has, 2},
     {"_tidysq_RcppExport_registerCCallable", (DL_FUNC) &_tidysq_RcppExport_registerCCallable, 0},
     {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 0},
     {NULL, NULL, 0}

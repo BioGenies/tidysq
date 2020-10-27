@@ -22,6 +22,7 @@ namespace Rcpp {
 #include "tidysq/types/TypeMapper.h"
 #include "tidysq/types/ProtoSequence.h"
 #include "tidysq/types/SequenceIterator.h"
+#include "tidysq/ops/internal/util.h"
 
 namespace tidysq {
     template<InternalType INTERNAL>
@@ -61,11 +62,11 @@ namespace tidysq {
         }
         
         SequenceIterator<INTERNAL> begin(const Alphabet& alph) const {
-            return SequenceIterator<INTERNAL>(content_, originalLength_, alph);
+            return SequenceIterator<INTERNAL>(content_, original_length_, alph);
         }
         
         SequenceIterator<INTERNAL> end(const Alphabet& alph) const {
-            return SequenceIterator<INTERNAL>(content_, originalLength_, alph, originalLength_);
+            return SequenceIterator<INTERNAL>(content_, original_length_, alph, original_length_);
         }
 
         [[nodiscard]] inline LenSq originalLength() const {
