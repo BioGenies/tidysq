@@ -109,6 +109,10 @@ namespace tidysq {
             return tmp;
         }
 
+        inline SequenceIterator operator+(const SequenceIterator& it) const {
+            operator+(it.pointer_);
+        }
+
         inline SequenceIterator& operator+=(LenSq i) {
             pointer_ += i;
             return this;
@@ -118,6 +122,10 @@ namespace tidysq {
             SequenceIterator tmp(*this);
             tmp.pointer_ -= i;
             return tmp;
+        }
+
+        inline SequenceIterator operator-(const SequenceIterator& it) const {
+            operator-(it.pointer_);
         }
 
         inline SequenceIterator& operator-=(LenSq i) {
