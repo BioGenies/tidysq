@@ -10,6 +10,7 @@ Rcpp::List CPP_bite(const Rcpp::List& x, const Rcpp::IntegerVector& indices) {
     Sq<RCPP> ret(sq.length(), sq.alphabet());
     const AlphSize alph_size = sq.alphabet().alphabet_size();
     bool warning_called = false;
+    const ElementPacked NA_value = 0xffu >> (8u - alph_size);
     // TODO: replace with NULL once it works
     Rcpp::StringVector NA_warning = "";
 
@@ -25,7 +26,7 @@ Rcpp::List CPP_bite(const Rcpp::List& x, const Rcpp::IntegerVector& indices) {
         auto out_sequence_iter = out_sequence.begin(sq.alphabet());
 
         while (index_iter != indices.end() || out_sequence_iter != out_sequence.end(sq.alphabet())) {
-            ElementPacked element = 0xffu >> (8u - alph_size);
+            ElementPacked element = NA_value;
             if (*index_iter <= sequence.originalLength()) {
                 element = sequence_iter.access(*index_iter - 1);
             } else if (!warning_called) {

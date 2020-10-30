@@ -105,24 +105,37 @@ namespace tidysq {
 
         inline SequenceIterator operator+(LenSq i) const {
             SequenceIterator tmp(*this);
-            tmp.pointer_ += i;
+            tmp += i;
             return tmp;
         }
 
+        inline SequenceIterator operator+(const SequenceIterator& it) const {
+            return operator+(it.pointer_);
+        }
+
         inline SequenceIterator& operator+=(LenSq i) {
+            if (i + pointer_ > originalLength_)
+                throw std::out_of_range("SequenceIterator tried to increment the pointer after its end.");
             pointer_ += i;
-            return this;
+            return *this;
         }
 
         inline SequenceIterator operator-(LenSq i) const {
             SequenceIterator tmp(*this);
-            tmp.pointer_ -= i;
+            tmp -= i;
             return tmp;
         }
 
+        inline SequenceIterator operator-(const SequenceIterator& it) const {
+            operator-(it.pointer_);
+        }
+
         inline SequenceIterator& operator-=(LenSq i) {
+            if (i > pointer_) {
+                throw std::out_of_range("SequenceIterator tried to decrement the pointer before its front.");
+            }
             pointer_ -= i;
-            return this;
+            return *this;
         }
 
         inline ElementPacked operator[](LenSq i) {
