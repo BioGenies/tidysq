@@ -15,9 +15,9 @@ namespace tidysq {
         LenSq pointer_;
         
         SequenceIterator(const ContentType& content, const LenSq& length, const Alphabet& alph) :
-            sequence_{content}, alph_size_{alph.alphabet_size()}, originalLength_{length}, pointer_{0} {}
+                sequence_{content}, alph_size_{alph.alphabet_size()}, originalLength_{length}, pointer_{0} {}
         SequenceIterator(const ContentType& content, const LenSq& length, const Alphabet& alph, LenSq pointer) :
-            sequence_{content}, alph_size_{alph.alphabet_size()}, originalLength_{length}, pointer_{pointer} {}
+                sequence_{content}, alph_size_{alph.alphabet_size()}, originalLength_{length}, pointer_{pointer} {}
         
     public:
         inline SequenceIterator& operator++() {
