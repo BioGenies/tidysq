@@ -41,12 +41,3 @@
             !is.logical(opt) || 
             is.na(opt), FALSE, opt)
 }
-
-.get_na_letter <- function() {
-  opt <- getOption("tidysq_p_na_letter")
-
-  ifelse (is.null(opt) ||
-            !is.character(opt) ||
-            is.na(opt) ||
-            (length(opt) != 1), "!", opt)  
-}

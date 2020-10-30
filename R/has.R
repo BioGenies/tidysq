@@ -65,20 +65,18 @@
 #' @seealso \code{\link{sq}} \code{\link{substitute_letters}} \code{\link{find_motifs}}
 #' @export
 `%has%` <- function(x, y) {
+  assert_character(y, any.missing = FALSE, min.len = 1)
+  
   UseMethod("%has%")
 }
 
 #' @export
-`%has%.default` <- function(x, y) {
+`%has%.default` <- function(x, y)
   stop("operator '%has%' is not overloaded for this type of objects")
-}
 
 #' @export
 `%has%.sq` <- function(x, y) {
-  .check_character(y, "'y', right-hand side object,")
-  alph <- alphabet(x)
-  type <- .get_sq_type(x)
-  .check_motifs_proper_alph(y, type, alph)
+  assert_alph_regex_friendly(alphabet(x))
   
   x <- as.character(x)
   
@@ -88,9 +86,8 @@
 
 #' @export
 `%has%.amisq` <- function(x, y) {
-  .check_character(y, "'y', right hand side object,")
   y <- toupper(y)
-  .check_motifs_proper_alph(y, "ami")
+  assert_motifs_for_type(y, "ami")
   
   y <- .replace_ami_motif(y)
   x <- as.character(x)
@@ -101,9 +98,8 @@
 
 #' @export
 `%has%.dnasq` <- function(x, y) {
-  .check_character(y, "'y', right hand side object,")
   y <- toupper(y)
-  .check_motifs_proper_alph(y, "dna")
+  assert_motifs_for_type(y, "dna")
   
   y <- .replace_dna_motif(y)
   x <- as.character(x)
@@ -114,9 +110,8 @@
 
 #' @export
 `%has%.rnasq` <- function(x, y) {
-  .check_character(y, "'y', right hand side object,")
   y <- toupper(y)
-  .check_motifs_proper_alph(y, "rna")
+  assert_motifs_for_type(y, "rna")
   
   y <- .replace_rna_motif(y)
   x <- as.character(x)

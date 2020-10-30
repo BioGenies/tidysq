@@ -4,10 +4,10 @@
 \alias{bite}
 \title{Subset sequences from sq objects}
 \usage{
-bite(sq, indices)
+bite(x, indices, ...)
 }
 \arguments{
-\item{sq}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link{sq}} object.}
 
 \item{indices}{a \code{\link{numeric}} vector of subsequence indices to extract from
 each sequence. The function follows the normal R conventions for indexing 
