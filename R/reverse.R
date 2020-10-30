@@ -2,7 +2,7 @@
 #' 
 #' @description Reverse given list of sequences.
 #' 
-#' @param sq a \code{\link{sq}} object.
+#' @param x a \code{\link{sq}} object.
 #' 
 #' @details The \code{reverse} function reverses each sequence in supplied 
 #' \code{\link{sq}} object (e.q. transforms "MIAANYTWIL" to "LIWTYNAAIM"). 
@@ -34,8 +34,8 @@
 #' @seealso \code{\link{sq}} \code{\link{clean}} \code{\link{sq-print}}
 #' 
 #' @export
-reverse <- function(sq) {
-  .validate_sq(sq)
-  ret <- .apply_sq(sq, "int", "int", rev)
-  vec_restore(ret, sq)
+reverse <- function(x) {
+  assert_class(x, "sq")
+  ret <- .apply_sq(x, "int", "int", rev)
+  vec_restore(ret, x)
 }

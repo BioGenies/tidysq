@@ -111,9 +111,7 @@
 #' @seealso \code{\link{sq}} \code{\link{encode}}
 #' 
 #' @export
-encsq_to_list <- function(encsq) {
-  .validate_sq(encsq, type = "enc")
-  
-  alph <- alphabet(encsq)
-  .apply_sq(encsq, "int", "none", function(s) alph[s])
+encsq_to_list <- function(x) {
+  # TODO: make generic or delete
+  vec_cast(x, list())
 }

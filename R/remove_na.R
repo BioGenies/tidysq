@@ -53,23 +53,22 @@
 #' @seealso \code{\link{sq}} \code{\link{is_null_sq}} \code{\link{substitute_letters}}
 #' \code{\link{bite}}
 #' @export
-remove_na <- function(sq, only_elements = FALSE) {
-  .validate_sq(sq)
-  .check_logical(only_elements, "'only_elements'", single_elem = TRUE)
+remove_na <- function(x, by_letter = FALSE) {
+  assert_class(x, "sq")
+  assert_flag(by_letter)
   
-  alph <- alphabet(sq)
-  alph_size <- .get_alph_size(alph)
+  alph <- alphabet(x)
   na_val <- .get_na_val(alph)
   
-  if (only_elements) {
-    ret <- .apply_sq(sq, "int", "int", function(s) {
+  if (by_letter) {
+    ret <- .apply_sq(x, "int", "int", function(s) {
       s[s != na_val]
-    }) 
+    })
   } else {
-    ret <- lapply(sq, function(s) {
-      st <- C_unpack_ints(s, alph_size)
+    ret <- lapply(x, function(s) {
+      st <- unpack(s, "INTS")
       if (any(st == na_val)) structure(raw(), original_length = 0) else s
     })
   }
-  vec_restore(ret, sq)
+  vec_restore(ret, x)
 }

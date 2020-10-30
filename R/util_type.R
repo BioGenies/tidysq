@@ -1,8 +1,19 @@
+guess_sq_type <- function(x) {
+  
+}
+
+interpret_type <- function(name) {
+  
+}
+
+type_as_class <- function(type)
+  paste0("sq_", type)
+
 #' Get type of a sq object
 #' 
 #' Function checks which type of sequences are contained in \code{\link{sq}} object.
 #'  
-#' @param sq a \code{\link{sq}} object to be checked. 
+#' @param x a \code{\link{sq}} object to be checked.
 #'  
 #' @return A \code{\link{character}} string, type of\code{\link{sq}} object - can be one of
 #' "ami", "dna", "rna", "unt", "atp" or "enc".
@@ -41,7 +52,8 @@
 #' 
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
-get_sq_type <- function(sq) {
-  .validate_sq(sq)
-  .get_sq_type(sq)
+get_sq_type <- function(x) {
+  # TODO: a generic, maybe?
+  assert_class(x, "sq")
+  vec_ptype_abbr(x)
 }

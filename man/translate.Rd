@@ -4,10 +4,10 @@
 \alias{translate}
 \title{Convert DNA or RNA into proteins using genetic code}
 \usage{
-translate(sq, table = 1, ...)
+translate(x, table = 1, ...)
 }
 \arguments{
-\item{sq}{an object of class \code{\link{sq}} with either \strong{dna} or
+\item{x}{an object of class \code{\link{sq}} with either \strong{dna} or
 \strong{rna} type}
 
 \item{table}{integer number of translation table used, as specified

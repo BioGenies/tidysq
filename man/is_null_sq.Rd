@@ -4,7 +4,7 @@
 \alias{is_null_sq}
 \title{Test if a sequence is empty}
 \usage{
-is_null_sq(sq)
+is_null_sq(x)
 }
 \arguments{
 \item{sq}{a\code{\link{sq}} object to be tested}

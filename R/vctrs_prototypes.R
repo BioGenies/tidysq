@@ -1,65 +1,116 @@
-# amisq ----
+# sq_dna_bsc ----
 #' @export
-vec_ptype2.amisq.amisq <- function(x, y, ...)
-  .construct_sq_ptype("ami", is_clean = .is_cleaned(x) & .is_cleaned(y))
+vec_ptype2.sq_dna_bsc.sq_dna_bsc <- function(x, y, ...) x
 #' @export
-vec_ptype2.amisq.character <- function(x, y, ...) x
+vec_ptype2.sq_dna_bsc.character <- function(x, y, ...) x
 #' @export
-vec_ptype2.character.amisq <- function(x, y, ...) y
-#' @export
-vec_ptype2.amisq.untsq <- function(x, y, ...)
-  .construct_sq_ptype("unt", alph = union(alphabet(x), alphabet(y)))
-#' @export
-vec_ptype2.untsq.amisq <- function(x, y, ...)
-  .construct_sq_ptype("unt", alph = union(alphabet(x), alphabet(y)))
+vec_ptype2.character.sq_dna_bsc <- function(x, y, ...) y
 
-# dnasq ----
+# sq_dna_ext ----
 #' @export
-vec_ptype2.dnasq.dnasq <- function(x, y, ...)
-  .construct_sq_ptype("dna", is_clean = .is_cleaned(x) & .is_cleaned(y))
+vec_ptype2.sq_dna_ext.sq_dna_ext <- function(x, y, ...) x
 #' @export
-vec_ptype2.dnasq.character <- function(x, y, ...) x
+vec_ptype2.sq_dna_ext.sq_dna_bsc <- function(x, y, ...) x
 #' @export
-vec_ptype2.character.dnasq <- function(x, y, ...) y
+vec_ptype2.sq_dna_bsc.sq_dna_ext <- function(x, y, ...) y
 #' @export
-vec_ptype2.dnasq.untsq <- function(x, y, ...)
-  .construct_sq_ptype("unt", alph = union(alphabet(x), alphabet(y)))
+vec_ptype2.sq_dna_ext.character <- function(x, y, ...) x
 #' @export
-vec_ptype2.untsq.dnasq <- function(x, y, ...)
-  .construct_sq_ptype("unt", alph = union(alphabet(x), alphabet(y)))
+vec_ptype2.character.sq_dna_ext <- function(x, y, ...) y
 
-# rnasq ----
+# sq_rna_bsc ----
 #' @export
-vec_ptype2.rnasq.rnasq <- function(x, y, ...)
-  .construct_sq_ptype("rna", is_clean = .is_cleaned(x) & .is_cleaned(y))
+vec_ptype2.sq_rna_bsc.sq_rna_bsc <- function(x, y, ...) x
 #' @export
-vec_ptype2.rnasq.character <- function(x, y, ...) x
+vec_ptype2.sq_rna_bsc.character <- function(x, y, ...) x
 #' @export
-vec_ptype2.character.rnasq <- function(x, y, ...) y
-#' @export
-vec_ptype2.rnasq.untsq <- function(x, y, ...)
-  .construct_sq_ptype("unt", alph = union(alphabet(x), alphabet(y)))
-#' @export
-vec_ptype2.untsq.rnasq <- function(x, y, ...)
-  .construct_sq_ptype("unt", alph = union(alphabet(x), alphabet(y)))
+vec_ptype2.character.sq_rna_bsc <- function(x, y, ...) y
 
-# untsq ----
+# sq_rna_ext ----
 #' @export
-vec_ptype2.untsq.untsq <- function(x, y, ...)
-  .construct_sq_ptype("unt", alph = union(alphabet(x), alphabet(y)))
+vec_ptype2.sq_rna_ext.sq_rna_ext <- function(x, y, ...) x
 #' @export
-vec_ptype2.untsq.character <- function(x, y, ...) x
+vec_ptype2.sq_rna_ext.sq_rna_bsc <- function(x, y, ...) x
 #' @export
-vec_ptype2.character.untsq <- function(x, y, ...) y
+vec_ptype2.sq_rna_bsc.sq_rna_ext <- function(x, y, ...) y
+#' @export
+vec_ptype2.sq_rna_ext.character <- function(x, y, ...) x
+#' @export
+vec_ptype2.character.sq_rna_ext <- function(x, y, ...) y
 
-# atpsq ----
+# sq_ami_bsc ----
 #' @export
-vec_ptype2.atpsq.atpsq <- function(x, y, ...)
-  .construct_sq_ptype("atp", alph = union(alphabet(x), alphabet(y)))
+vec_ptype2.sq_ami_bsc.sq_ami_bsc <- function(x, y, ...) x
 #' @export
-vec_ptype2.atpsq.character <- function(x, y, ...) x
+vec_ptype2.sq_ami_bsc.character <- function(x, y, ...) x
 #' @export
-vec_ptype2.character.atpsq <- function(x, y, ...) y
+vec_ptype2.character.sq_ami_bsc <- function(x, y, ...) y
+
+# sq_ami_ext ----
+#' @export
+vec_ptype2.sq_ami_ext.sq_ami_ext <- function(x, y, ...) x
+#' @export
+vec_ptype2.sq_ami_ext.sq_ami_bsc <- function(x, y, ...) x
+#' @export
+vec_ptype2.sq_ami_bsc.sq_ami_ext <- function(x, y, ...) y
+#' @export
+vec_ptype2.sq_ami_ext.character <- function(x, y, ...) x
+#' @export
+vec_ptype2.character.sq_ami_ext <- function(x, y, ...) y
+
+# sq_unt ----
+#' @export
+vec_ptype2.sq_unt.sq_unt <- function(x, y, ...)
+  sq_ptype(union(alphabet(x), alphabet(y)), "unt")
+#' @export
+vec_ptype2.sq_unt.character <- function(x, y, ...) x
+#' @export
+vec_ptype2.character.sq_unt <- function(x, y, ...) y
+#' @export
+vec_ptype2.sq_unt.sq_dna_bsc <- function(x, y, ...)
+  sq_ptype(union(alphabet(x), alphabet(y)), "unt")
+#' @export
+vec_ptype2.sq_dna_bsc.sq_unt <- function(x, y, ...)
+  sq_ptype(union(alphabet(x), alphabet(y)), "unt")
+#' @export
+vec_ptype2.sq_unt.sq_dna_ext <- function(x, y, ...)
+  sq_ptype(union(alphabet(x), alphabet(y)), "unt")
+#' @export
+vec_ptype2.sq_dna_ext.sq_unt <- function(x, y, ...)
+  sq_ptype(union(alphabet(x), alphabet(y)), "unt")
+#' @export
+vec_ptype2.sq_unt.sq_rna_bsc <- function(x, y, ...)
+  sq_ptype(union(alphabet(x), alphabet(y)), "unt")
+#' @export
+vec_ptype2.sq_rna_bsc.sq_unt <- function(x, y, ...)
+  sq_ptype(union(alphabet(x), alphabet(y)), "unt")
+#' @export
+vec_ptype2.sq_unt.sq_rna_ext <- function(x, y, ...)
+  sq_ptype(union(alphabet(x), alphabet(y)), "unt")
+#' @export
+vec_ptype2.sq_rna_ext.sq_unt <- function(x, y, ...)
+  sq_ptype(union(alphabet(x), alphabet(y)), "unt")
+#' @export
+vec_ptype2.sq_unt.sq_ami_bsc <- function(x, y, ...)
+  sq_ptype(union(alphabet(x), alphabet(y)), "unt")
+#' @export
+vec_ptype2.sq_ami_bsc.sq_unt <- function(x, y, ...)
+  sq_ptype(union(alphabet(x), alphabet(y)), "unt")
+#' @export
+vec_ptype2.sq_unt.sq_ami_ext <- function(x, y, ...)
+  sq_ptype(union(alphabet(x), alphabet(y)), "unt")
+#' @export
+vec_ptype2.sq_ami_ext.sq_unt <- function(x, y, ...)
+  sq_ptype(union(alphabet(x), alphabet(y)), "unt")
+
+# sq_atp ----
+#' @export
+vec_ptype2.sq_atp.sq_atp <- function(x, y, ...)
+  sq_ptype(union(alphabet(x), alphabet(y)), "atp")
+#' @export
+vec_ptype2.sq_atp.character <- function(x, y, ...) x
+#' @export
+vec_ptype2.character.sq_atp <- function(x, y, ...) y
 
 # sq_alphabet ----
 #' @export

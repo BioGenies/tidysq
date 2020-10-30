@@ -4,10 +4,10 @@
 \alias{sqapply}
 \title{Apply function to each sequence}
 \usage{
-sqapply(sq, fun, ..., paste_char = FALSE, use_na_letter = paste_char)
+sqapply(x, fun, ..., paste_char = FALSE, use_na_letter = paste_char)
 }
 \arguments{
-\item{sq}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link{sq}} object.}
 
 \item{fun}{a \code{\link{function}} to apply to each sequence in \code{sq} object; it should
 take a character vector, numeric vector or single character string as an input.}

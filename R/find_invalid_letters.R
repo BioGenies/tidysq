@@ -3,7 +3,7 @@
 #' Function finds elements in given sequence not matching to amino acid or nucleotide 
 #' alphabet. 
 #' 
-#' @param sq a \code{\link{sq}} object to be checked.
+#' @param x a \code{\link{sq}} object to be checked.
 #' 
 #' @param dest_type a \code{\link{character}} string denoting destination type - it may be 
 #' "dna" for \strong{dna} type (DNA), "rna" for \strong{rna} type (RNA) or
@@ -42,19 +42,16 @@
 #' 
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
-get_invalid_letters <- function(sq, dest_type) {
-  .validate_sq(sq)
-  .check_type(dest_type, "'dest_type'")
+find_invalid_letters <- function(x, dest_type, ...)
+  UseMethod("find_invalid_letters")
+
+#' @export
+find_invalid_letters.default <- function(x, dest_type, ...)
+  stop("method 'find_invalid_letters' isn't implemented for this type of object", call. = FALSE)
+
+#' @export
+find_invalid_letters.sq <- function(x, dest_type, ...) {
+  assert_sq_type(dest_type)
   
-  # TODO: remove after fixing .apply_sq()
-  if (length(sq) == 0) {
-    return(list())
-  }
-  
-  dest_alph <- .get_standard_alph(dest_type, FALSE)
-  dest_alph <- c(as.character(dest_alph),
-                 tolower(as.character(dest_alph)),
-                 na_letter(dest_alph))
-  
-  .apply_sq(sq, "char", "none", function(s) setdiff(s, dest_alph))
+  CPP_find_invalid_letters(x, dest_type)
 }

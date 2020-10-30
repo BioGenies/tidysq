@@ -5,14 +5,15 @@ format.sq <- function(x, ...,
                       max_sequences = getOption("tidysq_p_max_sequences"),
                       use_color = getOption("tidysq_p_use_color"),
                       letters_sep = NULL) {
-  .check_integer(max_sequences, "'max_sequences'")
-  .check_logical(use_color, "'use_color'")
-  .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
-                   allow_zero_len = TRUE, allow_null = TRUE)
+  assert_count(max_sequences)
+  assert_flag(use_color)
+  assert_string(letters_sep, null.ok = TRUE)
   
   # color NA's
-  na_letter(alphabet(x)) <- if (use_color) col_silver(.get_na_letter()) else .get_na_letter()
   alph <- alphabet(x)
+  attr(alph, "na_letter") <- if (use_color)
+    col_silver(getOption("tidysq_NA_letter")) else
+      getOption("tidysq_NA_letter")
   
   # if parameter is NULL and all letters are length one, no space
   if (is.null(letters_sep))
@@ -28,11 +29,10 @@ format.encsq <- function(x, ...,
                          use_color = getOption("tidysq_p_use_color"),
                          letters_sep = NULL,
                          digits = 2) {
-  .check_integer(max_sequences, "'max_sequences'")
-  .check_logical(use_color, "'use_color'")
-  .check_character(letters_sep, "'letters_sep'", single_elem = TRUE, 
-                   allow_zero_len = TRUE, allow_null = TRUE)
-  .check_integer(digits, "'digits'", allow_zero = TRUE)
+  assert_count(max_sequences)
+  assert_flag(use_color)
+  assert_string(letters_sep, null.ok = TRUE)
+  assert_count(digits)
   
   alphabet(x) <- format(alphabet(x), digits = digits, scientific = FALSE)
   
@@ -64,18 +64,18 @@ format.pillar_shaft_sq <- function(x, width, ...) {
 .format_sq <- function(x, max_sequences, use_color, letters_sep, body_color) {
   # select at most max_sequences to print
   num_lines <- min(max_sequences, length(x))
-  sq <- x[1:num_lines]
+  x <- x[1:num_lines]
   
   p_width <- getOption("width")
   
   # cut sq object so that we don't need to debitify long sequences
   # 6 is minimum length of p_lens and p_inds, 8 is byte length
-  sq_cut <- .cut_sq(sq, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
-  sq_cut <- .unpack_from_sq(sq_cut, "int")
-  sq_cut <- lapply(sq_cut, function(s) alphabet(sq)[s])
+  sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
+  sq_cut <- unpack(sq_cut, "INTS")
+  sq_cut <- lapply(sq_cut, function(s) alphabet(x)[s])
   
   # lengths of sequences
-  lens <- get_sq_lengths(sq)
+  lens <- get_sq_lengths(x)
   
   # max width of index number
   inds_width <- nchar(num_lines) + 2
@@ -89,14 +89,14 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   paste0(p_inds, "\u00a0", p_seqs, collapse = "\n")
 }
 
-.cut_sq <- function(sq, num_oct) {
+.cut_sq <- function(x, num_oct) {
   # note: num_oct should be greater than 0, not that it'd make sense to use 0 or less
-  alph_size <- .get_alph_size(alphabet(sq))
-  ret <- lapply(sq, function(s) {
+  alph_size <- .get_alph_size(alphabet(x))
+  ret <- lapply(x, function(s) {
     if (length(s) <= num_oct * alph_size) s
     else structure(s[1:(num_oct * alph_size)], original_length = attr(s, "original_length"))
   })
-  vec_restore(ret, sq)
+  vec_restore(ret, x)
 }
 
 #' @importFrom cli col_blue col_silver
@@ -106,12 +106,12 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   # max width of length number
   lens_width <- max(nchar(lens)) + 2
   
-  x <- mapply(function(sq, len) {
+  x <- mapply(function(sequence, len) {
     if (len == 0) {
       structure("<NULL>", dots = "")
     } else {
       # we count how much characters can we print by counting cumulative extent
-      cum_lens <- cumsum(col_nchar(sq)) + (0:(length(sq) - 1)) * nchar(letters_sep)
+      cum_lens <- cumsum(col_nchar(sequence)) + (0:(length(sequence) - 1)) * nchar(letters_sep)
       # max length of this line is its width minus the lens_width
       res_lens <- width - lens_width - 1
       
@@ -120,12 +120,12 @@ format.pillar_shaft_sq <- function(x, width, ...) {
         # if printed sequence is shorter than original, we also need space for dots
         # find last index that allows sq to fit into reserved space
         n <- Position(identity, cum_lens <= res_lens - 3, right = TRUE)
-        sq <- sq[1:n]
-        attr(sq, "dots") <- "..."
+        sequence <- sequence[1:n]
+        attr(sequence, "dots") <- "..."
       } else {
-        attr(sq, "dots") <- ""
+        attr(sequence, "dots") <- ""
       }
-      sq
+      sequence
     }
   }, x, lens, SIMPLIFY = FALSE)
   
@@ -161,7 +161,7 @@ format.pillar_shaft_sq <- function(x, width, ...) {
   # cut sq object so that we don't need to debitify long sequences
   # 6 is minimum length of p_lens and p_inds, 8 is byte length
   sq_cut <- .cut_sq(x, ceiling((p_width - 6) / (8 * (nchar(letters_sep) + 1))))
-  sq_cut <- .unpack_from_sq(sq_cut, "int")
+  sq_cut <- unpack(sq_cut, "INTS")
   sq_cut <- lapply(sq_cut, function(s) alphabet(x)[s])
   
   # maximum length of length numbers

@@ -7,12 +7,13 @@
 #' @importFrom stats na.omit rnorm setNames
 #' @importFrom utils download.file installed.packages
 #' @importFrom tibble as_tibble tibble
+#' @import checkmate
 #' @import vctrs
 #' @name tidysq-package
 #' @aliases tidysq
 NULL
 
-#' @useDynLib tidysq
+#' @useDynLib tidysq, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 #' @importFrom RcppParallel RcppParallelLibs
 NULL
