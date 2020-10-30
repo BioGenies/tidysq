@@ -4,10 +4,10 @@
 \alias{encode}
 \title{Encode sequences as numeric values}
 \usage{
-encode(sq, encoding)
+encode(x, encoding, ...)
 }
 \arguments{
-\item{sq}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link{sq}} object.}
 
 \item{encoding}{\code{encoding} a named \code{\link{numeric}} vector, that consists of 
 values assigned to nucleic or amino acid letters. Letters without assigned encoding will 

@@ -128,25 +128,60 @@
 #' @seealso \code{\link{sq}} \code{\link{as.matrix}} or \code{\link{encsq_to_list}}
 #' 
 #' @export
-encode <- function(sq, encoding) {
-  .validate_sq(sq)
-  .check_isnt_missing(encoding, "'encoding'")
-  .check_is_named(encoding, "'encoding'")
-  .check_numeric(encoding, "'encoding'", allow_zero = TRUE, allow_negative = TRUE, 
-                 allow_na = TRUE, allow_nan = TRUE, allow_inf = TRUE)
-  .check_is_unique(names(encoding), "'encoding'")
+encode <- function(x, encoding, ...) {
+  assert_numeric(encoding, names = "unique")
   
-  type <- .get_sq_type(sq)
-  if (type %in% c("ami", "dna", "rna"))
-    names(encoding) <- toupper(names(encoding))
-  
-  alph <- alphabet(sq)
-  alph_size <- .get_alph_size(alph)
+  UseMethod("encode")
+}
+
+#' @export
+encode.default <- function(x, encoding, ...)
+  stop("method 'encode()' isn't implemented for this type of object", call. = FALSE)
+
+#' @export
+encode.sq_dna_bsc <- function(x, encoding, ...) {
+  names(encoding) <- toupper(names(encoding))
+  NextMethod()
+}
+
+#' @export
+encode.sq_dna_ext <- function(x, encoding, ...) {
+  names(encoding) <- toupper(names(encoding))
+  NextMethod()
+}
+
+#' @export
+encode.sq_rna_bsc <- function(x, encoding, ...) {
+  names(encoding) <- toupper(names(encoding))
+  NextMethod()
+}
+
+#' @export
+encode.sq_rna_ext <- function(x, encoding, ...) {
+  names(encoding) <- toupper(names(encoding))
+  NextMethod()
+}
+
+#' @export
+encode.sq_ami_bsc <- function(x, encoding, ...) {
+  names(encoding) <- toupper(names(encoding))
+  NextMethod()
+}
+
+#' @export
+encode.sq_ami_ext <- function(x, encoding, ...) {
+  names(encoding) <- toupper(names(encoding))
+  NextMethod()
+}
+
+#' @export
+encode.sq <- function(x, encoding, ...) {
+  alph <- alphabet(x)
   is_given <- alph %in% names(encoding)
   if (!all(is_given)) {
     ind <- (1:length(alph))[!is_given]
-    for (s in sq) {
-      if (any(CPP_unpack_INTS(s)[[1]] %in% ind)) {
+    for (s in x) {
+      if (any(unpack(s, "INTS") %in% ind)) {
         .handle_opt_txt("tidysq_a_no_given_enc",
                         "there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA")
         break
@@ -157,8 +192,8 @@ encode <- function(sq, encoding) {
     encoding <- c(encoding, non_given)
   }
   
-  new_list_of(sq,
+  new_list_of(x,
               ptype = raw(),
               alphabet = encoding[alph],
-              class = c("encsq", "sq"))
+              class = c("sq_enc", "sq"))
 }

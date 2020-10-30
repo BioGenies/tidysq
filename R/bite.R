@@ -88,24 +88,20 @@
 #' 
 #' @seealso \code{\link{sq}} \code{\link{remove_na}} \code{\link{tidysq-options}}
 #' @export
-bite <- function(sq, indices) {
-  .validate_sq(sq)
-  .check_numeric(indices, "'indices'", allow_negative = TRUE)
+bite <- function(x, indices, ...)
+  UseMethod("bite")
+
+#' @export
+bite.default <- function(x, indices, ...)
+  stop("method 'bite()' isn't implemented for this type of object", call. = FALSE)
+
+#' @export
+bite.sq <- function(x, indices, ...) {
+  assert_integerish(indices, any.missing = FALSE, null.ok = TRUE)
   
-  na_introduced <- FALSE
-  alph <- alphabet(sq)
-  alph_size <- .get_alph_size(alph)
-  na_val <- .get_na_val(alph)
-  
-  ret <- do.call(c, lapply(1:length(sq), function(i) {
-    s <- CPP_unpack_INTS(sq[i])[[1]][indices]
-    if (any(is.na(s))) na_introduced <<- TRUE
-    s[is.na(s)] <- na_val
-    CPP_pack_INTS(list(s), alph)
-  }))
-  if (na_introduced) {
+  ret <- CPP_bite(x, indices)
+  if (ret[["warning"]] == "")
     .handle_opt_txt("tidysq_a_bite_na",
                     "some sequences are subsetted with index bigger than length - NA introduced")
-  }
-  vec_restore(ret, sq)
+  ret[["sq"]]
 }

@@ -1,67 +1,152 @@
-# amisq ----
+# sq_dna_bsc ----
 #' @export
-vec_cast.amisq.amisq <- function(x, to, ...)
-  if (.is_cleaned(x) == .is_cleaned(to)) x else .construct_amisq(as.character(x), .is_cleaned(to))
+vec_cast.sq_dna_bsc.sq_dna_bsc <- function(x, to, ...) x
 #' @export
-vec_cast.amisq.character <- function(x, to, ...) .construct_amisq(x, .is_cleaned(to))
+vec_cast.sq_dna_bsc.sq_dna_ext <- function(x, to, ...)
+  sq(as.character(x), alphabet = "sq_dna_ext")
 #' @export
-vec_cast.character.amisq <- function(x, to, ...) unlist(.unpack_from_sq(x, "string"))
+vec_cast.sq_dna_bsc.character <- function(x, to, ...)
+  sq(x, alphabet = "sq_dna_bsc")
 #' @export
-vec_cast.untsq.amisq <- function(x, to, ...) .construct_untsq(as.character(x), alph = alphabet(to))
+vec_cast.character.sq_dna_bsc <- function(x, to, ...,
+                                          NA_letter = getOption("tidysq_NA_letter"))
+  unpack(x, "STRING", NA_letter)
 #' @export
-vec_cast.amisq.untsq <- function(x, to, ...) typify(x, "ami")
+vec_cast.sq_dna_bsc.sq_unt <- function(x, to, ...)
+  typify(x, "sq_dna_bsc")
+#' @export
+vec_cast.sq_unt.sq_dna_bsc <- function(x, to, ...)
+  pack(as.character(x), alphabet(to))
 
-# dnasq ----
+# sq_dna_ext ----
 #' @export
-vec_cast.dnasq.dnasq <- function(x, to, ...)
-  if (.is_cleaned(x) == .is_cleaned(to)) x else .construct_dnasq(as.character(x), .is_cleaned(to))
+vec_cast.sq_dna_ext.sq_dna_ext <- function(x, to, ...) x
 #' @export
-vec_cast.dnasq.character <- function(x, to, ...) .construct_dnasq(x, .is_cleaned(to))
+vec_cast.sq_dna_ext.character <- function(x, to, ...)
+  sq(x, alphabet = "sq_dna_ext")
 #' @export
-vec_cast.character.dnasq <- function(x, to, ...) unlist(.unpack_from_sq(x, "string"))
+vec_cast.character.sq_dna_ext <- function(x, to, ...,
+                                          NA_letter = getOption("tidysq_NA_letter"))
+  unpack(x, "STRING", NA_letter)
 #' @export
-vec_cast.untsq.dnasq <- function(x, to, ...) .construct_untsq(as.character(x), alph = alphabet(to))
+vec_cast.sq_dna_ext.sq_unt <- function(x, to, ...)
+  typify(x, "sq_dna_ext")
 #' @export
-vec_cast.dnasq.untsq <- function(x, to, ...) typify(x, "dna")
+vec_cast.sq_unt.sq_dna_ext <- function(x, to, ...)
+  pack(as.character(x), alphabet(to))
 
-# rnasq ----
+# sq_rna_bsc ----
 #' @export
-vec_cast.rnasq.rnasq <- function(x, to, ...)
-  if (.is_cleaned(x) == .is_cleaned(to)) x else .construct_rnasq(as.character(x), .is_cleaned(to))
+vec_cast.sq_rna_bsc.sq_rna_bsc <- function(x, to, ...) x
 #' @export
-vec_cast.rnasq.character <- function(x, to, ...) .construct_rnasq(x, .is_cleaned(to))
+vec_cast.sq_rna_bsc.sq_rna_ext <- function(x, to, ...)
+  sq(as.character(x), alphabet = "sq_rna_ext")
 #' @export
-vec_cast.character.rnasq <- function(x, to, ...) unlist(.unpack_from_sq(x, "string"))
+vec_cast.sq_rna_bsc.character <- function(x, to, ...)
+  sq(x, alphabet = "sq_rna_bsc")
 #' @export
-vec_cast.untsq.rnasq <- function(x, to, ...) .construct_untsq(as.character(x), alph = alphabet(to))
+vec_cast.character.sq_rna_bsc <- function(x, to, ...,
+                                          NA_letter = getOption("tidysq_NA_letter"))
+  unpack(x, "STRING", NA_letter)
 #' @export
-vec_cast.rnasq.untsq <- function(x, to, ...) typify(x, "rna")
+vec_cast.sq_rna_bsc.sq_unt <- function(x, to, ...)
+  typify(x, "sq_rna_bsc")
+#' @export
+vec_cast.sq_unt.sq_rna_bsc <- function(x, to, ...)
+  pack(as.character(x), alphabet(to))
 
-# untsq ----
+# sq_rna_ext ----
 #' @export
-vec_cast.untsq.untsq <- function(x, to, ...)
-  if (identical(alphabet(x), alphabet(to))) x else .construct_untsq(as.character(x), alph = alphabet(to))
+vec_cast.sq_rna_ext.sq_rna_ext <- function(x, to, ...) x
 #' @export
-vec_cast.untsq.character <- function(x, to, ...) .construct_untsq(x, alph = alphabet(to))
+vec_cast.sq_rna_ext.character <- function(x, to, ...)
+  sq(x, alphabet = "sq_rna_ext")
 #' @export
-vec_cast.character.untsq <- function(x, to, ...) unlist(.unpack_from_sq(x, "string"))
+vec_cast.character.sq_rna_ext <- function(x, to, ...,
+                                          NA_letter = getOption("tidysq_NA_letter"))
+  unpack(x, "STRING", NA_letter)
+#' @export
+vec_cast.sq_rna_ext.sq_unt <- function(x, to, ...)
+  typify(x, "sq_rna_ext")
+#' @export
+vec_cast.sq_unt.sq_rna_ext <- function(x, to, ...)
+  pack(as.character(x), alphabet(to))
 
-# atpsq ----
+# sq_ami_bsc ----
 #' @export
-vec_cast.atpsq.atpsq <- function(x, to, ...)
-  if (identical(alphabet(x), alphabet(to))) x else .nonst_construct_sq(as.character(x), alphabet(to))
+vec_cast.sq_ami_bsc.sq_ami_bsc <- function(x, to, ...) x
 #' @export
-vec_cast.atpsq.character <- function(x, to, ...) .nonst_construct_sq(x, alphabet(to))
+vec_cast.sq_ami_bsc.sq_ami_ext <- function(x, to, ...)
+  sq(as.character(x), alphabet = "sq_ami_ext")
 #' @export
-vec_cast.character.atpsq <- function(x, to, ...) unlist(.unpack_from_sq(x, "string"))
+vec_cast.sq_ami_bsc.character <- function(x, to, ...)
+  sq(x, alphabet = "sq_ami_bsc")
+#' @export
+vec_cast.character.sq_ami_bsc <- function(x, to, ...,
+                                          NA_letter = getOption("tidysq_NA_letter"))
+  unpack(x, "STRING", NA_letter)
+#' @export
+vec_cast.sq_ami_bsc.sq_unt <- function(x, to, ...)
+  typify(x, "sq_ami_bsc")
+#' @export
+vec_cast.sq_unt.sq_ami_bsc <- function(x, to, ...)
+  pack(as.character(x), alphabet(to))
+
+# sq_ami_ext ----
+#' @export
+vec_cast.sq_ami_ext.sq_ami_ext <- function(x, to, ...) x
+#' @export
+vec_cast.sq_ami_ext.character <- function(x, to, ...)
+  sq(x, alphabet = "sq_ami_ext")
+#' @export
+vec_cast.character.sq_ami_ext <- function(x, to, ...,
+                                          NA_letter = getOption("tidysq_NA_letter"))
+  unpack(x, "STRING", NA_letter)
+#' @export
+vec_cast.sq_ami_ext.sq_unt <- function(x, to, ...)
+  typify(x, "sq_ami_ext")
+#' @export
+vec_cast.sq_unt.sq_ami_ext <- function(x, to, ...)
+  pack(as.character(x), alphabet(to))
+
+# sq_unt ----
+#' @export
+vec_cast.sq_unt.sq_unt <- function(x, to, ...)
+  if (identical(alphabet(x), alphabet(to))) x else pack(as.character(x), alphabet(to))
+#' @export
+vec_cast.sq_unt.character <- function(x, to, ...)
+  pack(as.character(x), alphabet(to))
+#' @export
+vec_cast.character.sq_unt <- function(x, to, ...,
+                                      NA_letter = getOption("tidysq_NA_letter"))
+  unpack(x, "STRING", NA_letter)
+
+# sq_atp ----
+#' @export
+vec_cast.sq_atp.sq_atp <- function(x, to, ...)
+  if (identical(alphabet(x), alphabet(to))) x else pack(as.character(x), alphabet(to))
+#' @export
+vec_cast.sq_atp.character <- function(x, to, ...)
+  pack(as.character(x), alphabet(to))
+#' @export
+vec_cast.character.sq_atp <- function(x, to, ...,
+                                      NA_letter = getOption("tidysq_NA_letter"))
+  unpack(x, "STRING", NA_letter)
+
+# sq_enc ----
+#' @export
+vec_cast.list.sq_enc <- function(x, to, ...)
+  .apply_sq(x, "int", "none", function(s) alphabet(x)[s])
 
 # sq_alphabet ----
 #' @export
 vec_cast.sq_alphabet.sq_alphabet <- function(x, to, ...) {
-  na_letter(x) <- na_letter(to)
+  attr(x, "type") <- attr(to, "type")
   x
 }
 #' @export
-vec_cast.sq_alphabet.character <- function(x, to, ...) sq_alphabet(x, na_letter(to))
+vec_cast.sq_alphabet.character <- function(x, to, ...)
+  sq_alphabet(x, attr(to, "type"))
 #' @export
-vec_cast.character.sq_alphabet <- function(x, to, ...) vec_data(x)
+vec_cast.character.sq_alphabet <- function(x, to, ...)
+  vec_data(x)

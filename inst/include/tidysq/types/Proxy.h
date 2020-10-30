@@ -87,13 +87,13 @@ namespace tidysq {
         template<>
         inline AbstractGeneralSequenceProxy<RCPP, RAWS, true, false>::operator Sequence<RCPP>() const {
             Rcpp::RawVector ret(contained_sequence_);
-            return tidysq::Sequence<RCPP>(ret, ret.attr("original_length"));
+            return tidysq::Sequence<RCPP>(ret, Rcpp::IntegerVector(ret.attr("original_length"))[0]);
         }
 
         template<>
         inline AbstractGeneralSequenceProxy<RCPP, RAWS, true, true>::operator Sequence<RCPP>() const {
             Rcpp::RawVector ret(contained_sequence_);
-            return tidysq::Sequence<RCPP>(ret, ret.attr("original_length"));
+            return tidysq::Sequence<RCPP>(ret, Rcpp::IntegerVector(ret.attr("original_length"))[0]);
         }
     }
 
@@ -111,16 +111,18 @@ namespace tidysq {
         friend SqType;
 
     public:
-        inline GeneralSequenceProxy& operator=(const typename internal::AbstractGeneralSequenceProxy<INTERNAL, PROTO, PACKED, false>::SequenceType &proto) {
-            internal::AbstractGeneralSequenceProxy<INTERNAL, PROTO, PACKED, false>::contained_sequence_ = proto;
+        inline GeneralSequenceProxy& operator=(const typename internal::AbstractGeneralSequenceProxy<INTERNAL, PROTO, PACKED, false>::SequenceType &general_sequence) {
+            internal::AbstractGeneralSequenceProxy<INTERNAL, PROTO, PACKED, false>::contained_sequence_ = general_sequence;
             return *this;
         }
     };
 
     template<>
     inline GeneralSequenceProxy<RCPP, RAWS, true> &  GeneralSequenceProxy<RCPP, RAWS, true>::operator=(
-            const typename internal::AbstractGeneralSequenceProxy<RCPP, RAWS, true, false>::SequenceType &proto) {
-        contained_sequence_ = proto.content();
+            const typename internal::AbstractGeneralSequenceProxy<RCPP, RAWS, true, false>::SequenceType &general_sequence) {
+        Rcpp::RawVector content = general_sequence.content();
+        content.attr("original_length") = general_sequence.originalLength();
+        contained_sequence_ = content;
         return *this;
     }
 

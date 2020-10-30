@@ -114,25 +114,32 @@
 #' substitute_letters(sq_ami, sub_AG)
 #' 
 #' @seealso \code{\link{sq}} 
+#' 
 #' @export
+substitute_letters <- function(x, encoding, ...)
+  UseMethod("substitute_letters")
 
-substitute_letters <- function(sq, encoding) {
-  .validate_sq(sq)
-  alph <- alphabet(sq)
-  .check_isnt_missing(encoding, "'encoding'")
-  .check_isnt_null(encoding, "'encoding'")
-  .check_is_named(encoding, "'encoding'")
-  .check_enc_names_in_alph(encoding, alph)
-  .check_is_unique(names(encoding), "names of 'encoding'")
+#' @export
+substitute_letters.default <- function(x, encoding, ...)
+  stop("cannot substitute letters in this type of object", call. = FALSE)
+
+#' @export
+substitute_letters.sq <- function(x, encoding, ...) {
+  assert_class(x, "sq")
+  alph <- alphabet(x)
+  assert_atomic_vector(encoding, names = "unique")
+  assert_subset(names(encoding), alph)
   
   if (is.numeric(encoding)) {
-    .check_integer(encoding, "if is numeric 'encoding'", allow_na = TRUE)
+    assert_integerish(encoding)
     # Changes storage mode, because it preserves attributes
     # (and we want to preserve names)
     mode(encoding) <- "character"
   } else if (is.character(encoding)) {
-    .check_character(encoding, "if is character 'encoding'", allow_na = TRUE)
-  } else .check_simple(!all(is.na(encoding)), "if is neither numeric nor character 'encoding'", "has to contain only NA values")
+    assert_character(encoding)
+  } else {
+    stop("encoding must be either numeric of character vector", call. = FALSE)
+  }
   
   inds_fun <- alph
   inds_fun[match(names(encoding), alph)] <- encoding
@@ -140,12 +147,7 @@ substitute_letters <- function(sq, encoding) {
   inds_fun <- match(inds_fun, new_alph)
   inds_fun[is.na(inds_fun)] <- .get_na_val(new_alph)
   
-  ret <- .apply_sq(sq, "int", "int", function(s) inds_fun[s], new_alph)
-  if (.is_cleaned(sq)) {
-    .handle_opt_txt("tidysq_a_cln_sub_letters",
-                    "'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it")
-  }
-  
+  ret <- .apply_sq(x, "int", "int", function(s) inds_fun[s], new_alph)
   new_list_of(ret,
               ptype = raw(),
               alphabet = new_alph,

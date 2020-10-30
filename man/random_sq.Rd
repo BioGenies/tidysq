@@ -4,7 +4,7 @@
 \alias{random_sq}
 \title{Generate random sequences}
 \usage{
-random_sq(n, len, type, is_clean, sd = NULL, use_gap = FALSE)
+random_sq(n, len, type, sd = NULL, use_gap = FALSE)
 }
 \arguments{
 \item{n}{a positive \code{\link{integer}} value - number of sequences to generate.}
@@ -15,14 +15,14 @@ specified and mean length of sequences if \code{sd} specified}
 \item{type}{a type of generated sq object; possible values are "ami", "dna" and "rna"
 (see section \emph{sq types} in \code{\link{sq}} documentation for details).}
 
-\item{is_clean}{a \code{\link{logical}} value - if \code{TRUE}, letters will be drawn from
-clean alphabet, if \code{FALSE} - ambiguous letters might be also generated.}
-
 \item{sd}{a positive \code{\link{numeric}} value; if specified, gives standard deviation of
 length of generated sequences.}
 
 \item{use_gap}{- a \code{\link{logical}} value; if \code{TRUE}, sequences will be generated
 with random gaps inside.}
+
+\item{is_clean}{a \code{\link{logical}} value - if \code{TRUE}, letters will be drawn from
+clean alphabet, if \code{FALSE} - ambiguous letters might be also generated.}
 }
 \value{
 An object of class \code{sq} with type as specified.

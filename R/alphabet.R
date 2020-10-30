@@ -5,7 +5,7 @@
 #' Function returns amino acid, DNA, RNA or atypical alphabet based on a \code{\link{sq}} 
 #' object type. 
 #' 
-#' @param sq a \code{\link{sq}} object to be recognized. 
+#' @param x a \code{\link{sq}} object to be recognized.
 #'  
 #' @return A character vector of letters of the alphabet.
 #' 
@@ -51,49 +51,57 @@
 #'   
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}} \code{\link{encode}}
 #' @export
-get_sq_alphabet <- function(sq) {
-  .validate_sq(sq)
-  alphabet(sq)
+get_sq_alphabet <- function(x) {
+  assert_class(x, "sq")
+  alphabet(x)
 }
 
-alphabet <- function(sq)
-  attr(sq, "alphabet")
+alphabet <- function(x)
+  attr(x, "alphabet")
 
-`alphabet<-` <- function(sq, value) {
-  attr(sq, "alphabet") <- value
-  sq
+`alphabet<-` <- function(x, value) {
+  attr(x, "alphabet") <- value
+  x
 }
 
 # alphabet creation ----
 
-sq_alphabet <- function(alph, na_letter = .get_na_letter()) {
+sq_alphabet <- function(alph, type) {
+  # if exported add asserts
   new_vctr(
     alph,
-    na_letter = na_letter,
+    type = type,
     class = c("sq_alphabet", "character")
   )
 }
 
 sq_alphabet_ptype <- function()
-  sq_alphabet(character())
+  sq_alphabet(character(), character())
+
+get_standard_alphabet <- function(type) {
+  sq_alphabet(
+    switch (type,
+            dna_bsc = nucleotides_df[nucleotides_df[["dna"]], "one"],
+            dna_ext = nucleotides_df[nucleotides_df[["dna"]] | nucleotides_df[["amb"]], "one"],
+            rna_bsc = nucleotides_df[nucleotides_df[["rna"]], "one"],
+            rna_ext = nucleotides_df[nucleotides_df[["rna"]] | nucleotides_df[["amb"]], "one"],
+            ami_bsc = aminoacids_df[!aminoacids_df[["amb"]], "one"],
+            ami_ext = aminoacids_df[, "one"]
+    ),
+    type
+  )
+}
 
 .skip_characters <- function(alph, chars)
   vec_restore(setdiff(alph, chars), alph)
 
 # alphabet reading ----
 
-`[.sq_alphabet` <- function(x, i) {
+`[.sq_alphabet` <- function(x, i,
+                            NA_letter = getOption("tidysq_NA_letter")) {
   ret <- vec_data(x)[i]
-  ret[i == .get_na_val(x)] <- na_letter(x)
+  ret[i == .get_na_val(x)] <- NA_letter
   ret
-}
-
-na_letter <- function(alph)
-  attr(alph, "na_letter")
-
-`na_letter<-` <- function(alph, value) {
-  attr(alph, "na_letter") <- value
-  alph
 }
 
 # various internal methods put together (to check!) ----
@@ -109,50 +117,7 @@ na_letter <- function(alph)
 .get_real_alph <- function(str_sq) {
   new_vctr(
     C_get_real_alph(str_sq),
-    na_letter = .get_na_letter(),
+    na_letter = getOption("tidysq_NA_letter"),
     class = c("sq_alphabet", "character")
   )
-}
-
-.get_standard_alph <- function(type, is_clean) {
-  new_vctr(
-    if (type == "ami" &&  is_clean)
-      aminoacids_df[!aminoacids_df[["amb"]], "one"]
-    else if (type == "ami" && !is_clean)
-      aminoacids_df[, "one"]
-    else if (type == "dna" &&  is_clean)
-      nucleotides_df[nucleotides_df[["dna"]], "one"]
-    else if (type == "dna" && !is_clean)
-      nucleotides_df[nucleotides_df[["dna"]] | nucleotides_df[["amb"]], "one"]
-    else if (type == "rna" &&  is_clean)
-      nucleotides_df[nucleotides_df[["rna"]], "one"]
-    else if (type == "rna" && !is_clean)
-      nucleotides_df[nucleotides_df[["rna"]] | nucleotides_df[["amb"]], "one"],
-    na_letter = .get_na_letter(),
-    class = c("sq_alphabet", "character")
-  )
-}
-
-.guess_ami_is_clean <- function(real_alph) {
-  if (all(real_alph %in% .get_standard_alph("ami", TRUE)))
-    TRUE
-  else if (all(real_alph %in% .get_standard_alph("ami", FALSE)))
-    FALSE
-  else stop("there are letters that aren't in IUPAC standard! (see: aminoacids_df)")
-}
-
-.guess_dna_is_clean <- function(real_alph) {
-  if (all(real_alph %in% .get_standard_alph("dna", TRUE)))
-    TRUE
-  else if (all(real_alph %in% .get_standard_alph("dna", FALSE)))
-    FALSE
-  else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
-}
-
-.guess_rna_is_clean <- function(real_alph) {
-  if (all(real_alph %in% .get_standard_alph("rna", TRUE)))
-    TRUE
-  else if (all(real_alph %in% .get_standard_alph("rna", FALSE)))
-    FALSE
-  else stop("there are letters that aren't in IUPAC standard! (see: nucleotides_df)")
 }

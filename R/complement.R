@@ -3,7 +3,7 @@
 #' @description Creates the complementary sequence from a given RNA or DNA 
 #'  nucleotide sequence. The function differentiates between RNA and DNA sequences. 
 #' 
-#' @param sq a \code{\link{sq}} object of type \strong{dna} or \strong{rna}.
+#' @param x a \code{\link{sq}} object of type \strong{dna} or \strong{rna}.
 #'
 #' @return \code{sq} object of the same type as input \code{dnasq} (\strong{dna})
 #' or \code{rnasq} (\strong{rna}) but built of complementary nucleotides to entered
@@ -42,76 +42,65 @@
 #' 
 #' @seealso \code{\link{sq}}
 #' @export
-complement <- function(sq) {
+complement <- function(x)
   UseMethod("complement")
-}
 
 #' @export
-complement.default <- function(sq) {
-  stop("method 'complement' isn't implemented for this type of object")
-}
+complement.default <- function(x)
+  stop("method 'complement' isn't implemented for this type of object", call. = FALSE)
 
 #' @export
-complement.dnasq <- function(sq) {
-  .validate_sq(sq, "dna")
-  
-  .check_is_clean(sq, "'dnasq'")
-  alph <- alphabet(sq)
-  ret <- .unpack_from_sq(sq, "int")
+complement.sq_dna_bsc <- function(x) {
+  alph <- alphabet(x)
+  ret <- unpack(x, "INTS")
   
   dict <- c(G = "C", C = "G", T = "A", A = "T", `-` = "-")
   
-  inds_fun <- match(dict[alph], alph) - 1
-  ret <- do.call(c, lapply(ret, function(s)  CPP_pack_INTS(list(inds_fun[s + 1]), alph)))
+  inds_fun <- match(dict[alph], alph)
+  names(inds_fun) <- as.character(1:length(alph))
+  ret <- lapply(ret, function(s) structure(pack(inds_fun[s], "INTS"),
+                                           original_length = attr(s, "original_length")))
   
-  vec_restore(ret, sq)
+  vec_restore(ret, x)
 }
 
 #' @export
-complement.rnasq <- function(sq) {
-  .validate_sq(sq, "rna")
-  
-  .check_is_clean(sq, "'rnasq'")
-  alph <- alphabet(sq)
-  alph_size <- .get_alph_size(alph)
-  ret <- .unpack_from_sq(sq, "int")
+complement.sq_rna_bsc <- function(x) {
+  alph <- alphabet(x)
+  ret <- unpack(x, "INTS")
   
   dict <- c(G = "C", C = "G", U = "A", A = "U", `-` = "-")
   
-  inds_fun <- match(dict[alph], alph) - 1
-  ret <- do.call(c, lapply(ret, function(s)  CPP_pack_INTS(list(inds_fun[s + 1]), alph)))
+  inds_fun <- match(dict[alph], alph)
+  names(inds_fun) <- as.character(1:length(alph))
+  ret <- lapply(ret, function(s) structure(pack(inds_fun[s], "INTS"),
+                                           original_length = attr(s, "original_length")))
   
-  vec_restore(ret, sq)
+  vec_restore(ret, x)
 }
 
 #' @rdname complement
 #' @export
-complement_dna <- function(sq) {
+complement_dna <- function(x)
   UseMethod("complement_dna")
-}
 
 #' @export
-complement_dna.default <- function(sq) {
-  stop("method 'complement_dna' isn't implemented for this type of object")
-}
+complement_dna.default <- function(x)
+  stop("method 'complement_dna' isn't implemented for this type of object", call. = FALSE)
 
 #' @export
-complement_dna.dnasq <- function(sq) {
-  complement.dnasq(sq)
-}
+complement_dna.sq_dna_bsc <- function(x)
+  complement.sq_dna_bsc(x)
 
 #' @rdname complement
 #' @export
-complement_rna <- function(sq) {
+complement_rna <- function(x)
   UseMethod("complement_rna")
-}
 
 #' @export
-complement_rna.default <- function(sq) {
-  stop("method 'complement_rna' isn't implemented for this type of object")
-}
+complement_rna.default <- function(x)
+  stop("method 'complement_rna' isn't implemented for this type of object", call. = FALSE)
 
 #' @export
-complement_rna.rnasq <- function(sq) {
-  complement.rnasq(sq)
-}
+complement_rna.sq_rna_bsc <- function(x)
+  complement.sq_rna_bsc(x)

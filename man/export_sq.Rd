@@ -4,10 +4,10 @@
 \alias{export_sq}
 \title{Export sq objects into other formats}
 \usage{
-export_sq(sq, export_format, name = NULL, ...)
+export_sq(x, export_format, name = NULL, ...)
 }
 \arguments{
-\item{sq}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link{sq}} object.}
 
 \item{export_format}{a \code{\link{character}} string indicating package and the destination 
 class; it should be one of the following: "seqinr::SeqFastaAA", "ape::AAbin", 

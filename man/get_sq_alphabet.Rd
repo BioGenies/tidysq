@@ -4,10 +4,10 @@
 \alias{get_sq_alphabet}
 \title{Get alphabet of given sq object.}
 \usage{
-get_sq_alphabet(sq)
+get_sq_alphabet(x)
 }
 \arguments{
-\item{sq}{a \code{\link{sq}} object to be recognized.}
+\item{x}{a \code{\link{sq}} object to be recognized.}
 }
 \value{
 A character vector of letters of the alphabet.
