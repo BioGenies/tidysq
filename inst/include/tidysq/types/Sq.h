@@ -19,7 +19,6 @@ namespace tidysq {
     public:
         typedef typename InternalTypeMapper<INTERNAL>::SqContentType ContentType;
         typedef typename InternalTypeMapper<INTERNAL>::SqElementType ElementType;
-        typedef typename InternalTypeMapper<INTERNAL>::SequenceContentType ElementUnderlyingType;
 
         Sq(const ContentType &content, const Alphabet &alphabet) :
                 content_(content),

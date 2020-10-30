@@ -19,7 +19,6 @@ namespace tidysq {
     public:
         typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSqContentType ContentType;
         typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSqElementType ElementType;
-        typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceContentType ElementUnderlyingType;
 
         ProtoSq(const ContentType &content, const Alphabet &alphabet) :
                 content_(content),
