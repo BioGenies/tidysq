@@ -49,6 +49,10 @@ CPP_has <- function(x, motifs) {
     .Call(`_tidysq_CPP_has`, x, motifs)
 }
 
+Cpp_translate <- function(sq, table) {
+    .Call(`_tidysq_Cpp_translate`, sq, table)
+}
+
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
     .Call('_tidysq_RcppExport_registerCCallable', PACKAGE = 'tidysq')
