@@ -6,6 +6,7 @@
 #include "tidysq/types/TypeMapper.h"
 #include "tidysq/sqapply.h"
 #include "tidysq/ops/OperationPack.h"
+#include "tidysq/types/Proxy.h"
 
 namespace tidysq {
     template<InternalType INTERNAL>
@@ -19,8 +20,6 @@ namespace tidysq {
         typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSqContentType ContentType;
         typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSqElementType ElementType;
         typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceContentType ElementUnderlyingType;
-        typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSqAccessType AccessType;
-        typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSqConstAccessType ConstAccessType;
 
         ProtoSq(const ContentType &content, const Alphabet &alphabet) :
                 content_(content),
@@ -35,20 +34,12 @@ namespace tidysq {
         ProtoSq(const LenSq length, const SqType &type) :
                 ProtoSq(length, Alphabet(type)) {};
 
-        inline AccessType operator[](const LenSq index) {
-            return content_[index];
+        inline ProtoSequenceProxy<INTERNAL, PROTO> operator[](const LenSq index) {
+            return ProtoSequenceProxy<INTERNAL, PROTO>(content_[index]);
         }
 
-        inline ConstAccessType operator[](const LenSq index) const {
-            return content_[index];
-        }
-
-        inline ElementType get(const LenSq index) const {
-            return content_[index];
-        }
-
-        inline void set(const LenSq index, const ElementType &value) {
-            content_[index] = value;
+        inline ProtoSequenceConstProxy<INTERNAL, PROTO> operator[](const LenSq index) const {
+            return ProtoSequenceConstProxy<INTERNAL, PROTO>(content_[index]);
         }
 
         [[nodiscard]] inline LenSq length() const {
@@ -76,7 +67,7 @@ namespace tidysq {
         inline bool operator==(const ProtoSq<INTERNAL, PROTO> &other) {
            if ((alphabet_ != other.alphabet_) || (content_.size() != other.content_.size())) return false;
            for (LenSq i = 0; i < content_.size(); i++) {
-               if (!Rcpp::is_true(Rcpp::all(ElementUnderlyingType(content_[i]) == ElementUnderlyingType(other.content_[i])))) return false;
+               if ((*this)[i] != other[i]) return false;
            }
            return true;
         }
@@ -106,21 +97,12 @@ namespace tidysq {
         return content_;
     }
 
-    template<>
-    inline ProtoSq<RCPP, STRING>::ElementType ProtoSq<RCPP, STRING>::get(const LenSq index) const {
-        return ProtoSq<RCPP, STRING>::ElementType(static_cast<std::string>(Rcpp::StringVector(content_[index].get())[0]));
-    }
-
-    template<>
-    inline void ProtoSq<RCPP, STRING>::set(const LenSq index, const ElementType &value) {
-        content_[index] = value.content();
-    }
 
     template<>
     inline bool ProtoSq<RCPP, STRING>::operator==(const ProtoSq<RCPP, STRING> &other) {
         if ((alphabet_ != other.alphabet_) || (content_.size() != other.content_.size())) return false;
         for (LenSq i = 0; i < content_.size(); i++) {
-            if (ElementUnderlyingType(content_[i]) != ElementUnderlyingType(other.content_[i])) return false;
+            if ((*this)[i] != other[i]) return false;
         }
         return true;
     }

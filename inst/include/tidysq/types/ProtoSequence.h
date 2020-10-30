@@ -1,28 +1,5 @@
 #pragma once
 
-#include "tidysq/types/general.h"
-
-namespace tidysq {
-    template<InternalType, ProtoType>
-    class ProtoSequence;
-}
-
-#include <RcppCommon.h>
-
-namespace Rcpp {
-    template<>
-    SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::RAWS> &);
-
-    template<>
-    SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::INTS> &);
-
-    template<>
-    SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::STRINGS> &);
-
-    template<>
-    SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::STRING> &);
-}
-
 #include <utility>
 
 #include "tidysq/types/Alphabet.h"
@@ -118,26 +95,20 @@ namespace tidysq {
         content_ += letter;
         return *this;
     }
-}
 
-namespace Rcpp {
     template<>
-    inline SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::RAWS> &obj) {
-        return obj.content();
+    inline bool ProtoSequence<RCPP, RAWS>::operator==(const ProtoSequence<RCPP, RAWS> &other) const {
+        return Rcpp::is_true(Rcpp::all(content_ == other.content_));
     }
 
     template<>
-    inline SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::INTS> &obj) {
-        return obj.content();
+    inline bool ProtoSequence<RCPP, INTS>::operator==(const ProtoSequence<RCPP, INTS> &other) const {
+        return Rcpp::is_true(Rcpp::all(content_ == other.content_));
     }
 
     template<>
-    inline SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::STRINGS> &obj) {
-        return obj.content();
-    }
-
-    template<>
-    inline SEXP wrap(const tidysq::ProtoSequence<tidysq::RCPP, tidysq::STRING> &obj) {
-        return Rcpp::StringVector(obj.content());
+    inline bool ProtoSequence<RCPP, STRINGS>::operator==(const ProtoSequence<RCPP, STRINGS> &other) const {
+        return Rcpp::is_true(Rcpp::all(content_ == other.content_));
     }
 }
+

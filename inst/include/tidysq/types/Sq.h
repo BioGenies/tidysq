@@ -5,6 +5,7 @@
 #include "tidysq/types/Alphabet.h"
 #include "tidysq/types/TypeMapper.h"
 #include "tidysq/ops/OperationUnpack.h"
+#include "tidysq/types/Proxy.h"
 #include "tidysq/sqapply.h"
 
 namespace tidysq {
@@ -19,8 +20,6 @@ namespace tidysq {
         typedef typename InternalTypeMapper<INTERNAL>::SqContentType ContentType;
         typedef typename InternalTypeMapper<INTERNAL>::SqElementType ElementType;
         typedef typename InternalTypeMapper<INTERNAL>::SequenceContentType ElementUnderlyingType;
-        typedef typename InternalTypeMapper<INTERNAL>::SqAccessType AccessType;
-        typedef typename InternalTypeMapper<INTERNAL>::SqConstAccessType ConstAccessType;
 
         Sq(const ContentType &content, const Alphabet &alphabet) :
                 content_(content),
@@ -38,20 +37,12 @@ namespace tidysq {
         explicit Sq(const SqType &type) :
                 Sq(0, Alphabet(type)) {};
 
-        AccessType inline operator[] (const LenSq index) {
-            return content_[index];
+        inline SequenceProxy<INTERNAL> operator[](const LenSq index) {
+            return SequenceProxy<INTERNAL>(content_[index]);
         }
 
-        ConstAccessType inline operator[] (LenSq index) const {
-            return content_[index];
-        }
-
-        [[nodiscard]] inline ElementType get(const LenSq index) const {
-            return content_[index];
-        }
-
-        inline void set(const LenSq index, const ElementType &value) {
-            content_[index] = value;
+        inline SequenceConstProxy<INTERNAL> operator[](const LenSq index) const {
+            return SequenceConstProxy<INTERNAL>(content_[index]);
         }
 
         [[nodiscard]] LenSq length() const {
@@ -77,7 +68,7 @@ namespace tidysq {
         inline bool operator==(const Sq<INTERNAL> &other) {
             if ((alphabet_ != other.alphabet_) || (content_.size() != other.content_.size())) return false;
             for (LenSq i = 0; i < content_.size(); i++) {
-                if (!Rcpp::is_true(Rcpp::all(ElementUnderlyingType(content_[i]) == ElementUnderlyingType(other.content_[i])))) return false;
+                if ((*this)[i] != other[i]) return false;
             }
             return true;
         }
