@@ -59,8 +59,9 @@ namespace tidysq {
 
         private:
             // sequence_it is passed as copy, because we want a new iterator that starts from that point
-            [[nodiscard]] bool aligns_with(SequenceIterator<RCPP> sequence_it,
-                                           const SequenceIterator<RCPP>& iterator_end) const {
+            template<InternalType INTERNAL>
+            [[nodiscard]] bool aligns_with(SequenceIterator<INTERNAL> sequence_it,
+                                           const SequenceIterator<INTERNAL>& iterator_end) const {
                 auto motif_it = begin();
                 while (sequence_it <= iterator_end && std::any_of(
                         motif_it->begin(), motif_it->end(), [=](const LetterValue& possible_letter) {
@@ -76,8 +77,9 @@ namespace tidysq {
             }
 
         public:
-            [[nodiscard]] bool appears_in(const Sequence<RCPP>& sequence) const {
-                SequenceIterator<RCPP> it = sequence.begin(alph_);
+            template<InternalType INTERNAL>
+            [[nodiscard]] bool appears_in(const Sequence<INTERNAL>& sequence) const {
+                SequenceIterator<INTERNAL> it = sequence.begin(alph_);
                 bool contains_motif = empty();
                 if (sequence.originalLength() >= length()) {
                     if (from_start_) {
@@ -119,7 +121,7 @@ namespace tidysq {
         const std::list<Motif> motif_list = convert_motifs(motifs, alph);
         for (LenSq i = 0; i < sq.length(); ++i) {
             ret[i] = std::all_of(motif_list.begin(), motif_list.end(), [=](const Motif& motif) {
-                return motif.appears_in(sq[i]);
+                return motif.appears_in<INTERNAL>(sq[i]);
             });
         }
         // Steps to take:
