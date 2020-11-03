@@ -37,14 +37,14 @@ namespace tidysq::internal {
                                 (interpreter.get_next() << 3u) |
                                 ((tmp = interpreter.get_next()) << 6u);
 
-            if (++out_byte == packed.length()) return;
+            if (++out_byte == packed.length()) break;
             
             packed[out_byte] =  (tmp                    >> 2u) |
                                 (interpreter.get_next() << 1u) |
                                 (interpreter.get_next() << 4u) |
                                 ((tmp = interpreter.get_next()) << 7u);
 
-            if (++out_byte == packed.length()) return;
+            if (++out_byte == packed.length()) break;
 
             packed[out_byte] =  (tmp                    >> 1u) |
                                 (interpreter.get_next() << 2u) |
@@ -81,24 +81,24 @@ namespace tidysq::internal {
             packed[out_byte] =  (interpreter.get_next()       ) |
                                 ((tmp = interpreter.get_next()) << 5u);
 
-            if (++out_byte == packed.length()) return;
+            if (++out_byte == packed.length()) break;
 
             packed[out_byte] =  (tmp                    >> 3u) |
                                 (interpreter.get_next() << 2u) |
                                 ((tmp = interpreter.get_next()) << 7u);
 
-            if (++out_byte == packed.length()) return;
+            if (++out_byte == packed.length()) break;
 
             packed[out_byte] =  (tmp                    >> 1u) |
                                 ((tmp = interpreter.get_next()) << 4u);
 
-            if (++out_byte == packed.length()) return;
+            if (++out_byte == packed.length()) break;
 
             packed[out_byte] =  (tmp                    >> 4u) |
                                 (interpreter.get_next() << 1u) |
                                 ((tmp = interpreter.get_next()) << 6u);
 
-            if (++out_byte == packed.length()) return;
+            if (++out_byte == packed.length()) break;
 
             packed[out_byte] =  (tmp                    >> 2u) |
                                 (interpreter.get_next() << 3u);
