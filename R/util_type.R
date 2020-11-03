@@ -3,7 +3,15 @@ guess_sq_type <- function(x) {
 }
 
 interpret_type <- function(name) {
-  
+  # TODO: improve; just improve
+  switch(name, 
+         dna_bsc = "dna_bsc",
+         dna_ext = "dna_ext",
+         rna_bsc = "rna_bsc",
+         rna_ext = "rna_ext",
+         ami_bsc = "ami_bsc",
+         ami_ext = "ami_ext",
+         unt = "unt")
 }
 
 type_as_class <- function(type)
