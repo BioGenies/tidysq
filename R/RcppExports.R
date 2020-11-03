@@ -33,10 +33,6 @@ CPP_unpack_STRING <- function(sq, NA_letter) {
     .Call(`_tidysq_CPP_unpack_STRING`, sq, NA_letter)
 }
 
-C_get_real_alph <- function(sq) {
-    .Call(`_tidysq_C_get_real_alph`, sq)
-}
-
 CPP_bite <- function(x, indices) {
     .Call(`_tidysq_CPP_bite`, x, indices)
 }
@@ -53,7 +49,3 @@ Cpp_translate <- function(sq, table) {
     .Call(`_tidysq_Cpp_translate`, sq, table)
 }
 
-# Register entry points for exported C++ functions
-methods::setLoadAction(function(ns) {
-    .Call('_tidysq_RcppExport_registerCCallable', PACKAGE = 'tidysq')
-})
