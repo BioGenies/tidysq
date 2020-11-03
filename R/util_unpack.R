@@ -10,5 +10,6 @@ unpack <- function(x, format,
     STRINGS = CPP_unpack_STRINGS,
     STRING = CPP_unpack_STRING
   )
-  op(x)
+  
+  op(x, NA_letter)
 }
