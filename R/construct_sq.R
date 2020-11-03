@@ -455,6 +455,6 @@ sq <- function(x,
 }
 
 sq_ptype <- function(str_alphabet, type)
-  new_list_of(ptype = "raw",
+  new_list_of(ptype = raw(0),
               alphabet = sq_alphabet(str_alphabet, type),
               class = c(type_as_class(type), "sq"))
