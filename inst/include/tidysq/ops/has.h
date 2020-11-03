@@ -202,7 +202,8 @@ namespace tidysq {
         Rcpp::LogicalVector ret(sq.length());
 
         // TODO: implement possibility of reading motifs for multiletter alphabets
-        if (!alph.is_simple()) throw std::exception();
+        if (!alph.is_simple())
+            throw std::invalid_argument("For now, %has% is supported only for simple letter alphabets");
 
         const std::list<Motif> motif_list = convert_motifs(motifs, alph);
         for (LenSq i = 0; i < sq.length(); ++i) {
