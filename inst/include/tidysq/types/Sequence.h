@@ -45,11 +45,11 @@ namespace tidysq {
         }
         
         SequenceIterator<INTERNAL> begin(const Alphabet& alph) const {
-            return SequenceIterator<INTERNAL>(content_, original_length_, alph);
+            return SequenceIterator<INTERNAL>(content_, original_length_, alph.alphabet_size());
         }
         
         SequenceIterator<INTERNAL> end(const Alphabet& alph) const {
-            return SequenceIterator<INTERNAL>(content_, original_length_, alph, original_length_);
+            return SequenceIterator<INTERNAL>(content_, original_length_, alph.alphabet_size(), original_length_);
         }
 
         [[nodiscard]] inline LenSq originalLength() const {

@@ -14,10 +14,10 @@ namespace tidysq {
         const LenSq& originalLength_;
         LenSq pointer_;
         
-        SequenceIterator(const ContentType& content, const LenSq& length, const Alphabet& alph) :
-                sequence_{content}, alph_size_{alph.alphabet_size()}, originalLength_{length}, pointer_{0} {}
-        SequenceIterator(const ContentType& content, const LenSq& length, const Alphabet& alph, LenSq pointer) :
-                sequence_{content}, alph_size_{alph.alphabet_size()}, originalLength_{length}, pointer_{pointer} {}
+        SequenceIterator(const ContentType& content, const LenSq& length, const AlphSize& alph_size) :
+                sequence_{content}, alph_size_{alph_size}, originalLength_{length}, pointer_{0} {}
+        SequenceIterator(const ContentType& content, const LenSq& length, const AlphSize& alph_size, LenSq pointer) :
+                sequence_{content}, alph_size_{alph_size}, originalLength_{length}, pointer_{pointer} {}
         
     public:
         inline SequenceIterator& operator++() {
