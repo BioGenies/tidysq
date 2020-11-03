@@ -10,7 +10,10 @@
     tidysq_p_max_pillar_width = 15,
     tidysq_p_max_sequences = 10,
     tidysq_p_na_letter = "!",
-    tidysq_p_use_color = TRUE
+    tidysq_p_use_color = TRUE,
+    
+    tidysq_NA_letter = "!",
+    tidysq_safe_mode = FALSE
   )
   
   unset_inds <- !(names(new_options) %in% names(prev_options))
