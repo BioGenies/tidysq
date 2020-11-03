@@ -70,8 +70,8 @@ sq_alphabet <- function(alph, type) {
   )
 }
 
-sq_alphabet_ptype <- function()
-  sq_alphabet(character(), character())
+sq_alphabet_ptype <- function(type)
+  sq_alphabet(character(), type)
 
 get_standard_alphabet <- function(type) {
   sq_alphabet(
