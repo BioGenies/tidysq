@@ -9,10 +9,12 @@ namespace tidysq {
         class Motif;
     }
 
+    typedef std::unordered_map<ElementStringSimple, std::list<ElementStringSimple>> AmbiguousDict;
+
     std::list<internal::Motif> convert_motifs(const std::vector<std::string>& motifs,
                                               const Alphabet& alph);
 
-    std::unordered_map<ElementStringSimple, std::list<ElementStringSimple>> ambiguousAminoMap = {
+    AmbiguousDict ambiguousAminoMap = {
             {'B', {'B', 'D', 'N'}},
             {'J', {'J', 'I', 'L'}},
             {'Z', {'Z', 'E', 'Q'}},
@@ -20,7 +22,7 @@ namespace tidysq {
                           'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'}}
     };
 
-    std::unordered_map<ElementStringSimple, std::list<ElementStringSimple>> ambiguousDNAMap = {
+    AmbiguousDict ambiguousDNAMap = {
             {'W', {'W', 'A', 'T'}},
             {'S', {'S', 'C', 'G'}},
             {'M', {'M', 'A', 'C'}},
@@ -34,7 +36,7 @@ namespace tidysq {
             {'N', {'A', 'C', 'G', 'T', 'W', 'S', 'M', 'K', 'R', 'Y', 'B', 'D', 'H', 'V', 'N'}}
     };
 
-    std::unordered_map<ElementStringSimple, std::list<ElementStringSimple>> ambiguousRNAMap = {
+    AmbiguousDict ambiguousRNAMap = {
             {'W', {'W', 'A', 'U'}},
             {'S', {'S', 'C', 'G'}},
             {'M', {'M', 'A', 'C'}},
@@ -59,37 +61,35 @@ namespace tidysq {
             [[nodiscard]] inline std::list<LetterValue> match_value(const ElementStringSimple &letter) {
                 std::list<LetterValue> ret{};
                 std::list<ElementStringSimple> meanings{};
-                // TODO: replace with choosing correct map or skipping due to no suitable map
+                AmbiguousDict map{};
+
+                // Assigns mapping corresponding to sq class
                 switch (alph_.type()) {
                     case AMI_BSC:
                     case AMI_EXT:
-                        // TODO: replace with .contains once C++20 becomes widely acceptable
-                        if (ambiguousAminoMap.count(letter) == 1) {
-                            meanings = ambiguousAminoMap[letter];
-                        } else {
-                            meanings.push_back(letter);
-                        }
+                        map = ambiguousAminoMap;
                         break;
                     case DNA_BSC:
                     case DNA_EXT:
-                        if (ambiguousDNAMap.count(letter) == 1) {
-                            meanings = ambiguousDNAMap[letter];
-                        } else {
-                            meanings.push_back(letter);
-                        }
+                        map = ambiguousDNAMap;
                         break;
                     case RNA_BSC:
                     case RNA_EXT:
-                        if (ambiguousRNAMap.count(letter) == 1) {
-                            meanings = ambiguousRNAMap[letter];
-                        } else {
-                            meanings.push_back(letter);
-                        }
+                        map = ambiguousRNAMap;
                         break;
                     default:
-                        meanings.push_back(letter);
                         break;
                 }
+
+                // TODO: replace with .contains once C++20 becomes widely acceptable
+                // Replaces each input letter with a list of letters that are encompassed by the meaning of the input letter
+                if (!map.empty() && map.count(letter) == 1) {
+                    meanings = ambiguousAminoMap[letter];
+                } else {
+                    meanings.push_back(letter);
+                }
+
+                // Translates each meaning (a char) to LetterValue (bit representation)
                 for (auto meaning : meanings) {
                     ret.push_back(alph_.match_value(meaning));
                 }
@@ -101,6 +101,7 @@ namespace tidysq {
                     alph_(alph) {
                 content_ = {};
                 for (auto it = motif.begin(); it != motif.end(); ++it) {
+                    // In general, special handling of ^ and $ -- the only regex options implemented
                     if (*it == '^') {
                         if (it == motif.begin()) {
                             from_start_ = true;
@@ -115,6 +116,7 @@ namespace tidysq {
                         }
                         else throw std::invalid_argument("'$' cannot appear anywhere other than at the end of motif");
                     }
+                    // match_value returns a list of bit-packed meanings
                     content_.push_back(match_value(*it));
                 }
             }
@@ -148,6 +150,8 @@ namespace tidysq {
                         })) {
                     ++motif_it;
                     ++sequence_it;
+                    // Success is only whenever we arrive at the end of the motif before the end of the sequence
+                    // or before motif stops corresponding to sequence
                     if (motif_it == end()) {
                         return true;
                     }
@@ -159,7 +163,9 @@ namespace tidysq {
             template<InternalType INTERNAL>
             [[nodiscard]] bool appears_in(const Sequence<INTERNAL>& sequence) const {
                 bool contains_motif = empty();
+                // Don't run checks if motif is longer than sequence
                 if (sequence.originalLength() >= length()) {
+                    // Lot of ^ and $ handling mostly
                     if (from_start_) {
                         if (until_end_) {
                             contains_motif = (sequence.originalLength() == length()) &&
@@ -170,7 +176,10 @@ namespace tidysq {
                     } else if (until_end_) {
                         contains_motif = aligns_with(sequence.end(alph_) - length(), sequence.end(alph_));
                     } else {
+                        // Basic case below (without ^ or $)
                         SequenceIterator<INTERNAL> it = sequence.begin(alph_);
+                        // Stop when motif no longer fits in what little part of sequence is left or we already
+                        // know that there is a motif here
                         while (!contains_motif && it <= sequence.end(alph_) - length()) {
                             contains_motif = aligns_with(it, sequence.end(alph_));
                             ++it;
@@ -207,6 +216,7 @@ namespace tidysq {
 
         const std::list<Motif> motif_list = convert_motifs(motifs, alph);
         for (LenSq i = 0; i < sq.length(); ++i) {
+            // all_of guarantees early stopping if any motif is not present
             ret[i] = std::all_of(motif_list.begin(), motif_list.end(), [=](const Motif& motif) {
                 return motif.appears_in<INTERNAL>(sq[i]);
             });
