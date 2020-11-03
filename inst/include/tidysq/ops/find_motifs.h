@@ -1,5 +1,4 @@
-#ifndef TIDYSQ_FIND_MOTIFS_H
-#define TIDYSQ_FIND_MOTIFS_H
+#pragma once
 
 #include "tidysq/types/Sq.h"
 #include <map>
@@ -51,8 +50,35 @@ namespace tidysq {
     };
 
     namespace internal {
+        template<InternalType INTERNAL>
+        class FoundMotifs {
+            std::list<std::string> names_{};
+            Sq<INTERNAL> found_;
+            std::list<std::string> sought_{};
+            std::list<int> start_{};
+            std::list<int> end_{};
+
+        public:
+            explicit FoundMotifs(const Sq<INTERNAL> &sq) {
+                found_ = Sq<INTERNAL>(sq.alphabet());
+            }
+
+            inline void append(const std::string &name,
+                               const Sequence<INTERNAL> &found,
+                               const std::string &sought,
+                               const int start,
+                               const int end) {
+                names_.push_back(name);
+                found_.pushBack(found);
+                sought_.push_back(sought);
+                start_.push_back(start);
+                end_.push_back(end);
+            }
+        };
+
         class Motif {
             const Alphabet &alph_;
+            const std::string sought_;
             std::list<std::list<LetterValue>> content_;
             bool from_start_ = false;
             bool until_end_ = false;
@@ -98,7 +124,7 @@ namespace tidysq {
 
         public:
             Motif(const std::string& motif, const Alphabet& alph) :
-                    alph_(alph) {
+                    sought_(motif), alph_(alph) {
                 content_ = {};
                 for (auto it = motif.begin(); it != motif.end(); ++it) {
                     // In general, special handling of ^ and $ -- the only regex options implemented
@@ -159,6 +185,33 @@ namespace tidysq {
                 return false;
             }
 
+            // sequence_it is passed as copy, because we want a new iterator that starts from that point
+            template<InternalType INTERNAL>
+            internal::FoundMotifs<INTERNAL> locate(SequenceIterator<INTERNAL> sequence_it,
+                                                   const SequenceIterator<INTERNAL> &iterator_end,
+                                                   const std::string &name,
+                                                   internal::FoundMotifs<INTERNAL> &ret) const {
+                auto motif_it = begin();
+                while (sequence_it <= iterator_end && std::any_of(
+                        motif_it->begin(), motif_it->end(), [=](const LetterValue& possible_letter) {
+                            return *sequence_it == possible_letter;
+                        })) {
+                    ++motif_it;
+                    ++sequence_it;
+                    // Success is only whenever we arrive at the end of the motif before the end of the sequence
+                    // or before motif stops corresponding to sequence
+                    if (motif_it == end()) {
+                        // TODO: append located motif and other info to ret
+                        std::list<int> indices(content_.size());
+                        auto found_sequence = bite(sequence_it,
+                                std::iota(indices.begin(), indices.end(), sequence_it.index()));
+                        ret.append(name, found_sequence, sought_, sequence_it.index() - content_.size(), sequence_it.index() - 1);
+                        return ret;
+                    }
+                }
+                return ret;
+            }
+
         public:
             template<InternalType INTERNAL>
             [[nodiscard]] bool appears_in(const Sequence<INTERNAL>& sequence) const {
@@ -189,6 +242,31 @@ namespace tidysq {
                 return contains_motif;
             }
 
+            template<InternalType INTERNAL>
+            internal::FoundMotifs<INTERNAL> find_in(const Sequence<INTERNAL> &sequence,
+                                                    const std::string &name,
+                                                    internal::FoundMotifs<INTERNAL> &ret) const {
+                // Don't run checks if motif is longer than sequence
+                if (sequence.originalLength() >= length()) {
+                    // Lot of ^ and $ handling mostly
+                    if (from_start_) {
+                        if (!until_end_ || sequence.originalLength() == length()) {
+                            locate(sequence.begin(alph_), sequence.end(alph_), name, ret);
+                        }
+                    } else if (until_end_) {
+                        locate(sequence.end(alph_) - length(), sequence.end(alph_), name, ret);
+                    } else {
+                        // Basic case below (without ^ or $)
+                        SequenceIterator<INTERNAL> it = sequence.begin(alph_);
+                        while (it <= sequence.end(alph_) - length()) {
+                            locate(it, sequence.end(alph_), name, ret);
+                            ++it;
+                        }
+                    }
+                }
+                return ret;
+            }
+
             friend std::list<internal::Motif> tidysq::convert_motifs(const std::vector<std::string>& motifs,
                     const Alphabet& alph);
         };
@@ -201,22 +279,6 @@ namespace tidysq {
             ret.emplace_back(motif, alph);
         }
         return ret;
-    }
-
-    template<InternalType INTERNAL>
-    Rcpp::List find_motifs(const Sq<INTERNAL> &sq,
-                           const std::vector<std::string>& names,
-                           const std::vector<std::string>& motifs) {
-        using internal::Motif;
-
-        const Alphabet& alph = sq.alphabet();
-        // TODO: implement possibility of reading motifs for multiletter alphabets
-        if (!alph.is_simple())
-            throw std::invalid_argument("For now, %has% is supported only for simple letter alphabets");
-
-        const std::list<Motif> motif_list = convert_motifs(motifs, alph);
-        
-        return Rcpp::List::create();
     }
 
     template<InternalType INTERNAL>
@@ -237,10 +299,34 @@ namespace tidysq {
                 return motif.appears_in<INTERNAL>(sq[i]);
             });
         }
-        // Steps to take:
-        // 1. add support for multicharacter alphabet
+        return ret;
+    }
+
+    template<InternalType INTERNAL>
+    internal::FoundMotifs<INTERNAL> find_motifs(const Sq<INTERNAL> &sq,
+                                                const std::vector<std::string>& names,
+                                                const std::vector<std::string>& motifs) {
+        using internal::Motif;
+
+        const Alphabet& alph = sq.alphabet();
+        // TODO: implement possibility of reading motifs for multiletter alphabets
+        if (!alph.is_simple())
+            throw std::invalid_argument("For now, 'find_motifs' is supported only for simple letter alphabets");
+
+        const std::list<Motif> motif_list = convert_motifs(motifs, alph);
+        internal::FoundMotifs<INTERNAL> ret(sq);
+
+        for (LenSq i = 0; i < sq.length(); ++i) {
+            for (const Motif &motif : motif_list) {
+                motif.find_in<INTERNAL>(sq[i], names[i], ret);
+            }
+        }
+        // Things to return:
+        // name: name of the sequence, in which the motif was found
+        // found: part of sequence that aligns with the motif
+        // sought: aligned motif
+        // start: beginning of alignment
+        // end: end of alignment
         return ret;
     }
 }
-
-#endif //TIDYSQ_FIND_MOTIFS_H

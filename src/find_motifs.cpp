@@ -11,7 +11,7 @@ Rcpp::List CPP_find_motifs(const Rcpp::List &x,
                            const Rcpp::StringVector &motifs) {
     return find_motifs<RCPP>(importFromR(x, "!"),
                              Rcpp::as<std::vector<std::string>>(names),
-                             Rcpp::as<std::vector<std::string>>(motifs));
+                             Rcpp::as<std::vector<std::string>>(motifs)).exportToR();
 }
 
 //[[Rcpp::export]]
