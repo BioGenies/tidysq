@@ -85,7 +85,7 @@ namespace tidysq {
     template<>
     inline Rcpp::List Sq<RCPP>::exportToR() {
         content_.attr("alphabet") = alphabet_.export_to_R();
-        content_.attr("class") = util::sq_R_style_class_for_type(type());
+        content_.attr("class") = util::sq_R_class_for_sq_type(type());
         content_.attr("ptype") = Rcpp::RawVector{};
         return content_;
     }

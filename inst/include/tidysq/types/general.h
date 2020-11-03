@@ -27,18 +27,6 @@ namespace tidysq {
         STRINGS,
         STRING
     };
-
-    enum SqType {
-        AMI_EXT,
-        AMI_BSC,
-        DNA_EXT,
-        DNA_BSC,
-        RNA_EXT,
-        RNA_BSC,
-        UNT,
-        ATP,
-        ENC
-    };
 }
 
 #endif //TIDYSQ_GENERAL_H
