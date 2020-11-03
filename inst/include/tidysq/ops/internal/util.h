@@ -1,5 +1,4 @@
-#ifndef TIDYSQ_UTIL_H
-#define TIDYSQ_UTIL_H
+#pragma once
 
 #include "tidysq/types/Sequence.h"
 #include "tidysq/types/ProtoSequence.h"
@@ -7,56 +6,49 @@
 
 namespace tidysq::internal {
     template<ProtoType PROTO_OUT>
-    auto matchLetter(LetterValue value, const Alphabet &alphabet)
+    auto match_letter(LetterValue value, const Alphabet &alphabet)
             -> typename ProtoTypeMapper<PROTO_OUT>::ProtoSequenceElementType;
 
     template<>
-    inline auto matchLetter<RAWS>(const LetterValue value, const Alphabet &alphabet)
+    inline auto match_letter<RAWS>(const LetterValue value, const Alphabet &alphabet)
             -> typename ProtoTypeMapper<RAWS>::ProtoSequenceElementType {
         return value;
     }
 
     template<>
-    inline auto matchLetter<INTS>(const LetterValue value, const Alphabet &alphabet)
+    inline auto match_letter<INTS>(const LetterValue value, const Alphabet &alphabet)
             -> typename ProtoTypeMapper<INTS>::ProtoSequenceElementType {
         return value;
     }
 
     template<>
-    inline auto matchLetter<STRINGS>(const LetterValue value, const Alphabet &alphabet)
+    inline auto match_letter<STRINGS>(const LetterValue value, const Alphabet &alphabet)
             -> typename ProtoTypeMapper<STRINGS>::ProtoSequenceElementType {
         return alphabet[value];
     }
 
     template<>
-    inline auto matchLetter<STRING>(const LetterValue value, const Alphabet &alphabet)
+    inline auto match_letter<STRING>(const LetterValue value, const Alphabet &alphabet)
             -> typename ProtoTypeMapper<STRING>::ProtoSequenceElementType {
         return alphabet.get_simple_letter(value);
     }
 
-    inline Letter matchLetterMultichar(const LetterValue value, const Alphabet &alphabet) {
+    inline Letter match_letter_multichar(const LetterValue value, const Alphabet &alphabet) {
         return alphabet[value];
     }
 
-    inline LenSq calculate_packed_internal_length(const LenSq unpackedLength, const Alphabet &alphabet) {
-        return (alphabet.alphabet_size() * unpackedLength + 7) / 8;
-    }
-
-    template<InternalType INTERNAL, ProtoType PROTO>
-    inline LenSq calculate_packed_internal_length(const ProtoSequence<INTERNAL, PROTO> &unpacked, const Alphabet &alphabet) {
-        return calculate_packed_internal_length(unpacked.length(), alphabet);
+    inline LenSq calculate_packed_internal_length(const LenSq unpackedLength, const AlphSize &alph_size) {
+        return (alph_size * unpackedLength + 7) / 8;
     }
 
     template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT>
-    inline Sequence<INTERNAL_OUT> reserveSpaceForPacked(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
-                                                        const Alphabet &alphabet) {
-        return Sequence<INTERNAL_OUT>(calculate_packed_internal_length(unpacked, alphabet), unpacked.length());
+    inline Sequence<INTERNAL_OUT> reserve_space_for_packed(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
+                                                           const AlphSize &alph_size) {
+        return Sequence<INTERNAL_OUT>(calculate_packed_internal_length(unpacked, alph_size), unpacked.length());
     }
 
     template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT, ProtoType PROTO_OUT>
-    inline ProtoSequence<INTERNAL_OUT, PROTO_OUT> reserveSpaceForUnpacked(const Sequence<INTERNAL_IN> &packed) {
+    inline ProtoSequence<INTERNAL_OUT, PROTO_OUT> reserve_space_for_unpacked(const Sequence<INTERNAL_IN> &packed) {
         return ProtoSequence<INTERNAL_OUT, PROTO_OUT>(packed.originalLength());
     }
 }
-
-#endif //TIDYSQ_UTIL_H
