@@ -1,5 +1,5 @@
-#ifndef TIDYSQ_HAS_H
-#define TIDYSQ_HAS_H
+#ifndef TIDYSQ_FIND_MOTIFS_H
+#define TIDYSQ_FIND_MOTIFS_H
 
 #include "tidysq/types/Sq.h"
 #include <map>
@@ -204,17 +204,33 @@ namespace tidysq {
     }
 
     template<InternalType INTERNAL>
-    Rcpp::LogicalVector has(const Sq<INTERNAL> &sq, const std::vector<std::string>& motifs){
+    Rcpp::List find_motifs(const Sq<INTERNAL> &sq,
+                           const std::vector<std::string>& names,
+                           const std::vector<std::string>& motifs) {
         using internal::Motif;
 
         const Alphabet& alph = sq.alphabet();
-        Rcpp::LogicalVector ret(sq.length());
-
         // TODO: implement possibility of reading motifs for multiletter alphabets
         if (!alph.is_simple())
             throw std::invalid_argument("For now, %has% is supported only for simple letter alphabets");
 
         const std::list<Motif> motif_list = convert_motifs(motifs, alph);
+        
+        return Rcpp::List::create();
+    }
+
+    template<InternalType INTERNAL>
+    Rcpp::LogicalVector has(const Sq<INTERNAL> &sq, const std::vector<std::string>& motifs) {
+        using internal::Motif;
+
+        const Alphabet& alph = sq.alphabet();
+        // TODO: implement possibility of reading motifs for multiletter alphabets
+        if (!alph.is_simple())
+            throw std::invalid_argument("For now, %has% is supported only for simple letter alphabets");
+
+        const std::list<Motif> motif_list = convert_motifs(motifs, alph);
+        Rcpp::LogicalVector ret(sq.length());
+
         for (LenSq i = 0; i < sq.length(); ++i) {
             // all_of guarantees early stopping if any motif is not present
             ret[i] = std::all_of(motif_list.begin(), motif_list.end(), [=](const Motif& motif) {
@@ -227,4 +243,4 @@ namespace tidysq {
     }
 }
 
-#endif //TIDYSQ_HAS_H
+#endif //TIDYSQ_FIND_MOTIFS_H
