@@ -143,7 +143,12 @@ namespace tidysq {
             return operator*();
         }
 
+        [[nodiscard]] inline LenSq index() const {
+            return pointer_;
+        }
+
         friend class Sequence<INTERNAL>;
+        friend Sq<INTERNAL> bite(const SequenceIterator<INTERNAL> &it, const std::vector<int> &indices);
     };
 }
 
