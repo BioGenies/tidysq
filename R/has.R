@@ -78,78 +78,38 @@
 `%has%.sq` <- function(x, y) {
   assert_alph_regex_friendly(alphabet(x))
   
-  x <- as.character(x)
-  
-  ret <- do.call(cbind, lapply(y, function(s) grepl(s, x)))
-  apply(ret, 1, all)
+  CPP_has(x, y)
 }
 
 #' @export
-`%has%.amisq` <- function(x, y) {
+`%has%.sq_ami_ext` <- function(x, y) {
   y <- toupper(y)
-  assert_motifs_for_type(y, "ami")
+  assert_motifs_for_type(y, "ami_ext")
   
-  y <- .replace_ami_motif(y)
-  x <- as.character(x)
-  
-  ret <- do.call(cbind, lapply(y, function(s) grepl(s, x)))
-  apply(ret, 1, all)
+  CPP_has(x, y)
 }
 
 #' @export
-`%has%.dnasq` <- function(x, y) {
+`%has%.sq_ami_bsc` <- `%has%.sq_ami_ext`
+
+#' @export
+`%has%.sq_dna_ext` <- function(x, y) {
   y <- toupper(y)
-  assert_motifs_for_type(y, "dna")
+  assert_motifs_for_type(y, "dna_ext")
   
-  y <- .replace_dna_motif(y)
-  x <- as.character(x)
-  
-  ret <- do.call(cbind, lapply(y, function(s) grepl(s, x)))
-  apply(ret, 1, all)
+  CPP_has(x, y)
 }
 
 #' @export
-`%has%.rnasq` <- function(x, y) {
+`%has%.sq_dna_bsc` <- `%has%.sq_dna_ext`
+
+#' @export
+`%has%.sq_rna_ext` <- function(x, y) {
   y <- toupper(y)
-  assert_motifs_for_type(y, "rna")
+  assert_motifs_for_type(y, "rna_ext")
   
-  y <- .replace_rna_motif(y)
-  x <- as.character(x)
-  
-  ret <- do.call(cbind, lapply(y, function(s) grepl(s, x)))
-  apply(ret, 1, all)
+  CPP_has(x, y)
 }
 
-#' @importFrom stringi stri_replace_all_regex
-.replace_ami_motif <- function(motif) {
-  stri_replace_all_regex(
-    motif,
-    c("\\*", "B", "J", "Z", "X"),
-    c("\\\\*", "[BDN]", "[JIL]", "[ZEQ]", "[A-Z]"),
-    vectorize_all = FALSE
-  )
-}
-
-#' @importFrom stringi stri_replace_all_regex
-.replace_dna_motif <- function(motif) {
-  stri_replace_all_regex(
-    motif,
-    c("W", "S", "M", "K", "R", "Y", "B", "D", "H", "V", "N"),
-    c("[WAT]", "[SCG]", "[MAC]", "[KGT]", "[RAG]", "[YCT]",
-      "[BSKYCTG]", "[DWKRATG]", "[HWMYACT]", "[VSMRACG]",
-      "[NBDHVWSMKRYACTG]"),
-    vectorize_all = FALSE
-  )
-}
-
-#' @importFrom stringi stri_replace_all_regex
-.replace_rna_motif <- function(motif) {
-  stri_replace_all_regex(
-    motif,
-    c("W", "S", "M", "K", "R", "Y", "B", "D", "H", "V", "N"),
-    c("[WAU]", "[SCG]", "[MAC]", "[KGU]", "[RAG]", "[YCU]",
-      "[BSKYCUG]", "[DWKRAUG]", "[HWMYACU]", "[VSMRACG]",
-      "[NBDHVWSMKRYACUG]"),
-    vectorize_all = FALSE
-  )
-}
+#' @export
+`%has%.sq_rna_bsc` <- `%has%.sq_rna_ext`
