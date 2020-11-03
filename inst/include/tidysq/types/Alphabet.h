@@ -276,23 +276,23 @@ namespace tidysq {
         inline std::vector<std::string> sq_R_style_class_for_type(const SqType &type) {
             switch (type) {
                 case AMI_EXT:
-                    return {"ami_ext_sq", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
+                    return {"sq_ami_ext", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
                 case AMI_BSC:
-                    return {"ami_bsc_sq", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
+                    return {"sq_ami_bsc", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
                 case DNA_EXT:
-                    return {"dna_ext_sq", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
+                    return {"sq_dna_ext", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
                 case DNA_BSC:
-                    return {"dna_bsc_sq", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
+                    return {"sq_dna_bsc", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
                 case RNA_EXT:
-                    return {"rna_ext_sq", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
+                    return {"sq_rna_ext", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
                 case RNA_BSC:
-                    return {"ami_bsc_sq", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
+                    return {"sq_ami_bsc", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
                 case UNT:
-                    return {"untsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
+                    return {"sq_unt", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
                 case ATP:
-                    return {"atpsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
+                    return {"sq_atp", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
                 case ENC:
-                    return {"encsq", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
+                    return {"sq_enc", "sq", "vctrs_list_of", "vctrs_vctr", "list"};
                 default:
                     return {};
             }
@@ -300,15 +300,15 @@ namespace tidysq {
 
         inline SqType sq_type_from_R_style_class(const Rcpp::StringVector &classVector) {
             std::string type = getScalarStringValue(classVector);
-            if (type == "ami_bsc_sq") return AMI_BSC;
-            if (type == "ami_ext_sq") return AMI_EXT;
-            if (type == "dna_bsc_sq") return DNA_BSC;
-            if (type == "dna_ext_sq") return DNA_EXT;
-            if (type == "rna_bsc_sq") return RNA_BSC;
-            if (type == "rna_ext_sq") return RNA_EXT;
-            if (type == "unt_sq") return UNT;
-            if (type == "atp_sq") return ATP;
-            if (type == "enc_sq") return ENC;
+            if (type == "sq_ami_bsc") return AMI_BSC;
+            if (type == "sq_ami_ext") return AMI_EXT;
+            if (type == "sq_dna_bsc") return DNA_BSC;
+            if (type == "sq_dna_ext") return DNA_EXT;
+            if (type == "sq_rna_bsc") return RNA_BSC;
+            if (type == "sq_rna_ext") return RNA_EXT;
+            if (type == "sq_unt") return UNT;
+            if (type == "sq_atp") return ATP;
+            if (type == "sq_enc") return ENC;
             throw std::invalid_argument("Object does not have a proper sq subtype!");
         }
     
