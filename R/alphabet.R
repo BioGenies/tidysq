@@ -51,11 +51,6 @@
 #'   
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}} \code{\link{encode}}
 #' @export
-get_sq_alphabet <- function(x) {
-  assert_class(x, "sq")
-  alphabet(x)
-}
-
 alphabet <- function(x)
   attr(x, "alphabet")
 
