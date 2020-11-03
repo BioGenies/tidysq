@@ -134,7 +134,7 @@ namespace tidysq {
         explicit Alphabet(const Rcpp::StringVector &letters,
                           const Rcpp::StringVector &NA_letter = util::default_NA_letter()) :
                 Alphabet(letters,
-                         util::guess_sq_type(util::convertStringVector(letters)),
+                         util::sq_type_for_abbr(letters.attr("type")),
                          NA_letter) {};
 
         Alphabet(const Alphabet &other) = default;
