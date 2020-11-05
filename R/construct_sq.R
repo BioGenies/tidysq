@@ -434,9 +434,10 @@ NULL
 #' \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}
 #' @export
 sq <- function(x,
-               alphabet = guess_sq_type(x),
+               alphabet = obtain_alphabet(x),
                NA_letter = getOption("tidysq_NA_letter"),
-               safe_mode = getOption("tidysq_safe_mode")) {
+               safe_mode = getOption("tidysq_safe_mode"),
+               ignore_case = FALSE) {
   assert_character(x, any.missing = FALSE)
   assert_flag(safe_mode)
   assert_string(NA_letter)

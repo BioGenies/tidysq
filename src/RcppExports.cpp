@@ -5,6 +5,19 @@
 
 using namespace Rcpp;
 
+// CPP_obtain_alphabet
+Rcpp::StringVector CPP_obtain_alphabet(const Rcpp::StringVector& x, const Rcpp::IntegerVector& sample_size, const Rcpp::StringVector& NA_letter);
+RcppExport SEXP _tidysq_CPP_obtain_alphabet(SEXP xSEXP, SEXP sample_sizeSEXP, SEXP NA_letterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type sample_size(sample_sizeSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_obtain_alphabet(x, sample_size, NA_letter));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_pack_RAWS
 Rcpp::List CPP_pack_RAWS(const Rcpp::List& proto, const Rcpp::StringVector& alphabet, const Rcpp::StringVector& NA_letter);
 RcppExport SEXP _tidysq_CPP_pack_RAWS(SEXP protoSEXP, SEXP alphabetSEXP, SEXP NA_letterSEXP) {
@@ -160,6 +173,7 @@ END_RCPP
 RcppExport SEXP run_testthat_tests();
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_tidysq_CPP_obtain_alphabet", (DL_FUNC) &_tidysq_CPP_obtain_alphabet, 3},
     {"_tidysq_CPP_pack_RAWS", (DL_FUNC) &_tidysq_CPP_pack_RAWS, 3},
     {"_tidysq_CPP_pack_INTS", (DL_FUNC) &_tidysq_CPP_pack_INTS, 3},
     {"_tidysq_CPP_pack_STRINGS", (DL_FUNC) &_tidysq_CPP_pack_STRINGS, 3},
