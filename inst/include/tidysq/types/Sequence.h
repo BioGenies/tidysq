@@ -8,6 +8,11 @@
 #include "tidysq/ops/internal/util.h"
 
 namespace tidysq {
+    namespace internal {
+        //TODO: find out why the heck it doesn't find this function
+        LenSq calculate_packed_internal_length(LenSq, const Alphabet&);
+    }
+
     template<InternalType INTERNAL>
     class Sequence {
         typename InternalTypeMapper<INTERNAL>::SequenceContentType content_;
@@ -73,7 +78,8 @@ namespace tidysq {
         }
 
         void trim(const LenSq packed_length, const Alphabet &alphabet) {
-            content_.erase(content_.begin() + internal::calculate_packed_internal_length(packed_length, alphabet), content_.end());
+            content_.erase(content_.begin() + internal::calculate_packed_internal_length(packed_length, alphabet),
+                    content_.end());
             original_length_ = packed_length;
         }
 
