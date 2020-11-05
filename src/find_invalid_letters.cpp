@@ -12,7 +12,7 @@ Rcpp::List CPP_find_invalid_letters(const Rcpp::List& x,
     const Sq<RCPP> sq = import_from_R(x, NA_letter);
     const Alphabet& alph = sq.alphabet();
     const std::vector<std::string> dest_alph =
-            util::standard_letters_for_sq_type(util::sq_type_for_sq_type_abbr(util::getScalarStringValue(dest_type)));
+            util::standard_letters_for_sq_type(util::sq_type_for_sq_type_abbr(util::get_scalar_string_value(dest_type)));
 
     std::vector<LetterValue> invalid_indices;
     for (LetterValue i = 0; i < alph.length(); ++i) {
