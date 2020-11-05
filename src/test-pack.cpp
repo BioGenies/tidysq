@@ -21,7 +21,7 @@ void test_pack_RCPP(const std::vector<typename TypeMapper<RCPP, PROTO>::ProtoSeq
 
 template<>
 void test_pack_RCPP<STRING>(const std::vector<typename TypeMapper<RCPP, STRING>::ProtoSequenceContentType> &proto, const Alphabet &alphabet) {
-    ProtoSq<RCPP, STRING> sq_proto = ProtoSq<RCPP, STRING>(util::convertStringVector(proto), alphabet);
+    ProtoSq<RCPP, STRING> sq_proto = ProtoSq<RCPP, STRING>(util::convert_string_vector(proto), alphabet);
     ProtoSq<RCPP, STRING> repacked = sq_proto.template pack<RCPP>().template unpack<RCPP, STRING>();
 
             expect_true(repacked == sq_proto);

@@ -33,16 +33,16 @@ CPP_unpack_STRING <- function(sq, NA_letter) {
     .Call(`_tidysq_CPP_unpack_STRING`, sq, NA_letter)
 }
 
-CPP_bite <- function(x, indices) {
-    .Call(`_tidysq_CPP_bite`, x, indices)
+CPP_bite <- function(x, indices, NA_letter) {
+    .Call(`_tidysq_CPP_bite`, x, indices, NA_letter)
 }
 
-CPP_find_invalid_letters <- function(x, dest_type) {
-    .Call(`_tidysq_CPP_find_invalid_letters`, x, dest_type)
+CPP_find_invalid_letters <- function(x, dest_type, NA_letter) {
+    .Call(`_tidysq_CPP_find_invalid_letters`, x, dest_type, NA_letter)
 }
 
-CPP_has <- function(x, motifs) {
-    .Call(`_tidysq_CPP_has`, x, motifs)
+CPP_has <- function(x, motifs, NA_letter) {
+    .Call(`_tidysq_CPP_has`, x, motifs, NA_letter)
 }
 
 Cpp_translate <- function(sq, table) {

@@ -5,8 +5,9 @@
 using namespace tidysq;
 
 // [[Rcpp::export]]
-Rcpp::List CPP_bite(const Rcpp::List& x, const Rcpp::IntegerVector& indices) {
-    const Sq<RCPP> sq = importFromR(x, "!");
+Rcpp::List CPP_bite(const Rcpp::List& x, const Rcpp::IntegerVector& indices, 
+                    const Rcpp::StringVector &NA_letter) {
+    const Sq<RCPP> sq = import_from_R(x, NA_letter);
     Sq<RCPP> ret(sq.length(), sq.alphabet());
     const AlphSize alph_size = sq.alphabet().alphabet_size();
     bool warning_called = false;
@@ -42,5 +43,5 @@ Rcpp::List CPP_bite(const Rcpp::List& x, const Rcpp::IntegerVector& indices) {
         ret[i] = out_sequence;
     }
     return Rcpp::List::create(Rcpp::Named("warning") = NA_warning,
-                              Rcpp::Named("sq") = ret.exportToR());
+                              Rcpp::Named("sq") = export_to_R(sq));
 }

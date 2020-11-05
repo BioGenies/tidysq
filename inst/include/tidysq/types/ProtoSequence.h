@@ -34,9 +34,9 @@ namespace tidysq {
 
         ProtoSequence(const ProtoSequence &other) = default;
 
-        ProtoSequence(ProtoSequence &&other)  noexcept = default;
+        ProtoSequence(ProtoSequence &&other) noexcept = default;
 
-        ProtoSequence& operator=(const ProtoSequence &other) noexcept = default;
+        ProtoSequence& operator=(const ProtoSequence &other) = default;
 
         ProtoSequence& operator=(ProtoSequence &&other) noexcept = default;
 
