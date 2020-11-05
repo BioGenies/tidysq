@@ -1,11 +1,12 @@
-#ifndef TIDYSQ_EXPORTS_H
-#define TIDYSQ_EXPORTS_H
+#pragma once
 
-#include "types/all.h"
+#include "tidysq/types/all.h"
 
-#include "ops/OperationPack.h"
-#include "ops/OperationUnpack.h"
+#include "tidysq/types/import.h"
+#include "tidysq/types/export.h"
 
-#include "sqapply.h"
+#include "tidysq/ops/OperationPack.h"
+#include "tidysq/ops/OperationUnpack.h"
 
-#endif //TIDYSQ_EXPORTS_H
+#include "tidysq/sqapply.h"
+

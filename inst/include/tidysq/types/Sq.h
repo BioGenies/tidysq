@@ -60,10 +60,6 @@ namespace tidysq {
             content_.push_back(sequence);
         }
 
-        inline Rcpp::List exportToR() {
-            throw std::exception();
-        }
-
         inline bool operator==(const Sq<INTERNAL> &other) {
             if ((alphabet_ != other.alphabet_) || (content_.size() != other.content_.size())) return false;
             for (LenSq i = 0; i < content_.size(); i++) {
@@ -80,20 +76,9 @@ namespace tidysq {
         ProtoSq<INTERNAL_OUT, PROTO_OUT> unpack() {
             return sqapply<Sq<INTERNAL>, ProtoSq<INTERNAL_OUT, PROTO_OUT>>(*this, ops::OperationUnpack<INTERNAL, INTERNAL_OUT, PROTO_OUT>());
         }
+
+        friend Rcpp::List export_to_R(const Sq<RCPP> &sq);
     };
-
-    template<>
-    inline Rcpp::List Sq<RCPP>::exportToR() {
-        content_.attr("alphabet") = alphabet_.export_to_R();
-        content_.attr("class") = util::sq_R_class_for_sq_type(type());
-        content_.attr("ptype") = Rcpp::RawVector{};
-        return content_;
-    }
-
-    inline Sq<RCPP> importFromR(const Rcpp::List &sq, const Rcpp::StringVector &NA_letter) {
-        if (!sq.hasAttribute("alphabet")) throw std::exception();
-        return Sq<RCPP>(sq, Alphabet(sq.attr("alphabet"), NA_letter));
-    }
 }
 
 #endif //TIDYSQ_SQ_H

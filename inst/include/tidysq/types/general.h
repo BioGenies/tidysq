@@ -1,5 +1,4 @@
-#ifndef TIDYSQ_GENERAL_H
-#define TIDYSQ_GENERAL_H
+#pragma once
 
 #include <string>
 
@@ -28,5 +27,3 @@ namespace tidysq {
         STRING
     };
 }
-
-#endif //TIDYSQ_GENERAL_H
