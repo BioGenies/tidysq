@@ -4,7 +4,7 @@
 
 namespace tidysq {
     template<InternalType INTERNAL>
-    Sq<INTERNAL> bite(const Sequence<INTERNAL> &sequence,
+    Sequence<INTERNAL> bite(const Sequence<INTERNAL> &sequence,
                       const std::vector<int> &indices,
                       const AlphSize &alph_size,
                       bool &warning_called) {
@@ -46,7 +46,7 @@ namespace tidysq {
         std::string NA_warning;
 
         for (LenSq i = 0; i < sq.length(); ++i) {
-            ret[i] = bite(sq[i], sq.alphabet(), indices, warning_called, NA_warning);
+            ret[i] = bite(sq[i].get(), indices, sq.alphabet().alphabet_size(), warning_called);
         }
         if (warning_called)
             NA_warning = "some sequences are subsetted with index bigger than length - NA introduced";
