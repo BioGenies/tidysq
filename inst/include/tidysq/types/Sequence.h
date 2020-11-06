@@ -44,12 +44,12 @@ namespace tidysq {
              return content_[index];
         }
         
-        SequenceIterator<INTERNAL> begin(const AlphSize &alphabet_size) const {
-            return SequenceIterator<INTERNAL>(content_, original_length_, alphabet_size);
+        SequenceIterator<INTERNAL> begin(const AlphSize& alph_size) const {
+            return SequenceIterator<INTERNAL>(content_, original_length_, alph_size);
         }
         
-        SequenceIterator<INTERNAL> end(const AlphSize &alphabet_size) const {
-            return SequenceIterator<INTERNAL>(content_, original_length_, alphabet_size, original_length_);
+        SequenceIterator<INTERNAL> end(const AlphSize& alph_size) const {
+            return SequenceIterator<INTERNAL>(content_, original_length_, alph_size, original_length_);
         }
 
         [[nodiscard]] inline LenSq originalLength() const {
