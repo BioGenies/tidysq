@@ -13,8 +13,7 @@ alph_long <- sq_alphabet(char_long, "atp")
 
 sq_dna <- sq(c("ACTGTC", "CGCGTTA"), alphabet = "dna_bsc")
 sq_ami <- sq(c("APOPNIQEV", "CSVMIBF"), alphabet = "ami_ext")
-#TODO: fix add untyped handling
-#sq_unt <- sq(c("GO%NC@E(123)RO", "NFI%(#)VT;"))
+sq_unt <- sq(c("GO%NC@E(123)RO", "NFI%(#)VT;"), alphabet = "unt")
 
 # CONSTRUCTED ALPHABET VALUE ----
 test_that("sq_alphabet object is a subclass of character vector", {
@@ -37,8 +36,6 @@ test_that("get_sq_alphabet() extracts an object of sq_alphabet class", {
                 ptype = sq_alphabet_ptype("dna_bsc"))
   expect_vector(alphabet(sq_ami),
                 ptype = sq_alphabet_ptype("ami_ext"))
-  
-  skip("untyped not implemented yet")
   expect_vector(alphabet(sq_unt),
                 ptype = sq_alphabet_ptype("unt"))
 })
@@ -48,9 +45,6 @@ test_that("get_sq_alphabet() extracts \"alphabet\" attribute", {
                    attr(sq_dna, "alphabet"))
   expect_reference(alphabet(sq_ami),
                    attr(sq_ami, "alphabet"))
-  
-  
-  skip("untyped not implemented yet")
   expect_reference(alphabet(sq_unt),
                    attr(sq_unt, "alphabet"))
 })
