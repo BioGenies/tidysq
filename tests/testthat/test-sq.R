@@ -31,8 +31,6 @@ test_that("construct_sq() returns object of correct class for unt and atp option
   expect_s3_class(sq(str_atp, alphabet = atp_alph),
                   class = "sq_atp",
                   exact = FALSE)
-  
-  skip("untyped not implemented yet")
   expect_s3_class(sq(str_unt, alphabet = "unt"),
                   class = "sq_unt",
                   exact = FALSE)
@@ -41,8 +39,6 @@ test_that("construct_sq() returns object of correct class for unt and atp option
 test_that("construct_sq() returns object of same size as passed character vector", {
   expect_equal(vec_size(sq(str_atp, alphabet = atp_alph)),
                vec_size(str_atp))
-  
-  skip("untyped not implemented yet")
   expect_equal(vec_size(sq(str_unt, alphabet = "unt")),
                vec_size(str_unt))
 })
@@ -53,11 +49,9 @@ test_that("construct_sq() returns object with alphabet attribute that contains e
     alphabet(sq(str_atp, alphabet = atp_alph)),
     atp_alph
   )
-  
-  skip("untyped not implemented yet")
   expect_setequal(
     alphabet(sq(str_unt, alphabet = "unt")),
-    C_get_real_alph(str_unt)
+    obtain_alphabet(str_unt)
   )
 })
 
@@ -79,29 +73,18 @@ test_that("applying to.character() returns original character vector", {
     as.character(sq(str_atp, alphabet = atp_alph)),
     str_atp
   )
-  
-  skip("untyped not implemented yet")
   expect_equivalent(
     as.character(sq(str_unt, alphabet = "unt")),
     str_unt
   )
 })
 
-
-# SHORTHAND FUNCTIONS ----
-# TODO: implement type guessing 
-test_that("construct_sq_dna() return identical value as construct_sq() with \"dna\" type", {
-  skip("type guessing not implemented yet")
-  expect_identical(construct_sq_dna(str_dna, is_clean = TRUE),
-                   construct_sq(str_dna, type = "dna", is_clean = TRUE))
-})
-test_that("construct_sq_rna() return identical value as construct_sq() with \"rna\" type", {
-  skip("type guessing not implemented yet")
-  expect_identical(construct_sq_rna(str_rna, is_clean = FALSE),
-                   construct_sq(str_rna, type = "rna", is_clean = FALSE))
-})
-test_that("construct_sq_ami() return identical value as construct_sq() with \"ami\" type", {
-  skip("type guessing not implemented yet")
-  expect_identical(construct_sq_ami(str_ami, is_clean = FALSE),
-                   construct_sq(str_ami, type = "ami", is_clean = FALSE))
+# TYPE GUESSING ----
+test_that("sq() correctly guesses sq type", {
+  expect_identical(sq(str_dna, alphabet = "dna_bsc"),
+                   sq(str_dna))
+  expect_identical(sq(str_rna, alphabet = "rna_ext"),
+                   sq(str_rna))
+  expect_identical(sq(str_ami, alphabet = "ami_ext"),
+                   sq(str_ami))
 })
