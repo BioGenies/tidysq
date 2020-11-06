@@ -13,6 +13,9 @@ namespace tidysq {
     class Sq;
 
     template<InternalType INTERNAL, ProtoType PROTO>
+    inline typename ProtoSq<INTERNAL, PROTO>::ContentType export_to_R(const ProtoSq<INTERNAL, PROTO> &proto_sq);
+
+    template<InternalType INTERNAL, ProtoType PROTO>
     class ProtoSq {
         typename TypeMapper<INTERNAL, PROTO>::ProtoSqContentType content_;
         Alphabet alphabet_;
@@ -53,10 +56,6 @@ namespace tidysq {
             return alphabet_.type();
         }
 
-        inline ContentType exportToR() {
-            throw std::exception();
-        }
-
         template<InternalType INTERNAL_OUT>
         Sq<INTERNAL_OUT> pack() {
             return sqapply<ProtoSq<INTERNAL, PROTO>, Sq<INTERNAL_OUT>>(*this,
@@ -74,27 +73,10 @@ namespace tidysq {
         inline bool operator!=(const ProtoSq<INTERNAL, PROTO> &other) {
             return !operator==(other);
         }
+
+
+        friend typename ProtoSq<INTERNAL, PROTO>::ContentType export_to_R<INTERNAL, PROTO>(const ProtoSq<INTERNAL, PROTO> &proto_sq);
     };
-
-    template<>
-    inline ProtoSq<RCPP, RAWS>::ContentType ProtoSq<RCPP, RAWS>::exportToR() {
-        return content_;
-    }
-
-    template<>
-    inline ProtoSq<RCPP, INTS>::ContentType ProtoSq<RCPP, INTS>::exportToR() {
-        return content_;
-    }
-
-    template<>
-    inline ProtoSq<RCPP, STRINGS>::ContentType ProtoSq<RCPP, STRINGS>::exportToR() {
-        return content_;
-    }
-
-    template<>
-    inline ProtoSq<RCPP, STRING>::ContentType ProtoSq<RCPP, STRING>::exportToR() {
-        return content_;
-    }
 
 
     template<>
@@ -106,12 +88,7 @@ namespace tidysq {
         return true;
     }
 
-    template<ProtoType PROTO>
-    ProtoSq<RCPP, PROTO> importProtoFromR(const typename ProtoSq<RCPP, PROTO>::ContentType &proto,
-                                          const Rcpp::StringVector &alphabet,
-                                          const Rcpp::StringVector &NA_letter) {
-        return ProtoSq<RCPP, PROTO>(proto, Alphabet(alphabet, NA_letter));
-    }
+
 }
 
 #endif //TIDYSQ_PROTOSQ_H
