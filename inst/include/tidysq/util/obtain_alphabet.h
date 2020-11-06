@@ -12,7 +12,6 @@ namespace tidysq {
             return {letter};
         }
 
-        //TODO: currently there's no difference between both <I, S>::PSCT - fix it!
         template<InternalType INTERNAL, bool SIMPLE>
         std::set<Letter> obtain_alphabet(const typename TypeMapper<INTERNAL, STRING>::ProtoSqContentType &x,
                                          const LenSq sample_size,
