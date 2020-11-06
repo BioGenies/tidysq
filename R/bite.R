@@ -99,7 +99,7 @@ bite.default <- function(x, indices, ...)
 bite.sq <- function(x, indices, ...) {
   assert_integerish(indices, any.missing = FALSE, null.ok = TRUE)
   
-  ret <- CPP_bite(x, indices)
+  ret <- CPP_bite(x, indices, getOptions("tidysq_NA_letter"))
   if (ret[["warning"]] == "")
     .handle_opt_txt("tidysq_a_bite_na",
                     "some sequences are subsetted with index bigger than length - NA introduced")

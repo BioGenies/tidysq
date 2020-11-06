@@ -131,19 +131,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// CPP_has
-Rcpp::LogicalVector CPP_has(const Rcpp::List& x, const Rcpp::StringVector& motifs, const Rcpp::StringVector& NA_letter);
-RcppExport SEXP _tidysq_CPP_has(SEXP xSEXP, SEXP motifsSEXP, SEXP NA_letterSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type motifs(motifsSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
-    rcpp_result_gen = Rcpp::wrap(CPP_has(x, motifs, NA_letter));
-    return rcpp_result_gen;
-END_RCPP
-}
 // Cpp_translate
 Rcpp::CharacterVector Cpp_translate(std::vector<std::string> sq, int table);
 RcppExport SEXP _tidysq_Cpp_translate(SEXP sqSEXP, SEXP tableSEXP) {
@@ -169,8 +156,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_unpack_STRINGS", (DL_FUNC) &_tidysq_CPP_unpack_STRINGS, 2},
     {"_tidysq_CPP_unpack_STRING", (DL_FUNC) &_tidysq_CPP_unpack_STRING, 2},
     {"_tidysq_CPP_bite", (DL_FUNC) &_tidysq_CPP_bite, 3},
-    {"_tidysq_CPP_find_invalid_letters", (DL_FUNC) &_tidysq_CPP_find_invalid_letters, 3},
-    {"_tidysq_CPP_has", (DL_FUNC) &_tidysq_CPP_has, 3},
+    {"_tidysq_CPP_find_invalid_letters", (DL_FUNC) &_tidysq_CPP_find_invalid_letters, 2},
     {"_tidysq_Cpp_translate", (DL_FUNC) &_tidysq_Cpp_translate, 2},
     {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 0},
     {NULL, NULL, 0}
