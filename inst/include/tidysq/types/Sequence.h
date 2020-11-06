@@ -44,12 +44,12 @@ namespace tidysq {
              return content_[index];
         }
         
-        SequenceIterator<INTERNAL> begin(const Alphabet& alph) const {
-            return SequenceIterator<INTERNAL>(content_, original_length_, alph.alphabet_size());
+        SequenceIterator<INTERNAL> begin(const AlphSize& alph_size) const {
+            return SequenceIterator<INTERNAL>(content_, original_length_, alph_size);
         }
         
-        SequenceIterator<INTERNAL> end(const Alphabet& alph) const {
-            return SequenceIterator<INTERNAL>(content_, original_length_, alph.alphabet_size(), original_length_);
+        SequenceIterator<INTERNAL> end(const AlphSize& alph_size) const {
+            return SequenceIterator<INTERNAL>(content_, original_length_, alph_size, original_length_);
         }
 
         [[nodiscard]] inline LenSq originalLength() const {
@@ -73,7 +73,7 @@ namespace tidysq {
         }
 
         void trim(const LenSq packed_length, const Alphabet &alphabet) {
-            content_.erase(content_.begin() + internal::calculate_packed_internal_length(packed_length, alphabet), content_.end());
+            content_.erase(content_.begin() + internal::calculate_packed_internal_length(packed_length, alphabet.alphabet_size()), content_.end());
             original_length_ = packed_length;
         }
 

@@ -12,8 +12,8 @@ namespace tidysq::ops {
     public:
         Sequence<INTERNAL_OUT> operator() (const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
                                            const Alphabet &alphabet) const override {
-            Sequence<INTERNAL_OUT> packed = internal::reserve_space_for_packed<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(
-                    unpacked, alphabet.alphabet_size());
+            Sequence<INTERNAL_OUT> packed = internal::reserve_space_for_packed<INTERNAL_OUT>(
+                    unpacked.length(), alphabet.alphabet_size());
             if (alphabet.is_simple()) {
                 internal::pack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT, true>(unpacked, packed, alphabet);
             } else {

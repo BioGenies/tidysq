@@ -5,6 +5,8 @@
 
 namespace tidysq {
     namespace internal {
+        template<InternalType INTERNAL>
+        class FoundMotifs;
         class Motif;
     }
 
@@ -12,6 +14,7 @@ namespace tidysq {
 
     std::list<internal::Motif> convert_motifs(const std::vector<std::string>& motifs,
                                               const Alphabet& alph);
+    Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs);
 
     AmbiguousDict ambiguousAminoMap = {
             {'B', {'B', 'D', 'N'}},
@@ -74,7 +77,18 @@ namespace tidysq {
                 start_.push_back(start);
                 end_.push_back(end);
             }
+
+            friend Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs);
         };
+
+        Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs) {
+            return Rcpp::List::create(
+                    Rcpp::Named("names", found_motifs.names_),
+                    Rcpp::Named("found", found_motifs.found_),
+                    Rcpp::Named("sought", found_motifs.sought_),
+                    Rcpp::Named("start", found_motifs.start_),
+                    Rcpp::Named("end", found_motifs.end_));
+        }
 
         class Motif {
             const Alphabet &alph_;
@@ -222,19 +236,19 @@ namespace tidysq {
                     if (from_start_) {
                         if (until_end_) {
                             contains_motif = (sequence.originalLength() == length()) &&
-                                    aligns_with(sequence.begin(alph_), sequence.end(alph_));
+                                    aligns_with(sequence.begin(alph_.alphabet_size()), sequence.end(alph_.alphabet_size()));
                         } else {
-                            contains_motif = aligns_with(sequence.begin(alph_), sequence.end(alph_));
+                            contains_motif = aligns_with(sequence.begin(alph_.alphabet_size()), sequence.end(alph_.alphabet_size()));
                         }
                     } else if (until_end_) {
-                        contains_motif = aligns_with(sequence.end(alph_) - length(), sequence.end(alph_));
+                        contains_motif = aligns_with(sequence.end(alph_.alphabet_size()) - length(), sequence.end(alph_.alphabet_size()));
                     } else {
                         // Basic case below (without ^ or $)
-                        SequenceIterator<INTERNAL> it = sequence.begin(alph_);
+                        SequenceIterator<INTERNAL> it = sequence.begin(alph_.alphabet_size());
                         // Stop when motif no longer fits in what little part of sequence is left or we already
                         // know that there is a motif here
-                        while (!contains_motif && it <= sequence.end(alph_) - length()) {
-                            contains_motif = aligns_with(it, sequence.end(alph_));
+                        while (!contains_motif && it <= sequence.end(alph_.alphabet_size()) - length()) {
+                            contains_motif = aligns_with(it, sequence.end(alph_.alphabet_size()));
                             ++it;
                         }
                     }
@@ -251,15 +265,15 @@ namespace tidysq {
                     // Lot of ^ and $ handling mostly
                     if (from_start_) {
                         if (!until_end_ || sequence.originalLength() == length()) {
-                            locate(sequence.begin(alph_), sequence.end(alph_), name, ret);
+                            locate(sequence.begin(alph_.alphabet_size()), sequence.end(alph_.alphabet_size()), name, ret);
                         }
                     } else if (until_end_) {
-                        locate(sequence.end(alph_) - length(), sequence.end(alph_), name, ret);
+                        locate(sequence.end(alph_.alphabet_size()) - length(), sequence.end(alph_.alphabet_size()), name, ret);
                     } else {
                         // Basic case below (without ^ or $)
-                        SequenceIterator<INTERNAL> it = sequence.begin(alph_);
-                        while (it <= sequence.end(alph_) - length()) {
-                            locate(it, sequence.end(alph_), name, ret);
+                        SequenceIterator<INTERNAL> it = sequence.begin(alph_.alphabet_size());
+                        while (it <= sequence.end(alph_.alphabet_size()) - length()) {
+                            locate(it, sequence.end(alph_.alphabet_size()), name, ret);
                             ++it;
                         }
                     }

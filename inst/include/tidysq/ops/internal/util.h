@@ -41,10 +41,10 @@ namespace tidysq::internal {
         return (alph_size * unpackedLength + 7) / 8;
     }
 
-    template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT>
-    inline Sequence<INTERNAL_OUT> reserve_space_for_packed(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
+    template<InternalType INTERNAL_OUT>
+    inline Sequence<INTERNAL_OUT> reserve_space_for_packed(const LenSq &unpacked_length,
                                                            const AlphSize &alph_size) {
-        return Sequence<INTERNAL_OUT>(calculate_packed_internal_length(unpacked, alph_size), unpacked.length());
+        return Sequence<INTERNAL_OUT>(calculate_packed_internal_length(unpacked_length, alph_size), unpacked_length);
     }
 
     template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT, ProtoType PROTO_OUT>
