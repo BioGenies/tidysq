@@ -5,6 +5,18 @@
 
 using namespace Rcpp;
 
+// CPP_guess_standard_alph
+Rcpp::StringVector CPP_guess_standard_alph(const Rcpp::StringVector& alph, const Rcpp::StringVector& NA_letter);
+RcppExport SEXP _tidysq_CPP_guess_standard_alph(SEXP alphSEXP, SEXP NA_letterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type alph(alphSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_guess_standard_alph(alph, NA_letter));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_obtain_alphabet
 Rcpp::StringVector CPP_obtain_alphabet(const Rcpp::StringVector& x, const Rcpp::IntegerVector& sample_size, const Rcpp::StringVector& NA_letter);
 RcppExport SEXP _tidysq_CPP_obtain_alphabet(SEXP xSEXP, SEXP sample_sizeSEXP, SEXP NA_letterSEXP) {
@@ -173,6 +185,7 @@ END_RCPP
 RcppExport SEXP run_testthat_tests();
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_tidysq_CPP_guess_standard_alph", (DL_FUNC) &_tidysq_CPP_guess_standard_alph, 2},
     {"_tidysq_CPP_obtain_alphabet", (DL_FUNC) &_tidysq_CPP_obtain_alphabet, 3},
     {"_tidysq_CPP_pack_RAWS", (DL_FUNC) &_tidysq_CPP_pack_RAWS, 3},
     {"_tidysq_CPP_pack_INTS", (DL_FUNC) &_tidysq_CPP_pack_INTS, 3},
