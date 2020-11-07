@@ -434,23 +434,30 @@ NULL
 #' \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}
 #' @export
 sq <- function(x,
-               alphabet = obtain_alphabet(x),
+               alphabet = NULL,
                NA_letter = getOption("tidysq_NA_letter"),
                safe_mode = getOption("tidysq_safe_mode"),
                ignore_case = FALSE) {
   assert_character(x, any.missing = FALSE)
   assert_flag(safe_mode)
   assert_string(NA_letter)
-  assert_character(alphabet, any.missing = FALSE, min.len = 1, unique = TRUE)
+  assert_character(alphabet, any.missing = FALSE, min.len = 0, unique = TRUE, null.ok = TRUE)
+  assert_flag(ignore_case)
   
-  if (length(alphabet) == 1) {
+  if (is.null(alphabet)) {
+    alphabet <- obtain_alphabet(x, if (safe_mode) Inf else 4096)
+    alphabet <- guess_standard_alphabet(alphabet)
+  } else if (length(alphabet) == 1) {
     type <- interpret_type(alphabet)
-    # we can suppose that case is not important (for now)
-    alphabet <- get_standard_alphabet(type)
+    if (type == "unt") {
+      # TODO: Inf would be better, but raises warning about conversion to NA
+      alphabet <- obtain_alphabet(x, 4096, NA_letter)
+    } else {
+      alphabet <- get_standard_alphabet(type)
+    }
   } else {
-    type <- "atp"
+    alphabet <- sq_alphabet(alphabet, "atp")
   }
-  alphabet <- sq_alphabet(alphabet, type)
   
   pack(x, alphabet, NA_letter, safe_mode)
 }
