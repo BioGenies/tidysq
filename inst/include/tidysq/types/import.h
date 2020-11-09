@@ -12,13 +12,13 @@ namespace tidysq {
     inline Sq<RCPP> import_from_R(const Rcpp::List &sq, const Rcpp::StringVector &NA_letter) {
         if (!sq.hasAttribute("alphabet")) throw std::invalid_argument("Sq object should have 'alphabet' attribute.");
         Rcpp::StringVector alphabet = sq.attr("alphabet");
-        return Sq<RCPP>(sq, import_alphabet_from_R(alphabet, alphabet.attr("type")));
+        return Sq<RCPP>(sq, import_alphabet_from_R(alphabet, NA_letter));
     }
 
     template<ProtoType PROTO>
     ProtoSq<RCPP, PROTO> import_proto_from_R(const typename ProtoSq<RCPP, PROTO>::ContentType &proto,
                                              const Rcpp::StringVector &alphabet,
                                              const Rcpp::StringVector &NA_letter) {
-        return ProtoSq<RCPP, PROTO>(proto, import_alphabet_from_R(alphabet, alphabet.attr("type")));
+        return ProtoSq<RCPP, PROTO>(proto, import_alphabet_from_R(alphabet, NA_letter));
     }
 }
