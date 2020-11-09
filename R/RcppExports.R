@@ -41,6 +41,14 @@ CPP_find_invalid_letters <- function(x, dest_type, NA_letter) {
     .Call(`_tidysq_CPP_find_invalid_letters`, x, dest_type, NA_letter)
 }
 
+CPP_find_motifs <- function(x, names, motifs, NA_letter) {
+    .Call(`_tidysq_CPP_find_motifs`, x, names, motifs, NA_letter)
+}
+
+CPP_has <- function(x, motifs, NA_letter) {
+    .Call(`_tidysq_CPP_has`, x, motifs, NA_letter)
+}
+
 Cpp_translate <- function(sq, table) {
     .Call(`_tidysq_Cpp_translate`, sq, table)
 }

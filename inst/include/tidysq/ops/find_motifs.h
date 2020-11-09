@@ -1,6 +1,7 @@
 #pragma once
 
 #include "tidysq/types/Sq.h"
+#include "tidysq/ops/bite.h"
 #include <map>
 
 namespace tidysq {
@@ -12,9 +13,8 @@ namespace tidysq {
 
     typedef std::unordered_map<ElementStringSimple, std::list<ElementStringSimple>> AmbiguousDict;
 
-    std::list<internal::Motif> convert_motifs(const std::vector<std::string>& motifs,
-                                              const Alphabet& alph);
-    Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs);
+//    std::list<internal::Motif> convert_motifs(const std::vector<std::string>& motifs,
+//                                              const Alphabet& alph);
 
     AmbiguousDict ambiguousAminoMap = {
             {'B', {'B', 'D', 'N'}},
@@ -58,41 +58,40 @@ namespace tidysq {
             std::list<std::string> names_{};
             Sq<INTERNAL> found_;
             std::list<std::string> sought_{};
-            std::list<int> start_{};
-            std::list<int> end_{};
+            std::list<LenSq> start_{};
+            std::list<LenSq> end_{};
 
         public:
-            explicit FoundMotifs(const Sq<INTERNAL> &sq) {
-                found_ = Sq<INTERNAL>(sq.alphabet());
-            }
+            explicit FoundMotifs(const Sq<INTERNAL> &sq) :
+                    found_(Sq<INTERNAL>(sq.alphabet())) {}
 
             inline void append(const std::string &name,
                                const Sequence<INTERNAL> &found,
                                const std::string &sought,
-                               const int start,
-                               const int end) {
+                               const LenSq start,
+                               const LenSq end) {
                 names_.push_back(name);
-                found_.pushBack(found);
+                found_.push_back(found);
                 sought_.push_back(sought);
                 start_.push_back(start);
                 end_.push_back(end);
             }
 
-            friend Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs);
+//            friend Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs);
         };
 
-        Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs) {
-            return Rcpp::List::create(
-                    Rcpp::Named("names", found_motifs.names_),
-                    Rcpp::Named("found", found_motifs.found_),
-                    Rcpp::Named("sought", found_motifs.sought_),
-                    Rcpp::Named("start", found_motifs.start_),
-                    Rcpp::Named("end", found_motifs.end_));
-        }
+//        Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs) {
+//            return Rcpp::List::create(
+//                    Rcpp::Named("names", found_motifs.names_),
+//                    Rcpp::Named("found", found_motifs.found_),
+//                    Rcpp::Named("sought", found_motifs.sought_),
+//                    Rcpp::Named("start", found_motifs.start_),
+//                    Rcpp::Named("end", found_motifs.end_));
+//        }
 
         class Motif {
             const Alphabet &alph_;
-            const std::string sought_;
+            std::string sought_;
             std::list<std::list<LetterValue>> content_;
             bool from_start_ = false;
             bool until_end_ = false;
@@ -137,7 +136,7 @@ namespace tidysq {
             }
 
         public:
-            Motif(const std::string& motif, const Alphabet& alph) :
+            Motif(const std::string &motif, const Alphabet &alph) :
                     sought_(motif), alph_(alph) {
                 content_ = {};
                 for (auto it = motif.begin(); it != motif.end(); ++it) {
@@ -146,15 +145,15 @@ namespace tidysq {
                         if (it == motif.begin()) {
                             from_start_ = true;
                             continue;
-                        }
-                        else throw std::invalid_argument("'^' cannot appear anywhere other than at the beginning of motif");
+                        } else
+                            throw std::invalid_argument(
+                                    "'^' cannot appear anywhere other than at the beginning of motif");
                     }
                     if (*it == '$') {
                         if (it == motif.end() - 1) {
                             until_end_ = true;
                             continue;
-                        }
-                        else throw std::invalid_argument("'$' cannot appear anywhere other than at the end of motif");
+                        } else throw std::invalid_argument("'$' cannot appear anywhere other than at the end of motif");
                     }
                     // match_value returns a list of bit-packed meanings
                     content_.push_back(match_value(*it));
@@ -181,11 +180,11 @@ namespace tidysq {
         private:
             // sequence_it is passed as copy, because we want a new iterator that starts from that point
             template<InternalType INTERNAL>
-            [[nodiscard]] bool aligns_with(SequenceIterator<INTERNAL> sequence_it,
-                                           const SequenceIterator<INTERNAL>& iterator_end) const {
+            [[nodiscard]] bool aligns_with(typename Sequence<INTERNAL>::ConstSequenceIterator sequence_it,
+                                           const typename Sequence<INTERNAL>::ConstSequenceIterator &iterator_end) const {
                 auto motif_it = begin();
                 while (sequence_it <= iterator_end && std::any_of(
-                        motif_it->begin(), motif_it->end(), [=](const LetterValue& possible_letter) {
+                        motif_it->begin(), motif_it->end(), [=](const LetterValue &possible_letter) {
                             return *sequence_it == possible_letter;
                         })) {
                     ++motif_it;
@@ -201,10 +200,10 @@ namespace tidysq {
 
             // sequence_it is passed as copy, because we want a new iterator that starts from that point
             template<InternalType INTERNAL>
-            internal::FoundMotifs<INTERNAL> locate(SequenceIterator<INTERNAL> sequence_it,
-                                                   const SequenceIterator<INTERNAL> &iterator_end,
-                                                   const std::string &name,
-                                                   internal::FoundMotifs<INTERNAL> &ret) const {
+            void locate(typename Sequence<INTERNAL>::SequenceIterator sequence_it,
+                        const typename Sequence<INTERNAL>::SequenceIterator &iterator_end,
+                        const std::string &name,
+                        internal::FoundMotifs<INTERNAL> &ret) const {
                 auto motif_it = begin();
                 while (sequence_it <= iterator_end && std::any_of(
                         motif_it->begin(), motif_it->end(), [=](const LetterValue& possible_letter) {
@@ -216,14 +215,13 @@ namespace tidysq {
                     // or before motif stops corresponding to sequence
                     if (motif_it == end()) {
                         // TODO: append located motif and other info to ret
-                        std::list<int> indices(content_.size());
-                        auto found_sequence = bite(sequence_it,
-                                std::iota(indices.begin(), indices.end(), sequence_it.index()));
+                        std::vector<int> indices(content_.size());
+                        std::iota(indices.begin(), indices.end(), sequence_it.index());
+                        Sequence<INTERNAL> found_sequence = bite<INTERNAL>(sequence_it, indices);
                         ret.append(name, found_sequence, sought_, sequence_it.index() - content_.size(), sequence_it.index() - 1);
-                        return ret;
+                        return;
                     }
                 }
-                return ret;
             }
 
         public:
@@ -236,19 +234,19 @@ namespace tidysq {
                     if (from_start_) {
                         if (until_end_) {
                             contains_motif = (sequence.originalLength() == length()) &&
-                                    aligns_with(sequence.begin(alph_.alphabet_size()), sequence.end(alph_.alphabet_size()));
+                                    aligns_with(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()));
                         } else {
-                            contains_motif = aligns_with(sequence.begin(alph_.alphabet_size()), sequence.end(alph_.alphabet_size()));
+                            contains_motif = aligns_with(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()));
                         }
                     } else if (until_end_) {
-                        contains_motif = aligns_with(sequence.end(alph_.alphabet_size()) - length(), sequence.end(alph_.alphabet_size()));
+                        contains_motif = aligns_with(sequence.cend(alph_.alphabet_size()) - length(), sequence.cend(alph_.alphabet_size()));
                     } else {
                         // Basic case below (without ^ or $)
-                        SequenceIterator<INTERNAL> it = sequence.begin(alph_.alphabet_size());
+                        typename Sequence<INTERNAL>::SequenceIterator it = sequence.cbegin(alph_.alphabet_size());
                         // Stop when motif no longer fits in what little part of sequence is left or we already
                         // know that there is a motif here
-                        while (!contains_motif && it <= sequence.end(alph_.alphabet_size()) - length()) {
-                            contains_motif = aligns_with(it, sequence.end(alph_.alphabet_size()));
+                        while (!contains_motif && it <= sequence.cend(alph_.alphabet_size()) - length()) {
+                            contains_motif = aligns_with(it, sequence.cend(alph_.alphabet_size()));
                             ++it;
                         }
                     }
@@ -257,37 +255,36 @@ namespace tidysq {
             }
 
             template<InternalType INTERNAL>
-            internal::FoundMotifs<INTERNAL> find_in(const Sequence<INTERNAL> &sequence,
-                                                    const std::string &name,
-                                                    internal::FoundMotifs<INTERNAL> &ret) const {
+            void find_in(const Sequence<INTERNAL> &sequence,
+                         const std::string &name,
+                         internal::FoundMotifs<INTERNAL> &ret) const {
                 // Don't run checks if motif is longer than sequence
                 if (sequence.originalLength() >= length()) {
                     // Lot of ^ and $ handling mostly
                     if (from_start_) {
                         if (!until_end_ || sequence.originalLength() == length()) {
-                            locate(sequence.begin(alph_.alphabet_size()), sequence.end(alph_.alphabet_size()), name, ret);
+                            locate(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()), name, ret);
                         }
                     } else if (until_end_) {
-                        locate(sequence.end(alph_.alphabet_size()) - length(), sequence.end(alph_.alphabet_size()), name, ret);
+                        locate(sequence.ecnd(alph_.alphabet_size()) - length(), sequence.cend(alph_.alphabet_size()), name, ret);
                     } else {
                         // Basic case below (without ^ or $)
-                        SequenceIterator<INTERNAL> it = sequence.begin(alph_.alphabet_size());
-                        while (it <= sequence.end(alph_.alphabet_size()) - length()) {
-                            locate(it, sequence.end(alph_.alphabet_size()), name, ret);
+                        typename Sequence<INTERNAL>::ConstSequenceIterator it = sequence.cbegin(alph_.alphabet_size());
+                        while (it <= sequence.cend(alph_.alphabet_size()) - length()) {
+                            locate(it, sequence.cend(alph_.alphabet_size()), name, ret);
                             ++it;
                         }
                     }
                 }
-                return ret;
             }
 
-            friend std::list<internal::Motif> tidysq::convert_motifs(const std::vector<std::string>& motifs,
-                    const Alphabet& alph);
+//            friend std::list<internal::Motif> tidysq::convert_motifs(const std::vector<std::string>& motifs,
+//                    const Alphabet& alph);
         };
     }
 
-    std::list<internal::Motif> convert_motifs(const std::vector<std::string>& motifs,
-                                              const Alphabet& alph) {
+    inline std::list<internal::Motif> convert_motifs(const std::vector<std::string>& motifs,
+                                                     const Alphabet& alph) {
         std::list<internal::Motif> ret{};
         for (const auto& motif : motifs) {
             ret.emplace_back(motif, alph);
@@ -300,7 +297,8 @@ namespace tidysq {
         using internal::Motif;
 
         const Alphabet& alph = sq.alphabet();
-        // TODO: implement possibility of reading motifs for multiletter alphabets
+
+       // TODO: implement possibility of reading motifs for multiletter alphabets
         if (!alph.is_simple())
             throw std::invalid_argument("For now, %has% is supported only for simple letter alphabets");
 

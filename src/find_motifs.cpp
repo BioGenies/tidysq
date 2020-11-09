@@ -1,6 +1,7 @@
 #include <Rcpp.h>
 
 #include "tidysq/exports.h"
+#include "tidysq/ops/find_motifs.h"
 
 using namespace tidysq;
 
@@ -9,14 +10,15 @@ Rcpp::List CPP_find_motifs(const Rcpp::List &x,
                            const Rcpp::StringVector &names,
                            const Rcpp::StringVector &motifs,
                            const Rcpp::StringVector &NA_letter) {
-    return export_to_R(find_motifs<RCPP>(import_from_R(x, NA_letter),
-            util::convert_string_vector(names),
-            util::convert_string_vector(motifs)));
+    find_motifs<RCPP>(import_from_R(x, NA_letter),
+                      util::convert_string_vector(names),
+                      util::convert_string_vector(motifs));
+    return Rcpp::List::create();
 }
 
 //[[Rcpp::export]]
 Rcpp::LogicalVector CPP_has(const Rcpp::List &x,
                             const Rcpp::StringVector &motifs,
                             const Rcpp::StringVector &NA_letter) {
-    return has<RCPP>(import_from_R(x, NA_letter), util::convert_string_vector(motifs));
+   return has<RCPP>(import_from_R(x, NA_letter), util::convert_string_vector(motifs));
 }
