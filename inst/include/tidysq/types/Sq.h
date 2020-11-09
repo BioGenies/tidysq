@@ -56,7 +56,7 @@ namespace tidysq {
             return alphabet_.type();
         }
 
-        inline void pushBack(const ElementType &sequence) {
+        inline void push_back(const ElementType &sequence) {
             content_.push_back(sequence);
         }
 
@@ -79,6 +79,11 @@ namespace tidysq {
 
         friend Rcpp::List export_to_R(const Sq<RCPP> &sq);
     };
+
+    template<>
+    inline void Sq<RCPP>::push_back(const ElementType &sequence) {
+        content_.push_back(sequence.content());
+    }
 }
 
 #endif //TIDYSQ_SQ_H
