@@ -15,7 +15,7 @@ namespace tidysq {
         const ElementPacked NA_value = 0xffu >> (8u - alph_size);
 
         auto index_iter = indices.begin();
-        auto sequence_iter = sequence.begin(alph_size);
+        auto sequence_iter = sequence.cbegin(alph_size);
         auto out_sequence_iter = out_sequence.begin(alph_size);
 
         while (index_iter != indices.end() || out_sequence_iter != out_sequence.end(alph_size)) {
@@ -34,8 +34,11 @@ namespace tidysq {
     }
 
     template<InternalType INTERNAL>
-    Sq<INTERNAL> bite(const SequenceIterator<INTERNAL> &it, const std::vector<int> &indices) {
-        return bite(it.sequence_, indices, it.alph_size_, false);
+    Sequence<INTERNAL> bite(const typename Sequence<INTERNAL>::ConstSequenceIterator &it, const std::vector<int> &indices) {
+        bool* warning_called = new bool;
+        auto ret = bite(it.sequence_, indices, it.alph_size_, warning_called);
+        delete warning_called;
+        return ret;
     }
 
     template<InternalType INTERNAL>
