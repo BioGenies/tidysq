@@ -4,12 +4,14 @@
 
 #include "tidysq/types/TypeMapper.h"
 #include "tidysq/types/ProtoSequence.h"
+#include "tidysq/types/internal/ConstWrapper.h"
 #include "tidysq/ops/internal/util.h"
 
 namespace tidysq {
     template<InternalType INTERNAL>
     Sequence<INTERNAL> bite(
-            const typename Sequence<INTERNAL>::ConstSequenceIterator &it, const std::vector<int> &indices);
+            const typename Sequence<INTERNAL>::ConstSequenceIterator &it,
+            const std::vector<int> &indices);
 
     template<InternalType INTERNAL>
     class Sequence {
@@ -22,15 +24,18 @@ namespace tidysq {
         typedef typename InternalTypeMapper<INTERNAL>::SequenceConstAccessType ConstAccessType;
 
     private:
+        template<bool CONST>
         class AbstractSequenceIterator : public std::iterator<std::bidirectional_iterator_tag, ElementPacked> {
+        public:
+            typedef typename internal::ConstWrapper<Sequence, CONST>::Reference SequenceReference;
         protected:
-            Sequence &sequence_;
+            SequenceReference sequence_;
             const AlphSize alph_size_;
             LenSq pointer_;
 
         public:
-            AbstractSequenceIterator(Sequence & sequence, const AlphSize &alph_size, const LenSq pointer);
-            AbstractSequenceIterator(Sequence & sequence, const AlphSize &alph_size);
+            AbstractSequenceIterator(SequenceReference sequence, const AlphSize &alph_size, const LenSq pointer);
+            AbstractSequenceIterator(SequenceReference sequence, const AlphSize &alph_size);
 
             AbstractSequenceIterator& operator++();
             AbstractSequenceIterator operator++(int);
@@ -56,17 +61,17 @@ namespace tidysq {
             [[nodiscard]] LenSq index() const;
         };
 
-        class ConstSequenceIterator : public AbstractSequenceIterator {
+        class ConstSequenceIterator : public AbstractSequenceIterator<true> {
         public:
-            using AbstractSequenceIterator::AbstractSequenceIterator;
+            using AbstractSequenceIterator<true>::AbstractSequenceIterator;
 
             friend Sequence<INTERNAL> bite<INTERNAL>(
                     const ConstSequenceIterator &it, const std::vector<int> &indices);
         };
 
-        class SequenceIterator : public AbstractSequenceIterator {
+        class SequenceIterator : public AbstractSequenceIterator<false> {
         public:
-            using AbstractSequenceIterator::AbstractSequenceIterator;
+            using AbstractSequenceIterator<false>::AbstractSequenceIterator;
 
             void assign(const ElementPacked &value);
         };
@@ -147,42 +152,55 @@ namespace tidysq {
 
     //SEQUENCE<INTERNAL>::SEQUENCE_ITERATOR DEFINITION
     template<InternalType INTERNAL>
-    inline Sequence<INTERNAL>::AbstractSequenceIterator::AbstractSequenceIterator(Sequence &sequence, const AlphSize &alph_size, const LenSq pointer) :
+    template<bool CONST>
+    inline Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::AbstractSequenceIterator(
+            SequenceReference sequence, const AlphSize &alph_size, const LenSq pointer) :
             sequence_(sequence),
             alph_size_(alph_size),
             pointer_(pointer) {}
 
     template<InternalType INTERNAL>
-    inline Sequence<INTERNAL>::AbstractSequenceIterator::AbstractSequenceIterator(Sequence &sequence, const AlphSize &alph_size) :
+    template<bool CONST>
+    inline Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::AbstractSequenceIterator(
+            SequenceReference sequence, const AlphSize &alph_size) :
             AbstractSequenceIterator(sequence, alph_size, 0) {}
 
     template<InternalType INTERNAL>
-    inline typename Sequence<INTERNAL>::AbstractSequenceIterator &Sequence<INTERNAL>::AbstractSequenceIterator::operator++() {
+    template<bool CONST>
+    inline typename Sequence<INTERNAL>::template AbstractSequenceIterator<CONST>
+            &Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator++() {
         ++pointer_;
         return *this;
     }
 
     template<InternalType INTERNAL>
-    inline typename Sequence<INTERNAL>::AbstractSequenceIterator Sequence<INTERNAL>::AbstractSequenceIterator::operator++(int) {
+    template<bool CONST>
+    inline typename Sequence<INTERNAL>::template AbstractSequenceIterator<CONST>
+            Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator++(int) {
         AbstractSequenceIterator tmp(*this);
         operator++();
         return tmp;
     }
     template<InternalType INTERNAL>
-    inline typename Sequence<INTERNAL>::AbstractSequenceIterator &Sequence<INTERNAL>::AbstractSequenceIterator::operator--() {
+    template<bool CONST>
+    inline typename Sequence<INTERNAL>::template AbstractSequenceIterator<CONST>
+            &Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator--() {
         --pointer_;
         return *this;
     }
 
     template<InternalType INTERNAL>
-    inline typename Sequence<INTERNAL>::AbstractSequenceIterator Sequence<INTERNAL>::AbstractSequenceIterator::operator--(int) {
+    template<bool CONST>
+    inline typename Sequence<INTERNAL>::template AbstractSequenceIterator<CONST>
+            Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator--(int) {
         AbstractSequenceIterator tmp(*this);
         operator--();
         return tmp;
     }
 
     template<InternalType INTERNAL>
-    inline ElementPacked Sequence<INTERNAL>::AbstractSequenceIterator::operator*() const {
+    template<bool CONST>
+    inline ElementPacked Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator*() const {
         ElementPacked ret = 0xffu >> (8u - alph_size_);
 
         LenSq lowest_bit_index = alph_size_ * pointer_;
@@ -199,71 +217,81 @@ namespace tidysq {
     }
 
     template<InternalType INTERNAL>
-    inline ElementPacked Sequence<INTERNAL>::AbstractSequenceIterator::access(LenSq index) {
+    template<bool CONST>
+    inline ElementPacked Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::access(LenSq index) {
         pointer_ = index;
         return operator*();
     }
 
     template<InternalType INTERNAL>
     void Sequence<INTERNAL>::SequenceIterator::assign(const ElementPacked &value) {
-        LenSq lowest_bit_index = AbstractSequenceIterator::alph_size_ * AbstractSequenceIterator::pointer_;
-        LenSq highest_bit_index = lowest_bit_index + AbstractSequenceIterator::alph_size_ - 1;
+        LenSq lowest_bit_index = AbstractSequenceIterator<false>::alph_size_ * AbstractSequenceIterator<false>::pointer_;
+        LenSq highest_bit_index = lowest_bit_index + AbstractSequenceIterator<false>::alph_size_ - 1;
         LenSq lowest_byte_index = lowest_bit_index / 8;
         LenSq highest_byte_index = highest_bit_index / 8;
         unsigned short lowest_bit_in_byte_index = lowest_bit_index % 8;
 
-        AbstractSequenceIterator::sequence_.content_[lowest_byte_index] = AbstractSequenceIterator::sequence_.content_[lowest_byte_index] |
+        AbstractSequenceIterator<false>::sequence_.content_[lowest_byte_index] = AbstractSequenceIterator<false>::sequence_.content_[lowest_byte_index] |
                                                 (value << lowest_bit_in_byte_index);
         if (highest_byte_index != lowest_byte_index) {
-            AbstractSequenceIterator::sequence_.content_[highest_byte_index] = AbstractSequenceIterator::sequence_.content_[highest_byte_index] |
+            AbstractSequenceIterator<false>::sequence_.content_[highest_byte_index] = AbstractSequenceIterator<false>::sequence_.content_[highest_byte_index] |
                                                      (value >> (8u - lowest_bit_in_byte_index));
         }
     }
 
     template<InternalType INTERNAL>
-    inline bool Sequence<INTERNAL>::AbstractSequenceIterator::operator==(const AbstractSequenceIterator &other) const {
+    template<bool CONST>
+    inline bool Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator==(const AbstractSequenceIterator &other) const {
         return pointer_ == other.pointer_;
     }
 
     template<InternalType INTERNAL>
-    inline bool Sequence<INTERNAL>::AbstractSequenceIterator::operator!=(const AbstractSequenceIterator &other) const {
+    template<bool CONST>
+    inline bool Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator!=(const AbstractSequenceIterator &other) const {
         return !operator==(other);
     }
 
     template<InternalType INTERNAL>
-    inline bool Sequence<INTERNAL>::AbstractSequenceIterator::operator>(const AbstractSequenceIterator &other) const {
+    template<bool CONST>
+    inline bool Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator>(const AbstractSequenceIterator &other) const {
         return pointer_ > other.pointer_;
     }
 
     template<InternalType INTERNAL>
-    inline bool Sequence<INTERNAL>::AbstractSequenceIterator::operator<(const AbstractSequenceIterator &other) const {
+    template<bool CONST>
+    inline bool Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator<(const AbstractSequenceIterator &other) const {
         return pointer_ < other.pointer_;
     }
 
     template<InternalType INTERNAL>
-    inline bool Sequence<INTERNAL>::AbstractSequenceIterator::operator>=(const AbstractSequenceIterator &other) const {
+    template<bool CONST>
+    inline bool Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator>=(const AbstractSequenceIterator &other) const {
         return !operator<(other);
     }
 
     template<InternalType INTERNAL>
-    inline bool Sequence<INTERNAL>::AbstractSequenceIterator::operator<=(const AbstractSequenceIterator &other) const {
+    template<bool CONST>
+    inline bool Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator<=(const AbstractSequenceIterator &other) const {
         return !operator>(other);
     }
 
     template<InternalType INTERNAL>
-    inline typename Sequence<INTERNAL>::AbstractSequenceIterator Sequence<INTERNAL>::AbstractSequenceIterator::operator+(LenSq i) const {
+    template<bool CONST>
+    inline typename Sequence<INTERNAL>::template AbstractSequenceIterator<CONST> Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator+(LenSq i) const {
         AbstractSequenceIterator tmp(*this);
         tmp += i;
         return tmp;
     }
 
     template<InternalType INTERNAL>
-    inline typename Sequence<INTERNAL>::AbstractSequenceIterator Sequence<INTERNAL>::AbstractSequenceIterator::operator+(const AbstractSequenceIterator &it) const {
+    template<bool CONST>
+    inline typename Sequence<INTERNAL>::template AbstractSequenceIterator<CONST> Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator+(const AbstractSequenceIterator &it) const {
         return operator+(it.pointer_);
     }
 
     template<InternalType INTERNAL>
-    inline typename Sequence<INTERNAL>::AbstractSequenceIterator &Sequence<INTERNAL>::AbstractSequenceIterator::operator+=(LenSq i) {
+    template<bool CONST>
+    inline typename Sequence<INTERNAL>::template AbstractSequenceIterator<CONST> &Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator+=(LenSq i) {
         if (i + pointer_ > sequence_.originalLength_)
             throw std::out_of_range("SequenceIterator tried to increment the pointer after its end.");
         pointer_ += i;
@@ -271,19 +299,22 @@ namespace tidysq {
     }
 
     template<InternalType INTERNAL>
-    inline typename Sequence<INTERNAL>::AbstractSequenceIterator Sequence<INTERNAL>::AbstractSequenceIterator::operator-(LenSq i) const {
+    template<bool CONST>
+    inline typename Sequence<INTERNAL>::template AbstractSequenceIterator<CONST> Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator-(LenSq i) const {
         AbstractSequenceIterator tmp(*this);
         tmp -= i;
         return tmp;
     }
 
     template<InternalType INTERNAL>
-    inline typename Sequence<INTERNAL>::AbstractSequenceIterator Sequence<INTERNAL>::AbstractSequenceIterator::operator-(const AbstractSequenceIterator &it) const {
+    template<bool CONST>
+    inline typename Sequence<INTERNAL>::template AbstractSequenceIterator<CONST> Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator-(const AbstractSequenceIterator &it) const {
         operator-(it.pointer_);
     }
 
     template<InternalType INTERNAL>
-    inline typename Sequence<INTERNAL>::AbstractSequenceIterator &Sequence<INTERNAL>::AbstractSequenceIterator::operator-=(LenSq i) {
+    template<bool CONST>
+    inline typename Sequence<INTERNAL>::template AbstractSequenceIterator<CONST> &Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator-=(LenSq i) {
         if (i > pointer_) {
             throw std::out_of_range("SequenceIterator tried to decrement the pointer before its front.");
         }
@@ -292,13 +323,15 @@ namespace tidysq {
     }
 
     template<InternalType INTERNAL>
-    inline ElementPacked Sequence<INTERNAL>::AbstractSequenceIterator::operator[](LenSq i) {
+    template<bool CONST>
+    inline ElementPacked Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::operator[](LenSq i) {
         pointer_ += i;
         return operator*();
     }
 
     template<InternalType INTERNAL>
-    inline LenSq Sequence<INTERNAL>::AbstractSequenceIterator::index() const {
+    template<bool CONST>
+    inline LenSq Sequence<INTERNAL>::AbstractSequenceIterator<CONST>::index() const {
         return pointer_;
     }
 }
