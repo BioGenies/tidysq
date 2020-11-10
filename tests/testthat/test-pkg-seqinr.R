@@ -1,9 +1,9 @@
 # SETUP ----
 str_dna <- c("TACTGGGCATG", "CAGGTCGGA", "TAGTAGTCCG", "", "ACGGT")
-str_ami <- c("OUTLANDISH", "UNSTRUCTURIZED", "FEAR")
+str_ami <- c("REGENERATED", "TECHNICAL", "FEAT")
 
-sq_dna <- construct_sq_dna(str_dna, is_clean = TRUE)
-sq_ami <- construct_sq_ami(str_ami, is_clean = FALSE)
+sq_dna <- sq(str_dna, alphabet = "dna_bsc")
+sq_ami <- sq(str_ami, alphabet = "ami_bsc")
 
 seqinr_dna <- lapply(str_dna, function(x)
   seqinr::as.SeqFastadna(seqinr::s2c(x)))
