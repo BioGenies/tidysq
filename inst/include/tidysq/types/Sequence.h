@@ -72,7 +72,7 @@ namespace tidysq {
             void assign(std::enable_if_t<!ENABLED, const ElementPacked &> value);
 
             friend Sequence<INTERNAL> bite<INTERNAL>(
-                    const typename Sequence<INTERNAL>::GenericSequenceIterator<true> &it,
+                    const typename Sequence<INTERNAL>::template GenericSequenceIterator<true> &it,
                     const std::vector<int> &indices);
         };
 
