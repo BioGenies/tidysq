@@ -78,7 +78,7 @@
 `%has%.sq` <- function(x, y) {
   assert_alph_regex_friendly(alphabet(x))
   
-  CPP_has(x, y)
+  CPP_has(x, y, getOption("tidysq_NA_letter"))
 }
 
 #' @export
@@ -86,7 +86,7 @@
   y <- toupper(y)
   assert_motifs_for_type(y, "ami_ext")
   
-  CPP_has(x, y)
+  CPP_has(x, y, getOption("tidysq_NA_letter"))
 }
 
 #' @export
@@ -97,7 +97,7 @@
   y <- toupper(y)
   assert_motifs_for_type(y, "dna_ext")
   
-  CPP_has(x, y)
+  CPP_has(x, y, getOption("tidysq_NA_letter"))
 }
 
 #' @export
@@ -108,7 +108,7 @@
   y <- toupper(y)
   assert_motifs_for_type(y, "rna_ext")
   
-  CPP_has(x, y)
+  CPP_has(x, y, getOption("tidysq_NA_letter"))
 }
 
 #' @export
