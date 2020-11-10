@@ -28,22 +28,27 @@ obj_print_footer.sq <- function(x, ...,
 #' @importFrom cli col_green col_silver
 #' @importFrom pillar pillar_shaft
 #' @export
-pillar_shaft.sq <- function(x, ...) {
-  # color NA's
-  attr(alphabet(x), "na_letter") <- col_silver(getOption("tidysq_NA_letter"))
-  
-  .pillar_shaft_sq(x, "", col_green)
+pillar_shaft.sq <- function(x, ...,
+                            NA_letter = getOption("tidysq_NA_letter"),
+                            max_pillar_width = getOption("tidysq_p_max_pillar_width")) {
+  assert_string(NA_letter)
+  assert_integerish(max_pillar_width, lower = 6, len = 1)
+
+  pillar_shaft_sq(x, "", NA_letter, col_green, max_pillar_width)
 }
 
 #' @importFrom cli col_cyan
 #' @importFrom pillar pillar_shaft
 #' @export
-pillar_shaft.encsq <- function(x, ...) {
-  # We can do this because it's an evaluation environment
-  # and any changes to x are not permanent
+pillar_shaft.encsq <- function(x, ...,
+                               NA_letter = getOption("tidysq_NA_letter"),
+                               max_pillar_width = getOption("tidysq_p_max_pillar_width")) {
+  assert_string(NA_letter)
+  assert_integerish(max_pillar_width, lower = 6, len = 1)
+
   alphabet(x) <- format(alphabet(x), digits = 1, scientific = FALSE)
   
-  .pillar_shaft_sq(x, "\u00a0", col_cyan)
+  pillar_shaft_sq(x, "\u00a0", NA_letter, col_cyan, max_pillar_width)
 }
 
 #' Print sq object
