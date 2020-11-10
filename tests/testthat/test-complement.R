@@ -1,12 +1,12 @@
 # SETUP ----
-sq_dna <- construct_sq_dna(
-  c("ATCTTGAAG", "CATATGCGCTA", "ACGTGTCGA", ""), is_clean = TRUE)
-sq_dna_compl <- construct_sq_dna(
-  c("TAGAACTTC", "GTATACGCGAT", "TGCACAGCT", ""), is_clean = TRUE)
-sq_rna <- construct_sq_rna(
-  c("UAGUAACCGUAAGCG", "UAGUCC--UA-G"), is_clean = TRUE)
-sq_rna_compl <- construct_sq_rna(
-  c("AUCAUUGGCAUUCGC", "AUCAGG--AU-C"), is_clean = TRUE)
+sq_dna <- sq(c("ATCTTGAAG", "CATATGCGCTA", "ACGTGTCGA", ""),
+             alphabet = "dna_bsc")
+sq_dna_compl <- sq(c("TAGAACTTC", "GTATACGCGAT", "TGCACAGCT", ""),
+                   alphabet = "dna_bsc")
+sq_rna <- sq(c("UAGUAACCGUAAGCG", "UAGUCC--UA-G"),
+             alphabet = "rna_bsc")
+sq_rna_compl <- sq(c("AUCAUUGGCAUUCGC", "AUCAGG--AU-C"),
+                   alphabet = "rna_bsc")
 
 # PROTOTYPE PRESERVATION ----
 test_that("complement() preserves all attributes of original vector", {
