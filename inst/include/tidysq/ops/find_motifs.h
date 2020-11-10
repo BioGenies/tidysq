@@ -200,8 +200,8 @@ namespace tidysq {
 
             // sequence_it is passed as copy, because we want a new iterator that starts from that point
             template<InternalType INTERNAL>
-            void locate(typename Sequence<INTERNAL>::SequenceIterator sequence_it,
-                        const typename Sequence<INTERNAL>::SequenceIterator &iterator_end,
+            void locate(typename Sequence<INTERNAL>::ConstSequenceIterator sequence_it,
+                        const typename Sequence<INTERNAL>::ConstSequenceIterator &iterator_end,
                         const std::string &name,
                         internal::FoundMotifs<INTERNAL> &ret) const {
                 auto motif_it = begin();
@@ -234,19 +234,19 @@ namespace tidysq {
                     if (from_start_) {
                         if (until_end_) {
                             contains_motif = (sequence.originalLength() == length()) &&
-                                    aligns_with(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()));
+                                    aligns_with<INTERNAL>(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()));
                         } else {
-                            contains_motif = aligns_with(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()));
+                            contains_motif = aligns_with<INTERNAL>(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()));
                         }
                     } else if (until_end_) {
-                        contains_motif = aligns_with(sequence.cend(alph_.alphabet_size()) - length(), sequence.cend(alph_.alphabet_size()));
+                        contains_motif = aligns_with<INTERNAL>(sequence.cend(alph_.alphabet_size()) - length(), sequence.cend(alph_.alphabet_size()));
                     } else {
                         // Basic case below (without ^ or $)
-                        typename Sequence<INTERNAL>::SequenceIterator it = sequence.cbegin(alph_.alphabet_size());
+                        typename Sequence<INTERNAL>::ConstSequenceIterator it = sequence.cbegin(alph_.alphabet_size());
                         // Stop when motif no longer fits in what little part of sequence is left or we already
                         // know that there is a motif here
                         while (!contains_motif && it <= sequence.cend(alph_.alphabet_size()) - length()) {
-                            contains_motif = aligns_with(it, sequence.cend(alph_.alphabet_size()));
+                            contains_motif = aligns_with<INTERNAL>(it, sequence.cend(alph_.alphabet_size()));
                             ++it;
                         }
                     }
@@ -266,7 +266,7 @@ namespace tidysq {
                             locate(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()), name, ret);
                         }
                     } else if (until_end_) {
-                        locate(sequence.ecnd(alph_.alphabet_size()) - length(), sequence.cend(alph_.alphabet_size()), name, ret);
+                        locate(sequence.cend(alph_.alphabet_size()) - length(), sequence.cend(alph_.alphabet_size()), name, ret);
                     } else {
                         // Basic case below (without ^ or $)
                         typename Sequence<INTERNAL>::ConstSequenceIterator it = sequence.cbegin(alph_.alphabet_size());

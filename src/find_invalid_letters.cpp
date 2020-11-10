@@ -29,7 +29,7 @@ Rcpp::List CPP_find_invalid_letters(const Rcpp::List& x,
         Rcpp::StringVector ret_vector = Rcpp::StringVector();
         std::vector<LetterValue> invalid_found = {};
         for (const LetterValue& index : invalid_indices) {
-            if (std::any_of(sequence.begin(alph.alphabet_size()), sequence.end(alph.alphabet_size()),
+            if (std::any_of(sequence.cbegin(alph.alphabet_size()), sequence.cend(alph.alphabet_size()),
                     [=](const ElementPacked elem){ return elem == index; })) {
                 ret_vector.push_back(alph[index]);
             }
