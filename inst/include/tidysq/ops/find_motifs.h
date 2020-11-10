@@ -125,7 +125,7 @@ namespace tidysq {
                 // TODO: replace with .contains once C++20 becomes widely acceptable
                 // Replaces each input letter with a list of letters that are encompassed by the meaning of the input letter
                 if (!map.empty() && map.count(letter) == 1) {
-                    meanings = ambiguousAminoMap[letter];
+                    meanings = map[letter];
                 } else {
                     meanings.push_back(letter);
                 }
