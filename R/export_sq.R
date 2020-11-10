@@ -34,7 +34,7 @@ export_sq.default <- function(x, export_format, name = NULL, ...)
   stop("export_sq() function cannot export objects of this class", call. = FALSE)
 
 #' @export
-export_sq.amisq <- function(x, export_format, name = NULL, ...) {
+export_sq.sq_ami_bsc <- function(x, export_format, name = NULL, ...) {
   switch (export_format,
     `ape::AAbin` = {
       assert_package_installed("ape")
@@ -64,11 +64,13 @@ export_sq.amisq <- function(x, export_format, name = NULL, ...) {
       stop("exporting to this format is not yet supported; else, maybe you misspelled export_format parameter?", call. = FALSE)
     }
   )
-  
 }
 
 #' @export
-export_sq.dnasq <- function(x, export_format, name = NULL, ...) {
+export_sq.sq_ami_ext <- export_sq.sq_ami_bsc
+
+#' @export
+export_sq.sq_dna_bsc <- function(x, export_format, name = NULL, ...) {
   switch (export_format,
     `ape::DNAbin` = {
       assert_package_installed("ape")
@@ -101,7 +103,10 @@ export_sq.dnasq <- function(x, export_format, name = NULL, ...) {
 }
 
 #' @export
-export_sq.rnasq <- function(x, export_format, name = NULL, ...) {
+export_sq.sq_dna_ext <- export_sq.sq_dna_bsc
+
+#' @export
+export_sq.sq_rna_bsc <- function(x, export_format, name = NULL, ...) {
   switch (export_format,
     `Biostrings::RNAString` = {
       assert_package_installed("Biostrings")
@@ -118,3 +123,6 @@ export_sq.rnasq <- function(x, export_format, name = NULL, ...) {
     }
   )
 }
+
+#' @export
+export_sq.sq_rna_ext <- export_sq.sq_rna_bsc

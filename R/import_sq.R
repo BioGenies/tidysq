@@ -48,13 +48,17 @@ import_sq.AAbin <- function(object, ...) {
   # From package `ape`
   x <- as.character(object)
   if (is.matrix(x)) {
-    x <- sq(apply(x, 1, paste, collapse = ""), "ami_bsc")
+    x <- sq(apply(x, 1, function(i) {
+      toupper(paste(i, collapse = ""))
+    }), "ami_bsc")
   } else if (is.list(x)) {
-    x <- sq(vapply(x, paste, character(1), collapse = ""), "ami_bsc")
+    x <- sq(vapply(x, function(i) {
+      toupper(paste(i, collapse = ""))
+    }, character(1)), "ami_bsc")
   } else if (is.character(x)) {
     # Sometimes obtained e.g. by extracting an element from whole AAbin list
     # Using code for list case should work as well, separate case is probably an overkill
-    x <- sq(paste(x, collapse = ""), "ami_bsc")
+    x <- sq(toupper(paste(x, collapse = "")), "ami_bsc")
   }
   bind_into_sqibble(x, labels(object))
 }
@@ -64,13 +68,17 @@ import_sq.DNAbin <- function(object, ...) {
   # From package `ape`
   x <- as.character(object)
   if (is.matrix(x)) {
-    x <- sq(apply(x, 1, paste, collapse = ""), "dna_bsc")
+    x <- sq(apply(x, 1, function(i) {
+      toupper(paste(i, collapse = ""))
+    }), "dna_bsc")
   } else if (is.list(x)) {
-    x <- sq(vapply(x, paste, character(1), collapse = ""), "dna_bsc")
+    x <- sq(vapply(x, function(i) {
+      toupper(paste(i, collapse = ""))
+    }, character(1)), "dna_bsc")
   } else if (is.character(x)) {
     # Sometimes obtained e.g. by extracting an element from whole DNAbin list
     # Using code for list case should work as well, separate case is probably an overkill
-    x <- sq(paste(x, collapse = ""), "dna_bsc")
+    x <- sq(toupper(paste(x, collapse = "")), "dna_bsc")
   }
   bind_into_sqibble(x, labels(object))
 }
@@ -84,56 +92,56 @@ import_sq.alignment <- function(object, ...) {
 #' @export
 import_sq.AAString <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), "ami_bsc")
+  x <- sq(as.character(object), alphabet = "ami_ext")
   bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.AAStringSet <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), "ami_bsc")
+  x <- sq(as.character(object), alphabet = "ami_ext")
   bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.DNAString <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), "dna_bsc")
+  x <- sq(as.character(object), alphabet = "dna_ext")
   bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.DNAStringSet <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), "dna_bsc")
+  x <- sq(as.character(object), alphabet = "dna_ext")
   bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.RNAString <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), "rna_bsc")
+  x <- sq(as.character(object), alphabet = "rna_ext")
   bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.RNAStringSet <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), "rna_bsc")
+  x <- sq(as.character(object), alphabet = "rna_ext")
   bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.BString <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), "unt")
+  x <- sq(as.character(object), alphabet = "unt")
   bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.BStringSet <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), type = "unt")
+  x <- sq(as.character(object), alphabet = "unt")
   bind_into_sqibble(x, names(object))
 }
 

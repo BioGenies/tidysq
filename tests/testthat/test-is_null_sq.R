@@ -1,8 +1,8 @@
 # SETUP ----
-sq_ami <- construct_sq(c("", "MATEGILI", "MIPADHICA"), type = 'ami')
-sq_dna <- construct_sq(c("", "ATGCCGT", "T", "", "TTCGATCAGGC"), type = 'dna')
-sq_rna <- construct_sq(c("UUCAGC", "UAGUACCGA", "CAGGGGGGA"), type = "rna")
-sq_empty <- construct_sq(character(), type = "dna")
+sq_ami <- sq(c("", "MATEGILI", "MIPADHICA"), alphabet = "ami_ext")
+sq_dna <- sq(c("", "ATGCCGT", "T", "", "TTCGATCAGGC"), alphabet = "dna_bsc")
+sq_rna <- sq(c("UUCAGC", "UAGUACCGA", "CAGGGGGGA"), alphabet = "rna_bsc")
+sq_empty <- sq(character(), alphabet = "dna_ext")
 
 # RETURNING LOGICAL VECTOR ----
 test_that("is_null_sq() returns logical vector", {

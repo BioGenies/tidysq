@@ -180,12 +180,9 @@ encode.sq <- function(x, encoding, ...) {
   is_given <- alph %in% names(encoding)
   if (!all(is_given)) {
     ind <- (1:length(alph))[!is_given]
-    for (s in x) {
-      if (any(unpack(s, "INTS") %in% ind)) {
-        .handle_opt_txt("tidysq_a_no_given_enc",
-                        "there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA")
-        break
-      }
+    if (any(vapply(unpack(x, "INTS"), function(i) any(i %in% ind), logical(1)))) {
+      .handle_opt_txt("tidysq_a_no_given_enc",
+                      "there are letters in the alphabet of 'sq' that appear in sequences, but were not given in 'encoding' - assuming NA")
     }
     non_given <- rep(NA_real_, length(ind))
     names(non_given) <- alph[ind]

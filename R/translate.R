@@ -50,7 +50,7 @@ translate.default <- function(x, table = 1, ...)
 
 #' @export
 translate.sq_dna_bsc <- function(x, table = 1, ...) {
-  sq(Cpp_translate(as.character(x), table), "sq_ami_bsc")
+  sq(Cpp_translate(as.character(x), table), "ami_bsc")
 }
 
 #' @export
@@ -58,5 +58,5 @@ translate.sq_rna_bsc <- function(x, table = 1, ...) {
   # a hack to avoid creating duplicate codon tables, at least for now
   # optimally should be deleted once the code operates without unpacking
   x <- gsub("U", "T", as.character(x))
-  sq(Cpp_translate(x, table), "sq_ami_bsc")
+  sq(Cpp_translate(x, table), "ami_bsc")
 }

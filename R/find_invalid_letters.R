@@ -42,16 +42,19 @@
 #' 
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
-find_invalid_letters <- function(x, dest_type, ...)
+find_invalid_letters <- function(x, dest_type,
+                                 NA_letter = getOption("tidysq_NA_letter"), ...)
   UseMethod("find_invalid_letters")
 
 #' @export
-find_invalid_letters.default <- function(x, dest_type, ...)
+find_invalid_letters.default <- function(x, dest_type,
+                                         NA_letter = getOption("tidysq_NA_letter"), ...)
   stop("method 'find_invalid_letters' isn't implemented for this type of object", call. = FALSE)
 
 #' @export
-find_invalid_letters.sq <- function(x, dest_type, ...) {
+find_invalid_letters.sq <- function(x, dest_type,
+                                    NA_letter = getOption("tidysq_NA_letter"), ...) {
   assert_sq_type(dest_type)
   
-  CPP_find_invalid_letters(x, dest_type)
+  CPP_find_invalid_letters(x, dest_type, NA_letter)
 }

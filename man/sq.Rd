@@ -6,9 +6,10 @@
 \usage{
 sq(
   x,
-  alphabet = guess_sq_type(x),
+  alphabet = NULL,
   NA_letter = getOption("tidysq_NA_letter"),
-  safe_mode = getOption("tidysq_safe_mode")
+  safe_mode = getOption("tidysq_safe_mode"),
+  ignore_case = FALSE
 )
 }
 \arguments{

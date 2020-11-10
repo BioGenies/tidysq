@@ -56,10 +56,8 @@ complement.sq_dna_bsc <- function(x) {
   
   dict <- c(G = "C", C = "G", T = "A", A = "T", `-` = "-")
   
-  inds_fun <- match(dict[alph], alph)
-  names(inds_fun) <- as.character(1:length(alph))
-  ret <- lapply(ret, function(s) structure(pack(inds_fun[s], "INTS"),
-                                           original_length = attr(s, "original_length")))
+  inds_fun <- match(dict[alph], alph) - 1
+  ret <- pack(lapply(ret, function(s) inds_fun[s + 1]), alph)
   
   vec_restore(ret, x)
 }
@@ -71,10 +69,8 @@ complement.sq_rna_bsc <- function(x) {
   
   dict <- c(G = "C", C = "G", U = "A", A = "U", `-` = "-")
   
-  inds_fun <- match(dict[alph], alph)
-  names(inds_fun) <- as.character(1:length(alph))
-  ret <- lapply(ret, function(s) structure(pack(inds_fun[s], "INTS"),
-                                           original_length = attr(s, "original_length")))
+  inds_fun <- match(dict[alph], alph) - 1
+  ret <- pack(lapply(ret, function(s) inds_fun[s + 1]), alph)
   
   vec_restore(ret, x)
 }
