@@ -17,5 +17,6 @@ assert_motifs_for_type <- function(motifs, type) {
 }
 
 assert_alph_regex_friendly <- function(alph) {
-  assert_disjunct(alph, c("^", "$", "?", "(", "=", ")", "\\", ".", "|", "+", "*", "{", "}", "[", "]"))
+  # TODO: reconsider name, it's pretty poor regex now
+  assert_disjunct(alph, c("^", "$"))
 }
