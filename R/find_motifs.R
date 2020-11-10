@@ -66,106 +66,26 @@
 #' @seealso \code{\link{sq}} \code{\link{substitute_letters}} \code{\link{\%has\%}}
 #' 
 #' @export
-find_motifs <- function(x, name, motifs) {
-  assert_character(name, len = vec_size(x))
+find_motifs <- function(x, names, motifs,
+                        NA_letter = getOption("tidysq_NA_letter"), ...) {
+  assert_character(names, len = vec_size(x))
   assert_character(motifs, any.missing = FALSE)
   
   UseMethod("find_motifs")
 }
 
 #' @export
-find_motifs.default <- function(x, name, motifs)
+find_motifs.default <- function(x, names, motifs,
+                                NA_letter = getOption("tidysq_NA_letter"), ...)
   stop("method 'find_motifs' isn't implemented for this type of object")
 
 #' @export
 #' @importFrom stringi stri_sub
-find_motifs.sq <- function(x, name, motifs) {
+#' @importFrom tibble as_tibble
+find_motifs.sq <- function(x, names, motifs,
+                           NA_letter = getOption("tidysq_NA_letter"), ...) {
   assert_alph_regex_friendly(alphabet(x))
   
-  motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
-  motifs_regex <- ifelse(motif_lengths == 1,
-                         motifs,
-                         paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
-  
-  .find_motifs_sq(x, name, motifs, motifs_regex, motif_lengths)
-}
-
-#' @export
-#' @importFrom stringi stri_sub
-find_motifs.dnasq <- function(x, name, motifs) {
-  motifs <- toupper(motifs)
-  assert_motifs_for_type(motifs, "dna")
-  
-  motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
-  motifs_regex <- ifelse(motif_lengths == 1,
-                         motifs,
-                         paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
-  motifs_regex <- .replace_dna_motif(motifs_regex)
-  
-  .find_motifs_sq(x, name, motifs, motifs_regex, motif_lengths)
-}
-
-#' @export
-#' @importFrom stringi stri_sub
-find_motifs.rnasq <- function(x, name, motifs) {
-  motifs <- toupper(motifs)
-  assert_motifs_for_type(motifs, "rna")
-  
-  motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
-  motifs_regex <- ifelse(motif_lengths == 1,
-                         motifs,
-                         paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
-  motifs_regex <- .replace_rna_motif(motifs_regex)
-  
-  .find_motifs_sq(x, name, motifs, motifs_regex, motif_lengths)
-}
-
-#' @export
-#' @importFrom stringi stri_sub
-find_motifs.amisq <- function(x, name, motifs) {
-  motifs <- toupper(motifs)
-  assert_motifs_for_type(motifs, "ami")
-  
-  motif_lengths <- nchar(motifs) - stri_count_regex(motifs, "[\\\\$]")
-  motifs_regex <- ifelse(motif_lengths == 1,
-                         motifs,
-                         paste0(stri_sub(motifs, 1, 1), "(?=", stri_sub(motifs, 2), ")"))
-  motifs_regex <- .replace_ami_motif(motifs_regex)
-  
-  .find_motifs_sq(x, name, motifs, motifs_regex, motif_lengths)
-}
-
-#' @importFrom dplyr bind_rows
-#' @importFrom stringi stri_sub stri_locate_all_regex stri_count_regex
-#' @importFrom tibble add_column
-.find_motifs_sq <- function(x, name, motifs, motifs_regex, motif_lengths) {
-  sq_character <- as.character(x)
-  
-  # Has to pass motifs_c so that sought column can be set
-  ret_tibble <- mapply(function(motif_name, motif_regex, motif_length) {
-    ret <- stri_locate_all_regex(sq_character, motif_regex, omit_no_match = TRUE)
-    sequence_index <- vapply(ret, nrow, integer(1))
-    ret <- add_column(
-      as_tibble(do.call(rbind, ret)),
-      name = rep(name, sequence_index),
-      sq = rep(x, sequence_index),
-      sought = motif_name,
-      .before = "start"
-    )
-    ret[["end"]] <- ret[["end"]] + rep(motif_length, nrow(ret)) - 1
-    found <- stri_sub(rep(as.character(x), sequence_index),
-                      from = ret[["start"]],
-                      to = ret[["end"]])
-    ret <- add_column(
-      ret,
-      found = sq(found, get_sq_type(x)),
-      .before = "start"
-    )
-    # ret[!is.na(ret[, "start"]), , drop = FALSE]
-  }, motifs, motifs_regex, motif_lengths, SIMPLIFY = FALSE)
-  
-  # While base::rbind would be nicer dependency-wise, it doesn't work for sq object.
-  # Don't expect this to change as shown in the issue below
-  # https://github.com/tidyverse/tibble/issues/34
-  do.call(bind_rows, ret_tibble)
+  ret <- CPP_find_motifs(x, names, motifs, NA_letter)
+  as_tibble(ret)
 }

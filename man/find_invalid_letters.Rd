@@ -4,7 +4,12 @@
 \alias{find_invalid_letters}
 \title{Find elements which are not suitable for specified type.}
 \usage{
-find_invalid_letters(x, dest_type, ...)
+find_invalid_letters(
+  x,
+  dest_type,
+  NA_letter = getOption("tidysq_NA_letter"),
+  ...
+)
 }
 \arguments{
 \item{x}{a \code{\link{sq}} object to be checked.}
