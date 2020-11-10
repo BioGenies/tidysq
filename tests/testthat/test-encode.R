@@ -1,14 +1,14 @@
 # SETUP ----
-sq_dna <- construct_sq_dna(c("TTCAGGGCTAG", "CGATTGC", "CAGTTTA"), is_clean = TRUE)
-sq_rna <- construct_sq_rna(c("UAGUAACCGUAAGCG", "UAGUCC--UA-G"), is_clean = TRUE)
+sq_dna <- sq(c("TTCAGGGCTAG", "CGATTGC", "CAGTTTA"), alphabet = "dna_bsc")
+sq_rna <- sq(c("UAGUAACCGUAAGCG", "UAGUCC--UA-G"), alphabet = "rna_bsc")
 
 # CORRECT PROTOTYPE OF RETURNED VALUE ----
-test_that("encode() returns an encsq object", {
+test_that("encode() returns an sq_enc object", {
   expect_s3_class(encode(sq_dna, c(A = 1, C = 2, G = 3, T = 4, `-` = 7)),
-                  class = "encsq",
+                  class = "sq_enc",
                   exact = FALSE)
   expect_s3_class(encode(sq_rna, c(A = 1, C = 2, G = 3, U = 20)),
-                  class = "encsq",
+                  class = "sq_enc",
                   exact = FALSE)
 })
 
