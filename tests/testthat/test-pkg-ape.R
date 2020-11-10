@@ -1,11 +1,11 @@
 # SETUP ----
 str_dna <- c("TACTGGGCATG", "CAGGTCGGA", "TAGTAGTCCG", "", "ACGGT")
-str_ami <- c("OUTLANDISH", "UNSTRUCTURIZED", "FEAR")
-matrix_dna <- matrix(c("A", "C", "A", "T", "T", "A", "A", "N", "T", "A", "A", "T"), ncol = 3)
+str_ami <- c("REGENERATED", "TECHNICAL", "FEAT")
+matrix_dna <- matrix(c("A", "C", "A", "T", "T", "A", "A", "G", "T", "A", "A", "T"), ncol = 3)
 
-sq_dna <- construct_sq_dna(str_dna, is_clean = TRUE)
-sq_ami <- construct_sq_ami(str_ami, is_clean = FALSE)
-sq_matrix <- construct_sq_dna(apply(matrix_dna, 1, paste, collapse = ""), is_clean = FALSE)
+sq_dna <- sq(str_dna, alphabet = "dna_bsc")
+sq_ami <- sq(str_ami, alphabet = "ami_bsc")
+sq_matrix <- sq(apply(matrix_dna, 1, paste, collapse = ""), alphabet = "dna_bsc")
 
 ape_dna <- ape::as.DNAbin(unname(vapply(str_dna, strsplit, list(character()), split = "")))
 ape_ami <- ape::as.AAbin(unname(vapply(str_ami, strsplit, list(character()), split = "")))

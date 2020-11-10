@@ -48,13 +48,17 @@ import_sq.AAbin <- function(object, ...) {
   # From package `ape`
   x <- as.character(object)
   if (is.matrix(x)) {
-    x <- sq(apply(x, 1, paste, collapse = ""), "ami_bsc")
+    x <- sq(apply(x, 1, function(i) {
+      toupper(paste(i, collapse = ""))
+    }), "ami_bsc")
   } else if (is.list(x)) {
-    x <- sq(vapply(x, paste, character(1), collapse = ""), "ami_bsc")
+    x <- sq(vapply(x, function(i) {
+      toupper(paste(i, collapse = ""))
+    }, character(1)), "ami_bsc")
   } else if (is.character(x)) {
     # Sometimes obtained e.g. by extracting an element from whole AAbin list
     # Using code for list case should work as well, separate case is probably an overkill
-    x <- sq(paste(x, collapse = ""), "ami_bsc")
+    x <- sq(toupper(paste(x, collapse = "")), "ami_bsc")
   }
   bind_into_sqibble(x, labels(object))
 }
@@ -64,13 +68,17 @@ import_sq.DNAbin <- function(object, ...) {
   # From package `ape`
   x <- as.character(object)
   if (is.matrix(x)) {
-    x <- sq(apply(x, 1, paste, collapse = ""), "dna_bsc")
+    x <- sq(apply(x, 1, function(i) {
+      toupper(paste(i, collapse = ""))
+    }), "dna_bsc")
   } else if (is.list(x)) {
-    x <- sq(vapply(x, paste, character(1), collapse = ""), "dna_bsc")
+    x <- sq(vapply(x, function(i) {
+      toupper(paste(i, collapse = ""))
+    }, character(1)), "dna_bsc")
   } else if (is.character(x)) {
     # Sometimes obtained e.g. by extracting an element from whole DNAbin list
     # Using code for list case should work as well, separate case is probably an overkill
-    x <- sq(paste(x, collapse = ""), "dna_bsc")
+    x <- sq(toupper(paste(x, collapse = "")), "dna_bsc")
   }
   bind_into_sqibble(x, labels(object))
 }
