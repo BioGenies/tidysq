@@ -14,6 +14,9 @@
 #include "tidysq/util/common.h"
 
 namespace tidysq {
+    template<InternalType INTERNAL>
+    class Sq;
+
     class Alphabet {
         const std::vector<Letter> letters_;
         const Letter NA_letter_;
@@ -165,6 +168,8 @@ namespace tidysq {
         }
 
         friend Rcpp::StringVector export_to_R(const Alphabet &alphabet);
+        template<InternalType INTERNAL>
+        friend std::vector<std::vector<Letter>> find_invalid_letters(const Sq<INTERNAL> &sq, const SqType &type);
     };
 }
 
