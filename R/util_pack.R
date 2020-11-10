@@ -6,6 +6,8 @@ pack <- function(x, alphabet,
 
 pack.character <- function(x, alphabet, NA_letter, safe_mode) {
   # TODO: implement safe mode (exactly here)
+  # TODO: passing x with letters that are not in alphabet throw an error
+  #  e.g. passing "O" with "ami_bsc" type
   CPP_pack_STRING(x, alphabet, NA_letter)
 }
 
