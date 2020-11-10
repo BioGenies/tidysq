@@ -20,7 +20,7 @@ sq_rna_3 <- sq(c("UGGCGG", "ACGGUUUCGUU", "UGGAACG", "GGCUCGACAGACUGC"),
 
 # CORRECT PROTOTYPE OF RETURNED VALUE ----
 test_that("remove_ambiguous() returns an sq object with _bsc class", {
-  skip("CPP_find_invalid_letters() not implemented")
+  skip("CPP_remove_ambiguous() not implemented")
   expect_vector(remove_ambiguous(sq_ami),
                 ptype = sq_ptype(get_standard_alphabet("ami_bsc"), "ami_bsc"),
                 size = vec_size(sq_ami))
@@ -34,7 +34,7 @@ test_that("remove_ambiguous() returns an sq object with _bsc class", {
 
 # VALUE COMPUTATION ----
 test_that("remove_ambiguous() removes whole sequences correctly", {
-  skip("CPP_find_invalid_letters() not implemented")
+  skip("CPP_remove_ambiguous() not implemented")
   expect_equal(remove_ambiguous(sq_ami),
                sq_ami_2)
   expect_equal(remove_ambiguous(sq_dna),
@@ -44,7 +44,7 @@ test_that("remove_ambiguous() removes whole sequences correctly", {
 })
 
 test_that("remove_ambiguous() removes whole sequences when `by_letter = FALSE`", {
-  skip("CPP_find_invalid_letters() not implemented")
+  skip("CPP_remove_ambiguous() not implemented")
   expect_equal(remove_ambiguous(sq_ami, by_letter = FALSE),
                sq_ami_2)
   expect_equal(remove_ambiguous(sq_dna, by_letter = FALSE),
@@ -54,7 +54,7 @@ test_that("remove_ambiguous() removes whole sequences when `by_letter = FALSE`",
 })
 
 test_that("remove_ambiguous() removes letters only when `by_letter = TRUE`", {
-  skip("CPP_find_invalid_letters() not implemented")
+  skip("CPP_remove_ambiguous() not implemented")
   expect_equal(remove_ambiguous(sq_ami, by_letter = TRUE),
                sq_ami_3)
   expect_equal(remove_ambiguous(sq_dna, by_letter = TRUE),
@@ -65,7 +65,7 @@ test_that("remove_ambiguous() removes letters only when `by_letter = TRUE`", {
 
 # NO CHANGES IF ALREADY TARGET CLASS ----
 test_that("remove_ambiguous() doesn't affect basic alphabet sequences", {
-  skip("CPP_find_invalid_letters() not implemented")
+  skip("CPP_remove_ambiguous() not implemented")
   expect_identical(remove_ambiguous(sq_ami_2), sq_ami_2)
   expect_identical(remove_ambiguous(sq_dna_3), sq_dna_3)
   expect_identical(remove_ambiguous(sq_rna_2), sq_rna_2)
