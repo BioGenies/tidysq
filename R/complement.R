@@ -89,8 +89,7 @@ complement_dna.default <- function(x)
   stop("method 'complement_dna' isn't implemented for this type of object", call. = FALSE)
 
 #' @export
-complement_dna.sq_dna_bsc <- function(x)
-  complement.sq_dna_bsc(x)
+complement_dna.sq_dna_bsc <- complement.sq_dna_bsc
 
 #' @rdname complement
 #' @export
@@ -102,5 +101,4 @@ complement_rna.default <- function(x)
   stop("method 'complement_rna' isn't implemented for this type of object", call. = FALSE)
 
 #' @export
-complement_rna.sq_rna_bsc <- function(x)
-  complement.sq_rna_bsc(x)
+complement_rna.sq_rna_bsc <- complement.sq_rna_bsc

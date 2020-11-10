@@ -86,8 +86,7 @@ namespace tidysq {
 
         explicit Alphabet(const std::vector<Letter> &letters,
                           const Letter &NA_letter = util::default_NA_letter()) :
-                Alphabet(letters,
-                         util::guess_sq_type_from_letters(letters),
+                Alphabet(util::guess_sq_type_from_letters(letters),
                          NA_letter) {};
 
         Alphabet(const Alphabet &other) = default;

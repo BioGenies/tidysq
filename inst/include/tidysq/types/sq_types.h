@@ -55,8 +55,15 @@ namespace tidysq {
         }
 
         inline SqType guess_sq_type_from_letters(const std::vector<Letter> &letters) {
-            for (auto &type : {DNA_EXT, DNA_BSC, RNA_EXT, RNA_BSC, AMI_EXT, AMI_BSC}) {
-                if (standard_letters_for_sq_type(type) == letters) return type;
+            for (auto &type : {DNA_BSC, RNA_BSC, AMI_BSC, DNA_EXT, RNA_EXT, AMI_EXT}) {
+                auto standard_alph = standard_letters_for_sq_type(type);
+                if (std::all_of(letters.begin(), letters.end(), [=](const Letter &letter) {
+                    return std::any_of(standard_alph.begin(), standard_alph.end(), [=](const Letter &other) {
+                        return other == letter;
+                    });
+                })) {
+                    return type;
+                }
             }
             return UNT;
         }

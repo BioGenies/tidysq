@@ -25,16 +25,33 @@ namespace tidysq {
             alphabet_(alphabet),
             interpreted_letters_(0) {};
 
-        [[nodiscard]] inline LetterValue match() const {
-            return alphabet_.match_value((ElementType) *internal_iterator_);
+        [[nodiscard]] inline ElementType match_element() const {
+            return (ElementType) *internal_iterator_;
+        }
+
+        [[nodiscard]] inline LetterValue match_value() const {
+            return alphabet_.match_value(match_element());
         }
 
     public:
-        inline LetterValue get_next() {
+        inline LetterValue get_next_value() {
             if (reached_end_) {
                 return 0;
             } else {
-                LetterValue ret = match();
+                LetterValue ret = match_value();
+                internal_iterator_++;
+                interpreted_letters_++;
+                if (internal_iterator_ == end_) reached_end_ = true;
+                return ret;
+            }
+        }
+
+
+        inline ElementType get_next_element() {
+            if (reached_end_) {
+                return (ElementType) 0;
+            } else {
+                ElementType ret = match_element();
                 internal_iterator_++;
                 interpreted_letters_++;
                 if (internal_iterator_ == end_) reached_end_ = true;
@@ -54,12 +71,12 @@ namespace tidysq {
     };
 
     template<>
-    inline LetterValue ProtoSequenceInputInterpreter<RCPP, STRINGS, true>::match() const {
+    inline LetterValue ProtoSequenceInputInterpreter<RCPP, STRINGS, true>::match_value() const {
         return alphabet_.match_value((ElementType) internal_iterator_[0]);
     }
 
     template<>
-    inline LetterValue ProtoSequenceInputInterpreter<RCPP, STRINGS, false>::match() const {
+    inline LetterValue ProtoSequenceInputInterpreter<RCPP, STRINGS, false>::match_value() const {
         return alphabet_.match_value((ElementType) internal_iterator_[0]);
     }
 
@@ -82,16 +99,30 @@ namespace tidysq {
                 interpreted_letters_(0) {
         };
 
-        [[nodiscard]] inline LetterValue match() {
-            return letter_tree_.match_next();
+        [[nodiscard]] inline ElementType match_element() {
+            return letter_tree_.match_element();
+        }
+
+        [[nodiscard]] inline LetterValue match_value() {
+            return letter_tree_.match_value();
         }
 
     public:
-        inline LetterValue get_next() {
+        inline LetterValue get_next_value() {
             if (reached_end()) {
                 return 0;
             } else {
-                LetterValue ret = match();
+                LetterValue ret = match_value();
+                interpreted_letters_++;
+                return ret;
+            }
+        }
+
+        inline ElementType get_next_element() {
+            if (reached_end()) {
+                return "";
+            } else {
+                ElementType ret = match_element();
                 interpreted_letters_++;
                 return ret;
             }

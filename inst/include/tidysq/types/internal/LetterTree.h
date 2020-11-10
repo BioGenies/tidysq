@@ -77,7 +77,7 @@ namespace tidysq::internal {
             put_letter(alphabet.NA_letter(), alphabet.NA_value());
         };
 
-        LetterValue match_next() {
+        LetterValue match_value() {
             const LetterNode* node = &root_;
 
             while (iterator_ != end_) {
@@ -90,6 +90,24 @@ namespace tidysq::internal {
             }
 
             return node->value();
+        }
+
+        ElementType match_element() {
+            const LetterNode* node = &root_;
+
+            Letter next_element = "";
+
+            while (iterator_ != end_) {
+                try {
+                    next_element += *iterator_;
+                    node = &(node->match(*iterator_));
+                    iterator_++;
+                } catch (const std::out_of_range &e) {
+                    return next_element;
+                }
+            }
+
+            return next_element;
         }
 
         [[nodiscard]] inline bool reached_end() const {

@@ -7,6 +7,11 @@
 #include "tidysq/ops/internal/util.h"
 
 namespace tidysq {
+    namespace internal {
+        //TODO: find out why the heck it doesn't find this function
+        LenSq calculate_packed_internal_length(LenSq, const Alphabet&);
+    }
+
     template<InternalType INTERNAL>
     Sequence<INTERNAL> bite(
             const typename Sequence<INTERNAL>::ConstSequenceIterator &it,

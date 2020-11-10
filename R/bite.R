@@ -88,20 +88,23 @@
 #' 
 #' @seealso \code{\link{sq}} \code{\link{remove_na}} \code{\link{tidysq-options}}
 #' @export
-bite <- function(x, indices, ...)
+bite <- function(x, indices, ...,
+                 NA_letter = getOption("tidysq_NA_letter"))
   UseMethod("bite")
 
 #' @export
-bite.default <- function(x, indices, ...)
+bite.default <- function(x, indices, ...,
+                         NA_letter = getOption("tidysq_NA_letter"))
   stop("method 'bite()' isn't implemented for this type of object", call. = FALSE)
 
 #' @export
-bite.sq <- function(x, indices, ...) {
+bite.sq <- function(x, indices, ...,
+                    NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
   assert_integerish(indices, any.missing = FALSE, null.ok = TRUE)
   
-  ret <- CPP_bite(x, indices, getOptions("tidysq_NA_letter"))
-  if (ret[["warning"]] == "")
-    .handle_opt_txt("tidysq_a_bite_na",
-                    "some sequences are subsetted with index bigger than length - NA introduced")
+  ret <- CPP_bite(x, indices, NA_letter)
+  if (ret[["warning"]] != "")
+    .handle_opt_txt("tidysq_a_bite_na", ret[["warning"]])
   ret[["sq"]]
 }

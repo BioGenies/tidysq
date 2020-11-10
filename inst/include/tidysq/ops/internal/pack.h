@@ -16,10 +16,10 @@ namespace tidysq::internal {
         LenSq out_byte = 0;
         auto interpreter = unpacked.template content_interpreter<SIMPLE>(alphabet);
         while (!interpreter.reached_end()) {
-            packed[out_byte] =  (interpreter.get_next()      ) |
-                                (interpreter.get_next() << 2u) |
-                                (interpreter.get_next() << 4u) |
-                                (interpreter.get_next() << 6u);
+            packed[out_byte] = (interpreter.get_next_value()      ) |
+                               (interpreter.get_next_value() << 2u) |
+                               (interpreter.get_next_value() << 4u) |
+                               (interpreter.get_next_value() << 6u);
             ++out_byte;
         }
         packed.trim(interpreter.interpreted_letters(), alphabet);
@@ -33,22 +33,22 @@ namespace tidysq::internal {
         auto interpreter = unpacked.template content_interpreter<SIMPLE>(alphabet);
         LetterValue tmp;
         while (!interpreter.reached_end()) {
-            packed[out_byte] =  (interpreter.get_next()      ) |
-                                (interpreter.get_next() << 3u) |
-                                ((tmp = interpreter.get_next()) << 6u);
+            packed[out_byte] = (interpreter.get_next_value()      ) |
+                               (interpreter.get_next_value() << 3u) |
+                               ((tmp = interpreter.get_next_value()) << 6u);
 
             if (++out_byte == packed.length()) break;
             
-            packed[out_byte] =  (tmp                    >> 2u) |
-                                (interpreter.get_next() << 1u) |
-                                (interpreter.get_next() << 4u) |
-                                ((tmp = interpreter.get_next()) << 7u);
+            packed[out_byte] = (tmp                    >> 2u) |
+                               (interpreter.get_next_value() << 1u) |
+                               (interpreter.get_next_value() << 4u) |
+                               ((tmp = interpreter.get_next_value()) << 7u);
 
             if (++out_byte == packed.length()) break;
 
-            packed[out_byte] =  (tmp                    >> 1u) |
-                                (interpreter.get_next() << 2u) |
-                                (interpreter.get_next() << 5u);
+            packed[out_byte] = (tmp                    >> 1u) |
+                               (interpreter.get_next_value() << 2u) |
+                               (interpreter.get_next_value() << 5u);
 
             ++out_byte;
         }
@@ -63,8 +63,8 @@ namespace tidysq::internal {
         LenSq out_byte = 0;
         auto interpreter = unpacked.template content_interpreter<SIMPLE>(alphabet);
         while (!interpreter.reached_end()) {
-            packed[out_byte] =  (interpreter.get_next()      ) |
-                                (interpreter.get_next() << 4u);
+            packed[out_byte] = (interpreter.get_next_value()      ) |
+                               (interpreter.get_next_value() << 4u);
             ++out_byte;
         }
         packed.trim(interpreter.interpreted_letters(), alphabet);
@@ -78,30 +78,30 @@ namespace tidysq::internal {
         auto interpreter = unpacked.template content_interpreter<SIMPLE>(alphabet);
         LetterValue tmp;
         while (!interpreter.reached_end()) {
-            packed[out_byte] =  (interpreter.get_next()       ) |
-                                ((tmp = interpreter.get_next()) << 5u);
+            packed[out_byte] = (interpreter.get_next_value()       ) |
+                               ((tmp = interpreter.get_next_value()) << 5u);
 
             if (++out_byte == packed.length()) break;
 
-            packed[out_byte] =  (tmp                    >> 3u) |
-                                (interpreter.get_next() << 2u) |
-                                ((tmp = interpreter.get_next()) << 7u);
+            packed[out_byte] = (tmp                    >> 3u) |
+                               (interpreter.get_next_value() << 2u) |
+                               ((tmp = interpreter.get_next_value()) << 7u);
 
             if (++out_byte == packed.length()) break;
 
             packed[out_byte] =  (tmp                    >> 1u) |
-                                ((tmp = interpreter.get_next()) << 4u);
+                                ((tmp = interpreter.get_next_value()) << 4u);
 
             if (++out_byte == packed.length()) break;
 
-            packed[out_byte] =  (tmp                    >> 4u) |
-                                (interpreter.get_next() << 1u) |
-                                ((tmp = interpreter.get_next()) << 6u);
+            packed[out_byte] = (tmp                    >> 4u) |
+                               (interpreter.get_next_value() << 1u) |
+                               ((tmp = interpreter.get_next_value()) << 6u);
 
             if (++out_byte == packed.length()) break;
 
             packed[out_byte] =  (tmp                    >> 2u) |
-                                (interpreter.get_next() << 3u);
+                                (interpreter.get_next_value() << 3u);
             ++out_byte;
         }
         packed.trim(interpreter.interpreted_letters(), alphabet);
