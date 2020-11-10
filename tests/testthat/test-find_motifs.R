@@ -1,6 +1,13 @@
-sq_ami <- construct_sq(c("AGNTYIB", "MATEGILI", "MIPADHICA"), type = 'ami')
-sq_dna <- construct_sq(c("CTGAATGCAGT", "ATGCCGT", "CAGACCANN"), type = 'dna')
-sq_rna <- construct_sq(c("UUACGACUU", "UUAAGCGC", "ACUAAGACCA"), type = 'rna')
+# SETUP ----
+sq_ami <- sq(c("AGNTYIB", "MATEGILI", "MIPADHICA"),
+             alphabet = "ami_ext")
+sq_dna <- sq(c("CTGAATGCAGT", "ATGCCGT", "CAGACCANN"),
+             alphabet = "dna_ext")
+sq_rna <- sq(c("UUACGACUU", "UUAAGCGC", "ACUAAGACCA"),
+             alphabet = "rna_bsc")
+
+# TODO: make these tests as organized as the others
+
 
 test_that("find_motifs detects correctly motif that is single unambiguous amino acid in sequences", {
   expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "A")[["start"]],
