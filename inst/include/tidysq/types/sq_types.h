@@ -25,6 +25,10 @@ namespace tidysq {
             return "!";
         }
 
+        inline bool has_standard_alphabet(const SqType &type) {
+            return std::set{AMI_EXT, AMI_BSC, DNA_EXT, DNA_BSC, RNA_EXT, RNA_BSC}.count(type);
+        }
+
         inline std::vector<Letter> standard_letters_for_sq_type(const SqType &type) {
             std::vector<Letter> letters;
             switch (type) {

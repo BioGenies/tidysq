@@ -9,7 +9,7 @@
 namespace tidysq {
     namespace internal {
         //TODO: find out why the heck it doesn't find this function
-        LenSq calculate_packed_internal_length(LenSq, const Alphabet&);
+        LenSq calculate_packed_internal_length(LenSq, const AlphSize&);
     }
 
     template<InternalType INTERNAL>
