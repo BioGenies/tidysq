@@ -47,7 +47,6 @@ Imports: cli (>= 2.0.0),
          dplyr (>= 1.0.2),
          pillar (>= 1.4.2),
          Rcpp (>= 1.0.1),
-         RcppParallel,
          stringi (>= 1.4.3),
          vctrs (>= 0.3.0),
          zeallot (>= 0.1.0)
@@ -70,5 +69,4 @@ Encoding: UTF-8
 Language: en-US
 RoxygenNote: 7.1.1
 LinkingTo: Rcpp,
-           RcppParallel,
            testthat
