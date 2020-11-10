@@ -101,10 +101,10 @@ get_standard_alphabet <- function(type) {
 
 # various internal methods put together (to check!) ----
 
-.get_alph_size <- function(alph) {
+size <- function(alph) {
   ceiling(log2(length(alph) + 1))
 }
 
 .get_na_val <- function(alph) {
-  2 ^ .get_alph_size(alph) - 1
+  2 ^ size(alph) - 1
 }
