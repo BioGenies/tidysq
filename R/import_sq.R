@@ -92,56 +92,56 @@ import_sq.alignment <- function(object, ...) {
 #' @export
 import_sq.AAString <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), "ami_bsc")
+  x <- sq(as.character(object), alphabet = "ami_ext")
   bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.AAStringSet <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), "ami_bsc")
+  x <- sq(as.character(object), alphabet = "ami_ext")
   bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.DNAString <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), "dna_bsc")
+  x <- sq(as.character(object), alphabet = "dna_ext")
   bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.DNAStringSet <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), "dna_bsc")
+  x <- sq(as.character(object), alphabet = "dna_ext")
   bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.RNAString <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), "rna_bsc")
+  x <- sq(as.character(object), alphabet = "rna_ext")
   bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.RNAStringSet <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), "rna_bsc")
+  x <- sq(as.character(object), alphabet = "rna_ext")
   bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.BString <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), "unt")
+  x <- sq(as.character(object), alphabet = "unt")
   bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.BStringSet <- function(object, ...) {
   # From package `Biostrings`
-  x <- sq(as.character(object), type = "unt")
+  x <- sq(as.character(object), alphabet = "unt")
   bind_into_sqibble(x, names(object))
 }
 

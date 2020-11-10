@@ -8,14 +8,17 @@ str_1_ami <- "PASVKNFYD"
 str_unt <- c("vip01", "vip02", "vip04", "missing_one")
 str_1_unt <- "2high4U"
 
-sq_dna <- construct_sq_dna(str_dna, is_clean = TRUE)
-sq_1_dna <- construct_sq_dna(str_1_dna, is_clean = FALSE)
-sq_rna <- construct_sq_rna(str_rna, is_clean = FALSE)
-sq_1_rna <- construct_sq_rna(str_1_rna, is_clean = TRUE)
-sq_ami <- construct_sq_ami(str_ami, is_clean = FALSE)
-sq_1_ami <- construct_sq_ami(str_1_ami, is_clean = TRUE)
-sq_unt <- construct_sq(str_unt, type = "unt")
-sq_1_unt <- construct_sq(str_1_unt, type = "unt")
+sq_dna <- sq(str_dna, alphabet = "dna_bsc")
+sq_dna_ext <- sq(str_dna, alphabet = "dna_ext")
+sq_1_dna <- sq(str_1_dna, alphabet = "dna_ext")
+sq_rna <- sq(str_rna, alphabet = "rna_ext")
+sq_1_rna <- sq(str_1_rna, alphabet = "rna_bsc")
+sq_1_rna_ext <- sq(str_1_rna, alphabet = "rna_ext")
+sq_ami <- sq(str_ami, alphabet = "ami_ext")
+sq_1_ami <- sq(str_1_ami, alphabet = "ami_bsc")
+sq_1_ami_ext <- sq(str_1_ami, alphabet = "ami_ext")
+sq_unt <- sq(str_unt, alphabet = "unt")
+sq_1_unt <- sq(str_1_unt, alphabet = "unt")
 
 biostr_dna <- Biostrings::DNAStringSet(str_dna)
 biostr_1_dna <- Biostrings::DNAString(str_1_dna)
@@ -29,7 +32,7 @@ biostr_1_unt <- Biostrings::BString(str_1_unt)
 # IMPORT ----
 test_that("correctly imports Biostrings::DNAStringSet", {
   expect_identical(import_sq(biostr_dna)[["sq"]],
-                   sq_dna)
+                   sq_dna_ext)
 })
 test_that("correctly imports Biostrings::DNAString", {
   expect_identical(import_sq(biostr_1_dna)[["sq"]],
@@ -42,7 +45,7 @@ test_that("correctly imports Biostrings::RNAStringSet", {
 })
 test_that("correctly imports Biostrings::RNAString", {
   expect_identical(import_sq(biostr_1_rna)[["sq"]],
-                   sq_1_rna)
+                   sq_1_rna_ext)
 })
 
 test_that("correctly imports Biostrings::AAStringSet", {
@@ -51,7 +54,7 @@ test_that("correctly imports Biostrings::AAStringSet", {
 })
 test_that("correctly imports Biostrings::AAString", {
   expect_identical(import_sq(biostr_1_ami)[["sq"]],
-                   sq_1_ami)
+                   sq_1_ami_ext)
 })
 
 test_that("correctly imports Biostrings::BStringSet", {
