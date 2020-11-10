@@ -3,6 +3,7 @@
 #include "tidysq/types/Sq.h"
 #include "tidysq/ops/bite.h"
 #include <map>
+#include <algorithm>
 
 namespace tidysq {
     namespace internal {
@@ -77,17 +78,18 @@ namespace tidysq {
                 end_.push_back(end);
             }
 
-//            friend Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs);
+            friend Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs);
         };
 
-//        Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs) {
-//            return Rcpp::List::create(
-//                    Rcpp::Named("names", found_motifs.names_),
-//                    Rcpp::Named("found", found_motifs.found_),
-//                    Rcpp::Named("sought", found_motifs.sought_),
-//                    Rcpp::Named("start", found_motifs.start_),
-//                    Rcpp::Named("end", found_motifs.end_));
-//        }
+        Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs) {
+
+            return Rcpp::List::create(
+                    Rcpp::Named("names", found_motifs.names_),
+                    Rcpp::Named("found", export_to_R(found_motifs.found_)),
+                    Rcpp::Named("sought", found_motifs.sought_),
+                    Rcpp::Named("start", Rcpp::IntegerVector(Rcpp::wrap(found_motifs.start_)) + 1),
+                    Rcpp::Named("end", Rcpp::IntegerVector(Rcpp::wrap(found_motifs.end_)) + 1));
+        }
 
         class Motif {
             const Alphabet &alph_;
@@ -328,8 +330,8 @@ namespace tidysq {
         const std::list<Motif> motif_list = convert_motifs(motifs, alph);
         internal::FoundMotifs<INTERNAL> ret(sq);
 
-        for (LenSq i = 0; i < sq.length(); ++i) {
-            for (const Motif &motif : motif_list) {
+        for (const Motif &motif : motif_list) {
+            for (LenSq i = 0; i < sq.length(); ++i) {
                 motif.find_in<INTERNAL>(sq[i], names[i], ret);
             }
         }
