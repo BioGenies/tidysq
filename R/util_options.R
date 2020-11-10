@@ -14,26 +14,6 @@
          none = invisible())
 }
 
-.get_print_length <- function() {
-  opt <- getOption("tidysq_p_max_pillar_width")
-  
-  ifelse (is.null(opt) || 
-            !is.numeric(opt) || 
-            is.na(opt) || 
-            is.nan(opt) || 
-            is.infinite(opt) || 
-            !(opt > 0), 15, opt)
-}
-
-
-.get_color_opt <- function() {
-  opt <- getOption("tidysq_p_use_color")
-  
-  ifelse (is.null(opt) || 
-            !is.logical(opt) || 
-            is.na(opt), TRUE, opt)
-}
-
 .is_fast_mode <- function() {
   opt <- getOption("tidysq_g_fast_mode")
   
