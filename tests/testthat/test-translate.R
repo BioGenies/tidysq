@@ -1,19 +1,19 @@
 # SETUP ----
-sq_dna <- construct_sq_dna(c("TACTGGGCATGA", "CAGGTCGGA", "TAGTAGTCC", "ACGGTG"),
-                           is_clean = TRUE)
-sq_rna <- construct_sq_rna(c("UGGCGG", "ACGGUUUCGUU", "UGGAACG", "GGCUCGACAGACUGC", ""),
-                           is_clean = TRUE)
+sq_dna <- sq(c("TACTGGGCATGA", "CAGGTCGGA", "TAGTAGTCC", "ACGGTG"),
+             alphabet = "dna_bsc")
+sq_rna <- sq(c("UGGCGG", "ACGGUUUCGUU", "UGGAACG", "GGCUCGACAGACUGC", ""),
+             alphabet = "rna_bsc")
 
 str_dna_translated <- c("YWA*", "QVG", "**S", "TV")
 str_rna_translated <- c("WR", "TVS", "WN", "GSTDC", "")
 
-# AMISQ CLNSQ PROTOTYPE ----
+# SQ_AMI_BSC PROTOTYPE ----
 test_that("translate() returns clean amino acid sq object", {
   expect_vector(translate(sq_dna),
-                ptype = .construct_sq_ptype("ami", is_clean = TRUE),
+                ptype = sq_ptype(get_standard_alphabet("ami_bsc"), "ami_bsc"),
                 size = vec_size(sq_dna))
   expect_vector(translate(sq_rna),
-                ptype = .construct_sq_ptype("ami", is_clean = TRUE),
+                ptype = sq_ptype(get_standard_alphabet("ami_bsc"), "ami_bsc"),
                 size = vec_size(sq_rna))
 })
 
