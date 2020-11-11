@@ -1,4 +1,6 @@
 #pragma once
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-err58-cpp"
 
 #include "tidysq/types/Sq.h"
 #include "tidysq/ops/bite.h"
@@ -13,9 +15,6 @@ namespace tidysq {
     }
 
     typedef std::unordered_map<ElementStringSimple, std::list<ElementStringSimple>> AmbiguousDict;
-
-//    std::list<internal::Motif> convert_motifs(const std::vector<std::string>& motifs,
-//                                              const Alphabet& alph);
 
     AmbiguousDict ambiguousAminoMap = {
             {'B', {'B', 'D', 'N'}},
@@ -279,9 +278,6 @@ namespace tidysq {
                     }
                 }
             }
-
-//            friend std::list<internal::Motif> tidysq::convert_motifs(const std::vector<std::string>& motifs,
-//                    const Alphabet& alph);
         };
     }
 
@@ -344,3 +340,5 @@ namespace tidysq {
         return ret;
     }
 }
+
+#pragma clang diagnostic pop
