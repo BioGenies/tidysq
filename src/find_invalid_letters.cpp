@@ -1,5 +1,4 @@
 #include <Rcpp.h>
-#include <iterator>
 
 #include "tidysq/exports.h"
 #include "tidysq/find_invalid_letters.h"
