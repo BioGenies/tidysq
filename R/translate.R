@@ -41,6 +41,7 @@
 translate <- function(x, table = 1,
                       NA_letter = getOption("tidysq_NA_letter"), ...) {
   assert_int(table)
+  assert_choice(table, c(1:16, 21:31, 33))
   assert_string(NA_letter)
   
   UseMethod("translate")
