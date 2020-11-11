@@ -13,7 +13,7 @@ namespace tidysq {
 
     template<InternalType INTERNAL>
     Sequence<INTERNAL> bite(
-            const typename Sequence<INTERNAL>::ConstSequenceIterator &it,
+            const typename Sequence<INTERNAL>::const_iterator &it,
             const std::vector<int> &indices);
 
     template<InternalType INTERNAL>
@@ -103,6 +103,14 @@ namespace tidysq {
 
         inline ConstAccessType operator[](const LenSq index) const {
              return content_[index];
+        }
+
+        inline AccessType operator()(const LenSq index) {
+            return content_[index];
+        }
+
+        inline ConstAccessType operator()(const LenSq index) const {
+            return content_[index];
         }
         
         iterator begin(const AlphSize& alph_size) {
