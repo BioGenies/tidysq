@@ -22,7 +22,8 @@ namespace tidysq {
         while (index_iter != indices.end() || out_sequence_iter != out_sequence.end(alph_size)) {
             ElementPacked element = NA_value;
             if (*index_iter <= sequence.original_length()) {
-                element = sequence_iter.access(*index_iter - 1);
+                sequence_iter += (*index_iter - 1);
+                element = *sequence_iter;
             } else {
                 *warning_called = true;
             }

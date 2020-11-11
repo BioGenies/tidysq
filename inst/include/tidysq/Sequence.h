@@ -48,7 +48,6 @@ namespace tidysq {
 
             // TODO: possibly implement swap()
             ElementPacked operator*() const;
-            ElementPacked access(LenSq index);
             bool operator==(const GenericSequenceIterator& other) const;
             bool operator!=(const GenericSequenceIterator& other) const;
             bool operator>(const GenericSequenceIterator& other) const;
@@ -241,13 +240,6 @@ namespace tidysq {
                (sequence_.content_[highest_byte_index] << (8 - lowest_bit_in_byte_index)));
 
         return ret;
-    }
-
-    template<typename INTERNAL>
-    template<bool CONST>
-    inline ElementPacked Sequence<INTERNAL>::GenericSequenceIterator<CONST>::access(LenSq index) {
-        pointer_ = index;
-        return operator*();
     }
 
     template<typename INTERNAL>
