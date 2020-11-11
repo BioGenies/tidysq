@@ -1,6 +1,6 @@
 #pragma once
 
-#include "tidysq/types/Sq.h"
+#include "tidysq/Sq.h"
 
 namespace tidysq {
     inline Alphabet import_alphabet_from_R(const Rcpp::StringVector &letters, const Rcpp::StringVector &NA_letter) {

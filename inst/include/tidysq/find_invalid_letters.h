@@ -1,6 +1,6 @@
 #pragma once
 
-#include "tidysq/exports.h"
+#include "tidysq/tidysq-includes.h"
 
 namespace tidysq {
     template<InternalType INTERNAL>

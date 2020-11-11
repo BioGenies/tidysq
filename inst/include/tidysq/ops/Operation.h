@@ -1,9 +1,8 @@
-#ifndef TIDYSQ_OPERATION_H
-#define TIDYSQ_OPERATION_H
+#pragma once
 
-#include "tidysq/types/Alphabet.h"
+#include "tidysq/Alphabet.h"
 
-namespace tidysq {
+namespace tidysq::ops {
     template<typename SEQUENCE_IN,
             typename SEQUENCE_OUT>
     class OperationSq {
@@ -11,5 +10,3 @@ namespace tidysq {
         virtual SEQUENCE_OUT operator() (const SEQUENCE_IN &sequence, const Alphabet &alphabet) const = 0;
     };
 }
-
-#endif //TIDYSQ_OPERATION_H

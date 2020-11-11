@@ -1,10 +1,9 @@
-#ifndef TIDYSQ_TYPEMAPPER_H
-#define TIDYSQ_TYPEMAPPER_H
+#pragma once
 
 #include <vector>
 #include <Rcpp.h>
 
-#include "general.h"
+#include "tidysq/tidysq-typedefs.h"
 
 namespace tidysq {
     template<InternalType INTERNAL>
@@ -199,4 +198,3 @@ namespace tidysq {
     };
 }
 
-#endif //TIDYSQ_TYPEMAPPER_H

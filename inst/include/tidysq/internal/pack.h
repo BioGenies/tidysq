@@ -1,12 +1,11 @@
-#ifndef TIDYSQ_PACK_H
-#define TIDYSQ_PACK_H
+#pragma once
 
 #include <stdexcept>
 
-#include "tidysq/types/Alphabet.h"
-#include "tidysq/types/Sequence.h"
-#include "tidysq/types/ProtoSequence.h"
-#include "tidysq/ops/internal/util.h"
+#include "tidysq/Alphabet.h"
+#include "tidysq/Sequence.h"
+#include "tidysq/ProtoSequence.h"
+#include "tidysq/util/calculate_length.h"
 
 namespace tidysq::internal {
     template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT, bool SIMPLE>
@@ -129,5 +128,3 @@ namespace tidysq::internal {
         }
     }
 }
-
-#endif //TIDYSQ_PACK_H

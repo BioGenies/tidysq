@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 
-#include "tidysq/exports.h"
-#include "tidysq/ops/bite.h"
+#include "tidysq/tidysq-includes.h"
+#include "tidysq/bite.h"
 
 using namespace tidysq;
 

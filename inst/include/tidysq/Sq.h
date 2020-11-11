@@ -1,11 +1,10 @@
-#ifndef TIDYSQ_SQ_H
-#define TIDYSQ_SQ_H
+#pragma once
 
-#include "tidysq/types/general.h"
-#include "tidysq/types/Alphabet.h"
-#include "tidysq/types/TypeMapper.h"
+#include "tidysq/tidysq-typedefs.h"
+#include "tidysq/Alphabet.h"
+#include "tidysq/TypeMapper.h"
 #include "tidysq/ops/OperationUnpack.h"
-#include "tidysq/types/Proxy.h"
+#include "tidysq/Proxy.h"
 #include "tidysq/sqapply.h"
 
 namespace tidysq {
@@ -86,4 +85,3 @@ namespace tidysq {
     }
 }
 
-#endif //TIDYSQ_SQ_H
