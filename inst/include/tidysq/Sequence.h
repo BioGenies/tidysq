@@ -79,12 +79,12 @@ namespace tidysq {
         typedef GenericSequenceIterator<true> const_iterator;
         typedef GenericSequenceIterator<false> iterator;
 
-        Sequence(const ContentType &content, const LenSq originalLength) :
+        Sequence(const ContentType &content, const LenSq original_length) :
                 content_(content),
-                original_length_(originalLength) {};
+                original_length_(original_length) {};
 
-        Sequence(const LenSq contentLength, const LenSq originalLength) :
-                Sequence(ContentType(contentLength), originalLength) {};
+        Sequence(const LenSq content_length, const LenSq original_length) :
+                Sequence(ContentType(content_length), original_length) {};
 
         Sequence() :
                 Sequence(0, 0) {};
@@ -137,7 +137,7 @@ namespace tidysq {
             return const_iterator(*this, alph_size, original_length_);
         }
 
-        [[nodiscard]] inline LenSq originalLength() const {
+        [[nodiscard]] inline LenSq original_length() const {
             return original_length_;
         }
 
@@ -326,7 +326,7 @@ namespace tidysq {
     template<typename INTERNAL>
     template<bool CONST>
     inline typename Sequence<INTERNAL>::template GenericSequenceIterator<CONST> &Sequence<INTERNAL>::GenericSequenceIterator<CONST>::operator+=(LenSq i) {
-        if (i + pointer_ > sequence_.originalLength_)
+        if (i + pointer_ > sequence_.original_length_)
             throw std::out_of_range("SequenceIterator tried to increment the pointer after its end.");
         pointer_ += i;
         return *this;

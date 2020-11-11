@@ -231,12 +231,12 @@ namespace tidysq {
             [[nodiscard]] bool appears_in(const Sequence<INTERNAL>& sequence) const {
                 bool contains_motif = empty();
                 // Don't run checks if motif is longer than sequence
-                if (sequence.originalLength() >= length()) {
+                if (sequence.original_length() >= length()) {
                     // Lot of ^ and $ handling mostly
                     if (from_start_) {
                         if (until_end_) {
-                            contains_motif = (sequence.originalLength() == length()) &&
-                                    aligns_with<INTERNAL>(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()));
+                            contains_motif = (sequence.original_length() == length()) &&
+                                             aligns_with<INTERNAL>(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()));
                         } else {
                             contains_motif = aligns_with<INTERNAL>(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()));
                         }
@@ -261,10 +261,10 @@ namespace tidysq {
                          const std::string &name,
                          internal::FoundMotifs<INTERNAL> &ret) const {
                 // Don't run checks if motif is longer than sequence
-                if (sequence.originalLength() >= length()) {
+                if (sequence.original_length() >= length()) {
                     // Lot of ^ and $ handling mostly
                     if (from_start_) {
-                        if (!until_end_ || sequence.originalLength() == length()) {
+                        if (!until_end_ || sequence.original_length() == length()) {
                             locate(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()), name, ret);
                         }
                     } else if (until_end_) {

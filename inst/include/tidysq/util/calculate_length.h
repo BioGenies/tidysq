@@ -17,6 +17,6 @@ namespace tidysq::util {
 
     template<typename INTERNAL_IN, typename INTERNAL_OUT, typename PROTO_OUT>
     inline ProtoSequence<INTERNAL_OUT, PROTO_OUT> reserve_space_for_unpacked(const Sequence<INTERNAL_IN> &packed) {
-        return ProtoSequence<INTERNAL_OUT, PROTO_OUT>(packed.originalLength());
+        return ProtoSequence<INTERNAL_OUT, PROTO_OUT>(packed.original_length());
     }
 }

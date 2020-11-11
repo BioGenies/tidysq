@@ -121,7 +121,7 @@ namespace tidysq {
     inline GeneralSequenceProxy<RCPP_IT, RAWS_PT, true> &  GeneralSequenceProxy<RCPP_IT, RAWS_PT, true>::operator=(
             const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, RAWS_PT, true, false>::SequenceType &general_sequence) {
         Rcpp::RawVector content = general_sequence.content();
-        content.attr("original_length") = general_sequence.originalLength();
+        content.attr("original_length") = general_sequence.original_length();
         contained_sequence_ = content;
         return *this;
     }
