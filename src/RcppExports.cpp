@@ -184,15 +184,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // CPP_translate
-Rcpp::List CPP_translate(const Rcpp::List& x, const int& table, const Rcpp::StringVector& NA_letter);
-RcppExport SEXP _tidysq_CPP_translate(SEXP xSEXP, SEXP tableSEXP, SEXP NA_letterSEXP) {
+Rcpp::List CPP_translate(const Rcpp::List& x, const int& table, const Rcpp::StringVector& NA_letter, const bool& interpret_as_stop);
+RcppExport SEXP _tidysq_CPP_translate(SEXP xSEXP, SEXP tableSEXP, SEXP NA_letterSEXP, SEXP interpret_as_stopSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
     Rcpp::traits::input_parameter< const int& >::type table(tableSEXP);
     Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
-    rcpp_result_gen = Rcpp::wrap(CPP_translate(x, table, NA_letter));
+    Rcpp::traits::input_parameter< const bool& >::type interpret_as_stop(interpret_as_stopSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_translate(x, table, NA_letter, interpret_as_stop));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -214,7 +215,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_find_invalid_letters", (DL_FUNC) &_tidysq_CPP_find_invalid_letters, 3},
     {"_tidysq_CPP_find_motifs", (DL_FUNC) &_tidysq_CPP_find_motifs, 4},
     {"_tidysq_CPP_has", (DL_FUNC) &_tidysq_CPP_has, 3},
-    {"_tidysq_CPP_translate", (DL_FUNC) &_tidysq_CPP_translate, 3},
+    {"_tidysq_CPP_translate", (DL_FUNC) &_tidysq_CPP_translate, 4},
     {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 0},
     {NULL, NULL, 0}
 };

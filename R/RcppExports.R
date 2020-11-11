@@ -57,7 +57,7 @@ CPP_has <- function(x, motifs, NA_letter) {
     .Call(`_tidysq_CPP_has`, x, motifs, NA_letter)
 }
 
-CPP_translate <- function(x, table, NA_letter) {
-    .Call(`_tidysq_CPP_translate`, x, table, NA_letter)
+CPP_translate <- function(x, table, NA_letter, interpret_as_stop) {
+    .Call(`_tidysq_CPP_translate`, x, table, NA_letter, interpret_as_stop)
 }
 

@@ -41,6 +41,7 @@
 translate <- function(x, table = 1,
                       NA_letter = getOption("tidysq_NA_letter"), ...) {
   assert_int(table)
+  assert_string(NA_letter)
   
   UseMethod("translate")
 }
@@ -52,8 +53,10 @@ translate.default <- function(x, table = 1,
 
 #' @export
 translate.sq_dna_bsc <- function(x, table = 1,
-                                 NA_letter = getOption("tidysq_NA_letter"), ...) {
-  CPP_translate(x, table, NA_letter)
+                                 NA_letter = getOption("tidysq_NA_letter"), ...,
+                                 interpret_as_stop = FALSE) {
+  assert_flag(interpret_as_stop)
+  CPP_translate(x, table, NA_letter, interpret_as_stop)
 }
 
 #' @export
