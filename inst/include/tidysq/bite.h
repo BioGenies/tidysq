@@ -35,7 +35,7 @@ namespace tidysq {
     }
 
     template<InternalType INTERNAL>
-    Sequence<INTERNAL> bite(const typename Sequence<INTERNAL>::ConstSequenceIterator &it, const std::vector<int> &indices) {
+    Sequence<INTERNAL> bite(const typename Sequence<INTERNAL>::const_iterator &it, const std::vector<int> &indices) {
         bool* warning_called = new bool;
         auto ret = bite(it.sequence_, indices, it.alph_size_, warning_called);
         delete warning_called;

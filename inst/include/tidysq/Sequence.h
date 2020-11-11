@@ -76,8 +76,8 @@ namespace tidysq {
         };
 
     public:
-        typedef GenericSequenceIterator<true> ConstSequenceIterator;
-        typedef GenericSequenceIterator<false> SequenceIterator;
+        typedef GenericSequenceIterator<true> const_iterator;
+        typedef GenericSequenceIterator<false> iterator;
 
         Sequence(const ContentType &content, const LenSq originalLength) :
                 content_(content),
@@ -105,20 +105,28 @@ namespace tidysq {
              return content_[index];
         }
         
-        SequenceIterator begin(const AlphSize& alph_size) {
-            return SequenceIterator(*this, alph_size);
+        iterator begin(const AlphSize& alph_size) {
+            return iterator(*this, alph_size);
         }
         
-        SequenceIterator end(const AlphSize& alph_size) {
-            return SequenceIterator(*this, alph_size, original_length_);
+        iterator end(const AlphSize& alph_size) {
+            return iterator(*this, alph_size, original_length_);
         }
 
-        ConstSequenceIterator cbegin(const AlphSize& alph_size) const {
-            return ConstSequenceIterator(*this, alph_size);
+        const_iterator begin(const AlphSize& alph_size) const {
+            return const_iterator(*this, alph_size);
         }
 
-        ConstSequenceIterator cend(const AlphSize& alph_size) const {
-            return ConstSequenceIterator(*this, alph_size, original_length_);
+        const_iterator end(const AlphSize& alph_size) const {
+            return iterator(*this, alph_size, original_length_);
+        }
+
+        const_iterator cbegin(const AlphSize& alph_size) const {
+            return const_iterator(*this, alph_size);
+        }
+
+        const_iterator cend(const AlphSize& alph_size) const {
+            return const_iterator(*this, alph_size, original_length_);
         }
 
         [[nodiscard]] inline LenSq originalLength() const {
