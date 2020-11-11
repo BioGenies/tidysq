@@ -20,14 +20,14 @@ namespace tidysq {
         const Letter NA_letter_;
         const AlphSize alphabet_size_;
         const LetterValue NA_value_;
-        const SqType type_;
         const bool is_simple_;
         const std::vector<SimpleLetter> simple_letters_;
         const SimpleLetter simple_NA_letter_;
+        const SqType type_;
 
         void check_letters() const {
             for (auto &letter : letters_) {
-                if (letters_.empty())
+                if (letter.empty())
                     throw std::invalid_argument("each \"letter\" has to have at least one character!");
             }
         }
@@ -38,11 +38,11 @@ namespace tidysq {
         }
 
         [[nodiscard]] AlphSize calculate_alphabet_size() const {
-            return ceil(log2((double) letters_.size() + 1));
+            return static_cast<AlphSize>(ceil(log2((double) letters_.size() + 1)));
         }
 
         [[nodiscard]] LetterValue calculate_NA_value() const {
-            return pow(2, alphabet_size_) - 1;
+            return static_cast<LetterValue>(pow(2, alphabet_size_) - 1);
         }
 
         [[nodiscard]] bool calculate_is_simple() const {
@@ -100,7 +100,7 @@ namespace tidysq {
         Alphabet(Alphabet &&other) noexcept = default;
 
         [[nodiscard]] inline LetterValue length() const {
-            return letters_.size();
+            return static_cast<LetterValue>(letters_.size());
         }
 
         inline const Letter &operator[](LetterValue index) const {
@@ -109,10 +109,6 @@ namespace tidysq {
 
         inline const SimpleLetter &get_simple_letter(LetterValue index) const {
             return index == NA_value_ ? simple_NA_letter_ : simple_letters_[index];
-        }
-
-        [[nodiscard]] inline const std::vector<Letter> &letters() const {
-            return letters_;
         }
 
         [[nodiscard]] inline const LetterValue &NA_value() const {
@@ -164,7 +160,7 @@ namespace tidysq {
             return NA_value_;
         }
 
-        [[nodiscard]] inline LetterValue match_value(const ElementInts &letter) const {
+        [[maybe_unused]] [[nodiscard]] inline LetterValue match_value(const ElementInts &letter) const {
             if (letter < letters_.size()) return letter;
             return NA_value_;
         }

@@ -21,8 +21,8 @@ namespace tidysq {
                                       const Alphabet &alphabet) :
             internal_iterator_(iterator_begin),
             end_(iterator_end),
-            reached_end_(internal_iterator_ == end_),
             alphabet_(alphabet),
+            reached_end_(internal_iterator_ == end_),
             interpreted_letters_(0) {};
 
         [[nodiscard]] inline ElementType match_element() const {

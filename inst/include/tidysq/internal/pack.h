@@ -34,7 +34,7 @@ namespace tidysq::internal {
         while (!interpreter.reached_end()) {
             packed(out_byte) = (interpreter.get_next_value()      ) |
                                (interpreter.get_next_value() << 3u) |
-                               ((tmp = interpreter.get_next_value()) << 6u);
+                               ((tmp = interpreter.get_next_value()) << 6u); //TODO: find out what happens with order of evaluation
 
             if (++out_byte == packed.length()) break;
             

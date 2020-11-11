@@ -30,7 +30,7 @@ namespace tidysq {
                 ProtoSq(ContentType(length), alphabet) {};
 
         ProtoSq(const ContentType &content, const SqType &type) :
-                ProtoSq(length, Alphabet(type)) {};
+                ProtoSq(content, Alphabet(type)) {};
 
         ProtoSq(const LenSq length, const SqType &type) :
                 ProtoSq(length, Alphabet(type)) {};

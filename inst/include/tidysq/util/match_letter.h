@@ -6,17 +6,17 @@
 
 namespace tidysq::util {
     template<ProtoType PROTO_OUT>
-    auto match_letter(LetterValue value, const Alphabet &alphabet)
+    auto match_letter(LetterValue value, [[maybe_unused]] const Alphabet &alphabet)
             -> typename ProtoTypeMapper<PROTO_OUT>::ProtoSequenceElementType;
 
     template<>
-    inline auto match_letter<RAWS>(const LetterValue value, const Alphabet &alphabet)
+    inline auto match_letter<RAWS>(const LetterValue value, [[maybe_unused]] const Alphabet &alphabet)
             -> typename ProtoTypeMapper<RAWS>::ProtoSequenceElementType {
         return value;
     }
 
     template<>
-    inline auto match_letter<INTS>(const LetterValue value, const Alphabet &alphabet)
+    inline auto match_letter<INTS>(const LetterValue value, [[maybe_unused]] const Alphabet &alphabet)
             -> typename ProtoTypeMapper<INTS>::ProtoSequenceElementType {
         return value;
     }
