@@ -2,7 +2,8 @@
 
 #include <vector>
 #include <stdexcept>
-#include "tidysq/types/general.h"
+
+#include "tidysq/tidysq-typedefs.h"
 
 namespace tidysq {
     enum SqType {

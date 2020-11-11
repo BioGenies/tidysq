@@ -2,10 +2,10 @@
 
 #include <utility>
 
-#include "tidysq/types/Alphabet.h"
-#include "tidysq/types/TypeMapper.h"
-#include "tidysq/ops/internal/util.h"
-#include "tidysq/types/ProtoSequenceInputInterpreter.h"
+#include "tidysq/Alphabet.h"
+#include "tidysq/TypeMapper.h"
+#include "tidysq/util/calculate_length.h"
+#include "tidysq/ProtoSequenceInputInterpreter.h"
 
 namespace tidysq {
     template<InternalType INTERNAL, ProtoType PROTO, bool SIMPLE>

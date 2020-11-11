@@ -1,13 +1,12 @@
 #pragma once
 
-#include "tidysq/types/general.h"
-
-#include "tidysq/types/TypeMapper.h"
-#include "tidysq/types/ProtoSequence.h"
-#include "tidysq/ops/internal/util.h"
+#include "tidysq/tidysq-typedefs.h"
+#include "tidysq/TypeMapper.h"
+#include "tidysq/ProtoSequence.h"
+#include "tidysq/util/calculate_length.h"
 
 namespace tidysq {
-    namespace internal {
+    namespace util {
         //TODO: find out why the heck it doesn't find this function
         LenSq calculate_packed_internal_length(LenSq, const AlphSize&);
     }
@@ -143,7 +142,7 @@ namespace tidysq {
         }
 
         void trim(const LenSq packed_length, const Alphabet &alphabet) {
-            content_.erase(content_.begin() + internal::calculate_packed_internal_length(packed_length, alphabet.alphabet_size()), content_.end());
+            content_.erase(content_.begin() + util::calculate_packed_internal_length(packed_length, alphabet.alphabet_size()), content_.end());
             original_length_ = packed_length;
         }
     };

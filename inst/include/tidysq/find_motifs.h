@@ -1,7 +1,7 @@
 #pragma once
 
-#include "tidysq/types/Sq.h"
-#include "tidysq/ops/bite.h"
+#include "tidysq/Sq.h"
+#include "tidysq/bite.h"
 #include <map>
 #include <algorithm>
 

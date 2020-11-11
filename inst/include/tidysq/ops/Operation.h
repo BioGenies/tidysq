@@ -1,9 +1,9 @@
 #ifndef TIDYSQ_OPERATION_H
 #define TIDYSQ_OPERATION_H
 
-#include "tidysq/types/Alphabet.h"
+#include "tidysq/Alphabet.h"
 
-namespace tidysq {
+namespace tidysq::ops {
     template<typename SEQUENCE_IN,
             typename SEQUENCE_OUT>
     class OperationSq {

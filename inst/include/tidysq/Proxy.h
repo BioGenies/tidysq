@@ -1,6 +1,6 @@
 #pragma once
 
-#include "tidysq/types/ProtoSequence.h"
+#include "tidysq/ProtoSequence.h"
 
 namespace tidysq {
     namespace internal {

@@ -4,7 +4,7 @@
 #include <vector>
 #include <Rcpp.h>
 
-#include "general.h"
+#include "tidysq/tidysq-typedefs.h"
 
 namespace tidysq {
     template<InternalType INTERNAL>

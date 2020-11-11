@@ -3,10 +3,10 @@
 
 #include <stdexcept>
 
-#include "tidysq/types/Alphabet.h"
-#include "tidysq/types/Sequence.h"
-#include "tidysq/types/ProtoSequence.h"
-#include "tidysq/ops/internal/util.h"
+#include "tidysq/Alphabet.h"
+#include "tidysq/Sequence.h"
+#include "tidysq/ProtoSequence.h"
+#include "tidysq/util/calculate_length.h"
 
 namespace tidysq::internal {
     template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT, bool SIMPLE>

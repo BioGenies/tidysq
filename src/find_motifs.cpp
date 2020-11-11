@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 
-#include "tidysq/exports.h"
-#include "tidysq/ops/find_motifs.h"
+#include "tidysq/tidysq-includes.h"
+#include "tidysq/find_motifs.h"
 
 using namespace tidysq;
 

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "tidysq/types/Sq.h"
+#include "tidysq/Sq.h"
+#include "tidysq/util/calculate_length.h"
 
 namespace tidysq {
     template<InternalType INTERNAL>
@@ -9,7 +10,7 @@ namespace tidysq {
                       const AlphSize &alph_size,
                       bool* warning_called) {
         Sequence<INTERNAL> out_sequence(
-                internal::calculate_packed_internal_length(indices.size(), alph_size),
+                util::calculate_packed_internal_length(indices.size(), alph_size),
                 indices.size()
         );
         const ElementPacked NA_value = 0xffu >> (8u - alph_size);

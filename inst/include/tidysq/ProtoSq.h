@@ -1,12 +1,12 @@
 #ifndef TIDYSQ_PROTOSQ_H
 #define TIDYSQ_PROTOSQ_H
 
-#include "tidysq/types/general.h"
-#include "tidysq/types/Alphabet.h"
-#include "tidysq/types/TypeMapper.h"
+#include "tidysq/tidysq-typedefs.h"
+#include "tidysq/Alphabet.h"
+#include "tidysq/TypeMapper.h"
 #include "tidysq/sqapply.h"
 #include "tidysq/ops/OperationPack.h"
-#include "tidysq/types/Proxy.h"
+#include "tidysq/Proxy.h"
 
 namespace tidysq {
     template<InternalType INTERNAL>

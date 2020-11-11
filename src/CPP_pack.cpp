@@ -1,4 +1,4 @@
-#include "tidysq/exports.h"
+#include "tidysq/tidysq-includes.h"
 
 using namespace tidysq;
 

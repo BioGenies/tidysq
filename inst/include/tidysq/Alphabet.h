@@ -9,9 +9,9 @@
 #include <Rcpp.h>
 #include <variant>
 
-#include "tidysq/types/general.h"
-#include "tidysq/types/sq_types.h"
-#include "tidysq/util/common.h"
+#include "tidysq/tidysq-typedefs.h"
+#include "tidysq/sq-types.h"
+#include "tidysq/util/transform-common.h"
 
 namespace tidysq {
     template<InternalType INTERNAL>

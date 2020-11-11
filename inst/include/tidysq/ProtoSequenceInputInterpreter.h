@@ -1,6 +1,6 @@
 #pragma once
 
-#include "tidysq/types/internal/LetterTree.h"
+#include "tidysq/internal/LetterTree.h"
 
 namespace tidysq {
     template<InternalType INTERNAL, ProtoType PROTO, bool SIMPLE>
