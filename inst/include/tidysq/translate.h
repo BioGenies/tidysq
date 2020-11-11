@@ -1,4 +1,6 @@
 #pragma once
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-err58-cpp"
 
 #include <map>
 #include "tidysq/ops/internal/util.h"
@@ -80,20 +82,242 @@ namespace tidysq {
                                                   {0u, 18u}
                                      }}
                         }}
+            }},
+            {3, {
+                        {0u, {
+                                     {3u, {
+                                                  {0u, 10u}
+                                     }}
+                        }},
+                        {1u, {
+                                     {2u, {
+                                                  {0u, 31u}, {1u, 31u}
+                                     }},
+                                     {3u, {
+                                                  {0u, 16u}, {1u, 16u}, {2u, 16u}, {3u, 16u}
+                                     }}
+                        }},
+                        {3u, {
+                                     {2u, {
+                                                  {0u, 18u}
+                                     }}
+                        }}
+            }},
+            {4, {
+                        {3u, {
+                                     {2u, {
+                                                  {0u, 18u}
+                                     }}
+                        }}
+            }},
+            {5, {
+                        {0u, {
+                                     {2u, {
+                                                  {0u, 15u}, {2u, 15u}
+                                     }},
+                                     {3u, {
+                                                  {0u, 10u}
+                                     }}
+                        }},
+                        {3u, {
+                                     {2u, {
+                                                  {0u, 18u}
+                                     }}
+                        }}
+            }},
+            {6, {
+                        {3u, {
+                                     {0u, {
+                                                  {0u, 13u}, {2u, 13u}
+                                     }}
+                        }}
+            }},
+            {9, {
+                        {0u, {
+                                     {0u, {
+                                                  {0u, 11u}
+                                     }},
+                                     {2u, {
+                                                  {0u, 15u}, {2u, 15u}
+                                     }}
+                        }},
+                        {3u, {
+                                     {2u, {
+                                                  {0u, 18u}
+                                     }}
+                        }}
+            }},
+            {10, {
+                         {3u, {
+                                      {2u, {
+                                                   {0u, 1u}
+                                      }}
+                         }}
+            }},
+            {12, {
+                         {1u, {
+                                      {3u, {
+                                                   {2u, 15u}
+                                      }}
+                         }}
+            }},
+            {13, {
+                         {0u, {
+                                      {2u, {
+                                                   {0u, 5u}, {2u, 5u}
+                                      }},
+                                      {3u, {
+                                                   {0u, 10u}
+                                      }}
+                         }},
+                         {3u, {
+                                      {2u, {
+                                                   {0u, 18u}
+                                      }}
+                         }}
+            }},
+            {14, {
+                         {0u, {
+                                      {0u, {
+                                                   {0u, 11u}
+                                      }},
+                                      {2u, {
+                                                   {0u, 15u}, {2u, 15u}
+                                      }}
+                         }},
+                         {3u, {
+                                      {0u, {
+                                                   {0u, 19u}
+                                      }},
+                                      {2u, {
+                                                   {0u, 18u}
+                                      }}
+                         }}
+            }},
+            {15, {
+                         {3u, {
+                                      {0u, {
+                                                   {2u, 13u}
+                                           }}
+                              }}
+            }},
+            {16, {
+                         {3u, {
+                                      {0u, {
+                                                   {2u, 9u}
+                                      }}
+                         }}
+            }},
+            {21, {
+                         {0u, {
+                                      {0u, {
+                                                   {0u, 11u}
+                                      }},
+                                      {2u, {
+                                                   {0u, 15u}, {2u, 15u}
+                                      }},
+                                      {3u, {
+                                                   {0u, 10u}
+                                      }}
+                         }},
+                         {3u, {
+                                      {2u, {
+                                                   {0u, 18u}
+                                      }}
+                         }}
+            }},
+            {22, {
+                         {3u, {
+                                      {0u, {
+                                                   {2u, 9u}
+                                      }},
+                                      {1u, {
+                                                   {0u, 21u}
+                                      }}
+                         }}
+            }},
+            {23, {
+                         {3u, {
+                                      {3u, {
+                                                   {0u, 21u}
+                                      }}
+                         }}
+            }},
+            {24, {
+                         {0u, {
+                                      {2u, {
+                                                   {0u, 15u}, {2u, 8u}
+                                      }}
+                         }},
+                         {3u, {
+                                      {2u, {
+                                                   {0u, 18u}
+                                      }}
+                         }}
+            }},
+            {25, {
+                         {3u, {
+                                      {2u, {
+                                                   {0u, 5u}
+                                      }}
+                         }}
+            }},
+            {26, {
+                         {1u, {
+                                      {3u, {
+                                                   {2u, 0u}
+                                      }}
+                         }}
+            }},
+            {29, {
+                         {3u, {
+                                      {0u, {
+                                                   {0u, 19u}, {2u, 19u}
+                                      }}
+                         }}
+            }},
+            {30, {
+                         {3u, {
+                                      {0u, {
+                                                   {0u, 3u}, {2u, 3u}
+                                      }}
+                         }}
+            }},
+            {33, {
+                         {0u, {
+                                      {2u, {
+                                                   {0u, 15u}, {2u, 8u}
+                                      }}
+                         }},
+                         {3u, {
+                                      {0u, {
+                                                   {0u, 19u}
+                                      }},
+                                      {2u, {
+                                                   {0u, 18u}
+                                      }}
+                         }}
             }}
     };
 
-    LetterValue codon_table(const int &table,
+    LetterValue codon_table(int &table,
                             const LetterValue &codon_1,
                             const LetterValue &codon_2,
                             const LetterValue &codon_3) {
+        // Some tables are actually identical to some others
+        if (table == 7) table = 4;
+        if (table == 8) table = 1;
+        if (table == 11) table = 1;
+        // If this is non-standard table, then we have this kind of @Override
         if (table != 1) {
-            // First access table of differences
+            // First find correct table of differences
             auto codon_diff_table = codon_diff_tables[table];
             if (codon_diff_table.count(codon_1) > 0 &&
                 codon_diff_table[codon_1].count(codon_2) > 0 &&
                 codon_diff_table[codon_1][codon_2].count(codon_3) > 0) {
-                return codon_diff_table[codon_1][codon_2][codon_3];
+                auto amino_acid = codon_diff_table[codon_1][codon_2][codon_3];
+                // TODO: handle case if (amino_acid == 31u) (i.e. NA_letter)
+                return amino_acid;
             }
         }
         return codon_table_1[codon_1][codon_2][codon_3];
@@ -133,3 +357,5 @@ namespace tidysq {
         return ret;
     }
 }
+
+#pragma clang diagnostic pop
