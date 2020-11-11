@@ -80,12 +80,6 @@ matrix, in which rows correspond to sequences and columns to positions" />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -120,7 +114,7 @@ matrix, in which rows correspond to sequences and columns to positions" />
     </div>
 
     <pre class="usage"><span class='co'># S3 method for sq</span>
-<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,20 +152,20 @@ columns will be filled with <code><a href='https://rdrr.io/r/base/NA.html'>NA</a
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
-<span class='kw'>sq_same_len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CGATAGACA"</span>, <span class='st'>"TGACAAAAC"</span>, <span class='st'>"GTGACCGTA"</span>),
-                            type = <span class='st'>'dna'</span>)
-<span class='kw'>sq_diff_len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CTGAATGCAGTACCGTAAT"</span>, <span class='st'>"ATGCCGTAAATGCCAT"</span>, 
-                              <span class='st'>"CAGACCANNNATAG"</span>), type = <span class='st'>'dna'</span>)
+<span class='va'>sq_same_len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CGATAGACA"</span>, <span class='st'>"TGACAAAAC"</span>, <span class='st'>"GTGACCGTA"</span><span class='op'>)</span>,
+                            type <span class='op'>=</span> <span class='st'>'dna'</span><span class='op'>)</span>
+<span class='va'>sq_diff_len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CTGAATGCAGTACCGTAAT"</span>, <span class='st'>"ATGCCGTAAATGCCAT"</span>, 
+                              <span class='st'>"CAGACCANNNATAG"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>'dna'</span><span class='op'>)</span>
 
 <span class='co'># Converting sq object containing sequences of the same lengths to matrix:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>sq_same_len</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>sq_same_len</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
 #&gt; [1,] "C"  "G"  "A"  "T"  "A"  "G"  "A"  "C"  "A" 
 #&gt; [2,] "T"  "G"  "A"  "C"  "A"  "A"  "A"  "A"  "C" 
 #&gt; [3,] "G"  "T"  "G"  "A"  "C"  "C"  "G"  "T"  "A" </div><div class='input'>
 <span class='co'># Converting sq object containing sequences of different lengths to </span>
 <span class='co'># matrix - NA introduced:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='kw'>sq_diff_len</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>sq_diff_len</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]
 #&gt; [1,] "C"  "T"  "G"  "A"  "A"  "T"  "G"  "C"  "A"  "G"   "T"   "A"   "C"   "C"  
 #&gt; [2,] "A"  "T"  "G"  "C"  "C"  "G"  "T"  "A"  "A"  "A"   "T"   "G"   "C"   "C"  
@@ -192,7 +186,7 @@ columns will be filled with <code><a href='https://rdrr.io/r/base/NA.html'>NA</a
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michal Burdukiewicz, Dominik Rafacz, Mateusz Bakala.</p>
+  <p>Developed by Dominik Rafacz, Michal Burdukiewicz, Mateusz Bakala.</p>
 </div>
 
 <div class="pkgdown">

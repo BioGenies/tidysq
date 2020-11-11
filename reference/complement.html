@@ -80,12 +80,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -119,11 +113,11 @@
  nucleotide sequence. The function differentiates between RNA and DNA sequences.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>complement</span>(<span class='kw'>sq</span>)
+    <pre class="usage"><span class='fu'>complement</span><span class='op'>(</span><span class='va'>sq</span><span class='op'>)</span>
 
-<span class='fu'>complement_dna</span>(<span class='kw'>sq</span>)
+<span class='fu'>complement_dna</span><span class='op'>(</span><span class='va'>sq</span><span class='op'>)</span>
 
-<span class='fu'>complement_rna</span>(<span class='kw'>sq</span>)</pre>
+<span class='fu'>complement_rna</span><span class='op'>(</span><span class='va'>sq</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -154,10 +148,10 @@ way of limiting classes <code>complement</code> function is used on.</p>
     <pre class="examples"><div class='input'><span class='co'># Creating objects dna_sequence (with DNA sequences) and rna_sequence </span>
 <span class='co'># (with RNA sequences) to work on:</span>
 
-<span class='kw'>dna_sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ACTGCTG"</span>, <span class='st'>"CTTAGA"</span>, <span class='st'>"CCCT"</span>, <span class='st'>"CTGAATGT"</span>),
-                             type = <span class='st'>"dna"</span>)
-<span class='kw'>rna_sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ACUGCUG"</span>, <span class='st'>"CUUAGA"</span>, <span class='st'>"CCCU"</span>, <span class='st'>"CUGAAUGU"</span>),
-                             type = <span class='st'>"rna"</span>)
+<span class='va'>dna_sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACTGCTG"</span>, <span class='st'>"CTTAGA"</span>, <span class='st'>"CCCT"</span>, <span class='st'>"CTGAATGT"</span><span class='op'>)</span>,
+                             type <span class='op'>=</span> <span class='st'>"dna"</span><span class='op'>)</span>
+<span class='va'>rna_sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACUGCUG"</span>, <span class='st'>"CUUAGA"</span>, <span class='st'>"CCCU"</span>, <span class='st'>"CUGAAUGU"</span><span class='op'>)</span>,
+                             type <span class='op'>=</span> <span class='st'>"rna"</span><span class='op'>)</span>
 
 
 <span class='co'># In the following the complement function is used to make a PCR (Polymerase Chain Reaction)</span>
@@ -165,20 +159,20 @@ way of limiting classes <code>complement</code> function is used on.</p>
 <span class='co'># following example: AAATTTGGG to TTTAAACCC.</span>
  
 <span class='co'># creating complementary sequences with the basic function and using wrappers:</span>
-<span class='fu'>complement</span>(<span class='kw'>dna_sequence</span>)
+<span class='fu'>complement</span><span class='op'>(</span><span class='va'>dna_sequence</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>dna (DNA), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>TGACGAC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>GAATCT</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>GGGA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>GACTTACA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'><span class='fu'>complement_dna</span>(<span class='kw'>dna_sequence</span>)
+#&gt; [4] </span><span style='color: #00BB00;'>GACTTACA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'><span class='fu'>complement_dna</span><span class='op'>(</span><span class='va'>dna_sequence</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>dna (DNA), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>TGACGAC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>GAATCT</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>GGGA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
 #&gt; [4] </span><span style='color: #00BB00;'>GACTTACA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'>
-<span class='fu'>complement</span>(<span class='kw'>rna_sequence</span>)
+<span class='fu'>complement</span><span class='op'>(</span><span class='va'>rna_sequence</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>rna (RNA), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>UGACGAC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>GAAUCU</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>GGGA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>GACUUACA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'><span class='fu'>complement_rna</span>(<span class='kw'>rna_sequence</span>)
+#&gt; [4] </span><span style='color: #00BB00;'>GACUUACA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'><span class='fu'>complement_rna</span><span class='op'>(</span><span class='va'>rna_sequence</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>rna (RNA), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>UGACGAC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>GAAUCU</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>GGGA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
@@ -198,7 +192,7 @@ way of limiting classes <code>complement</code> function is used on.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michal Burdukiewicz, Dominik Rafacz, Mateusz Bakala.</p>
+  <p>Developed by Dominik Rafacz, Michal Burdukiewicz, Mateusz Bakala.</p>
 </div>
 
 <div class="pkgdown">

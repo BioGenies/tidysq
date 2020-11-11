@@ -79,12 +79,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -117,7 +111,7 @@
     <p>Function checks which type of sequences are contained in <code><a href='sq.html'>sq</a></code> object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_sq_type</span>(<span class='kw'>sq</span>)</pre>
+    <pre class="usage"><span class='fu'>get_sq_type</span><span class='op'>(</span><span class='va'>sq</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,35 +138,35 @@ If the type of sequence is <strong>dna</strong>, <strong>rna</strong>, <strong>a
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Creating an object to work on:</span>
-<span class='kw'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ACGATTAGACG"</span>,<span class='st'>"GGATA"</span>), type = <span class='st'>"dna"</span>)
-<span class='kw'>sq_rna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CCUUACGGC"</span>,<span class='st'>"UUCAAAGCU"</span>), type = <span class='st'>"rna"</span>)
-<span class='kw'>sq_amino_acids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MMVTAAV"</span>), type = <span class='st'>"ami"</span>)
-<span class='kw'>sq_unt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MMVTAAVXX"</span>), type = <span class='st'>"unt"</span>)
-<span class='kw'>sq_atp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='substitute_letters.html'>substitute_letters</a></span>(<span class='kw'>sq_amino_acids</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(M = <span class='st'>"g1"</span>, V = <span class='st'>"g2"</span>, T = <span class='st'>"g1"</span>, A = <span class='st'>"g3"</span>))
-</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='input'><span class='kw'>sq_encoded</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='kw'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(A = <span class='fl'>2.3</span>, C = <span class='fl'>1.56</span>, T = <span class='fl'>0.23</span>, G = <span class='fl'>0.28</span>))
+<span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACGATTAGACG"</span>,<span class='st'>"GGATA"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"dna"</span><span class='op'>)</span>
+<span class='va'>sq_rna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CCUUACGGC"</span>,<span class='st'>"UUCAAAGCU"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"rna"</span><span class='op'>)</span>
+<span class='va'>sq_amino_acids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MMVTAAV"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"ami"</span><span class='op'>)</span>
+<span class='va'>sq_unt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MMVTAAVXX"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"unt"</span><span class='op'>)</span>
+<span class='va'>sq_atp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='substitute_letters.html'>substitute_letters</a></span><span class='op'>(</span><span class='va'>sq_amino_acids</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>M <span class='op'>=</span> <span class='st'>"g1"</span>, V <span class='op'>=</span> <span class='st'>"g2"</span>, T <span class='op'>=</span> <span class='st'>"g1"</span>, A <span class='op'>=</span> <span class='st'>"g3"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it</span></div><div class='input'><span class='va'>sq_encoded</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span><span class='op'>(</span><span class='va'>sq_dna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>A <span class='op'>=</span> <span class='fl'>2.3</span>, C <span class='op'>=</span> <span class='fl'>1.56</span>, T <span class='op'>=</span> <span class='fl'>0.23</span>, G <span class='op'>=</span> <span class='fl'>0.28</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Getting sq type from DNA sq object:</span>
-<span class='fu'>get_sq_type</span>(<span class='kw'>sq_dna</span>)
+<span class='fu'>get_sq_type</span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; dnasq 
 #&gt; "dna" </div><div class='input'>
 <span class='co'># Getting sq type from RNA sq object:</span>
-<span class='fu'>get_sq_type</span>(<span class='kw'>sq_rna</span>)
+<span class='fu'>get_sq_type</span><span class='op'>(</span><span class='va'>sq_rna</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; rnasq 
 #&gt; "rna" </div><div class='input'>
 <span class='co'># Getting sq type from amino acid  sq object:</span>
-<span class='fu'>get_sq_type</span>(<span class='kw'>sq_amino_acids</span>)
+<span class='fu'>get_sq_type</span><span class='op'>(</span><span class='va'>sq_amino_acids</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; amisq 
 #&gt; "ami" </div><div class='input'>
 <span class='co'># Getting sq type from untyped sq object:</span>
-<span class='fu'>get_sq_type</span>(<span class='kw'>sq_unt</span>)
+<span class='fu'>get_sq_type</span><span class='op'>(</span><span class='va'>sq_unt</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; untsq 
 #&gt; "unt" </div><div class='input'>
 <span class='co'># Getting sq type from atypical sq object:</span>
-<span class='fu'>get_sq_type</span>(<span class='kw'>sq_atp</span>)
+<span class='fu'>get_sq_type</span><span class='op'>(</span><span class='va'>sq_atp</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; atpsq 
 #&gt; "atp" </div><div class='input'>
 <span class='co'># Getting sq type from encoded sq object:</span>
-<span class='fu'>get_sq_type</span>(<span class='kw'>sq_encoded</span>)
+<span class='fu'>get_sq_type</span><span class='op'>(</span><span class='va'>sq_encoded</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; encsq 
 #&gt; "enc" </div><div class='input'>
 </div></pre>
@@ -187,7 +181,7 @@ If the type of sequence is <strong>dna</strong>, <strong>rna</strong>, <strong>a
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michal Burdukiewicz, Dominik Rafacz, Mateusz Bakala.</p>
+  <p>Developed by Dominik Rafacz, Michal Burdukiewicz, Mateusz Bakala.</p>
 </div>
 
 <div class="pkgdown">

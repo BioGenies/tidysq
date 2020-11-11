@@ -80,12 +80,6 @@ into one larger sq object." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -165,64 +159,64 @@ fixing it would involve changing <code>c</code> primitive. If such possibility i
 <code><a href='https://vctrs.r-lib.org/reference/vec_c.html'>vec_c</a></code> is a better alternative.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>cdnasq_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"GGACTGCA"</span>, <span class='st'>"CTAGTA"</span>, <span class='st'>""</span>), type = <span class='st'>"dna"</span>)
-<span class='kw'>cdnasq_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ATGACA"</span>, <span class='st'>"AC-G"</span>, <span class='st'>"-CCAT"</span>), type = <span class='st'>"dna"</span>)
-<span class='kw'>cdnasq_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(), type = <span class='st'>"dna"</span>)
-<span class='kw'>dnasq_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"BNACV"</span>, <span class='st'>"GDBADHH"</span>), type = <span class='st'>"dna"</span>)
-<span class='kw'>crnasq_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"UAUGCA"</span>, <span class='st'>"UAGCCG"</span>), type = <span class='st'>"rna"</span>)
-<span class='kw'>rnasq_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"-AHVRYA"</span>, <span class='st'>"G-U-HYR"</span>), type = <span class='st'>"rna"</span>)
-<span class='kw'>rnasq_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='st'>"AUHUCHYRBNN--"</span>, type = <span class='st'>"rna"</span>)
-<span class='kw'>camisq_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='st'>"ACHNK-IFK-VYW"</span>, type = <span class='st'>"ami"</span>)
-<span class='kw'>untsq_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='st'>"AF:gf;PPQ^&amp;XN"</span>)
+    <pre class="examples"><div class='input'><span class='va'>cdnasq_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GGACTGCA"</span>, <span class='st'>"CTAGTA"</span>, <span class='st'>""</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"dna"</span><span class='op'>)</span>
+<span class='va'>cdnasq_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGACA"</span>, <span class='st'>"AC-G"</span>, <span class='st'>"-CCAT"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"dna"</span><span class='op'>)</span>
+<span class='va'>cdnasq_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"dna"</span><span class='op'>)</span>
+<span class='va'>dnasq_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"BNACV"</span>, <span class='st'>"GDBADHH"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"dna"</span><span class='op'>)</span>
+<span class='va'>crnasq_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"UAUGCA"</span>, <span class='st'>"UAGCCG"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"rna"</span><span class='op'>)</span>
+<span class='va'>rnasq_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"-AHVRYA"</span>, <span class='st'>"G-U-HYR"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"rna"</span><span class='op'>)</span>
+<span class='va'>rnasq_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='st'>"AUHUCHYRBNN--"</span>, type <span class='op'>=</span> <span class='st'>"rna"</span><span class='op'>)</span>
+<span class='va'>camisq_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='st'>"ACHNK-IFK-VYW"</span>, type <span class='op'>=</span> <span class='st'>"ami"</span><span class='op'>)</span>
+<span class='va'>untsq_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='st'>"AF:gf;PPQ^&amp;XN"</span><span class='op'>)</span>
 
 <span class='co'># Concatenating same-type sequences</span>
 <span class='co'># Only clean sequences</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>cdnasq_1</span>, <span class='kw'>cdnasq_2</span>, <span class='kw'>cdnasq_3</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>cdnasq_1</span>, <span class='va'>cdnasq_2</span>, <span class='va'>cdnasq_3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>dna (DNA), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>GGACTGCA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>CTAGTA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [3] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
 #&gt; [4] </span><span style='color: #00BB00;'>ATGACA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [5] </span><span style='color: #00BB00;'>AC-G</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
 #&gt; [6] </span><span style='color: #00BB00;'>-CCAT</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'><span class='co'># Only not clean sequences</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>rnasq_1</span>, <span class='kw'>rnasq_2</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>rnasq_1</span>, <span class='va'>rnasq_2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>rna (RNA) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>-AHVRYA</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>G-U-HYR</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>AUHUCHYRBNN--</span><span>                                                           </span><span style='color: #0000BB;'>&lt;13&gt;</span><span></div><div class='input'><span class='co'># Both clean and unclean sequences</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>cdnasq_3</span>, <span class='kw'>dnasq_1</span>, <span class='kw'>cdnasq_2</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>cdnasq_3</span>, <span class='va'>dnasq_1</span>, <span class='va'>cdnasq_2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>dna (DNA) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>BNACV</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>GDBADHH</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>ATGACA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [4] </span><span style='color: #00BB00;'>AC-G</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
 #&gt; [5] </span><span style='color: #00BB00;'>-CCAT</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
 <span class='co'># Mixing DNA and RNA sequences don't work</span>
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>cdnasq_1</span>, <span class='kw'>crnasq_1</span>)
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>cdnasq_1</span>, <span class='va'>crnasq_1</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='co'># untsq can be mixed with DNA, RNA and amino acids</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>camisq_1</span>, <span class='kw'>untsq_1</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>camisq_1</span>, <span class='va'>untsq_1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ACHNK-IFK-VYW</span><span>                                                           </span><span style='color: #0000BB;'>&lt;13&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>AF:gf;PPQ^&amp;XN</span><span>                                                           </span><span style='color: #0000BB;'>&lt;13&gt;</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>untsq_1</span>, <span class='kw'>crnasq_1</span>, <span class='kw'>rnasq_1</span>)
+#&gt; [2] </span><span style='color: #00BB00;'>AF:gf;PPQ^&amp;XN</span><span>                                                           </span><span style='color: #0000BB;'>&lt;13&gt;</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>untsq_1</span>, <span class='va'>crnasq_1</span>, <span class='va'>rnasq_1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>AF:gf;PPQ^&amp;XN</span><span>                                                           </span><span style='color: #0000BB;'>&lt;13&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>UAUGCA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>UAGCCG</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [4] </span><span style='color: #00BB00;'>-AHVRYA</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
-#&gt; [5] </span><span style='color: #00BB00;'>G-U-HYR</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>cdnasq_2</span>, <span class='kw'>untsq_1</span>, <span class='kw'>cdnasq_3</span>)
+#&gt; [5] </span><span style='color: #00BB00;'>G-U-HYR</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>cdnasq_2</span>, <span class='va'>untsq_1</span>, <span class='va'>cdnasq_3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGACA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>AC-G</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>-CCAT</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
 #&gt; [4] </span><span style='color: #00BB00;'>AF:gf;PPQ^&amp;XN</span><span>                                                           </span><span style='color: #0000BB;'>&lt;13&gt;</span><span></div><div class='input'>
 <span class='co'># Character vectors are also acceptable</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>cdnasq_2</span>, <span class='st'>"TGCA-GA"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>cdnasq_2</span>, <span class='st'>"TGCA-GA"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>dna (DNA), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGACA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>AC-G</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>-CCAT</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>TGCA-GA</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>rnasq_1</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"UACUGGGACUG"</span>, <span class='st'>"AUGUBNAABNRYYRAU"</span>), <span class='kw'>rnasq_2</span>)
+#&gt; [4] </span><span style='color: #00BB00;'>TGCA-GA</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>rnasq_1</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"UACUGGGACUG"</span>, <span class='st'>"AUGUBNAABNRYYRAU"</span><span class='op'>)</span>, <span class='va'>rnasq_2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>rna (RNA) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>-AHVRYA</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>G-U-HYR</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>UACUGGGACUG</span><span>                                                             </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
 #&gt; [4] </span><span style='color: #00BB00;'>AUGUBNAABNRYYRAU</span><span>                                                        </span><span style='color: #0000BB;'>&lt;16&gt;</span><span>
-#&gt; [5] </span><span style='color: #00BB00;'>AUHUCHYRBNN--</span><span>                                                           </span><span style='color: #0000BB;'>&lt;13&gt;</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>untsq_1</span>, <span class='st'>"&amp;#JIA$O02t30,9ec"</span>, <span class='kw'>camisq_1</span>)
+#&gt; [5] </span><span style='color: #00BB00;'>AUHUCHYRBNN--</span><span>                                                           </span><span style='color: #0000BB;'>&lt;13&gt;</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>untsq_1</span>, <span class='st'>"&amp;#JIA$O02t30,9ec"</span>, <span class='va'>camisq_1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>AF:gf;PPQ^&amp;XN</span><span>                                                           </span><span style='color: #0000BB;'>&lt;13&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>&amp;</span><span style='color: #555555;'>!!</span><span style='color: #00BB00;'>IA</span><span style='color: #555555;'>!!!!!!!!!!!</span><span>                                                        </span><span style='color: #0000BB;'>&lt;16&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>ACHNK-IFK-VYW</span><span>                                                           </span><span style='color: #0000BB;'>&lt;13&gt;</span><span></div><div class='input'>
@@ -238,7 +232,7 @@ fixing it would involve changing <code>c</code> primitive. If such possibility i
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michal Burdukiewicz, Dominik Rafacz, Mateusz Bakala.</p>
+  <p>Developed by Dominik Rafacz, Michal Burdukiewicz, Mateusz Bakala.</p>
 </div>
 
 <div class="pkgdown">

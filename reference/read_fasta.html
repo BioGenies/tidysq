@@ -82,12 +82,6 @@ containing the sequence itself." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -123,13 +117,13 @@ and the following columns: 'name' - specifying how to call a sequence - and 'sq'
 containing the sequence itself.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_fasta</span>(<span class='kw'>file</span>, type = <span class='kw'>NULL</span>, is_clean = <span class='kw'>NULL</span>, non_standard = <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>read_fasta</span><span class='op'>(</span><span class='va'>file</span>, type <span class='op'>=</span> <span class='cn'>NULL</span>, is_clean <span class='op'>=</span> <span class='cn'>NULL</span>, non_standard <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>read_fasta_ami</span>(<span class='kw'>file</span>, is_clean = <span class='kw'>NULL</span>)
+<span class='fu'>read_fasta_ami</span><span class='op'>(</span><span class='va'>file</span>, is_clean <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>read_fasta_dna</span>(<span class='kw'>file</span>, is_clean = <span class='kw'>NULL</span>)
+<span class='fu'>read_fasta_dna</span><span class='op'>(</span><span class='va'>file</span>, is_clean <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>read_fasta_rna</span>(<span class='kw'>file</span>, is_clean = <span class='kw'>NULL</span>)</pre>
+<span class='fu'>read_fasta_rna</span><span class='op'>(</span><span class='va'>file</span>, is_clean <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,9 +172,9 @@ to those functions, but you cannot pass "non_standard".</p>
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></code> <code><a href='construct_sq.html'>construct_sq</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>fasta_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(package = <span class='st'>"tidysq"</span>, 
-                     <span class='st'>"sample_fasta/sample_ami.fasta"</span>)
-<span class='fu'>read_fasta</span>(<span class='kw'>fasta_file</span>)
+    <pre class="examples"><div class='input'><span class='va'>fasta_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span>package <span class='op'>=</span> <span class='st'>"tidysq"</span>, 
+                     <span class='st'>"sample_fasta/sample_ami.fasta"</span><span class='op'>)</span>
+<span class='fu'>read_fasta</span><span class='op'>(</span><span class='va'>fasta_file</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 100 x 2</span><span>
 #&gt;    name          sq                     
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;ami&gt;</span><span>                  
@@ -194,7 +188,7 @@ to those functions, but you cannot pass "non_standard".</p>
 #&gt; </span><span style='color: #555555;'> 8</span><span> sample_ami 8  </span><span style='color: #00BB00;'>LLBOMGZSKZIEXDP</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 9</span><span> sample_ami 9  </span><span style='color: #00BB00;'>KAZBIBGOMLLDYHH</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;25&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>10</span><span> sample_ami 10 </span><span style='color: #00BB00;'>FZFTAMEOKKIMZUF</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
-#&gt; </span><span style='color: #555555;'># … with 90 more rows</span><span></div><div class='input'><span class='fu'>read_fasta_ami</span>(<span class='kw'>fasta_file</span>)
+#&gt; </span><span style='color: #555555;'># … with 90 more rows</span><span></div><div class='input'><span class='fu'>read_fasta_ami</span><span class='op'>(</span><span class='va'>fasta_file</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 100 x 2</span><span>
 #&gt;    name          sq                     
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;ami&gt;</span><span>                  
@@ -208,9 +202,9 @@ to those functions, but you cannot pass "non_standard".</p>
 #&gt; </span><span style='color: #555555;'> 8</span><span> sample_ami 8  </span><span style='color: #00BB00;'>LLBOMGZSKZIEXDP</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 9</span><span> sample_ami 9  </span><span style='color: #00BB00;'>KAZBIBGOMLLDYHH</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;25&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>10</span><span> sample_ami 10 </span><span style='color: #00BB00;'>FZFTAMEOKKIMZUF</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
-#&gt; </span><span style='color: #555555;'># … with 90 more rows</span><span></div><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>read_fasta</span>(<span class='st'>"https://www.uniprot.org/uniprot/P28307.fasta"</span>)
-}
+#&gt; </span><span style='color: #555555;'># … with 90 more rows</span><span></div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>read_fasta</span><span class='op'>(</span><span class='st'>"https://www.uniprot.org/uniprot/P28307.fasta"</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -223,7 +217,7 @@ to those functions, but you cannot pass "non_standard".</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michal Burdukiewicz, Dominik Rafacz, Mateusz Bakala.</p>
+  <p>Developed by Dominik Rafacz, Michal Burdukiewicz, Mateusz Bakala.</p>
 </div>
 
 <div class="pkgdown">
