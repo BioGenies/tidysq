@@ -8,7 +8,7 @@
 #include "tidysq/util/calculate_length.h"
 
 namespace tidysq::internal {
-    template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT, bool SIMPLE>
+    template<typename INTERNAL_IN, typename PROTO_IN, typename INTERNAL_OUT, bool SIMPLE>
     void pack2(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
                Sequence<INTERNAL_OUT> &packed,
                const Alphabet &alphabet) {
@@ -24,7 +24,7 @@ namespace tidysq::internal {
         packed.trim(interpreter.interpreted_letters(), alphabet);
     }
 
-    template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT, bool SIMPLE>
+    template<typename INTERNAL_IN, typename PROTO_IN, typename INTERNAL_OUT, bool SIMPLE>
     void pack3(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
                Sequence<INTERNAL_OUT> &packed,
                const Alphabet &alphabet) {
@@ -55,7 +55,7 @@ namespace tidysq::internal {
     }
 
 
-    template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT, bool SIMPLE>
+    template<typename INTERNAL_IN, typename PROTO_IN, typename INTERNAL_OUT, bool SIMPLE>
     void pack4(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
                Sequence<INTERNAL_OUT> &packed,
                const Alphabet &alphabet) {
@@ -69,7 +69,7 @@ namespace tidysq::internal {
         packed.trim(interpreter.interpreted_letters(), alphabet);
     }
 
-    template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT, bool SIMPLE>
+    template<typename INTERNAL_IN, typename PROTO_IN, typename INTERNAL_OUT, bool SIMPLE>
     void pack5(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
                Sequence<INTERNAL_OUT> &packed,
                const Alphabet &alphabet) {
@@ -106,7 +106,7 @@ namespace tidysq::internal {
         packed.trim(interpreter.interpreted_letters(), alphabet);
     }
 
-    template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT, bool SIMPLE>
+    template<typename INTERNAL_IN, typename PROTO_IN, typename INTERNAL_OUT, bool SIMPLE>
     void pack(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
               Sequence<INTERNAL_OUT> &packed,
               const Alphabet &alphabet) {

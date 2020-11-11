@@ -3,7 +3,7 @@
 #include "tidysq/tidysq-includes.h"
 
 namespace tidysq {
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     std::vector<std::vector<Letter>> find_invalid_letters(const Sq<INTERNAL> &sq,
                                                           const SqType &type) {
         const Alphabet &alph = sq.alphabet();
@@ -21,7 +21,7 @@ namespace tidysq {
         std::vector<std::vector<Letter>> ret;
 
         for (LenSq i = 0; i < sq.length(); ++i) {
-            const Sequence<RCPP> sequence = sq[i];
+            const Sequence<RCPP_IT> sequence = sq[i];
             std::vector<Letter> invalid_found;
             for (const LetterValue &index : invalid_indices) {
                 if (std::any_of(sequence.cbegin(alph.alphabet_size()), sequence.cend(alph.alphabet_size()),

@@ -9,9 +9,9 @@
 #include "tidysq/util/match_letter.h"
 
 namespace tidysq::internal {
-    template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT>
+    template<typename INTERNAL_IN, typename INTERNAL_OUT>
     void unpack_multichar_string_2(const Sequence<INTERNAL_IN> &packed,
-                                   ProtoSequence<INTERNAL_OUT, STRING> &unpacked,
+                                   ProtoSequence<INTERNAL_OUT, STRING_PT> &unpacked,
                                    const Alphabet &alphabet) {
         LenSq in_byte = 0;
         LenSq out_len = packed.originalLength();
@@ -74,9 +74,9 @@ namespace tidysq::internal {
     }
 
 
-    template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT>
+    template<typename INTERNAL_IN, typename INTERNAL_OUT>
     void unpack_multichar_string_3(const Sequence<INTERNAL_IN> &packed,
-                                   ProtoSequence<INTERNAL_OUT, STRING> &unpacked,
+                                   ProtoSequence<INTERNAL_OUT, STRING_PT> &unpacked,
                                    const Alphabet &alphabet) {
         LenSq in_byte = 0;
         LenSq out_len = packed.originalLength();
@@ -147,9 +147,9 @@ namespace tidysq::internal {
         }
     }
 
-    template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT>
+    template<typename INTERNAL_IN, typename INTERNAL_OUT>
     void unpack_multichar_string_4(const Sequence<INTERNAL_IN> &packed,
-                                   ProtoSequence<INTERNAL_OUT, STRING> &unpacked,
+                                   ProtoSequence<INTERNAL_OUT, STRING_PT> &unpacked,
                                    const Alphabet &alphabet) {
         LenSq in_byte = 0;
         LenSq out_len = packed.originalLength();
@@ -211,9 +211,9 @@ namespace tidysq::internal {
         }
     }
 
-    template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT>
+    template<typename INTERNAL_IN, typename INTERNAL_OUT>
     void unpack_multichar_string_5(const Sequence<INTERNAL_IN> &packed,
-                                   ProtoSequence<INTERNAL_OUT, STRING> &unpacked,
+                                   ProtoSequence<INTERNAL_OUT, STRING_PT> &unpacked,
                                    const Alphabet &alphabet) {
         LenSq in_byte = 0;
         LenSq out_len = packed.originalLength();
@@ -293,9 +293,9 @@ namespace tidysq::internal {
         }
     }
 
-    template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT>
+    template<typename INTERNAL_IN, typename INTERNAL_OUT>
     void unpack_multichar_string(const Sequence<INTERNAL_IN> &packed,
-                                 ProtoSequence<INTERNAL_OUT, STRING> &unpacked,
+                                 ProtoSequence<INTERNAL_OUT, STRING_PT> &unpacked,
                                  const Alphabet &alphabet) {
         switch (alphabet.alphabet_size()) {
             case 2:

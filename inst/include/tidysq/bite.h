@@ -4,7 +4,7 @@
 #include "tidysq/util/calculate_length.h"
 
 namespace tidysq {
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     Sequence<INTERNAL> bite(const Sequence<INTERNAL> &sequence,
                       const std::vector<int> &indices,
                       const AlphSize &alph_size,
@@ -34,7 +34,7 @@ namespace tidysq {
         return out_sequence;
     }
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     Sequence<INTERNAL> bite(const typename Sequence<INTERNAL>::const_iterator &it, const std::vector<int> &indices) {
         bool* warning_called = new bool;
         auto ret = bite(it.sequence_, indices, it.alph_size_, warning_called);
@@ -42,7 +42,7 @@ namespace tidysq {
         return ret;
     }
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     std::pair<std::string, Sq<INTERNAL>> bite(const Sq<INTERNAL> &sq, const std::vector<int> &indices) {
         Sq<INTERNAL> ret(sq.length(), sq.alphabet());
         bool warning_called = false;

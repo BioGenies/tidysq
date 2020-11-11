@@ -8,10 +8,10 @@
 #include "tidysq/sqapply.h"
 
 namespace tidysq {
-    template<InternalType INTERNAL, ProtoType PROTO>
+    template<typename INTERNAL, typename PROTO>
     class ProtoSq;
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     class Sq {
         typename InternalTypeMapper<INTERNAL>::SqContentType content_;
         Alphabet alphabet_;
@@ -71,16 +71,16 @@ namespace tidysq {
             return !operator==(other);
         }
 
-        template<InternalType INTERNAL_OUT, ProtoType PROTO_OUT>
+        template<typename INTERNAL_OUT, typename PROTO_OUT>
         ProtoSq<INTERNAL_OUT, PROTO_OUT> unpack() {
             return sqapply<Sq<INTERNAL>, ProtoSq<INTERNAL_OUT, PROTO_OUT>>(*this, ops::OperationUnpack<INTERNAL, INTERNAL_OUT, PROTO_OUT>());
         }
 
-        friend Rcpp::List export_to_R(const Sq<RCPP> &sq);
+        friend Rcpp::List export_to_R(const Sq<RCPP_IT> &sq);
     };
 
     template<>
-    inline void Sq<RCPP>::push_back(const ElementType &sequence) {
+    inline void Sq<RCPP_IT>::push_back(const ElementType &sequence) {
         content_.push_back(sequence.content());
     }
 }
