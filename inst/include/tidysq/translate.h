@@ -6,7 +6,10 @@
 #include "tidysq/ops/internal/util.h"
 
 namespace tidysq {
-    typedef std::unordered_map<LetterValue, std::unordered_map<LetterValue, std::unordered_map<LetterValue, LetterValue>>> CodonTable;
+    typedef const std::unordered_map<LetterValue,
+                const std::unordered_map<LetterValue,
+                    const std::unordered_map<LetterValue,
+                        const LetterValue>>> CodonTable;
 
     const CodonTable codon_table_1 = {
             {0u, {
@@ -67,7 +70,7 @@ namespace tidysq {
             }}
     };
 
-    const std::unordered_map<int, CodonTable> codon_diff_tables = {
+    const std::unordered_map<int, const CodonTable> codon_diff_tables = {
             {2, {
                         {0u, {
                                      {2u, {
@@ -314,7 +317,7 @@ namespace tidysq {
             }}
     };
 
-    const std::unordered_map<int, CodonTable> amb_codon_diff_tables = {
+    const std::unordered_map<int, const CodonTable> amb_codon_diff_tables = {
             {27, {
                          {3u, {
                                       {2u, {
@@ -354,26 +357,25 @@ namespace tidysq {
         if (table != 1) {
             // The only way to include ambiguous translation tables (27, 28, 31)
             // I don't really like this solution, maybe we should just drop the support for that
-            if (table != 27 && table != 28 && table != 31 && !interpret_as_stop) {
-                auto amb_codon_diff_table = amb_codon_diff_tables[table];
+            if ((table == 27 || table == 28 || table == 31) && !interpret_as_stop) {
+                const auto& amb_codon_diff_table = amb_codon_diff_tables.at(table);
                 if (amb_codon_diff_table.count(codon_1) > 0 &&
-                        amb_codon_diff_table[codon_1].count(codon_2) > 0 &&
-                        amb_codon_diff_table[codon_1][codon_2].count(codon_3) > 0) {
-                    auto amino_acid = amb_codon_diff_table[codon_1][codon_2][codon_3];
-                    return amino_acid;
+                        amb_codon_diff_table.at(codon_1).count(codon_2) > 0 &&
+                        amb_codon_diff_table.at(codon_1).at(codon_2).count(codon_3) > 0) {
+                    return amb_codon_diff_table.at(codon_1).at(codon_2).at(codon_3);
                 }
             }
             // Then find correct table of differences
-            auto codon_diff_table = codon_diff_tables[table];
+            const auto& codon_diff_table = codon_diff_tables.at(table);
             if (codon_diff_table.count(codon_1) > 0 &&
-                    codon_diff_table[codon_1].count(codon_2) > 0 &&
-                    codon_diff_table[codon_1][codon_2].count(codon_3) > 0) {
-                auto amino_acid = codon_diff_table[codon_1][codon_2][codon_3];
+                    codon_diff_table.at(codon_1).count(codon_2) > 0 &&
+                    codon_diff_table.at(codon_1).at(codon_2).count(codon_3) > 0) {
+                const auto amino_acid = codon_diff_table.at(codon_1).at(codon_2).at(codon_3);
                 // TODO: handle case if (amino_acid == 31u) (i.e. NA_letter)
                 return amino_acid;
             }
         }
-        return codon_table_1[codon_1][codon_2][codon_3];
+        return codon_table_1.at(codon_1).at(codon_2).at(codon_3);
     }
 
     template<InternalType INTERNAL>
