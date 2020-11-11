@@ -33,10 +33,12 @@ on:
   push:
     branches:
       - master
+      - devel
       - 'RELEASE_*'
   pull_request:
     branches:
       - master
+      - devel  
       - 'RELEASE_*'
 
 name: R-CMD-check-bioc
@@ -421,7 +423,7 @@ jobs:
           rcmdcheck::rcmdcheck(
               args = c("--no-build-vignettes", "--no-manual", "--timings"),
               build_args = c("--no-manual", "--no-resave-data"),
-              error_on = "warning",
+              error_on = "error",
               check_dir = "check"
           )
         shell: Rscript {0}
