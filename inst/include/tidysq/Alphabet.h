@@ -12,7 +12,7 @@
 #include "tidysq/util/transform-common.h"
 
 namespace tidysq {
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     class Sq;
 
     class Alphabet {
@@ -180,7 +180,7 @@ namespace tidysq {
         }
 
         friend Rcpp::StringVector export_to_R(const Alphabet &alphabet);
-        template<InternalType INTERNAL>
+        template<typename INTERNAL>
         friend std::vector<std::vector<Letter>> find_invalid_letters(const Sq<INTERNAL> &sq, const SqType &type);
     };
 }

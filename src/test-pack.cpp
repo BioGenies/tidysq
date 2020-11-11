@@ -5,42 +5,42 @@
 
 using namespace tidysq;
 
-template<ProtoType PROTO>
-void test_pack_RCPP(const std::vector<typename TypeMapper<RCPP, PROTO>::ProtoSequenceContentType> &proto, const Alphabet &alphabet) {
+template<typename PROTO>
+void test_pack_RCPP_IT(const std::vector<typename TypeMapper<RCPP_IT, PROTO>::ProtoSequenceContentType> &proto, const Alphabet &alphabet) {
     auto list = Rcpp::List::create();
 
     for (const auto &sequence : proto) {
         list.push_back(sequence);
     }
 
-    ProtoSq<RCPP, PROTO> sq_proto = ProtoSq<RCPP, PROTO>(list, alphabet);
-    ProtoSq<RCPP, PROTO> repacked = sq_proto.template pack<RCPP>().template unpack<RCPP, PROTO>();
+    ProtoSq<RCPP_IT, PROTO> sq_proto = ProtoSq<RCPP_IT, PROTO>(list, alphabet);
+    ProtoSq<RCPP_IT, PROTO> repacked = sq_proto.template pack<RCPP_IT>().template unpack<RCPP_IT, PROTO>();
 
             expect_true(repacked == sq_proto);
 }
 
 template<>
-void test_pack_RCPP<STRING>(const std::vector<typename TypeMapper<RCPP, STRING>::ProtoSequenceContentType> &proto, const Alphabet &alphabet) {
-    ProtoSq<RCPP, STRING> sq_proto = ProtoSq<RCPP, STRING>(util::convert_string_vector(proto), alphabet);
-    ProtoSq<RCPP, STRING> repacked = sq_proto.template pack<RCPP>().template unpack<RCPP, STRING>();
+void test_pack_RCPP_IT<STRING_PT>(const std::vector<typename TypeMapper<RCPP_IT, STRING_PT>::ProtoSequenceContentType> &proto, const Alphabet &alphabet) {
+    ProtoSq<RCPP_IT, STRING_PT> sq_proto = ProtoSq<RCPP_IT, STRING_PT>(util::convert_string_vector(proto), alphabet);
+    ProtoSq<RCPP_IT, STRING_PT> repacked = sq_proto.template pack<RCPP_IT>().template unpack<RCPP_IT, STRING_PT>();
 
             expect_true(repacked == sq_proto);
 }
 
-template<ProtoType PROTO>
-void test_pack_STD(const typename TypeMapper<STD, PROTO>::ProtoSqContentType &proto, const Alphabet &alphabet) {
-    ProtoSq<STD, PROTO> sq_proto = ProtoSq<STD, PROTO>(proto, alphabet);
-    ProtoSq<STD, PROTO> repacked = sq_proto.template pack<STD>().template unpack<STD, PROTO>();
+template<typename PROTO>
+void test_pack_STD_IT(const typename TypeMapper<STD_IT, PROTO>::ProtoSqContentType &proto, const Alphabet &alphabet) {
+    ProtoSq<STD_IT, PROTO> sq_proto = ProtoSq<STD_IT, PROTO>(proto, alphabet);
+    ProtoSq<STD_IT, PROTO> repacked = sq_proto.template pack<STD_IT>().template unpack<STD_IT, PROTO>();
 
             expect_true(repacked == sq_proto);
 }
 
 context("test_packing") {
-            test_that("packing RCPP RAWS") {
-        test_pack_RCPP<RAWS>({{0}},
+            test_that("packing RCPP_IT RAWS") {
+        test_pack_RCPP_IT<RAWS_PT>({{0}},
                              Alphabet(DNA_BSC));
 
-        test_pack_RCPP<RAWS>({
+        test_pack_RCPP_IT<RAWS_PT>({
                                      {0, 1, 2, 3},
                                      {0, 0},
                                      {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
@@ -48,11 +48,11 @@ context("test_packing") {
                                      {}
                              }, Alphabet(DNA_BSC));
     }
-            test_that("packing RCPP INTS") {
-        test_pack_RCPP<INTS>({{0}},
+            test_that("packing RCPP_IT INTS") {
+        test_pack_RCPP_IT<INTS_PT>({{0}},
                              Alphabet(DNA_BSC));
 
-        test_pack_RCPP<INTS>({
+        test_pack_RCPP_IT<INTS_PT>({
                                      {0, 1, 2, 3},
                                      {0, 0},
                                      {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
@@ -60,11 +60,11 @@ context("test_packing") {
                                      {}
                              }, Alphabet(DNA_BSC));
     }
-            test_that("packing RCPP STRINGS") {
-        test_pack_RCPP<STRINGS>({{"A"}},
+            test_that("packing RCPP_IT STRINGS") {
+        test_pack_RCPP_IT<STRINGS_PT>({{"A"}},
                                 Alphabet(DNA_BSC));
 
-        test_pack_RCPP<STRINGS>({
+        test_pack_RCPP_IT<STRINGS_PT>({
                                         {"A", "C", "G", "T"},
                                         Rcpp::StringVector::create("A", "A"),
                                         {"G", "G", "G", "G", "G", "G", "G", "G", "G", "G", "G", "G"},
@@ -72,11 +72,11 @@ context("test_packing") {
                                         {}
                                 }, Alphabet(DNA_BSC));
     }
-            test_that("packing RCPP STRING") {
-        test_pack_RCPP<STRING>({{"A"}},
+            test_that("packing RCPP_IT STRING") {
+        test_pack_RCPP_IT<STRING_PT>({{"A"}},
                                Alphabet(DNA_BSC));
 
-        test_pack_RCPP<STRING>({
+        test_pack_RCPP_IT<STRING_PT>({
                                        "ACTG",
                                        "AA",
                                        "GGGGGGGGGGGGGG",
@@ -84,8 +84,8 @@ context("test_packing") {
                                        ""
                                }, Alphabet(DNA_BSC));
     }
-            test_that("packing RCPP STRING MULTICHAR") {
-        test_pack_RCPP<STRING>({
+            test_that("packing RCPP_IT STRING MULTICHAR") {
+        test_pack_RCPP_IT<STRING_PT>({
                                        "AAmAALJmAmAAmA",
                                        "AJ?mA?J",
                                        "mA",
@@ -93,11 +93,11 @@ context("test_packing") {
                                }, Alphabet(std::vector<Letter>{"A", "mA", "L", "J"}, "?"));
     }
 
-            test_that("packing STD RAWS") {
-        test_pack_STD<RAWS>({{0}},
+            test_that("packing STD_IT RAWS") {
+        test_pack_STD_IT<RAWS_PT>({{0}},
                              Alphabet(DNA_BSC));
 
-        test_pack_STD<RAWS>({
+        test_pack_STD_IT<RAWS_PT>({
                                      {0, 1, 2, 3},
                                      {0, 0},
                                      {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
@@ -105,11 +105,11 @@ context("test_packing") {
                                      {}
                              }, Alphabet(DNA_BSC));
     }
-            test_that("packing STD INTS") {
-        test_pack_STD<INTS>({{0}},
+            test_that("packing STD_IT INTS") {
+        test_pack_STD_IT<INTS_PT>({{0}},
                              Alphabet(DNA_BSC));
 
-        test_pack_STD<INTS>({
+        test_pack_STD_IT<INTS_PT>({
                                      {0, 1, 2, 3},
                                      {0, 0},
                                      {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
@@ -117,11 +117,11 @@ context("test_packing") {
                                      {}
                              }, Alphabet(DNA_BSC));
     }
-            test_that("packing STD STRINGS") {
-        test_pack_STD<STRINGS>({{"A"}},
+            test_that("packing STD_IT STRINGS") {
+        test_pack_STD_IT<STRINGS_PT>({{"A"}},
                                 Alphabet(DNA_BSC));
 
-        test_pack_STD<STRINGS>({
+        test_pack_STD_IT<STRINGS_PT>({
                                         {"A", "C", "G", "T"},
                                         {"A", "A"},
                                         {"G", "G", "G", "G", "G", "G", "G", "G", "G", "G", "G", "G"},
@@ -129,22 +129,22 @@ context("test_packing") {
                                         {}
                                 }, Alphabet(DNA_BSC));
     }
-            test_that("packing STD STRING") {
-        test_pack_STD<STRING>({ProtoSequence<STD, STRING>("A")},
+            test_that("packing STD_IT STRING") {
+        test_pack_STD_IT<STRING_PT>({ProtoSequence<STD_IT, STRING_PT>("A")},
                               Alphabet(DNA_BSC));
 
-        test_pack_STD<STRING>({ProtoSequence<STD, STRING>("ACTG"),
-                               ProtoSequence<STD, STRING>("AA"),
-                               ProtoSequence<STD, STRING>("GGGGGGGGGGGGGG"),
-                               ProtoSequence<STD, STRING>("!A!"),
-                               ProtoSequence<STD, STRING>("")
+        test_pack_STD_IT<STRING_PT>({ProtoSequence<STD_IT, STRING_PT>("ACTG"),
+                               ProtoSequence<STD_IT, STRING_PT>("AA"),
+                               ProtoSequence<STD_IT, STRING_PT>("GGGGGGGGGGGGGG"),
+                               ProtoSequence<STD_IT, STRING_PT>("!A!"),
+                               ProtoSequence<STD_IT, STRING_PT>("")
                               }, Alphabet(DNA_BSC));
     }
-            test_that("packing STD STRING MULTICHAR") {
-        test_pack_STD<STRING>({ProtoSequence<STD, STRING>("AAmAALJmAmAAmA"),
-                               ProtoSequence<STD, STRING>("AJ?mA?J"),
-                               ProtoSequence<STD, STRING>("mA"),
-                               ProtoSequence<STD, STRING>("")
+            test_that("packing STD_IT STRING MULTICHAR") {
+        test_pack_STD_IT<STRING_PT>({ProtoSequence<STD_IT, STRING_PT>("AAmAALJmAmAAmA"),
+                               ProtoSequence<STD_IT, STRING_PT>("AJ?mA?J"),
+                               ProtoSequence<STD_IT, STRING_PT>("mA"),
+                               ProtoSequence<STD_IT, STRING_PT>("")
                               }, Alphabet(std::vector<Letter>{"A", "mA", "L", "J"}, "?"));
     }
 

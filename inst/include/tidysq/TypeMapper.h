@@ -6,195 +6,195 @@
 #include "tidysq/tidysq-typedefs.h"
 
 namespace tidysq {
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     class Sequence;
 
-    template<InternalType INTERNAL, ProtoType PROTO>
+    template<typename INTERNAL, typename PROTO>
     class ProtoSequence;
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     class Sq;
 
-    template<InternalType INTERNAL, ProtoType PROTO>
+    template<typename INTERNAL, typename PROTO>
     class ProtoSq;
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     struct InternalTypeMapper;
 
     template<>
-    struct InternalTypeMapper<STD> {
+    struct InternalTypeMapper<STD_IT> {
         typedef ElementPacked                                                      SequenceElementType;
         typedef std::vector<ElementPacked>                                         SequenceContentType;
         typedef         SequenceElementType &                                   SequenceAccessType;
         typedef const   SequenceElementType &                                   SequenceConstAccessType;
 
-        typedef std::vector<Sequence<STD>>                                      SqContentType;
-        typedef Sequence<STD>                                                   SqElementType;
+        typedef std::vector<Sequence<STD_IT>>                                      SqContentType;
+        typedef Sequence<STD_IT>                                                   SqElementType;
     };
 
     template<>
-    struct InternalTypeMapper<RCPP> {
+    struct InternalTypeMapper<RCPP_IT> {
         typedef ElementPacked                                                      SequenceElementType;
         typedef Rcpp::RawVector                                                 SequenceContentType;
         typedef Rcpp::RawVector::Proxy                                          SequenceAccessType;
         typedef Rcpp::RawVector::const_Proxy                                    SequenceConstAccessType;
 
         typedef Rcpp::List                                                      SqContentType;
-        typedef Sequence<RCPP>                                                  SqElementType;
+        typedef Sequence<RCPP_IT>                                                  SqElementType;
     };
 
-    template<ProtoType PROTO>
+    template<typename PROTO>
     struct ProtoTypeMapper;
 
     template<>
-    struct ProtoTypeMapper<RAWS> {
+    struct ProtoTypeMapper<RAWS_PT> {
         typedef ElementRaws                                                     ProtoSequenceElementType;
         typedef std::vector<ElementRaws>                                        ProtoSequenceStdContentType;
         typedef Rcpp::RawVector                                                 ProtoSequenceRcppContentType;
     };
 
     template<>
-    struct ProtoTypeMapper<INTS> {
+    struct ProtoTypeMapper<INTS_PT> {
         typedef ElementInts                                                     ProtoSequenceElementType;
         typedef std::vector<ElementInts>                                        ProtoSequenceStdContentType;
         typedef Rcpp::IntegerVector                                             ProtoSequenceRcppContentType;
     };
 
     template<>
-    struct ProtoTypeMapper<STRINGS> {
+    struct ProtoTypeMapper<STRINGS_PT> {
         typedef ElementStrings                                                  ProtoSequenceElementType;
         typedef std::vector<ElementStrings>                                     ProtoSequenceStdContentType;
         typedef Rcpp::StringVector                                              ProtoSequenceRcppContentType;
     };
 
     template<>
-    struct ProtoTypeMapper<STRING> {
+    struct ProtoTypeMapper<STRING_PT> {
         typedef ElementStringSimple                                             ProtoSequenceElementType;
         typedef std::string                                                     ProtoSequenceStdContentType;
         typedef std::string                                                     ProtoSequenceRcppContentType;
     };
 
-    template<InternalType INTERNAL, ProtoType PROTO>
+    template<typename INTERNAL, typename PROTO>
     struct TypeMapper;
     
-    template<ProtoType PROTO>
-    struct TypeMapper<STD, PROTO> {
+    template<typename PROTO>
+    struct TypeMapper<STD_IT, PROTO> {
         typedef typename ProtoTypeMapper<PROTO>::ProtoSequenceElementType       ProtoSequenceElementType;
         typedef typename ProtoTypeMapper<PROTO>::ProtoSequenceStdContentType    ProtoSequenceContentType;
         typedef         ProtoSequenceElementType &                              ProtoSequenceAccessType;
         typedef const   ProtoSequenceElementType &                              ProtoSequenceConstAccessType;
 
-        typedef ProtoSequence<STD, PROTO>                                       ProtoSqElementType;
+        typedef ProtoSequence<STD_IT, PROTO>                                       ProtoSqElementType;
         typedef std::vector<ProtoSqElementType>                                 ProtoSqContentType;
 
     };
 
-    template<ProtoType PROTO>
-    struct TypeMapper<RCPP, PROTO> {
+    template<typename PROTO>
+    struct TypeMapper<RCPP_IT, PROTO> {
         typedef typename ProtoTypeMapper<PROTO>::ProtoSequenceElementType       ProtoSequenceElementType;
         typedef typename ProtoTypeMapper<PROTO>::ProtoSequenceRcppContentType   ProtoSequenceContentType;
         typedef typename ProtoSequenceContentType::Proxy                        ProtoSequenceAccessType;
         typedef typename ProtoSequenceContentType::const_Proxy                  ProtoSequenceConstAccessType;
 
         typedef Rcpp::List                                                      ProtoSqContentType;
-        typedef ProtoSequence<RCPP, PROTO>                                      ProtoSqElementType;
+        typedef ProtoSequence<RCPP_IT, PROTO>                                      ProtoSqElementType;
     };
 
     template<>
-    struct TypeMapper<RCPP, STRING> {
-        typedef typename ProtoTypeMapper<STRING>::ProtoSequenceElementType      ProtoSequenceElementType;
-        typedef typename ProtoTypeMapper<STRING>::ProtoSequenceRcppContentType  ProtoSequenceContentType;
+    struct TypeMapper<RCPP_IT, STRING_PT> {
+        typedef typename ProtoTypeMapper<STRING_PT>::ProtoSequenceElementType      ProtoSequenceElementType;
+        typedef typename ProtoTypeMapper<STRING_PT>::ProtoSequenceRcppContentType  ProtoSequenceContentType;
         typedef         ProtoSequenceElementType &                              ProtoSequenceAccessType;
         typedef const   ProtoSequenceElementType &                              ProtoSequenceConstAccessType;
 
         typedef Rcpp::StringVector                                              ProtoSqContentType;
-        typedef ProtoSequence<RCPP, STRING>                                     ProtoSqElementType;
+        typedef ProtoSequence<RCPP_IT, STRING_PT>                                     ProtoSqElementType;
     };
 
 
-    template<InternalType INTERNAL, ProtoType PROTO, bool PACKED, bool CONST>
+    template<typename INTERNAL, typename PROTO, bool PACKED, bool CONST>
     struct AccessTypeMapper;
 
-    template<ProtoType PROTO>
-    struct AccessTypeMapper<STD, PROTO, false, true> {
-        typedef const typename TypeMapper<STD, PROTO>::ProtoSqElementType &   AccessType;
-        typedef ProtoSequence<STD, PROTO>                                           SequenceType;
-        typedef ProtoSq<STD, PROTO>                                                 SqType;
+    template<typename PROTO>
+    struct AccessTypeMapper<STD_IT, PROTO, false, true> {
+        typedef const typename TypeMapper<STD_IT, PROTO>::ProtoSqElementType &   AccessType;
+        typedef ProtoSequence<STD_IT, PROTO>                                           SequenceType;
+        typedef ProtoSq<STD_IT, PROTO>                                                 SqType;
     };
 
-    template<ProtoType PROTO>
-    struct AccessTypeMapper<STD, PROTO, false, false> {
-        typedef       typename TypeMapper<STD, PROTO>::ProtoSqElementType &   AccessType;
-        typedef ProtoSequence<STD, PROTO>                                           SequenceType;
-        typedef ProtoSq<STD, PROTO>                                                 SqType;
+    template<typename PROTO>
+    struct AccessTypeMapper<STD_IT, PROTO, false, false> {
+        typedef       typename TypeMapper<STD_IT, PROTO>::ProtoSqElementType &   AccessType;
+        typedef ProtoSequence<STD_IT, PROTO>                                           SequenceType;
+        typedef ProtoSq<STD_IT, PROTO>                                                 SqType;
     };
 
-    template<ProtoType PROTO>
-    struct AccessTypeMapper<STD, PROTO, true, true> {
-        typedef const typename InternalTypeMapper<STD>::SqElementType &       AccessType;
-        typedef Sequence<STD>                                                       SequenceType;
-        typedef Sq<STD>                                                              SqType;
+    template<typename PROTO>
+    struct AccessTypeMapper<STD_IT, PROTO, true, true> {
+        typedef const typename InternalTypeMapper<STD_IT>::SqElementType &       AccessType;
+        typedef Sequence<STD_IT>                                                       SequenceType;
+        typedef Sq<STD_IT>                                                              SqType;
     };
 
-    template<ProtoType PROTO>
-    struct AccessTypeMapper<STD, PROTO, true, false> {
-        typedef       typename InternalTypeMapper<STD>::SqElementType &       AccessType;
-        typedef Sequence<STD>                                                       SequenceType;
-        typedef Sq<STD>                                                              SqType;
+    template<typename PROTO>
+    struct AccessTypeMapper<STD_IT, PROTO, true, false> {
+        typedef       typename InternalTypeMapper<STD_IT>::SqElementType &       AccessType;
+        typedef Sequence<STD_IT>                                                       SequenceType;
+        typedef Sq<STD_IT>                                                              SqType;
     };
 
-    template<ProtoType PROTO>
-    struct AccessTypeMapper<RCPP, PROTO, false, true> {
+    template<typename PROTO>
+    struct AccessTypeMapper<RCPP_IT, PROTO, false, true> {
         typedef Rcpp::List::const_Proxy                                                   AccessType;
-        typedef ProtoSequence<RCPP, PROTO>                                                SequenceType;
-        typedef ProtoSq<RCPP, PROTO>                                                     SqType;
+        typedef ProtoSequence<RCPP_IT, PROTO>                                                SequenceType;
+        typedef ProtoSq<RCPP_IT, PROTO>                                                     SqType;
     };
 
-    template<ProtoType PROTO>
-    struct AccessTypeMapper<RCPP, PROTO, false, false> {
+    template<typename PROTO>
+    struct AccessTypeMapper<RCPP_IT, PROTO, false, false> {
         typedef Rcpp::List::Proxy         AccessType;
-        typedef ProtoSequence<RCPP, PROTO>                                                SequenceType;
-        typedef ProtoSq<RCPP, PROTO>                                                     SqType;
+        typedef ProtoSequence<RCPP_IT, PROTO>                                                SequenceType;
+        typedef ProtoSq<RCPP_IT, PROTO>                                                     SqType;
     };
 
-    template<ProtoType PROTO>
-    struct AccessTypeMapper<RCPP, PROTO, true, true> {
+    template<typename PROTO>
+    struct AccessTypeMapper<RCPP_IT, PROTO, true, true> {
         typedef Rcpp::List::const_Proxy        AccessType;
-        typedef Sequence<RCPP>                                                       SequenceType;
-        typedef Sq<RCPP>                                                              SqType;
+        typedef Sequence<RCPP_IT>                                                       SequenceType;
+        typedef Sq<RCPP_IT>                                                              SqType;
     };
 
-    template<ProtoType PROTO>
-    struct AccessTypeMapper<RCPP, PROTO, true, false> {
+    template<typename PROTO>
+    struct AccessTypeMapper<RCPP_IT, PROTO, true, false> {
         typedef Rcpp::List::Proxy        AccessType;
-        typedef Sequence<RCPP>                                                       SequenceType;
-        typedef Sq<RCPP>                                                              SqType;
+        typedef Sequence<RCPP_IT>                                                       SequenceType;
+        typedef Sq<RCPP_IT>                                                              SqType;
     };
 
 //    template<>
-//    struct AccessTypeMapper<RCPP, STRING, true, true> {
-//        typedef const typename InternalTypeMapper<RCPP>::SequenceContentType &        AccessType;
-//        typedef Sequence<RCPP>                                                       SequenceType;
+//    struct AccessTypeMapper<RCPP_IT, STRING_PT, true, true> {
+//        typedef const typename InternalTypeMapper<RCPP_IT>::SequenceContentType &        AccessType;
+//        typedef Sequence<RCPP_IT>                                                       SequenceType;
 //    };
 //
 //    template<>
-//    struct AccessTypeMapper<RCPP, STRING, true, false> {
-//        typedef      typename InternalTypeMapper<RCPP>::SequenceContentType &        AccessType;
-//        typedef Sequence<RCPP>                                                       SequenceType;
+//    struct AccessTypeMapper<RCPP_IT, STRING_PT, true, false> {
+//        typedef      typename InternalTypeMapper<RCPP_IT>::SequenceContentType &        AccessType;
+//        typedef Sequence<RCPP_IT>                                                       SequenceType;
 //    };
 
     template<>
-    struct AccessTypeMapper<RCPP, STRING, false, true> {
-        typedef typename TypeMapper<RCPP, STRING>::ProtoSqContentType::const_Proxy  AccessType;
-        typedef ProtoSequence<RCPP, STRING>                                         SequenceType;
-        typedef ProtoSq<RCPP, STRING>                                                SqType;
+    struct AccessTypeMapper<RCPP_IT, STRING_PT, false, true> {
+        typedef typename TypeMapper<RCPP_IT, STRING_PT>::ProtoSqContentType::const_Proxy  AccessType;
+        typedef ProtoSequence<RCPP_IT, STRING_PT>                                         SequenceType;
+        typedef ProtoSq<RCPP_IT, STRING_PT>                                                SqType;
     };
 
     template<>
-    struct AccessTypeMapper<RCPP, STRING, false, false> {
-        typedef typename TypeMapper<RCPP, STRING>::ProtoSqContentType::Proxy     AccessType;
-        typedef ProtoSequence<RCPP, STRING>                                         SequenceType;
-        typedef ProtoSq<RCPP, STRING>                                                SqType;
+    struct AccessTypeMapper<RCPP_IT, STRING_PT, false, false> {
+        typedef typename TypeMapper<RCPP_IT, STRING_PT>::ProtoSqContentType::Proxy     AccessType;
+        typedef ProtoSequence<RCPP_IT, STRING_PT>                                         SequenceType;
+        typedef ProtoSq<RCPP_IT, STRING_PT>                                                SqType;
     };
 }
 

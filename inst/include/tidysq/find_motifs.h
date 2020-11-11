@@ -7,7 +7,7 @@
 
 namespace tidysq {
     namespace internal {
-        template<InternalType INTERNAL>
+        template<typename INTERNAL>
         class FoundMotifs;
         class Motif;
     }
@@ -54,7 +54,7 @@ namespace tidysq {
     };
 
     namespace internal {
-        template<InternalType INTERNAL>
+        template<typename INTERNAL>
         class FoundMotifs {
             std::list<std::string> names_{};
             Sq<INTERNAL> found_;
@@ -78,10 +78,10 @@ namespace tidysq {
                 end_.push_back(end);
             }
 
-            friend Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs);
+            friend Rcpp::List export_to_R(const internal::FoundMotifs<RCPP_IT> &found_motifs);
         };
 
-        Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs) {
+        Rcpp::List export_to_R(const internal::FoundMotifs<RCPP_IT> &found_motifs) {
 
             return Rcpp::List::create(
                     Rcpp::Named("names", found_motifs.names_),
@@ -181,7 +181,7 @@ namespace tidysq {
 
         private:
             // sequence_it is passed as copy, because we want a new iterator that starts from that point
-            template<InternalType INTERNAL>
+            template<typename INTERNAL>
             [[nodiscard]] bool aligns_with(typename Sequence<INTERNAL>::const_iterator sequence_it,
                                            const typename Sequence<INTERNAL>::const_iterator &iterator_end) const {
                 auto motif_it = begin();
@@ -201,7 +201,7 @@ namespace tidysq {
             }
 
             // sequence_it is passed as copy, because we want a new iterator that starts from that point
-            template<InternalType INTERNAL>
+            template<typename INTERNAL>
             void locate(typename Sequence<INTERNAL>::const_iterator sequence_it,
                         const typename Sequence<INTERNAL>::const_iterator &iterator_end,
                         const std::string &name,
@@ -227,7 +227,7 @@ namespace tidysq {
             }
 
         public:
-            template<InternalType INTERNAL>
+            template<typename INTERNAL>
             [[nodiscard]] bool appears_in(const Sequence<INTERNAL>& sequence) const {
                 bool contains_motif = empty();
                 // Don't run checks if motif is longer than sequence
@@ -256,7 +256,7 @@ namespace tidysq {
                 return contains_motif;
             }
 
-            template<InternalType INTERNAL>
+            template<typename INTERNAL>
             void find_in(const Sequence<INTERNAL> &sequence,
                          const std::string &name,
                          internal::FoundMotifs<INTERNAL> &ret) const {
@@ -294,7 +294,7 @@ namespace tidysq {
         return ret;
     }
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     Rcpp::LogicalVector has(const Sq<INTERNAL> &sq, const std::vector<std::string>& motifs) {
         using internal::Motif;
 
@@ -316,7 +316,7 @@ namespace tidysq {
         return ret;
     }
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     internal::FoundMotifs<INTERNAL> find_motifs(const Sq<INTERNAL> &sq,
                                                 const std::vector<std::string>& names,
                                                 const std::vector<std::string>& motifs) {

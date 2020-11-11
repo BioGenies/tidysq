@@ -8,13 +8,13 @@
 #include "tidysq/Proxy.h"
 
 namespace tidysq {
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     class Sq;
 
-    template<InternalType INTERNAL, ProtoType PROTO>
+    template<typename INTERNAL, typename PROTO>
     inline typename ProtoSq<INTERNAL, PROTO>::ContentType export_to_R(const ProtoSq<INTERNAL, PROTO> &proto_sq);
 
-    template<InternalType INTERNAL, ProtoType PROTO>
+    template<typename INTERNAL, typename PROTO>
     class ProtoSq {
         typename TypeMapper<INTERNAL, PROTO>::ProtoSqContentType content_;
         Alphabet alphabet_;
@@ -55,7 +55,7 @@ namespace tidysq {
             return alphabet_.type();
         }
 
-        template<InternalType INTERNAL_OUT>
+        template<typename INTERNAL_OUT>
         Sq<INTERNAL_OUT> pack() {
             return sqapply<ProtoSq<INTERNAL, PROTO>, Sq<INTERNAL_OUT>>(*this,
                                                                        ops::OperationPack<INTERNAL, PROTO, INTERNAL_OUT>());
@@ -79,7 +79,7 @@ namespace tidysq {
 
 
     template<>
-    inline bool ProtoSq<RCPP, STRING>::operator==(const ProtoSq<RCPP, STRING> &other) {
+    inline bool ProtoSq<RCPP_IT, STRING_PT>::operator==(const ProtoSq<RCPP_IT, STRING_PT> &other) {
         if ((alphabet_ != other.alphabet_) || (content_.size() != other.content_.size())) return false;
         for (LenSq i = 0; i < content_.size(); i++) {
             if ((*this)[i] != other[i]) return false;

@@ -9,7 +9,7 @@
 #include "tidysq/util/match_letter.h"
 
 namespace tidysq::internal {
-    template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT, ProtoType PROTO_OUT>
+    template<typename INTERNAL_IN, typename INTERNAL_OUT, typename PROTO_OUT>
     void unpack_common_2(const Sequence<INTERNAL_IN> &packed,
                          ProtoSequence<INTERNAL_OUT, PROTO_OUT> &unpacked,
                          const Alphabet &alphabet) {
@@ -73,7 +73,7 @@ namespace tidysq::internal {
         }
     }
 
-    template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT, ProtoType PROTO_OUT>
+    template<typename INTERNAL_IN, typename INTERNAL_OUT, typename PROTO_OUT>
     void unpack_common_3(const Sequence<INTERNAL_IN> &packed,
                          ProtoSequence<INTERNAL_OUT, PROTO_OUT> &unpacked,
                          const Alphabet &alphabet) {
@@ -146,7 +146,7 @@ namespace tidysq::internal {
         }
     }
 
-    template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT, ProtoType PROTO_OUT>
+    template<typename INTERNAL_IN, typename INTERNAL_OUT, typename PROTO_OUT>
     void unpack_common_4(const Sequence<INTERNAL_IN> &packed,
                          ProtoSequence<INTERNAL_OUT, PROTO_OUT> &unpacked,
                          const Alphabet &alphabet) {
@@ -210,7 +210,7 @@ namespace tidysq::internal {
         }
     }
 
-    template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT, ProtoType PROTO_OUT>
+    template<typename INTERNAL_IN, typename INTERNAL_OUT, typename PROTO_OUT>
     void unpack_common_5(const Sequence<INTERNAL_IN> &packed,
                          ProtoSequence<INTERNAL_OUT, PROTO_OUT> &unpacked,
                          const Alphabet &alphabet) {
@@ -293,7 +293,7 @@ namespace tidysq::internal {
     }
 
 
-    template<InternalType INTERNAL_IN, InternalType INTERNAL_OUT, ProtoType PROTO_OUT>
+    template<typename INTERNAL_IN, typename INTERNAL_OUT, typename PROTO_OUT>
     void unpack_common(const Sequence<INTERNAL_IN> &packed,
                        ProtoSequence<INTERNAL_OUT, PROTO_OUT> &unpacked,
                        const Alphabet &alphabet) {

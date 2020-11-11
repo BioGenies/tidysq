@@ -5,7 +5,7 @@
 #include "tidysq/util/calculate_length.h"
 
 namespace tidysq::ops {
-    template<InternalType INTERNAL_IN, ProtoType PROTO_IN, InternalType INTERNAL_OUT>
+    template<typename INTERNAL_IN, typename PROTO_IN, typename INTERNAL_OUT>
     class OperationPack : public tidysq::ops::OperationSq<ProtoSequence<INTERNAL_IN, PROTO_IN>,
                                              Sequence<INTERNAL_OUT>> {
     public:

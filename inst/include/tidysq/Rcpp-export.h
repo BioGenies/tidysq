@@ -11,7 +11,7 @@ namespace tidysq {
         return ret;
     }
 
-    inline Rcpp::List export_to_R(const Sq<RCPP> &sq) {
+    inline Rcpp::List export_to_R(const Sq<RCPP_IT> &sq) {
         Rcpp::List ret = sq.content_;
         ret.attr("alphabet") = export_to_R(sq.alphabet_);
         ret.attr("class") = util::sq_R_class_for_sq_type(sq.type());
@@ -19,7 +19,7 @@ namespace tidysq {
         return ret;
     }
 
-    template<InternalType INTERNAL, ProtoType PROTO>
+    template<typename INTERNAL, typename PROTO>
     inline typename ProtoSq<INTERNAL, PROTO>::ContentType export_to_R(const ProtoSq<INTERNAL, PROTO> &proto_sq) {
         return proto_sq.content_;
     }

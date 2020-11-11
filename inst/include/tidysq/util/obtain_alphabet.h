@@ -3,8 +3,8 @@
 #include "tidysq/internal/obtain_alphabet.h"
 
 namespace tidysq::util {
-    template<InternalType INTERNAL>
-    Alphabet obtain_alphabet(const typename TypeMapper<INTERNAL, STRING>::ProtoSqContentType &x,
+    template<typename INTERNAL>
+    Alphabet obtain_alphabet(const typename TypeMapper<INTERNAL, STRING_PT>::ProtoSqContentType &x,
                              const LenSq sample_size,
                              const Letter &NA_letter) {
 
