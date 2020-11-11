@@ -8,7 +8,7 @@
 namespace tidysq {
     typedef std::unordered_map<LetterValue, std::unordered_map<LetterValue, std::unordered_map<LetterValue, LetterValue>>> CodonTable;
 
-    CodonTable codon_table_1 = {
+    const CodonTable codon_table_1 = {
             {0u, {
                          {0u, {
                                       {0u, 8u}, {1u, 11u}, {2u, 8u}, {3u, 11u}
@@ -67,7 +67,7 @@ namespace tidysq {
             }}
     };
 
-    std::unordered_map<int, CodonTable> codon_diff_tables = {
+    const std::unordered_map<int, CodonTable> codon_diff_tables = {
             {2, {
                         {0u, {
                                      {2u, {
@@ -314,7 +314,7 @@ namespace tidysq {
             }}
     };
 
-    std::unordered_map<int, CodonTable> amb_codon_diff_tables = {
+    const std::unordered_map<int, CodonTable> amb_codon_diff_tables = {
             {27, {
                          {3u, {
                                       {2u, {
