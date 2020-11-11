@@ -49,7 +49,8 @@ Imports: cli (>= 2.0.0),
          Rcpp (>= 1.0.1),
          stringi (>= 1.4.3),
          vctrs (>= 0.3.0),
-         zeallot (>= 0.1.0)
+         zeallot (>= 0.1.0),
+         checkmate
 Suggests: AmyloGram (>= 1.0),
           ape (>= 5.3),
           Biostrings (>= 2.52.0),
