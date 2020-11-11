@@ -1,5 +1,4 @@
-#ifndef TIDYSQ_ALPHABET_H
-#define TIDYSQ_ALPHABET_H
+#pragma once
 
 #include <utility>
 #include <vector>
@@ -7,7 +6,6 @@
 #include <cmath>
 #include <stdexcept>
 #include <Rcpp.h>
-#include <variant>
 
 #include "tidysq/tidysq-typedefs.h"
 #include "tidysq/sq-types.h"
@@ -172,5 +170,3 @@ namespace tidysq {
         friend std::vector<std::vector<Letter>> find_invalid_letters(const Sq<INTERNAL> &sq, const SqType &type);
     };
 }
-
-#endif //TIDYSQ_ALPHABET_H

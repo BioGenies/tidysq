@@ -1,5 +1,4 @@
-#ifndef TIDYSQ_OPERATIONPACK_H
-#define TIDYSQ_OPERATIONPACK_H
+#pragma once
 
 #include "tidysq/ops/Operation.h"
 #include "tidysq/internal/pack.h"
@@ -23,5 +22,3 @@ namespace tidysq::ops {
         }
     };
 }
-
-#endif //TIDYSQ_OPERATIONPACK_H

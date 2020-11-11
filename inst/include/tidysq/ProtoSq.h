@@ -1,5 +1,4 @@
-#ifndef TIDYSQ_PROTOSQ_H
-#define TIDYSQ_PROTOSQ_H
+#pragma once
 
 #include "tidysq/tidysq-typedefs.h"
 #include "tidysq/Alphabet.h"
@@ -90,5 +89,3 @@ namespace tidysq {
 
 
 }
-
-#endif //TIDYSQ_PROTOSQ_H

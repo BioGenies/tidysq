@@ -1,5 +1,4 @@
-#ifndef TIDYSQ_UNPACK_MULTICHAR_H
-#define TIDYSQ_UNPACK_MULTICHAR_H
+#pragma once
 
 #include <stdexcept>
 
@@ -317,4 +316,3 @@ namespace tidysq::internal {
     }
 }
 
-#endif //TIDYSQ_UNPACK_MULTICHAR_H

@@ -1,5 +1,4 @@
-#ifndef TIDYSQ_TYPEMAPPER_H
-#define TIDYSQ_TYPEMAPPER_H
+#pragma once
 
 #include <vector>
 #include <Rcpp.h>
@@ -199,4 +198,3 @@ namespace tidysq {
     };
 }
 
-#endif //TIDYSQ_TYPEMAPPER_H

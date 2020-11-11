@@ -1,5 +1,4 @@
-#ifndef TIDYSQ_PACK_H
-#define TIDYSQ_PACK_H
+#pragma once
 
 #include <stdexcept>
 
@@ -129,5 +128,3 @@ namespace tidysq::internal {
         }
     }
 }
-
-#endif //TIDYSQ_PACK_H

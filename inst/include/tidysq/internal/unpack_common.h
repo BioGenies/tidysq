@@ -1,5 +1,4 @@
-#ifndef TIDYSQ_UNPACK_COMMON_H
-#define TIDYSQ_UNPACK_COMMON_H
+#pragma once
 
 #include <stdexcept>
 
@@ -316,5 +315,3 @@ namespace tidysq::internal {
         }
     }
 }
-
-#endif //TIDYSQ_UNPACK_COMMON_H

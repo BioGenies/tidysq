@@ -1,5 +1,4 @@
-#ifndef TIDYSQ_SQAPPLY_H
-#define TIDYSQ_SQAPPLY_H
+#pragma once
 
 #include "tidysq/tidysq-typedefs.h"
 #include "tidysq/ops/Operation.h"
@@ -14,5 +13,3 @@ namespace tidysq {
         return ret;
     }
 }
-
-#endif //TIDYSQ_SQAPPLY_H

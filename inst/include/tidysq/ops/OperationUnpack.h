@@ -1,5 +1,4 @@
-#ifndef TIDYSQ_OPERATIONUNPACK_H
-#define TIDYSQ_OPERATIONUNPACK_H
+#pragma once
 
 #include "tidysq/ops/Operation.h"
 #include "tidysq/internal/unpack_common.h"
@@ -38,6 +37,3 @@ namespace tidysq::ops {
         }
     };
 }
-
-
-#endif //TIDYSQ_OPERATIONUNPACK_H
