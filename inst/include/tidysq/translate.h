@@ -1,0 +1,135 @@
+#pragma once
+
+#include <map>
+#include "tidysq/ops/internal/util.h"
+
+namespace tidysq {
+    typedef std::unordered_map<LetterValue, std::unordered_map<LetterValue, std::unordered_map<LetterValue, LetterValue>>> CodonTable;
+
+    CodonTable codon_table_1 = {
+            {0u, {
+                         {0u, {
+                                      {0u, 8u}, {1u, 11u}, {2u, 8u}, {3u, 11u}
+                         }},
+                         {1u, {
+                                      {0u, 16u}, {1u, 16u}, {2u, 16u}, {3u, 16u}
+                         }},
+                         {2u, {
+                                      {0u, 14u}, {1u, 15u}, {2u, 14u}, {3u, 15u}
+                         }},
+                         {3u, {
+                                      {0u, 7u}, {1u, 7u}, {2u, 10u}, {3u, 7u}
+                         }}
+            }},
+            {1u, {
+                         {0u, {
+                                      {0u, 13u}, {1u, 6u}, {2u, 13u}, {3u, 6u}
+                         }},
+                         {1u, {
+                                      {0u, 12u}, {1u, 12u}, {2u, 12u}, {3u, 12u}
+                         }},
+                         {2u, {
+                                      {0u, 14u}, {1u, 14u}, {2u, 14u}, {3u, 14u}
+                         }},
+                         {3u, {
+                                      {0u, 9u}, {1u, 9u}, {2u, 9u}, {3u, 9u}
+                         }}
+            }},
+            {2u, {
+                         {0u, {
+                                      {0u, 3u}, {1u, 2u}, {2u, 3u}, {3u, 2u}
+                         }},
+                         {1u, {
+                                      {0u, 0u}, {1u, 0u}, {2u, 0u}, {3u, 0u}
+                         }},
+                         {2u, {
+                                      {0u, 5u}, {1u, 5u}, {2u, 5u}, {3u, 5u}
+                         }},
+                         {3u, {
+                                      {0u, 17u}, {1u, 17u}, {2u, 17u}, {3u, 17u}
+                         }}
+            }},
+            {3u, {
+                         {0u, {
+                                      {0u, 21u}, {1u, 19u}, {2u, 21u}, {3u, 19u}
+                         }},
+                         {1u, {
+                                      {0u, 15u}, {1u, 15u}, {2u, 15u}, {3u, 15u}
+                         }},
+                         {2u, {
+                                      {0u, 21u}, {1u, 1u}, {2u, 18u}, {3u, 1u}
+                         }},
+                         {3u, {
+                                      {0u, 4u}, {1u, 9u}, {2u, 4u}, {3u, 9u}
+                         }}
+            }}
+    };
+
+    std::unordered_map<int, CodonTable> codon_diff_tables = {
+            {2, {
+                        {0u, {
+                                     {2u, {
+                                                  {0u, 21u}, {2u, 21u}
+                                     }},
+                                     {3u, {
+                                                  {0u, 10u}
+                                     }}
+                        }},
+                        {3u, {
+                                     {2u, {
+                                                  {0u, 18u}
+                                     }}
+                        }}
+            }}
+    };
+
+    LetterValue codon_table(const int &table,
+                            const LetterValue &codon_1,
+                            const LetterValue &codon_2,
+                            const LetterValue &codon_3) {
+        if (table != 1) {
+            // First access table of differences
+            auto codon_diff_table = codon_diff_tables[table];
+            if (codon_diff_table.count(codon_1) > 0 &&
+                codon_diff_table[codon_1].count(codon_2) > 0 &&
+                codon_diff_table[codon_1][codon_2].count(codon_3) > 0) {
+                return codon_diff_table[codon_1][codon_2][codon_3];
+            }
+        }
+        return codon_table_1[codon_1][codon_2][codon_3];
+    }
+
+    template<InternalType INTERNAL>
+    Sequence<INTERNAL> translate(const Sequence<INTERNAL> &sequence,
+                                 const int &table,
+                                 const AlphSize &input_alph_size,
+                                 const AlphSize &output_alph_size) {
+        LenSq sequence_length = sequence.originalLength() / 3;
+        Sequence<INTERNAL> ret = internal::reserve_space_for_packed<INTERNAL>(sequence_length, output_alph_size);
+
+        if (sequence_length > 0) {
+            auto input_it = sequence.cbegin(input_alph_size);
+            auto output_it = ret.begin(output_alph_size);
+            while (input_it < sequence.cend(input_alph_size) - 2) {
+                auto codon_1 = *input_it++;
+                auto codon_2 = *input_it++;
+                auto codon_3 = *input_it++;
+                output_it.assign(codon_table(table, codon_1, codon_2, codon_3));
+                ++output_it;
+            }
+        }
+        return ret;
+    }
+
+    template<InternalType INTERNAL>
+    Sq<INTERNAL> translate(const Sq<INTERNAL> &sq,
+                           const int &table) {
+        const Alphabet& alph = sq.alphabet();
+        Sq<INTERNAL> ret(sq.length(), Alphabet(AMI_BSC, alph.NA_letter()));
+
+        for (LenSq i = 0; i < sq.length(); ++i) {
+            ret[i] = translate(sq[i].get(), table, alph.alphabet_size(), ret.alphabet().alphabet_size());
+        }
+        return ret;
+    }
+}
