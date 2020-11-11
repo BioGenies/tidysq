@@ -64,6 +64,8 @@ namespace tidysq {
         }
 
     public:
+        typedef typename std::vector<Letter>::const_iterator const_iterator;
+
         Alphabet(const std::vector<Letter> &letters,
                  const SqType &type,
                  const Letter &NA_letter = util::default_NA_letter()) :
@@ -131,6 +133,22 @@ namespace tidysq {
 
         [[nodiscard]] inline bool is_simple() const {
             return is_simple_;
+        }
+
+        [[nodiscard]] inline const_iterator begin() const {
+            return letters_.begin();
+        }
+
+        [[nodiscard]] inline const_iterator end() const {
+            return letters_.end();
+        }
+
+        [[nodiscard]] inline const_iterator cbegin() const {
+            return letters_.cbegin();
+        }
+
+        [[nodiscard]] inline const_iterator cend() const {
+            return letters_.cend();
         }
 
         inline bool operator==(const Alphabet &other) const {
