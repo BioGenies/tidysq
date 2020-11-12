@@ -17,58 +17,58 @@ namespace tidysq::internal {
         LenSq out_len = packed.original_length();
         LenSq i = 0;
         for (; i + 8 <= out_len; i += 8) {
-            unpacked += util::match_letter_multichar((packed[in_byte]) & 3, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte] >> 2) & 3, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte] >> 4) & 3, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte] >> 6) & 3, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 1]) & 3, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 2) & 3, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 4) & 3, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 6) & 3, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte)) & 3, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte) >> 2) & 3, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte) >> 4) & 3, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte) >> 6) & 3, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 1)) & 3, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 2) & 3, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 4) & 3, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 6) & 3, alphabet);
             in_byte += 2;
         }
         switch (out_len - i) {
             case 7:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 2) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 4) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 6) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1]) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 2) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 4) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 2) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 4) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 6) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1)) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 2) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 4) & 3, alphabet);
                 break;
             case 6:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 2) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 4) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 6) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1]) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 2) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 2) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 4) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 6) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1)) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 2) & 3, alphabet);
                 break;
             case 5:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 2) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 4) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 6) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1]) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 2) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 4) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 6) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1)) & 3, alphabet);
                 break;
             case 4:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 2) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 4) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 6) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 2) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 4) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 6) & 3, alphabet);
                 break;
             case 3:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 2) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 4) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 2) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 4) & 3, alphabet);
                 break;
             case 2:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 3, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 2) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 2) & 3, alphabet);
                 break;
             case 1:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 3, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 3, alphabet);
                 break;
         }
     }
@@ -82,67 +82,67 @@ namespace tidysq::internal {
         LenSq out_len = packed.original_length();
         LenSq i = 0;
         for (; i + 8 <= out_len; i += 8) {
-            unpacked += util::match_letter_multichar((packed[in_byte]) & 7, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte] >> 3) & 7, alphabet);
-            unpacked += util::match_letter_multichar(((packed[in_byte] >> 6) & 3) |
-                                                     ((packed[in_byte + 1] << 2) & 7), alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 1) & 7, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 4) & 7, alphabet);
-            unpacked += util::match_letter_multichar(((packed[in_byte + 1] >> 7) & 1) |
-                                                     ((packed[in_byte + 2] << 1) & 7), alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 2] >> 2) & 7, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 2] >> 5) & 7, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte)) & 7, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte) >> 3) & 7, alphabet);
+            unpacked += util::match_letter_multichar(((packed(in_byte) >> 6) & 3) |
+                                                     ((packed(in_byte + 1) << 2) & 7), alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 1) & 7, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 4) & 7, alphabet);
+            unpacked += util::match_letter_multichar(((packed(in_byte + 1) >> 7) & 1) |
+                                                     ((packed(in_byte + 2) << 1) & 7), alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 2) >> 2) & 7, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 2) >> 5) & 7, alphabet);
             in_byte += 3;
         }
         switch (out_len - i) {
             case 7:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 7, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 3) & 7, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte] >> 6) & 3) |
-                                                         ((packed[in_byte + 1] << 2) & 7), alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 1) & 7, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 4) & 7, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte + 1] >> 7) & 1) |
-                                                         ((packed[in_byte + 2] << 1) & 7), alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 2] >> 2) & 7, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 7, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 3) & 7, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte) >> 6) & 3) |
+                                                         ((packed(in_byte + 1) << 2) & 7), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 1) & 7, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 4) & 7, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte + 1) >> 7) & 1) |
+                                                         ((packed(in_byte + 2) << 1) & 7), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 2) >> 2) & 7, alphabet);
                 break;
             case 6:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 7, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 3) & 7, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte] >> 6) & 3) |
-                                                         ((packed[in_byte + 1] << 2) & 7), alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 1) & 7, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 4) & 7, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte + 1] >> 7) & 1) |
-                                                         ((packed[in_byte + 2] << 1) & 7), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 7, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 3) & 7, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte) >> 6) & 3) |
+                                                         ((packed(in_byte + 1) << 2) & 7), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 1) & 7, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 4) & 7, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte + 1) >> 7) & 1) |
+                                                         ((packed(in_byte + 2) << 1) & 7), alphabet);
                 break;
             case 5:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 7, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 3) & 7, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte] >> 6) & 3) |
-                                                         ((packed[in_byte + 1] << 2) & 7), alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 1) & 7, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 4) & 7, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 7, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 3) & 7, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte) >> 6) & 3) |
+                                                         ((packed(in_byte + 1) << 2) & 7), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 1) & 7, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 4) & 7, alphabet);
                 break;
             case 4:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 7, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 3) & 7, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte] >> 6) & 3) |
-                                                         ((packed[in_byte + 1] << 2) & 7), alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 1) & 7, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 7, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 3) & 7, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte) >> 6) & 3) |
+                                                         ((packed(in_byte + 1) << 2) & 7), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 1) & 7, alphabet);
                 break;
             case 3:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 7, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 3) & 7, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte] >> 6) & 3) |
-                                                         ((packed[in_byte + 1] << 2) & 7), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 7, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 3) & 7, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte) >> 6) & 3) |
+                                                         ((packed(in_byte + 1) << 2) & 7), alphabet);
                 break;
             case 2:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 7, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 3) & 7, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 7, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 3) & 7, alphabet);
                 break;
             case 1:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 7, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 7, alphabet);
                 break;
         }
     }
@@ -155,58 +155,58 @@ namespace tidysq::internal {
         LenSq out_len = packed.original_length();
         LenSq i = 0;
         for (; i + 8 <= out_len; i += 8) {
-            unpacked += util::match_letter_multichar((packed[in_byte]) & 15, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte] >> 4) & 15, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 1]) & 15, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 4) & 15, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 2]) & 15, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 2] >> 4) & 15, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 3]) & 15, alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 3] >> 4) & 15, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte)) & 15, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte) >> 4) & 15, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 1)) & 15, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 4) & 15, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 2)) & 15, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 2) >> 4) & 15, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 3)) & 15, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 3) >> 4) & 15, alphabet);
             in_byte += 4;
         }
         switch (out_len - i) {
             case 7:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 4) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1]) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 4) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 2]) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 2] >> 4) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 3]) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 4) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1)) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 4) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 2)) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 2) >> 4) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 3)) & 15, alphabet);
                 break;
             case 6:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 4) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1]) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 4) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 2]) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 2] >> 4) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 4) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1)) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 4) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 2)) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 2) >> 4) & 15, alphabet);
                 break;
             case 5:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 4) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1]) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 4) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 2]) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 4) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1)) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 4) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 2)) & 15, alphabet);
                 break;
             case 4:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 4) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1]) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 4) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 4) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1)) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 4) & 15, alphabet);
                 break;
             case 3:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 4) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1]) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 4) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1)) & 15, alphabet);
                 break;
             case 2:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 15, alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte] >> 4) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte) >> 4) & 15, alphabet);
                 break;
             case 1:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 15, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 15, alphabet);
                 break;
         }
     }
@@ -219,76 +219,76 @@ namespace tidysq::internal {
         LenSq out_len = packed.original_length();
         LenSq i = 0;
         for (; i + 8 <= out_len; i += 8) {
-            unpacked += util::match_letter_multichar((packed[in_byte]) & 31, alphabet);
-            unpacked += util::match_letter_multichar(((packed[in_byte] >> 5) & 7) |
-                                                     ((packed[in_byte + 1] << 3) & 31), alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 2) & 31, alphabet);
-            unpacked += util::match_letter_multichar(((packed[in_byte + 1] >> 7) & 1) |
-                                                     ((packed[in_byte + 2] << 1) & 31), alphabet);
-            unpacked += util::match_letter_multichar(((packed[in_byte + 2] >> 4) & 15) |
-                                                     ((packed[in_byte + 3] << 4) & 31), alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 3] >> 1) & 31, alphabet);
-            unpacked += util::match_letter_multichar(((packed[in_byte + 3] >> 6) & 3) |
-                                                     ((packed[in_byte + 4] << 2) & 31), alphabet);
-            unpacked += util::match_letter_multichar((packed[in_byte + 4] >> 3) & 31, alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte)) & 31, alphabet);
+            unpacked += util::match_letter_multichar(((packed(in_byte) >> 5) & 7) |
+                                                     ((packed(in_byte + 1) << 3) & 31), alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 2) & 31, alphabet);
+            unpacked += util::match_letter_multichar(((packed(in_byte + 1) >> 7) & 1) |
+                                                     ((packed(in_byte + 2) << 1) & 31), alphabet);
+            unpacked += util::match_letter_multichar(((packed(in_byte + 2) >> 4) & 15) |
+                                                     ((packed(in_byte + 3) << 4) & 31), alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 3) >> 1) & 31, alphabet);
+            unpacked += util::match_letter_multichar(((packed(in_byte + 3) >> 6) & 3) |
+                                                     ((packed(in_byte + 4) << 2) & 31), alphabet);
+            unpacked += util::match_letter_multichar((packed(in_byte + 4) >> 3) & 31, alphabet);
             in_byte += 5;
         }
         switch (out_len - i) {
             case 7:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 31, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte] >> 5) & 7) |
-                                                         ((packed[in_byte + 1] << 3) & 31), alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 2) & 31, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte + 1] >> 7) & 1) |
-                                                         ((packed[in_byte + 2] << 1) & 31), alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte + 2] >> 4) & 15) |
-                                                         ((packed[in_byte + 3] << 4) & 31), alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 3] >> 1) & 31, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte + 3] >> 6) & 3) |
-                                                         ((packed[in_byte + 4] << 2) & 31), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 31, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte) >> 5) & 7) |
+                                                         ((packed(in_byte + 1) << 3) & 31), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 2) & 31, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte + 1) >> 7) & 1) |
+                                                         ((packed(in_byte + 2) << 1) & 31), alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte + 2) >> 4) & 15) |
+                                                         ((packed(in_byte + 3) << 4) & 31), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 3) >> 1) & 31, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte + 3) >> 6) & 3) |
+                                                         ((packed(in_byte + 4) << 2) & 31), alphabet);
                 break;
             case 6:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 31, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte] >> 5) & 7) |
-                                                         ((packed[in_byte + 1] << 3) & 31), alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 2) & 31, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte + 1] >> 7) & 1) |
-                                                         ((packed[in_byte + 2] << 1) & 31), alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte + 2] >> 4) & 15) |
-                                                         ((packed[in_byte + 3] << 4) & 31), alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 3] >> 1) & 31, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 31, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte) >> 5) & 7) |
+                                                         ((packed(in_byte + 1) << 3) & 31), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 2) & 31, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte + 1) >> 7) & 1) |
+                                                         ((packed(in_byte + 2) << 1) & 31), alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte + 2) >> 4) & 15) |
+                                                         ((packed(in_byte + 3) << 4) & 31), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 3) >> 1) & 31, alphabet);
                 break;
             case 5:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 31, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte] >> 5) & 7) |
-                                                         ((packed[in_byte + 1] << 3) & 31), alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 2) & 31, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte + 1] >> 7) & 1) |
-                                                         ((packed[in_byte + 2] << 1) & 31), alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte + 2] >> 4) & 15) |
-                                                         ((packed[in_byte + 3] << 4) & 31), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 31, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte) >> 5) & 7) |
+                                                         ((packed(in_byte + 1) << 3) & 31), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 2) & 31, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte + 1) >> 7) & 1) |
+                                                         ((packed(in_byte + 2) << 1) & 31), alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte + 2) >> 4) & 15) |
+                                                         ((packed(in_byte + 3) << 4) & 31), alphabet);
                 break;
             case 4:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 31, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte] >> 5) & 7) |
-                                                         ((packed[in_byte + 1] << 3) & 31), alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 2) & 31, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte + 1] >> 7) & 1) |
-                                                         ((packed[in_byte + 2] << 1) & 31), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 31, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte) >> 5) & 7) |
+                                                         ((packed(in_byte + 1) << 3) & 31), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 2) & 31, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte + 1) >> 7) & 1) |
+                                                         ((packed(in_byte + 2) << 1) & 31), alphabet);
                 break;
             case 3:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 31, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte] >> 5) & 7) |
-                                                         ((packed[in_byte + 1] << 3) & 31), alphabet);
-                unpacked += util::match_letter_multichar((packed[in_byte + 1] >> 2) & 31, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 31, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte) >> 5) & 7) |
+                                                         ((packed(in_byte + 1) << 3) & 31), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte + 1) >> 2) & 31, alphabet);
                 break;
             case 2:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 31, alphabet);
-                unpacked += util::match_letter_multichar(((packed[in_byte] >> 5) & 7) |
-                                                         ((packed[in_byte + 1] << 3) & 31), alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 31, alphabet);
+                unpacked += util::match_letter_multichar(((packed(in_byte) >> 5) & 7) |
+                                                         ((packed(in_byte + 1) << 3) & 31), alphabet);
                 break;
             case 1:
-                unpacked += util::match_letter_multichar((packed[in_byte]) & 31, alphabet);
+                unpacked += util::match_letter_multichar((packed(in_byte)) & 31, alphabet);
                 break;
         }
     }
