@@ -96,12 +96,20 @@ namespace tidysq {
 
         Sequence& operator=(Sequence &&other) noexcept = default;
 
-        inline AccessType operator[](const LenSq index) {
-            return content_[index];
-        }
+        inline LetterValue operator[](const std::pair<LenSq, AlphSize> &index) const {
+            ElementPacked ret = 0xffu >> (8u - std::get<1>(index));
 
-        inline ConstAccessType operator[](const LenSq index) const {
-             return content_[index];
+            LenSq lowest_bit_index = std::get<1>(index) * std::get<0>(index);
+            LenSq highest_bit_index = lowest_bit_index + std::get<1>(index) - 1;
+            LenSq lowest_byte_index = lowest_bit_index / 8;
+            LenSq highest_byte_index = highest_bit_index / 8;
+            unsigned short lowest_bit_in_byte_index = lowest_bit_index % 8;
+
+            ret = ret &
+                  ((content_[lowest_byte_index] >> lowest_bit_in_byte_index) |
+                   (content_[highest_byte_index] << (8 - lowest_bit_in_byte_index)));
+
+            return ret;
         }
 
         inline AccessType operator()(const LenSq index) {
@@ -360,5 +368,4 @@ namespace tidysq {
     inline LenSq Sequence<INTERNAL>::GenericSequenceIterator<CONST>::index() const {
         return pointer_;
     }
-
 }

@@ -16,14 +16,12 @@ namespace tidysq {
         const ElementPacked NA_value = 0xffu >> (8u - alph_size);
 
         auto index_iter = indices.begin();
-        auto sequence_iter = sequence.cbegin(alph_size);
         auto out_sequence_iter = out_sequence.begin(alph_size);
 
         while (index_iter != indices.end() || out_sequence_iter != out_sequence.end(alph_size)) {
             ElementPacked element = NA_value;
             if (*index_iter <= sequence.original_length()) {
-                sequence_iter += (*index_iter - 1);
-                element = *sequence_iter;
+                element = sequence[{*index_iter - 1, alph_size}];
             } else {
                 *warning_called = true;
             }
