@@ -450,8 +450,7 @@ sq <- function(x,
   } else if (length(alphabet) == 1) {
     type <- interpret_type(alphabet)
     if (type == "unt") {
-      # TODO: Inf would be better, but raises warning about conversion to NA
-      alphabet <- obtain_alphabet(x, 4096, NA_letter)
+      alphabet <- obtain_alphabet(x, Inf, NA_letter)
     } else {
       alphabet <- get_standard_alphabet(type)
     }
