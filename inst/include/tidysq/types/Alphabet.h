@@ -167,6 +167,12 @@ namespace tidysq {
             return NA_value_;
         }
 
+        [[nodiscard]] inline bool contains(const Letter &letter) const {
+            return std::any_of(letters_.cbegin(), letters_.cend(), [=](const Letter &other) {
+                return letter == other;
+            });
+        }
+
         friend Rcpp::StringVector export_to_R(const Alphabet &alphabet);
         template<InternalType INTERNAL>
         friend std::vector<std::vector<Letter>> find_invalid_letters(const Sq<INTERNAL> &sq, const SqType &type);
