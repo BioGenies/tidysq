@@ -1,37 +1,48 @@
 #pragma once
 
+#include <functional>
+
 #include "tidysq/exports.h"
 
 namespace tidysq {
     template<InternalType INTERNAL>
-    ProtoSequence<INTERNAL, STRING> remove_ambiguous(const Sequence<INTERNAL> &sequence,
-                                                     const Alphabet &alph,
-                                                     const Alphabet &dest_alph,
-                                                     const bool by_letter) {
+    ProtoSequence<INTERNAL, STRINGS> remove_on_condition(const Sequence<INTERNAL> &sequence,
+                                                        const Alphabet &alph,
+                                                        const std::function<bool(LetterValue)> &condition,
+                                                        const bool by_letter) {
+        typedef typename TypeMapper<INTERNAL, STRINGS>::ProtoSequenceContentType ContentType;
         // TODO: extract functions out of these ifs, maybe?
         if (by_letter) {
-            std::string selected_letters;
+            ContentType selected_letters;
             for (auto it = sequence.cbegin(alph.alphabet_size()); it != sequence.cend(alph.alphabet_size()); ++it) {
-                // We can suppose that Letters are simple, because only AMI_EXT, DNA_EXT and RNA_EXT are valid Sq objects
-                Letter letter = alph[*it];
-                if (dest_alph.contains(letter)) {
-                    selected_letters += letter;
+                if (condition(*it)) {
+                    selected_letters.push_back(alph[*it]);
                 }
             }
-            return ProtoSequence<INTERNAL, STRING>{selected_letters};
+            return ProtoSequence<INTERNAL, STRINGS>{selected_letters};
         } else {
-            // We check if all letters in sequence are within dest_alph
             if (std::all_of(sequence.cbegin(alph.alphabet_size()), sequence.cend(alph.alphabet_size()),
-                    [=](auto element) { return dest_alph.contains(alph[element]); })) {
-                // We have to unpack sequence to repack it later with new alphabet
-                ProtoSequence<INTERNAL, STRING> unpacked =
-                        internal::reserve_space_for_unpacked<INTERNAL, INTERNAL, STRING>(sequence);
+                            [=](const LetterValue element) { return condition(element); })) {
+                // TODO: now we have to unpack sequence to repack it later with new alphabet;
+                //  would be nice not to
+                ProtoSequence<INTERNAL, STRINGS> unpacked =
+                        internal::reserve_space_for_unpacked<INTERNAL, INTERNAL, STRINGS>(sequence);
                 internal::unpack_common(sequence, unpacked, alph);
                 return unpacked;
             } else {
-                return ProtoSequence<INTERNAL, STRING>{};
+                return ProtoSequence<INTERNAL, STRINGS>{};
             }
         }
+    }
+
+    template<InternalType INTERNAL>
+    ProtoSequence<INTERNAL, STRINGS> remove_ambiguous(const Sequence<INTERNAL> &sequence,
+                                                     const Alphabet &alph,
+                                                     const Alphabet &dest_alph,
+                                                     const bool by_letter) {
+        return remove_on_condition<INTERNAL>(sequence, alph, [=](LetterValue value) {
+            return dest_alph.contains(alph[value]) || alph.NA_value() == value;
+        }, by_letter);
     }
 
     template<InternalType INTERNAL>
@@ -57,11 +68,11 @@ namespace tidysq {
         Sq<INTERNAL> ret(sq.length(), dest_alph);
 
         for (LenSq i = 0; i < sq.length(); ++i) {
-            ProtoSequence<INTERNAL, STRING> unpacked =
+            ProtoSequence<INTERNAL, STRINGS> unpacked =
                     remove_ambiguous<INTERNAL>(sq[i].get(), alph, dest_alph, by_letter);
             Sequence<INTERNAL> repacked =
                     internal::reserve_space_for_packed<INTERNAL>(unpacked.length(), dest_alph.alphabet_size());
-            internal::pack<INTERNAL, STRING, INTERNAL, true>(unpacked, repacked, dest_alph);
+            internal::pack<INTERNAL, STRINGS, INTERNAL, true>(unpacked, repacked, dest_alph);
             ret[i] = repacked;
         }
         return ret;
