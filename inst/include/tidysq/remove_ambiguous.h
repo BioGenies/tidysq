@@ -10,8 +10,15 @@ namespace tidysq {
                                                      const bool by_letter) {
         // TODO: extract functions out of these ifs, maybe?
         if (by_letter) {
-            // TODO: implement
-            return ProtoSequence<INTERNAL, STRING>{};
+            std::string selected_letters;
+            for (auto it = sequence.cbegin(alph.alphabet_size()); it != sequence.cend(alph.alphabet_size()); ++it) {
+                // We can suppose that Letters are simple, because only AMI_EXT, DNA_EXT and RNA_EXT are valid Sq objects
+                Letter letter = alph[*it];
+                if (dest_alph.contains(letter)) {
+                    selected_letters += letter;
+                }
+            }
+            return ProtoSequence<INTERNAL, STRING>{selected_letters};
         } else {
             // We check if all letters in sequence are within dest_alph
             if (std::all_of(sequence.cbegin(alph.alphabet_size()), sequence.cend(alph.alphabet_size()),
