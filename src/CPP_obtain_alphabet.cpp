@@ -11,7 +11,7 @@ Rcpp::StringVector CPP_obtain_alphabet(const Rcpp::StringVector &x,
 
    return export_to_R(
            util::obtain_alphabet<RCPP_IT>(
-             x, sample_size_converted, util::get_scalar_string_value(NA_letter))
+             x, sample_size_converted, util::convert_to_scalar(NA_letter))
            );
 }
 

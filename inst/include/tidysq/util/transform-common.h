@@ -17,8 +17,16 @@ namespace tidysq::util {
         return ret;
     }
 
-    inline std::string get_scalar_string_value(const Rcpp::StringVector &vector, const unsigned int index = 0) {
+    inline std::string convert_to_scalar(const Rcpp::StringVector &vector, const unsigned int index = 0) {
         return Rcpp::as<std::string>(vector[index]);
+    }
+
+    inline int convert_to_scalar(const Rcpp::IntegerVector &vector, const unsigned int index = 0) {
+        return vector[index];
+    }
+
+    inline bool convert_to_scalar(const Rcpp::LogicalVector &vector, const unsigned int index = 0) {
+        return vector[index];
     }
 
     template<typename T>

@@ -6,7 +6,7 @@ namespace tidysq {
     inline Alphabet import_alphabet_from_R(const Rcpp::StringVector &letters, const Rcpp::StringVector &NA_letter) {
         return Alphabet(util::convert_string_vector(letters),
                         util::sq_type_for_sq_type_abbr(letters.attr("type")),
-                        util::get_scalar_string_value(NA_letter));
+                        util::convert_to_scalar(NA_letter),
     }
 
     inline Sq<RCPP_IT> import_from_R(const Rcpp::List &sq, const Rcpp::StringVector &NA_letter) {
