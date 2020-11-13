@@ -79,22 +79,27 @@ namespace tidysq {
     template<InternalType INTERNAL>
     Sq<INTERNAL> remove_ambiguous(const Sq<INTERNAL> &sq,
                                   const bool by_letter) {
-        const Alphabet &alph = sq.alphabet();
         SqType type;
         switch (sq.type()) {
-            // TODO: should we include _BSC types as well and simply return sq?
+            case AMI_BSC:
+                return sq;
             case AMI_EXT:
                 type = AMI_BSC;
                 break;
+            case DNA_BSC:
+                return sq;
             case DNA_EXT:
                 type = DNA_BSC;
                 break;
+            case RNA_BSC:
+                return sq;
             case RNA_EXT:
                 type = RNA_BSC;
                 break;
             default:
                 throw std::invalid_argument("sq object must have extended alphabet type");
         }
+        const Alphabet &alph = sq.alphabet();
         const Alphabet dest_alph = Alphabet(type, alph.NA_letter());
         Sq<INTERNAL> ret(sq.length(), dest_alph);
 
