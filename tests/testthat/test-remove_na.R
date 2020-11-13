@@ -20,7 +20,6 @@ sq_rna_3 <- sq(c("", "UACACGGGCGACU", "", "AUGGCGGAUGUUC"),
 
 # PROTOTYPE PRESERVATION ----
 test_that("remove_na() with `by_letter = TRUE` preserves all attributes of original vector", {
-  skip(".apply_sq() inside remove_na() not implemented")
   expect_vector(remove_na(sq_ami, by_letter = TRUE),
                 ptype = vec_ptype(sq_ami),
                 size = vec_size(sq_ami))
@@ -33,7 +32,6 @@ test_that("remove_na() with `by_letter = TRUE` preserves all attributes of origi
 })
 
 test_that("remove_na() with `by_letter = FALSE` preserves all attributes of original vector", {
-  skip(".apply_sq() inside remove_na() not implemented")
   expect_vector(remove_na(sq_ami, by_letter = FALSE),
                 ptype = vec_ptype(sq_ami),
                 size = vec_size(sq_ami))
@@ -47,7 +45,6 @@ test_that("remove_na() with `by_letter = FALSE` preserves all attributes of orig
 
 # VALUE COMPUTATION ----
 test_that("remove_na() with `by_letter = TRUE` returns correct value", {
-  skip(".apply_sq() inside remove_na() not implemented")
   expect_equivalent(as.character(remove_na(sq_ami, by_letter = TRUE)),
                     as.character(sq_ami_2))
   expect_equivalent(as.character(remove_na(sq_dna, by_letter = TRUE)),
@@ -57,7 +54,6 @@ test_that("remove_na() with `by_letter = TRUE` returns correct value", {
 })
 
 test_that("remove_na() with `by_letter = FALSE` returns correct value", {
-  skip(".apply_sq() inside remove_na() not implemented")
   expect_equivalent(as.character(remove_na(sq_ami, by_letter = FALSE)),
                     as.character(sq_ami_3))
   expect_equivalent(as.character(remove_na(sq_dna, by_letter = FALSE)),
@@ -68,7 +64,6 @@ test_that("remove_na() with `by_letter = FALSE` returns correct value", {
 
 # NO EFFECT ON SEQUENCES WITHOUT NA'S ----
 test_that("remove_na() has no effect when original value has no NA's", {
-  skip(".apply_sq() inside remove_na() not implemented")
   expect_identical(remove_na(sq_ami_2, by_letter = TRUE),
                    sq_ami_2)
   expect_identical(remove_na(sq_ami_2, by_letter = FALSE),
