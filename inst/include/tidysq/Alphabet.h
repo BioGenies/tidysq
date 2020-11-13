@@ -17,14 +17,14 @@ namespace tidysq {
     class Sq;
 
     class Alphabet {
-        const std::vector<Letter> letters_;
-        const Letter NA_letter_;
-        const AlphSize alphabet_size_;
-        const LetterValue NA_value_;
-        const bool is_simple_;
-        const std::vector<SimpleLetter> simple_letters_;
-        const SimpleLetter simple_NA_letter_;
-        const SqType type_;
+        std::vector<Letter> letters_;
+        Letter NA_letter_;
+        AlphSize alphabet_size_;
+        LetterValue NA_value_;
+        SqType type_;
+        bool is_simple_;
+        std::vector<SimpleLetter> simple_letters_;
+        SimpleLetter simple_NA_letter_;
 
         void check_letters() const {
             for (auto &letter : letters_) {
@@ -99,6 +99,8 @@ namespace tidysq {
         Alphabet(const Alphabet &other) = default;
 
         Alphabet(Alphabet &&other) noexcept = default;
+
+        Alphabet& operator=(const Alphabet &other) = default;
 
         [[nodiscard]] inline LetterValue length() const {
             return static_cast<LetterValue>(letters_.size());
@@ -178,6 +180,12 @@ namespace tidysq {
                 if (letter == letters_[i]) return i;
             }
             return NA_value_;
+        }
+
+        [[nodiscard]] inline bool contains(const Letter &letter) const {
+            return std::any_of(letters_.cbegin(), letters_.cend(), [=](const Letter &other) {
+                return letter == other;
+            });
         }
 
         friend Rcpp::StringVector export_to_R(const Alphabet &alphabet);
