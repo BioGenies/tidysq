@@ -223,6 +223,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPP_typify
+Rcpp::List CPP_typify(const Rcpp::List& x, const Rcpp::StringVector& dest_type, const Rcpp::StringVector& NA_letter);
+RcppExport SEXP _tidysq_CPP_typify(SEXP xSEXP, SEXP dest_typeSEXP, SEXP NA_letterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type dest_type(dest_typeSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_typify(x, dest_type, NA_letter));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 RcppExport SEXP run_testthat_tests();
 
@@ -244,6 +257,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_remove_NA", (DL_FUNC) &_tidysq_CPP_remove_NA, 3},
     {"_tidysq_CPP_remove_ambiguous", (DL_FUNC) &_tidysq_CPP_remove_ambiguous, 3},
     {"_tidysq_CPP_translate", (DL_FUNC) &_tidysq_CPP_translate, 4},
+    {"_tidysq_CPP_typify", (DL_FUNC) &_tidysq_CPP_typify, 3},
     {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 0},
     {NULL, NULL, 0}
 };

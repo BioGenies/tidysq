@@ -47,27 +47,10 @@
 #' typify(sq_sub, "ami")
 #' 
 #' @export 
-typify <- function(x, dest_type) {
+typify <- function(x, dest_type,
+                   NA_letter = getOption("tidysq_NA_letter"), ...) {
   assert_class(x, "sq")
   assert_sq_type(dest_type)
   
-  if (get_sq_type(x) == dest_type) {
-    return(x)
-  }
-  
-  alph <- alphabet(x)
-  uppercase_alph <- unique(toupper(alph))
-  dest_alph <- get_standard_alphabet(dest_type)
-  
-  assert_subset(uppercase_alph, dest_alph)
-  if (!(length(alph) == length(uppercase_alph))) {
-    .handle_opt_txt("tidysq_a_typify_small_cap_let",
-                    "in 'alphabet' attribute of 'sq' some letters appear as both lower and capital")
-  }
-  
-  ret <- .apply_sq(x, "char", "char", toupper, im_alph = dest_alph)
-  new_list_of(ret,
-              ptype = raw(),
-              alphabet = dest_alph,
-              class = c(type_as_class(dest_type), "sq"))
+  CPP_typify(x, dest_type, NA_letter)
 }

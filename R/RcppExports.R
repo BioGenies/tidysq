@@ -69,3 +69,7 @@ CPP_translate <- function(x, table, NA_letter, interpret_as_stop) {
     .Call(`_tidysq_CPP_translate`, x, table, NA_letter, interpret_as_stop)
 }
 
+CPP_typify <- function(x, dest_type, NA_letter) {
+    .Call(`_tidysq_CPP_typify`, x, dest_type, NA_letter)
+}
+
