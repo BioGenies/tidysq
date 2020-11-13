@@ -58,6 +58,7 @@ remove_na <- function(x,
                       NA_letter = getOption("tidysq_NA_letter"), ...) {
   assert_class(x, "sq")
   assert_flag(by_letter)
+  assert_string(NA_letter)
   
   CPP_remove_NA(x, by_letter, NA_letter)
 }
