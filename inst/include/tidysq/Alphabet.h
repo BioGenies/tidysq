@@ -10,6 +10,7 @@
 #include "tidysq/tidysq-typedefs.h"
 #include "tidysq/sq-types.h"
 #include "tidysq/util/transform-common.h"
+#include "tidysq/constants/standard_letters.h"
 
 namespace tidysq {
     template<typename INTERNAL>
@@ -68,7 +69,7 @@ namespace tidysq {
 
         Alphabet(const std::vector<Letter> &letters,
                  const SqType &type,
-                 const Letter &NA_letter = util::default_NA_letter()) :
+                 const Letter &NA_letter = constants::DEFAULT_NA_LETTER) :
                 letters_(letters),
                 NA_letter_(NA_letter),
                 alphabet_size_(calculate_alphabet_size()),
@@ -82,7 +83,7 @@ namespace tidysq {
         }
 
         explicit Alphabet(const SqType &type,
-                          const Letter &NA_letter = util::default_NA_letter()) :
+                          const Letter &NA_letter = constants::DEFAULT_NA_LETTER) :
                       Alphabet(util::standard_letters_for_sq_type(type),
                               type,
                               NA_letter) {};
@@ -90,7 +91,7 @@ namespace tidysq {
 
         //TODO: do it better!
         explicit Alphabet(const std::vector<Letter> &letters,
-                          const Letter &NA_letter = util::default_NA_letter()) :
+                          const Letter &NA_letter = constants::DEFAULT_NA_LETTER) :
                 Alphabet(util::has_standard_alphabet(util::guess_sq_type_from_letters(letters)) ? util::standard_letters_for_sq_type(util::guess_sq_type_from_letters(letters)) : letters,
                          util::guess_sq_type_from_letters(letters),
                          NA_letter) {};

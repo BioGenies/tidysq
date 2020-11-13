@@ -26,4 +26,16 @@ namespace tidysq {
     struct INTS_PT : public ProtoType {};
     struct STRINGS_PT : public ProtoType {};
     struct STRING_PT : public ProtoType {};
+
+    enum SqType {
+        AMI_EXT,
+        AMI_BSC,
+        DNA_EXT,
+        DNA_BSC,
+        RNA_EXT,
+        RNA_BSC,
+        UNT,
+        ATP,
+        ENC
+    };
 }
