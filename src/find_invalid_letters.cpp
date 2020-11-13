@@ -1,6 +1,6 @@
 #include <Rcpp.h>
 
-#include "tidysq/exports.h"
+#include "tidysq/tidysq-includes.h"
 #include "tidysq/find_invalid_letters.h"
 
 using namespace tidysq;

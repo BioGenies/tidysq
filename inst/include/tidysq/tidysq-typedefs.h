@@ -15,15 +15,27 @@ namespace tidysq {
     typedef std::string             Letter;
     typedef char                    SimpleLetter;
 
-    enum InternalType {
-        STD,
-        RCPP
-    };
+    struct InternalType {};
 
-    enum ProtoType {
-        RAWS,
-        INTS,
-        STRINGS,
-        STRING
+    struct RCPP_IT : public InternalType {};
+    struct STD_IT : public InternalType {};
+
+    struct ProtoType {};
+
+    struct RAWS_PT : public ProtoType {};
+    struct INTS_PT : public ProtoType {};
+    struct STRINGS_PT : public ProtoType {};
+    struct STRING_PT : public ProtoType {};
+
+    enum SqType {
+        AMI_EXT,
+        AMI_BSC,
+        DNA_EXT,
+        DNA_BSC,
+        RNA_EXT,
+        RNA_BSC,
+        UNT,
+        ATP,
+        ENC
     };
 }

@@ -2,14 +2,14 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "cert-err58-cpp"
 
-#include "tidysq/types/Sq.h"
-#include "tidysq/ops/bite.h"
+#include "tidysq/Sq.h"
+#include "tidysq/bite.h"
 #include <map>
 #include <algorithm>
 
 namespace tidysq {
     namespace internal {
-        template<InternalType INTERNAL>
+        template<typename INTERNAL>
         class FoundMotifs;
         class Motif;
     }
@@ -53,7 +53,7 @@ namespace tidysq {
     };
 
     namespace internal {
-        template<InternalType INTERNAL>
+        template<typename INTERNAL>
         class FoundMotifs {
             std::list<std::string> names_{};
             Sq<INTERNAL> found_;
@@ -77,10 +77,10 @@ namespace tidysq {
                 end_.push_back(end);
             }
 
-            friend Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs);
+            friend Rcpp::List export_to_R(const internal::FoundMotifs<RCPP_IT> &found_motifs);
         };
 
-        Rcpp::List export_to_R(const internal::FoundMotifs<RCPP> &found_motifs) {
+        Rcpp::List export_to_R(const internal::FoundMotifs<RCPP_IT> &found_motifs) {
 
             return Rcpp::List::create(
                     Rcpp::Named("names", found_motifs.names_),
@@ -180,9 +180,9 @@ namespace tidysq {
 
         private:
             // sequence_it is passed as copy, because we want a new iterator that starts from that point
-            template<InternalType INTERNAL>
-            [[nodiscard]] bool aligns_with(typename Sequence<INTERNAL>::ConstSequenceIterator sequence_it,
-                                           const typename Sequence<INTERNAL>::ConstSequenceIterator &iterator_end) const {
+            template<typename INTERNAL>
+            [[nodiscard]] bool aligns_with(typename Sequence<INTERNAL>::const_iterator sequence_it,
+                                           const typename Sequence<INTERNAL>::const_iterator &iterator_end) const {
                 auto motif_it = begin();
                 while (sequence_it <= iterator_end && std::any_of(
                         motif_it->begin(), motif_it->end(), [=](const LetterValue &possible_letter) {
@@ -200,9 +200,9 @@ namespace tidysq {
             }
 
             // sequence_it is passed as copy, because we want a new iterator that starts from that point
-            template<InternalType INTERNAL>
-            void locate(typename Sequence<INTERNAL>::ConstSequenceIterator sequence_it,
-                        const typename Sequence<INTERNAL>::ConstSequenceIterator &iterator_end,
+            template<typename INTERNAL>
+            void locate(typename Sequence<INTERNAL>::const_iterator sequence_it,
+                        const typename Sequence<INTERNAL>::const_iterator &iterator_end,
                         const std::string &name,
                         internal::FoundMotifs<INTERNAL> &ret) const {
                 auto motif_it = begin();
@@ -226,16 +226,16 @@ namespace tidysq {
             }
 
         public:
-            template<InternalType INTERNAL>
+            template<typename INTERNAL>
             [[nodiscard]] bool appears_in(const Sequence<INTERNAL>& sequence) const {
                 bool contains_motif = empty();
                 // Don't run checks if motif is longer than sequence
-                if (sequence.originalLength() >= length()) {
+                if (sequence.original_length() >= length()) {
                     // Lot of ^ and $ handling mostly
                     if (from_start_) {
                         if (until_end_) {
-                            contains_motif = (sequence.originalLength() == length()) &&
-                                    aligns_with<INTERNAL>(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()));
+                            contains_motif = (sequence.original_length() == length()) &&
+                                             aligns_with<INTERNAL>(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()));
                         } else {
                             contains_motif = aligns_with<INTERNAL>(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()));
                         }
@@ -243,7 +243,7 @@ namespace tidysq {
                         contains_motif = aligns_with<INTERNAL>(sequence.cend(alph_.alphabet_size()) - length(), sequence.cend(alph_.alphabet_size()));
                     } else {
                         // Basic case below (without ^ or $)
-                        typename Sequence<INTERNAL>::ConstSequenceIterator it = sequence.cbegin(alph_.alphabet_size());
+                        typename Sequence<INTERNAL>::const_iterator it = sequence.cbegin(alph_.alphabet_size());
                         // Stop when motif no longer fits in what little part of sequence is left or we already
                         // know that there is a motif here
                         while (!contains_motif && it <= sequence.cend(alph_.alphabet_size()) - length()) {
@@ -255,22 +255,22 @@ namespace tidysq {
                 return contains_motif;
             }
 
-            template<InternalType INTERNAL>
+            template<typename INTERNAL>
             void find_in(const Sequence<INTERNAL> &sequence,
                          const std::string &name,
                          internal::FoundMotifs<INTERNAL> &ret) const {
                 // Don't run checks if motif is longer than sequence
-                if (sequence.originalLength() >= length()) {
+                if (sequence.original_length() >= length()) {
                     // Lot of ^ and $ handling mostly
                     if (from_start_) {
-                        if (!until_end_ || sequence.originalLength() == length()) {
+                        if (!until_end_ || sequence.original_length() == length()) {
                             locate(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()), name, ret);
                         }
                     } else if (until_end_) {
                         locate(sequence.cend(alph_.alphabet_size()) - length(), sequence.cend(alph_.alphabet_size()), name, ret);
                     } else {
                         // Basic case below (without ^ or $)
-                        typename Sequence<INTERNAL>::ConstSequenceIterator it = sequence.cbegin(alph_.alphabet_size());
+                        typename Sequence<INTERNAL>::const_iterator it = sequence.cbegin(alph_.alphabet_size());
                         while (it <= sequence.cend(alph_.alphabet_size()) - length()) {
                             locate(it, sequence.cend(alph_.alphabet_size()), name, ret);
                             ++it;
@@ -290,7 +290,7 @@ namespace tidysq {
         return ret;
     }
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     Rcpp::LogicalVector has(const Sq<INTERNAL> &sq, const std::vector<std::string>& motifs) {
         using internal::Motif;
 
@@ -312,7 +312,7 @@ namespace tidysq {
         return ret;
     }
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     internal::FoundMotifs<INTERNAL> find_motifs(const Sq<INTERNAL> &sq,
                                                 const std::vector<std::string>& names,
                                                 const std::vector<std::string>& motifs) {

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "tidysq/types/internal/LetterTree.h"
+#include "tidysq/internal/LetterTree.h"
 
 namespace tidysq {
-    template<InternalType INTERNAL, ProtoType PROTO, bool SIMPLE>
+    template<typename INTERNAL, typename PROTO, bool SIMPLE>
     class ProtoSequenceInputInterpreter {
         typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceContentType ContentType;
         typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceElementType ElementType;
@@ -21,8 +21,8 @@ namespace tidysq {
                                       const Alphabet &alphabet) :
             internal_iterator_(iterator_begin),
             end_(iterator_end),
-            reached_end_(internal_iterator_ == end_),
             alphabet_(alphabet),
+            reached_end_(internal_iterator_ == end_),
             interpreted_letters_(0) {};
 
         [[nodiscard]] inline ElementType match_element() const {
@@ -71,18 +71,18 @@ namespace tidysq {
     };
 
     template<>
-    inline LetterValue ProtoSequenceInputInterpreter<RCPP, STRINGS, true>::match_value() const {
+    inline LetterValue ProtoSequenceInputInterpreter<RCPP_IT, STRINGS_PT, true>::match_value() const {
         return alphabet_.match_value((ElementType) internal_iterator_[0]);
     }
 
     template<>
-    inline LetterValue ProtoSequenceInputInterpreter<RCPP, STRINGS, false>::match_value() const {
+    inline LetterValue ProtoSequenceInputInterpreter<RCPP_IT, STRINGS_PT, false>::match_value() const {
         return alphabet_.match_value((ElementType) internal_iterator_[0]);
     }
 
-    template<InternalType INTERNAL>
-    class ProtoSequenceInputInterpreter<INTERNAL, STRING, false> {
-        typedef typename TypeMapper<INTERNAL, STRING>::ProtoSequenceContentType ContentType;
+    template<typename INTERNAL>
+    class ProtoSequenceInputInterpreter<INTERNAL, STRING_PT, false> {
+        typedef typename TypeMapper<INTERNAL, STRING_PT>::ProtoSequenceContentType ContentType;
         typedef ElementStringMultichar ElementType;
         typedef typename ContentType::const_iterator ContentConstIteratorType;
 
@@ -136,7 +136,7 @@ namespace tidysq {
             return interpreted_letters_;
         }
 
-        friend class ProtoSequence<INTERNAL, STRING>;
+        friend class ProtoSequence<INTERNAL, STRING_PT>;
     };
 }
 

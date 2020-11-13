@@ -2,16 +2,16 @@
 
 #include <utility>
 
-#include "tidysq/types/Alphabet.h"
-#include "tidysq/types/TypeMapper.h"
-#include "tidysq/ops/internal/util.h"
-#include "tidysq/types/ProtoSequenceInputInterpreter.h"
+#include "tidysq/Alphabet.h"
+#include "tidysq/TypeMapper.h"
+#include "tidysq/util/calculate_length.h"
+#include "tidysq/ProtoSequenceInputInterpreter.h"
 
 namespace tidysq {
-    template<InternalType INTERNAL, ProtoType PROTO, bool SIMPLE>
+    template<typename INTERNAL, typename PROTO, bool SIMPLE>
     class ProtoSequenceInputInterpreter;
 
-    template<InternalType INTERNAL, ProtoType PROTO>
+    template<typename INTERNAL, typename PROTO>
     class ProtoSequence {
         typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceContentType content_;
     public:
@@ -75,39 +75,39 @@ namespace tidysq {
     };
 
     template<>
-    inline ProtoSequence<STD, STRING>::ProtoSequence(const LenSq length) :
+    inline ProtoSequence<STD_IT, STRING_PT>::ProtoSequence(const LenSq length) :
             ProtoSequence(ContentType(length, ' ')) {};
 
     template<>
-    inline ProtoSequence<RCPP, STRING>::ProtoSequence(const LenSq length) :
+    inline ProtoSequence<RCPP_IT, STRING_PT>::ProtoSequence(const LenSq length) :
             ProtoSequence(ContentType(length, ' ')) {};
 
 
     template<>
-    inline ProtoSequence<RCPP, STRING>& ProtoSequence<RCPP, STRING>::operator+=(std::string &&letter) {
+    inline ProtoSequence<RCPP_IT, STRING_PT>& ProtoSequence<RCPP_IT, STRING_PT>::operator+=(std::string &&letter) {
         content_ += letter;
         return *this;
     }
 
     template<>
-    inline ProtoSequence<STD, STRING>& ProtoSequence<STD, STRING>::operator+=(std::string &&letter) {
+    inline ProtoSequence<STD_IT, STRING_PT>& ProtoSequence<STD_IT, STRING_PT>::operator+=(std::string &&letter) {
         std::string x;
         content_ += letter;
         return *this;
     }
 
     template<>
-    inline bool ProtoSequence<RCPP, RAWS>::operator==(const ProtoSequence<RCPP, RAWS> &other) const {
+    inline bool ProtoSequence<RCPP_IT, RAWS_PT>::operator==(const ProtoSequence<RCPP_IT, RAWS_PT> &other) const {
         return Rcpp::is_true(Rcpp::all(content_ == other.content_));
     }
 
     template<>
-    inline bool ProtoSequence<RCPP, INTS>::operator==(const ProtoSequence<RCPP, INTS> &other) const {
+    inline bool ProtoSequence<RCPP_IT, INTS_PT>::operator==(const ProtoSequence<RCPP_IT, INTS_PT> &other) const {
         return Rcpp::is_true(Rcpp::all(content_ == other.content_));
     }
 
     template<>
-    inline bool ProtoSequence<RCPP, STRINGS>::operator==(const ProtoSequence<RCPP, STRINGS> &other) const {
+    inline bool ProtoSequence<RCPP_IT, STRINGS_PT>::operator==(const ProtoSequence<RCPP_IT, STRINGS_PT> &other) const {
         return Rcpp::is_true(Rcpp::all(content_ == other.content_));
     }
 }

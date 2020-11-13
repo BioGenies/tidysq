@@ -2,60 +2,25 @@
 
 #include <vector>
 #include <stdexcept>
-#include "tidysq/types/general.h"
+
+#include "tidysq/tidysq-typedefs.h"
+#include "tidysq/constants/standard_letters.h"
 
 namespace tidysq {
-    enum SqType {
-        AMI_EXT,
-        AMI_BSC,
-        DNA_EXT,
-        DNA_BSC,
-        RNA_EXT,
-        RNA_BSC,
-        UNT,
-        ATP,
-        ENC
-    };
-
     typedef std::string SqTypeAbbr;
     typedef std::string RClass;
 
     namespace util {
-        inline Letter default_NA_letter() {
-            return "!";
-        }
-
         inline bool has_standard_alphabet(const SqType &type) {
             return std::set{AMI_EXT, AMI_BSC, DNA_EXT, DNA_BSC, RNA_EXT, RNA_BSC}.count(type);
         }
 
         inline std::vector<Letter> standard_letters_for_sq_type(const SqType &type) {
-            std::vector<Letter> letters;
-            switch (type) {
-                case AMI_EXT:
-                    letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
-                               "S", "T", "U", "V", "W", "X", "Y", "Z", "-", "*"};
-                    break;
-                case AMI_BSC:
-                    letters = {"A", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V",
-                               "W", "Y", "-", "*"};
-                    break;
-                case DNA_EXT:
-                    letters = {"A", "C", "G", "T", "W", "S", "M", "K", "R", "Y", "B", "D", "H", "V", "N", "-"};
-                    break;
-                case DNA_BSC:
-                    letters = {"A", "C", "G", "T", "-"};
-                    break;
-                case RNA_EXT:
-                    letters = {"A", "C", "G", "U", "W", "S", "M", "K", "R", "Y", "B", "D", "H", "V", "N", "-"};
-                    break;
-                case RNA_BSC:
-                    letters = {"A", "C", "G", "U", "-"};
-                    break;
-                default:
-                    throw std::invalid_argument("Provided R_class does not have a predefined standard alphabet!");
+            try {
+                return constants::STANDARD_LETTERS.at(type);
+            } catch (const std::out_of_range &e) {
+                throw std::invalid_argument("Provided R_class does not have a predefined standard alphabet!");
             }
-            return letters;
         }
 
         inline SqType guess_sq_type_from_letters(const std::vector<Letter> &letters) {
