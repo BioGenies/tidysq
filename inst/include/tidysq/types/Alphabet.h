@@ -18,14 +18,14 @@ namespace tidysq {
     class Sq;
 
     class Alphabet {
-        const std::vector<Letter> letters_;
-        const Letter NA_letter_;
-        const AlphSize alphabet_size_;
-        const LetterValue NA_value_;
-        const SqType type_;
-        const bool is_simple_;
-        const std::vector<SimpleLetter> simple_letters_;
-        const SimpleLetter simple_NA_letter_;
+        std::vector<Letter> letters_;
+        Letter NA_letter_;
+        AlphSize alphabet_size_;
+        LetterValue NA_value_;
+        SqType type_;
+        bool is_simple_;
+        std::vector<SimpleLetter> simple_letters_;
+        SimpleLetter simple_NA_letter_;
 
         void check_letters() const {
             for (auto &letter : letters_) {
@@ -98,6 +98,8 @@ namespace tidysq {
         Alphabet(const Alphabet &other) = default;
 
         Alphabet(Alphabet &&other) noexcept = default;
+
+        Alphabet& operator=(const Alphabet &other) = default;
 
         [[nodiscard]] inline LetterValue length() const {
             return letters_.size();
