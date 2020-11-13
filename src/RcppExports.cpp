@@ -183,6 +183,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPP_remove_NA
+Rcpp::List CPP_remove_NA(const Rcpp::List& x, const bool by_letter, const Rcpp::StringVector& NA_letter);
+RcppExport SEXP _tidysq_CPP_remove_NA(SEXP xSEXP, SEXP by_letterSEXP, SEXP NA_letterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const bool >::type by_letter(by_letterSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_remove_NA(x, by_letter, NA_letter));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_remove_ambiguous
 Rcpp::List CPP_remove_ambiguous(const Rcpp::List& x, const bool by_letter, const Rcpp::StringVector& NA_letter);
 RcppExport SEXP _tidysq_CPP_remove_ambiguous(SEXP xSEXP, SEXP by_letterSEXP, SEXP NA_letterSEXP) {
@@ -228,6 +241,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_find_invalid_letters", (DL_FUNC) &_tidysq_CPP_find_invalid_letters, 3},
     {"_tidysq_CPP_find_motifs", (DL_FUNC) &_tidysq_CPP_find_motifs, 4},
     {"_tidysq_CPP_has", (DL_FUNC) &_tidysq_CPP_has, 3},
+    {"_tidysq_CPP_remove_NA", (DL_FUNC) &_tidysq_CPP_remove_NA, 3},
     {"_tidysq_CPP_remove_ambiguous", (DL_FUNC) &_tidysq_CPP_remove_ambiguous, 3},
     {"_tidysq_CPP_translate", (DL_FUNC) &_tidysq_CPP_translate, 4},
     {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 0},

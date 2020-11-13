@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 
 #include "tidysq/exports.h"
-#include "tidysq/remove_ambiguous.h"
+#include "tidysq/remove_on_condition.h"
 
 using namespace tidysq;
 

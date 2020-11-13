@@ -57,6 +57,10 @@ CPP_has <- function(x, motifs, NA_letter) {
     .Call(`_tidysq_CPP_has`, x, motifs, NA_letter)
 }
 
+CPP_remove_NA <- function(x, by_letter, NA_letter) {
+    .Call(`_tidysq_CPP_remove_NA`, x, by_letter, NA_letter)
+}
+
 CPP_remove_ambiguous <- function(x, by_letter, NA_letter) {
     .Call(`_tidysq_CPP_remove_ambiguous`, x, by_letter, NA_letter)
 }
