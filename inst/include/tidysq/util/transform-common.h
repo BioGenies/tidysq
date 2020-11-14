@@ -35,4 +35,12 @@ namespace tidysq::util {
         std::copy(set.begin(), set.end(), ret.begin());
         return ret;
     }
+
+    inline std::vector<Letter> convert_map_to_vector(const std::unordered_map<LetterValue, const Letter> &value_to_letter) {
+        std::vector<Letter> ret(value_to_letter.size());
+        for (unsigned short i = 0; i < value_to_letter.size(); i++) {
+            ret[i] = value_to_letter.at(i);
+        }
+        return ret;
+    }
 }
