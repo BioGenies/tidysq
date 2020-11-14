@@ -1,6 +1,6 @@
 #include <Rcpp.h>
 
-#include "tidysq/exports.h"
+#include "tidysq/tidysq-includes.h"
 #include "tidysq/remove_on_condition.h"
 
 using namespace tidysq;
@@ -9,5 +9,5 @@ using namespace tidysq;
 Rcpp::List CPP_remove_ambiguous(const Rcpp::List& x,
                                 const bool by_letter,
                                 const Rcpp::StringVector& NA_letter) {
-    return export_to_R(remove_ambiguous<RCPP>(import_from_R(x, NA_letter), by_letter));
+    return export_to_R(remove_ambiguous<RCPP_IT>(import_from_R(x, NA_letter), by_letter));
 }

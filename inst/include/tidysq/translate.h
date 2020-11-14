@@ -3,7 +3,6 @@
 #pragma ide diagnostic ignored "cert-err58-cpp"
 
 #include <map>
-#include "tidysq/ops/internal/util.h"
 
 namespace tidysq {
     typedef const std::unordered_map<LetterValue,
@@ -378,14 +377,14 @@ namespace tidysq {
         return codon_table_1.at(codon_1).at(codon_2).at(codon_3);
     }
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     Sequence<INTERNAL> translate(const Sequence<INTERNAL> &sequence,
                                  const int &table,
                                  const bool &interpret_as_stop,
                                  const AlphSize &input_alph_size,
                                  const AlphSize &output_alph_size) {
-        LenSq sequence_length = sequence.originalLength() / 3;
-        Sequence<INTERNAL> ret = internal::reserve_space_for_packed<INTERNAL>(sequence_length, output_alph_size);
+        LenSq sequence_length = sequence.original_length() / 3;
+        Sequence<INTERNAL> ret = util::reserve_space_for_packed<INTERNAL>(sequence_length, output_alph_size);
 
         if (sequence_length > 0) {
             auto input_it = sequence.cbegin(input_alph_size);
@@ -401,7 +400,7 @@ namespace tidysq {
         return ret;
     }
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     Sq<INTERNAL> translate(const Sq<INTERNAL> &sq,
                            const int &table,
                            const bool &interpret_as_stop) {
