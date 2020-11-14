@@ -221,6 +221,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPP_substitute_letters
+Rcpp::List CPP_substitute_letters(const Rcpp::List& x, const Rcpp::StringVector& encoding, const Rcpp::StringVector& NA_letter);
+RcppExport SEXP _tidysq_CPP_substitute_letters(SEXP xSEXP, SEXP encodingSEXP, SEXP NA_letterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type encoding(encodingSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_substitute_letters(x, encoding, NA_letter));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_translate
 Rcpp::List CPP_translate(const Rcpp::List& x, const int& table, const Rcpp::StringVector& NA_letter, const bool& interpret_as_stop);
 RcppExport SEXP _tidysq_CPP_translate(SEXP xSEXP, SEXP tableSEXP, SEXP NA_letterSEXP, SEXP interpret_as_stopSEXP) {
@@ -269,6 +282,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_remove_NA", (DL_FUNC) &_tidysq_CPP_remove_NA, 3},
     {"_tidysq_CPP_remove_ambiguous", (DL_FUNC) &_tidysq_CPP_remove_ambiguous, 3},
     {"_tidysq_CPP_reverse", (DL_FUNC) &_tidysq_CPP_reverse, 2},
+    {"_tidysq_CPP_substitute_letters", (DL_FUNC) &_tidysq_CPP_substitute_letters, 3},
     {"_tidysq_CPP_translate", (DL_FUNC) &_tidysq_CPP_translate, 4},
     {"_tidysq_CPP_typify", (DL_FUNC) &_tidysq_CPP_typify, 3},
     {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 0},
