@@ -224,7 +224,5 @@ namespace tidysq {
         }
 
         friend Rcpp::StringVector export_to_R(const Alphabet &alphabet);
-        template<typename INTERNAL>
-        friend std::vector<std::vector<Letter>> find_invalid_letters(const Sq<INTERNAL> &sq, const SqType &type);
     };
 }
