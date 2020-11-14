@@ -5,7 +5,7 @@
 
 namespace tidysq {
     inline Rcpp::StringVector export_to_R(const Alphabet &alphabet) {
-        Rcpp::StringVector ret = util::convert_string_vector(alphabet.letters_);
+        Rcpp::StringVector ret = util::convert_string_vector(util::convert_map_to_vector(alphabet.value_to_letter_));
         ret.attr("type") = util::sq_type_abbr_for_type(alphabet.type_);
         ret.attr("class") = Rcpp::StringVector{"sq_alphabet", "character", "vctrs_vctr"};
         return ret;

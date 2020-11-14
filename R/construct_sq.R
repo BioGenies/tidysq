@@ -445,12 +445,12 @@ sq <- function(x,
   assert_flag(ignore_case)
   
   if (is.null(alphabet)) {
-    alphabet <- obtain_alphabet(x, if (safe_mode) Inf else 4096)
+    alphabet <- obtain_alphabet(x, if (safe_mode) Inf else 4096, ignore_case)
     alphabet <- guess_standard_alphabet(alphabet)
   } else if (length(alphabet) == 1) {
     type <- interpret_type(alphabet)
     if (type == "unt") {
-      alphabet <- obtain_alphabet(x, Inf, NA_letter)
+      alphabet <- obtain_alphabet(x, Inf, NA_letter, ignore_case)
     } else {
       alphabet <- get_standard_alphabet(type)
     }
@@ -458,7 +458,7 @@ sq <- function(x,
     alphabet <- sq_alphabet(alphabet, "atp")
   }
   
-  pack(x, alphabet, NA_letter, safe_mode)
+  pack(x, alphabet, NA_letter, safe_mode, ignore_case)
 }
 
 sq_ptype <- function(str_alphabet, type)
