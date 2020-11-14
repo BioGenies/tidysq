@@ -2,16 +2,17 @@
 
 #include <functional>
 
-#include "tidysq/exports.h"
+#include "tidysq/Sq.h"
+#include "tidysq/internal/pack.h"
 
 namespace tidysq {
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     Sequence<INTERNAL> remove_on_condition(const Sequence<INTERNAL> &sequence,
                                            const Alphabet &alph,
                                            const Alphabet &dest_alph,
                                            const std::function<bool(LetterValue)> &condition,
                                            const bool by_letter) {
-        typedef typename TypeMapper<INTERNAL, STRINGS>::ProtoSequenceContentType ContentType;
+        typedef typename TypeMapper<INTERNAL, STRINGS_PT>::ProtoSequenceContentType ContentType;
         // TODO: extract functions out of these ifs, maybe?
         if (by_letter) {
             ContentType selected_letters;
@@ -20,21 +21,21 @@ namespace tidysq {
                     selected_letters.push_back(alph[*it]);
                 }
             }
-            ProtoSequence<INTERNAL, STRINGS> unpacked{selected_letters};
+            ProtoSequence<INTERNAL, STRINGS_PT> unpacked{selected_letters};
             Sequence<INTERNAL> repacked =
-                    internal::reserve_space_for_packed<INTERNAL>(unpacked.length(), dest_alph.alphabet_size());
-            internal::pack<INTERNAL, STRINGS, INTERNAL, true>(unpacked, repacked, dest_alph);
+                    util::reserve_space_for_packed<INTERNAL>(unpacked.length(), dest_alph.alphabet_size());
+            internal::pack<INTERNAL, STRINGS_PT, INTERNAL, true>(unpacked, repacked, dest_alph);
             return repacked;
         } else {
             if (std::all_of(sequence.cbegin(alph.alphabet_size()), sequence.cend(alph.alphabet_size()),
                             [=](const LetterValue element) { return condition(element); })) {
                 if (alph != dest_alph) {
-                    ProtoSequence<INTERNAL, STRINGS> unpacked =
-                            internal::reserve_space_for_unpacked<INTERNAL, INTERNAL, STRINGS>(sequence);
+                    ProtoSequence<INTERNAL, STRINGS_PT> unpacked =
+                            util::reserve_space_for_unpacked<INTERNAL, INTERNAL, STRINGS_PT>(sequence);
                     internal::unpack_common(sequence, unpacked, alph);
                     Sequence<INTERNAL> repacked =
-                            internal::reserve_space_for_packed<INTERNAL>(unpacked.length(), dest_alph.alphabet_size());
-                    internal::pack<INTERNAL, STRINGS, INTERNAL, true>(unpacked, repacked, dest_alph);
+                            util::reserve_space_for_packed<INTERNAL>(unpacked.length(), dest_alph.alphabet_size());
+                    internal::pack<INTERNAL, STRINGS_PT, INTERNAL, true>(unpacked, repacked, dest_alph);
                     return repacked;
                 } else {
                     return sequence;
@@ -45,7 +46,7 @@ namespace tidysq {
         }
     }
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     Sequence<INTERNAL> remove_NA(const Sequence<INTERNAL> &sequence,
                                  const Alphabet &alph,
                                  const bool by_letter) {
@@ -54,17 +55,17 @@ namespace tidysq {
         }, by_letter);
     }
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     Sequence<INTERNAL> remove_ambiguous(const Sequence<INTERNAL> &sequence,
-                                                      const Alphabet &alph,
-                                                      const Alphabet &dest_alph,
-                                                      const bool by_letter) {
+                                        const Alphabet &alph,
+                                        const Alphabet &dest_alph,
+                                        const bool by_letter) {
         return remove_on_condition<INTERNAL>(sequence, alph, dest_alph, [=](LetterValue value) {
             return dest_alph.contains(alph[value]) || alph.NA_value() == value;
         }, by_letter);
     }
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     Sq<INTERNAL> remove_NA(const Sq<INTERNAL> &sq,
                            const bool by_letter) {
         const Alphabet &alph = sq.alphabet();
@@ -76,7 +77,7 @@ namespace tidysq {
         return ret;
     }
 
-    template<InternalType INTERNAL>
+    template<typename INTERNAL>
     Sq<INTERNAL> remove_ambiguous(const Sq<INTERNAL> &sq,
                                   const bool by_letter) {
         SqType type;
