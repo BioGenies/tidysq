@@ -71,7 +71,7 @@ namespace tidysq {
         }) || values.size() != unique_values.size();
 
         for (LenSq i = 0; i < sq.length(); ++i) {
-            if (need_repacking) {
+            if (!need_repacking) {
                 ret[i] = sq[i].get();
             } else {
                 ret[i] = substitute_letters<INTERNAL>(sq[i].get(), encoding, alph, dest_alph);
