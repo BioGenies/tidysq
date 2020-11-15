@@ -3,9 +3,12 @@ sq_dna <- sq(c("ACTGTC", "CGCGTTA"), alphabet = "dna_bsc")
 sq_ami <- sq(c("APOPNIQEV", "CSVMIBF"), alphabet = "ami_ext")
 # sq_unt <- sq(c("GO%NC@E(123)RO", "NFI%(#)VT;"), alphabet = "unt")
 
+str_dna <- c("ACBGBC", "CGCGBBA")
+str_ami <- c("AQWQXEQEV", "CSVZECF")
+
 # CORRECT PROTOTYPE OF RETURNED VALUE ----
 test_that("substitute_letters() returns an sq_atp object", {
-  expect_s3_class(substitute_letters(sq_dna, c(T = "U")),
+  expect_s3_class(substitute_letters(sq_dna, c(T = "B")),
                   class = "sq_atp",
                   exact = FALSE)
   expect_s3_class(substitute_letters(sq_ami, c(P = "Q", O = "W", I = "E", U = "R", Y = "T", G = "V",
@@ -16,8 +19,8 @@ test_that("substitute_letters() returns an sq_atp object", {
 
 test_that("substitute_letters() returns an object with trimmed alphabet attribute", {
   expect_setequal(
-    alphabet(substitute_letters(sq_dna, c(T = "U"))),
-    c("A", "C", "G", "U", "-")
+    alphabet(substitute_letters(sq_dna, c(T = "B"))),
+    c("A", "C", "G", "B", "-")
   )
   expect_setequal(
     alphabet(substitute_letters(sq_ami, c(P = "Q", O = "W", I = "E", U = "R", Y = "T", G = "V",
@@ -27,7 +30,7 @@ test_that("substitute_letters() returns an object with trimmed alphabet attribut
 })
 
 test_that("substitute_letters() does not remove nor add sequences", {
-  expect_length(substitute_letters(sq_dna, c(T = "U")),
+  expect_length(substitute_letters(sq_dna, c(T = "B")),
                 length(sq_dna))
   expect_length(substitute_letters(sq_ami, c(P = "Q", O = "W", I = "E", U = "R", Y = "T", G = "V",
                                              L = "A", K = "S", J = "D", H = "F", M = "Z", N = "X", B = "C")),
@@ -36,7 +39,7 @@ test_that("substitute_letters() does not remove nor add sequences", {
 
 test_that("substitute_letters() keep original_lengths unchanged", {
   expect_equal(
-    get_sq_lengths(substitute_letters(sq_dna, c(T = "U"))),
+    get_sq_lengths(substitute_letters(sq_dna, c(T = "B"))),
     get_sq_lengths(sq_dna)
   )
   expect_equal(
@@ -46,10 +49,23 @@ test_that("substitute_letters() keep original_lengths unchanged", {
   )
 })
 
+# CORRECT RETURN VALUE ----
+test_that("substitute_letters() correctly computes value", {
+  expect_equivalent(
+    as.character(substitute_letters(sq_dna, c(T = "B"))),
+    str_dna
+  )
+  expect_equivalent(
+    as.character(substitute_letters(sq_ami, c(P = "Q", O = "W", I = "E", U = "R", Y = "T", G = "V",
+                                              L = "A", K = "S", J = "D", H = "F", M = "Z", N = "X", B = "C"))),
+    str_ami
+  )
+})
+
 # SURJECTIVITY OF SUBSTITUTION ----
 test_that("substitute_letters() is a surjection regarding the alphabets", {
   expect_lte(
-    vec_size(alphabet(substitute_letters(sq_dna, c(T = "U")))),
+    vec_size(alphabet(substitute_letters(sq_dna, c(T = "B")))),
     vec_size(alphabet(sq_dna))
   )
   expect_lte(
