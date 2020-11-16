@@ -86,6 +86,7 @@ namespace tidysq {
 
         typedef ProtoSequence<STD_IT, PROTO>                                       ProtoSqElementType;
         typedef std::vector<ProtoSqElementType>                                 ProtoSqContentType;
+        typedef std::vector<ProtoSequenceContentType>                           ProtoSqContentVectorType;
 
     };
 
@@ -109,6 +110,7 @@ namespace tidysq {
 
         typedef Rcpp::StringVector                                              ProtoSqContentType;
         typedef ProtoSequence<RCPP_IT, STRING_PT>                                     ProtoSqElementType;
+        typedef Rcpp::StringVector                                             ProtoSqContentVectorType;
     };
 
 

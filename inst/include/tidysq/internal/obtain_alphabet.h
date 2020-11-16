@@ -12,7 +12,7 @@ namespace tidysq::internal {
     }
 
     template<typename INTERNAL, bool SIMPLE>
-    std::set<Letter> obtain_alphabet(const typename TypeMapper<INTERNAL, STRING_PT>::ProtoSqContentType &x,
+    std::set<Letter> obtain_alphabet(const typename TypeMapper<INTERNAL, STRING_PT>::ProtoSqContentVectorType &x,
                                      const LenSq sample_size,
                                      const Letter &NA_letter,
                                      const bool ignore_case) {
@@ -22,7 +22,7 @@ namespace tidysq::internal {
         auto iter = x.begin();
 
         while (already_read < sample_size && iter != x.end()) {
-            ProtoSequence<INTERNAL, STRING_PT> sequence((char *) *iter);
+            ProtoSequence<INTERNAL, STRING_PT> sequence((std::string(*iter)));
             auto interpreter = sequence.template content_interpreter<SIMPLE>(Alphabet(std::vector<Letter>{}, NA_letter));
             while (already_read < sample_size && !interpreter.reached_end()) {
                 letters.insert(wrap_to_letter(interpreter.get_next_element()));
