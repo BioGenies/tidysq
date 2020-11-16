@@ -17,99 +17,139 @@ namespace tidysq {
     class Sq;
 
     class Alphabet {
-        const std::vector<Letter> letters_;
+        const bool ignore_case_;
+        const std::unordered_map<LetterValue, const Letter> value_to_letter_;
         const Letter NA_letter_;
         const AlphSize alphabet_size_;
         const LetterValue NA_value_;
         const bool is_simple_;
-        const std::vector<SimpleLetter> simple_letters_;
-        const SimpleLetter simple_NA_letter_;
+        const std::unordered_map<LetterValue, SimpleLetter> value_to_simple_letter_;
+        const SimpleLetter NA_simple_letter_;
+        const std::unordered_map<Letter, LetterValue> letter_to_value_;
+        const std::unordered_map<SimpleLetter, LetterValue> simple_letter_to_value_;
         const SqType type_;
 
-        void check_letters() const {
-            for (auto &letter : letters_) {
-                if (letter.empty())
-                    throw std::invalid_argument("each \"letter\" has to have at least one character!");
-            }
+        [[nodiscard]] inline AlphSize calculate_alphabet_size() {
+            return static_cast<AlphSize>(ceil(log2((double) value_to_letter_.size() + 1)));
         }
 
-        void check_NA_letter() const {
-            if (NA_letter_.empty())
-                throw std::invalid_argument("\"NA_letter\" has to have at least one character!");
-        }
-
-        [[nodiscard]] AlphSize calculate_alphabet_size() const {
-            return static_cast<AlphSize>(ceil(log2((double) letters_.size() + 1)));
-        }
-
-        [[nodiscard]] LetterValue calculate_NA_value() const {
+        [[nodiscard]] inline LetterValue calculate_NA_value() const {
             return static_cast<LetterValue>(pow(2, alphabet_size_) - 1);
         }
 
-        [[nodiscard]] bool calculate_is_simple() const {
+        [[nodiscard]] inline bool calculate_is_simple() const {
             return NA_letter_.size() == 1 &&
-                std::all_of(letters_.begin(), letters_.end(), [](const Letter& letter){ return letter.size() == 1; });
+                std::all_of(value_to_letter_.begin(), value_to_letter_.end(), [](const auto& pair){ return pair.second.size() == 1; });
         }
 
-        [[nodiscard]] std::vector<char> create_simple_letters() const {
-            if (!is_simple_) return {};
-            auto ret = std::vector<char>(letters_.size());
-            for(LetterValue i = 0; i < letters_.size(); i++) {
-                ret[i] = letters_[i][0];
+        [[nodiscard]] SimpleLetter prepare_simple_NA_letter() const {
+            return NA_letter_[0];
+        }
+
+        static std::unordered_map<LetterValue, const Letter> prepare_value_to_letter(const std::vector<Letter> &letters) {
+            std::unordered_map<LetterValue, const Letter> ret{};
+            for (int i = 0; i < letters.size(); i++) {
+                //Rcpp::Rcout << letters[i] << std::endl;
+                if (letters[i].empty())
+                    throw std::invalid_argument("each \"letter\" has to have at least one character!");
+                ret.insert({i, letters[i]});
             }
             return ret;
         }
 
-        [[nodiscard]] char create_simple_NA_letter() const {
-            return NA_letter_[0];
+        std::unordered_map<Letter, LetterValue> prepare_letter_to_value() {
+            std::unordered_map<Letter, LetterValue> ret{};
+            if (ignore_case_) {
+                if (!is_simple_)
+                    throw std::invalid_argument("\"ignore_case\" cannot be used with non-simple alphabet");
+                for (const auto &pair : value_to_letter_) {
+                    ret.insert({pair.second, pair.first});
+                }
+            } else {
+                for (const auto &pair : value_to_letter_) {
+                    ret.insert({pair.second, pair.first});
+                    if (tolower(pair.second[0]) != pair.second[0])
+                        ret.insert({{(char) tolower(pair.second[0])}, pair.first});
+                }
+            }
+            return ret;
+        }
+
+        [[nodiscard]] std::unordered_map<SimpleLetter, LetterValue> prepare_simple_letter_to_value() const {
+            if (!is_simple_) return {};
+            std::unordered_map<SimpleLetter, LetterValue> ret{};
+            for(const auto &pair : value_to_letter_) {
+                ret.insert({pair.second[0], pair.first});
+            }
+            return ret;
+        }
+
+        static inline Letter prepare_NA_letter(const Letter &NA_letter) {
+            if (NA_letter.empty())
+                throw std::invalid_argument("\"NA_letter\" has to have at least one character!");
+            return NA_letter;
+        }
+
+        [[nodiscard]] std::unordered_map<LetterValue, SimpleLetter> prepare_value_to_simple_letter() const {
+            if (!is_simple_) return {};
+            std::unordered_map<LetterValue, SimpleLetter> ret{};
+            for (const auto &pair : value_to_letter_) {
+                ret.insert({pair.first, pair.second[0]});
+            }
+            return ret;
         }
 
     public:
-        typedef typename std::vector<Letter>::const_iterator const_iterator;
+        typedef typename std::unordered_map<LetterValue, const Letter>::const_iterator const_iterator;
 
         Alphabet(const std::vector<Letter> &letters,
                  const SqType &type,
-                 const Letter &NA_letter = constants::DEFAULT_NA_LETTER) :
-                letters_(letters),
-                NA_letter_(NA_letter),
+                 const Letter &NA_letter = constants::DEFAULT_NA_LETTER,
+                 const bool ignore_case = false) :
+                ignore_case_(ignore_case),
+                value_to_letter_(prepare_value_to_letter(letters)),
+                NA_letter_(prepare_NA_letter(NA_letter)),
                 alphabet_size_(calculate_alphabet_size()),
                 NA_value_(calculate_NA_value()),
                 is_simple_(calculate_is_simple()),
-                simple_letters_(create_simple_letters()),
-                simple_NA_letter_(create_simple_NA_letter()),
-                type_(type) {
-            check_letters();
-            check_NA_letter();
-        }
+                value_to_simple_letter_(prepare_value_to_simple_letter()),
+                NA_simple_letter_(prepare_simple_NA_letter()),
+                letter_to_value_(prepare_letter_to_value()),
+                simple_letter_to_value_(prepare_simple_letter_to_value()),
+                type_(type) {}
 
         explicit Alphabet(const SqType &type,
-                          const Letter &NA_letter = constants::DEFAULT_NA_LETTER) :
+                          const Letter &NA_letter = constants::DEFAULT_NA_LETTER,
+                          const bool ignore_case = false) :
                       Alphabet(util::standard_letters_for_sq_type(type),
                               type,
-                              NA_letter) {};
+                              NA_letter,
+                              ignore_case) {};
 
 
         //TODO: do it better!
         explicit Alphabet(const std::vector<Letter> &letters,
-                          const Letter &NA_letter = constants::DEFAULT_NA_LETTER) :
+                          const Letter &NA_letter = constants::DEFAULT_NA_LETTER,
+                          const bool ignore_case = false) :
                 Alphabet(util::has_standard_alphabet(util::guess_sq_type_from_letters(letters)) ? util::standard_letters_for_sq_type(util::guess_sq_type_from_letters(letters)) : letters,
                          util::guess_sq_type_from_letters(letters),
-                         NA_letter) {};
+                         NA_letter,
+                         ignore_case) {};
 
         Alphabet(const Alphabet &other) = default;
 
         Alphabet(Alphabet &&other) noexcept = default;
 
         [[nodiscard]] inline LetterValue length() const {
-            return static_cast<LetterValue>(letters_.size());
+            return static_cast<LetterValue>(value_to_letter_.size());
         }
 
         inline const Letter &operator[](LetterValue index) const {
-            return index == NA_value_ ? NA_letter_ : letters_[index];
+            return index == NA_value_ ? NA_letter_ : value_to_letter_.at(index);
         }
 
         inline const SimpleLetter &get_simple_letter(LetterValue index) const {
-            return index == NA_value_ ? simple_NA_letter_ : simple_letters_[index];
+            return index == NA_value_ ? NA_simple_letter_ : value_to_simple_letter_.at(index);
         }
 
         [[nodiscard]] inline const LetterValue &NA_value() const {
@@ -133,23 +173,24 @@ namespace tidysq {
         }
 
         [[nodiscard]] inline const_iterator begin() const {
-            return letters_.begin();
+            return value_to_letter_.begin();
         }
 
         [[nodiscard]] inline const_iterator end() const {
-            return letters_.end();
+            return value_to_letter_.end();
         }
 
         [[nodiscard]] inline const_iterator cbegin() const {
-            return letters_.cbegin();
+            return value_to_letter_.cbegin();
         }
 
         [[nodiscard]] inline const_iterator cend() const {
-            return letters_.cend();
+            return value_to_letter_.cend();
         }
 
         inline bool operator==(const Alphabet &other) const {
-            return letters_ == other.letters_;
+            return value_to_letter_ == other.value_to_letter_ &&
+                     NA_letter_ == other.NA_letter_;
         }
 
         inline bool operator!=(const Alphabet &other) const {
@@ -157,31 +198,31 @@ namespace tidysq {
         }
 
         [[nodiscard]] inline LetterValue match_value(const ElementRaws &letter) const {
-            if (letter < letters_.size()) return letter;
+            if (letter < value_to_letter_.size()) return letter;
             return NA_value_;
         }
 
         [[maybe_unused]] [[nodiscard]] inline LetterValue match_value(const ElementInts &letter) const {
-            if (letter < letters_.size()) return letter;
+            if (letter < value_to_letter_.size()) return letter;
             return NA_value_;
         }
 
         [[nodiscard]] inline LetterValue match_value(const ElementStringSimple &letter) const {
-            for(LetterValue i = 0; i < letters_.size(); i++) {
-                if (letter == simple_letters_[i]) return i;
+            try {
+                return simple_letter_to_value_.at(letter);
+            } catch (const std::out_of_range &e) {
+                return NA_value_;
             }
-            return NA_value_;
         }
 
         [[nodiscard]] inline LetterValue match_value(const Letter &letter) const {
-            for(LetterValue i = 0; i < letters_.size(); i++) {
-                if (letter == letters_[i]) return i;
+            try {
+                return letter_to_value_.at(letter);
+            } catch (const std::out_of_range &e) {
+                return NA_value_;
             }
-            return NA_value_;
         }
 
         friend Rcpp::StringVector export_to_R(const Alphabet &alphabet);
-        template<typename INTERNAL>
-        friend std::vector<std::vector<Letter>> find_invalid_letters(const Sq<INTERNAL> &sq, const SqType &type);
     };
 }

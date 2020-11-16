@@ -4,18 +4,19 @@
 
 namespace tidysq::util {
     template<typename INTERNAL>
-    Alphabet obtain_alphabet(const typename TypeMapper<INTERNAL, STRING_PT>::ProtoSqContentType &x,
+    Alphabet obtain_alphabet(const typename TypeMapper<INTERNAL, STRING_PT>::ProtoSqContentVectorType &x,
                              const LenSq sample_size,
-                             const Letter &NA_letter) {
+                             const Letter &NA_letter,
+                             const bool ignore_case) {
 
         std::set<Letter> letters;
 
         if (NA_letter.length() == 0) {
             throw std::invalid_argument("'NA_letter' should have at least one character!");
         } else if (NA_letter.length() == 1) {
-            letters = tidysq::internal::obtain_alphabet<INTERNAL, true>(x, sample_size, NA_letter);
+            letters = tidysq::internal::obtain_alphabet<INTERNAL, true>(x, sample_size, NA_letter, ignore_case);
         } else {
-            letters = tidysq::internal::obtain_alphabet<INTERNAL, false>(x, sample_size, NA_letter);
+            letters = tidysq::internal::obtain_alphabet<INTERNAL, false>(x, sample_size, NA_letter, ignore_case);
         }
 
         return Alphabet(convert_set_to_vector(letters),UNT, NA_letter);

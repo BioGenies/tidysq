@@ -1,6 +1,7 @@
 obtain_alphabet <- function(x, sample_size = 4096, 
-                            NA_letter = getOption("tidysq_NA_letter")) {
-  CPP_obtain_alphabet(x, sample_size, NA_letter)
+                            NA_letter = getOption("tidysq_NA_letter"),
+                            ignore_case = FALSE) {
+  CPP_obtain_alphabet(x, sample_size, NA_letter, ignore_case)
 }
 
 guess_standard_alphabet <- function(alph,
