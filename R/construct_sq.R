@@ -445,7 +445,8 @@ sq <- function(x,
   assert_flag(ignore_case)
   
   if (is.null(alphabet)) {
-    alphabet <- obtain_alphabet(x, if (safe_mode) Inf else 4096, ignore_case)
+    alphabet <- obtain_alphabet(x, if (safe_mode) Inf else 4096, 
+                                NA_letter, ignore_case)
     alphabet <- guess_standard_alphabet(alphabet)
   } else if (length(alphabet) == 1) {
     type <- interpret_type(alphabet)
