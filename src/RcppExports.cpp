@@ -18,13 +18,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // CPP_obtain_alphabet
-Rcpp::StringVector CPP_obtain_alphabet(const Rcpp::StringVector& x, const Rcpp::IntegerVector& sample_size, const Rcpp::StringVector& NA_letter, const Rcpp::LogicalVector& ignore_case);
+Rcpp::StringVector CPP_obtain_alphabet(const Rcpp::StringVector& x, const Rcpp::NumericVector& sample_size, const Rcpp::StringVector& NA_letter, const Rcpp::LogicalVector& ignore_case);
 RcppExport SEXP _tidysq_CPP_obtain_alphabet(SEXP xSEXP, SEXP sample_sizeSEXP, SEXP NA_letterSEXP, SEXP ignore_caseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type sample_size(sample_sizeSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type sample_size(sample_sizeSEXP);
     Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
     Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type ignore_case(ignore_caseSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_obtain_alphabet(x, sample_size, NA_letter, ignore_case));
