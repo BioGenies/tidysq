@@ -5,24 +5,24 @@ CPP_guess_standard_alph <- function(alph, NA_letter) {
     .Call(`_tidysq_CPP_guess_standard_alph`, alph, NA_letter)
 }
 
-CPP_obtain_alphabet <- function(x, sample_size, NA_letter) {
-    .Call(`_tidysq_CPP_obtain_alphabet`, x, sample_size, NA_letter)
+CPP_obtain_alphabet <- function(x, sample_size, NA_letter, ignore_case) {
+    .Call(`_tidysq_CPP_obtain_alphabet`, x, sample_size, NA_letter, ignore_case)
 }
 
-CPP_pack_RAWS <- function(proto, alphabet, NA_letter) {
-    .Call(`_tidysq_CPP_pack_RAWS`, proto, alphabet, NA_letter)
+CPP_pack_RAWS <- function(proto, alphabet, NA_letter, ignore_case) {
+    .Call(`_tidysq_CPP_pack_RAWS`, proto, alphabet, NA_letter, ignore_case)
 }
 
-CPP_pack_INTS <- function(proto, alphabet, NA_letter) {
-    .Call(`_tidysq_CPP_pack_INTS`, proto, alphabet, NA_letter)
+CPP_pack_INTS <- function(proto, alphabet, NA_letter, ignore_case) {
+    .Call(`_tidysq_CPP_pack_INTS`, proto, alphabet, NA_letter, ignore_case)
 }
 
-CPP_pack_STRINGS <- function(proto, alphabet, NA_letter) {
-    .Call(`_tidysq_CPP_pack_STRINGS`, proto, alphabet, NA_letter)
+CPP_pack_STRINGS <- function(proto, alphabet, NA_letter, ignore_case) {
+    .Call(`_tidysq_CPP_pack_STRINGS`, proto, alphabet, NA_letter, ignore_case)
 }
 
-CPP_pack_STRING <- function(proto, alphabet, NA_letter) {
-    .Call(`_tidysq_CPP_pack_STRING`, proto, alphabet, NA_letter)
+CPP_pack_STRING <- function(proto, alphabet, NA_letter, ignore_case) {
+    .Call(`_tidysq_CPP_pack_STRING`, proto, alphabet, NA_letter, ignore_case)
 }
 
 CPP_unpack_RAWS <- function(sq, NA_letter) {

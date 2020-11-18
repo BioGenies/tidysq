@@ -4,7 +4,7 @@
 \alias{translate}
 \title{Convert DNA or RNA into proteins using genetic code}
 \usage{
-translate(x, table = 1, ...)
+translate(x, table = 1, NA_letter = getOption("tidysq_NA_letter"), ...)
 }
 \arguments{
 \item{x}{an object of class \code{\link{sq}} with either \strong{dna} or

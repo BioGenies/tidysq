@@ -39,7 +39,8 @@ namespace tidysq {
 
         // TODO: move the chunk below somewhere into Alphabet class
         std::vector<Letter> dest_letters;
-        for (const Letter &letter : alph) {
+        for (const auto &entry : alph) {
+            const Letter letter = entry.second;
             if (encoding.count(letter) == 0) {
                 if (std::none_of(dest_letters.begin(), dest_letters.end(), [=](const Letter &other) {
                     return letter == other;

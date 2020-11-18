@@ -11,9 +11,8 @@ namespace tidysq {
 
         std::vector<LetterValue> invalid_indices;
         for (LetterValue i = 0; i < alph.length(); ++i) {
-            // TODO: would be nice to unfriend Alphabet and simply have an AlphabetIterator
-            if (std::none_of(dest_alph.letters_.cbegin(), dest_alph.letters_.cend(),
-                             [alph, i](const Letter& letter){ return alph[i] == letter; })) {
+            if (std::none_of(dest_alph.cbegin(), dest_alph.cend(),
+                             [alph, i](const auto& pair){ return alph[i] == pair.second; })) {
                 invalid_indices.push_back(i);
             }
         }

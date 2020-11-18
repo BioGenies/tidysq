@@ -15,8 +15,8 @@ namespace tidysq {
         const Alphabet dest_alph = Alphabet(type, alph.NA_letter());
 
         // Input alphabet must be a subset of target alphabet, otherwise some letters cannot be encoded
-        if (!std::all_of(alph.cbegin(), alph.cend(), [=](const Letter &letter) {
-            return dest_alph.contains(letter);
+        if (!std::all_of(alph.cbegin(), alph.cend(), [=](const std::pair<LetterValue, Letter> &entry) {
+            return dest_alph.contains(entry.second);
         })) {
             throw std::invalid_argument("sq object contains letters that do not appear in the alphabet of target type");
         }

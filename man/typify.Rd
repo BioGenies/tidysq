@@ -4,7 +4,7 @@
 \alias{typify}
 \title{Set type of untyped and atypical sequences}
 \usage{
-typify(x, dest_type)
+typify(x, dest_type, NA_letter = getOption("tidysq_NA_letter"), ...)
 }
 \arguments{
 \item{x}{an object of class \code{\link{sq}} with one of the types \strong{ami},
