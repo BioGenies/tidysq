@@ -39,12 +39,6 @@ exactly one protein.
 Moreover, behaviour of this function is undefined whenever cleaned sequence
 contain either \code{-} or \code{NA} sign.
 }
-\examples{
-sq_dna <- construct_sq_dna(c("TACTGGGCATGA", "CAGGTC", "TAGTCCTAG"),
-                           is_clean = TRUE)
-translate(sq_dna)
-
-}
 \seealso{
 \code{\link{clean}}, \code{\link{substitute_letters}} and
 \code{\link{typify}} for necessary actions before using \code{translate()}

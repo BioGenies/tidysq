@@ -32,21 +32,6 @@ sequence is smaller than the length of the longest sequence, the remaining
 columns will be filled with \code{\link{NA}}. All attributes of the input
 \code{sq} are lost during the conversion to matrix.
 }
-\examples{
-# Creating objects to work on:
-sq_same_len <- construct_sq(c("CGATAGACA", "TGACAAAAC", "GTGACCGTA"),
-                            type = 'dna')
-sq_diff_len <- construct_sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", 
-                              "CAGACCANNNATAG"), type = 'dna')
-
-# Converting sq object containing sequences of the same lengths to matrix:
-as.matrix(sq_same_len)
-
-# Converting sq object containing sequences of different lengths to 
-# matrix - NA introduced:
-as.matrix(sq_diff_len)
-
-}
 \seealso{
 \code{\link{sq}}
 }

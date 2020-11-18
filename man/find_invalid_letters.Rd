@@ -44,18 +44,6 @@ Returned lists for \strong{ami}, \strong{dna} and \strong{rna} \code{sq} objects
 if \code{des_type} is specified respectively "ami", "dna" and "rna", will contain
 only \code{\link[=sq]{NULL}} elements.
 }
-\examples{
-# Creating an object to work on:       
-sq_nucleotides <- construct_sq(c("ACGPOIUATTAGACG","GGATFGHA"))
-sq_amino_acids <- construct_sq(c("QWERTYUIZXCVBNM","LKJHGFDSAZXCVBN"))
-
-# Creating lists of mismatched elements from nucleotide sq object:
-get_invalid_letters(sq_nucleotides, "dna")
-
-# Creating lists of mismatched elements from amino acid sq object:
-get_invalid_letters(sq_amino_acids, "ami")
-
-}
 \seealso{
 \code{\link{sq}} \code{\link{construct_sq}}
 }

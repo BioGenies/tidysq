@@ -30,62 +30,7 @@
 #' 'tidysq_a_bite_na' - it can be either a warning (default), an error,
 #' a message or no information (you can check details in \code{\link{tidysq-options})}. 
 #' \code{NA} values can be removed by using \code{\link{remove_na}} function.
-#' 
-#' @examples 
-#' # Creating object, called sq to work on:
-#' # The first four sequences of are miRNAs and isomiRs that were taken from 
-#' # Tan et al. (2014) Nucleic Acid Research, doi: 10.1093/nar/gku656. 
-#' # Selected miR-9 (isomiRs) sequences from neural progenitor stem cells
-#' # look as follows: TCTTTGGTTATCTAGCTGTATGA, CTTTGGTTATCTAGCTGTATGA, 
-#' # TCTTTGGTTATCTAGCTGTATG, TCTTTGGTTATCTAGCTGTATGAA
-#' # The remaining sequences represent short artificial random sequences.
-#' # Tan et al. have shown that "majority of miRNA genes encode mature isomers 
-#' # that vary in size by one or more bases at the 3' and/or 5' end of the miRNA.
-#' # In the following the bite function is used to trim nucleotieds 5' for a 
-#' # simple visual alignment.
-#' # construct_sq is used to create a sq object
 #'
-#' sq <- construct_sq(c("TCTTTGGTTATCTAGCTGTATGA", "CTTTGGTTATCTAGCTGTATGA", 
-#'                      "TCTTTGGTTATCTAGCTGTATG", "TCTTTGGTTATCTAGCTGTATGAA", 
-#'                      "ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"), type = "dna")
-#'
-#' # Get an overview of the sequences and show the first four only:
-#' # The first four isomiRs sequences have lengths of 15, 14, 14 and 15
-#' # nucleotides. The remaining artificial sequences have lengths of 5, 4, 3 
-#' # and 5 nucleotides, respectively.
-#' summary(sq)
-#'
-#' # Working with the first four miRNA/isomiR
-#' # Removing first letter from the first four sequences (miRNAs/isomiRs).
-#' # The sequence 1, 3 and 4 appear to be more similar.
-#' bite(sq[1:4], -1)
-#' 
-#' # Extracting first five letters from each miRNA/ismomiR sequence:
-#' bite(sq[1:4], 1:5)
-#' 
-#' # Working with all sequences
-#' # Extracting first letter from each sequence:
-#' bite(sq, 1)
-#' 
-#' # Extracting first three letters from each sequence:
-#' bite(sq, 1:3)
-#' 
-#' # Extracting second, fourth, third and second letters:
-#' bite(sq, c(2,4,3,2))
-#' 
-#' # Extracting second to fifth letter - NA introduced:
-#' bite(sq, 2:5)
-#' 
-#' # Extracting all from first to twentieth - NA introduced:
-#' bite(sq, 1:20)
-#' 
-#' # Extracting all excluding first letter of sequence:
-#' bite(sq, -1)
-#' 
-#' # Extracting all excluding second and sixth letter of sequence:
-#' bite(sq, c(-2, -6))
-#' 
-#' 
 #' @seealso \code{\link{sq}} \code{\link{remove_na}} \code{\link{tidysq-options}}
 #' @export
 bite <- function(x, indices, ...,

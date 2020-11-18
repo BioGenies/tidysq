@@ -210,11 +210,13 @@ NULL
 #' @description This function allows the user to construct objects of 
 #' \code{\link[=sq]{class sq}} from a character vector.
 #' 
-#' @param sq a \code{\link{character}} vector.
-#' @param type a \code{\link{character}} string indicating type of \code{sq} object that
-#' is going to be constructed; supported values are "ami" for amino acid sequences,
-#' "dna" for DNA sequences, "rna" for RNA sequences, "unt" for and \code{NULL} for
-#' type guessing (see details)
+#' @param sq [character] (no default)
+#' Vector to construct object from.
+#' @param alphabet [character] (default = NULL)
+#' If provided value is a single string, it will be interpreted as type (see details).
+#' If provided value has length greater than one, it will be treated as atypical alphabet for \code{sq} obejct and
+#' \code{sq} type will be \code{atp}.
+#' If provaded value is \code{NULL}, type guessing will be performed (see details).
 #' @param is_clean a \code{\link{logical}} value indicating if sequences are clean.
 #' or in other words - they don't contain ambiguous values; supported values are \code{TRUE} 
 #' for clean sequences, \code{FALSE} for unclean sequences and \code{NULL} for auto detecting
@@ -325,112 +327,7 @@ NULL
 #' can use \code{\link{typify}} function to set of \code{sq} to \strong{ami}, \strong{dna}
 #' or \strong{rna}. If your sequences contain \code{NA} values, use \code{\link{remove_na}}
 #' 
-#' @examples 
-#' # saving option:
-#' previous_option <- getOption("tidysq_g_fast_mode")
-#' 
-#' #### constructing sq in normal mode:
-#' ## setting an option:
-#' options(tidysq_g_fast_mode = FALSE)
-#' 
-#' ## constructing sq without specifying type
-#' # dna cln sq
-#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"))
-#' 
-#' # rna cln sq
-#' construct_sq(c("CUUAC", "UACCGGC", "GCA-ACGU"))
-#' 
-#' # ami cln sq
-#' construct_sq(c("YQQPAVVM", "PQCFL"))
-#' 
-#' # ami cln sq can contain * - letter meaning end of translation:
-#' construct_sq(c("MMDF*", "SYIHR*", "MGG*"))
-#' 
-#' # dna sq
-#' construct_sq(c("TMVCCDA", "BASDT-CNN"))
-#' 
-#' # rna sq
-#' construct_sq(c("WHDHKYN", "GCYVCYU"))
-#' 
-#' # ami sq
-#' construct_sq(c("XYOQWWKCNJLO"))
-#' 
-#' # unt sq - let's assume that one wants to mark some special element in sequence with %
-#' construct_sq(c("%%YAPLAA", "PLAA"))
-#' 
-#' ## constructing sq with type 
-#' # all above examples will result in an identical if specified type as guessed
-#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "dna")
-#' construct_sq(c("CUUAC", "UACCGGC", "GCA-ACGU"), "rna")
-#' construct_sq(c("YQQPAVVM", "PQCFL"), "ami")
-#' construct_sq(c("MMDF*", "SYIHR*", "MGG*"), "ami")
-#' construct_sq(c("TMVCCDA", "BASDT-CNN"), "dna")
-#' construct_sq(c("WHDHKYN", "GCYVCYU"), "rna")
-#' construct_sq(c("XYOQWWKCNJLO"), "ami")
-#' construct_sq(c("%%YAPLAA", "PLAA"), "unt")
-#' 
-#' # you can also use wrappers instead of parameters
-#' construct_sq_dna(c("ATGC", "TCGTTA", "TT--AG"))
-#' construct_sq_rna(c("CUUAC", "UACCGGC", "GCA-ACGU"))
-#' construct_sq_ami(c("YQQPAVVM", "PQCFL"))
-#' construct_sq_ami(c("MMDF*", "SYIHR*", "MGG*"))
-#' construct_sq_dna(c("TMVCCDA", "BASDT-CNN"))
-#' construct_sq_rna(c("WHDHKYN", "GCYVCYU"))
-#' construct_sq_ami(c("XYOQWWKCNJLO"))
-#' 
-#' # One can force type other than guessed (if letters fit in the destination alphabet)
-#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "dna", is_clean = FALSE)
-#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "ami")
-#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "ami", is_clean = FALSE)
-#' construct_sq(c("ATGC", "TCGTTA", "TT--AG"), "unt")
-#' 
-#' ## constructing with non_standard specified
-#' # in sequences below "mA" denotes methyled alanine - two characters are treated as single letter
-#' construct_sq(c("LmAQYmASSR", "LmASMKLKFmAmA"), non_standard = "mA")
-#' 
-#' # reading sequences with three-letter names:
-#' construct_sq(c("ProProGlyAlaMetAlaCys"), non_standard = c("Pro", "Gly", "Ala", "Met", "Cys"))
-#' 
-#' #### constructing in fast mode:
-#' ## setting fast mode on
-#' options(tidysq_g_fast_mode = TRUE)
-#' 
-#' # you cannot construct without specifying type
-#' \dontrun{
-#' construct_sq("CTGA")
-#' }
-#' construct_sq("CTGA", "dna", TRUE)
-#' 
-#' # you cannot construct with specifying non_standard
-#' \dontrun{
-#' construct_sq("mAPQ", non_standard = "mA")
-#' }
-#' 
-#' # letters other than in specified alphabet will be treated as NA:
-#' construct_sq("NCTGCNA", "dna", TRUE)
-#' 
-#' #### Other examples:
-#' ## setting fast mode off again:
-#' options(tidysq_g_fast_mode = FALSE)
-#' 
-#' # lowercase letters are converted to uppercase if detected type is
-#' # "ami", "dna" or "rna"
-#' construct_sq(c("aTGc", "tcgTTA", "tt--AG"))
-#' construct_sq(c("XYOqwwKCNJLo"))
-#' 
-#' # but not for "unt"
-#' construct_sq(c("aAAaAA"), type = "unt")
-#' 
-#' # you can construct sq with length 0
-#' construct_sq(character(0))
-#' 
-#' # and sq with empty sequences
-#' construct_sq(c("AGTGGC", "", "CATGA", ""))
-#' 
-#' ## reseting an option
-#' options(tidysq_g_fast_mode = previous_option)
-#' 
-#' @seealso \code{\link{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}} 
+#' @seealso \code{\link{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}}
 #' \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}
 #' @export
 sq <- function(x,

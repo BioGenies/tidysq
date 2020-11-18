@@ -18,22 +18,6 @@
 #' @details 
 #' Providing object of class other than specified will result in error.
 #' 
-#' @examples 
-#' ## ape example
-#' library(ape)
-#' ape_dna <- as.DNAbin(list(one = c("C", "T", "C", "A"), two = c("T", "G", "A", "G", "G")))
-#' import_sq(ape_dna)
-#' 
-#' ## Biostrings example
-#' library(Biostrings)
-#' Biostrings_dna <- DNAStringSet(c(one = "CTCA", two = "TGAGG"))
-#' import_sq(Biostrings_dna)
-#' 
-#' ## seqinr example
-#' library(seqinr)
-#' seqinr_dna <- as.SeqFastadna(c("C", "T", "C", "A"), name = "one")
-#' import_sq(seqinr_dna)
-#' 
 #' @seealso \code{\link{export_sq}} \code{\link{sq}}
 #' @export
 import_sq <- function(object, ...)

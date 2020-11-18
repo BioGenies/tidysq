@@ -22,18 +22,6 @@ This function allows returning numeric vector of lengths of sequences from
 in \code{\link{sq}} object.
 The function counts elements in all types of sequences.
 }
-\examples{
-# Creating an object to work on:
-sq_dna <- construct_sq(c("ACGATTAGACG","GGATA"), type = "dna")
-sq_amino_acids <- construct_sq(c("MMVTAAV"), type = "ami")
-
-# Counting number of elements in DNA sq object with defined type:
-get_sq_lengths(sq_dna)
-
-# Counting number of elements in amino acid sq object with defined type:
-get_sq_lengths(sq_amino_acids)
-
-}
 \seealso{
 \code{\link{sq}} \code{\link{construct_sq}}
 }

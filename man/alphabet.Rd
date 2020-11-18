@@ -41,23 +41,6 @@ The details about amino acid and nucleotide alphabets can be checked in
 information about alphabets and types of \code{sq} objects can be found in \code{\link{sq}}
 class documentation.
 }
-\examples{
-# Creating an object to work on:
-sq_dna <- construct_sq(c("ACGATTAGACG","GGATA"), type = "dna")
-sq_amino_acids <- construct_sq(c("MMVTAAV"), type = "ami")
-sq_untyped <- construct_sq(c("ACGA&&TTAGACG&"), type = "unt")
-
-# Testing DNA sq object with defined type:
-get_sq_alphabet(sq_dna)
-
-# Testing amino acid sq object with defined type:
-get_sq_alphabet(sq_amino_acids)
-
-# Testing nucleotide sq object without defined type:
-get_sq_alphabet(sq_untyped)
-
-  
-}
 \seealso{
 \code{\link{sq}} \code{\link{construct_sq}} \code{\link{encode}}
 }

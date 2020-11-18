@@ -37,42 +37,6 @@ Comparing sequences as characters vectors cause that various types of sequences
 can be compared for example amino acid with nucleotide sequences so attention
 should be paid, which sequence types are compared.
 }
-\examples{
-
-# Creating sq object to work on:
-sq <- construct_sq(c("ACTGCTG", "CTTAGA", 
-                     "CCCT", "CTGAATGT"), type = "dna")
-                     
-sq_different_len <- construct_sq(c("ACTGCTG", "CTTAGA", 
-                                   "GGAA"), type = "dna")
-                                   
-sq_the_same_len <- construct_sq(c("ACTGCTG", "CTTAGA", 
-                                 "CCCT", "CTGAATGT"), type = "dna")
-                                                                                       
-# Get an overview of the sequences:
-summary(sq)
-summary(sq_the_same_len)
-summary(sq_different_len)
-
-# Comparing sq object with an object of the same length :
-sq == sq_the_same_len
-
-# Comparing object sq object with an object of a different length : 
-sq == sq_different_len
- 
-# Comparing sq object to a given character vector of a different length:
-sq == c('AAA','CCC')
-
-# Comparing sq object to a given character vector of the same length:
-sq == c("ACTGCTG", "CTTAGA",'CCCT', 'CTGAATGT')
-
-# Comparing sq object to a given DNA element 'ATGTGA':
-sq == 'ATGTGA'
-
-# Comparing sq object to a given amino acid vector:
-sq == c('RISGQQD','RISGQQD')
- 
-}
 \seealso{
 \code{\link{sq}} \code{\link{as.character}} \code{\link{is.sq}}
 }

@@ -46,14 +46,3 @@ be changed in package options (see \code{\link{tidysq-options}}).
 Output \code{sq} object will not have \strong{cln} subtype, even if all letters of it fit in
 clean alphabet of destination type (with exception of passing already clean object as input).
 }
-\examples{
-# constructing artificial sq object with strange characters - type will be "unt"
-sq_unt <- construct_sq(c("&VPLG&#", "##LCG"))
-
-# substituting letters with "X", which stands for unknown amino acid
-sq_sub <- substitute_letters(sq_unt, c(`&` = "X", `#` = "X"))
-
-# setting type
-typify(sq_sub, "ami")
-
-}

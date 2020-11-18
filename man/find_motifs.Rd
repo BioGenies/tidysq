@@ -57,27 +57,6 @@ Detailed list of all letters corresponding to each ambiguous letter may be found
 \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}}.
 }
 
-\examples{
-# Creating objects to work on:
-sq_ami <- construct_sq(c("AGNTYIKFGGAYTI", "MATEGILIAADGYTWIL", 
-                         "MIPADHICAANGIENAGIK"), type = 'ami')
-sqtbl <- read_fasta(system.file(package = "tidysq", "example_aa.fasta"), 
-                    type = "ami")
-
-# Find motif of two alanines followed by aspartic acid or asparagine 
-# ('AAB' motif will match 'AAB', 'AAD' and 'AAN'):
-find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "AAB")
-
-# Find motif 'VHH' at the beginning of sequences:
-find_motifs(sqtbl[["sq"]], sqtbl[["name"]], "^VHH")
-
-# Find motif 'DPGS' at the end of sequences:
-find_motifs(sqtbl[["sq"]], sqtbl[["name"]], "DPGS$")
-
-# Find multiple motifs:
-find_motifs(sqtbl[["sq"]], sqtbl[["name"]], c("^LIV", "XXKK", "EN$"))
-
-}
 \seealso{
 \code{\link{sq}} \code{\link{substitute_letters}} \code{\link{\%has\%}}
 }

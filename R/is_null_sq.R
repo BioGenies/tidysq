@@ -18,28 +18,6 @@
 #' latter replaces \code{NA} values (which may be introduced by 
 #' \code{\link{bite}}) with \code{NULL sq}.
 #'
-#' @examples 
-#' # Creating an object to work on:
-#' sq <- construct_sq(c("ACGATTAGACG", "", "GACGANTCCAGNTAC"), type = "dna")
-#' 
-#' # Testing for presence of empty sequences:
-#' is_null_sq(sq)
-#' 
-#' # Testing for presence of empty sequences after cleaning - sequence 
-#' # containing ambiguous elements is replaced by NULL sq:
-#' cln_sq <- clean(sq)
-#' is_null_sq(cln_sq)
-#' 
-#' # Testing for presence of empty sequences after using bite
-#' # and removing NA.
-#' # Extracting letters from first to fifteenth - NA introduced:
-#' bitten_sq <- bite(sq, 1:15)
-#' # Removing NA:
-#' rm_bitten_sq <- remove_na(bitten_sq)
-#' # Testing for presence of empty sequences:
-#' is_null_sq(rm_bitten_sq)
-#' 
-#' 
 #' @seealso \code{\link{sq}} \code{\link{clean}}
 #' @export
 is_null_sq <- function(x) {

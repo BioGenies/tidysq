@@ -52,30 +52,6 @@ Detailed list of all letters corresponding to each ambiguous letter may be found
 \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}}.
 }
 
-\examples{
-# Creating objects to work on:
-sq_dna <- construct_sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", 
-                         "CAGACCANNNATAG"), type = 'dna')
-sq_ami <- construct_sq(c("AGNTYIKFGGAYTI", "MATEGILIAADGYTWIL", 
-                         "MIPADHICAANGIENAGIK"), type = 'ami')
-                         
-# Test if DNA sequences contain start codon 'ATG':
-sq_dna \%has\% 'ATG'
-
-# Test if DNA sequences begin with start codon 'ATG'
-sq_dna \%has\% '^ATG'
-
-# Test if DNA sequences end with 'TAG' (one of the stop codons):
-sq_dna \%has\% 'TAG$'
-
-# Test if amino acid sequences contain motif of two alanines followed by
-# aspartic acid or asparagine ('AAB' motif will match 'AAB', 'AAD' and 'AAN'):
-sq_ami \%has\% 'AAB'
-
-# Test if amino acid sequences contain two motifs:
-sq_ami \%has\% c("AAXG", "mat")
-
-}
 \seealso{
 \code{\link{sq}} \code{\link{substitute_letters}} \code{\link{find_motifs}}
 }

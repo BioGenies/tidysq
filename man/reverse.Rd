@@ -25,23 +25,6 @@ the type of the input object nor its alphabet.
 Since the function \code{reverse} returns a \code{\link{sq}} object, the 
 \code{\link[=sq-print]{print}} function is implicitly called.
 }
-\examples{
-# Creating sq objects using construct_sq:
-sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
-                         "NYERTGHLI", "MAYXXXIALN"), type = "ami")
-sq_dna <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", ""), type = "dna")
-sq_unt <- construct_sq(c("ATGCAGGA!", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
-
-# Reverse sequences:
-reverse(sq_ami)
-reverse(sq_dna)
-reverse(sq_unt)
-
-# Reverse cleaned sequences:
-reverse(clean(sq_ami))
-reverse(clean(sq_dna))
-
-}
 \seealso{
 \code{\link{sq}} \code{\link{clean}} \code{\link{sq-print}}
 }

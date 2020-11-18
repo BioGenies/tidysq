@@ -24,17 +24,6 @@ In \pkg{tidysq} only for \code{\link{character}} vector there is an implemented 
 which in fact works exactly like \code{\link{construct_sq}} - you can also pass other arguments
 like those supported by \code{\link{construct_sq}}.
 }
-\examples{
-# constructing an example in usual way
-sq_1 <- construct_sq("CTGA")
-
-# using a method for character
-sq_2 <- as.sq("CTGA")
-
-# checking that both objects are identical
-identical(sq_1, sq_2)
-
-}
 \seealso{
 \code{\link{sq}} \code{\link{construct_sq}}
 }

@@ -20,15 +20,6 @@
 #' generating a sequence of length 0, even if \code{sd} is given. Letter '*' is not used 
 #' in generating \strong{ami} sequences.
 #' 
-#' @examples 
-#' # setting seed for reproducibility
-#' set.seed(16)
-#' 
-#' # generating random sequences
-#' random_sq(10, 10, "ami", TRUE)
-#' random_sq(25, 18, "rna", TRUE, sd = 6)
-#' random_sq(50, 8, "dna", FALSE, sd = 3)
-#' random_sq(6, 100, "ami", TRUE, use_gap = TRUE)
 #' @seealso \code{\link{construct_sq}} \code{\link{sq}}
 #' @importFrom stringi stri_rand_strings stri_paste
 #' @export

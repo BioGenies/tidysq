@@ -56,30 +56,6 @@ This is overloaded function from base package. It is selected when \code{\link{s
 object is used as a parameter for print function. To see the generic function 
 page, check \code{\link[base:print]{here}}.
 }
-\examples{
-
-# Creating sq objects using construct_sq:
-sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
-                         "NYERTGHLI", "MAYXXXIALN"), type = "ami")
-sq_dna <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
-                         "TGACGAGCTTA"), type = "dna")
-sq_unt <- construct_sq(c("ATGCAGGA!", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
-
-# Printing without explicit function calling with default parameters:
-sq_ami
-sq_dna
-sq_unt
-
-# Printing with explicit function calling and specific parameters:
-print(sq_ami)
-print(sq_dna, max_sequences = 1, use_color = FALSE)
-print(sq_unt, letters_sep = ":")
-
-# Printing of the cleaned object:
-clean(sq_dna)
-print(clean(sq_dna), letters_sep = "-", use_color = FALSE)
-
-}
 \seealso{
 \code{\link{sq}} \code{\link{clean}} \code{\link{tidysq-options}}
 }

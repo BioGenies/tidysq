@@ -29,35 +29,6 @@ you are reading file using \code{\link{read_fasta}} or constructing \code{sq} ob
 \code{\link[=fast-mode]{fast mode}} and there are letters in file or in strings other than
 specified.
 }
-\examples{
-# Creating objects to work on:
-sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
-                         "NYERTGHLI", "MAYXXXIALN"), type = "ami")
-sq_dna <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
-                         "TGACGAGCTTA", "ACTNNAGCN"), type = "dna")
-
-# Substituting some letters with NA
-sq_ami_sub <- substitute_letters(sq_ami, c(E = NA, R = NA))
-sq_dna_sub <- substitute_letters(sq_dna, c(N = NA))
-
-# Biting sequences out of range
-sq_bitten <- bite(sq_ami, 1:15)
-
-# Printing them
-sq_ami_sub
-sq_dna_sub
-
-# Removing sequences containing NA
-remove_na(sq_ami_sub)
-remove_na(sq_dna_sub)
-remove_na(sq_bitten)
-
-# Removing only NA elements
-remove_na(sq_ami_sub, only_elements = TRUE)
-remove_na(sq_dna_sub, TRUE)
-remove_na(sq_bitten, TRUE)
-
-}
 \seealso{
 \code{\link{sq}} \code{\link{is_null_sq}} \code{\link{substitute_letters}}
 \code{\link{bite}}

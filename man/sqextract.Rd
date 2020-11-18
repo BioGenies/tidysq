@@ -29,39 +29,6 @@ Subsetting of the sq object does not affect its attributes (class and alphabet
 of the object). Attempt to extract elements using indices not present in
 the object will return an error.
 }
-\examples{
-# Creating objects to work on:
-sq_unt <- construct_sq(c("AHSNLVSCTK$SH\%&VS", "YQTVKA&#BSKJGY", 
-                         "IAKVGDCTWCTY&GT", "AVYI#VSV&*DVGDJCFA"))
-sq_ami <- construct_sq(c(s1 = "MAIATNCEPILLKNYAS", s2 = "YASDGLIPAKNTEWYTV", 
-                         s3 = "TIKSNAALIETRY"), type = "ami")
-
-# Subsetting using numeric vectors
-# Extracting second element of the object:
-sq_unt[2]
-
-# Extracting elements from second to fourth:
-sq_unt[2:4]
-
-# Extracting all elements except the third:
-sq_unt[-3]
-
-# Extracting first and third element:
-sq_unt[c(1,3)]
-
-# Subsetting using character vectors
-# Extracting elements named 's1' and 's3':
-sq_ami[c('s1', 's3')]
-
-# Subsetting using logical vectors
-# Extracing first and third element:
-sq_ami[c(TRUE, FALSE, TRUE)]
-
-# Subsetting using empty vector
-# Empty index will return all values:
-sq_unt[]
-
-}
 \seealso{
 \code{\link{sq}} \code{\link{bite}}
 }

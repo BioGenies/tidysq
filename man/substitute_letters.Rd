@@ -64,66 +64,6 @@ All replaced letters will have the character type.
 Multiple symbol replacement will be recognized as one letter and 
 cannot be separated in future operations into single letters.
 }
-\examples{
-# Creating sq object to work on:
-
-sq_dna <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
-                         "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", 
-                         "CTGCTG", "CTTAGA", "CCCT", "CTGAATGT"), 
-                       type = "dna")
-
-sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", 
-                        "TIAALGNIIYRAIE", "NYERTGHLI", 
-                        "MAYNNNIALN", "MN", "NAAAT"), 
-                        type = "ami")
-                     
-
-# Replace single letter of alphabet with single character encoding:
-
-substitute_letters(sq_dna, c(T = "t", A = "a", C = "H", G = "Z"))
-substitute_letters(sq_dna, c(T = 1, A = 2, C = 3, G = 4))
-
-substitute_letters(sq_ami, c(M = "m", Q = "g", R = "#", D = "$"))
-substitute_letters(sq_ami, c(M = "2", Q = "5", R = "9", D = "7"))
-
-
-# Replace single letter of alphabet with multiple character encoding:
-
-substitute_letters(sq_dna, c(T = "th", A = "ad", C = "cy", G = "gu"))
-substitute_letters(sq_dna, c(T = 111, A = 222, C = 333, G = 444))
-
-substitute_letters(sq_ami, c(M = "Met", Q = "Gln", R = "Arg", D = "Asp"))
-substitute_letters(sq_ami, c(M = "222", Q = "555", R = "999", D = "777"))
-
-# Replace single letter of alphabet with NA value:
-
-substitute_letters(sq_dna, c(A = NA, G = NA))
-
-
-# Use created encoding
-
-sub_dna <- c(T = "t", A = "a", C = "c", G = "g")
-sub_ami <- c(M = "Met", Q = "Gln", R = "Arg", D = "Asp", 
-             H = "His", K = "Lys", A = "Ala")
-
-substitute_letters(sq_dna, sub_dna)
-substitute_letters(sq_ami, sub_ami)
-
-
-# Use created encoding from other package 
-# (ex. AmyloGram::AmyloGram_model)
-
-library(AmyloGram)
-
-AG_sub_raw <- unlist(AmyloGram_model[["enc"]])
-
-sub_AG <- substr(names(AG_sub_raw), 1, 1)
-names(sub_AG) <- toupper(AG_sub_raw)
-sub_AG 
-
-substitute_letters(sq_ami, sub_AG)
-
-}
 \seealso{
 \code{\link{sq}}
 }

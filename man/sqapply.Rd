@@ -33,17 +33,6 @@ Applies given function to each sequence. Sequences are passed to function as cha
 (or numeric, if type of \code{sq} is \strong{enc}) or single character strings, depending on 
 parameter.
 }
-\examples{
-sq_ami <- construct_sq(c("YCYWIFTSRIK", "GGWGDVKCG", "KTKHIEQKL"))
-
-# count how many times "K" appears in each sequence:
-sqapply(sq_ami, function(sequence) sum(sequence == "K"))
-
-# duplicate each element of sequence, then paste it and construct new sq
-duplicated <- sqapply(sq_ami, function(sequence) paste(rep(sequence, each = 2), collapse = ""))
-construct_sq(unlist(duplicated))
-
-}
 \seealso{
 \code{\link{sq}} \code{\link[base]{lapply}}
 }

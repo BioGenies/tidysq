@@ -50,38 +50,3 @@ list. This behaviour is effectively impossible and definitely unrecommended to f
 fixing it would involve changing \code{c} primitive. If such possibility is necessary,
 \code{\link[vctrs]{vec_c}} is a better alternative.
 }
-\examples{
-cdnasq_1 <- construct_sq(c("GGACTGCA", "CTAGTA", ""), type = "dna")
-cdnasq_2 <- construct_sq(c("ATGACA", "AC-G", "-CCAT"), type = "dna")
-cdnasq_3 <- construct_sq(character(), type = "dna")
-dnasq_1 <- construct_sq(c("BNACV", "GDBADHH"), type = "dna")
-crnasq_1 <- construct_sq(c("UAUGCA", "UAGCCG"), type = "rna")
-rnasq_1 <- construct_sq(c("-AHVRYA", "G-U-HYR"), type = "rna")
-rnasq_2 <- construct_sq("AUHUCHYRBNN--", type = "rna")
-camisq_1 <- construct_sq("ACHNK-IFK-VYW", type = "ami")
-untsq_1 <- construct_sq("AF:gf;PPQ^&XN")
-
-# Concatenating same-type sequences
-# Only clean sequences
-c(cdnasq_1, cdnasq_2, cdnasq_3)
-# Only not clean sequences
-c(rnasq_1, rnasq_2)
-# Both clean and unclean sequences
-c(cdnasq_3, dnasq_1, cdnasq_2)
-
-# Mixing DNA and RNA sequences don't work
-\dontrun{
-c(cdnasq_1, crnasq_1)
-}
-
-# untsq can be mixed with DNA, RNA and amino acids
-c(camisq_1, untsq_1)
-c(untsq_1, crnasq_1, rnasq_1)
-c(cdnasq_2, untsq_1, cdnasq_3)
-
-# Character vectors are also acceptable
-c(cdnasq_2, "TGCA-GA")
-c(rnasq_1, c("UACUGGGACUG", "AUGUBNAABNRYYRAU"), rnasq_2)
-c(untsq_1, "&#JIA$O02t30,9ec", camisq_1)
-
-}

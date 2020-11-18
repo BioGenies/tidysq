@@ -15,7 +15,7 @@ ami_ext_alph <- c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
 atp_alph <- c("mA", "mY", "nbA", "nsA")
 
 # CORRECT PROTOTYPE OF RETURNED VALUE ----
-test_that("construct_sq() returns object of correct prototype", {
+test_that("sq() returns object of correct prototype", {
   expect_vector(sq(str_dna, alphabet = "dna_bsc"),
                 ptype = sq_ptype(dna_bsc_alph, "dna_bsc"),
                 size = vec_size(str_dna))
@@ -27,7 +27,7 @@ test_that("construct_sq() returns object of correct prototype", {
                 size = vec_size(str_ami))
 })
 
-test_that("construct_sq() returns object of correct class for unt and atp options", {
+test_that("sq() returns object of correct class for unt and atp options", {
   expect_s3_class(sq(str_atp, alphabet = atp_alph),
                   class = "sq_atp",
                   exact = FALSE)
@@ -36,7 +36,7 @@ test_that("construct_sq() returns object of correct class for unt and atp option
                   exact = FALSE)
 })
 
-test_that("construct_sq() returns object of same size as passed character vector", {
+test_that("sq() returns object of same size as passed character vector", {
   expect_equal(vec_size(sq(str_atp, alphabet = atp_alph)),
                vec_size(str_atp))
   expect_equal(vec_size(sq(str_unt, alphabet = "unt")),
@@ -44,7 +44,7 @@ test_that("construct_sq() returns object of same size as passed character vector
 })
 
 # TODO: test C_get_real_alph() somewhere
-test_that("construct_sq() returns object with alphabet attribute that contains existing letters for unt and atp options", {
+test_that("sq() returns object with alphabet attribute that contains existing letters for unt and atp options", {
   expect_setequal(
     alphabet(sq(str_atp, alphabet = atp_alph)),
     atp_alph

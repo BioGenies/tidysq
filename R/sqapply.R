@@ -20,16 +20,6 @@
 #' 
 #' @return A list of values returned by function for each sequence in corresponding order.
 #' 
-#' @examples 
-#' sq_ami <- construct_sq(c("YCYWIFTSRIK", "GGWGDVKCG", "KTKHIEQKL"))
-#' 
-#' # count how many times "K" appears in each sequence:
-#' sqapply(sq_ami, function(sequence) sum(sequence == "K"))
-#' 
-#' # duplicate each element of sequence, then paste it and construct new sq
-#' duplicated <- sqapply(sq_ami, function(sequence) paste(rep(sequence, each = 2), collapse = ""))
-#' construct_sq(unlist(duplicated))
-#' 
 #' @seealso \code{\link{sq}} \code{\link[base]{lapply}}
 #' @export 
 sqapply <- function(x, fun, ..., paste_char = FALSE,

@@ -23,17 +23,6 @@ supported packages are \pkg{ape} with its formats (\code{AAbin} and \code{DNAbin
 \pkg{Bioconductor} (\code{AAStringSet}, \code{DNAStringSet}) and
 \pkg{seqinr} (\code{SeqFastaAA}, \code{SeqFastadna}).
 }
-\examples{
-sq_ami <- construct_sq(c("MVVGL", "LAVPP"))
-export_sq(sq_ami, "ape::AAbin")
-export_sq(sq_ami, "Biostrings::AAStringSet", c("one", "two"))
-export_sq(sq_ami, "seqinr::SeqFastaAA")
-
-sq_dna <- construct_sq(c("TGATGAAGCGCA", "TTGATGGGAA"))
-export_sq(sq_dna, "ape::DNAbin", name = c("one", "two"))
-export_sq(sq_dna, "Biostrings::DNAStringSet")
-export_sq(sq_dna, "seqinr::SeqFastadna")
-}
 \seealso{
 \code{\link{sq}} \code{\link{import_sq}}
 }

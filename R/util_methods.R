@@ -12,16 +12,6 @@
 #' which in fact works exactly like \code{\link{construct_sq}} - you can also pass other arguments
 #' like those supported by \code{\link{construct_sq}}.
 #' 
-#' @examples 
-#' # constructing an example in usual way
-#' sq_1 <- construct_sq("CTGA")
-#' 
-#' # using a method for character
-#' sq_2 <- as.sq("CTGA")
-#' 
-#' # checking that both objects are identical
-#' identical(sq_1, sq_2)
-#' 
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
 as.sq <- function(x, ...)
@@ -55,14 +45,6 @@ as.sq.character <- function(x,
 #' All attributes of the input sq are lost during the conversion to 
 #' character vector.
 #' 
-#' @examples 
-#' # Creating an object to work on:
-#' sq_dna <- construct_sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", 
-#'                          "CAGACCANNNATAG"), type = 'dna')
-#'                          
-#' # Converting the sq object into a character vector:
-#' as.character(sq_dna)
-#'
 #' @seealso sq
 #' @export
 as.character.sq <- function(x, ...)
@@ -90,20 +72,6 @@ as.character.sq <- function(x, ...)
 #' sequence is smaller than the length of the longest sequence, the remaining
 #' columns will be filled with \code{\link{NA}}. All attributes of the input
 #' \code{sq} are lost during the conversion to matrix.
-#' 
-#' @examples 
-#' # Creating objects to work on:
-#' sq_same_len <- construct_sq(c("CGATAGACA", "TGACAAAAC", "GTGACCGTA"),
-#'                             type = 'dna')
-#' sq_diff_len <- construct_sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", 
-#'                               "CAGACCANNNATAG"), type = 'dna')
-#' 
-#' # Converting sq object containing sequences of the same lengths to matrix:
-#' as.matrix(sq_same_len)
-#' 
-#' # Converting sq object containing sequences of different lengths to 
-#' # matrix - NA introduced:
-#' as.matrix(sq_diff_len)
 #' 
 #' @seealso \code{\link{sq}}
 #' @export
@@ -135,36 +103,6 @@ as.matrix.sq_enc <- function(x, ...) {
 #' list of raws, etc. - to see details, how does \code{sq} object look like under the hood, 
 #' read \code{\link[=sq]{sq class}} manual).
 #' 
-#' @examples 
-#' sq_ami <- construct_sq(c("CVMPQGQQ", "AHLC--PPQ"))
-#' sq_dna <- construct_sq(c("GGCAT", "TATC-A", "TGA"))
-#' sq_rna <- construct_sq(c("CGAUUACG", "UUCUAGA", "UUCA"))
-#' sq_unt <- construct_sq("BAHHAJJ&HAN&JD&")
-#' sq_atp <- construct_sq(c("mALPVQAmAmA", "mAmAPQ"), non_standard = "mA")
-#' sq_enc <- encode(sq_rna, c(A = 1.23, C = -0.72, G = 0.97, U = 3.01))
-#' 
-#' is.sq(sq_ami)
-#' is.sq(sq_dna)
-#' is.sq(sq_rna)
-#' is.sq(sq_unt)
-#' is.sq(sq_atp)
-#' is.sq(sq_enc)
-#' 
-#' is.sq(c(1,2,3))
-#' is.sq(LETTERS)
-#' is.sq(TRUE)
-#' is.sq(NULL)
-#' 
-#' is.amisq(sq_ami)
-#' is.dnasq(sq_dna)
-#' is.rnasq(sq_rna)
-#' is.atpsq(sq_atp)
-#' is.untsq(sq_unt)
-#' is.encsq(sq_enc)
-#' 
-#' is.dnasq(sq_enc)
-#' is.amisq(sq_atp)
-#' is.untsq(sq_ami)
 #' @seealso \code{\link{sq}}
 #' @export
 is.sq <- function(x)
@@ -203,41 +141,6 @@ is.sq_ami_bsc <- function(x)
 #' 
 #' @return A \code{\link{logical}} vector indicating on which positions the objects are equal
 #' 
-#' @examples 
-#' 
-#' # Creating sq object to work on:
-#' sq <- construct_sq(c("ACTGCTG", "CTTAGA", 
-#'                      "CCCT", "CTGAATGT"), type = "dna")
-#'                      
-#' sq_different_len <- construct_sq(c("ACTGCTG", "CTTAGA", 
-#'                                    "GGAA"), type = "dna")
-#'                                    
-#' sq_the_same_len <- construct_sq(c("ACTGCTG", "CTTAGA", 
-#'                                  "CCCT", "CTGAATGT"), type = "dna")
-#'                                                                                        
-#' # Get an overview of the sequences:
-#' summary(sq)
-#' summary(sq_the_same_len)
-#' summary(sq_different_len)
-#'
-#' # Comparing sq object with an object of the same length :
-#' sq == sq_the_same_len
-#' 
-#' # Comparing object sq object with an object of a different length : 
-#' sq == sq_different_len
-#'  
-#' # Comparing sq object to a given character vector of a different length:
-#' sq == c('AAA','CCC')
-#' 
-#' # Comparing sq object to a given character vector of the same length:
-#' sq == c("ACTGCTG", "CTTAGA",'CCCT', 'CTGAATGT')
-#' 
-#' # Comparing sq object to a given DNA element 'ATGTGA':
-#' sq == 'ATGTGA'
-#' 
-#' # Comparing sq object to a given amino acid vector:
-#' sq == c('RISGQQD','RISGQQD')
-#'  
 #' @seealso \code{\link{sq}} \code{\link{as.character}} \code{\link{is.sq}}
 #' @export
 `==.sq` <- function(x1, x2) {
@@ -269,17 +172,6 @@ is.sq_ami_bsc <- function(x)
 #' in \code{\link{sq}} object.
 #' The function counts elements in all types of sequences.
 #'
-#' @examples 
-#' # Creating an object to work on:
-#' sq_dna <- construct_sq(c("ACGATTAGACG","GGATA"), type = "dna")
-#' sq_amino_acids <- construct_sq(c("MMVTAAV"), type = "ami")
-#' 
-#' # Counting number of elements in DNA sq object with defined type:
-#' get_sq_lengths(sq_dna)
-#' 
-#' # Counting number of elements in amino acid sq object with defined type:
-#' get_sq_lengths(sq_amino_acids)
-#' 
 #' @seealso \code{\link{sq}} \code{\link{construct_sq}}
 #' @export
 get_sq_lengths <- function(x) {
@@ -308,38 +200,6 @@ get_sq_lengths <- function(x) {
 #' Subsetting of the sq object does not affect its attributes (class and alphabet 
 #' of the object). Attempt to extract elements using indices not present in
 #' the object will return an error.
-#' 
-#' @examples 
-#' # Creating objects to work on:
-#' sq_unt <- construct_sq(c("AHSNLVSCTK$SH%&VS", "YQTVKA&#BSKJGY", 
-#'                          "IAKVGDCTWCTY&GT", "AVYI#VSV&*DVGDJCFA"))
-#' sq_ami <- construct_sq(c(s1 = "MAIATNCEPILLKNYAS", s2 = "YASDGLIPAKNTEWYTV", 
-#'                          s3 = "TIKSNAALIETRY"), type = "ami")
-#' 
-#' # Subsetting using numeric vectors
-#' # Extracting second element of the object:
-#' sq_unt[2]
-#' 
-#' # Extracting elements from second to fourth:
-#' sq_unt[2:4]
-#' 
-#' # Extracting all elements except the third:
-#' sq_unt[-3]
-#' 
-#' # Extracting first and third element:
-#' sq_unt[c(1,3)]
-#' 
-#' # Subsetting using character vectors
-#' # Extracting elements named 's1' and 's3':
-#' sq_ami[c('s1', 's3')]
-#' 
-#' # Subsetting using logical vectors
-#' # Extracing first and third element:
-#' sq_ami[c(TRUE, FALSE, TRUE)]
-#' 
-#' # Subsetting using empty vector
-#' # Empty index will return all values:
-#' sq_unt[]
 #' 
 #' @seealso \code{\link{sq}} \code{\link{bite}}
 #' @name sqextract
@@ -389,41 +249,7 @@ NULL
 #' list. This behaviour is effectively impossible and definitely unrecommended to fix, as
 #' fixing it would involve changing \code{c} primitive. If such possibility is necessary,
 #' \code{\link[vctrs]{vec_c}} is a better alternative.
-#' 
-#' @examples
-#' cdnasq_1 <- construct_sq(c("GGACTGCA", "CTAGTA", ""), type = "dna")
-#' cdnasq_2 <- construct_sq(c("ATGACA", "AC-G", "-CCAT"), type = "dna")
-#' cdnasq_3 <- construct_sq(character(), type = "dna")
-#' dnasq_1 <- construct_sq(c("BNACV", "GDBADHH"), type = "dna")
-#' crnasq_1 <- construct_sq(c("UAUGCA", "UAGCCG"), type = "rna")
-#' rnasq_1 <- construct_sq(c("-AHVRYA", "G-U-HYR"), type = "rna")
-#' rnasq_2 <- construct_sq("AUHUCHYRBNN--", type = "rna")
-#' camisq_1 <- construct_sq("ACHNK-IFK-VYW", type = "ami")
-#' untsq_1 <- construct_sq("AF:gf;PPQ^&XN")
-#' 
-#' # Concatenating same-type sequences
-#' # Only clean sequences
-#' c(cdnasq_1, cdnasq_2, cdnasq_3)
-#' # Only not clean sequences
-#' c(rnasq_1, rnasq_2)
-#' # Both clean and unclean sequences
-#' c(cdnasq_3, dnasq_1, cdnasq_2)
-#' 
-#' # Mixing DNA and RNA sequences don't work
-#' \dontrun{
-#' c(cdnasq_1, crnasq_1)
-#' }
-#' 
-#' # untsq can be mixed with DNA, RNA and amino acids
-#' c(camisq_1, untsq_1)
-#' c(untsq_1, crnasq_1, rnasq_1)
-#' c(cdnasq_2, untsq_1, cdnasq_3)
-#' 
-#' # Character vectors are also acceptable
-#' c(cdnasq_2, "TGCA-GA")
-#' c(rnasq_1, c("UACUGGGACUG", "AUGUBNAABNRYYRAU"), rnasq_2)
-#' c(untsq_1, "&#JIA$O02t30,9ec", camisq_1)
-#' 
+#'
 #' @name sqconcatenate
 #' @aliases sq-concatenate
 NULL

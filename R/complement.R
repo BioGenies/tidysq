@@ -16,30 +16,6 @@
 #' Functions \code{complement_dna} and \code{complement_rna} are provided as a safe
 #' way of limiting classes \code{complement} function is used on.
 #' 
-#' @examples 
-#' # Creating objects dna_sequence (with DNA sequences) and rna_sequence 
-#' # (with RNA sequences) to work on:
-#' 
-#' dna_sequence <- construct_sq(c("ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"),
-#'                              type = "dna")
-#' rna_sequence <- construct_sq(c("ACUGCUG", "CUUAGA", "CCCU", "CUGAAUGU"),
-#'                              type = "rna")
-#' 
-#' 
-#' # In the following the complement function is used to make a PCR (Polymerase Chain Reaction)
-#' # primers. Every sequence will be rewritten to its complementary equivalent as 
-#' # following example: AAATTTGGG to TTTAAACCC.
-#'  
-#' # creating complementary sequences with the basic function and using wrappers:
-#' complement(dna_sequence)
-#' complement_dna(dna_sequence)
-#' 
-#' complement(rna_sequence)
-#' complement_rna(rna_sequence)
-#' 
-#' # Each sequence from dna_sequence and rna_sequence object have now an own
-#' # complementary equivalent, which can be helpful during constructing PCR primers.
-#' 
 #' @seealso \code{\link{sq}}
 #' @export
 complement <- function(x)
