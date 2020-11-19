@@ -39,8 +39,11 @@ namespace tidysq {
 
         // TODO: move the chunk below somewhere into Alphabet class
         std::vector<Letter> dest_letters;
-        for (const auto &entry : alph) {
-            const Letter letter = entry.second;
+        // We cannot rely on range-based loop, because it isn't ordered alphabetical by key. Thus it's necessary
+        // to do manual looping. It should work as long as Alphabet class doesn't change to much.
+        // TODO: come up with an idea for ordered looping that doesn't rely on this exact implementation of Alphabet
+        for (LetterValue key = 0; key < alph.length(); ++key) {
+            const Letter letter = alph[key];
             if (encoding.count(letter) == 0) {
                 if (std::none_of(dest_letters.begin(), dest_letters.end(), [=](const Letter &other) {
                     return letter == other;
