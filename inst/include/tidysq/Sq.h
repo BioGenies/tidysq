@@ -81,7 +81,9 @@ namespace tidysq {
 
     template<>
     inline void Sq<RCPP_IT>::push_back(const ElementType &sequence) {
-        content_.push_back(sequence.content());
+        Rcpp::RawVector content = sequence.content();
+        content.attr("original_length") = sequence.original_length();
+        content_.push_back(content);
     }
 }
 
