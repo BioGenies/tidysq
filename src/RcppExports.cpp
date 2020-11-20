@@ -148,6 +148,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPP_complement
+Rcpp::List CPP_complement(const Rcpp::List& x, const Rcpp::StringVector& NA_letter);
+RcppExport SEXP _tidysq_CPP_complement(SEXP xSEXP, SEXP NA_letterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_complement(x, NA_letter));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_find_invalid_letters
 Rcpp::List CPP_find_invalid_letters(const Rcpp::List& x, const Rcpp::StringVector& dest_type, const Rcpp::StringVector& NA_letter);
 RcppExport SEXP _tidysq_CPP_find_invalid_letters(SEXP xSEXP, SEXP dest_typeSEXP, SEXP NA_letterSEXP) {
@@ -295,6 +307,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_unpack_STRINGS", (DL_FUNC) &_tidysq_CPP_unpack_STRINGS, 2},
     {"_tidysq_CPP_unpack_STRING", (DL_FUNC) &_tidysq_CPP_unpack_STRING, 2},
     {"_tidysq_CPP_bite", (DL_FUNC) &_tidysq_CPP_bite, 3},
+    {"_tidysq_CPP_complement", (DL_FUNC) &_tidysq_CPP_complement, 2},
     {"_tidysq_CPP_find_invalid_letters", (DL_FUNC) &_tidysq_CPP_find_invalid_letters, 3},
     {"_tidysq_CPP_find_motifs", (DL_FUNC) &_tidysq_CPP_find_motifs, 4},
     {"_tidysq_CPP_has", (DL_FUNC) &_tidysq_CPP_has, 3},

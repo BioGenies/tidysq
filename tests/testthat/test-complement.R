@@ -3,6 +3,10 @@ sq_dna <- sq(c("ATCTTGAAG", "CATATGCGCTA", "ACGTGTCGA", ""),
              alphabet = "dna_bsc")
 sq_dna_compl <- sq(c("TAGAACTTC", "GTATACGCGAT", "TGCACAGCT", ""),
                    alphabet = "dna_bsc")
+sq_dna_2 <- sq(c("KCYSRRCACNB", "BAYRNYWAK", "NBVKAWRYGG"),
+               alphabet = "dna_ext")
+sq_dna_2_compl <- sq(c("MGRSYYGTGNV", "VTRYNRWTM", "NVBMTWYRCC"),
+                     alphabet = "dna_ext")
 sq_rna <- sq(c("UAGUAACCGUAAGCG", "UAGUCC--UA-G"),
              alphabet = "rna_bsc")
 sq_rna_compl <- sq(c("AUCAUUGGCAUUCGC", "AUCAGG--AU-C"),
@@ -16,6 +20,9 @@ test_that("complement() preserves all attributes of original vector", {
   expect_vector(complement(sq_rna),
                 ptype = vec_ptype(sq_rna),
                 size = vec_size(sq_rna))
+  expect_vector(complement(sq_dna_2),
+                ptype = vec_ptype(sq_dna_2),
+                size = vec_size(sq_dna_2))
 })
 
 # VALUE COMPUTATION ----
@@ -35,15 +42,24 @@ test_that("complement() returns correct complement value for complement-less cha
   )
 })
 
+test_that("complement() returns correct complement value for ambiguous characters", {
+  expect_equivalent(
+    as.character(complement(sq_dna_2)),
+    as.character(sq_dna_2_compl)
+  )
+})
+
 # CANCELLING UPON DOUBLE USAGE ----
 test_that("double use of complement() returns original value", {
   expect_identical(complement(complement(sq_dna)), sq_dna)
   expect_identical(complement(complement(sq_rna)), sq_rna)
+  expect_identical(complement(complement(sq_dna_2)), sq_dna_2)
 })
 
 # SHORTHAND FUNCTIONS ----
 test_that("complement_dna() return identical value as complement() for DNA sequence", {
   expect_identical(complement(sq_dna), complement_dna(sq_dna))
+  expect_identical(complement(sq_dna_2), complement_dna(sq_dna_2))
 })
 test_that("complement_rna() return identical value as complement() for RNA sequence", {
   expect_identical(complement(sq_rna), complement_rna(sq_rna))
@@ -53,4 +69,5 @@ test_that("complement_dna() fail for RNA sequence", {
 })
 test_that("complement_rna() fail for DNA sequence", {
   expect_error(complement_rna(sq_dna))
+  expect_error(complement_rna(sq_dna_2))
 })
