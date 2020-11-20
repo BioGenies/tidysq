@@ -35,6 +35,18 @@ test_that("bite() interprets positive indices correctly", {
                     c("AGGG", "TTGC", "TTTA"))
 })
 
+test_that("bite() correctly interpretes '-1' index (unknown as '-0' in C++)", {
+  expect_equivalent(as.character(bite(sq_dna, -1)),
+                    c("TCAGGGCTAG", "GATTGC", "AGTTTA"))
+})
+
+test_that("bite() interprets negative indices correctly", {
+  expect_equivalent(as.character(bite(sq_unt, -6)),
+                    c("PQNVIFD", "PDOQX-FI", "SPBI--XXS"))
+  expect_equivalent(as.character(bite(sq_dna, -3:-7)),
+                    c("TTCTAG", "CG", "CA"))
+})
+
 # HANDLING INDICES OUT OF SEQUENCE ORIGINAL LENGTH ----
 test_that("bite() raises a warning when indices reach outside original length", {
   expect_warning(bite(sq_unt, 13:16), NA_warning)
@@ -54,11 +66,26 @@ test_that("bite() returns NA_letter for each index outside of original length", 
   })
 })
 
+test_that("bite() ignores negative indices outside of original length", {
+  expect_equivalent(as.character(bite(sq_unt, c(-6, -20))),
+                    c("PQNVIFD", "PDOQX-FI", "SPBI--XXS"))
+  expect_equivalent(as.character(bite(sq_dna, -15:-19)),
+                    c("TTCAGGGCTAG", "CGATTGC", "CAGTTTA"))
+  expect_equivalent(as.character(bite(sq_atp, c(-2, -5))),
+                    c("mAmY", "nbAmA", ""))
+})
+
 # CORNER/EDGE CASES ----
 test_that("bite() does nothing on empty sq objects", {
   expect_equal(bite(sq_empty, 2), sq_empty)
   expect_equal(bite(sq_empty, 5:9), sq_empty)
   expect_equal(bite(sq_empty, c(7, 16, 3)), sq_empty)
+  expect_equal(bite(sq_empty, -c(8, 2, 1)), sq_empty)
 })
 
-# TODO: add negative indices tests
+test_that("bite() ignores multiple instances of the same negative index", {
+  expect_identical(as.character(bite(sq_unt, c(-6, -6, -6))),
+                   c("PQNVIFD", "PDOQX-FI", "SPBI--XXS"))
+  expect_identical(as.character(bite(sq_dna, c(-4, -1, -1, -7, -4))),
+                   c("TCGGCTAG", "GATG", "AGTT"))
+})
