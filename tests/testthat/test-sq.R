@@ -1,5 +1,6 @@
 # SETUP ----
 str_dna <- c("TACTGGGCATG", "CAGGTCGGA", "TAGTAGTCCG", "", "ACGGT")
+str_dna_ic <- c("TaCTggGcAtg", "cAggTCgGA", "tAGTAgtCCG", "", "acgGT")
 str_rna <- c("", "KBS-UVW-AWWWG", "YGHHH-", "-CRASH", "MND-KUUBV-MY-")
 str_ami <- c("OUTLANDISH", "UNSTRUCTURIZED", "FEAR")
 str_unt <- c("vip01", "vip02", "vip04", "missing_one")
@@ -43,7 +44,6 @@ test_that("sq() returns object of same size as passed character vector", {
                vec_size(str_unt))
 })
 
-# TODO: test C_get_real_alph() somewhere
 test_that("sq() returns object with alphabet attribute that contains existing letters for unt and atp options", {
   expect_setequal(
     alphabet(sq(str_atp, alphabet = atp_alph)),
@@ -55,8 +55,52 @@ test_that("sq() returns object with alphabet attribute that contains existing le
   )
 })
 
+# NA WHEN ACTUAL ALPHABET MISMATCHES
+test_that("letters not in alphabet are loaded as NA's ", {
+  expect_equivalent(
+    as.character(sq(str_ami, "rna_bsc", NA_letter = "!")), #TODO: as.character should also take NA_letter
+    c("!U!!A!!!!!", "U!!!!UC!U!!!!!", "!!A!")
+  )
+  expect_equivalent(
+    as.character(sq(str_rna, "ami_bsc", NA_letter = "!")), 
+    c("", "K!S-!VW-AWWWG", "YGHHH-", "-CRASH", "MND-K!!!V-MY-")
+  )
+})
+
+# ALPHABET UNT WHEN SAFE MODE
+test_that("type set as untyped when in safe mode and alphabet mismatches", {
+  expect_warning(
+    sq(str_ami, "rna_bsc", safe_mode = TRUE),
+    "Detected letters that do not match specified type!"
+  )
+  suppressWarnings({
+    expect_equivalent(
+      as.character(sq(str_ami, "rna_bsc", NA_letter = "!", safe_mode = TRUE)), #TODO: as.character should also take NA_letter
+      str_ami,
+      
+    )
+    expect_equivalent(
+      as.character(sq(str_rna, "ami_bsc", NA_letter = "!", safe_mode = TRUE)), 
+      str_rna
+    )
+  })
+})
+
+# IGNORE CASE
+test_that("ignore_case parameter works correctly", {
+  expect_equal(
+    sq(str_dna, ignore_case = TRUE),
+    sq(str_dna, ignore_case = FALSE)
+  )
+  expect_equal(
+    sq(str_dna, "dna_bsc", ignore_case = TRUE),
+    sq(str_dna, "dna_bsc", ignore_case = FALSE)
+  )
+})
+
+
 # REVERSING TO CHARACTER ----
-test_that("applying to.character() returns original character vector", {
+test_that("applying as.character() returns original character vector", {
   expect_equivalent(
     as.character(sq(str_dna, alphabet = "dna_bsc")),
     str_dna

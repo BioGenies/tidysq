@@ -49,7 +49,6 @@ namespace tidysq {
         static std::unordered_map<LetterValue, const Letter> prepare_value_to_letter(const std::vector<Letter> &letters) {
             std::unordered_map<LetterValue, const Letter> ret{};
             for (int i = 0; i < letters.size(); i++) {
-                //Rcpp::Rcout << letters[i] << std::endl;
                 if (letters[i].empty())
                     throw std::invalid_argument("each \"letter\" has to have at least one character!");
                 ret.insert({i, letters[i]});
@@ -64,12 +63,12 @@ namespace tidysq {
                     throw std::invalid_argument("\"ignore_case\" cannot be used with non-simple alphabet");
                 for (const auto &pair : value_to_letter_) {
                     ret.insert({pair.second, pair.first});
+                    if (tolower(pair.second[0]) != pair.second[0])
+                        ret.insert({std::string{(char) tolower(pair.second[0])}, pair.first});
                 }
             } else {
                 for (const auto &pair : value_to_letter_) {
                     ret.insert({pair.second, pair.first});
-                    if (tolower(pair.second[0]) != pair.second[0])
-                        ret.insert({{(char) tolower(pair.second[0])}, pair.first});
                 }
             }
             return ret;
@@ -78,8 +77,8 @@ namespace tidysq {
         [[nodiscard]] std::unordered_map<SimpleLetter, LetterValue> prepare_simple_letter_to_value() const {
             if (!is_simple_) return {};
             std::unordered_map<SimpleLetter, LetterValue> ret{};
-            for(const auto &pair : value_to_letter_) {
-                ret.insert({pair.second[0], pair.first});
+            for(const auto &pair : letter_to_value_) {
+                ret.insert({pair.first[0], pair.second});
             }
             return ret;
         }

@@ -351,12 +351,20 @@ sq <- function(x,
       alphabet <- obtain_alphabet(x, Inf, NA_letter, ignore_case)
     } else {
       alphabet <- get_standard_alphabet(type)
+      if (safe_mode) {
+        actual_alphabet <- obtain_alphabet(x, Inf, NA_letter, ignore_case)
+        if (!identical(actual_alphabet, alphabet)){
+          warning("Detected letters that do not match specified type!")
+          alphabet <- actual_alphabet
+        }
+      }
     }
   } else {
+    #TODO: safe mode should also be implemented for atp
     alphabet <- sq_alphabet(alphabet, "atp")
   }
   
-  pack(x, alphabet, NA_letter, safe_mode, ignore_case)
+  pack(x, alphabet, NA_letter, ignore_case)
 }
 
 sq_ptype <- function(str_alphabet, type)
