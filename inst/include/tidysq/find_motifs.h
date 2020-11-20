@@ -217,7 +217,9 @@ namespace tidysq {
                     if (motif_it == end()) {
                         // TODO: append located motif and other info to ret
                         std::vector<int> indices(content_.size());
-                        std::iota(indices.begin(), indices.end(), sequence_it.index());
+                        std::generate(indices.rbegin(), indices.rend(), [=]() mutable {
+                            return (--sequence_it).index();
+                        });
                         Sequence<INTERNAL> found_sequence = bite<INTERNAL>(sequence_it, indices);
                         ret.append(name, found_sequence, sought_, sequence_it.index() - content_.size(), sequence_it.index() - 1);
                         return;

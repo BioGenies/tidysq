@@ -20,8 +20,8 @@ namespace tidysq {
 
         while (index_iter != indices.end() || out_sequence_iter != out_sequence.end(alph_size)) {
             ElementPacked element = NA_value;
-            if (*index_iter <= sequence.original_length()) {
-                element = sequence[{*index_iter - 1, alph_size}];
+            if (*index_iter < sequence.original_length()) {
+                element = sequence[{*index_iter, alph_size}];
             } else {
                 *warning_called = true;
             }
