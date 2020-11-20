@@ -4,37 +4,89 @@
 #include "tidysq/util/calculate_length.h"
 
 namespace tidysq {
-    template<typename INTERNAL>
-    Sequence<INTERNAL> bite(const Sequence<INTERNAL> &sequence,
-                      const std::vector<int> &indices,
-                      const AlphSize &alph_size,
-                      bool* warning_called) {
-        Sequence<INTERNAL> out_sequence(
-                util::calculate_packed_internal_length(indices.size(), alph_size),
-                indices.size()
-        );
-        const ElementPacked NA_value = 0xffu >> (8u - alph_size);
+    namespace internal {
+        template<typename INTERNAL>
+        Sequence<INTERNAL> bite_negative(const Sequence<INTERNAL> &sequence,
+                                         const std::vector<long long int> &indices,
+                                         const AlphSize &alph_size) {
+            long long int removed_indices_count =
+                    std::count_if(indices.cbegin(), indices.cend(), [=](auto &index) {
+                        return -index < sequence.original_length();
+                    });
+            Sequence<INTERNAL> out_sequence(
+                    util::calculate_packed_internal_length(sequence.original_length() - removed_indices_count, alph_size),
+                    sequence.original_length() - removed_indices_count
+            );
 
-        auto index_iter = indices.begin();
-        auto out_sequence_iter = out_sequence.begin(alph_size);
+            auto in_sequence_iter = sequence.begin(alph_size);
+            auto out_sequence_iter = out_sequence.begin(alph_size);
 
-        while (index_iter != indices.end() || out_sequence_iter != out_sequence.end(alph_size)) {
-            ElementPacked element = NA_value;
-            if (*index_iter < sequence.original_length()) {
-                element = sequence[{*index_iter, alph_size}];
-            } else {
-                *warning_called = true;
+            while (out_sequence_iter != out_sequence.end(alph_size)) {
+                if (std::none_of(indices.cbegin(), indices.cend(), [&in_sequence_iter](const long long int &index) {
+                    return in_sequence_iter.index() == -index;
+                })) {
+                    out_sequence_iter.assign(*in_sequence_iter);
+                    ++out_sequence_iter;
+                }
+                ++in_sequence_iter;
             }
-            out_sequence_iter.assign(element);
-
-            ++index_iter;
-            ++out_sequence_iter;
+            return out_sequence;
         }
-        return out_sequence;
+
+        template<typename INTERNAL>
+        Sequence<INTERNAL> bite_positive(const Sequence<INTERNAL> &sequence,
+                                         const std::vector<long long int> &indices,
+                                         const AlphSize &alph_size,
+                                         bool* warning_called) {
+            Sequence<INTERNAL> out_sequence(
+                    util::calculate_packed_internal_length(indices.size(), alph_size),
+                    indices.size()
+            );
+            const ElementPacked NA_value = 0xffu >> (8u - alph_size);
+
+            auto index_iter = indices.begin();
+            auto out_sequence_iter = out_sequence.begin(alph_size);
+
+            while (out_sequence_iter != out_sequence.end(alph_size)) {
+                ElementPacked element = NA_value;
+                if (*index_iter < sequence.original_length()) {
+                    element = sequence[{*index_iter, alph_size}];
+                } else {
+                    *warning_called = true;
+                }
+                out_sequence_iter.assign(element);
+
+                ++index_iter;
+                ++out_sequence_iter;
+            }
+            return out_sequence;
+        }
     }
 
     template<typename INTERNAL>
-    Sequence<INTERNAL> bite(const typename Sequence<INTERNAL>::const_iterator &it, const std::vector<int> &indices) {
+    Sequence<INTERNAL> bite(const Sequence<INTERNAL> &sequence,
+                            const std::vector<long long int> &indices,
+                            const AlphSize &alph_size,
+                            bool* warning_called) {
+        if (std::all_of(indices.cbegin(), indices.cend(), [](const long long int &index) {
+            return index >= 0;
+        })) {
+            return internal::bite_positive<INTERNAL>(sequence, indices, alph_size, warning_called);
+        } else if (std::all_of(indices.cbegin(), indices.cend(), [](const long long int &index) {
+            return index <= 0;
+        })) {
+            // bite_negative cannot return warnings, so we needn't pass warning_called
+            std::vector<long long int> unique_indices = indices;
+            std::sort(unique_indices.begin(), unique_indices.end());
+            std::unique(unique_indices.begin(), unique_indices.end());
+            return internal::bite_negative<INTERNAL>(sequence, unique_indices, alph_size);
+        } else {
+            throw std::invalid_argument("indices must be either all positive or all negative");
+        }
+    }
+
+    template<typename INTERNAL>
+    Sequence<INTERNAL> bite(const typename Sequence<INTERNAL>::const_iterator &it, const std::vector<long long int> &indices) {
         bool* warning_called = new bool;
         auto ret = bite(it.sequence_, indices, it.alph_size_, warning_called);
         delete warning_called;
@@ -42,7 +94,7 @@ namespace tidysq {
     }
 
     template<typename INTERNAL>
-    std::pair<std::string, Sq<INTERNAL>> bite(const Sq<INTERNAL> &sq, const std::vector<int> &indices) {
+    std::pair<std::string, Sq<INTERNAL>> bite(const Sq<INTERNAL> &sq, const std::vector<long long int> &indices) {
         Sq<INTERNAL> ret(sq.length(), sq.alphabet());
         bool warning_called = false;
         // TODO: replace with NULL once it works
