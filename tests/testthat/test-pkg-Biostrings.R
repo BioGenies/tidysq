@@ -20,7 +20,9 @@ sq_1_ami_ext <- sq(str_1_ami, alphabet = "ami_ext")
 sq_unt <- sq(str_unt, alphabet = "unt")
 sq_1_unt <- sq(str_1_unt, alphabet = "unt")
 
-biostr_dna <- Biostrings::DNAStringSet(str_dna)
+suppressWarnings({
+  biostr_dna <- Biostrings::DNAStringSet(str_dna)
+})
 biostr_1_dna <- Biostrings::DNAString(str_1_dna)
 biostr_rna <- Biostrings::RNAStringSet(str_rna)
 biostr_1_rna <- Biostrings::RNAString(str_1_rna)

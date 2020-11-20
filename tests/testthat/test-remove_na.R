@@ -1,18 +1,25 @@
 # SETUP ----
-sq_ami <- bite(sq(c("MIAANYTWIL", "", "TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
-                  alphabet = "ami_ext"), 1:14)
+suppressWarnings({
+  sq_ami <- bite(sq(c("MIAANYTWIL", "", "TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
+                    alphabet = "ami_ext"), 1:14)
+})
 sq_ami_2 <- sq(c("MIAANYTWIL", "", "TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
                alphabet = "ami_ext")
 sq_ami_3 <- sq(c("", "", "TIAALGNIIYRAIE", "", ""),
                alphabet = "ami_ext")
-sq_dna <- bite(sq(c("ATGCAGGA", "GACCGAACGAN", "TGACGAGCTTA", "ACTNNAGCN"),
-                  alphabet = "dna_ext"), 1:11)
+suppressWarnings({
+  sq_dna <- bite(sq(c("ATGCAGGA", "GACCGAACGAN", "TGACGAGCTTA", "ACTNNAGCN"),
+                    alphabet = "dna_ext"), 1:11)
+})
 sq_dna_2 <- sq(c("ATGCAGGA", "GACCGAACGAN", "TGACGAGCTTA", "ACTNNAGCN"),
                alphabet = "dna_ext")
 sq_dna_3 <- sq(c("", "GACCGAACGAN", "TGACGAGCTTA", ""),
                alphabet = "dna_ext")
-sq_rna <- bite(sq(c("UAAACGGGCUA", "UACACGGGCGACU", "AGGCA", "AUGGCGGAUGUUC"),
-                  alphabet = "rna_bsc"), 1:13)
+suppressWarnings({
+  sq_rna <- bite(sq(c("UAAACGGGCUA", "UACACGGGCGACU", "AGGCA", "AUGGCGGAUGUUC"),
+                    alphabet = "rna_bsc"), 1:13)
+  
+})
 sq_rna_2 <- sq(c("UAAACGGGCUA", "UACACGGGCGACU", "AGGCA", "AUGGCGGAUGUUC"),
                alphabet = "rna_bsc")
 sq_rna_3 <- sq(c("", "UACACGGGCGACU", "", "AUGGCGGAUGUUC"),
