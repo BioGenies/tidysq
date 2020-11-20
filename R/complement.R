@@ -18,38 +18,29 @@
 #' 
 #' @seealso \code{\link{sq}}
 #' @export
-complement <- function(x)
+complement <- function(x,
+                       NA_letter = getOption("tidysq_NA_letter"), ...)
   UseMethod("complement")
 
 #' @export
-complement.default <- function(x)
+complement.default <- function(x,
+                               NA_letter = getOption("tidysq_NA_letter"), ...)
   stop("method 'complement' isn't implemented for this type of object", call. = FALSE)
 
 #' @export
-complement.sq_dna_bsc <- function(x) {
-  alph <- alphabet(x)
-  ret <- unpack(x, "INTS")
-  
-  dict <- c(G = "C", C = "G", T = "A", A = "T", `-` = "-")
-  
-  inds_fun <- match(dict[alph], alph) - 1
-  ret <- pack(lapply(ret, function(s) inds_fun[s + 1]), alph)
-  
-  vec_restore(ret, x)
+complement.sq_dna_bsc <- function(x,
+                                  NA_letter = getOption("tidysq_NA_letter"), ...) {
+  CPP_complement(x, NA_letter)
 }
 
 #' @export
-complement.sq_rna_bsc <- function(x) {
-  alph <- alphabet(x)
-  ret <- unpack(x, "INTS")
-  
-  dict <- c(G = "C", C = "G", U = "A", A = "U", `-` = "-")
-  
-  inds_fun <- match(dict[alph], alph) - 1
-  ret <- pack(lapply(ret, function(s) inds_fun[s + 1]), alph)
-  
-  vec_restore(ret, x)
-}
+complement.sq_dna_ext <- complement.sq_dna_bsc
+
+#' @export
+complement.sq_rna_bsc <- complement.sq_dna_bsc
+
+#' @export
+complement.sq_rna_ext <- complement.sq_dna_bsc
 
 #' @rdname complement
 #' @export
@@ -63,6 +54,9 @@ complement_dna.default <- function(x)
 #' @export
 complement_dna.sq_dna_bsc <- complement.sq_dna_bsc
 
+#' @export
+complement_dna.sq_dna_ext <- complement.sq_dna_bsc
+
 #' @rdname complement
 #' @export
 complement_rna <- function(x)
@@ -73,4 +67,7 @@ complement_rna.default <- function(x)
   stop("method 'complement_rna' isn't implemented for this type of object", call. = FALSE)
 
 #' @export
-complement_rna.sq_rna_bsc <- complement.sq_rna_bsc
+complement_rna.sq_rna_bsc <- complement.sq_dna_bsc
+
+#' @export
+complement_rna.sq_rna_ext <- complement.sq_dna_bsc

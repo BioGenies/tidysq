@@ -45,6 +45,10 @@ CPP_bite <- function(x, indices, NA_letter) {
     .Call(`_tidysq_CPP_bite`, x, indices, NA_letter)
 }
 
+CPP_complement <- function(x, NA_letter) {
+    .Call(`_tidysq_CPP_complement`, x, NA_letter)
+}
+
 CPP_find_invalid_letters <- function(x, dest_type, NA_letter) {
     .Call(`_tidysq_CPP_find_invalid_letters`, x, dest_type, NA_letter)
 }
