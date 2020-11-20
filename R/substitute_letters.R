@@ -57,19 +57,21 @@
 #' @seealso \code{\link{sq}}
 #' 
 #' @export
-substitute_letters <- function(x, encoding, ...)
+substitute_letters <- function(x, encoding,
+                               NA_letter = getOption("tidysq_NA_letter"), ...)
   UseMethod("substitute_letters")
 
 #' @export
-substitute_letters.default <- function(x, encoding, ...)
+substitute_letters.default <- function(x, encoding,
+                                       NA_letter = getOption("tidysq_NA_letter"), ...)
   stop("cannot substitute letters in this type of object", call. = FALSE)
 
 #' @export
-substitute_letters.sq <- function(x, encoding, ...) {
+substitute_letters.sq <- function(x, encoding,
+                                  NA_letter = getOption("tidysq_NA_letter"), ...) {
   assert_class(x, "sq")
-  alph <- alphabet(x)
   assert_atomic_vector(encoding, names = "unique")
-  assert_subset(names(encoding), alph)
+  assert_subset(names(encoding), alphabet(x))
   
   if (is.numeric(encoding)) {
     assert_integerish(encoding)
@@ -82,15 +84,5 @@ substitute_letters.sq <- function(x, encoding, ...) {
     stop("encoding must be either numeric of character vector", call. = FALSE)
   }
   
-  inds_fun <- alph
-  inds_fun[match(names(encoding), alph)] <- encoding
-  new_alph <- vec_cast(na.omit(unique(inds_fun)), sq_alphabet_ptype("atp"))
-  inds_fun <- match(inds_fun, new_alph)
-  inds_fun[is.na(inds_fun)] <- .get_na_val(new_alph)
-  
-  ret <- .apply_sq(x, "int", "int", function(s) inds_fun[s], new_alph)
-  new_list_of(ret,
-              ptype = raw(),
-              alphabet = new_alph,
-              class = c("atpsq", "sq"))
+  CPP_substitute_letters(x, encoding, NA_letter)
 }
