@@ -4,7 +4,7 @@
 \alias{reverse}
 \title{Reverse sequence}
 \usage{
-reverse(x)
+reverse(x, NA_letter = getOption("tidysq_NA_letter"), ...)
 }
 \arguments{
 \item{x}{a \code{\link{sq}} object.}

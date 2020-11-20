@@ -18,8 +18,8 @@
 #' @seealso \code{\link{sq}} \code{\link{clean}} \code{\link{sq-print}}
 #' 
 #' @export
-reverse <- function(x) {
+reverse <- function(x,
+                    NA_letter = getOption("tidysq_NA_letter"), ...) {
   assert_class(x, "sq")
-  ret <- .apply_sq(x, "int", "int", rev)
-  vec_restore(ret, x)
+  CPP_reverse(x, NA_letter)
 }

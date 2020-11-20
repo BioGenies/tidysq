@@ -57,7 +57,27 @@ CPP_has <- function(x, motifs, NA_letter) {
     .Call(`_tidysq_CPP_has`, x, motifs, NA_letter)
 }
 
-Cpp_translate <- function(sq, table) {
-    .Call(`_tidysq_Cpp_translate`, sq, table)
+CPP_remove_NA <- function(x, by_letter, NA_letter) {
+    .Call(`_tidysq_CPP_remove_NA`, x, by_letter, NA_letter)
+}
+
+CPP_remove_ambiguous <- function(x, by_letter, NA_letter) {
+    .Call(`_tidysq_CPP_remove_ambiguous`, x, by_letter, NA_letter)
+}
+
+CPP_reverse <- function(x, NA_letter) {
+    .Call(`_tidysq_CPP_reverse`, x, NA_letter)
+}
+
+CPP_substitute_letters <- function(x, encoding, NA_letter) {
+    .Call(`_tidysq_CPP_substitute_letters`, x, encoding, NA_letter)
+}
+
+CPP_translate <- function(x, table, NA_letter, interpret_as_stop) {
+    .Call(`_tidysq_CPP_translate`, x, table, NA_letter, interpret_as_stop)
+}
+
+CPP_typify <- function(x, dest_type, NA_letter) {
+    .Call(`_tidysq_CPP_typify`, x, dest_type, NA_letter)
 }
 

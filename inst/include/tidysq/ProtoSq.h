@@ -51,6 +51,10 @@ namespace tidysq {
             return alphabet_;
         }
 
+        inline Alphabet& alphabet() {
+            return alphabet_;
+        }
+
         [[nodiscard]] inline const SqType &type() const {
             return alphabet_.type();
         }

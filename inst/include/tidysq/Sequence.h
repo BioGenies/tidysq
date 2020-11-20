@@ -133,7 +133,7 @@ namespace tidysq {
         }
 
         const_iterator end(const AlphSize& alph_size) const {
-            return iterator(*this, alph_size, original_length_);
+            return const_iterator(*this, alph_size, original_length_);
         }
 
         const_iterator cbegin(const AlphSize& alph_size) const {

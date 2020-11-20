@@ -17,17 +17,17 @@ namespace tidysq {
     class Sq;
 
     class Alphabet {
-        const bool ignore_case_;
-        const std::unordered_map<LetterValue, const Letter> value_to_letter_;
-        const Letter NA_letter_;
-        const AlphSize alphabet_size_;
-        const LetterValue NA_value_;
-        const bool is_simple_;
-        const std::unordered_map<LetterValue, SimpleLetter> value_to_simple_letter_;
-        const SimpleLetter NA_simple_letter_;
-        const std::unordered_map<Letter, LetterValue> letter_to_value_;
-        const std::unordered_map<SimpleLetter, LetterValue> simple_letter_to_value_;
-        const SqType type_;
+        bool ignore_case_;
+        std::unordered_map<LetterValue, const Letter> value_to_letter_;
+        Letter NA_letter_;
+        AlphSize alphabet_size_;
+        LetterValue NA_value_;
+        bool is_simple_;
+        std::unordered_map<LetterValue, SimpleLetter> value_to_simple_letter_;
+        SimpleLetter NA_simple_letter_;
+        std::unordered_map<Letter, LetterValue> letter_to_value_;
+        std::unordered_map<SimpleLetter, LetterValue> simple_letter_to_value_;
+        SqType type_;
 
         [[nodiscard]] inline AlphSize calculate_alphabet_size() {
             return static_cast<AlphSize>(ceil(log2((double) value_to_letter_.size() + 1)));
@@ -140,6 +140,8 @@ namespace tidysq {
 
         Alphabet(Alphabet &&other) noexcept = default;
 
+        Alphabet& operator=(const Alphabet &other) = default;
+
         [[nodiscard]] inline LetterValue length() const {
             return static_cast<LetterValue>(value_to_letter_.size());
         }
@@ -221,6 +223,12 @@ namespace tidysq {
             } catch (const std::out_of_range &e) {
                 return NA_value_;
             }
+        }
+
+        [[nodiscard]] inline bool contains(const Letter &letter) const {
+            return std::any_of(cbegin(), cend(), [=](const std::pair<LetterValue, const Letter> &entry) {
+                return letter == entry.second;
+            });
         }
 
         friend Rcpp::StringVector export_to_R(const Alphabet &alphabet);

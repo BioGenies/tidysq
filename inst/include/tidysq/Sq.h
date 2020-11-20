@@ -72,7 +72,7 @@ namespace tidysq {
         }
 
         template<typename INTERNAL_OUT, typename PROTO_OUT>
-        ProtoSq<INTERNAL_OUT, PROTO_OUT> unpack() {
+        ProtoSq<INTERNAL_OUT, PROTO_OUT> unpack() const {
             return sqapply<Sq<INTERNAL>, ProtoSq<INTERNAL_OUT, PROTO_OUT>>(*this, ops::OperationUnpack<INTERNAL, INTERNAL_OUT, PROTO_OUT>());
         }
 

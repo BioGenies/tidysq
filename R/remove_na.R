@@ -25,22 +25,12 @@
 #' @seealso \code{\link{sq}} \code{\link{is_null_sq}} \code{\link{substitute_letters}}
 #' \code{\link{bite}}
 #' @export
-remove_na <- function(x, by_letter = FALSE) {
+remove_na <- function(x,
+                      by_letter = FALSE,
+                      NA_letter = getOption("tidysq_NA_letter"), ...) {
   assert_class(x, "sq")
   assert_flag(by_letter)
+  assert_string(NA_letter)
   
-  alph <- alphabet(x)
-  na_val <- .get_na_val(alph)
-  
-  if (by_letter) {
-    ret <- .apply_sq(x, "int", "int", function(s) {
-      s[s != na_val]
-    })
-  } else {
-    ret <- lapply(x, function(s) {
-      st <- unpack(s, "INTS")
-      if (any(st == na_val)) structure(raw(), original_length = 0) else s
-    })
-  }
-  vec_restore(ret, x)
+  CPP_remove_NA(x, by_letter, NA_letter)
 }
