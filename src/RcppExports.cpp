@@ -188,6 +188,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPP_random_sq
+Rcpp::List CPP_random_sq(const Rcpp::IntegerVector& n, const Rcpp::IntegerVector& len, const Rcpp::StringVector& alphabet, const Rcpp::LogicalVector& use_gap);
+RcppExport SEXP _tidysq_CPP_random_sq(SEXP nSEXP, SEXP lenSEXP, SEXP alphabetSEXP, SEXP use_gapSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type n(nSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type len(lenSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type alphabet(alphabetSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type use_gap(use_gapSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_random_sq(n, len, alphabet, use_gap));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_remove_NA
 Rcpp::List CPP_remove_NA(const Rcpp::List& x, const Rcpp::LogicalVector& by_letter, const Rcpp::StringVector& NA_letter);
 RcppExport SEXP _tidysq_CPP_remove_NA(SEXP xSEXP, SEXP by_letterSEXP, SEXP NA_letterSEXP) {
@@ -284,6 +298,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_find_invalid_letters", (DL_FUNC) &_tidysq_CPP_find_invalid_letters, 3},
     {"_tidysq_CPP_find_motifs", (DL_FUNC) &_tidysq_CPP_find_motifs, 4},
     {"_tidysq_CPP_has", (DL_FUNC) &_tidysq_CPP_has, 3},
+    {"_tidysq_CPP_random_sq", (DL_FUNC) &_tidysq_CPP_random_sq, 4},
     {"_tidysq_CPP_remove_NA", (DL_FUNC) &_tidysq_CPP_remove_NA, 3},
     {"_tidysq_CPP_remove_ambiguous", (DL_FUNC) &_tidysq_CPP_remove_ambiguous, 3},
     {"_tidysq_CPP_reverse", (DL_FUNC) &_tidysq_CPP_reverse, 2},

@@ -57,6 +57,10 @@ CPP_has <- function(x, motifs, NA_letter) {
     .Call(`_tidysq_CPP_has`, x, motifs, NA_letter)
 }
 
+CPP_random_sq <- function(n, len, alphabet, use_gap) {
+    .Call(`_tidysq_CPP_random_sq`, n, len, alphabet, use_gap)
+}
+
 CPP_remove_NA <- function(x, by_letter, NA_letter) {
     .Call(`_tidysq_CPP_remove_NA`, x, by_letter, NA_letter)
 }
