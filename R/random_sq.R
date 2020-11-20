@@ -23,24 +23,36 @@
 #' @seealso \code{\link{construct_sq}} \code{\link{sq}}
 #' @importFrom stringi stri_rand_strings stri_paste
 #' @export
-random_sq <- function(n, len, type, sd = NULL, use_gap = FALSE) {
+random_sq <- function(n, len, alphabet, sd = NULL, use_gap = FALSE) {
   assert_count(n)
   assert_count(len)
-  assert_sq_type(type)
+  assert_character(alphabet, any.missing = FALSE, min.len = 0, unique = TRUE, null.ok = TRUE)
   assert_number(sd, null.ok = TRUE)
   assert_flag(use_gap)
   
-  alph <- get_standard_alphabet(type)
-  if (!use_gap) alph <- .skip_characters(alph, "-")
-  if (type == "ami") alph <- .skip_characters(alph, "*")
+  if (length(alphabet) == 1) {
+    type <- interpret_type(alphabet)
+    if (type == "unt")
+      stop("method 'random_sq' cannot take 'unt' as alphabet type", call. = FALSE)
+    else
+      alphabet <- get_standard_alphabet(type)
+  } else {
+    alphabet <- sq_alphabet(alphabet, "atp")
+  }
   
-  alph_regex <- stri_paste("[", stri_paste(alph, collapse = ""), "]")
   if (!is.null(sd)) {
     # TODO: consider using other distribution than normal maybe?
     len <- round(rnorm(n, len, sd))
     len <- ifelse(len <= 0, 1, len)
   }
   
-  ret <- stri_rand_strings(n, len, alph_regex)
-  sq(ret, type)
+  # alph <- get_standard_alphabet(type)
+  # if (!use_gap) alph <- .skip_characters(alph, "-")
+  # if (type == "ami") alph <- .skip_characters(alph, "*")
+  # 
+  # alph_regex <- stri_paste("[", stri_paste(alph, collapse = ""), "]")
+  # 
+  # ret <- stri_rand_strings(n, len, alph_regex)
+  # sq(ret, type)
+  CPP_random_sq(n, len, alphabet, use_gap)
 }
