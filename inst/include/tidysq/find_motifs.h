@@ -216,7 +216,7 @@ namespace tidysq {
                     // or before motif stops corresponding to sequence
                     if (motif_it == end()) {
                         // TODO: append located motif and other info to ret
-                        std::vector<int> indices(content_.size());
+                        std::vector<long long int> indices(content_.size());
                         std::generate(indices.rbegin(), indices.rend(), [=]() mutable {
                             return (--sequence_it).index();
                         });

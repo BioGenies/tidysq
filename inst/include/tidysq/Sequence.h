@@ -14,7 +14,7 @@ namespace tidysq {
     template<typename INTERNAL>
     Sequence<INTERNAL> bite(
             const typename Sequence<INTERNAL>::const_iterator &it,
-            const std::vector<int> &indices);
+            const std::vector<long long int> &indices);
 
     template<typename INTERNAL>
     class Sequence {
@@ -71,7 +71,7 @@ namespace tidysq {
 
             friend Sequence<INTERNAL> bite<INTERNAL>(
                     const typename Sequence<INTERNAL>::template GenericSequenceIterator<true> &it,
-                    const std::vector<int> &indices);
+                    const std::vector<long long int> &indices);
         };
 
     public:
