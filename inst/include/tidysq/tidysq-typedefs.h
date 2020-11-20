@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 
 namespace tidysq {
     typedef unsigned long long int  LenSq;
@@ -14,6 +15,12 @@ namespace tidysq {
     typedef unsigned short int      LetterValue;
     typedef std::string             Letter;
     typedef char                    SimpleLetter;
+
+    typedef std::unordered_map<LetterValue, const LetterValue>          ComplementTable;
+    typedef const std::unordered_map<LetterValue,
+                const std::unordered_map<LetterValue,
+                    const std::unordered_map<LetterValue,
+                        const LetterValue>>>                            CodonTable;
 
     struct InternalType {};
 
