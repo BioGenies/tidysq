@@ -240,20 +240,7 @@ is.sq_ami_bsc <- function(x)
 #'  
 #' @seealso \code{\link{sq}} \code{\link{as.character}} \code{\link{is.sq}}
 #' @export
-`==.sq` <- function(x1, x2) {
-  # TODO: make it faster and lighter, maybe?
-  if (is.sq(x2)) {
-    x2 <- as.character(x2)
-  } else if (!is.character(x2)) {
-    stop("you cannot compare 'sq' object to object that is not character vector or 'sq' object")
-  }
-  
-  if (.get_sq_type(x1) %in% c("ami", "dna", "rna")) {
-    x2 <- toupper(x2)
-  }
-  
-  as.character(x1) == x2
-}
+`==.sq` <- vec_equal
 
 #' Get lengths of sequences in sq object
 #' 
