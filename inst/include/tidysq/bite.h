@@ -78,7 +78,8 @@ namespace tidysq {
             // bite_negative cannot return warnings, so we needn't pass warning_called
             std::vector<long long int> unique_indices = indices;
             std::sort(unique_indices.begin(), unique_indices.end());
-            std::unique(unique_indices.begin(), unique_indices.end());
+            auto last = std::unique(unique_indices.begin(), unique_indices.end());
+            unique_indices.erase(last, unique_indices.end());
             return internal::bite_negative<INTERNAL>(sequence, unique_indices, alph_size);
         } else {
             throw std::invalid_argument("indices must be either all positive or all negative");
