@@ -29,7 +29,7 @@ type_as_class <- function(type)
 #'  
 #' @seealso \code{\link{sq}} \code{\link{sq}}
 #' @export
-get_sq_type <- function(x) {
+sq_type <- function(x) {
   # TODO: a generic, maybe?
   assert_class(x, "sq")
   vec_ptype_abbr(x)
