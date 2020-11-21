@@ -69,7 +69,6 @@ substitute_letters.default <- function(x, encoding,
 #' @export
 substitute_letters.sq <- function(x, encoding,
                                   NA_letter = getOption("tidysq_NA_letter"), ...) {
-  assert_class(x, "sq")
   assert_atomic_vector(encoding, names = "unique")
   assert_subset(names(encoding), alphabet(x))
   
