@@ -200,6 +200,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPP_get_standard_alphabet
+Rcpp::StringVector CPP_get_standard_alphabet(const Rcpp::StringVector& dest_type);
+RcppExport SEXP _tidysq_CPP_get_standard_alphabet(SEXP dest_typeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type dest_type(dest_typeSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_get_standard_alphabet(dest_type));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_random_sq
 Rcpp::List CPP_random_sq(const Rcpp::IntegerVector& n, const Rcpp::IntegerVector& len, const Rcpp::StringVector& alphabet, const Rcpp::LogicalVector& use_gap);
 RcppExport SEXP _tidysq_CPP_random_sq(SEXP nSEXP, SEXP lenSEXP, SEXP alphabetSEXP, SEXP use_gapSEXP) {
@@ -311,6 +322,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_find_invalid_letters", (DL_FUNC) &_tidysq_CPP_find_invalid_letters, 3},
     {"_tidysq_CPP_find_motifs", (DL_FUNC) &_tidysq_CPP_find_motifs, 4},
     {"_tidysq_CPP_has", (DL_FUNC) &_tidysq_CPP_has, 3},
+    {"_tidysq_CPP_get_standard_alphabet", (DL_FUNC) &_tidysq_CPP_get_standard_alphabet, 1},
     {"_tidysq_CPP_random_sq", (DL_FUNC) &_tidysq_CPP_random_sq, 4},
     {"_tidysq_CPP_remove_NA", (DL_FUNC) &_tidysq_CPP_remove_NA, 3},
     {"_tidysq_CPP_remove_ambiguous", (DL_FUNC) &_tidysq_CPP_remove_ambiguous, 3},
