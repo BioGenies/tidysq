@@ -1,14 +1,3 @@
-obtain_alphabet <- function(x, sample_size = 4096, 
-                            NA_letter = getOption("tidysq_NA_letter"),
-                            ignore_case = FALSE) {
-  CPP_obtain_alphabet(x, sample_size, NA_letter, ignore_case)
-}
-
-guess_standard_alphabet <- function(alph,
-                                    NA_letter = getOption("tidysq_NA_letter")) {
-  CPP_guess_standard_alph(alph, NA_letter)
-}
-
 interpret_type <- function(name) {
   # TODO: improve; just improve
   switch(name, 

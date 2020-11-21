@@ -55,6 +55,17 @@ sq_alphabet <- function(alph, type) {
 sq_alphabet_ptype <- function(type)
   sq_alphabet(character(), type)
 
+obtain_alphabet <- function(x, sample_size = 4096, 
+                            NA_letter = getOption("tidysq_NA_letter"),
+                            ignore_case = FALSE) {
+  CPP_obtain_alphabet(x, sample_size, NA_letter, ignore_case)
+}
+
+guess_standard_alphabet <- function(alph,
+                                    NA_letter = getOption("tidysq_NA_letter")) {
+  CPP_guess_standard_alph(alph, NA_letter)
+}
+
 # alphabet reading ----
 
 `[.sq_alphabet` <- function(x, i,
