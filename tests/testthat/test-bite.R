@@ -19,10 +19,10 @@ test_that("bite() returns an sq object of original type", {
                   ptype = sq_ptype(char_atp, "atp"),
                   size = vec_size(sq_atp))
     expect_vector(bite(sq_dna, 2:5),
-                  ptype = sq_ptype(CPP_get_standard_alphabet("dna_bsc"), "dna_bsc"),
+                  ptype = sq_ptype(get_standard_alphabet("dna_bsc"), "dna_bsc"),
                   size = vec_size(sq_dna))
     expect_vector(bite(sq_empty, 2:5),
-                  ptype = sq_ptype(CPP_get_standard_alphabet("rna_bsc"), "rna_bsc"),
+                  ptype = sq_ptype(get_standard_alphabet("rna_bsc"), "rna_bsc"),
                   size = vec_size(sq_empty))
   })
 })

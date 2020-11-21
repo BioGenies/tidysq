@@ -13,7 +13,7 @@ assert_package_installed <- function(package) {
 }
 
 assert_motifs_for_type <- function(motifs, type) {
-  assert_subset(unlist(strsplit(motifs, "")), c(CPP_get_standard_alphabet(type), "^", "$"))
+  assert_subset(unlist(strsplit(motifs, "")), c(get_standard_alphabet(type), "^", "$"))
 }
 
 assert_alph_regex_friendly <- function(alph) {

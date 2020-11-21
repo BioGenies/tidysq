@@ -66,6 +66,10 @@ guess_standard_alphabet <- function(alph,
   CPP_guess_standard_alph(alph, NA_letter)
 }
 
+get_standard_alphabet <- function(type) {
+  CPP_get_standard_alphabet(type)
+}
+
 # alphabet reading ----
 
 `[.sq_alphabet` <- function(x, i,

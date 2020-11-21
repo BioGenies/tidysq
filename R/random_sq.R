@@ -35,7 +35,7 @@ random_sq <- function(n, len, alphabet, sd = NULL, use_gap = FALSE) {
     if (type == "unt")
       stop("method 'random_sq' cannot take 'unt' as alphabet type", call. = FALSE)
     else
-      alphabet <- CPP_get_standard_alphabet(type)
+      alphabet <- get_standard_alphabet(type)
   } else {
     alphabet <- sq_alphabet(alphabet, "atp")
   }
@@ -45,6 +45,14 @@ random_sq <- function(n, len, alphabet, sd = NULL, use_gap = FALSE) {
     len <- round(rnorm(n, len, sd))
     len <- ifelse(len <= 0, 1, len)
   }
-
+  
+  # alph <- get_standard_alphabet(type)
+  # if (!use_gap) alph <- .skip_characters(alph, "-")
+  # if (type == "ami") alph <- .skip_characters(alph, "*")
+  # 
+  # alph_regex <- stri_paste("[", stri_paste(alph, collapse = ""), "]")
+  # 
+  # ret <- stri_rand_strings(n, len, alph_regex)
+  # sq(ret, type)
   CPP_random_sq(n, len, alphabet, use_gap)
 }

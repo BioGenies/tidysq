@@ -350,7 +350,7 @@ sq <- function(x,
     if (type == "unt") {
       alphabet <- obtain_alphabet(x, Inf, NA_letter, ignore_case)
     } else {
-      alphabet <- CPP_get_standard_alphabet(type)
+      alphabet <- get_standard_alphabet(type)
       if (safe_mode) {
         actual_alphabet <- obtain_alphabet(x, Inf, NA_letter, ignore_case)
         if (!identical(actual_alphabet, alphabet)){

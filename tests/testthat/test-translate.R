@@ -10,10 +10,10 @@ str_rna_translated <- c("WR", "TVS", "WN", "GSTDC", "")
 # SQ_AMI_BSC PROTOTYPE ----
 test_that("translate() returns clean amino acid sq object", {
   expect_vector(translate(sq_dna),
-                ptype = sq_ptype(CPP_get_standard_alphabet("ami_bsc"), "ami_bsc"),
+                ptype = sq_ptype(get_standard_alphabet("ami_bsc"), "ami_bsc"),
                 size = vec_size(sq_dna))
   expect_vector(translate(sq_rna),
-                ptype = sq_ptype(CPP_get_standard_alphabet("ami_bsc"), "ami_bsc"),
+                ptype = sq_ptype(get_standard_alphabet("ami_bsc"), "ami_bsc"),
                 size = vec_size(sq_rna))
 })
 
