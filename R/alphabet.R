@@ -1,5 +1,3 @@
-# alphabet assignment ----
-
 #' Get alphabet of given sq object.
 #' 
 #' Function returns amino acid, DNA, RNA or atypical alphabet based on a \code{\link{sq}} 
@@ -70,9 +68,6 @@ get_standard_alphabet <- function(type) {
     type
   )
 }
-
-.skip_characters <- function(alph, chars)
-  vec_restore(setdiff(alph, chars), alph)
 
 # alphabet reading ----
 
