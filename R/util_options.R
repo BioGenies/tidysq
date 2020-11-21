@@ -1,4 +1,4 @@
-#internal functions for accessing options of package
+# internal functions for accessing options of package
 .handle_opt_txt <- function(option_name, txt) {
   opt <- getOption(option_name)
   
