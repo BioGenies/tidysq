@@ -55,7 +55,7 @@ test_that("sq() returns object with alphabet attribute that contains existing le
   )
 })
 
-# NA WHEN ACTUAL ALPHABET MISMATCHES
+# NA WHEN ACTUAL ALPHABET MISMATCHES ----
 test_that("letters not in alphabet are loaded as NA's ", {
   expect_equivalent(
     as.character(sq(str_ami, "rna_bsc", NA_letter = "!")), #TODO: as.character should also take NA_letter
@@ -67,7 +67,7 @@ test_that("letters not in alphabet are loaded as NA's ", {
   )
 })
 
-# ALPHABET UNT WHEN SAFE MODE
+# ALPHABET UNT WHEN SAFE MODE ----
 test_that("type set as untyped when in safe mode and alphabet mismatches", {
   expect_warning(
     sq(str_ami, "rna_bsc", safe_mode = TRUE),
@@ -75,9 +75,8 @@ test_that("type set as untyped when in safe mode and alphabet mismatches", {
   )
   suppressWarnings({
     expect_equivalent(
-      as.character(sq(str_ami, "rna_bsc", NA_letter = "!", safe_mode = TRUE)), #TODO: as.character should also take NA_letter
-      str_ami,
-      
+      as.character(sq(str_ami, "rna_bsc", NA_letter = "!", safe_mode = TRUE)),
+      str_ami
     )
     expect_equivalent(
       as.character(sq(str_rna, "ami_bsc", NA_letter = "!", safe_mode = TRUE)), 
@@ -86,7 +85,7 @@ test_that("type set as untyped when in safe mode and alphabet mismatches", {
   })
 })
 
-# IGNORE CASE
+# IGNORE CASE ----
 test_that("ignore_case parameter works correctly", {
   expect_equal(
     sq(str_dna, ignore_case = TRUE),
