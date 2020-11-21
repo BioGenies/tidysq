@@ -133,11 +133,6 @@ vec_cast.character.sq_atp <- function(x, to, ...,
                                       NA_letter = getOption("tidysq_NA_letter"))
   unpack(x, "STRING", NA_letter)
 
-# sq_enc ----
-#' @export
-vec_cast.list.sq_enc <- function(x, to, ...)
-  .apply_sq(x, "int", "none", function(s) alphabet(x)[s])
-
 # sq_alphabet ----
 #' @export
 vec_cast.sq_alphabet.sq_alphabet <- function(x, to, ...) {
