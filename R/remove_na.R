@@ -26,11 +26,22 @@
 #' \code{\link{bite}}
 #' @export
 remove_na <- function(x,
-                      by_letter = FALSE,
-                      NA_letter = getOption("tidysq_NA_letter"), ...) {
-  assert_class(x, "sq")
+                      by_letter = FALSE, ...) {
   assert_flag(by_letter)
-  assert_string(NA_letter)
+  
+  UseMethod("remove_na")
+}
+
+#' @export
+remove_na.default <- function(x,
+                              by_letter = FALSE, ...)
+  stop("'remove_na' isn't implemented for this type of object", call. = FALSE)
+
+#' @export
+remove_na.sq <- function(x,
+                         by_letter = FALSE, ...,
+                         NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
   
   CPP_remove_NA(x, by_letter, NA_letter)
 }
