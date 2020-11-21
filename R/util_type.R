@@ -29,8 +29,29 @@ type_as_class <- function(type)
 #'  
 #' @seealso \code{\link{sq}} \code{\link{sq}}
 #' @export
-sq_type <- function(x) {
-  # TODO: a generic, maybe?
-  assert_class(x, "sq")
+sq_type <- function(x, ...)
+  UseMethod("sq_type")
+
+#' @rdname sq_type
+#' @export
+sq_type.default <- function(x, ...)
+  stop("cannot determine sq_type of this type of object", call. = FALSE)
+
+#' @rdname sq_type
+#' @export
+sq_type.sq <- function(x, ...)
   vec_ptype_abbr(x)
+
+#' @export
+`sq_type<-` <- function(x, value)
+  UseMethod("sq_type<-")
+
+#' @export
+`sq_type<-.default` <- function(x, value)
+  stop("cannot change sq_type of this type of object", call. = FALSE)
+
+#' @export
+`sq_type<-.sq` <- function(x, value) {
+  typify(x, value)
+  x
 }
