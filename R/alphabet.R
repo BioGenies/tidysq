@@ -55,20 +55,6 @@ sq_alphabet <- function(alph, type) {
 sq_alphabet_ptype <- function(type)
   sq_alphabet(character(), type)
 
-get_standard_alphabet <- function(type) {
-  sq_alphabet(
-    switch (type,
-            dna_bsc = nucleotides_df[nucleotides_df[["dna"]], "one"],
-            dna_ext = nucleotides_df[nucleotides_df[["dna"]] | nucleotides_df[["amb"]], "one"],
-            rna_bsc = nucleotides_df[nucleotides_df[["rna"]], "one"],
-            rna_ext = nucleotides_df[nucleotides_df[["rna"]] | nucleotides_df[["amb"]], "one"],
-            ami_bsc = aminoacids_df[!aminoacids_df[["amb"]], "one"],
-            ami_ext = aminoacids_df[, "one"]
-    ),
-    type
-  )
-}
-
 # alphabet reading ----
 
 `[.sq_alphabet` <- function(x, i,

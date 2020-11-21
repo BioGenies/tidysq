@@ -8,7 +8,7 @@ sq_empty <- sq(character(), alphabet = "dna_bsc")
 # CORRECT PROTOTYPE OF RETURNED VALUE ----
 test_that("typify() returns an sq object of desired type", {
   expect_vector(typify(sq_unt, "ami_ext"),
-                ptype = sq_ptype(get_standard_alphabet("ami_ext"), "ami_ext"),
+                ptype = sq_ptype(CPP_get_standard_alphabet("ami_ext"), "ami_ext"),
                 size = vec_size(sq_unt))
 })
 
@@ -31,6 +31,6 @@ test_that("typify() treats multiple-character letters as a whole (and throws err
 # EDGE CASES ----
 test_that("typify() works for empty sq and returns empty sq of target class", {
   expect_vector(typify(sq_empty, "ami_bsc"),
-                ptype = sq_ptype(get_standard_alphabet("ami_bsc"), "ami_bsc"),
+                ptype = sq_ptype(CPP_get_standard_alphabet("ami_bsc"), "ami_bsc"),
                 size = vec_size(sq_empty))
 })
