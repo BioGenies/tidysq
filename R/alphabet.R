@@ -55,6 +55,10 @@ sq_alphabet <- function(alph, type) {
 sq_alphabet_ptype <- function(type)
   sq_alphabet(character(), type)
 
+get_standard_alphabet <- function(type) {
+  CPP_get_standard_alphabet(type)
+}
+
 obtain_alphabet <- function(x, sample_size = 4096, 
                             NA_letter = getOption("tidysq_NA_letter"),
                             ignore_case = FALSE) {
@@ -66,25 +70,8 @@ guess_standard_alphabet <- function(alph,
   CPP_guess_standard_alph(alph, NA_letter)
 }
 
-get_standard_alphabet <- function(type) {
-  CPP_get_standard_alphabet(type)
-}
-
-# alphabet reading ----
-
-`[.sq_alphabet` <- function(x, i,
-                            NA_letter = getOption("tidysq_NA_letter")) {
-  ret <- vec_data(x)[i]
-  ret[i == .get_na_val(x)] <- NA_letter
-  ret
-}
-
-# various internal methods put together (to check!) ----
+# utility methods ----
 
 size <- function(alph) {
   ceiling(log2(length(alph) + 1))
-}
-
-.get_na_val <- function(alph) {
-  2 ^ size(alph) - 1
 }
