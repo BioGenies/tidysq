@@ -53,5 +53,4 @@ sq_type.sq <- function(x, ...)
 #' @export
 `sq_type<-.sq` <- function(x, value) {
   typify(x, value)
-  x
 }
