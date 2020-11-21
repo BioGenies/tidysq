@@ -13,6 +13,8 @@ substitute_letters(x, encoding, NA_letter = getOption("tidysq_NA_letter"), ...)
 One letter can be replaced with multiple symbols. 
 To perform substitution create a named vector, e.g.
 \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.}
+
+\item{NA_letter}{an \code{NA_letter} - a string value.}
 }
 \value{
 a \code{\link{sq}} object with \strong{atp} type with replaced alphabet, 

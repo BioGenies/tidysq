@@ -11,6 +11,8 @@ find_motifs(x, names, motifs, NA_letter = getOption("tidysq_NA_letter"), ...)
 
 \item{motifs}{a \code{character} vector of motifs to be searched for.}
 
+\item{NA_letter}{an \code{NA_letter} - a string value.}
+
 \item{name}{a non-\code{NULL} \code{character} vector without \code{\link{NA}} values, 
 containing names of the sequences in the sq. It has to be of the same length 
 as the \code{sq}.}

@@ -12,6 +12,8 @@ bite(x, indices, ..., NA_letter = getOption("tidysq_NA_letter"))
 \item{indices}{a \code{\link{numeric}} vector of subsequence indices to extract from
 each sequence. The function follows the normal R conventions for indexing 
 vectors, including negative indices.}
+
+\item{NA_letter}{an \code{NA_letter} - a string value.}
 }
 \value{
 \code{\link{sq}} object of the same type as input sq, where each 
