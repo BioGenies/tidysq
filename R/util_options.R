@@ -13,11 +13,3 @@
          message = message(txt),
          none = invisible())
 }
-
-.is_fast_mode <- function() {
-  opt <- getOption("tidysq_g_fast_mode")
-  
-  ifelse (is.null(opt) || 
-            !is.logical(opt) || 
-            is.na(opt), FALSE, opt)
-}
