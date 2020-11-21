@@ -55,19 +55,3 @@ test_that("double use of complement() returns original value", {
   expect_identical(complement(complement(sq_rna)), sq_rna)
   expect_identical(complement(complement(sq_dna_2)), sq_dna_2)
 })
-
-# SHORTHAND FUNCTIONS ----
-test_that("complement_dna() return identical value as complement() for DNA sequence", {
-  expect_identical(complement(sq_dna), complement_dna(sq_dna))
-  expect_identical(complement(sq_dna_2), complement_dna(sq_dna_2))
-})
-test_that("complement_rna() return identical value as complement() for RNA sequence", {
-  expect_identical(complement(sq_rna), complement_rna(sq_rna))
-})
-test_that("complement_dna() fail for RNA sequence", {
-  expect_error(complement_dna(sq_rna))
-})
-test_that("complement_rna() fail for DNA sequence", {
-  expect_error(complement_rna(sq_dna))
-  expect_error(complement_rna(sq_dna_2))
-})
