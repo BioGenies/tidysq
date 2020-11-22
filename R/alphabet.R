@@ -72,6 +72,13 @@ guess_standard_alphabet <- function(alph,
 
 # utility methods ----
 
+`[.sq_alphabet` <- function(x, i,
+                            NA_letter = getOption("tidysq_NA_letter")) {
+  ret <- vec_data(x)[i]
+  ret[i == (2 ^ size(x) - 1)] <- NA_letter
+  ret
+}
+
 size <- function(alph) {
   ceiling(log2(length(alph) + 1))
 }
