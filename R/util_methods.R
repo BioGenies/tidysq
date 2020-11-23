@@ -47,8 +47,9 @@ as.sq.character <- function(x,
 #' 
 #' @seealso sq
 #' @export
-as.character.sq <- function(x, ...)
-  vec_cast(x, character())
+as.character.sq <- function(x, ...,
+                            NA_letter = getOption("tidysq_NA_letter"))
+  unpack(x, "STRING", NA_letter)
 
 #' Convert sq object into matrix
 #' 
