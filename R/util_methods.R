@@ -22,11 +22,7 @@ as.sq.default <- function(x, ...)
   stop("'as.sq' cannot handle objects with this class")
 
 #' @export
-as.sq.character <- function(x,
-                            alphabet = NULL,
-                            NA_letter = getOption("tidysq_NA_letter"),
-                            safe_mode = getOption("tidysq_safe_mode"))
-  sq(x, alphabet, NA_letter, safe_mode)
+as.sq.character <- sq
 
 #' Convert sq object into character vector
 #' 
