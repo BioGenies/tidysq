@@ -42,6 +42,7 @@ find_invalid_letters.default <- function(x, dest_type, ...)
 #' @export
 find_invalid_letters.sq <- function(x, dest_type, ...,
                                     NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
   assert_sq_type(dest_type)
   
   CPP_find_invalid_letters(x, dest_type, NA_letter)

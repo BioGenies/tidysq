@@ -50,7 +50,9 @@ translate.default <- function(x, table = 1, ...)
 translate.sq_dna_bsc <- function(x, table = 1, ...,
                                  NA_letter = getOption("tidysq_NA_letter"),
                                  interpret_as_stop = FALSE) {
+  assert_string(NA_letter, min.chars = 1)
   assert_flag(interpret_as_stop)
+  
   CPP_translate(x, table, NA_letter, interpret_as_stop)
 }
 

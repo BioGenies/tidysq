@@ -14,8 +14,11 @@ remove_ambiguous.sq_dna_bsc <- function(x, by_letter = FALSE, ...,
 
 #' @export
 remove_ambiguous.sq_dna_ext <- function(x, by_letter = FALSE, ...,
-                                        NA_letter = getOption("tidysq_NA_letter"))
+                                        NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
+  
   CPP_remove_ambiguous(x, by_letter, NA_letter)
+}
 
 #' @export
 remove_ambiguous.sq_rna_bsc <- function(x, by_letter = FALSE, ...,
@@ -23,8 +26,11 @@ remove_ambiguous.sq_rna_bsc <- function(x, by_letter = FALSE, ...,
 
 #' @export
 remove_ambiguous.sq_rna_ext <- function(x, by_letter = FALSE, ...,
-                                        NA_letter = getOption("tidysq_NA_letter"))
+                                        NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
+  
   CPP_remove_ambiguous(x, by_letter, NA_letter)
+}
 
 #' @export
 remove_ambiguous.sq_ami_bsc <- function(x, by_letter = FALSE, ...,
@@ -32,5 +38,8 @@ remove_ambiguous.sq_ami_bsc <- function(x, by_letter = FALSE, ...,
 
 #' @export
 remove_ambiguous.sq_ami_ext <- function(x, by_letter = FALSE, ...,
-                                        NA_letter = getOption("tidysq_NA_letter"))
+                                        NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
+  
   CPP_remove_ambiguous(x, by_letter, NA_letter)
+}

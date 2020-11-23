@@ -29,6 +29,8 @@ complement.default <- function(x, ...)
 #' @export
 complement.sq_dna_bsc <- function(x, ...,
                                   NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
+  
   CPP_complement(x, NA_letter)
 }
 
