@@ -58,11 +58,11 @@ test_that("sq() returns object with alphabet attribute that contains existing le
 # NA WHEN ACTUAL ALPHABET MISMATCHES ----
 test_that("letters not in alphabet are loaded as NA's ", {
   expect_equivalent(
-    as.character(sq(str_ami, "rna_bsc", NA_letter = "!")), #TODO: as.character should also take NA_letter
+    as.character(sq(str_ami, "rna_bsc", NA_letter = "!"), NA_letter = "!"),
     c("!U!!A!!!!!", "U!!!!UC!U!!!!!", "!!A!")
   )
   expect_equivalent(
-    as.character(sq(str_rna, "ami_bsc", NA_letter = "!")), 
+    as.character(sq(str_rna, "ami_bsc", NA_letter = "!"), NA_letter = "!"), 
     c("", "K!S-!VW-AWWWG", "YGHHH-", "-CRASH", "MND-K!!!V-MY-")
   )
 })
