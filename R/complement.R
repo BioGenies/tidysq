@@ -18,26 +18,28 @@
 #' 
 #' @seealso \code{\link{sq}}
 #' @export
-complement <- function(x,
-                       NA_letter = getOption("tidysq_NA_letter"), ...)
+complement <- function(x, ...)
   UseMethod("complement")
 
 #' @export
-complement.default <- function(x,
-                               NA_letter = getOption("tidysq_NA_letter"), ...)
+complement.default <- function(x, ...)
   stop("method 'complement' isn't implemented for this type of object", call. = FALSE)
 
+#' @rdname complement
 #' @export
-complement.sq_dna_bsc <- function(x,
-                                  NA_letter = getOption("tidysq_NA_letter"), ...) {
+complement.sq_dna_bsc <- function(x, ...,
+                                  NA_letter = getOption("tidysq_NA_letter")) {
   CPP_complement(x, NA_letter)
 }
 
+#' @rdname complement
 #' @export
 complement.sq_dna_ext <- complement.sq_dna_bsc
 
+#' @rdname complement
 #' @export
 complement.sq_rna_bsc <- complement.sq_dna_bsc
 
+#' @rdname complement
 #' @export
 complement.sq_rna_ext <- complement.sq_dna_bsc

@@ -57,18 +57,17 @@
 #' @seealso \code{\link{sq}}
 #' 
 #' @export
-substitute_letters <- function(x, encoding,
-                               NA_letter = getOption("tidysq_NA_letter"), ...)
+substitute_letters <- function(x, encoding, ...)
   UseMethod("substitute_letters")
 
 #' @export
-substitute_letters.default <- function(x, encoding,
-                                       NA_letter = getOption("tidysq_NA_letter"), ...)
+substitute_letters.default <- function(x, encoding, ...)
   stop("cannot substitute letters in this type of object", call. = FALSE)
 
+#' @rdname substitute_letters
 #' @export
-substitute_letters.sq <- function(x, encoding,
-                                  NA_letter = getOption("tidysq_NA_letter"), ...) {
+substitute_letters.sq <- function(x, encoding, ...,
+                                  NA_letter = getOption("tidysq_NA_letter")) {
   assert_atomic_vector(encoding, names = "unique")
   assert_subset(names(encoding), alphabet(x))
   

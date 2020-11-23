@@ -1,13 +1,11 @@
 #' @export
-remove_ambiguous <- function(x, by_letter = FALSE, ...,
-                             NA_letter = getOption("tidysq_NA_letter")) {
+remove_ambiguous <- function(x, by_letter = FALSE, ...) {
   assert_flag(by_letter)
   UseMethod("remove_ambiguous")
 }
 
 #' @export
-remove_ambiguous.default <- function(x, by_letter = FALSE, ...,
-                                     NA_letter = getOption("tidysq_NA_letter"))
+remove_ambiguous.default <- function(x, by_letter = FALSE, ...)
   stop("ambiguous letters are not defined in the context of this class", call. = FALSE)
 
 #' @export

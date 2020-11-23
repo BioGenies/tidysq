@@ -33,15 +33,14 @@
 #'
 #' @seealso \code{\link{sq}} \code{\link{remove_na}} \code{\link{tidysq-options}}
 #' @export
-bite <- function(x, indices, ...,
-                 NA_letter = getOption("tidysq_NA_letter"))
+bite <- function(x, indices, ...)
   UseMethod("bite")
 
 #' @export
-bite.default <- function(x, indices, ...,
-                         NA_letter = getOption("tidysq_NA_letter"))
+bite.default <- function(x, indices, ...)
   stop("method 'bite()' isn't implemented for this type of object", call. = FALSE)
 
+#' @rdname bite
 #' @export
 bite.sq <- function(x, indices, ...,
                     NA_letter = getOption("tidysq_NA_letter")) {

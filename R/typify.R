@@ -47,6 +47,7 @@ typify <- function(x, dest_type, ...) {
 typify.default <- function(x, dest_type, ...)
   stop("'typify' isn't implemented for this type of object", call. = FALSE)
 
+#' @rdname typify
 #' @export
 typify.sq <- function(x, dest_type, ...,
                       NA_letter = getOption("tidysq_NA_letter")) {

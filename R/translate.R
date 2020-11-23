@@ -34,27 +34,26 @@
 #' 
 #'
 #' @export
-translate <- function(x, table = 1,
-                      NA_letter = getOption("tidysq_NA_letter"), ...) {
+translate <- function(x, table = 1, ...) {
   assert_int(table)
   assert_choice(table, c(1:16, 21:31, 33))
-  assert_string(NA_letter)
   
   UseMethod("translate")
 }
 
 #' @export
-translate.default <- function(x, table = 1,
-                              NA_letter = getOption("tidysq_NA_letter"), ...)
+translate.default <- function(x, table = 1, ...)
   stop("cannot translate something that is neither basic DNA nor RNA sequence", call. = FALSE)
 
+#' @rdname translate
 #' @export
-translate.sq_dna_bsc <- function(x, table = 1,
-                                 NA_letter = getOption("tidysq_NA_letter"), ...,
+translate.sq_dna_bsc <- function(x, table = 1, ...,
+                                 NA_letter = getOption("tidysq_NA_letter"),
                                  interpret_as_stop = FALSE) {
   assert_flag(interpret_as_stop)
   CPP_translate(x, table, NA_letter, interpret_as_stop)
 }
 
+#' @rdname translate
 #' @export
 translate.sq_rna_bsc <- translate.sq_dna_bsc

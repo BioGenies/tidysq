@@ -22,7 +22,6 @@
 reverse <- function(x, ...)
   UseMethod("reverse")
 
-#' @rdname reverse
 #' @export
 reverse.default <- function(x, ...)
   stop("'reverse' isn't implemented for this type of object; maybe you wanted to use 'rev'?", call. = FALSE)
