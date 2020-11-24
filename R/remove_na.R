@@ -13,7 +13,7 @@
 #' and \code{\link[=sq]{NULL}} (empty) sequences are introduced in their place. If 
 #' \code{only_elements = TRUE} then only \code{\link[=sq]{NA}} values are removed 
 #' from sequences in \code{sq} object. \code{\link[=sq]{NULL}} values (empty sequences) 
-#' can be identified using \code{\link{is_null_sq}} function. 
+#' can be identified using \code{\link{is_empty_sq}} function.
 #' 
 #' \code{NA} may be introduced as a result of using functions like 
 #' \code{\link{substitute_letters}} or \code{\link{bite}}. They also appear in sequences if
@@ -22,7 +22,7 @@
 #' \code{\link[=fast-mode]{fast mode}} and there are letters in file or in strings other than
 #' specified.
 #'
-#' @seealso \code{\link{sq}} \code{\link{is_null_sq}} \code{\link{substitute_letters}}
+#' @seealso \code{\link{sq}} \code{\link{is_empty_sq}} \code{\link{substitute_letters}}
 #' \code{\link{bite}}
 #' @export
 remove_na <- function(x, by_letter = FALSE, ...) {

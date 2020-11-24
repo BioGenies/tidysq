@@ -20,7 +20,7 @@
 #'
 #' @seealso \code{\link{sq}} \code{\link{clean}}
 #' @export
-is_null_sq <- function(x) {
+is_empty_sq <- function(x) {
   assert_class(x, "sq")
   get_sq_lengths(x) == 0
 }
