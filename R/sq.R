@@ -202,7 +202,7 @@
 #' have a \code{sq} object as a column of a \code{tibble}. There are overloaded print methods, so
 #' that it is printed in pretty format.
 #'
-#' @name sq
+#' @name sq-class
 NULL
 
 #' Construct sq object from character vector
