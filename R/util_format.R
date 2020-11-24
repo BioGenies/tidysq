@@ -1,8 +1,8 @@
 #' @importFrom cli col_silver col_green
 #' @export
 format.sq <- function(x, ...,
-                      max_sequences = getOption("tidysq_p_max_sequences"),
-                      use_color = getOption("tidysq_p_use_color"),
+                      max_sequences = getOption("tidysq_print_max_sequences"),
+                      use_color = getOption("tidysq_print_use_color"),
                       NA_letter = getOption("tidysq_NA_letter"),
                       letters_sep = NULL) {
   assert_count(max_sequences)
@@ -16,8 +16,8 @@ format.sq <- function(x, ...,
 #' @importFrom cli col_cyan
 #' @export
 format.encsq <- function(x, ...,
-                         max_sequences = getOption("tidysq_p_max_sequences"),
-                         use_color = getOption("tidysq_p_use_color"),
+                         max_sequences = getOption("tidysq_print_max_sequences"),
+                         use_color = getOption("tidysq_print_use_color"),
                          NA_letter = getOption("tidysq_NA_letter"),
                          letters_sep = NULL,
                          digits = 2) {

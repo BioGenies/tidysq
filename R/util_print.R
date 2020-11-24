@@ -19,7 +19,7 @@ obj_print_data.sq <- function(x, ...) {
 #' @importFrom cli cli_text
 #' @export
 obj_print_footer.sq <- function(x, ...,
-                                max_sequences = getOption("tidysq_p_max_sequences")) {
+                                max_sequences = getOption("tidysq_print_max_sequences")) {
   if (length(x) > max_sequences)
     cli_text("printed {max_sequences} out of {length(x)}")
   invisible(x)
@@ -30,7 +30,7 @@ obj_print_footer.sq <- function(x, ...,
 #' @export
 pillar_shaft.sq <- function(x, ...,
                             NA_letter = getOption("tidysq_NA_letter"),
-                            max_pillar_width = getOption("tidysq_p_max_pillar_width")) {
+                            max_pillar_width = getOption("tidysq_pillar_max_width")) {
   assert_string(NA_letter)
   assert_integerish(max_pillar_width, lower = 6, len = 1)
 
@@ -42,7 +42,7 @@ pillar_shaft.sq <- function(x, ...,
 #' @export
 pillar_shaft.encsq <- function(x, ...,
                                NA_letter = getOption("tidysq_NA_letter"),
-                               max_pillar_width = getOption("tidysq_p_max_pillar_width")) {
+                               max_pillar_width = getOption("tidysq_pillar_max_width")) {
   assert_string(NA_letter)
   assert_integerish(max_pillar_width, lower = 6, len = 1)
 
