@@ -2,9 +2,12 @@
 % Please edit documentation in R/remove_na.R
 \name{remove_na}
 \alias{remove_na}
+\alias{remove_na.sq}
 \title{Remove sequences containing NA values}
 \usage{
 remove_na(x, by_letter = FALSE, ...)
+
+\method{remove_na}{sq}(x, by_letter = FALSE, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \value{
 A \code{\link{sq}} object with the same type as input type. Sequences not containing

@@ -2,13 +2,16 @@
 % Please edit documentation in R/find_invalid_letters.R
 \name{find_invalid_letters}
 \alias{find_invalid_letters}
+\alias{find_invalid_letters.sq}
 \title{Find elements which are not suitable for specified type.}
 \usage{
-find_invalid_letters(
+find_invalid_letters(x, dest_type, ...)
+
+\method{find_invalid_letters}{sq}(
   x,
   dest_type,
-  NA_letter = getOption("tidysq_NA_letter"),
-  ...
+  ...,
+  NA_letter = getOption("tidysq_NA_letter")
 )
 }
 \arguments{

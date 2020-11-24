@@ -2,9 +2,21 @@
 % Please edit documentation in R/complement.R
 \name{complement}
 \alias{complement}
+\alias{complement.sq_dna_bsc}
+\alias{complement.sq_dna_ext}
+\alias{complement.sq_rna_bsc}
+\alias{complement.sq_rna_ext}
 \title{Create complement sequence from dnasq or rnasq object}
 \usage{
-complement(x, NA_letter = getOption("tidysq_NA_letter"), ...)
+complement(x, ...)
+
+\method{complement}{sq_dna_bsc}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
+
+\method{complement}{sq_dna_ext}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
+
+\method{complement}{sq_rna_bsc}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
+
+\method{complement}{sq_rna_ext}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
 \item{x}{a \code{\link{sq}} object of type \strong{dna} or \strong{rna}.}

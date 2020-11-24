@@ -2,9 +2,12 @@
 % Please edit documentation in R/substitute_letters.R
 \name{substitute_letters}
 \alias{substitute_letters}
+\alias{substitute_letters.sq}
 \title{Substitute letters in a sequence}
 \usage{
-substitute_letters(x, encoding, NA_letter = getOption("tidysq_NA_letter"), ...)
+substitute_letters(x, encoding, ...)
+
+\method{substitute_letters}{sq}(x, encoding, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
 \item{x}{a \code{\link{sq}} object.}

@@ -2,9 +2,27 @@
 % Please edit documentation in R/translate.R
 \name{translate}
 \alias{translate}
+\alias{translate.sq_dna_bsc}
+\alias{translate.sq_rna_bsc}
 \title{Convert DNA or RNA into proteins using genetic code}
 \usage{
-translate(x, table = 1, NA_letter = getOption("tidysq_NA_letter"), ...)
+translate(x, table = 1, ...)
+
+\method{translate}{sq_dna_bsc}(
+  x,
+  table = 1,
+  ...,
+  NA_letter = getOption("tidysq_NA_letter"),
+  interpret_as_stop = FALSE
+)
+
+\method{translate}{sq_rna_bsc}(
+  x,
+  table = 1,
+  ...,
+  NA_letter = getOption("tidysq_NA_letter"),
+  interpret_as_stop = FALSE
+)
 }
 \arguments{
 \item{x}{an object of class \code{\link{sq}} with either \strong{dna} or

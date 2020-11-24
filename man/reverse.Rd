@@ -2,13 +2,10 @@
 % Please edit documentation in R/reverse.R
 \name{reverse}
 \alias{reverse}
-\alias{reverse.default}
 \alias{reverse.sq}
 \title{Reverse sequence}
 \usage{
 reverse(x, ...)
-
-\method{reverse}{default}(x, ...)
 
 \method{reverse}{sq}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
