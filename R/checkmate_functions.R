@@ -10,6 +10,8 @@ check_sq_type <- function(type, null.ok = FALSE, unt.ok = FALSE, atp.ok = FALSE)
 
 assert_sq_type <- makeAssertionFunction(check_sq_type)
 
+test_sq_type <- makeTestFunction(check_sq_type)
+
 expect_sq_type <- makeExpectationFunction(check_sq_type)
 
 check_package_installed <- function(package) {
@@ -21,13 +23,28 @@ check_package_installed <- function(package) {
 
 assert_package_installed <- makeAssertionFunction(check_package_installed)
 
+test_package_installed <- makeTestFunction(check_package_installed)
+
 expect_package_installed <- makeExpectationFunction(check_package_installed)
 
-assert_motifs_for_type <- function(motifs, type) {
-  assert_subset(unlist(strsplit(motifs, "")), c(get_standard_alphabet(type), "^", "$"))
+check_motifs_for_type <- function(motifs, type) {
+  check_subset(unlist(strsplit(motifs, "")),
+               choices = c(get_standard_alphabet(type), "^", "$"))
 }
 
-assert_alph_regex_friendly <- function(alph) {
+assert_motifs_for_type <- makeAssertionFunction(check_motifs_for_type)
+
+test_motifs_for_type <- makeTestFunction(check_motifs_for_type)
+
+expect_motifs_for_type <- makeExpectationFunction(check_motifs_for_type)
+
+check_alph_regex_friendly <- function(alph) {
   # TODO: reconsider name, it's pretty poor regex now
-  assert_disjunct(alph, c("^", "$"))
+  check_disjunct(alph, c("^", "$"))
 }
+
+assert_alph_regex_friendly <- makeAssertionFunction(check_alph_regex_friendly)
+
+test_alph_regex_friendly <- makeTestFunction(check_alph_regex_friendly)
+
+expect_alph_regex_friendly <- makeExpectationFunction(check_alph_regex_friendly)
