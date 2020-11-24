@@ -1,14 +1,3 @@
-obtain_alphabet <- function(x, sample_size = 4096, 
-                            NA_letter = getOption("tidysq_NA_letter"),
-                            ignore_case = FALSE) {
-  CPP_obtain_alphabet(x, sample_size, NA_letter, ignore_case)
-}
-
-guess_standard_alphabet <- function(alph,
-                                    NA_letter = getOption("tidysq_NA_letter")) {
-  CPP_guess_standard_alph(alph, NA_letter)
-}
-
 interpret_type <- function(name) {
   # TODO: improve; just improve
   switch(name, 
@@ -40,8 +29,28 @@ type_as_class <- function(type)
 #'  
 #' @seealso \code{\link{sq}} \code{\link{sq}}
 #' @export
-get_sq_type <- function(x) {
-  # TODO: a generic, maybe?
-  assert_class(x, "sq")
+sq_type <- function(x, ...)
+  UseMethod("sq_type")
+
+#' @rdname sq_type
+#' @export
+sq_type.default <- function(x, ...)
+  stop("cannot determine sq_type of this type of object", call. = FALSE)
+
+#' @rdname sq_type
+#' @export
+sq_type.sq <- function(x, ...)
   vec_ptype_abbr(x)
+
+#' @export
+`sq_type<-` <- function(x, value)
+  UseMethod("sq_type<-")
+
+#' @export
+`sq_type<-.default` <- function(x, value)
+  stop("cannot change sq_type of this type of object", call. = FALSE)
+
+#' @export
+`sq_type<-.sq` <- function(x, value) {
+  typify(x, value)
 }

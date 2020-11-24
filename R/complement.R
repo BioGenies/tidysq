@@ -18,56 +18,30 @@
 #' 
 #' @seealso \code{\link{sq}}
 #' @export
-complement <- function(x,
-                       NA_letter = getOption("tidysq_NA_letter"), ...)
+complement <- function(x, ...)
   UseMethod("complement")
 
 #' @export
-complement.default <- function(x,
-                               NA_letter = getOption("tidysq_NA_letter"), ...)
+complement.default <- function(x, ...)
   stop("method 'complement' isn't implemented for this type of object", call. = FALSE)
 
+#' @rdname complement
 #' @export
-complement.sq_dna_bsc <- function(x,
-                                  NA_letter = getOption("tidysq_NA_letter"), ...) {
+complement.sq_dna_bsc <- function(x, ...,
+                                  NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
+  
   CPP_complement(x, NA_letter)
 }
 
+#' @rdname complement
 #' @export
 complement.sq_dna_ext <- complement.sq_dna_bsc
 
+#' @rdname complement
 #' @export
 complement.sq_rna_bsc <- complement.sq_dna_bsc
 
+#' @rdname complement
 #' @export
 complement.sq_rna_ext <- complement.sq_dna_bsc
-
-#' @rdname complement
-#' @export
-complement_dna <- function(x)
-  UseMethod("complement_dna")
-
-#' @export
-complement_dna.default <- function(x)
-  stop("method 'complement_dna' isn't implemented for this type of object", call. = FALSE)
-
-#' @export
-complement_dna.sq_dna_bsc <- complement.sq_dna_bsc
-
-#' @export
-complement_dna.sq_dna_ext <- complement.sq_dna_bsc
-
-#' @rdname complement
-#' @export
-complement_rna <- function(x)
-  UseMethod("complement_rna")
-
-#' @export
-complement_rna.default <- function(x)
-  stop("method 'complement_rna' isn't implemented for this type of object", call. = FALSE)
-
-#' @export
-complement_rna.sq_rna_bsc <- complement.sq_dna_bsc
-
-#' @export
-complement_rna.sq_rna_ext <- complement.sq_dna_bsc

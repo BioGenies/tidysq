@@ -46,8 +46,7 @@
 #' @seealso \code{\link{sq}} \code{\link{substitute_letters}} \code{\link{\%has\%}}
 #' 
 #' @export
-find_motifs <- function(x, names, motifs,
-                        NA_letter = getOption("tidysq_NA_letter"), ...) {
+find_motifs <- function(x, names, motifs, ...) {
   assert_character(names, len = vec_size(x))
   assert_character(motifs, any.missing = FALSE)
   
@@ -55,15 +54,16 @@ find_motifs <- function(x, names, motifs,
 }
 
 #' @export
-find_motifs.default <- function(x, names, motifs,
-                                NA_letter = getOption("tidysq_NA_letter"), ...)
+find_motifs.default <- function(x, names, motifs, ...)
   stop("method 'find_motifs' isn't implemented for this type of object")
 
+#' @rdname find_motifs
 #' @export
 #' @importFrom stringi stri_sub
 #' @importFrom tibble as_tibble
-find_motifs.sq <- function(x, names, motifs,
-                           NA_letter = getOption("tidysq_NA_letter"), ...) {
+find_motifs.sq <- function(x, names, motifs, ...,
+                           NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
   assert_alph_regex_friendly(alphabet(x))
   
   ret <- CPP_find_motifs(x, names, motifs, NA_letter)

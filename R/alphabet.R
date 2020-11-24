@@ -1,5 +1,3 @@
-# alphabet assignment ----
-
 #' Get alphabet of given sq object.
 #' 
 #' Function returns amino acid, DNA, RNA or atypical alphabet based on a \code{\link{sq}} 
@@ -58,37 +56,29 @@ sq_alphabet_ptype <- function(type)
   sq_alphabet(character(), type)
 
 get_standard_alphabet <- function(type) {
-  sq_alphabet(
-    switch (type,
-            dna_bsc = nucleotides_df[nucleotides_df[["dna"]], "one"],
-            dna_ext = nucleotides_df[nucleotides_df[["dna"]] | nucleotides_df[["amb"]], "one"],
-            rna_bsc = nucleotides_df[nucleotides_df[["rna"]], "one"],
-            rna_ext = nucleotides_df[nucleotides_df[["rna"]] | nucleotides_df[["amb"]], "one"],
-            ami_bsc = aminoacids_df[!aminoacids_df[["amb"]], "one"],
-            ami_ext = aminoacids_df[, "one"]
-    ),
-    type
-  )
+  CPP_get_standard_alphabet(type)
 }
 
-.skip_characters <- function(alph, chars)
-  vec_restore(setdiff(alph, chars), alph)
+obtain_alphabet <- function(x, sample_size = 4096, 
+                            NA_letter = getOption("tidysq_NA_letter"),
+                            ignore_case = FALSE) {
+  CPP_obtain_alphabet(x, sample_size, NA_letter, ignore_case)
+}
 
-# alphabet reading ----
+guess_standard_alphabet <- function(alph,
+                                    NA_letter = getOption("tidysq_NA_letter")) {
+  CPP_guess_standard_alph(alph, NA_letter)
+}
+
+# utility methods ----
 
 `[.sq_alphabet` <- function(x, i,
                             NA_letter = getOption("tidysq_NA_letter")) {
   ret <- vec_data(x)[i]
-  ret[i == .get_na_val(x)] <- NA_letter
+  ret[i == (2 ^ size(x) - 1)] <- NA_letter
   ret
 }
 
-# various internal methods put together (to check!) ----
-
 size <- function(alph) {
   ceiling(log2(length(alph) + 1))
-}
-
-.get_na_val <- function(alph) {
-  2 ^ size(alph) - 1
 }

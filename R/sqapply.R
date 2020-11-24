@@ -30,7 +30,7 @@ sqapply <- function(x, fun, ..., paste_char = FALSE,
   assert_false(paste_char && use_na_letter)
   
   na_letter <- getOption("tidysq_NA_letter")
-  type <- get_sq_type(x)
+  type <- sq_type(x)
   .apply_sq(x, if (paste_char) "string" else "char", "none", function(s) {
     if (!use_na_letter) s[s == na_letter] <- NA
     if (type == "enc") s <- as.numeric(s)

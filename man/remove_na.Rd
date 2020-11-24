@@ -2,9 +2,12 @@
 % Please edit documentation in R/remove_na.R
 \name{remove_na}
 \alias{remove_na}
+\alias{remove_na.sq}
 \title{Remove sequences containing NA values}
 \usage{
-remove_na(x, by_letter = FALSE, NA_letter = getOption("tidysq_NA_letter"), ...)
+remove_na(x, by_letter = FALSE, ...)
+
+\method{remove_na}{sq}(x, by_letter = FALSE, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \value{
 A \code{\link{sq}} object with the same type as input type. Sequences not containing
@@ -20,7 +23,7 @@ By default, whole sequences containing ambiguous elements are removed
 and \code{\link[=sq]{NULL}} (empty) sequences are introduced in their place. If 
 \code{only_elements = TRUE} then only \code{\link[=sq]{NA}} values are removed 
 from sequences in \code{sq} object. \code{\link[=sq]{NULL}} values (empty sequences) 
-can be identified using \code{\link{is_null_sq}} function. 
+can be identified using \code{\link{is_empty_sq}} function.
 
 \code{NA} may be introduced as a result of using functions like 
 \code{\link{substitute_letters}} or \code{\link{bite}}. They also appear in sequences if
@@ -30,6 +33,6 @@ you are reading file using \code{\link{read_fasta}} or constructing \code{sq} ob
 specified.
 }
 \seealso{
-\code{\link{sq}} \code{\link{is_null_sq}} \code{\link{substitute_letters}}
+\code{\link{sq}} \code{\link{is_empty_sq}} \code{\link{substitute_letters}}
 \code{\link{bite}}
 }

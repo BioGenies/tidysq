@@ -2,9 +2,12 @@
 % Please edit documentation in R/substitute_letters.R
 \name{substitute_letters}
 \alias{substitute_letters}
+\alias{substitute_letters.sq}
 \title{Substitute letters in a sequence}
 \usage{
-substitute_letters(x, encoding, NA_letter = getOption("tidysq_NA_letter"), ...)
+substitute_letters(x, encoding, ...)
+
+\method{substitute_letters}{sq}(x, encoding, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
 \item{x}{a \code{\link{sq}} object.}
@@ -13,6 +16,8 @@ substitute_letters(x, encoding, NA_letter = getOption("tidysq_NA_letter"), ...)
 One letter can be replaced with multiple symbols. 
 To perform substitution create a named vector, e.g.
 \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.}
+
+\item{NA_letter}{an \code{NA_letter} - a string value.}
 }
 \value{
 a \code{\link{sq}} object with \strong{atp} type with replaced alphabet, 

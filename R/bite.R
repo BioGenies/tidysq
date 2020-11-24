@@ -33,23 +33,23 @@
 #'
 #' @seealso \code{\link{sq}} \code{\link{remove_na}} \code{\link{tidysq-options}}
 #' @export
-bite <- function(x, indices, ...,
-                 NA_letter = getOption("tidysq_NA_letter"))
+bite <- function(x, indices, ...)
   UseMethod("bite")
 
 #' @export
-bite.default <- function(x, indices, ...,
-                         NA_letter = getOption("tidysq_NA_letter"))
+bite.default <- function(x, indices, ...)
   stop("method 'bite()' isn't implemented for this type of object", call. = FALSE)
 
+#' @rdname bite
 #' @export
 bite.sq <- function(x, indices, ...,
-                    NA_letter = getOption("tidysq_NA_letter")) {
+                    NA_letter = getOption("tidysq_NA_letter"),
+                    on_warning = getOption("tidysq_on_warning")) {
   assert_string(NA_letter, min.chars = 1)
+  assert_warning_handling(on_warning)
   assert_integerish(indices, any.missing = FALSE, null.ok = TRUE)
   
   ret <- CPP_bite(x, indices, NA_letter)
-  if (ret[["warning"]] != "")
-    .handle_opt_txt("tidysq_a_bite_na", ret[["warning"]])
+  handle_warning_message(ret[["warning"]], on_warning)
   ret[["sq"]]
 }

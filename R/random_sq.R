@@ -46,13 +46,5 @@ random_sq <- function(n, len, alphabet, sd = NULL, use_gap = FALSE) {
     len <- ifelse(len <= 0, 1, len)
   }
   
-  # alph <- get_standard_alphabet(type)
-  # if (!use_gap) alph <- .skip_characters(alph, "-")
-  # if (type == "ami") alph <- .skip_characters(alph, "*")
-  # 
-  # alph_regex <- stri_paste("[", stri_paste(alph, collapse = ""), "]")
-  # 
-  # ret <- stri_rand_strings(n, len, alph_regex)
-  # sq(ret, type)
   CPP_random_sq(n, len, alphabet, use_gap)
 }

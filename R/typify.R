@@ -37,10 +37,21 @@
 #' clean alphabet of destination type (with exception of passing already clean object as input).
 #' 
 #' @export 
-typify <- function(x, dest_type,
-                   NA_letter = getOption("tidysq_NA_letter"), ...) {
-  assert_class(x, "sq")
+typify <- function(x, dest_type, ...) {
   assert_sq_type(dest_type)
+  
+  UseMethod("typify")
+}
+
+#' @export
+typify.default <- function(x, dest_type, ...)
+  stop("'typify' isn't implemented for this type of object", call. = FALSE)
+
+#' @rdname typify
+#' @export
+typify.sq <- function(x, dest_type, ...,
+                      NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
   
   CPP_typify(x, dest_type, NA_letter)
 }

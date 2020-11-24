@@ -8,13 +8,10 @@
 #' 
 #' @seealso \code{\link{tidysq-options}}
 get_tidysq_options <- function() {
-  options()[c("tidysq_a_bite_na",
-              "tidysq_a_cln_sub_letters",
-              "tidysq_a_no_given_enc",
-              "tidysq_a_typify_small_cap_let",
-              "tidysq_g_fast_mode",
-              "tidysq_p_max_pillar_width",
-              "tidysq_p_max_sequences",
-              "tidysq_p_na_letter",
-              "tidysq_p_use_color")]
+  options()[c("tidysq_NA_letter",
+              "tidysq_on_warning",
+              "tidysq_pillar_max_width",
+              "tidysq_print_max_sequences",
+              "tidysq_print_use_color",
+              "tidysq_safe_mode")]
 }

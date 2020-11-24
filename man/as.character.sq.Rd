@@ -4,7 +4,7 @@
 \alias{as.character.sq}
 \title{Convert sq object into character vector}
 \usage{
-\method{as.character}{sq}(x, ...)
+\method{as.character}{sq}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
 \item{x}{a \code{\link{sq}} object to be converted}

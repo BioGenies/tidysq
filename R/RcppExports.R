@@ -61,6 +61,10 @@ CPP_has <- function(x, motifs, NA_letter) {
     .Call(`_tidysq_CPP_has`, x, motifs, NA_letter)
 }
 
+CPP_get_standard_alphabet <- function(dest_type) {
+    .Call(`_tidysq_CPP_get_standard_alphabet`, dest_type)
+}
+
 CPP_random_sq <- function(n, len, alphabet, use_gap) {
     .Call(`_tidysq_CPP_random_sq`, n, len, alphabet, use_gap)
 }

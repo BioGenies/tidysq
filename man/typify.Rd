@@ -2,9 +2,12 @@
 % Please edit documentation in R/typify.R
 \name{typify}
 \alias{typify}
+\alias{typify.sq}
 \title{Set type of untyped and atypical sequences}
 \usage{
-typify(x, dest_type, NA_letter = getOption("tidysq_NA_letter"), ...)
+typify(x, dest_type, ...)
+
+\method{typify}{sq}(x, dest_type, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
 \item{x}{an object of class \code{\link{sq}} with one of the types \strong{ami},

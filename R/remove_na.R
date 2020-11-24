@@ -13,7 +13,7 @@
 #' and \code{\link[=sq]{NULL}} (empty) sequences are introduced in their place. If 
 #' \code{only_elements = TRUE} then only \code{\link[=sq]{NA}} values are removed 
 #' from sequences in \code{sq} object. \code{\link[=sq]{NULL}} values (empty sequences) 
-#' can be identified using \code{\link{is_null_sq}} function. 
+#' can be identified using \code{\link{is_empty_sq}} function.
 #' 
 #' \code{NA} may be introduced as a result of using functions like 
 #' \code{\link{substitute_letters}} or \code{\link{bite}}. They also appear in sequences if
@@ -22,15 +22,24 @@
 #' \code{\link[=fast-mode]{fast mode}} and there are letters in file or in strings other than
 #' specified.
 #'
-#' @seealso \code{\link{sq}} \code{\link{is_null_sq}} \code{\link{substitute_letters}}
+#' @seealso \code{\link{sq}} \code{\link{is_empty_sq}} \code{\link{substitute_letters}}
 #' \code{\link{bite}}
 #' @export
-remove_na <- function(x,
-                      by_letter = FALSE,
-                      NA_letter = getOption("tidysq_NA_letter"), ...) {
-  assert_class(x, "sq")
+remove_na <- function(x, by_letter = FALSE, ...) {
   assert_flag(by_letter)
-  assert_string(NA_letter)
+  
+  UseMethod("remove_na")
+}
+
+#' @export
+remove_na.default <- function(x, by_letter = FALSE, ...)
+  stop("'remove_na' isn't implemented for this type of object", call. = FALSE)
+
+#' @rdname remove_na
+#' @export
+remove_na.sq <- function(x, by_letter = FALSE, ...,
+                         NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
   
   CPP_remove_NA(x, by_letter, NA_letter)
 }

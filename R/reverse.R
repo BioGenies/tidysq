@@ -3,6 +3,7 @@
 #' @description Reverse given list of sequences.
 #' 
 #' @param x a \code{\link{sq}} object.
+#' @param NA_letter an \code{NA_letter} - a string value.
 #' 
 #' @details The \code{reverse} function reverses each sequence in supplied 
 #' \code{\link{sq}} object (e.q. transforms "MIAANYTWIL" to "LIWTYNAAIM"). 
@@ -18,8 +19,18 @@
 #' @seealso \code{\link{sq}} \code{\link{clean}} \code{\link{sq-print}}
 #' 
 #' @export
-reverse <- function(x,
-                    NA_letter = getOption("tidysq_NA_letter"), ...) {
-  assert_class(x, "sq")
+reverse <- function(x, ...)
+  UseMethod("reverse")
+
+#' @export
+reverse.default <- function(x, ...)
+  stop("'reverse' isn't implemented for this type of object; maybe you wanted to use 'rev'?", call. = FALSE)
+
+#' @rdname reverse
+#' @export
+reverse.sq <- function(x, ...,
+                       NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
+  
   CPP_reverse(x, NA_letter)
 }

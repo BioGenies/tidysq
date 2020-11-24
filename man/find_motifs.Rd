@@ -2,14 +2,19 @@
 % Please edit documentation in R/find_motifs.R
 \name{find_motifs}
 \alias{find_motifs}
+\alias{find_motifs.sq}
 \title{Find given motifs}
 \usage{
-find_motifs(x, names, motifs, NA_letter = getOption("tidysq_NA_letter"), ...)
+find_motifs(x, names, motifs, ...)
+
+\method{find_motifs}{sq}(x, names, motifs, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
 \item{x}{a \code{\link{sq}} object.}
 
 \item{motifs}{a \code{character} vector of motifs to be searched for.}
+
+\item{NA_letter}{an \code{NA_letter} - a string value.}
 
 \item{name}{a non-\code{NULL} \code{character} vector without \code{\link{NA}} values, 
 containing names of the sequences in the sq. It has to be of the same length 

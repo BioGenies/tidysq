@@ -2,12 +2,17 @@
 % Please edit documentation in R/reverse.R
 \name{reverse}
 \alias{reverse}
+\alias{reverse.sq}
 \title{Reverse sequence}
 \usage{
-reverse(x, NA_letter = getOption("tidysq_NA_letter"), ...)
+reverse(x, ...)
+
+\method{reverse}{sq}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
 \item{x}{a \code{\link{sq}} object.}
+
+\item{NA_letter}{an \code{NA_letter} - a string value.}
 }
 \value{
 A \code{\link{sq}} object of the same type as input object but 

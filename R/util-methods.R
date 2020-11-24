@@ -22,11 +22,7 @@ as.sq.default <- function(x, ...)
   stop("'as.sq' cannot handle objects with this class")
 
 #' @export
-as.sq.character <- function(x,
-                            alphabet = guess_sq_type(x),
-                            NA_letter = getOption("tidysq_NA_letter"),
-                            safe_mode = getOption("tidysq_safe_mode"))
-  sq(x, alphabet, NA_letter, safe_mode)
+as.sq.character <- sq
 
 #' Convert sq object into character vector
 #' 
@@ -47,8 +43,9 @@ as.sq.character <- function(x,
 #' 
 #' @seealso sq
 #' @export
-as.character.sq <- function(x, ...)
-  vec_cast(x, character())
+as.character.sq <- function(x, ...,
+                            NA_letter = getOption("tidysq_NA_letter"))
+  unpack(x, "STRING", NA_letter)
 
 #' Convert sq object into matrix
 #' 
