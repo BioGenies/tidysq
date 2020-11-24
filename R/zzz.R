@@ -2,13 +2,9 @@
   prev_options <- options()
   
   new_options <- list(
-    tidysq_a_bite_na = "warning",
-    tidysq_a_cln_sub_letters = "warning",
-    tidysq_a_no_given_enc = "warning",
-    tidysq_a_typify_small_cap_let = "warning",
-    
     tidysq_NA_letter = "!",
     tidysq_safe_mode = FALSE,
+    tidysq_on_warning = "warning",
     tidysq_pillar_max_width = 15,
     tidysq_print_max_sequences = 10,
     tidysq_print_use_color = TRUE

@@ -334,10 +334,12 @@ sq <- function(x,
                alphabet = NULL,
                NA_letter = getOption("tidysq_NA_letter"),
                safe_mode = getOption("tidysq_safe_mode"),
+               on_warning = getOption("tidysq_on_warning"),
                ignore_case = FALSE) {
   assert_character(x, any.missing = FALSE)
   assert_flag(safe_mode)
-  assert_string(NA_letter)
+  assert_string(NA_letter, min.chars = 1)
+  assert_warning_handling(on_warning)
   assert_character(alphabet, any.missing = FALSE, min.len = 0, unique = TRUE, null.ok = TRUE)
   assert_flag(ignore_case)
   
@@ -353,8 +355,11 @@ sq <- function(x,
       alphabet <- get_standard_alphabet(type)
       if (safe_mode) {
         actual_alphabet <- obtain_alphabet(x, Inf, NA_letter, ignore_case)
-        if (!identical(actual_alphabet, alphabet)){
-          warning("Detected letters that do not match specified type!")
+        if (!identical(actual_alphabet, alphabet)) {
+          handle_warning_message(
+            "Detected letters that do not match specified type!",
+            on_warning
+          )
           alphabet <- actual_alphabet
         }
       }
