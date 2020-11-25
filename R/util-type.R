@@ -15,19 +15,19 @@ type_as_class <- function(type)
 
 #' Get type of a sq object
 #' 
-#' Function checks which type of sequences are contained in \code{\link{sq}} object.
+#' Function checks which type of sequences are contained in \code{\link[=sq-class]{sq}} object.
 #'  
-#' @param x a \code{\link{sq}} object to be checked.
+#' @param x a \code{\link[=sq-class]{sq}} object to be checked.
 #'  
-#' @return A \code{\link{character}} string, type of\code{\link{sq}} object - can be one of
+#' @return A \code{\link{character}} string, type of\code{\link[=sq-class]{sq}} object - can be one of
 #' "ami", "dna", "rna", "unt", "atp" or "enc".
 #' 
-#' @details This function returns type of sequence from \code{\link{sq}} object.
+#' @details This function returns type of sequence from \code{\link[=sq-class]{sq}} object.
 #' If the type of sequence is \strong{dna}, \strong{rna}, \strong{ami}, \strong{unt},
 #' \strong{atp} or \strong{enc} function returns "dna", "rna", "ami", "unt", "atp" or
 #' "enc" respectivetly.
 #'  
-#' @seealso \code{\link{sq}} \code{\link{sq}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link[=sq-class]{sq}}
 #' @export
 sq_type <- function(x, ...)
   UseMethod("sq_type")

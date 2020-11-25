@@ -67,5 +67,5 @@ NULL
 #' }
 #' 
 #' @name fast-mode
-#' @seealso \code{\link{sq}} \code{\link{tidysq-options}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{tidysq-options}}
 NULL

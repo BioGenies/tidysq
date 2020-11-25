@@ -43,7 +43,7 @@
 #' Detailed list of all letters corresponding to each ambiguous letter may be found at
 #' \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}}.
 #' 
-#' @seealso \code{\link{sq}} \code{\link{substitute_letters}} \code{\link{\%has\%}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{substitute_letters}} \code{\link{\%has\%}}
 #' 
 #' @export
 find_motifs <- function(x, names, motifs, ...) {

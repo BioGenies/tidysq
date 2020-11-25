@@ -3,7 +3,7 @@
 #' @description Creates the complementary sequence from a given RNA or DNA 
 #'  nucleotide sequence. The function differentiates between RNA and DNA sequences. 
 #' 
-#' @param x a \code{\link{sq}} object of type \strong{dna} or \strong{rna}.
+#' @param x a \code{\link[=sq-class]{sq}} object of type \strong{dna} or \strong{rna}.
 #'
 #' @return \code{sq} object of the same type as input \code{dnasq} (\strong{dna})
 #' or \code{rnasq} (\strong{rna}) but built of complementary nucleotides to entered
@@ -16,7 +16,7 @@
 #' Functions \code{complement_dna} and \code{complement_rna} are provided as a safe
 #' way of limiting classes \code{complement} function is used on.
 #' 
-#' @seealso \code{\link{sq}}
+#' @seealso \code{\link[=sq-class]{sq}}
 #' @export
 complement <- function(x, ...)
   UseMethod("complement")

@@ -1,7 +1,7 @@
 #' Substitute letters in a sequence
 #' 
 #' @description 1) Replace ambiguous/extraordinary letters in a nucleic or 
-#' amino acid sequence, stored in a \code{\link{sq}} object, with the ones 
+#' amino acid sequence, stored in a \code{\link[=sq-class]{sq}} object, with the ones
 #' that are compliant with the IUPAC standard, ones that are user-defined 
 #' or with \code{NA} values.
 #' 
@@ -18,7 +18,7 @@
 #' To perform substitution create a named vector, e.g.
 #' \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
 #' 
-#' @return a \code{\link{sq}} object with \strong{atp} type with replaced alphabet, 
+#' @return a \code{\link[=sq-class]{sq}} object with \strong{atp} type with replaced alphabet,
 #' defined by user.
 #' 
 #' @details \code{substitute_letters} allows to replace ambiguous/extraordinary 
@@ -54,7 +54,7 @@
 #' Multiple symbol replacement will be recognized as one letter and 
 #' cannot be separated in future operations into single letters. 
 #' 
-#' @seealso \code{\link{sq}}
+#' @seealso \code{\link[=sq-class]{sq}}
 #' 
 #' @export
 substitute_letters <- function(x, encoding, ...)

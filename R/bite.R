@@ -8,17 +8,17 @@
 #' each sequence. The function follows the normal R conventions for indexing 
 #' vectors, including negative indices.
 #' 
-#' @return \code{\link{sq}} object of the same type as input sq, where each 
+#' @return \code{\link[=sq-class]{sq}} object of the same type as input sq, where each
 #' element is a subsequence created by indexing corresponding sequence from 
 #' input sq object with input indices.
 #' 
-#' @details Amino acids and nucleic acid sequences are represented as \code{\link{sq}} 
+#' @details Amino acids and nucleic acid sequences are represented as \code{\link[=sq-class]{sq}}
 #' object in the \code{\link{tidysq}} package. Often one needs to get only a 
 #' single letter, or the sequence of a defined range from the original sequences. 
 #' A subsequence is a sequence that can be derived from the original sequence 
 #' by trimming some elements (letters) without changing the order of the 
 #' remaining elements. To get a subsequence from each sequence contained in 
-#' the \code{\link{sq}} object with the same indices. This is for example 
+#' the \code{\link[=sq-class]{sq}} object with the same indices. This is for example
 #' useful to extract a user-defined region from a sequence. 
 #' 
 #' The usage of \code{bite} follows the normal R conventions. For details 
@@ -31,7 +31,7 @@
 #' a message or no information (you can check details in \code{\link{tidysq-options})}. 
 #' \code{NA} values can be removed by using \code{\link{remove_na}} function.
 #'
-#' @seealso \code{\link{sq}} \code{\link{remove_na}} \code{\link{tidysq-options}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{remove_na}} \code{\link{tidysq-options}}
 #' @export
 bite <- function(x, indices, ...)
   UseMethod("bite")

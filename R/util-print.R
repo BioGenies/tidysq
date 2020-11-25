@@ -53,13 +53,13 @@ pillar_shaft.encsq <- function(x, ...,
 
 #' Print sq object
 #' 
-#' @description Prints input \code{\link{sq}} object in a human-friendly form.  
+#' @description Prints input \code{\link[=sq-class]{sq}} object in a human-friendly form.
 #' 
 #' @details \code{Print} method is used by default in each case of calling the 
-#' \code{\link{sq}} object with default parameters. 
+#' \code{\link[=sq-class]{sq}} object with default parameters.
 #' Only by explicit calling the \code{print} method parameters can be changed. 
 #'  
-#' \code{Print} checks if the input \code{\link{sq}} object is cleaned and includes 
+#' \code{Print} checks if the input \code{\link[=sq-class]{sq}} object is cleaned and includes
 #' this information alongside with type in the printed message. On the right side of 
 #' the sequence, in angle brackets, the length of each sequence is printed (e.q. "<9>").
 #' 
@@ -84,11 +84,11 @@ pillar_shaft.encsq <- function(x, ...,
 #' are printed as "!" character, but it can be changed in 
 #' \code{\link[=tidysq-options]{package options}}.
 #' 
-#' This is overloaded function from base package. It is selected when \code{\link{sq}} 
+#' This is overloaded function from base package. It is selected when \code{\link[=sq-class]{sq}}
 #' object is used as a parameter for print function. To see the generic function 
 #' page, check \code{\link[base:print]{here}}.
 #' 
-#' @param x \code{\link{sq}} object
+#' @param x \code{\link[=sq-class]{sq}} object
 #' @param max_sequences \code{numeric} value indicating how many sequences 
 #' should be printed
 #' @param use_color \code{logical} value indicating if sequences should 
@@ -98,7 +98,7 @@ pillar_shaft.encsq <- function(x, ...,
 #' @param ... 	further arguments passed to or from other methods. 
 #' Unused.
 #' 
-#' @seealso \code{\link{sq}} \code{\link{clean}} \code{\link{tidysq-options}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{clean}} \code{\link{tidysq-options}}
 #' @name sqprint
 #' @aliases sq-print
 NULL

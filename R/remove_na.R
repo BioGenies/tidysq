@@ -1,18 +1,18 @@
 #' Remove sequences containing NA values
 #' 
-#' Removes sequences containing ambiguous elements or removes \code{\link[=sq]{NA values}} 
-#' from sequences in a \code{\link{sq}} object.
+#' Removes sequences containing ambiguous elements or removes \code{\link[=sq-class]{NA values}}
+#' from sequences in a \code{\link[=sq-class]{sq}} object.
 #' 
 #' @inheritParams remove_ambiguous
 #'  
-#' @return A \code{\link{sq}} object with the same type as input type. Sequences not containing
-#' any \code{\link[=sq]{NA}} values are left untouched.
+#' @return A \code{\link[=sq-class]{sq}} object with the same type as input type. Sequences not containing
+#' any \code{\link[=sq-class]{NA}} values are left untouched.
 #' 
-#' @details This function allows removal of sequences containing \code{\link[=sq]{NA}} values.
+#' @details This function allows removal of sequences containing \code{\link[=sq-class]{NA}} values.
 #' By default, whole sequences containing ambiguous elements are removed 
-#' and \code{\link[=sq]{NULL}} (empty) sequences are introduced in their place. If 
-#' \code{only_elements = TRUE} then only \code{\link[=sq]{NA}} values are removed 
-#' from sequences in \code{sq} object. \code{\link[=sq]{NULL}} values (empty sequences) 
+#' and \code{\link[=sq-class]{NULL}} (empty) sequences are introduced in their place. If
+#' \code{only_elements = TRUE} then only \code{\link[=sq-class]{NA}} values are removed
+#' from sequences in \code{sq} object. \code{\link[=sq-class]{NULL}} values (empty sequences)
 #' can be identified using \code{\link{is_empty_sq}} function.
 #' 
 #' \code{NA} may be introduced as a result of using functions like 
@@ -22,7 +22,7 @@
 #' \code{\link[=fast-mode]{fast mode}} and there are letters in file or in strings other than
 #' specified.
 #'
-#' @seealso \code{\link{sq}} \code{\link{is_empty_sq}} \code{\link{substitute_letters}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{is_empty_sq}} \code{\link{substitute_letters}}
 #' \code{\link{bite}}
 #' @export
 remove_na <- function(x, by_letter = FALSE, ...) {

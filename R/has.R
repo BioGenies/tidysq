@@ -1,8 +1,8 @@
 #' Test sq object for presence of given motifs
 #' 
-#' @description Test if elements of a \code{\link{sq}} object contain given motifs
+#' @description Test if elements of a \code{\link[=sq-class]{sq}} object contain given motifs
 #' 
-#' @param x a \code{\link{sq}} object to be tested.
+#' @param x a \code{\link[=sq-class]{sq}} object to be tested.
 #' @param y a \code{character} vector of motifs to be searched for.
 #' 
 #' @return A \code{\link{logical}} vector of the same length as input \code{sq}, indicating 
@@ -39,7 +39,7 @@
 #' Detailed list of all letters corresponding to each ambiguous letter may be found at
 #' \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}}.
 #' 
-#' @seealso \code{\link{sq}} \code{\link{substitute_letters}} \code{\link{find_motifs}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{substitute_letters}} \code{\link{find_motifs}}
 #' @export
 `%has%` <- function(x, y) {
   assert_character(y, any.missing = FALSE, min.len = 1)

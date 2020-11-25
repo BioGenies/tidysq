@@ -20,7 +20,7 @@
 #' 
 #' @return A list of values returned by function for each sequence in corresponding order.
 #' 
-#' @seealso \code{\link{sq}} \code{\link[base]{lapply}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link[base]{lapply}}
 #' @export 
 sqapply <- function(x, fun, ..., paste_char = FALSE,
                     use_na_letter = paste_char) {

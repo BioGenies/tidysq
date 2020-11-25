@@ -1,6 +1,6 @@
 #' Export sq objects into other formats
 #' 
-#' Convert object of class \code{\link{sq}} to another class from another package. Currently 
+#' Convert object of class \code{\link[=sq-class]{sq}} to another class from another package. Currently
 #' supported packages are \pkg{ape} with its formats (\code{AAbin} and \code{DNAbin}),
 #' \pkg{Bioconductor} (\code{AAStringSet}, \code{DNAStringSet}) and
 #' \pkg{seqinr} (\code{SeqFastaAA}, \code{SeqFastadna}).
@@ -10,7 +10,7 @@
 #' "Biostrings::AAStringSet", "seqinr::SeqFastadna", "ape::DNAbin", "Biostrings::DNAStringSet".
 #' @param ... - additional arguments passed to the function.
 #' 
-#' @seealso \code{\link{sq}} \code{\link{import_sq}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{import_sq}}
 #' @export
 export_sq <- function(x, export_format, name = NULL, ...) {
   assert_string(export_format)

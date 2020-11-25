@@ -1,7 +1,7 @@
 #' Construct sq object from character vector
 #' 
 #' @description This function allows the user to construct objects of 
-#' \code{\link[=sq]{class sq}} from a character vector.
+#' \code{\link[=sq-class]{class sq}} from a character vector.
 #' 
 #' @param sq [character] (no default)
 #' Vector to construct object from.
@@ -18,12 +18,12 @@
 #' contained in sequences. If \code{NULL}, sequences will not be searched for non-standard letters
 #' of length more than one. Each element of this parameter should be at least two characters 
 #' long.
-#' @return object of \code{\link[=sq]{class sq}} with appropriate type (one of: \strong{ami},
+#' @return object of \code{\link[=sq-class]{class sq}} with appropriate type (one of: \strong{ami},
 #' \strong{dna}, \strong{rna}, \strong{unt}, \strong{atp}).
 #' 
 #' @details 
 #' Function \code{construct_sq} covers all possibilities of standard and non-standard types and 
-#' alphabets. You can check what 'type' and 'alphabet' exactly are in \code{\link[=sq]{sq class}} 
+#' alphabets. You can check what 'type' and 'alphabet' exactly are in \code{\link[=sq-class]{sq class}}
 #' documentation. Below there is a guide how function operates and how the program behaves 
 #' according to the given arguments and the letters in the sequences.
 #' 
@@ -35,14 +35,14 @@
 #' \code{sq} parameter should be a character vector. Each element of this vector is a biological 
 #' sequence. If this parameter has length 0, object of class \code{sq} with 0 sequences will be 
 #' created (if not specified, it will have \strong{dna} \strong{cln} type, which is a result of 
-#' rules written below). If it contains sequences of length 0, \code{\link[=sq]{NULL}} sequences
-#' will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[=sq]{sq class}}).
+#' rules written below). If it contains sequences of length 0, \code{\link[=sq-class]{NULL}} sequences
+#' will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[=sq-class]{sq class}}).
 #' 
 #' \strong{Important note:} in all below cases word 'letter' stands for an element of an alphabet.
 #' Letter might consist of more than one character, for example "Ala" might be a single letter.
 #' However, if you want to construct or read sequences with multi-character letters, one has 
 #' to specify \code{non_standard} parameter. Details of letters, alphabet and types can be 
-#' found in \code{\link[=sq]{sq class}} documentation.
+#' found in \code{\link[=sq-class]{sq class}} documentation.
 #' 
 #' @section Simple guide to construct :
 #' In most cases, just the \code{sq} parameter needs to be specified - type of sequences
@@ -120,7 +120,7 @@
 #' can use \code{\link{typify}} function to set of \code{sq} to \strong{ami}, \strong{dna}
 #' or \strong{rna}. If your sequences contain \code{NA} values, use \code{\link{remove_na}}
 #' 
-#' @seealso \code{\link{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}}
 #' \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}
 #' @export
 sq <- function(x,

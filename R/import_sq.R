@@ -1,6 +1,6 @@
 #' Import sq objects from other objects
 #' 
-#' Creates \code{\link[=sq]{sq object}} from \code{object} of class from another package.
+#' Creates \code{\link[=sq-class]{sq object}} from \code{object} of class from another package.
 #' Currently supported packages are \pkg{ape} with its formats (\code{AAbin} and \code{DNAbin}),
 #' \pkg{Bioconductor} (\code{AAStringSet}, \code{DNAStringSet}) and
 #' \pkg{seqinr} (\code{SeqFastaAA}, \code{SeqFastadna}).
@@ -9,7 +9,7 @@
 #' \code{DNAStringSet}, \code{SeqFastaAA}, \code{SeqFastadna}.
 #' @param ... - additional arguments passed to the function.
 #' 
-#' @return A \code{\link[tibble]{tibble}} with \code{sq} column of \code{\link{sq}} type 
+#' @return A \code{\link[tibble]{tibble}} with \code{sq} column of \code{\link[=sq-class]{sq}} type
 #' representing the same 
 #' sequences as given object; the object has a type corresponding to the input type; if given
 #' sequences had names, output \code{\link[tibble]{tibble}} has also another column 
@@ -18,7 +18,7 @@
 #' @details 
 #' Providing object of class other than specified will result in error.
 #' 
-#' @seealso \code{\link{export_sq}} \code{\link{sq}}
+#' @seealso \code{\link{export_sq}} \code{\link[=sq-class]{sq}}
 #' @export
 import_sq <- function(object, ...)
   UseMethod("import_sq")

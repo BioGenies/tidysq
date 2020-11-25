@@ -1,37 +1,37 @@
 #' Get alphabet of given sq object.
 #' 
-#' Function returns amino acid, DNA, RNA or atypical alphabet based on a \code{\link{sq}} 
+#' Function returns amino acid, DNA, RNA or atypical alphabet based on a \code{\link[=sq-class]{sq}}
 #' object type. 
 #' 
-#' @param x a \code{\link{sq}} object to be recognized.
+#' @param x a \code{\link[=sq-class]{sq}} object to be recognized.
 #'  
 #' @return A character vector of letters of the alphabet.
 #' 
 #' @details This function allows returning alphabet of \code{sq} object which is a character
-#' or numeric vector. The function reads provided \code{\link{sq}} object and determines,
-#' which kind of sequences user assigned to a \code{\link{sq}} object (DNA, RNA, amino acid,
+#' or numeric vector. The function reads provided \code{\link[=sq-class]{sq}} object and determines,
+#' which kind of sequences user assigned to a \code{\link[=sq-class]{sq}} object (DNA, RNA, amino acid,
 #' atypical or encoded one).
 #' 
-#' If \code{\link{sq}} has \strong{ami} type and \strong{cln} subtype, the function returns
+#' If \code{\link[=sq-class]{sq}} has \strong{ami} type and \strong{cln} subtype, the function returns
 #' the set of 20 aminoacids, the gap (-) and the stop codon (*) letter. If \strong{cln} is
 #' missing, ambiguous letters are included as well.
 #' 
-#' If a \code{\link{sq}} contains \strong{dna} or \strong{rna} sequences and \strong{cln}
+#' If a \code{\link[=sq-class]{sq}} contains \strong{dna} or \strong{rna} sequences and \strong{cln}
 #' subtype, the function returns a set of respective 4 nucleotides with gap (-) element.
 #' If \strong{cln} is missing, ambiguous letters are included as well.
 #' 
-#' If \code{\link{sq}} type is \strong{unt} or \strong{atp}, the function returns a list of 
-#' letters present in sequences of a \code{\link{sq}} object.
+#' If \code{\link[=sq-class]{sq}} type is \strong{unt} or \strong{atp}, the function returns a list of
+#' letters present in sequences of a \code{\link[=sq-class]{sq}} object.
 #' 
 #' If type is \strong{enc}, a numeric vector of values encoded for letters is returned
 #' (see \code{\link{encode}}).
 #' 
 #' The details about amino acid and nucleotide alphabets can be checked in
 #' \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}} respectively. General
-#' information about alphabets and types of \code{sq} objects can be found in \code{\link{sq}}
+#' information about alphabets and types of \code{sq} objects can be found in \code{\link[=sq-class]{sq}}
 #' class documentation.
 #'
-#' @seealso \code{\link{sq}} \code{\link{construct_sq}} \code{\link{encode}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{construct_sq}} \code{\link{encode}}
 #' @export
 alphabet <- function(x)
   attr(x, "alphabet")

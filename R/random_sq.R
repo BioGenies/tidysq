@@ -1,13 +1,13 @@
 #' Generate random sequences
 #' 
-#' Generates a \code{\link{sq}} object with specified number of sequences of given length 
+#' Generates a \code{\link[=sq-class]{sq}} object with specified number of sequences of given length
 #' and given type.
 #' 
 #' @param n a positive \code{\link{integer}} value - number of sequences to generate.
 #' @param len a positive \code{\link{integer}} value - length of each sequence if \code{sd} not 
 #' specified and mean length of sequences if \code{sd} specified
 #' @param type a type of generated sq object; possible values are "ami", "dna" and "rna"
-#' (see section \emph{sq types} in \code{\link{sq}} documentation for details).
+#' (see section \emph{sq types} in \code{\link[=sq-class]{sq}} documentation for details).
 #' @param is_clean a \code{\link{logical}} value - if \code{TRUE}, letters will be drawn from
 #' clean alphabet, if \code{FALSE} - ambiguous letters might be also generated.
 #' @param sd a positive \code{\link{numeric}} value; if specified, gives standard deviation of
@@ -20,7 +20,7 @@
 #' generating a sequence of length 0, even if \code{sd} is given. Letter '*' is not used 
 #' in generating \strong{ami} sequences.
 #' 
-#' @seealso \code{\link{construct_sq}} \code{\link{sq}}
+#' @seealso \code{\link{construct_sq}} \code{\link[=sq-class]{sq}}
 #' @importFrom stringi stri_rand_strings stri_paste
 #' @export
 random_sq <- function(n, len, alphabet, sd = NULL, use_gap = FALSE) {

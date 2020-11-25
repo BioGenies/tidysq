@@ -2,7 +2,7 @@
 #' 
 #' Test a sq object for presence of empty sequences
 #' 
-#' @param sq a\code{\link{sq}} object to be tested
+#' @param sq a\code{\link[=sq-class]{sq}} object to be tested
 #'  
 #' @return A logical vector of the same length as input sq, 
 #' indicating which elements are \code{NULL sq}, i.e., an empty sequence
@@ -18,7 +18,7 @@
 #' latter replaces \code{NA} values (which may be introduced by 
 #' \code{\link{bite}}) with \code{NULL sq}.
 #'
-#' @seealso \code{\link{sq}} \code{\link{clean}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{clean}}
 #' @export
 is_empty_sq <- function(x) {
   assert_class(x, "sq")

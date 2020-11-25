@@ -4,12 +4,12 @@
 #' acquire sequences of corresponding proteins, where correspondence is encoded
 #' in specified table.
 #' 
-#' @param x an object of class \code{\link{sq}} with either \strong{dna} or
+#' @param x an object of class \code{\link[=sq-class]{sq}} with either \strong{dna} or
 #' \strong{rna} type
 #' @param table integer number of translation table used, as specified
 #' \href{https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi}{here}
 #' 
-#' @return An object of \code{\link[=sq]{class sq}} with \strong{ami} type and
+#' @return An object of \code{\link[=sq-class]{class sq}} with \strong{ami} type and
 #' \strong{cln} subtype.
 #' 
 #' @details

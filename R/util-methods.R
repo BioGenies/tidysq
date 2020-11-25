@@ -1,10 +1,10 @@
 #' Convert an object to sq
 #' 
-#' This generic function takes an object of arbitrary type and returns an \code{\link{sq}} object 
+#' This generic function takes an object of arbitrary type and returns an \code{\link[=sq-class]{sq}} object
 #' as an output. Default implementation of the method throws an error - there needs to be 
 #' implemented a method for specified class in order for function to work.
 #' 
-#' @param x a object of a class that supports conversion to \code{\link{sq}}. 
+#' @param x a object of a class that supports conversion to \code{\link[=sq-class]{sq}}.
 #' @param ... other arguments passed to the method.
 #' @return A \code{sq} object
 #' 
@@ -12,7 +12,7 @@
 #' which in fact works exactly like \code{\link{construct_sq}} - you can also pass other arguments
 #' like those supported by \code{\link{construct_sq}}.
 #' 
-#' @seealso \code{\link{sq}} \code{\link{construct_sq}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{construct_sq}}
 #' @export
 as.sq <- function(x, ...)
   UseMethod("as.sq")
@@ -26,16 +26,16 @@ as.sq.character <- sq
 
 #' Convert sq object into character vector
 #' 
-#' @description Coerce sequences from a \code{\link{sq}} object to \code{\link{character}} vector
+#' @description Coerce sequences from a \code{\link[=sq-class]{sq}} object to \code{\link{character}} vector
 #' of sequences
 #' 
-#' @param x a \code{\link{sq}} object to be converted
+#' @param x a \code{\link[=sq-class]{sq}} object to be converted
 #' @param ... further arguments to be passed from or to other methods.
 #' 
 #' @return A \code{character} vector of the length the same as number
 #' of sequences in the converted \code{sq} object
 #' 
-#' @details This method for class \code{\link{sq}} allows converting sequences from
+#' @details This method for class \code{\link[=sq-class]{sq}} allows converting sequences from
 #' the sq object into a character vector of length equal to the length 
 #' of sq. Each element of resulting vector is a separate sequence. 
 #' All attributes of the input sq are lost during the conversion to 
@@ -49,10 +49,10 @@ as.character.sq <- function(x, ...,
 
 #' Convert sq object into matrix
 #' 
-#' @description Coerce sequences from a \code{\link{sq}} object to a 
+#' @description Coerce sequences from a \code{\link[=sq-class]{sq}} object to a
 #' \code{\link{matrix}}, in which rows correspond to sequences and columns to positions
 #' 
-#' @param x a \code{\link{sq}} object to be converted.
+#' @param x a \code{\link[=sq-class]{sq}} object to be converted.
 #' @param ... further arguments to be passed from or to other methods.
 #' 
 #' @return A \code{\link{matrix}} with number of rows the same as number of sequences
@@ -70,7 +70,7 @@ as.character.sq <- function(x, ...,
 #' columns will be filled with \code{\link{NA}}. All attributes of the input
 #' \code{sq} are lost during the conversion to matrix.
 #' 
-#' @seealso \code{\link{sq}}
+#' @seealso \code{\link[=sq-class]{sq}}
 #' @export
 as.matrix.sq <- function(x, ...) {
   max_len <- max(get_sq_lengths(x))
@@ -88,8 +88,8 @@ as.matrix.sq_enc <- function(x, ...) {
 
 #' Check if object has specified type
 #' 
-#' Function to checks if object is a \code{\link{sq}} object without specifying type or
-#' if it is a \code{\link{sq}} object with specific type.
+#' Function to checks if object is a \code{\link[=sq-class]{sq}} object without specifying type or
+#' if it is a \code{\link[=sq-class]{sq}} object with specific type.
 #' @param x an object to be checked.
 #' @return A \code{\link{logical}} value - \code{TRUE} if \code{x} has specified type, \code{FALSE}
 #' otherwise.
@@ -98,9 +98,9 @@ as.matrix.sq_enc <- function(x, ...) {
 #' These function does not only check objects classes - they also check if their format is 
 #' correct (e.g. if they have alphabet parameter, if they have exactly one type, if they are
 #' list of raws, etc. - to see details, how does \code{sq} object look like under the hood, 
-#' read \code{\link[=sq]{sq class}} manual).
+#' read \code{\link[=sq-class]{sq class}} manual).
 #' 
-#' @seealso \code{\link{sq}}
+#' @seealso \code{\link[=sq-class]{sq}}
 #' @export
 is.sq <- function(x)
   test_class(x, "sq")
@@ -112,16 +112,16 @@ is.sq_ami_bsc <- function(x)
   test_class(x, "sq_ami_bsc")
 
 #' Compare sq objects
-#' @description Compares input \code{\link{sq}} object with another given.
+#' @description Compares input \code{\link[=sq-class]{sq}} object with another given.
 #' 
 #' @details \code{`==`} converts left-hand side of the comparison (\code{x1}) to
 #' a character vector using \code{\link{as.character}} and checks whether object
-#' given on the right side can be compared with \code{\link{sq}} object. Function
-#' also checks the type of \code{\link{sq}} object with which given object is to be
-#' compared. If the type of \code{\link{sq}} object is "ami", "dna" or "rna" and
+#' given on the right side can be compared with \code{\link[=sq-class]{sq}} object. Function
+#' also checks the type of \code{\link[=sq-class]{sq}} object with which given object is to be
+#' compared. If the type of \code{\link[=sq-class]{sq}} object is "ami", "dna" or "rna" and
 #' given sequence is a character vector with any lowercase letters, the function
 #' replaces them with corresponding capital ones using \code{\link{toupper}}.
-#' If right-hand side object (\code{x2}) is of class \code{\link{sq}}, then it is
+#' If right-hand side object (\code{x2}) is of class \code{\link[=sq-class]{sq}}, then it is
 #' converted to a character vector also using \code{\link{as.character}} function.
 #' 
 #' When both objects are already converted to character vectors, comparison is carried out 
@@ -132,31 +132,31 @@ is.sq_ami_bsc <- function(x)
 #' can be compared for example amino acid with nucleotide sequences so attention
 #' should be paid, which sequence types are compared.
 #' 
-#' @param x1 an \code{\link{sq}} object.
-#' @param x2 an object (a character vector or an \code{\link{sq}} object) to compare with
+#' @param x1 an \code{\link[=sq-class]{sq}} object.
+#' @param x2 an object (a character vector or an \code{\link[=sq-class]{sq}} object) to compare with
 #' \code{x1}.
 #' 
 #' @return A \code{\link{logical}} vector indicating on which positions the objects are equal
 #' 
-#' @seealso \code{\link{sq}} \code{\link{as.character}} \code{\link{is.sq}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{as.character}} \code{\link{is.sq}}
 #' @export
 `==.sq` <- vec_equal
 
 #' Get lengths of sequences in sq object
 #' 
-#' Function counts number of elements in each sequence in given \code{\link{sq}} object.
+#' Function counts number of elements in each sequence in given \code{\link[=sq-class]{sq}} object.
 #' 
-#' @param x an \code{\link{sq}} object.
+#' @param x an \code{\link[=sq-class]{sq}} object.
 #'  
 #' @return A \code{\link{numeric}} vector, where each element gives length of according 
-#' sequence from \code{\link{sq}} object.
+#' sequence from \code{\link[=sq-class]{sq}} object.
 #' 
 #' @details This function allows returning numeric vector of lengths of sequences from
-#' \code{\link{sq}} object. The numeric vector is as long as number of sequences present 
-#' in \code{\link{sq}} object.
+#' \code{\link[=sq-class]{sq}} object. The numeric vector is as long as number of sequences present
+#' in \code{\link[=sq-class]{sq}} object.
 #' The function counts elements in all types of sequences.
 #'
-#' @seealso \code{\link{sq}} \code{\link{construct_sq}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{construct_sq}}
 #' @export
 get_sq_lengths <- function(x) {
   if (length(x) == 0) numeric(0)
@@ -174,7 +174,7 @@ get_sq_lengths <- function(x) {
 #' interpretation for indexing vectors, which are a bit stricter that normal R
 #' conventions, for example implicit argument recycling is prohibited.
 #' 
-#' @return \code{\link{sq}} object of the same type as input sq, containing
+#' @return \code{\link[=sq-class]{sq}} object of the same type as input sq, containing
 #' extracted elements
 #' 
 #' @details This function allows extracting specified sequences from the 
@@ -185,23 +185,23 @@ get_sq_lengths <- function(x) {
 #' of the object). Attempt to extract elements using indices not present in
 #' the object will return an error.
 #' 
-#' @seealso \code{\link{sq}} \code{\link{bite}}
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{bite}}
 #' @name sqextract
 #' @aliases sq-extract
 NULL
 
 #' Concatenate sq objects
 #' 
-#' @description Merges multiple \code{\link{sq}} and maybe \code{character} objects
+#' @description Merges multiple \code{\link[=sq-class]{sq}} and maybe \code{character} objects
 #' into one larger \code{sq} object.
 #' 
-#' @param ... multiple \code{\link{sq}} and \code{character} objects. For exact behaviour,
+#' @param ... multiple \code{\link[=sq-class]{sq}} and \code{character} objects. For exact behaviour,
 #' check Details section. First argument must be of \code{sq} class due to R mechanism of
 #' single dispatch. If this is a problem, recommended alternative is \code{\link[vctrs]{vec_c}}
 #' method from \code{vctrs} package.
 #' 
-#' @return A \code{\link{sq}} object with length equal to sum of lengths of individual objects
-#' passed as parameters. Elements of \code{\link{sq}} are concatenated just as if they were normal
+#' @return A \code{\link[=sq-class]{sq}} object with length equal to sum of lengths of individual objects
+#' passed as parameters. Elements of \code{\link[=sq-class]{sq}} are concatenated just as if they were normal
 #' lists (see \code{\link[base]{c}})
 #' 
 #' @details Whenever all passed objects are either \code{dnasq}, \code{rnasq} or \code{amisq},
