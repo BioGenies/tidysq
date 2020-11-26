@@ -5,11 +5,11 @@
 #include "tidysq/constants/translate_tables.h"
 
 namespace tidysq {
-    LetterValue codon_table(int table,
-                            const LetterValue &codon_1,
-                            const LetterValue &codon_2,
-                            const LetterValue &codon_3,
-                            const bool &interpret_as_stop) {
+    inline LetterValue codon_table(int table,
+                                   const LetterValue &codon_1,
+                                   const LetterValue &codon_2,
+                                   const LetterValue &codon_3,
+                                   const bool &interpret_as_stop) {
         // Some tables are actually identical to some others
         if (table == 7) table = 4;
         if (table == 8) table = 1;
