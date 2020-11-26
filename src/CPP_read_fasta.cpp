@@ -1,16 +1,27 @@
 #include <Rcpp.h>
 
-#include "tidysq/exports.h"
+#include "tidysq/tidysq-includes.h"
 
 using namespace tidysq;
 
-//' @export
 //[[Rcpp::export]]
-Rcpp::DataFrame CPP_read_fasta(Rcpp::StringVector file_name,
-                          Rcpp::StringVector alphabet) {
-  auto val = readFasta<RCPP>(util::getScalarStringValue(file_name), Alphabet(alphabet));
-  auto ret = Rcpp::DataFrame::create(Rcpp::Named("sq") = std::get<0>(val).exportToR(),
-                                     Rcpp::Named("name") = util::convertStringVector(std::get<1>(val)));
-  ret.attr("class") = Rcpp::StringVector{"tbl_df", "tbl", "data.frame"};
-  return ret;
+Rcpp::DataFrame CPP_read_fasta(const Rcpp::StringVector &file_name,
+                               const Rcpp::StringVector &alphabet,
+                               const Rcpp::StringVector &NA_letter,
+                               const Rcpp::LogicalVector &ignore_case) {
+  return export_to_R(
+    read_fasta<RCPP_IT>(util::convert_to_scalar(file_name), 
+                        import_alphabet_from_R(alphabet, NA_letter, ignore_case)));
+}
+
+//[[Rcpp::export]]
+Rcpp::StringVector CPP_sample_fasta(const Rcpp::StringVector &file_name,
+                                    const Rcpp::NumericVector &sample_size,
+                                    const Rcpp::StringVector &NA_letter,
+                                    const Rcpp::LogicalVector &ignore_case) {
+  return export_to_R(
+    sample_fasta(util::convert_to_scalar(file_name),
+                 util::convert_sample_size(sample_size),
+                 util::convert_to_scalar(NA_letter),
+                 util::convert_to_scalar(ignore_case)));
 }

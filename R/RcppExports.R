@@ -25,6 +25,14 @@ CPP_pack_STRING <- function(proto, alphabet, NA_letter, ignore_case) {
     .Call(`_tidysq_CPP_pack_STRING`, proto, alphabet, NA_letter, ignore_case)
 }
 
+CPP_read_fasta <- function(file_name, alphabet, NA_letter, ignore_case) {
+    .Call(`_tidysq_CPP_read_fasta`, file_name, alphabet, NA_letter, ignore_case)
+}
+
+CPP_sample_fasta <- function(file_name, sample_size, NA_letter, ignore_case) {
+    .Call(`_tidysq_CPP_sample_fasta`, file_name, sample_size, NA_letter, ignore_case)
+}
+
 CPP_unpack_RAWS <- function(sq, NA_letter) {
     .Call(`_tidysq_CPP_unpack_RAWS`, sq, NA_letter)
 }

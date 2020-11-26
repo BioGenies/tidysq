@@ -88,14 +88,30 @@ BEGIN_RCPP
 END_RCPP
 }
 // CPP_read_fasta
-Rcpp::DataFrame CPP_read_fasta(Rcpp::StringVector file_name, Rcpp::StringVector alphabet);
-RcppExport SEXP _tidysq_CPP_read_fasta(SEXP file_nameSEXP, SEXP alphabetSEXP) {
+Rcpp::DataFrame CPP_read_fasta(const Rcpp::StringVector& file_name, const Rcpp::StringVector& alphabet, const Rcpp::StringVector& NA_letter, const Rcpp::LogicalVector& ignore_case);
+RcppExport SEXP _tidysq_CPP_read_fasta(SEXP file_nameSEXP, SEXP alphabetSEXP, SEXP NA_letterSEXP, SEXP ignore_caseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::StringVector >::type file_name(file_nameSEXP);
-    Rcpp::traits::input_parameter< Rcpp::StringVector >::type alphabet(alphabetSEXP);
-    rcpp_result_gen = Rcpp::wrap(CPP_read_fasta(file_name, alphabet));
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type file_name(file_nameSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type alphabet(alphabetSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type ignore_case(ignore_caseSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_read_fasta(file_name, alphabet, NA_letter, ignore_case));
+    return rcpp_result_gen;
+END_RCPP
+}
+// CPP_sample_fasta
+Rcpp::StringVector CPP_sample_fasta(const Rcpp::StringVector& file_name, const Rcpp::NumericVector& sample_size, const Rcpp::StringVector& NA_letter, const Rcpp::LogicalVector& ignore_case);
+RcppExport SEXP _tidysq_CPP_sample_fasta(SEXP file_nameSEXP, SEXP sample_sizeSEXP, SEXP NA_letterSEXP, SEXP ignore_caseSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type file_name(file_nameSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type sample_size(sample_sizeSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type ignore_case(ignore_caseSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_sample_fasta(file_name, sample_size, NA_letter, ignore_case));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -302,6 +318,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_pack_INTS", (DL_FUNC) &_tidysq_CPP_pack_INTS, 4},
     {"_tidysq_CPP_pack_STRINGS", (DL_FUNC) &_tidysq_CPP_pack_STRINGS, 4},
     {"_tidysq_CPP_pack_STRING", (DL_FUNC) &_tidysq_CPP_pack_STRING, 4},
+    {"_tidysq_CPP_read_fasta", (DL_FUNC) &_tidysq_CPP_read_fasta, 4},
+    {"_tidysq_CPP_sample_fasta", (DL_FUNC) &_tidysq_CPP_sample_fasta, 4},
     {"_tidysq_CPP_unpack_RAWS", (DL_FUNC) &_tidysq_CPP_unpack_RAWS, 2},
     {"_tidysq_CPP_unpack_INTS", (DL_FUNC) &_tidysq_CPP_unpack_INTS, 2},
     {"_tidysq_CPP_unpack_STRINGS", (DL_FUNC) &_tidysq_CPP_unpack_STRINGS, 2},
