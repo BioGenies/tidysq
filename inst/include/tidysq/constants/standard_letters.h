@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-err58-cpp"
 #pragma once
 
 #include <unordered_map>
@@ -18,3 +20,5 @@ namespace tidysq::constants {
                               "S", "T", "U", "V", "W", "X", "Y", "Z", "-", "*"}}
     };
 }
+
+#pragma clang diagnostic pop

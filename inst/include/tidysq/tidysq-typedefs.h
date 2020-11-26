@@ -2,6 +2,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <list>
 
 namespace tidysq {
     typedef unsigned long long int  LenSq;
@@ -15,12 +16,6 @@ namespace tidysq {
     typedef unsigned short int      LetterValue;
     typedef std::string             Letter;
     typedef char                    SimpleLetter;
-
-    typedef std::unordered_map<LetterValue, const LetterValue>          ComplementTable;
-    typedef const std::unordered_map<LetterValue,
-                const std::unordered_map<LetterValue,
-                    const std::unordered_map<LetterValue,
-                        const LetterValue>>>                            CodonTable;
 
     struct InternalType {};
 
@@ -45,4 +40,14 @@ namespace tidysq {
         ATP,
         ENC
     };
+
+    namespace internal {
+        typedef std::unordered_map<LetterValue, const LetterValue>      ComplementTable;
+        typedef std::unordered_map<LetterValue,
+                const std::unordered_map<LetterValue,
+                        const std::unordered_map<LetterValue,
+                                const LetterValue>>>                    CodonTable;
+        typedef std::unordered_map<ElementStringSimple,
+                        std::list<ElementStringSimple>>                 AmbiguousDict;
+    }
 }

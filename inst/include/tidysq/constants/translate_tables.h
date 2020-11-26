@@ -1,9 +1,11 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-err58-cpp"
 #pragma once
 
 #include "tidysq/tidysq-typedefs.h"
 
 namespace tidysq::constants {
-    const CodonTable CODON_TABLE_1 = {
+    const internal::CodonTable CODON_TABLE_1 = {
             {0u, {
                          {0u, {{0u, 8u}, {1u, 11u}, {2u, 8u}, {3u, 11u}}},
                          {1u, {{0u, 16u}, {1u, 16u}, {2u, 16u}, {3u, 16u}}},
@@ -30,7 +32,7 @@ namespace tidysq::constants {
                  }}
     };
 
-    const std::unordered_map<int, const CodonTable> CODON_DIFF_TABLES = {
+    const std::unordered_map<int, const internal::CodonTable> CODON_DIFF_TABLES = {
             {2, {
                         {0u, {
                                      {2u, {{0u, 21u}, {2u, 21u}}},
@@ -189,7 +191,7 @@ namespace tidysq::constants {
                 }}
     };
 
-    const std::unordered_map<int, const CodonTable> AMB_CODON_DIFF_TABLES = {
+    const std::unordered_map<int, const internal::CodonTable> AMB_CODON_DIFF_TABLES = {
             {27, {
                          {3u, {
                                       {2u, {{0u, 18u}}}
@@ -208,3 +210,5 @@ namespace tidysq::constants {
                  }}
     };
 }
+
+#pragma clang diagnostic pop

@@ -7,7 +7,7 @@ namespace tidysq {
     template<typename INTERNAL>
     Sequence<INTERNAL> complement(const Sequence<INTERNAL> &sequence,
                                   const AlphSize &alph_size,
-                                  const ComplementTable &table) {
+                                  const internal::ComplementTable &table) {
         Sequence<INTERNAL> ret =
                 util::reserve_space_for_packed<INTERNAL>(sequence.original_length(), alph_size);
 
@@ -30,7 +30,7 @@ namespace tidysq {
     Sq<INTERNAL> complement(const Sq<INTERNAL> &sq) {
         Alphabet alph = sq.alphabet();
         Sq<INTERNAL> ret(sq.length(), alph);
-        ComplementTable table;
+        internal::ComplementTable table;
         switch (sq.type()) {
             case DNA_BSC:
             case RNA_BSC:
