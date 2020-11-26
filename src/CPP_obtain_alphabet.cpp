@@ -1,5 +1,4 @@
-#include "tidysq/util/obtain_alphabet.h"
-#include "tidysq/tidysq-includes.h"
+#include "tidysq.h"
 
 using namespace tidysq;
 

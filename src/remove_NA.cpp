@@ -1,7 +1,6 @@
 #include <Rcpp.h>
 
-#include "tidysq/tidysq-includes.h"
-#include "tidysq/remove_on_condition.h"
+#include "tidysq.h"
 
 using namespace tidysq;
 

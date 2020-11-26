@@ -1,6 +1,7 @@
 #pragma once
 
-#include "tidysq/tidysq-includes.h"
+#include "tidysq/Alphabet.h"
+#include "tidysq/Sequence.h"
 
 namespace tidysq {
     template<typename INTERNAL>

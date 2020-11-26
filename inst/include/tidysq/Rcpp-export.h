@@ -2,6 +2,7 @@
 
 #include "tidysq/Sq.h"
 #include "tidysq/ProtoSq.h"
+#include "tidysq/find_motifs.h"
 
 namespace tidysq {
     inline Rcpp::StringVector export_to_R(const Alphabet &alphabet) {
