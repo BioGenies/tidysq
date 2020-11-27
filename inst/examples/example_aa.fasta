@@ -1,0 +1,842 @@
+>AMY1|K19|T-Protein (Tau)
+PGGGKVQIVYKPV
+>AMY9|K19Gluc41|T-Protein (Tau)
+NLKHQPGGGKVQIVYKPVDLSKVTSKCGSLGNIHHKPGGGQVE
+>AMY14|K19Gluc782|T-Protein (Tau)
+NLKHQPGGGKVQIVYKEVD
+>AMY17|PHF8|T-Protein (Tau)
+GKVQIVYK
+>AMY18|PHF6|T-Protein (Tau)
+VQIVYK
+>AMY22|Whole|Amyloid beta A4 peptide
+DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVV
+>AMY23|HABP1|Amyloid beta A4 peptide
+VPHQKLVFFAEDVGS
+>AMY24|HABP2|Amyloid beta A4 peptide
+VHPQKLVFFAEDVGS
+>AMY25|HABP3|Amyloid beta A4 peptide
+VHHPKLVFFAEDVGS
+>AMY26|HABP4|Amyloid beta A4 peptide
+VHHQPLVFFAEDVGS
+>AMY32|HABP10|Amyloid beta A4 peptide
+KKLVFFPED
+>AMY34|HABP12|Amyloid beta A4 peptide
+VHHQEKLVFFAEPVGS
+>AMY35|HABP13|Amyloid beta A4 peptide
+VHHQEKLVFFAEDPGS
+>AMY36|HABP14|Amyloid beta A4 peptide
+VHHQEKLVFFAEDVPS
+>AMY37|HABP15|Amyloid beta A4 peptide
+KKLVFFAED
+>AMY38|HABP16|Amyloid beta A4 peptide
+VHHQKLVFFAEDVGS
+>AMY42|AB4|Amyloid beta A4 peptide
+HHQKLVFFAED
+>AMY43|AB5|Amyloid beta A4 peptide
+VHHQKLVFFAEDV
+>AMY44|AB6|Amyloid beta A4 peptide
+EVHHQKLVFFAEDVG
+>AMY45|AB7|Amyloid beta A4 peptide
+YEVHHQKLVFFAEDVGS
+>AMY46|AB8|Amyloid beta A4 peptide
+GYEVHHQKLVFFAEDVGSN
+>AMY47|AB9|Amyloid beta A4 peptide
+SGYEVHHQKLVFFAEDVGSNK
+>AMY48|AB10|Amyloid beta A4 peptide
+DSGYEVHHQKLVFFAEDVGSNKG
+>AMY49|AB11|Amyloid beta A4 peptide
+HDSGYEVHHQKLVFFAEDVGSNKGA
+>AMY50|Untitled|Amyloid beta A4 peptide
+GVVIA
+>AMY51|Untitled|Amyloid beta A4 peptide
+IIGLMV
+>AMY52|Untitled|Amyloid beta A4 peptide
+LVFFA
+>AMY53|NAC1-18|Alpha synuclein
+EQVTNVGGAVVTGVTAVA
+>AMY54|NAC1-18s|Alpha synuclein
+TVNGVGEVTATAVQGVAV
+>AMY55|NAC3-18|Alpha synuclein
+VTNVGGAVVTGVTAVA
+>AMY56|NAC1-13|Alpha synuclein
+EQVTNVGGAVVTG
+>AMY57|NAC6-14|Alpha synuclein
+VGGAVVTGV
+>AMY60|34-53|Acyl Phosphatase
+GVVGWVKNTSKGTVTGQVQG
+>AMY63|86-98|Acyl Phosphatase
+ISKLEYSNFSVRY
+>AMY68|E|b2-microglobulin
+DWSFYLLYYTEFT
+>AMY69|E1|b2-microglobulin
+DWSFYLLYYTEFTPTGKDEYA
+>AMY72|Untitled|b2-microglobulin
+NFLNCYVSGFHPSDIEVDLL
+>AMY73|Untitled|b2-microglobulin
+DWSFYLLYYTEFTPTGKDEY
+>AMY77|4Cro|437 Cro repressor
+TKRPRFLYEIAMALNSD
+>AMY79|A-Helix|Myoglobin (Sperm whale)
+VLSEGEWQLVLHVWAKVEA
+>AMY80|AB-Domain|Myoglobin (Sperm whale)
+EGEWQLVLHVWAKVEADVAGHGQDILIRLFK
+>AMY81|B-Helix|Myoglobin (Sperm whale)
+DVAGHGQDILIRLFKS
+>AMY93|B helix|Myohemerithrin
+SAPNLATLVKVTTNHFTHEEAMMD
+>AMY95|C helix|Myohemerithrin
+EVVPHKKMHKDFLEKIGGL
+>AMY99|Pc-2|Plastocyanin (French bean)
+LEVLLGSGDGSLVFV
+>AMY105|Pc-6a|Plastocyanin (French bean)
+GEKIVFKNNAGFPHNVVFDE
+>AMY109|Pc-10|Plastocyanin (French bean)
+IPAGVDAVKISM
+>AMY113|Pc-12|Plastocyanin (French bean)
+MPEEELLNAPGETYVVTL
+>AMY117|Pc-14|Plastocyanin (French bean)
+GETYVVTL
+>AMY120|Pc-16|Plastocyanin (French bean)
+GTYSFYT
+>AMY124|Pc-19|Plastocyanin (French bean)
+GTVSFVTSPHQGAGMVGKVTVN
+>AMY126|P29-44|Bovine Pancreatic Trypsin Inhibitor (BPTI)
+LSQTFVYGGSRAKRNN
+>AMY131|Beta 1|N-terminal domain of Ribosomal protein L9
+MKVIFLKDVKG
+>AMY133|Alpha 1|N-terminal domain of Ribosomal protein L9
+GYANNFLFKQG
+>AMY138|Alpha 6|Glutathione S Transeferase P domain II (Glutex)
+QISFADYNLLDLLRIHQVLN
+>AMY143|M8|Spectrin SH3
+DILTLLNSTNKDWWKVEVND
+>AMY145|M6|Spectrin SH3
+DWWKVEVNDRQGFVPA
+>AMY146|M68|Spectrin SH3
+DILTLLNSTNKDWWKVEVNDRQGFVPA
+>AMY149|H2 WT|Ada-2h
+FVNVQAVKVFLESQGIAY
+>AMY150|H2 Mt|Ada-2h
+FVNVEAVKAFLEAHGIAY
+>AMY155|Ara5|Ara
+STNVKTAFEMVILDIYNNV
+>AMY160|ComA5|Com-A
+TESKEKITQYIYHVLNGEIL
+>AMY164|Che Y4|Che Y
+AKKENIIAAAQAGASGY
+>AMY165|Che Y5|Che Y
+PFTAATLEEKLNKIFEKLGMY
+>AMY170|P21A|P21-ras
+GVGKSALTIQLIQNHFVY
+>AMY174|P21E|P21-ras
+RQGVEDAFYTLVREIRQHK
+>AMY175|PL B1 95-114 pH 4.1|PL B1 protein
+VTIKANLIFANGFTQTAEFKG
+>AMY176|PL B1 114-138 pH 2.4|PL B1 protein
+KGTFEKATSEAYAYADTLKKDNGEY
+>AMY177|PL B1 136-155D pH 6.1|PL B1 protein
+GEYTVDVADKGYTLNIKFAGD
+>AMY195|86-95|Prion protein (human)
+VHDCVNITIK
+>AMY206|141-150|Prion protein (human)
+SMVLFSSPPV
+>AMY207|146-155|Prion protein (human)
+SSPPVILLIS
+>AMY208|151-160|Prion protein (human)
+ILLISFLIFL
+>AMY209|156-163|Prion protein (human)
+FLIFLIVG
+>AMY210|5-14|Lysozyme (human)
+RCELARTLKR
+>AMY214|25-34|Lysozyme (human)
+LANWMCLAKW
+>AMY243|54-63|b2-microglobulin
+DLSFSKDWSF
+>AMY244|59-68|b2-microglobulin
+KDWSFYLLYY
+>AMY245|64-73|b2-microglobulin
+YLLYYTEFTP
+>AMY246|69-78|b2-microglobulin
+TEFTPTEKDE
+>AMY250|Untitled|De novo
+YTVIIE
+>AMY251|Untitled|De novo
+WTVIIE
+>AMY252|Untitled|De novo
+VTVIIE
+>AMY253|Untitled|De novo
+TTVIIE
+>AMY254|Untitled|De novo
+SYVIIE
+>AMY255|Untitled|De novo
+SVVIIE
+>AMY256|Untitled|De novo
+STVYIE
+>AMY257|Untitled|De novo
+STVWIE
+>AMY258|Untitled|De novo
+STVTIE
+>AMY259|Untitled|De novo
+STVNIE
+>AMY260|Untitled|De novo
+STVLIE
+>AMY261|Untitled|De novo
+STVIYE
+>AMY262|Untitled|De novo
+STVIIY
+>AMY263|Untitled|De novo
+STVIIW
+>AMY264|Untitled|De novo
+STVIIV
+>AMY265|Untitled|De novo
+STVIIT
+>AMY266|Untitled|De novo
+STVIIS
+>AMY267|Untitled|De novo
+STVIIQ
+>AMY268|Untitled|De novo
+STVIIN
+>AMY269|Untitled|De novo
+STVIIM
+>AMY270|Untitled|De novo
+STVIIL
+>AMY271|Untitled|De novo
+STVIII
+>AMY272|Untitled|De novo
+STVIIF
+>AMY273|Untitled|De novo
+STVIIE
+>AMY274|Untitled|De novo
+STVIID
+>AMY275|Untitled|De novo
+STVIIA
+>AMY276|Untitled|De novo
+STVIFE
+>AMY277|Untitled|De novo
+STVFIE
+>AMY278|Untitled|De novo
+STVEIE
+>AMY279|Untitled|De novo
+STSIIE
+>AMY280|Untitled|De novo
+STQIIE
+>AMY281|Untitled|De novo
+STNIIE
+>AMY282|Untitled|De novo
+STLIIE
+>AMY283|Untitled|De novo
+STFIIE
+>AMY284|Untitled|De novo
+STEIIE
+>AMY285|Untitled|De novo
+SSVIIE
+>AMY286|Untitled|De novo
+SQVIIE
+>AMY287|Untitled|De novo
+SNVIIE
+>AMY288|Untitled|De novo
+SMVIIE
+>AMY289|Untitled|De novo
+SLVIIE
+>AMY290|Untitled|De novo
+SIVIIE
+>AMY291|Untitled|De novo
+SGVIIE
+>AMY292|Untitled|De novo
+SFVIIE
+>AMY293|Untitled|De novo
+SEVIIE
+>AMY294|Untitled|De novo
+SDVIIE
+>AMY295|Untitled|De novo
+SAVIIE
+>AMY296|Untitled|De novo
+QTVIIE
+>AMY297|Untitled|De novo
+NTVIIE
+>AMY298|Untitled|De novo
+MTVIIE
+>AMY299|Untitled|De novo
+LTVIIE
+>AMY300|Untitled|De novo
+ITVIIE
+>AMY301|Untitled|De novo
+GTVIIE
+>AMY302|Untitled|De novo
+FTVIIE
+>AMY303|Untitled|De novo
+ETVIIE
+>AMY304|Untitled|De novo
+DTVIIE
+>AMY305|Untitled|De novo
+ATVIIE
+>AMY344|Untitled|Amylin (Islet amyloid polypeptide)
+NFGAIL
+>AMY345|Untitled|Amylin (Islet amyloid polypeptide)
+FLVHSS
+>AMY348|Untitled|b2-microglobulin
+NHVTLS
+>AMY349|Untitled|b2-microglobulin
+LLYYTE
+>AMY350|Untitled|b2-microglobulin
+KIVKWD
+>AMY351|Untitled|b2-microglobulin
+KDWSFY
+>AMY352|Untitled|b2-microglobulin
+FYLLYY
+>AMY391|Untitled|Insulin
+VEALYL
+>AMY392|Untitled|Insulin
+LYQLEN
+>AMY393|Untitled|Insulin
+LVEALY
+>AMY407|Untitled|b2-microglobulin
+SNFLNCYVSGFHPSDIEVDLLK
+>AMY408|Untitled|b2-microglobulin
+NHVTLSQ
+>AMY409|Untitled|Amylin (Islet amyloid polypeptide)
+NFGAILSS
+>AMY410|Untitled|Amylin (Islet amyloid polypeptide)
+AFGAILSS
+>AMY411|Untitled|Amylin (Islet amyloid polypeptide)
+NFAAILSS
+>AMY412|Untitled|Amylin (Islet amyloid polypeptide)
+NFGAALSS
+>AMY413|Untitled|Amylin (Islet amyloid polypeptide)
+NFGAIASS
+>AMY414|Untitled|Amylin (Islet amyloid polypeptide)
+TNVGSNTY
+>AMY415|Untitled|Amylin (Islet amyloid polypeptide)
+QRLANFLVH
+>AMY416|Untitled|Amylin (Islet amyloid polypeptide)
+SNNFGAIL
+>AMY417|Untitled|Amylin (Islet amyloid polypeptide)
+NFLVHSSNN
+>AMY418|Untitled|Phage
+KPFTARFEGRIFSRSDELRALITEITGE
+>AMY419|Untitled|Phage
+KPFLARVEGRIFSRSDELRAYITAYTGE
+>AMY420|Untitled|Phage
+KPFTARISGRLFSRSDELKTIIATITGE
+>AMY421|Untitled|Phage
+KPYIARFEGRLFSRSDELRAVIEAHTGE
+>AMY422|Untitled|Phage
+KPFIARFEGRLFSRSDELKAIIKELTGE
+>AMY423|Untitled|Phage
+KPFLARFRGRIFSRSDELRTLIAAFTGE
+>AMY424|Untitled|Amyloid beta A4 peptide
+DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA
+>AMY425|Untitled|Alpha synuclein
+VTGVTAVQKTV
+>AMY426|Untitled|TTR
+CPLMVKVLDAV
+>AMY428|Untitled|S6-mutant
+RVEKVAILGLMVLA
+>AMY429|Untitled|Gelsolin
+SFNNGDCFILD
+>AMY430|Untitled|Lactoferrin
+NAGDVAFV
+>AMY431|Medin|Lactadherin
+NFGSVQFV
+>AMY432|Untitled|SerumA(48)
+SFFSFLGEAFD
+>AMY433|Untitled|Prion protein
+DCVNITIKQHTVTT
+>AMY434|Untitled|Prion protein
+DIKIMERVVEQMCTTQY
+>AMY435|Untitled|Prion protein
+AGAAAAGAVVGGLGG
+>AMY436|Untitled|Prion protein
+MKHMAGAAAAGAVV
+>AMY437|Untitled|Sup35
+PQGGYQQYN
+>AMY438|Untitled|Sup35
+GNNQQNY
+>AMY439|Untitled|AChe
+AEFHRWSSYMVYWK
+>AMY440|Untitled|De novo
+VTVKVNAVKVTV
+>AMY441|Untitled|Ribonuclease A
+KETAAAKFERQHMDSSTSAA
+>AMY442|Untitled|Myoglobin (horse)
+IKYLEFISQAIIHVLHSR
+>AMY443|Untitled|a-tubulin
+MLSNTTAIAEAWARL
+>AMY444|Untitled|b-tubulin
+GYLTVAAVFR
+>AMY445|Untitled|Chorion A
+SYGGEGIGNVAVAGELPVAGKTAVAGRVPIIGAVGFGGPAGAAGAVSIAGR
+>AMY446|Untitled|Chorion B
+GNLPFLGTAGVAGEFPTA
+>AMY447|Atnp|Amphoterin
+MSSYAFFVQTCREEHK
+>AMY448|Untitled|Apoliprotein C-II
+TAAMSTYTGIFTDQVLSV
+>AMY449|Untitled|Exon 30 Tropoelastin
+GAAGLGGLGVGGLGVPGVGGLGGLV
+>AMY450|Untitled|Fibrinogen A a-chain
+FDTAST
+>AMY451|Untitled|Glycophorin A
+EPEITLIIFGVMAGVIGTILLISYGIRRL
+>AMY452|Untitled|Amylin (Islet amyloid polypeptide)
+ATQRLANFLVHSS
+>AMY453|Untitled|Lysozyme (hen) (mutated)
+GSTDYGILQINSRWWS
+>AMY454|Untitled|Lysozyme (hen) (mutated)
+GSTDYGTLQINSRWWS
+>AMY455|Untitled|Lysozyme (hen)
+GSTDYGILQINSRWWC
+>AMY456|Untitled|Lysozyme (hen)
+GSTDYGILQINSRWWCNDGRTPGSRNLCNIPCSALLSSDITASVNCAKKIVSD
+>AMY458|Untitled|Prion protein
+KTNMKHMAGAAAAGAVVGGLG
+>AMY459|Untitled|Prion protein
+GYMLGSAMSRPIIHFGSDYED
+>AMY460|Untitled|Prolactin
+LPICPGGAARCQTVLRDLFDRAVVLSHYIHNLSS
+>AMY461|Untitled|Pulmonary surfactant protein C (SP-C)
+FGIPCCPVHLKRLLIVVVVVVLVVVVIVGALLMGL
+>AMY462|Untitled|T-Protein (Tau)
+PGGGSVQIVYKPVDLSKVTS
+>AMY463|Untitled|Transthyretin (TTR)
+YTIAALLSPYS
+>AMY464|Untitled|Alpha synuclein
+GKTKEGVLYVGSKTKEGVVHGVATVAEKTKEQVTNVGGAVVTGVTAVAQKTVEGAGSIAAATGFVKKDQLGKNEEGAPQ
+>AMY465|Untitled|Apolipoprotein A-I (G26R)
+DEPPQSPWDRVKDLATVYVDVLKDSRRDYVSQFEGSALGKQLNLKLLDNWDSVTSTFSKLREQLGPVTQEFWDNLEKETEGLR
+>AMY487|Untitled|Cystatin-C precursor
+AGVNYF
+>AMY491|Untitled|Islet amyloid polypeptide precursor
+AILSST
+>AMY494|Untitled|De novo
+AIVAGD
+>AMY495|Untitled|De novo
+AIVAGS
+>AMY496|Untitled|De novo
+AIVAGT
+>AMY498|Untitled|Apolipoprotein A-I precursor
+ALEEYT
+>AMY509|Untitled|POU domain, class 2, transcription factor 1
+AQFIIS
+>AMY514|Untitled|Ribonuclease pancreatic precursor
+ASSSNY
+>AMY523|Untitled|Superoxide dismutase [Cu-Zn]
+CGVIGI
+>AMY527|Untitled|Major prion protein precursor
+DCVNIT
+>AMY532|Untitled|Superoxide dismutase [Cu-Zn]
+DHCIIG
+>AMY533|Untitled|Superoxide dismutase [Cu-Zn]
+DHCIIW
+>AMY542|Untitled|Superoxide dismutase [Cu-Zn]
+DSVISL
+>AMY557|Untitled|Alpha-synuclein
+EGVLYV
+>AMY576|Untitled|Acylphosphatase-2
+EYSNFS
+>AMY577|Untitled|De novo
+FAIRHF
+>AMY579|Untitled|Lysozyme C precursor
+FESNFN
+>AMY601|Untitled|TAR DNA-binding protein 43
+FSINPA
+>AMY603|Untitled|60 kDa SS-A/Ro ribonucleoprotein
+FTFIQF
+>AMY608|Untitled|De novo
+GAITIG
+>AMY609|Untitled|Superoxide dismutase [Cu-Zn]
+GDHCII
+>AMY611|Untitled|Immunoglobulin G-binding protein G precursor
+GEWTYD
+>AMY613|Untitled|GRB2-associated-binding protein 1
+GFFQQQ
+>AMY632|Untitled|Major curlin subunit precursor
+GGGNNS
+>AMY642|Untitled|Amyloid beta A4 protein precursor
+GGVVIA
+>AMY648|Untitled|Agglutinin-like protein 1 precursor
+GIVIVA
+>AMY651|Untitled|Ribose-5-phosphate isomerase
+GLFINM
+>AMY656|Untitled|TAR DNA-binding protein 43
+GMMGML
+>AMY660|Untitled|Protocadherin-15 precursor
+GNFNNL
+>AMY685|Untitled|Beta-hexosaminidase subunit alpha precursor
+GTFFIN
+>AMY686|Untitled|Bardet-Biedl syndrome 5 protein
+GTFFIT
+>AMY688|Untitled|Polycystin-1 precursor
+GTFNII
+>AMY690|Untitled|Plasminogen activator inhibitor 1 precursor
+GTVLFM
+>AMY692|Untitled|Superoxide dismutase [Cu-Zn]
+GVIGIA
+>AMY693|Untitled|Superoxide dismutase [Cu-Zn]
+GVIWIA
+>AMY695|Untitled|Cystatin-C precursor
+GVNYFL
+>AMY701|Untitled|Gamma-aminobutyric acid receptor subunit beta-1 precursor
+GYFILQ
+>AMY702|Untitled|Tyrosine-protein kinase transmembrane receptor ROR2 precursor
+GYFLNF
+>AMY703|Untitled|G-protein coupled receptor 20
+GYFLNM
+>AMY705|Untitled|Major prion protein precursor
+GYMLGS
+>AMY712|Untitled|De novo
+GYVLGS
+>AMY715|Untitled|Cystic fibrosis transmembrane conductance regulator
+HFVWIA
+>AMY716|Untitled|CAAX prenyl protease 1 homolog
+HGFNQQ
+>AMY719|Untitled|Presenilin-2
+HGWLIM
+>AMY721|Untitled|Histone-lysine N-methyltransferase 2C
+HIFLLC
+>AMY723|Untitled|Alpha-(1,3)-fucosyltransferase 9
+HLFNLT
+>AMY724|Untitled|Taste receptor type 2 member 5
+HLVYIM
+>AMY729|Untitled|Homeobox protein DLX-3
+HQFNLN
+>AMY730|Untitled|Titin
+HQLIIM
+>AMY731|Untitled|De novo
+HSSNNF
+>AMY733|Untitled|Otoferlin
+HTFNLL
+>AMY734|Untitled|De novo
+HTVIIE
+>AMY737|Untitled|Bloom syndrome protein
+HYFNIF
+>AMY741|Untitled|De novo
+IEMIFV
+>AMY742|Untitled|De novo
+IFDFIQ
+>AMY750|Untitled|Major prion protein precursor
+IIHFGS
+>AMY752|Untitled|De novo
+IINFIT
+>AMY758|Untitled|De novo
+ILVAGD
+>AMY759|Untitled|De novo
+ILVAGS
+>AMY765|Untitled|Major prion protein precursor
+ISFLIF
+>AMY770|Untitled|Agglutinin-like protein 1 precursor
+IVATTR
+>AMY773|Untitled|Alpha-galactosidase A precursor
+IVYSCE
+>AMY774|Untitled|Alpha-galactosidase A precursor
+IVYSWE
+>AMY787|Untitled|Ribonuclease pancreatic precursor
+KHIIVA
+>AMY794|Untitled|Caspase-3 precursor
+KLFIIQ
+>AMY795|Untitled|Proprotein convertase subtilisin/kexin type 6 precursor
+KLFIQF
+>AMY797|Untitled|Homo sapiens (Human)
+KLLIYE
+>AMY798|Untitled|Amyloid beta A4 protein precursor
+KLVFFA
+>AMY806|Untitled|RNA-binding protein FUS
+KQIGII
+>AMY814|Untitled|Microtubule-associated protein tau
+KVQIIN
+>AMY820|Untitled|De novo
+LANFLV
+>AMY823|Untitled|De novo
+LAVAGD
+>AMY824|Untitled|Apolipoprotein A-I precursor
+LAVLFL
+>AMY828|Untitled|4F2 cell-surface antigen heavy chain
+LEFWLQ
+>AMY833|Untitled|Major prion protein precursor
+LIFLIV
+>AMY835|Untitled|De novo
+LIVAAD
+>AMY836|Untitled|De novo
+LIVAGD
+>AMY837|Untitled|De novo
+LIVAGE
+>AMY838|Untitled|De novo
+LIVAGK
+>AMY839|Untitled|De novo
+LIVAGS
+>AMY840|Untitled|De novo
+LIVAGT
+>AMY861|Untitled|Alstrom syndrome protein 1
+LVFYQQ
+>AMY869|Untitled|De novo
+MIENIQ
+>AMY870|Untitled|Major prion protein precursor
+MIHFGN
+>AMY874|Untitled|Major prion protein precursor
+MLVLFV
+>AMY877|Untitled|Major prion protein precursor
+MMHFGN
+>AMY882|Untitled|Integrin alpha-8 precursor
+MTFIQN
+>AMY884|Untitled|Amyloid beta A4 protein precursor
+MVGGVV
+>AMY900|Untitled|De novo
+NFGSVQ
+>AMY902|Untitled|De novo
+NFLVH
+>AMY903|Untitled|Islet amyloid polypeptide precursor
+NFLVHS
+>AMY916|Untitled|De novo
+NIFNFT
+>AMY917|Untitled|De novo
+NIFNIT
+>AMY918|Untitled|Tyrosine-protein kinase Mer precursor
+NIFWVQ
+>AMY921|Untitled|De novo
+NINFFT
+>AMY922|Untitled|De novo
+NINFIT
+>AMY924|Untitled|General transcriptional corepressor CYC8
+NINKSN
+>AMY933|Untitled|DNA mismatch repair protein Mlh3
+NLFYQL
+>AMY951|Untitled|Asparagine-rich protein
+NNNWSL
+>AMY952|Untitled|Major prion protein precursor
+NNQNTF
+>AMY954|Untitled|Major curlin subunit precursor
+NNSGPN
+>AMY961|Untitled|Transportin-1
+NQFIIS
+>AMY962|Untitled|Polypeptide N-acetylgalactosaminyltransferase 1
+NQFNLM
+>AMY966|Untitled|Major prion protein precursor
+NQNNFV
+>AMY967|Untitled|De novo
+NQQNQY
+>AMY992|Untitled|De novo
+NYCNFV
+>AMY1001|Untitled|Aminopeptidase N
+NYVWIV
+>AMY1027|Untitled|De novo
+QANKHI
+>AMY1031|Untitled|De novo
+QEMRHF
+>AMY1032|Untitled|Splicing factor 3A subunit 2
+QFFLQF
+>AMY1046|Untitled|Rod cGMP-specific 3',5'-cyclic phosphodiesterase subunit alpha precursor
+QILLWS
+>AMY1049|Untitled|De novo
+QLENYC
+>AMY1050|Untitled|Growth/differentiation factor 3 precursor
+QLFINF
+>AMY1052|Untitled|Prosaposin receptor GPR37 precursor
+QLFLQI
+>AMY1054|Untitled|Putative BPIFA4P protein precursor
+QNLLWQ
+>AMY1096|Untitled|Guanine nucleotide-binding protein subunit beta-5
+QTFLVN
+>AMY1103|Untitled|RNA-binding protein Musashi homolog 1
+QYFEQF
+>AMY1106|Untitled|De novo
+QYGGNA
+>AMY1107|Untitled|De novo
+QYGGNN
+>AMY1124|Untitled|Protocadherin beta-2 precursor
+RQVLIF
+>AMY1125|Untitled|De novo
+RTVIIE
+>AMY1127|Untitled|De novo
+RVFNIM
+>AMY1131|Untitled|Major curlin subunit precursor
+SALALQ
+>AMY1140|Untitled|Major curlin subunit precursor
+SELNIY
+>AMY1143|Untitled|Unconventional myosin-XV
+SFFFIQ
+>AMY1144|Untitled|Major prion protein precursor
+SFLIFL
+>AMY1145|Untitled|Cystatin-C precursor
+SFQIYA
+>AMY1160|Untitled|Major prion protein precursor
+SMVLFS
+>AMY1167|Untitled|Major prion protein precursor
+SNQNNF
+>AMY1170|Untitled|YLP motif-containing protein 1
+SQFYIT
+>AMY1178|Untitled|Islet amyloid polypeptide precursor
+SSNNFG
+>AMY1181|Untitled|Islet amyloid polypeptide precursor
+SSTNVG
+>AMY1182|Untitled|Ribonuclease pancreatic precursor
+SSTSAA
+>AMY1187|Untitled|De novo
+STFIFE
+>AMY1188|Untitled|De novo
+STFLIE
+>AMY1189|Untitled|De novo
+STFTFE
+>AMY1199|Untitled|De novo
+STMSIT
+>AMY1212|Untitled|De novo
+STVIIG
+>AMY1222|Untitled|De novo
+STWIFE
+>AMY1223|Untitled|De novo
+STWIIE
+>AMY1224|Untitled|De novo
+STWIYE
+>AMY1225|Untitled|De novo
+STWLIE
+>AMY1235|Untitled|Ribonuclease pancreatic precursor
+SYSTMS
+>AMY1243|Untitled|De novo
+TFQINS
+>AMY1248|Untitled|Cell wall adhesin EAP1 precursor
+TIITVT
+>AMY1274|Untitled|Phosphatidylinositol 3-kinase regulatory subunit alpha
+TYVEYI
+>AMY1275|Untitled|De novo
+VAFNIT
+>AMY1277|Untitled|De novo
+VANFIT
+>AMY1280|Untitled|Transthyretin precursor
+VAVHVF
+>AMY1287|Untitled|ATP-binding cassette sub-family A member 12
+VFFNNT
+>AMY1291|Untitled|Superoxide dismutase [Cu-Zn]
+VIGIAQ
+>AMY1292|Untitled|Major prion protein precursor
+VILLIS
+>AMY1294|Untitled|Agglutinin-like protein 1 precursor
+VIVATT
+>AMY1301|Untitled|Major curlin subunit precursor
+VNVTQV
+>AMY1306|Untitled|Inner nuclear membrane protein Man1
+VQFLQS
+>AMY1307|Untitled|De novo
+VQIINK
+>AMY1309|Untitled|Cold shock protein CspB
+VSFEIV
+>AMY1313|Untitled|Flocculin
+VSTTVV
+>AMY1317|Untitled|Apolipoprotein A-I precursor
+VTSTFS
+>AMY1322|Untitled|Flocculin
+VVSTTV
+>AMY1330|Untitled|Relaxin receptor 2
+WIVIFF
+>AMY1334|Untitled|Low-density lipoprotein receptor precursor
+WPNVIT
+>AMY1335|Untitled|Kv channel-interacting protein 1
+WTFNLY
+>AMY1337|Untitled|Aquaporin-2
+WVFWIG
+>AMY1339|Untitled|De novo
+YAELIV
+>AMY1348|Untitled|Protein unc-13 homolog B
+YIFNNC
+>AMY1352|Untitled|SLIT and NTRK-like protein 5 precursor
+YLFLQY
+>AMY1354|Untitled|Beta-2-microglobulin precursor
+YLLYYT
+>AMY1355|Untitled|De novo
+YLNWYQ
+>AMY1359|Untitled|[NU+] prion formation protein 1
+YNNYNN
+>AMY1366|Untitled|Origin recognition complex subunit 3
+YQLIWQ
+>AMY1377|Untitled|Phosphatidylinositol 3-kinase regulatory subunit alpha
+YVEYIG
+>AMY1381|ProteinG41-56|Protein G
+GEWTYDDATKTFTVTE
+>AMY1382|Untitled|ABri
+EASNCFAIRHFENKFAVETLICSRTVKKNIIEEN
+>AMY1383|A helix|Myohemerithrin
+Am-YEQLDEEHKKIFKGIFDCIRD
+>AMY1384|Untitled|ADan
+EASNCFAIRHFENKFAVETLICFNLFLNSQEKHY
+>AMY1388|Untitled|alpha beta crystallin (ABC)
+KVKVLG
+>AMY1389|Untitled|alpha beta crystallin (ABC)
+GDVIEW
+>AMY1390|Untitled|Nucleophosmin
+VEAKFINYVKNCFR
+>AMY1393|N-terminal|Apolipoprotein A-I (human)
+LATVYVDVL
+>AMY1394|C-terminal|Apolipoprotein A-I (human)
+VSFLSA
+>AMY1395|N-terminal|Apolipoprotein A-I (human)
+VTSTFS
+>AMY1396|N-terminal|Apolipoprotein A-I (human)
+VTQEFW
+>AMY1397|Untitled|Amyloid beta A4 peptide
+YEVHHQKLVFFAEDVGSNKGAIIGLMVGGVV
+>AMY1399|7-17|Sup35
+GNNQQNYQQY
+>AMY1400|16-26|Sup35
+YSQNGNQQQG
+>AMY1401|28-38|Sup35
+RYQGYQAYNA
+>AMY1402|43-53|Sup35
+GGYYQNYQGY
+>AMY1403|46-56|Sup35
+YQNYQGYSGY
+>AMY1404|52-62|Sup35
+YSGYQQGGYQ
+>AMY1405|55-65|Sup35
+YQQGGYQQYN
+>AMY1406|94-104|Sup35
+PQGGRGNYKN
+>AMY1407|103-113|Sup35
+NFNYNNNLQG
+>AMY1408|106-116|Sup35
+YNNNLQGYQA
+>AMY1409|109-119|Sup35
+NLQGYQAGFQ
+>AMY1410|127-137|Sup35
+NDFQKQQKQA
+>AMY1442|Untitled|PMEL
+GQVIWVN
+>AMY1443|Untitled|PMEL
+AEVSIVV
+>AMY1444|Untitled|PMEL
+LASLIYR
+>AMY1445|Untitled|Chorion S18
+DAQAIAL
+>AMY1446|Untitled|Chorion S36
+RQGNINIVA
+>AMY1447|Untitled|Chorion S36
+VQQNYQA
+>AMY1448|Untitled|Chorion S36
+QQEVINK
+>AMY1449|Untitled|Conidial hydrophobin
+GLINIAT
+>AMY1450|Untitled|Hydrophobin
+FNGLIVV
+>AMY1451|Untitled|Hydrophobin 1
+GILNIVV
+>AMY1452|Untitled|Hydrophobin 1
+SLLNIVV
+>AMY1453|Untitled|Hydrophobin 2
+TAFTILA
+>AMY1454|Untitled|Hydrophobin 1
+GVVAIGC
+>AMY1455|Untitled|Hydrophobin 1
+NLSLFDQ
+>AMY1456|Untitled|Hydrophobin 2
+TVIAFLA
+>AMY1457|Untitled|Hydrophobin 1
+YGNLISL
+>AMY1458|Untitled|Hydrophobin 4
+EFQEICA
+>AMY1459|Untitled|Major curlin subunit (csgA)
+AIAAIVF
+>AMY1460|Untitled|Major curlin subunit (csgA)
+SELNIYQY
+>AMY1461|Untitled|Major curlin subunit (csgA)
+TLSIYQY
+>AMY1462|Untitled|Chaplin
+GNVCIN
+>AMY1463|Untitled|Chaplin
+GNTCVN
