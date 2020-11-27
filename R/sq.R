@@ -3,25 +3,23 @@
 #' @description This function allows the user to construct objects of 
 #' \code{\link[=sq-class]{class sq}} from a character vector.
 #' 
-#' @param sq [character] (no default)
-#' Vector to construct object from.
-#' @param alphabet [character] (default = NULL)
-#' If provided value is a single string, it will be interpreted as type (see details).
-#' If provided value has length greater than one, it will be treated as atypical alphabet for \code{sq} obejct and
-#' \code{sq} type will be \code{atp}.
-#' If provaded value is \code{NULL}, type guessing will be performed (see details).
-#' @param is_clean a \code{\link{logical}} value indicating if sequences are clean.
-#' or in other words - they don't contain ambiguous values; supported values are \code{TRUE} 
-#' for clean sequences, \code{FALSE} for unclean sequences and \code{NULL} for auto detecting
-#' (see details).
-#' @param non_standard a \code{\link{character}} vector indicating non-standard letters
-#' contained in sequences. If \code{NULL}, sequences will not be searched for non-standard letters
-#' of length more than one. Each element of this parameter should be at least two characters 
-#' long.
+#' @param x [\code{character}]\cr
+#'  Vector to construct object from.
+#' @param alphabet [\code{character}]\cr
+#'  If provided value is a single string, it will be interpreted as type (see
+#'  details). If provided value has length greater than one, it will be treated
+#'  as atypical alphabet for \code{sq} obejct and \code{sq} type will be
+#'  \code{atp}. If provided value is \code{NULL}, type guessing will be
+#'  performed (see details).
+#' @template NA_letter
+#' @template safe_mode
+#' @template on_warning
+#' @template ignore_case
+#'
 #' @return object of \code{\link[=sq-class]{class sq}} with appropriate type (one of: \strong{ami},
 #' \strong{dna}, \strong{rna}, \strong{unt}, \strong{atp}).
 #' 
-#' @details 
+#' @details
 #' Function \code{construct_sq} covers all possibilities of standard and non-standard types and 
 #' alphabets. You can check what 'type' and 'alphabet' exactly are in \code{\link[=sq-class]{sq class}}
 #' documentation. Below there is a guide how function operates and how the program behaves 
@@ -43,7 +41,7 @@
 #' However, if you want to construct or read sequences with multi-character letters, one has 
 #' to specify \code{non_standard} parameter. Details of letters, alphabet and types can be 
 #' found in \code{\link[=sq-class]{sq class}} documentation.
-#' 
+#'
 #' @section Simple guide to construct :
 #' In most cases, just the \code{sq} parameter needs to be specified - type of sequences
 #' will be guessed accordingly to rules described below. You need to pay attention, however, 

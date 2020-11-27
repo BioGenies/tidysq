@@ -8,6 +8,8 @@
 #' containing names of the sequences in the sq. It has to be of the same length 
 #' as the \code{sq}. 
 #' @param motifs a \code{character} vector of motifs to be searched for.
+#' @template NA_letter
+#' @template three-dots
 #' 
 #' @return A \code{\link[tibble]{tibble}} with following columns:
 #'  \item{name}{name of the sequence}

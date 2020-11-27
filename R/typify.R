@@ -9,6 +9,8 @@
 #' \strong{dna}, \strong{rna}, \strong{unt} or \strong{atp}.
 #' @param dest_type \code{\link{character}} string, destination type, one of "ami",
 #' "dna" or "rna".
+#' @template NA_letter
+#' @template three-dots
 #' 
 #' @return An object of class \code{sq} that represents the same sequences as input \code{sq},
 #' but with type as specified in \code{dest_type}.

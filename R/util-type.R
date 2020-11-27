@@ -18,6 +18,7 @@ type_as_class <- function(type)
 #' Function checks which type of sequences are contained in \code{\link[=sq-class]{sq}} object.
 #'  
 #' @param x a \code{\link[=sq-class]{sq}} object to be checked.
+#' @template three-dots
 #'  
 #' @return A \code{\link{character}} string, type of\code{\link[=sq-class]{sq}} object - can be one of
 #' "ami", "dna", "rna", "unt", "atp" or "enc".

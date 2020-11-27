@@ -95,8 +95,8 @@ pillar_shaft.encsq <- function(x, ...,
 #' be colored
 #' @param letters_sep \code{character} value indicating how the letters 
 #' should be separated
-#' @param ... 	further arguments passed to or from other methods. 
-#' Unused.
+#' @template NA_letter
+#' @template three-dots
 #' 
 #' @seealso \code{\link[=sq-class]{sq}} \code{\link{clean}} \code{\link{tidysq-options}}
 #' @name sqprint

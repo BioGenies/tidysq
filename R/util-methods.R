@@ -1,11 +1,12 @@
-#' Convert an object to sq
+0#' Convert an object to sq
 #' 
 #' This generic function takes an object of arbitrary type and returns an \code{\link[=sq-class]{sq}} object
 #' as an output. Default implementation of the method throws an error - there needs to be 
 #' implemented a method for specified class in order for function to work.
 #' 
 #' @param x a object of a class that supports conversion to \code{\link[=sq-class]{sq}}.
-#' @param ... other arguments passed to the method.
+#' @template three-dots
+#' 
 #' @return A \code{sq} object
 #' 
 #' @details In \pkg{tidysq} only for \code{\link{character}} vector there is an implemented method 
@@ -30,7 +31,8 @@ as.sq.character <- sq
 #' of sequences
 #' 
 #' @param x a \code{\link[=sq-class]{sq}} object to be converted
-#' @param ... further arguments to be passed from or to other methods.
+#' @template NA_letter
+#' @template three-dots
 #' 
 #' @return A \code{character} vector of the length the same as number
 #' of sequences in the converted \code{sq} object
@@ -53,7 +55,7 @@ as.character.sq <- function(x, ...,
 #' \code{\link{matrix}}, in which rows correspond to sequences and columns to positions
 #' 
 #' @param x a \code{\link[=sq-class]{sq}} object to be converted.
-#' @param ... further arguments to be passed from or to other methods.
+#' @template three-dots
 #' 
 #' @return A \code{\link{matrix}} with number of rows the same as number of sequences
 #' and number of columns corresponding to the length of the longest sequence

@@ -8,6 +8,8 @@
 #' \strong{rna} type
 #' @param table integer number of translation table used, as specified
 #' \href{https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi}{here}
+#' @template NA_letter
+#' @template three-dots
 #' 
 #' @return An object of \code{\link[=sq-class]{class sq}} with \strong{ami} type and
 #' \strong{cln} subtype.

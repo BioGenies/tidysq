@@ -17,6 +17,8 @@
 #' One letter can be replaced with multiple symbols. 
 #' To perform substitution create a named vector, e.g.
 #' \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
+#' @template NA_letter
+#' @template three-dots
 #' 
 #' @return a \code{\link[=sq-class]{sq}} object with \strong{atp} type with replaced alphabet,
 #' defined by user.

@@ -7,7 +7,7 @@
 #' @inheritParams reverse
 #' @param fun a \code{\link{function}} to apply to each sequence in \code{sq} object; it should
 #' take a character vector, numeric vector or single character string as an input.
-#' @param ... another arguments passed to \code{fun}.
+#' @template three-dots
 #' @param paste_char a \code{\link{logical}} value indicating in which form sequences should be
 #' passed to the function \code{fun}; if \code{FALSE} (default), they will be treated as character
 #' vectors, if \code{TRUE}, they will be pasted into a single string.

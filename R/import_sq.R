@@ -7,7 +7,7 @@
 #' 
 #' @param object - an object of one of classes: \code{AAbin}, \code{DNAbin}, \code{AAStringSet}, 
 #' \code{DNAStringSet}, \code{SeqFastaAA}, \code{SeqFastadna}.
-#' @param ... - additional arguments passed to the function.
+#' @template three-dots
 #' 
 #' @return A \code{\link[tibble]{tibble}} with \code{sq} column of \code{\link[=sq-class]{sq}} type
 #' representing the same 

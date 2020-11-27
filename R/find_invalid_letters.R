@@ -7,7 +7,9 @@
 #' 
 #' @param dest_type a \code{\link{character}} string denoting destination type - it may be 
 #' "dna" for \strong{dna} type (DNA), "rna" for \strong{rna} type (RNA) or
-#' "ami" for \strong{ami} type (amino acids).  
+#' "ami" for \strong{ami} type (amino acids).
+#' @template NA_letter
+#' @template three-dots
 #'  
 #' @return A list of mismatched elements for every sequence from \code{\link[=sq-class]{sq}} object.
 #' 

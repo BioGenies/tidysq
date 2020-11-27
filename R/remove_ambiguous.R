@@ -1,3 +1,11 @@
+#' Remove sequences that contain ambiguous elements
+#'
+#' @param x
+#'
+#' @param by_letter
+#' @template NA_letter
+#' @template three-dots
+#'
 #' @export
 remove_ambiguous <- function(x, by_letter = FALSE, ...) {
   assert_flag(by_letter)

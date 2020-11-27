@@ -3,7 +3,8 @@
 #' @description Reverse given list of sequences.
 #' 
 #' @param x a \code{\link[=sq-class]{sq}} object.
-#' @param NA_letter an \code{NA_letter} - a string value.
+#' @template NA_letter
+#' @template three-dots
 #' 
 #' @details The \code{reverse} function reverses each sequence in supplied 
 #' \code{\link[=sq-class]{sq}} object (e.q. transforms "MIAANYTWIL" to "LIWTYNAAIM").

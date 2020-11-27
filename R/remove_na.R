@@ -1,9 +1,11 @@
-#' Remove sequences containing NA values
+#' Remove sequences that contain NA values
 #' 
 #' Removes sequences containing ambiguous elements or removes \code{\link[=sq-class]{NA values}}
 #' from sequences in a \code{\link[=sq-class]{sq}} object.
 #' 
 #' @inheritParams remove_ambiguous
+#' @template NA_letter
+#' @template three-dots
 #'  
 #' @return A \code{\link[=sq-class]{sq}} object with the same type as input type. Sequences not containing
 #' any \code{\link[=sq-class]{NA}} values are left untouched.

@@ -4,6 +4,8 @@
 #'  nucleotide sequence. The function differentiates between RNA and DNA sequences. 
 #' 
 #' @param x a \code{\link[=sq-class]{sq}} object of type \strong{dna} or \strong{rna}.
+#' @template NA_letter
+#' @template three-dots
 #'
 #' @return \code{sq} object of the same type as input \code{dnasq} (\strong{dna})
 #' or \code{rnasq} (\strong{rna}) but built of complementary nucleotides to entered

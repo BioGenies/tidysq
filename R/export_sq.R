@@ -8,7 +8,7 @@
 #' @param export_format a \code{\link{character}} string indicating package and the destination 
 #' class; it should be one of the following: "seqinr::SeqFastaAA", "ape::AAbin", 
 #' "Biostrings::AAStringSet", "seqinr::SeqFastadna", "ape::DNAbin", "Biostrings::DNAStringSet".
-#' @param ... - additional arguments passed to the function.
+#' @template three-dots
 #' 
 #' @seealso \code{\link[=sq-class]{sq}} \code{\link{import_sq}}
 #' @export
