@@ -308,6 +308,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPP_write_fasta
+void CPP_write_fasta(Rcpp::List& x, Rcpp::StringVector& names, Rcpp::StringVector& file, Rcpp::IntegerVector& width, Rcpp::StringVector& NA_value);
+RcppExport SEXP _tidysq_CPP_write_fasta(SEXP xSEXP, SEXP namesSEXP, SEXP fileSEXP, SEXP widthSEXP, SEXP NA_valueSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::StringVector& >::type names(namesSEXP);
+    Rcpp::traits::input_parameter< Rcpp::StringVector& >::type file(fileSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector& >::type width(widthSEXP);
+    Rcpp::traits::input_parameter< Rcpp::StringVector& >::type NA_value(NA_valueSEXP);
+    CPP_write_fasta(x, names, file, width, NA_value);
+    return R_NilValue;
+END_RCPP
+}
 
 RcppExport SEXP run_testthat_tests();
 
@@ -335,6 +349,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_substitute_letters", (DL_FUNC) &_tidysq_CPP_substitute_letters, 3},
     {"_tidysq_CPP_translate", (DL_FUNC) &_tidysq_CPP_translate, 4},
     {"_tidysq_CPP_typify", (DL_FUNC) &_tidysq_CPP_typify, 3},
+    {"_tidysq_CPP_write_fasta", (DL_FUNC) &_tidysq_CPP_write_fasta, 5},
     {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 0},
     {NULL, NULL, 0}
 };

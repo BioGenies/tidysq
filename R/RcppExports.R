@@ -93,3 +93,7 @@ CPP_typify <- function(x, dest_type, NA_letter) {
     .Call(`_tidysq_CPP_typify`, x, dest_type, NA_letter)
 }
 
+CPP_write_fasta <- function(x, names, file, width, NA_value) {
+    invisible(.Call(`_tidysq_CPP_write_fasta`, x, names, file, width, NA_value))
+}
+
