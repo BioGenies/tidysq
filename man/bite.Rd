@@ -16,16 +16,25 @@ bite(x, indices, ...)
 )
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link[=sq-class]{sq}} object.}
 
 \item{indices}{a \code{\link{numeric}} vector of subsequence indices to extract from
 each sequence. The function follows the normal R conventions for indexing 
 vectors, including negative indices.}
 
-\item{NA_letter}{an \code{NA_letter} - a string value.}
+\item{...}{further arguments to be passed from or to other methods.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
+
+\item{on_warning}{[\code{"none" || "message" || "warning" || "error"}]\cr
+Determines the method of handling warning message. Default value is
+\code{"warning"}.}
 }
 \value{
-\code{\link{sq}} object of the same type as input sq, where each 
+\code{\link[=sq-class]{sq}} object of the same type as input sq, where each
 element is a subsequence created by indexing corresponding sequence from 
 input sq object with input indices.
 }
@@ -34,13 +43,13 @@ Extracts a defined range of elements (amino acids or nucleotides)
 from a sequence.
 }
 \details{
-Amino acids and nucleic acid sequences are represented as \code{\link{sq}} 
+Amino acids and nucleic acid sequences are represented as \code{\link[=sq-class]{sq}}
 object in the \code{\link{tidysq}} package. Often one needs to get only a 
 single letter, or the sequence of a defined range from the original sequences. 
 A subsequence is a sequence that can be derived from the original sequence 
 by trimming some elements (letters) without changing the order of the 
 remaining elements. To get a subsequence from each sequence contained in 
-the \code{\link{sq}} object with the same indices. This is for example 
+the \code{\link[=sq-class]{sq}} object with the same indices. This is for example
 useful to extract a user-defined region from a sequence. 
 
 The usage of \code{bite} follows the normal R conventions. For details 
@@ -54,5 +63,5 @@ a message or no information (you can check details in \code{\link{tidysq-options
 \code{NA} values can be removed by using \code{\link{remove_na}} function.
 }
 \seealso{
-\code{\link{sq}} \code{\link{remove_na}} \code{\link{tidysq-options}}
+\code{\link[=sq-class]{sq}} \code{\link{remove_na}} \code{\link{tidysq-options}}
 }

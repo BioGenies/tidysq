@@ -7,7 +7,7 @@
 is_empty_sq(x)
 }
 \arguments{
-\item{sq}{a\code{\link{sq}} object to be tested}
+\item{sq}{a\code{\link[=sq-class]{sq}} object to be tested}
 }
 \value{
 A logical vector of the same length as input sq, 
@@ -29,5 +29,5 @@ latter replaces \code{NA} values (which may be introduced by
 \code{\link{bite}}) with \code{NULL sq}.
 }
 \seealso{
-\code{\link{sq}} \code{\link{clean}}
+\code{\link[=sq-class]{sq}} \code{\link{clean}}
 }

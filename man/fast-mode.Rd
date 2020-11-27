@@ -30,5 +30,5 @@ Below there is a list of functions that do support \emph{fast mode}:
 }
 
 \seealso{
-\code{\link{sq}} \code{\link{tidysq-options}}
+\code{\link[=sq-class]{sq}} \code{\link{tidysq-options}}
 }

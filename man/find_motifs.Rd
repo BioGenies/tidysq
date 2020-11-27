@@ -10,11 +10,16 @@ find_motifs(x, names, motifs, ...)
 \method{find_motifs}{sq}(x, names, motifs, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link[=sq-class]{sq}} object.}
 
 \item{motifs}{a \code{character} vector of motifs to be searched for.}
 
-\item{NA_letter}{an \code{NA_letter} - a string value.}
+\item{...}{further arguments to be passed from or to other methods.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
 
 \item{name}{a non-\code{NULL} \code{character} vector without \code{\link{NA}} values, 
 containing names of the sequences in the sq. It has to be of the same length 
@@ -63,5 +68,5 @@ Detailed list of all letters corresponding to each ambiguous letter may be found
 }
 
 \seealso{
-\code{\link{sq}} \code{\link{substitute_letters}} \code{\link{\%has\%}}
+\code{\link[=sq-class]{sq}} \code{\link{substitute_letters}} \code{\link{\%has\%}}
 }

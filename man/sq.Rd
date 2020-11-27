@@ -14,36 +14,50 @@ sq(
 )
 }
 \arguments{
-\item{alphabet}{[character] (default = NULL)
-If provided value is a single string, it will be interpreted as type (see details).
-If provided value has length greater than one, it will be treated as atypical alphabet for \code{sq} obejct and
-\code{sq} type will be \code{atp}.
-If provaded value is \code{NULL}, type guessing will be performed (see details).}
-
-\item{sq}{[character] (no default)
+\item{x}{[\code{character}]\cr
 Vector to construct object from.}
 
-\item{is_clean}{a \code{\link{logical}} value indicating if sequences are clean.
-or in other words - they don't contain ambiguous values; supported values are \code{TRUE} 
-for clean sequences, \code{FALSE} for unclean sequences and \code{NULL} for auto detecting
-(see details).}
+\item{alphabet}{[\code{character}]\cr
+If provided value is a single string, it will be interpreted as type (see
+details). If provided value has length greater than one, it will be treated
+as atypical alphabet for \code{sq} obejct and \code{sq} type will be
+\code{atp}. If provided value is \code{NULL}, type guessing will be
+performed (see details).}
 
-\item{non_standard}{a \code{\link{character}} vector indicating non-standard letters
-contained in sequences. If \code{NULL}, sequences will not be searched for non-standard letters
-of length more than one. Each element of this parameter should be at least two characters 
-long.}
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
+
+\item{safe_mode}{[\code{logical(1)}]\cr
+Default value is \code{FALSE}. When turned on, safe mode guarantees that
+\code{NA} appears within a sequence if and only if input sequence contains
+value passed with \code{NA_letter}. This means that resulting type might be
+different to the one passed as argument, if there are letters in a sequence
+that does not appear in the original alphabet.}
+
+\item{on_warning}{[\code{"none" || "message" || "warning" || "error"}]\cr
+Determines the method of handling warning message. Default value is
+\code{"warning"}.}
+
+\item{ignore_case}{[\code{logical(1)}]\cr
+If turned on, lowercase letters are turned into respective uppercase ones
+and interpreted as such. If not, either \code{sq} object must be of type
+\strong{unt} or all lowercase letters are interpreted as \code{NA} values.
+Default value is \code{FALSE}. Ignoring case does not work with \strong{atp}
+alphabets.}
 }
 \value{
-object of \code{\link[=sq]{class sq}} with appropriate type (one of: \strong{ami},
+object of \code{\link[=sq-class]{class sq}} with appropriate type (one of: \strong{ami},
 \strong{dna}, \strong{rna}, \strong{unt}, \strong{atp}).
 }
 \description{
 This function allows the user to construct objects of 
-\code{\link[=sq]{class sq}} from a character vector.
+\code{\link[=sq-class]{class sq}} from a character vector.
 }
 \details{
 Function \code{construct_sq} covers all possibilities of standard and non-standard types and 
-alphabets. You can check what 'type' and 'alphabet' exactly are in \code{\link[=sq]{sq class}} 
+alphabets. You can check what 'type' and 'alphabet' exactly are in \code{\link[=sq-class]{sq class}}
 documentation. Below there is a guide how function operates and how the program behaves 
 according to the given arguments and the letters in the sequences.
 
@@ -55,14 +69,14 @@ cannot pass "non_standard".
 \code{sq} parameter should be a character vector. Each element of this vector is a biological 
 sequence. If this parameter has length 0, object of class \code{sq} with 0 sequences will be 
 created (if not specified, it will have \strong{dna} \strong{cln} type, which is a result of 
-rules written below). If it contains sequences of length 0, \code{\link[=sq]{NULL}} sequences
-will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[=sq]{sq class}}).
+rules written below). If it contains sequences of length 0, \code{\link[=sq-class]{NULL}} sequences
+will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[=sq-class]{sq class}}).
 
 \strong{Important note:} in all below cases word 'letter' stands for an element of an alphabet.
 Letter might consist of more than one character, for example "Ala" might be a single letter.
 However, if you want to construct or read sequences with multi-character letters, one has 
 to specify \code{non_standard} parameter. Details of letters, alphabet and types can be 
-found in \code{\link[=sq]{sq class}} documentation.
+found in \code{\link[=sq-class]{sq class}} documentation.
 }
 \section{Simple guide to construct }{
 
@@ -147,6 +161,6 @@ or \strong{rna}. If your sequences contain \code{NA} values, use \code{\link{rem
 }
 
 \seealso{
-\code{\link{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}}
+\code{\link[=sq-class]{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}}
 \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}
 }

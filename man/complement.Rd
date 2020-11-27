@@ -19,7 +19,14 @@ complement(x, ...)
 \method{complement}{sq_rna_ext}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object of type \strong{dna} or \strong{rna}.}
+\item{x}{a \code{\link[=sq-class]{sq}} object of type \strong{dna} or \strong{rna}.}
+
+\item{...}{further arguments to be passed from or to other methods.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
 }
 \value{
 \code{sq} object of the same type as input \code{dnasq} (\strong{dna})
@@ -39,5 +46,5 @@ Functions \code{complement_dna} and \code{complement_rna} are provided as a safe
 way of limiting classes \code{complement} function is used on.
 }
 \seealso{
-\code{\link{sq}}
+\code{\link[=sq-class]{sq}}
 }

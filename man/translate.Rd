@@ -25,14 +25,21 @@ translate(x, table = 1, ...)
 )
 }
 \arguments{
-\item{x}{an object of class \code{\link{sq}} with either \strong{dna} or
+\item{x}{an object of class \code{\link[=sq-class]{sq}} with either \strong{dna} or
 \strong{rna} type}
 
 \item{table}{integer number of translation table used, as specified
 \href{https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi}{here}}
+
+\item{...}{further arguments to be passed from or to other methods.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
 }
 \value{
-An object of \code{\link[=sq]{class sq}} with \strong{ami} type and
+An object of \code{\link[=sq-class]{class sq}} with \strong{ami} type and
 \strong{cln} subtype.
 }
 \description{

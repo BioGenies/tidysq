@@ -7,7 +7,7 @@
 export_sq(x, export_format, name = NULL, ...)
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link[=sq-class]{sq}} object.}
 
 \item{export_format}{a \code{\link{character}} string indicating package and the destination 
 class; it should be one of the following: "seqinr::SeqFastaAA", "ape::AAbin", 
@@ -15,14 +15,14 @@ class; it should be one of the following: "seqinr::SeqFastaAA", "ape::AAbin",
 
 \item{name}{a \code{\link{character}} vector of length equal to \code{sq} length.}
 
-\item{...}{- additional arguments passed to the function.}
+\item{...}{further arguments to be passed from or to other methods.}
 }
 \description{
-Convert object of class \code{\link{sq}} to another class from another package. Currently 
+Convert object of class \code{\link[=sq-class]{sq}} to another class from another package. Currently
 supported packages are \pkg{ape} with its formats (\code{AAbin} and \code{DNAbin}),
 \pkg{Bioconductor} (\code{AAStringSet}, \code{DNAStringSet}) and
 \pkg{seqinr} (\code{SeqFastaAA}, \code{SeqFastadna}).
 }
 \seealso{
-\code{\link{sq}} \code{\link{import_sq}}
+\code{\link[=sq-class]{sq}} \code{\link{import_sq}}
 }

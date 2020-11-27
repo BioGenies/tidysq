@@ -7,7 +7,7 @@
 x \%has\% y
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object to be tested.}
+\item{x}{a \code{\link[=sq-class]{sq}} object to be tested.}
 
 \item{y}{a \code{character} vector of motifs to be searched for.}
 }
@@ -16,7 +16,7 @@ A \code{\link{logical}} vector of the same length as input \code{sq}, indicating
 which elements contain all given motifs
 }
 \description{
-Test if elements of a \code{\link{sq}} object contain given motifs
+Test if elements of a \code{\link[=sq-class]{sq}} object contain given motifs
 }
 \details{
 This function allows testing if elements of a \code{sq} object contain 
@@ -53,5 +53,5 @@ Detailed list of all letters corresponding to each ambiguous letter may be found
 }
 
 \seealso{
-\code{\link{sq}} \code{\link{substitute_letters}} \code{\link{find_motifs}}
+\code{\link[=sq-class]{sq}} \code{\link{substitute_letters}} \code{\link{find_motifs}}
 }

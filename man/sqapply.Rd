@@ -7,12 +7,12 @@
 sqapply(x, fun, ..., paste_char = FALSE, use_na_letter = paste_char)
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link[=sq-class]{sq}} object.}
 
 \item{fun}{a \code{\link{function}} to apply to each sequence in \code{sq} object; it should
 take a character vector, numeric vector or single character string as an input.}
 
-\item{...}{another arguments passed to \code{fun}.}
+\item{...}{further arguments to be passed from or to other methods.}
 
 \item{paste_char}{a \code{\link{logical}} value indicating in which form sequences should be
 passed to the function \code{fun}; if \code{FALSE} (default), they will be treated as character
@@ -34,5 +34,5 @@ Applies given function to each sequence. Sequences are passed to function as cha
 parameter.
 }
 \seealso{
-\code{\link{sq}} \code{\link[base]{lapply}}
+\code{\link[=sq-class]{sq}} \code{\link[base]{lapply}}
 }

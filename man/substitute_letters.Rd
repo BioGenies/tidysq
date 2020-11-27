@@ -10,22 +10,27 @@ substitute_letters(x, encoding, ...)
 \method{substitute_letters}{sq}(x, encoding, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link[=sq-class]{sq}} object.}
 
 \item{encoding}{a vector of letters to be replaced together with their replacements.
 One letter can be replaced with multiple symbols. 
 To perform substitution create a named vector, e.g.
 \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.}
 
-\item{NA_letter}{an \code{NA_letter} - a string value.}
+\item{...}{further arguments to be passed from or to other methods.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
 }
 \value{
-a \code{\link{sq}} object with \strong{atp} type with replaced alphabet, 
+a \code{\link[=sq-class]{sq}} object with \strong{atp} type with replaced alphabet,
 defined by user.
 }
 \description{
 1) Replace ambiguous/extraordinary letters in a nucleic or 
-amino acid sequence, stored in a \code{\link{sq}} object, with the ones 
+amino acid sequence, stored in a \code{\link[=sq-class]{sq}} object, with the ones
 that are compliant with the IUPAC standard, ones that are user-defined 
 or with \code{NA} values.
 
@@ -70,5 +75,5 @@ Multiple symbol replacement will be recognized as one letter and
 cannot be separated in future operations into single letters.
 }
 \seealso{
-\code{\link{sq}}
+\code{\link[=sq-class]{sq}}
 }

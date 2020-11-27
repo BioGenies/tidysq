@@ -7,7 +7,7 @@
 write_fasta(x, name, file, nchar = 80)
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link[=sq-class]{sq}} object.}
 
 \item{name}{a \code{\link{character}} vector of length equal to \code{sq} length.}
 
@@ -17,5 +17,5 @@ write_fasta(x, name, file, nchar = 80)
 characters to put in each line of file.}
 }
 \description{
-Writes \code{\link{sq}} objects with their names to a fasta file.
+Writes \code{\link[=sq-class]{sq}} objects with their names to a fasta file.
 }

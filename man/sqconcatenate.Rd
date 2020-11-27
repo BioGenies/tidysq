@@ -5,18 +5,18 @@
 \alias{sq-concatenate}
 \title{Concatenate sq objects}
 \arguments{
-\item{...}{multiple \code{\link{sq}} and \code{character} objects. For exact behaviour,
+\item{...}{multiple \code{\link[=sq-class]{sq}} and \code{character} objects. For exact behaviour,
 check Details section. First argument must be of \code{sq} class due to R mechanism of
 single dispatch. If this is a problem, recommended alternative is \code{\link[vctrs]{vec_c}}
 method from \code{vctrs} package.}
 }
 \value{
-A \code{\link{sq}} object with length equal to sum of lengths of individual objects
-passed as parameters. Elements of \code{\link{sq}} are concatenated just as if they were normal
+A \code{\link[=sq-class]{sq}} object with length equal to sum of lengths of individual objects
+passed as parameters. Elements of \code{\link[=sq-class]{sq}} are concatenated just as if they were normal
 lists (see \code{\link[base]{c}})
 }
 \description{
-Merges multiple \code{\link{sq}} and maybe \code{character} objects
+Merges multiple \code{\link[=sq-class]{sq}} and maybe \code{character} objects
 into one larger \code{sq} object.
 }
 \details{

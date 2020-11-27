@@ -7,20 +7,25 @@
 \method{as.character}{sq}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object to be converted}
+\item{x}{a \code{\link[=sq-class]{sq}} object to be converted}
 
 \item{...}{further arguments to be passed from or to other methods.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
 }
 \value{
 A \code{character} vector of the length the same as number
 of sequences in the converted \code{sq} object
 }
 \description{
-Coerce sequences from a \code{\link{sq}} object to \code{\link{character}} vector
+Coerce sequences from a \code{\link[=sq-class]{sq}} object to \code{\link{character}} vector
 of sequences
 }
 \details{
-This method for class \code{\link{sq}} allows converting sequences from
+This method for class \code{\link[=sq-class]{sq}} allows converting sequences from
 the sq object into a character vector of length equal to the length 
 of sq. Each element of resulting vector is a separate sequence. 
 All attributes of the input sq are lost during the conversion to 

@@ -10,11 +10,18 @@ typify(x, dest_type, ...)
 \method{typify}{sq}(x, dest_type, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
-\item{x}{an object of class \code{\link{sq}} with one of the types \strong{ami},
+\item{x}{an object of class \code{\link[=sq-class]{sq}} with one of the types \strong{ami},
 \strong{dna}, \strong{rna}, \strong{unt} or \strong{atp}.}
 
 \item{dest_type}{\code{\link{character}} string, destination type, one of "ami",
 "dna" or "rna".}
+
+\item{...}{further arguments to be passed from or to other methods.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
 }
 \value{
 An object of class \code{sq} that represents the same sequences as input \code{sq},

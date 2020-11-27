@@ -3,26 +3,36 @@
 \name{remove_na}
 \alias{remove_na}
 \alias{remove_na.sq}
-\title{Remove sequences containing NA values}
+\title{Remove sequences that contain NA values}
 \usage{
 remove_na(x, by_letter = FALSE, ...)
 
 \method{remove_na}{sq}(x, by_letter = FALSE, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
+\arguments{
+\item{x}{}
+
+\item{...}{further arguments to be passed from or to other methods.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
+}
 \value{
-A \code{\link{sq}} object with the same type as input type. Sequences not containing
-any \code{\link[=sq]{NA}} values are left untouched.
+A \code{\link[=sq-class]{sq}} object with the same type as input type. Sequences not containing
+any \code{\link[=sq-class]{NA}} values are left untouched.
 }
 \description{
-Removes sequences containing ambiguous elements or removes \code{\link[=sq]{NA values}} 
-from sequences in a \code{\link{sq}} object.
+Removes sequences containing ambiguous elements or removes \code{\link[=sq-class]{NA values}}
+from sequences in a \code{\link[=sq-class]{sq}} object.
 }
 \details{
-This function allows removal of sequences containing \code{\link[=sq]{NA}} values.
+This function allows removal of sequences containing \code{\link[=sq-class]{NA}} values.
 By default, whole sequences containing ambiguous elements are removed 
-and \code{\link[=sq]{NULL}} (empty) sequences are introduced in their place. If 
-\code{only_elements = TRUE} then only \code{\link[=sq]{NA}} values are removed 
-from sequences in \code{sq} object. \code{\link[=sq]{NULL}} values (empty sequences) 
+and \code{\link[=sq-class]{NULL}} (empty) sequences are introduced in their place. If
+\code{only_elements = TRUE} then only \code{\link[=sq-class]{NA}} values are removed
+from sequences in \code{sq} object. \code{\link[=sq-class]{NULL}} values (empty sequences)
 can be identified using \code{\link{is_empty_sq}} function.
 
 \code{NA} may be introduced as a result of using functions like 
@@ -33,6 +43,6 @@ you are reading file using \code{\link{read_fasta}} or constructing \code{sq} ob
 specified.
 }
 \seealso{
-\code{\link{sq}} \code{\link{is_empty_sq}} \code{\link{substitute_letters}}
+\code{\link[=sq-class]{sq}} \code{\link{is_empty_sq}} \code{\link{substitute_letters}}
 \code{\link{bite}}
 }

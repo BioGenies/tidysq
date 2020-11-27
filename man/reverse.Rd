@@ -10,12 +10,17 @@ reverse(x, ...)
 \method{reverse}{sq}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link[=sq-class]{sq}} object.}
 
-\item{NA_letter}{an \code{NA_letter} - a string value.}
+\item{...}{further arguments to be passed from or to other methods.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
 }
 \value{
-A \code{\link{sq}} object of the same type as input object but 
+A \code{\link[=sq-class]{sq}} object of the same type as input object but
 each sequence is reversed.
 }
 \description{
@@ -23,13 +28,13 @@ Reverse given list of sequences.
 }
 \details{
 The \code{reverse} function reverses each sequence in supplied 
-\code{\link{sq}} object (e.q. transforms "MIAANYTWIL" to "LIWTYNAAIM"). 
+\code{\link[=sq-class]{sq}} object (e.q. transforms "MIAANYTWIL" to "LIWTYNAAIM").
 Empty sequences are left with no effect. This operation does not change 
 the type of the input object nor its alphabet.
 
-Since the function \code{reverse} returns a \code{\link{sq}} object, the 
+Since the function \code{reverse} returns a \code{\link[=sq-class]{sq}} object, the
 \code{\link[=sq-print]{print}} function is implicitly called.
 }
 \seealso{
-\code{\link{sq}} \code{\link{clean}} \code{\link{sq-print}}
+\code{\link[=sq-class]{sq}} \code{\link{clean}} \code{\link{sq-print}}
 }

@@ -15,14 +15,21 @@ find_invalid_letters(x, dest_type, ...)
 )
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object to be checked.}
+\item{x}{a \code{\link[=sq-class]{sq}} object to be checked.}
 
 \item{dest_type}{a \code{\link{character}} string denoting destination type - it may be 
 "dna" for \strong{dna} type (DNA), "rna" for \strong{rna} type (RNA) or
 "ami" for \strong{ami} type (amino acids).}
+
+\item{...}{further arguments to be passed from or to other methods.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
 }
 \value{
-A list of mismatched elements for every sequence from \code{\link{sq}} object.
+A list of mismatched elements for every sequence from \code{\link[=sq-class]{sq}} object.
 }
 \description{
 Function finds elements in given sequence not matching to amino acid or nucleotide 
@@ -30,13 +37,13 @@ alphabet.
 }
 \details{
 This function allows obtaining list of mismatched elements of sequences from  
-a \code{\link{sq}} object to amino acid, DNA or RNA alphabet. Output list has number of
+a \code{\link[=sq-class]{sq}} object to amino acid, DNA or RNA alphabet. Output list has number of
 elements equal to length of \code{sq} object and each element is a character vector 
 of elements that appear in according sequence that does not fit destination type. This 
 function might be used to find specifically, which sequences have letters - user
 may want to use this information for example to check input sequences.
 
-You can check, which letters are valid for specified type in \code{\link{sq}} class 
+You can check, which letters are valid for specified type in \code{\link[=sq-class]{sq}} class
 documentation.
 
 Mismatched elements might be replaced with other letters or \code{NA} using 
@@ -45,8 +52,8 @@ set type to destinated using \code{\link{typify}}.
 
 Returned lists for \strong{ami}, \strong{dna} and \strong{rna} \code{sq} objects,
 if \code{des_type} is specified respectively "ami", "dna" and "rna", will contain
-only \code{\link[=sq]{NULL}} elements.
+only \code{\link[=sq-class]{NULL}} elements.
 }
 \seealso{
-\code{\link{sq}} \code{\link{construct_sq}}
+\code{\link[=sq-class]{sq}} \code{\link{construct_sq}}
 }
