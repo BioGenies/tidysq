@@ -12,17 +12,17 @@ random_sq(n, len, alphabet, sd = NULL, use_gap = FALSE)
 \item{len}{a positive \code{\link{integer}} value - length of each sequence if \code{sd} not 
 specified and mean length of sequences if \code{sd} specified}
 
+\item{alphabet}{[\code{character}]\cr
+If provided value is a single string, it will be interpreted as type (see
+details). If provided value has length greater than one, it will be treated
+as atypical alphabet for \code{sq} obejct and \code{sq} type will be
+\code{atp}.NA}
+
 \item{sd}{a positive \code{\link{numeric}} value; if specified, gives standard deviation of
 length of generated sequences.}
 
 \item{use_gap}{- a \code{\link{logical}} value; if \code{TRUE}, sequences will be generated
 with random gaps inside.}
-
-\item{type}{a type of generated sq object; possible values are "ami", "dna" and "rna"
-(see section \emph{sq types} in \code{\link[=sq-class]{sq}} documentation for details).}
-
-\item{is_clean}{a \code{\link{logical}} value - if \code{TRUE}, letters will be drawn from
-clean alphabet, if \code{FALSE} - ambiguous letters might be also generated.}
 }
 \value{
 An object of class \code{sq} with type as specified.
@@ -32,8 +32,7 @@ generating a sequence of length 0, even if \code{sd} is given. Letter '*' is not
 in generating \strong{ami} sequences.
 }
 \description{
-Generates a \code{\link[=sq-class]{sq}} object with specified number of sequences of given length
-and given type.
+Generate random sequences
 }
 \seealso{
 \code{\link{construct_sq}} \code{\link[=sq-class]{sq}}

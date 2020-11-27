@@ -1,4 +1,6 @@
 #' Generate random sequences
+#'
+#' @templateVar null_ok FALSE
 #' 
 #' Generates a \code{\link[=sq-class]{sq}} object with specified number of sequences of given length
 #' and given type.
@@ -6,10 +8,7 @@
 #' @param n a positive \code{\link{integer}} value - number of sequences to generate.
 #' @param len a positive \code{\link{integer}} value - length of each sequence if \code{sd} not 
 #' specified and mean length of sequences if \code{sd} specified
-#' @param type a type of generated sq object; possible values are "ami", "dna" and "rna"
-#' (see section \emph{sq types} in \code{\link[=sq-class]{sq}} documentation for details).
-#' @param is_clean a \code{\link{logical}} value - if \code{TRUE}, letters will be drawn from
-#' clean alphabet, if \code{FALSE} - ambiguous letters might be also generated.
+#' @template alphabet
 #' @param sd a positive \code{\link{numeric}} value; if specified, gives standard deviation of
 #' length of generated sequences.
 #' @param use_gap - a \code{\link{logical}} value; if \code{TRUE}, sequences will be generated

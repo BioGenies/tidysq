@@ -1,16 +1,13 @@
 #' Construct sq object from character vector
+#'
+#' @templateVar null_ok TRUE
 #' 
 #' @description This function allows the user to construct objects of 
 #' \code{\link[=sq-class]{class sq}} from a character vector.
 #' 
 #' @param x [\code{character}]\cr
 #'  Vector to construct object from.
-#' @param alphabet [\code{character}]\cr
-#'  If provided value is a single string, it will be interpreted as type (see
-#'  details). If provided value has length greater than one, it will be treated
-#'  as atypical alphabet for \code{sq} obejct and \code{sq} type will be
-#'  \code{atp}. If provided value is \code{NULL}, type guessing will be
-#'  performed (see details).
+#' @template alphabet
 #' @template NA_letter
 #' @template safe_mode
 #' @template on_warning
