@@ -49,48 +49,16 @@ CPP_pack_STRING <- function(proto, alphabet, NA_letter, ignore_case) {
     .Call(`_tidysq_CPP_pack_STRING`, proto, alphabet, NA_letter, ignore_case)
 }
 
+CPP_random_sq <- function(n, len, alphabet, use_gap) {
+    .Call(`_tidysq_CPP_random_sq`, n, len, alphabet, use_gap)
+}
+
 CPP_read_fasta <- function(file_name, alphabet, NA_letter, ignore_case) {
     .Call(`_tidysq_CPP_read_fasta`, file_name, alphabet, NA_letter, ignore_case)
 }
 
 CPP_sample_fasta <- function(file_name, sample_size, NA_letter, ignore_case) {
     .Call(`_tidysq_CPP_sample_fasta`, file_name, sample_size, NA_letter, ignore_case)
-}
-
-CPP_unpack_RAWS <- function(sq, NA_letter) {
-    .Call(`_tidysq_CPP_unpack_RAWS`, sq, NA_letter)
-}
-
-CPP_unpack_INTS <- function(sq, NA_letter) {
-    .Call(`_tidysq_CPP_unpack_INTS`, sq, NA_letter)
-}
-
-CPP_unpack_STRINGS <- function(sq, NA_letter) {
-    .Call(`_tidysq_CPP_unpack_STRINGS`, sq, NA_letter)
-}
-
-CPP_unpack_STRING <- function(sq, NA_letter) {
-    .Call(`_tidysq_CPP_unpack_STRING`, sq, NA_letter)
-}
-
-CPP_bite <- function(x, indices, NA_letter) {
-    .Call(`_tidysq_CPP_bite`, x, indices, NA_letter)
-}
-
-CPP_find_invalid_letters <- function(x, dest_type, NA_letter) {
-    .Call(`_tidysq_CPP_find_invalid_letters`, x, dest_type, NA_letter)
-}
-
-CPP_find_motifs <- function(x, names, motifs, NA_letter) {
-    .Call(`_tidysq_CPP_find_motifs`, x, names, motifs, NA_letter)
-}
-
-CPP_has <- function(x, motifs, NA_letter) {
-    .Call(`_tidysq_CPP_has`, x, motifs, NA_letter)
-}
-
-CPP_random_sq <- function(n, len, alphabet, use_gap) {
-    .Call(`_tidysq_CPP_random_sq`, n, len, alphabet, use_gap)
 }
 
 CPP_remove_NA <- function(x, by_letter, NA_letter) {
@@ -115,6 +83,22 @@ CPP_translate <- function(x, table, NA_letter, interpret_as_stop) {
 
 CPP_typify <- function(x, dest_type, NA_letter) {
     .Call(`_tidysq_CPP_typify`, x, dest_type, NA_letter)
+}
+
+CPP_unpack_RAWS <- function(sq, NA_letter) {
+    .Call(`_tidysq_CPP_unpack_RAWS`, sq, NA_letter)
+}
+
+CPP_unpack_INTS <- function(sq, NA_letter) {
+    .Call(`_tidysq_CPP_unpack_INTS`, sq, NA_letter)
+}
+
+CPP_unpack_STRINGS <- function(sq, NA_letter) {
+    .Call(`_tidysq_CPP_unpack_STRINGS`, sq, NA_letter)
+}
+
+CPP_unpack_STRING <- function(sq, NA_letter) {
+    .Call(`_tidysq_CPP_unpack_STRING`, sq, NA_letter)
 }
 
 CPP_write_fasta <- function(x, names, file, width, NA_value) {

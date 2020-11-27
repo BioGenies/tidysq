@@ -1,5 +1,4 @@
-#include "tidysq/write_fasta.h"
-#include "tidysq/Rcpp-import.h"
+#include "tidysq.h"
 
 using namespace tidysq;
 
