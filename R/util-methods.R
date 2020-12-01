@@ -142,7 +142,7 @@ is.sq_ami_bsc <- function(x)
 #' 
 #' @seealso \code{\link[=sq-class]{sq}} \code{\link{as.character}} \code{\link{is.sq}}
 #' @export
-`==.sq` <- vec_equal
+`==.sq` <- function(e1, e2) vec_equal(e1, e2)
 
 #' Get lengths of sequences in sq object
 #' 
