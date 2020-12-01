@@ -1,7 +1,6 @@
 #pragma once
 
 #include <fstream>
-#include <filesystem>
 
 #include "tidysq/Sq.h"
 #include "tidysq/constants/io.h"
@@ -14,7 +13,7 @@ namespace tidysq {
             std::ofstream stream_;
             const unsigned int width_;
 
-            const Sq <INTERNAL> &sq_;
+            const Sq<INTERNAL> &sq_;
             const std::vector<std::string> &names_;
 
             void write_name(LenSq i) {
