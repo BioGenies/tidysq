@@ -14,7 +14,7 @@ interpretation for indexing vectors, which are a bit stricter that normal R
 conventions, for example implicit argument recycling is prohibited.}
 }
 \value{
-\code{\link{sq}} object of the same type as input sq, containing
+\code{\link[=sq-class]{sq}} object of the same type as input sq, containing
 extracted elements
 }
 \description{
@@ -30,5 +30,5 @@ of the object). Attempt to extract elements using indices not present in
 the object will return an error.
 }
 \seealso{
-\code{\link{sq}} \code{\link{bite}}
+\code{\link[=sq-class]{sq}} \code{\link{bite}}
 }

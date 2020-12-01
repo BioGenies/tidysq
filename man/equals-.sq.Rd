@@ -7,26 +7,26 @@
 \method{==}{sq}(x, y, na_equal = FALSE, .ptype = NULL)
 }
 \arguments{
-\item{x1}{an \code{\link{sq}} object.}
+\item{x1}{an \code{\link[=sq-class]{sq}} object.}
 
-\item{x2}{an object (a character vector or an \code{\link{sq}} object) to compare with
+\item{x2}{an object (a character vector or an \code{\link[=sq-class]{sq}} object) to compare with
 \code{x1}.}
 }
 \value{
 A \code{\link{logical}} vector indicating on which positions the objects are equal
 }
 \description{
-Compares input \code{\link{sq}} object with another given.
+Compares input \code{\link[=sq-class]{sq}} object with another given.
 }
 \details{
 \code{`==`} converts left-hand side of the comparison (\code{x1}) to
 a character vector using \code{\link{as.character}} and checks whether object
-given on the right side can be compared with \code{\link{sq}} object. Function
-also checks the type of \code{\link{sq}} object with which given object is to be
-compared. If the type of \code{\link{sq}} object is "ami", "dna" or "rna" and
+given on the right side can be compared with \code{\link[=sq-class]{sq}} object. Function
+also checks the type of \code{\link[=sq-class]{sq}} object with which given object is to be
+compared. If the type of \code{\link[=sq-class]{sq}} object is "ami", "dna" or "rna" and
 given sequence is a character vector with any lowercase letters, the function
 replaces them with corresponding capital ones using \code{\link{toupper}}.
-If right-hand side object (\code{x2}) is of class \code{\link{sq}}, then it is
+If right-hand side object (\code{x2}) is of class \code{\link[=sq-class]{sq}}, then it is
 converted to a character vector also using \code{\link{as.character}} function.
 
 When both objects are already converted to character vectors, comparison is carried out 
@@ -38,5 +38,5 @@ can be compared for example amino acid with nucleotide sequences so attention
 should be paid, which sequence types are compared.
 }
 \seealso{
-\code{\link{sq}} \code{\link{as.character}} \code{\link{is.sq}}
+\code{\link[=sq-class]{sq}} \code{\link{as.character}} \code{\link{is.sq}}
 }

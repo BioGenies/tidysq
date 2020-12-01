@@ -33,10 +33,10 @@ a crash of R session and, in consequence, loss of data.
 There are multiple ways of saving \code{sq} objects or converting them into
 other formats:
 \itemize{
-\item converting into a character vector with \code{\link[=as.character.sq]
-{as.character}} method,
-\item converting into a character matrix with \code{\link[=as.matrix.sq]
-{as.matrix}} method,
+\item converting into a character vector with
+\code{\link[=as.character.sq]{as.character}} method,
+\item converting into a character matrix with
+\code{\link[=as.matrix.sq]{as.matrix}} method,
 \item saving as FASTA file with \code{\link{write_fasta}},
 \item exporting into a format of other package like \code{ape} or
 \code{Biostrings} with \code{\link{export_sq}}.

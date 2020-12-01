@@ -4,18 +4,24 @@
 \alias{write_fasta}
 \title{Save sq to fasta file}
 \usage{
-write_fasta(x, name, file, nchar = 80)
+write_fasta(
+  x,
+  names,
+  file,
+  width = 80,
+  NA_letter = getOption("tidysq_NA_letter")
+)
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object.}
-
-\item{name}{a \code{\link{character}} vector of length equal to \code{sq} length.}
+\item{x}{a \code{\link[=sq-class]{sq}} object.}
 
 \item{file}{a \code{\link{character}} string indicating path to file to write into.}
 
-\item{nchar}{a positive \code{\link{integer}} value informing about maximum number of 
+\item{width}{a positive \code{\link{integer}} value informing about maximum number of 
 characters to put in each line of file.}
+
+\item{name}{a \code{\link{character}} vector of length equal to \code{sq} length.}
 }
 \description{
-Writes \code{\link{sq}} objects with their names to a fasta file.
+Writes \code{\link[=sq-class]{sq}} objects with their names to a fasta file.
 }

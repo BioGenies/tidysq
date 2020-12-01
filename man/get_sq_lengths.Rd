@@ -7,21 +7,21 @@
 get_sq_lengths(x)
 }
 \arguments{
-\item{x}{an \code{\link{sq}} object.}
+\item{x}{an \code{\link[=sq-class]{sq}} object.}
 }
 \value{
 A \code{\link{numeric}} vector, where each element gives length of according 
-sequence from \code{\link{sq}} object.
+sequence from \code{\link[=sq-class]{sq}} object.
 }
 \description{
-Function counts number of elements in each sequence in given \code{\link{sq}} object.
+Function counts number of elements in each sequence in given \code{\link[=sq-class]{sq}} object.
 }
 \details{
 This function allows returning numeric vector of lengths of sequences from
-\code{\link{sq}} object. The numeric vector is as long as number of sequences present 
-in \code{\link{sq}} object.
+\code{\link[=sq-class]{sq}} object. The numeric vector is as long as number of sequences present
+in \code{\link[=sq-class]{sq}} object.
 The function counts elements in all types of sequences.
 }
 \seealso{
-\code{\link{sq}} \code{\link{construct_sq}}
+\code{\link[=sq-class]{sq}} \code{\link{construct_sq}}
 }

@@ -7,7 +7,7 @@
 as.sq(x, ...)
 }
 \arguments{
-\item{x}{a object of a class that supports conversion to \code{\link{sq}}.}
+\item{x}{a object of a class that supports conversion to \code{\link[=sq-class]{sq}}.}
 
 \item{...}{other arguments passed to the method.}
 }
@@ -15,7 +15,7 @@ as.sq(x, ...)
 A \code{sq} object
 }
 \description{
-This generic function takes an object of arbitrary type and returns an \code{\link{sq}} object 
+This generic function takes an object of arbitrary type and returns an \code{\link[=sq-class]{sq}} object
 as an output. Default implementation of the method throws an error - there needs to be 
 implemented a method for specified class in order for function to work.
 }
@@ -25,5 +25,5 @@ which in fact works exactly like \code{\link{construct_sq}} - you can also pass 
 like those supported by \code{\link{construct_sq}}.
 }
 \seealso{
-\code{\link{sq}} \code{\link{construct_sq}}
+\code{\link[=sq-class]{sq}} \code{\link{construct_sq}}
 }

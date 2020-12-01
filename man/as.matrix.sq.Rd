@@ -7,7 +7,7 @@
 \method{as.matrix}{sq}(x, ...)
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object to be converted.}
+\item{x}{a \code{\link[=sq-class]{sq}} object to be converted.}
 
 \item{...}{further arguments to be passed from or to other methods.}
 }
@@ -19,7 +19,7 @@ in the converted sq object. Matrix is either character (if type of \code{sq} is
 or numeric (if type is \strong{enc}).
 }
 \description{
-Coerce sequences from a \code{\link{sq}} object to a 
+Coerce sequences from a \code{\link[=sq-class]{sq}} object to a
 \code{\link{matrix}}, in which rows correspond to sequences and columns to positions
 }
 \details{
@@ -33,5 +33,5 @@ columns will be filled with \code{\link{NA}}. All attributes of the input
 \code{sq} are lost during the conversion to matrix.
 }
 \seealso{
-\code{\link{sq}}
+\code{\link[=sq-class]{sq}}
 }

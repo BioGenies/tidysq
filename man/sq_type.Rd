@@ -13,21 +13,21 @@ sq_type(x, ...)
 \method{sq_type}{sq}(x, ...)
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object to be checked.}
+\item{x}{a \code{\link[=sq-class]{sq}} object to be checked.}
 }
 \value{
-A \code{\link{character}} string, type of\code{\link{sq}} object - can be one of
+A \code{\link{character}} string, type of\code{\link[=sq-class]{sq}} object - can be one of
 "ami", "dna", "rna", "unt", "atp" or "enc".
 }
 \description{
-Function checks which type of sequences are contained in \code{\link{sq}} object.
+Function checks which type of sequences are contained in \code{\link[=sq-class]{sq}} object.
 }
 \details{
-This function returns type of sequence from \code{\link{sq}} object.
+This function returns type of sequence from \code{\link[=sq-class]{sq}} object.
 If the type of sequence is \strong{dna}, \strong{rna}, \strong{ami}, \strong{unt},
 \strong{atp} or \strong{enc} function returns "dna", "rna", "ami", "unt", "atp" or
 "enc" respectivetly.
 }
 \seealso{
-\code{\link{sq}} \code{\link{sq}}
+\code{\link[=sq-class]{sq}} \code{\link[=sq-class]{sq}}
 }

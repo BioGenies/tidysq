@@ -10,7 +10,7 @@ find_motifs(x, names, motifs, ...)
 \method{find_motifs}{sq}(x, names, motifs, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
-\item{x}{a \code{\link{sq}} object.}
+\item{x}{a \code{\link[=sq-class]{sq}} object.}
 
 \item{motifs}{a \code{character} vector of motifs to be searched for.}
 
@@ -63,5 +63,5 @@ Detailed list of all letters corresponding to each ambiguous letter may be found
 }
 
 \seealso{
-\code{\link{sq}} \code{\link{substitute_letters}} \code{\link{\%has\%}}
+\code{\link[=sq-class]{sq}} \code{\link{substitute_letters}} \code{\link{\%has\%}}
 }

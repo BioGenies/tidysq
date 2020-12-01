@@ -17,15 +17,15 @@ A \code{\link{logical}} value - \code{TRUE} if \code{x} has specified type, \cod
 otherwise.
 }
 \description{
-Function to checks if object is a \code{\link{sq}} object without specifying type or
-if it is a \code{\link{sq}} object with specific type.
+Function to checks if object is a \code{\link[=sq-class]{sq}} object without specifying type or
+if it is a \code{\link[=sq-class]{sq}} object with specific type.
 }
 \details{
 These function does not only check objects classes - they also check if their format is 
 correct (e.g. if they have alphabet parameter, if they have exactly one type, if they are
 list of raws, etc. - to see details, how does \code{sq} object look like under the hood, 
-read \code{\link[=sq]{sq class}} manual).
+read \code{\link[=sq-class]{sq class}} manual).
 }
 \seealso{
-\code{\link{sq}}
+\code{\link[=sq-class]{sq}}
 }
