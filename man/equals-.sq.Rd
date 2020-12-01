@@ -4,7 +4,7 @@
 \alias{==.sq}
 \title{Compare sq objects}
 \usage{
-\method{==}{sq}(x, y, na_equal = FALSE, .ptype = NULL)
+\method{==}{sq}(e1, e2)
 }
 \arguments{
 \item{x1}{an \code{\link[=sq-class]{sq}} object.}
