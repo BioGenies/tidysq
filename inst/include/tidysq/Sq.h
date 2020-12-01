@@ -76,6 +76,11 @@ namespace tidysq {
             return sqapply<Sq<INTERNAL>, ProtoSq<INTERNAL_OUT, PROTO_OUT>>(*this, ops::OperationUnpack<INTERNAL, INTERNAL_OUT, PROTO_OUT>());
         }
 
+        template<typename INTERNAL_OUT, typename PROTO_OUT>
+        ProtoSq<INTERNAL_OUT, PROTO_OUT> unpack(const LenSq from, const LenSq to) const {
+            return sqapply<Sq<INTERNAL>, ProtoSq<INTERNAL_OUT, PROTO_OUT>>(*this, ops::OperationUnpack<INTERNAL, INTERNAL_OUT, PROTO_OUT>(), from, to);
+        }
+
         friend Rcpp::List export_to_R(const Sq<RCPP_IT> &sq);
     };
 
