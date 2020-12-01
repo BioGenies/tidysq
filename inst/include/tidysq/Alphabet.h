@@ -173,6 +173,10 @@ namespace tidysq {
             return is_simple_;
         }
 
+        [[nodiscard]] inline bool ignores_case() const {
+            return ignore_case_;
+        }
+
         [[nodiscard]] inline const_iterator begin() const {
             return value_to_letter_.begin();
         }

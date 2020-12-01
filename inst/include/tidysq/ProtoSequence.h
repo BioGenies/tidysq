@@ -64,7 +64,11 @@ namespace tidysq {
             return !operator==(other);
         }
 
-        inline ProtoSequence<INTERNAL, PROTO>& operator+=(std::string &&letter) {
+        inline ProtoSequence<INTERNAL, PROTO>& operator+=(const Letter &letter) {
+            throw std::exception();
+        }
+
+        inline ProtoSequence<INTERNAL, PROTO>& operator+=(const SimpleLetter &letter) {
             throw std::exception();
         }
 
@@ -84,14 +88,25 @@ namespace tidysq {
 
 
     template<>
-    inline ProtoSequence<RCPP_IT, STRING_PT>& ProtoSequence<RCPP_IT, STRING_PT>::operator+=(std::string &&letter) {
+    inline ProtoSequence<RCPP_IT, STRING_PT>& ProtoSequence<RCPP_IT, STRING_PT>::operator+=(const Letter &letter) {
         content_ += letter;
         return *this;
     }
 
     template<>
-    inline ProtoSequence<STD_IT, STRING_PT>& ProtoSequence<STD_IT, STRING_PT>::operator+=(std::string &&letter) {
-        std::string x;
+    inline ProtoSequence<STD_IT, STRING_PT>& ProtoSequence<STD_IT, STRING_PT>::operator+=(const Letter &letter) {
+        content_ += letter;
+        return *this;
+    }
+
+    template<>
+    inline ProtoSequence<RCPP_IT, STRING_PT>& ProtoSequence<RCPP_IT, STRING_PT>::operator+=(const SimpleLetter &letter) {
+        content_ += letter;
+        return *this;
+    }
+
+    template<>
+    inline ProtoSequence<STD_IT, STRING_PT>& ProtoSequence<STD_IT, STRING_PT>::operator+=(const SimpleLetter &letter) {
         content_ += letter;
         return *this;
     }

@@ -43,4 +43,8 @@ namespace tidysq::util {
         }
         return ret;
     }
+
+    inline LenSq convert_sample_size(const Rcpp::NumericVector &sample_size) {
+        return Rcpp::traits::is_infinite<REALSXP>(sample_size[0]) ? ULLONG_MAX : sample_size[0];
+    }
 }
