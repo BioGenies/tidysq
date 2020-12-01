@@ -2,7 +2,6 @@
 
 #include "tidysq/tidysq-typedefs.h"
 #include "tidysq/Alphabet.h"
-#include "tidysq/TypeMapper.h"
 #include "tidysq/ops/OperationUnpack.h"
 #include "tidysq/Proxy.h"
 #include "tidysq/sqapply.h"
@@ -13,18 +12,18 @@ namespace tidysq {
 
     template<typename INTERNAL>
     class Sq {
-        typename InternalTypeMapper<INTERNAL>::SqContentType content_;
+        typename INTERNAL::SqContentStorageType content_;
         Alphabet alphabet_;
     public:
-        typedef typename InternalTypeMapper<INTERNAL>::SqContentType ContentType;
-        typedef typename InternalTypeMapper<INTERNAL>::SqElementType ElementType;
+        typedef Sequence<INTERNAL>                      ElementType;
+        typedef typename INTERNAL::SqContentStorageType ContentStorageType;
 
-        Sq(const ContentType &content, const Alphabet &alphabet) :
+        Sq(const ContentStorageType &content, const Alphabet &alphabet) :
                 content_(content),
                 alphabet_(alphabet) {};
 
         Sq(const LenSq length, const Alphabet &alphabet) :
-                Sq(ContentType(length), alphabet) {};
+                Sq(ContentStorageType(length), alphabet) {};
 
         explicit Sq(const Alphabet &alphabet) :
                 Sq(0, alphabet) {};

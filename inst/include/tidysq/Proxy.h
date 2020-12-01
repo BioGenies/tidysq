@@ -7,22 +7,22 @@ namespace tidysq {
         template<typename INTERNAL, typename PROTO, bool PACKED, bool CONST>
         class AbstractGeneralSequenceProxy {
         protected:
-            typedef typename AccessTypeMapper<INTERNAL, PROTO, PACKED, CONST>::AccessType AccessType;
-            typedef typename AccessTypeMapper<INTERNAL, PROTO, PACKED, CONST>::SequenceType SequenceType;
-            typedef typename AccessTypeMapper<INTERNAL, PROTO, PACKED, CONST>::SqType SqType;
+            typedef typename UniversalTypeBinder<INTERNAL, PROTO, PACKED, CONST>::ProtoOrNotSqContentAccessType ElementAccessType;
+            typedef typename UniversalTypeBinder<INTERNAL, PROTO, PACKED, CONST>::ProtoOrNotSequenceType ElementType;
+            typedef typename UniversalTypeBinder<INTERNAL, PROTO, PACKED, CONST>::ProtoOrNotSqType ContainerType;
 
-            AccessType contained_sequence_;
+            ElementAccessType contained_element_access_;
 
-            inline explicit AbstractGeneralSequenceProxy(AccessType contained_sequence) :
-                    contained_sequence_(contained_sequence) {} ;
+            inline explicit AbstractGeneralSequenceProxy(ElementAccessType contained_sequence) :
+                    contained_element_access_(contained_sequence) {} ;
 
         public:
-            inline operator SequenceType() const {
-                return contained_sequence_;
+            inline operator ElementType() const {
+                return contained_element_access_;
             }
 
-            [[nodiscard]] inline SequenceType get() const {
-                return (SequenceType) *this;
+            [[nodiscard]] inline ElementType get() const {
+                return (ElementType) *this;
             }
 
             [[nodiscard]] inline bool operator==(const AbstractGeneralSequenceProxy<INTERNAL, PROTO, PACKED, CONST> &other) const {
@@ -41,58 +41,58 @@ namespace tidysq {
                 return !operator==(other);
             }
 
-            friend SqType;
+            friend ContainerType;
         };
 
         template<>
         inline AbstractGeneralSequenceProxy<RCPP_IT, RAWS_PT, false, false>::operator ProtoSequence<RCPP_IT, RAWS_PT>() const {
-            return tidysq::ProtoSequence<RCPP_IT, RAWS_PT>(Rcpp::RawVector(contained_sequence_));
+            return tidysq::ProtoSequence<RCPP_IT, RAWS_PT>(typename TypeBinder<RCPP_IT, RAWS_PT>::ProtoSequenceContentStorageType(contained_element_access_));
         }
 
         template<>
         inline AbstractGeneralSequenceProxy<RCPP_IT, RAWS_PT, false, true>::operator ProtoSequence<RCPP_IT, RAWS_PT>() const {
-            return tidysq::ProtoSequence<RCPP_IT, RAWS_PT>(Rcpp::RawVector(contained_sequence_));
+            return tidysq::ProtoSequence<RCPP_IT, RAWS_PT>(typename TypeBinder<RCPP_IT, RAWS_PT>::ProtoSequenceContentStorageType(contained_element_access_));
         }
 
         template<>
         inline AbstractGeneralSequenceProxy<RCPP_IT, INTS_PT, false, false>::operator ProtoSequence<RCPP_IT, INTS_PT>() const {
-            return tidysq::ProtoSequence<RCPP_IT, INTS_PT>(Rcpp::IntegerVector(contained_sequence_));
+            return tidysq::ProtoSequence<RCPP_IT, INTS_PT>(typename TypeBinder<RCPP_IT, INTS_PT>::ProtoSequenceContentStorageType(contained_element_access_));
         }
 
         template<>
         inline AbstractGeneralSequenceProxy<RCPP_IT, INTS_PT, false, true>::operator ProtoSequence<RCPP_IT, INTS_PT>() const {
-            return tidysq::ProtoSequence<RCPP_IT, INTS_PT>(Rcpp::IntegerVector(contained_sequence_));
+            return tidysq::ProtoSequence<RCPP_IT, INTS_PT>(typename TypeBinder<RCPP_IT, INTS_PT>::ProtoSequenceContentStorageType(contained_element_access_));
         }
 
         template<>
         inline AbstractGeneralSequenceProxy<RCPP_IT, STRINGS_PT, false, false>::operator ProtoSequence<RCPP_IT, STRINGS_PT>() const {
-            return tidysq::ProtoSequence<RCPP_IT, STRINGS_PT>(Rcpp::StringVector(contained_sequence_));
+            return tidysq::ProtoSequence<RCPP_IT, STRINGS_PT>(typename TypeBinder<RCPP_IT, STRINGS_PT>::ProtoSequenceContentStorageType(contained_element_access_));
         }
 
         template<>
         inline AbstractGeneralSequenceProxy<RCPP_IT, STRINGS_PT, false, true>::operator ProtoSequence<RCPP_IT, STRINGS_PT>() const {
-            return tidysq::ProtoSequence<RCPP_IT, STRINGS_PT>(Rcpp::StringVector(contained_sequence_));
+            return tidysq::ProtoSequence<RCPP_IT, STRINGS_PT>(typename TypeBinder<RCPP_IT, STRINGS_PT>::ProtoSequenceContentStorageType(contained_element_access_));
         }
 
         template<>
         inline AbstractGeneralSequenceProxy<RCPP_IT, STRING_PT, false, false>::operator ProtoSequence<RCPP_IT, STRING_PT>() const {
-            return tidysq::ProtoSequence<RCPP_IT, STRING_PT>(std::string(contained_sequence_));
+            return tidysq::ProtoSequence<RCPP_IT, STRING_PT>(typename TypeBinder<RCPP_IT, STRING_PT>::ProtoSequenceContentStorageType(contained_element_access_));
         }
 
         template<>
         inline AbstractGeneralSequenceProxy<RCPP_IT, STRING_PT, false, true>::operator ProtoSequence<RCPP_IT, STRING_PT>() const {
-            return tidysq::ProtoSequence<RCPP_IT, STRING_PT>(std::string(contained_sequence_));
+            return tidysq::ProtoSequence<RCPP_IT, STRING_PT>(typename TypeBinder<RCPP_IT, STRING_PT>::ProtoSequenceContentStorageType(contained_element_access_));
         }
 
         template<>
         inline AbstractGeneralSequenceProxy<RCPP_IT, RAWS_PT, true, false>::operator Sequence<RCPP_IT>() const {
-            Rcpp::RawVector ret(contained_sequence_);
+            Rcpp::RawVector ret(contained_element_access_);
             return tidysq::Sequence<RCPP_IT>(ret, Rcpp::IntegerVector(ret.attr("original_length"))[0]);
         }
 
         template<>
         inline AbstractGeneralSequenceProxy<RCPP_IT, RAWS_PT, true, true>::operator Sequence<RCPP_IT>() const {
-            Rcpp::RawVector ret(contained_sequence_);
+            Rcpp::RawVector ret(contained_element_access_);
             return tidysq::Sequence<RCPP_IT>(ret, Rcpp::IntegerVector(ret.attr("original_length"))[0]);
         }
     }
@@ -111,67 +111,67 @@ namespace tidysq {
         friend SqType;
 
     public:
-        inline GeneralSequenceProxy& operator=(const typename internal::AbstractGeneralSequenceProxy<INTERNAL, PROTO, PACKED, false>::SequenceType &general_sequence) {
-            internal::AbstractGeneralSequenceProxy<INTERNAL, PROTO, PACKED, false>::contained_sequence_ = general_sequence;
+        inline GeneralSequenceProxy& operator=(const typename internal::AbstractGeneralSequenceProxy<INTERNAL, PROTO, PACKED, false>::ElementType &general_sequence) {
+            internal::AbstractGeneralSequenceProxy<INTERNAL, PROTO, PACKED, false>::contained_element_access_ = general_sequence;
             return *this;
         }
     };
 
     template<>
     inline GeneralSequenceProxy<RCPP_IT, RAWS_PT, true> &  GeneralSequenceProxy<RCPP_IT, RAWS_PT, true>::operator=(
-            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, RAWS_PT, true, false>::SequenceType &general_sequence) {
+            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, RAWS_PT, true, false>::ElementType &general_sequence) {
         Rcpp::RawVector content = general_sequence.content();
         content.attr("original_length") = general_sequence.original_length();
-        contained_sequence_ = content;
+        contained_element_access_ = content;
         return *this;
     }
 
     template<>
     inline GeneralSequenceProxy<RCPP_IT, RAWS_PT, false> &  GeneralSequenceProxy<RCPP_IT, RAWS_PT, false>::operator=(
-            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, RAWS_PT, false, false>::SequenceType &proto) {
-        contained_sequence_ = proto.content();
+            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, RAWS_PT, false, false>::ElementType &proto) {
+        contained_element_access_ = proto.content();
         return *this;
     }
 
     template<>
     inline GeneralSequenceProxy<RCPP_IT, INTS_PT, true> &  GeneralSequenceProxy<RCPP_IT, INTS_PT, true>::operator=(
-            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, INTS_PT, true, false>::SequenceType &proto) {
-        contained_sequence_ = proto.content();
+            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, INTS_PT, true, false>::ElementType &proto) {
+        contained_element_access_ = proto.content();
         return *this;
     }
 
     template<>
     inline GeneralSequenceProxy<RCPP_IT, INTS_PT, false> &  GeneralSequenceProxy<RCPP_IT, INTS_PT, false>::operator=(
-            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, INTS_PT, false, false>::SequenceType &proto) {
-        contained_sequence_ = proto.content();
+            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, INTS_PT, false, false>::ElementType &proto) {
+        contained_element_access_ = proto.content();
         return *this;
     }
 
     template<>
     inline GeneralSequenceProxy<RCPP_IT, STRINGS_PT, true> &  GeneralSequenceProxy<RCPP_IT, STRINGS_PT, true>::operator=(
-            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, STRINGS_PT, true, false>::SequenceType &proto) {
-        contained_sequence_ = proto.content();
+            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, STRINGS_PT, true, false>::ElementType &proto) {
+        contained_element_access_ = proto.content();
         return *this;
     }
 
     template<>
     inline GeneralSequenceProxy<RCPP_IT, STRINGS_PT, false> &  GeneralSequenceProxy<RCPP_IT, STRINGS_PT, false>::operator=(
-            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, STRINGS_PT, false, false>::SequenceType &proto) {
-        contained_sequence_ = proto.content();
+            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, STRINGS_PT, false, false>::ElementType &proto) {
+        contained_element_access_ = proto.content();
         return *this;
     }
 
     template<>
     inline GeneralSequenceProxy<RCPP_IT, STRING_PT, true> &  GeneralSequenceProxy<RCPP_IT, STRING_PT, true>::operator=(
-            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, STRING_PT, true, false>::SequenceType &proto) {
-        contained_sequence_ = proto.content();
+            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, STRING_PT, true, false>::ElementType &proto) {
+        contained_element_access_ = proto.content();
         return *this;
     }
 
     template<>
     inline GeneralSequenceProxy<RCPP_IT, STRING_PT, false> &  GeneralSequenceProxy<RCPP_IT, STRING_PT, false>::operator=(
-            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, STRING_PT, false, false>::SequenceType &proto) {
-        contained_sequence_ = proto.content();
+            const typename internal::AbstractGeneralSequenceProxy<RCPP_IT, STRING_PT, false, false>::ElementType &proto) {
+        contained_element_access_ = proto.content();
         return *this;
     }
 

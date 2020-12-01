@@ -1,7 +1,6 @@
 #pragma once
 
 #include "tidysq/tidysq-typedefs.h"
-#include "tidysq/TypeMapper.h"
 #include "tidysq/ProtoSequence.h"
 #include "tidysq/util/calculate_length.h"
 
@@ -18,19 +17,19 @@ namespace tidysq {
 
     template<typename INTERNAL>
     class Sequence {
-        typename InternalTypeMapper<INTERNAL>::SequenceContentType content_;
+        typename INTERNAL::SequenceContentStorageType content_;
         LenSq original_length_;
     public:
-        typedef typename InternalTypeMapper<INTERNAL>::SequenceContentType ContentType;
-        typedef typename InternalTypeMapper<INTERNAL>::SequenceElementType ElementType;
-        typedef typename InternalTypeMapper<INTERNAL>::SequenceAccessType AccessType;
-        typedef typename InternalTypeMapper<INTERNAL>::SequenceConstAccessType ConstAccessType;
+        typedef typename INTERNAL::SequenceContentStorageType   ContentStorageType;
+        typedef typename INTERNAL::SequenceElementType          ElementType;
+        typedef typename INTERNAL::SequenceContentAccessType           AccessType;
+        typedef typename INTERNAL::SequenceContentConstAccessType      ConstAccessType;
 
     private:
         template<bool CONST>
         class GenericSequenceIterator : public std::iterator<std::bidirectional_iterator_tag, ElementPacked> {
         public:
-            typedef typename std::conditional<CONST, const Sequence &, Sequence &>::type SequenceReference;
+            typedef std::conditional_t<CONST, const Sequence &, Sequence &> SequenceReference;
         protected:
             SequenceReference sequence_;
             const AlphSize alph_size_;
@@ -78,12 +77,12 @@ namespace tidysq {
         typedef GenericSequenceIterator<true> const_iterator;
         typedef GenericSequenceIterator<false> iterator;
 
-        Sequence(const ContentType &content, const LenSq original_length) :
+        Sequence(const ContentStorageType &content, const LenSq original_length) :
                 content_(content),
                 original_length_(original_length) {};
 
         Sequence(const LenSq content_length, const LenSq original_length) :
-                Sequence(ContentType(content_length), original_length) {};
+                Sequence(ContentStorageType(content_length), original_length) {};
 
         Sequence() :
                 Sequence(0, 0) {};
@@ -152,7 +151,7 @@ namespace tidysq {
             return content_.size();
         }
 
-        [[nodiscard]] inline ContentType content() const {
+        [[nodiscard]] inline ContentStorageType content() const {
             return content_;
         }
 

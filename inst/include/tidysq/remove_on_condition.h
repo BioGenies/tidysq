@@ -12,30 +12,29 @@ namespace tidysq {
                                            const Alphabet &dest_alph,
                                            const std::function<bool(LetterValue)> &condition,
                                            const bool by_letter) {
-        typedef typename TypeMapper<INTERNAL, STRINGS_PT>::ProtoSequenceContentType ContentType;
         // TODO: extract functions out of these ifs, maybe?
         if (by_letter) {
-            ContentType selected_letters;
+            typename ProtoSequence<STD_IT, STRINGS_PT>::ContentStorageType selected_letters;
             for (auto it = sequence.cbegin(alph.alphabet_size()); it != sequence.cend(alph.alphabet_size()); ++it) {
                 if (condition(*it)) {
                     selected_letters.push_back(alph[*it]);
                 }
             }
-            ProtoSequence<INTERNAL, STRINGS_PT> unpacked{selected_letters};
+            ProtoSequence<STD_IT, STRINGS_PT> unpacked{selected_letters};
             Sequence<INTERNAL> repacked =
                     util::reserve_space_for_packed<INTERNAL>(unpacked.length(), dest_alph.alphabet_size());
-            internal::pack<INTERNAL, STRINGS_PT, INTERNAL, true>(unpacked, repacked, dest_alph);
+            internal::pack<STD_IT, STRINGS_PT, INTERNAL, true>(unpacked, repacked, dest_alph);
             return repacked;
         } else {
             if (std::all_of(sequence.cbegin(alph.alphabet_size()), sequence.cend(alph.alphabet_size()),
                             [=](const LetterValue element) { return condition(element); })) {
                 if (alph != dest_alph) {
-                    ProtoSequence<INTERNAL, STRINGS_PT> unpacked =
-                            util::reserve_space_for_unpacked<INTERNAL, INTERNAL, STRINGS_PT>(sequence);
+                    ProtoSequence<STD_IT, STRINGS_PT> unpacked =
+                            util::reserve_space_for_unpacked<INTERNAL, STD_IT, STRINGS_PT>(sequence);
                     internal::unpack_common(sequence, unpacked, alph);
                     Sequence<INTERNAL> repacked =
                             util::reserve_space_for_packed<INTERNAL>(unpacked.length(), dest_alph.alphabet_size());
-                    internal::pack<INTERNAL, STRINGS_PT, INTERNAL, true>(unpacked, repacked, dest_alph);
+                    internal::pack<STD_IT, STRINGS_PT, INTERNAL, true>(unpacked, repacked, dest_alph);
                     return repacked;
                 } else {
                     return sequence;

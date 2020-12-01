@@ -1,7 +1,6 @@
 #pragma once
 
 #include "tidysq/Alphabet.h"
-#include "tidysq/TypeMapper.h"
 
 namespace tidysq::internal {
     class LetterNode {

@@ -22,7 +22,7 @@ namespace tidysq {
     }
 
     template<typename INTERNAL, typename PROTO>
-    inline typename ProtoSq<INTERNAL, PROTO>::ContentType export_to_R(const ProtoSq<INTERNAL, PROTO> &proto_sq) {
+    inline typename ProtoSq<INTERNAL, PROTO>::ContentStorageType export_to_R(const ProtoSq<INTERNAL, PROTO> &proto_sq) {
         return proto_sq.content_;
     }
 

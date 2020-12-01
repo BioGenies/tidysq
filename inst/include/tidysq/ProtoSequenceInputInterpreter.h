@@ -5,9 +5,9 @@
 namespace tidysq {
     template<typename INTERNAL, typename PROTO, bool SIMPLE>
     class ProtoSequenceInputInterpreter {
-        typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceContentType ContentType;
-        typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceElementType ElementType;
-        typedef typename ContentType::const_iterator ContentConstIteratorType;
+        typedef typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentStorageType    ContentStorageType;
+        typedef typename PROTO::ProtoSequenceElementType                                    ElementType;
+        typedef typename ContentStorageType::const_iterator                                 ContentConstIteratorType;
 
         ContentConstIteratorType internal_iterator_;
         const ContentConstIteratorType end_;
@@ -82,9 +82,9 @@ namespace tidysq {
 
     template<typename INTERNAL>
     class ProtoSequenceInputInterpreter<INTERNAL, STRING_PT, false> {
-        typedef typename TypeMapper<INTERNAL, STRING_PT>::ProtoSequenceContentType ContentType;
+        typedef typename TypeBinder<INTERNAL, STRING_PT>::ProtoSequenceContentStorageType ContentStorageType;
         typedef ElementStringMultichar ElementType;
-        typedef typename ContentType::const_iterator ContentConstIteratorType;
+        typedef typename ContentStorageType::const_iterator ContentConstIteratorType;
 
         const Alphabet &alphabet_;
         internal::LetterTree letter_tree_;

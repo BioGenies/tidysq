@@ -4,7 +4,7 @@
 
 namespace tidysq::util {
     template<typename INTERNAL>
-    Alphabet obtain_alphabet(const typename TypeMapper<INTERNAL, STRING_PT>::ProtoSqContentVectorType &x,
+    Alphabet obtain_alphabet(const typename TypeBinder<INTERNAL, STRING_PT>::ProtoSqListConstructorType &x,
                              const LenSq sample_size,
                              const Letter &NA_letter,
                              const bool ignore_case) {

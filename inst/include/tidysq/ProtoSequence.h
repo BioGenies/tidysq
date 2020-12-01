@@ -3,7 +3,6 @@
 #include <utility>
 
 #include "tidysq/Alphabet.h"
-#include "tidysq/TypeMapper.h"
 #include "tidysq/util/calculate_length.h"
 #include "tidysq/ProtoSequenceInputInterpreter.h"
 
@@ -13,24 +12,24 @@ namespace tidysq {
 
     template<typename INTERNAL, typename PROTO>
     class ProtoSequence {
-        typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceContentType content_;
+        typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentStorageType content_;
     public:
-        typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceContentType ContentType;
-        typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceElementType ElementType;
-        typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceAccessType AccessType;
-        typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSequenceConstAccessType ConstAccessType;
+        typedef typename PROTO::ProtoSequenceElementType                                    ElementType;
+        typedef typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentStorageType    ContentStorageType;
+        typedef typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentAccessType            AccessType;
+        typedef typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentConstAccessType       ConstAccessType;
 
-        explicit ProtoSequence(const ContentType &content) :
+        explicit ProtoSequence(const ContentStorageType &content) :
                 content_(content) {};
 
         explicit ProtoSequence(const LenSq length) :
-                ProtoSequence(ContentType(length)) {};
+                ProtoSequence(ContentStorageType(length)) {};
 
         ProtoSequence() :
                 ProtoSequence(0) {};
 
         ProtoSequence(const std::initializer_list<ElementType> &list) :
-                content_(ContentType(list)) {};
+                content_(ContentStorageType(list)) {};
 
         ProtoSequence(const ProtoSequence &other) = default;
 
@@ -52,7 +51,7 @@ namespace tidysq {
             return content_.size();
         }
 
-        [[nodiscard]] inline const ContentType &content() const {
+        [[nodiscard]] inline const ContentStorageType &content() const {
             return content_;
         }
 
@@ -80,11 +79,11 @@ namespace tidysq {
 
     template<>
     inline ProtoSequence<STD_IT, STRING_PT>::ProtoSequence(const LenSq length) :
-            ProtoSequence(ContentType(length, ' ')) {};
+            ProtoSequence(ContentStorageType(length, ' ')) {}
 
     template<>
     inline ProtoSequence<RCPP_IT, STRING_PT>::ProtoSequence(const LenSq length) :
-            ProtoSequence(ContentType(length, ' ')) {};
+            ProtoSequence(ContentStorageType(length, ' ')) {}
 
 
     template<>

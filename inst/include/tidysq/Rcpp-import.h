@@ -20,7 +20,7 @@ namespace tidysq {
     }
 
     template<typename PROTO>
-    ProtoSq<RCPP_IT, PROTO> import_proto_from_R(const typename ProtoSq<RCPP_IT, PROTO>::ContentType &proto,
+    ProtoSq<RCPP_IT, PROTO> import_proto_from_R(const typename ProtoSq<RCPP_IT, PROTO>::ContentStorageType &proto,
                                              const Rcpp::StringVector &alphabet,
                                              const Rcpp::StringVector &NA_letter,
                                              const Rcpp::LogicalVector &ignore_case) {
