@@ -16,7 +16,7 @@ specified and mean length of sequences if \code{sd} specified}
 If provided value is a single string, it will be interpreted as type (see
 details). If provided value has length greater than one, it will be treated
 as atypical alphabet for \code{sq} obejct and \code{sq} type will be
-\code{atp}.NA}
+\code{atp}.}
 
 \item{sd}{a positive \code{\link{numeric}} value; if specified, gives standard deviation of
 length of generated sequences.}

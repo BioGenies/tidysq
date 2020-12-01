@@ -1,6 +1,6 @@
 #' Generate random sequences
 #'
-#' @templateVar null_ok FALSE
+#' @templateVar alph_null_ok FALSE
 #' 
 #' Generates a \code{\link[=sq-class]{sq}} object with specified number of sequences of given length
 #' and given type.

@@ -1,6 +1,6 @@
 #' Construct sq object from character vector
 #'
-#' @templateVar null_ok TRUE
+#' @templateVar alph_null_ok TRUE
 #' 
 #' @description This function allows the user to construct objects of 
 #' \code{\link[=sq-class]{class sq}} from a character vector.
