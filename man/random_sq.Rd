@@ -7,10 +7,12 @@
 random_sq(n, len, alphabet, sd = NULL, use_gap = FALSE)
 }
 \arguments{
-\item{n}{a positive \code{\link{integer}} value - number of sequences to generate.}
+\item{n}{[\code{integer(1)}]\cr
+A number of sequences to generate - must be non-negative.}
 
-\item{len}{a positive \code{\link{integer}} value - length of each sequence if \code{sd} not 
-specified and mean length of sequences if \code{sd} specified}
+\item{len}{[\code{integer(1)}]\cr
+Length of each sequence if \code{sd} not specified and mean length of
+sequences if \code{sd} specified - must be non-negative.}
 
 \item{alphabet}{[\code{character}]\cr
 If provided value is a single string, it will be interpreted as type (see
@@ -18,26 +20,26 @@ details). If provided value has length greater than one, it will be treated
 as atypical alphabet for \code{sq} obejct and \code{sq} type will be
 \code{atp}.}
 
-\item{sd}{a positive \code{\link{numeric}} value; if specified, gives standard deviation of
-length of generated sequences.}
+\item{sd}{[\code{integer(1)}]\cr
+If specified, gives standard deviation of length of generated sequences -
+must be non-negative.}
 
-\item{use_gap}{- a \code{\link{logical}} value; if \code{TRUE}, sequences will be generated
-with random gaps inside.}
+\item{use_gap}{[\code{logical(1)}]\cr
+If \code{TRUE}, sequences will be generated with random gaps inside
+(commonly denoted as "\code{-}").}
 }
 \value{
 An object of class \code{sq} with type as specified.
-
-Sequences are generated using \code{\link{sample}} function. There is no possibility of 
-generating a sequence of length 0, even if \code{sd} is given. Letter '*' is not used 
-in generating \strong{ami} sequences.
 }
 \description{
 Generates an \code{\link[=sq-class]{sq}} object with specified
 number of sequences of given length and alphabet.
 }
+\details{
+Letter '*' is not used in generating \strong{ami} sequences. If parameter
+\code{sd} is passed, then all generated negative values are replaced with 0s.
+}
 \seealso{
-\code{\link{construct_sq}} \code{\link[=sq-class]{sq}}
-
 Functions from I/O module
 \code{\link{sq}()}
 }
