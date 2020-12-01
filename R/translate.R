@@ -3,16 +3,17 @@
 #' @description This function allows the user to input DNA or RNA sequences and
 #' acquire sequences of corresponding proteins, where correspondence is encoded
 #' in specified table.
-#' 
-#' @param x an object of class \code{\link[=sq-class]{sq}} with either \strong{dna} or
-#' \strong{rna} type
-#' @param table integer number of translation table used, as specified
-#' \href{https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi}{here}
+#'
+#' @param x [\code{sq_dna_bsc} || \code{sq_rna_bsc}]\cr
+#'  An object this function is applied to.
+#' @param table [\code{integer(1)}]\cr
+#'  The number of translation table used, as specified
+#' \href{https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi}{here}.
 #' @template NA_letter
 #' @template three-dots
 #' 
-#' @return An object of \code{\link[=sq-class]{class sq}} with \strong{ami} type and
-#' \strong{cln} subtype.
+#' @return An object of \code{\link[=sq-class]{class sq}} with \strong{ami_bsc}
+#' type.
 #' 
 #' @details
 #' DNA and RNA sequences use combinations of three consecutive nucleic acids to
@@ -24,17 +25,19 @@
 #' the corresponding protein. These resulting letters are then pasted into one
 #' sequence for each input sequence and objectifized into an \code{sq} object.
 #' 
-#' Due to how the table works, \code{translate()} does not support inputting
-#' uncleaned sequences, as ambiguous letters mostly cannot be translated into
-#' exactly one protein.
+#' Due to how the tables works, \code{translate()} does not support inputting
+#' sequences with extended alphabets, as ambiguous letters in most cases cannot
+#' be translated into exactly one protein.
 #' 
-#' Moreover, behaviour of this function is undefined whenever cleaned sequence
-#' contain either \code{-} or \code{NA} sign.
-#' 
-#' @seealso \code{\link{clean}}, \code{\link{substitute_letters}} and
-#' \code{\link{typify}} for necessary actions before using \code{translate()}
-#' 
+#' Moreover, behaviour of this function is undefined whenever input sequence
+#' contain either "\code{-}" or \code{NA} value.
 #'
+#' @examples
+#' sq_dna <- sq(c("TACTGGGCATGA", "CAGGTC", "TAGTCCTAG"), alphabet = "dna_bsc")
+#' translate(sq_dna)
+#' 
+#' @seealso \code{\link{remove_ambiguous}}, \code{\link{substitute_letters}} and
+#' \code{\link{typify}} for necessary actions before using \code{translate()}
 #' @export
 translate <- function(x, table = 1, ...) {
   assert_int(table)
