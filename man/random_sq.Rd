@@ -32,8 +32,13 @@ generating a sequence of length 0, even if \code{sd} is given. Letter '*' is not
 in generating \strong{ami} sequences.
 }
 \description{
-Generate random sequences
+Generates an \code{\link[=sq-class]{sq}} object with specified
+number of sequences of given length and alphabet.
 }
 \seealso{
 \code{\link{construct_sq}} \code{\link[=sq-class]{sq}}
+
+Functions from I/O module
+\code{\link{sq}()}
 }
+\concept{io_functions}

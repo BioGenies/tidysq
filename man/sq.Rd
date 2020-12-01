@@ -158,4 +158,8 @@ contain \code{NA} values, use \code{\link{remove_na}}.
 \code{\link[=sq-class]{sq class}} \code{\link{read_fasta}}
 \code{\link{tidysq-options}} \code{\link{substitute_letters}}
 \code{\link{remove_na}}
+
+Functions from I/O module
+\code{\link{random_sq}()}
 }
+\concept{io_functions}

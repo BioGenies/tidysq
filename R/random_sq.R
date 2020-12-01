@@ -2,8 +2,8 @@
 #'
 #' @templateVar alph_null_ok FALSE
 #' 
-#' Generates a \code{\link[=sq-class]{sq}} object with specified number of sequences of given length
-#' and given type.
+#' @description Generates an \code{\link[=sq-class]{sq}} object with specified
+#' number of sequences of given length and alphabet.
 #' 
 #' @param n a positive \code{\link{integer}} value - number of sequences to generate.
 #' @param len a positive \code{\link{integer}} value - length of each sequence if \code{sd} not 
@@ -18,7 +18,8 @@
 #' Sequences are generated using \code{\link{sample}} function. There is no possibility of 
 #' generating a sequence of length 0, even if \code{sd} is given. Letter '*' is not used 
 #' in generating \strong{ami} sequences.
-#' 
+#'
+#' @family io_functions
 #' @seealso \code{\link{construct_sq}} \code{\link[=sq-class]{sq}}
 #' @importFrom stringi stri_rand_strings stri_paste
 #' @export

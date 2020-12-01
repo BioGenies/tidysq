@@ -108,7 +108,8 @@
 #' \code{sq} to \strong{dna_bsc}, \strong{dna_ext}, \strong{rna_bsc},
 #' \strong{rna_ext}, \strong{ami_bsc} or \strong{ami_ext}. If your sequences
 #' contain \code{NA} values, use \code{\link{remove_na}}.
-#' 
+#'
+#' @family io_functions
 #' @seealso \code{\link[=sq-class]{sq class}} \code{\link{read_fasta}}
 #' \code{\link{tidysq-options}} \code{\link{substitute_letters}}
 #' \code{\link{remove_na}}
