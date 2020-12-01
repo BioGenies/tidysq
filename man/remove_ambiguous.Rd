@@ -19,3 +19,9 @@ context of \code{\link[=sq-class]{sq class}}. Default value equals to
 \description{
 Remove sequences that contain ambiguous elements
 }
+\seealso{
+Functions that clean sequences:
+\code{\link{is_empty_sq}()},
+\code{\link{remove_na}()}
+}
+\concept{cleaning_functions}

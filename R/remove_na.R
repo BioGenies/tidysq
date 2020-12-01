@@ -24,7 +24,8 @@
 #' \code{\link[=fast-mode]{fast mode}} and there are letters in file or in strings other than
 #' specified.
 #'
-#' @seealso \code{\link[=sq-class]{sq}} \code{\link{is_empty_sq}} \code{\link{substitute_letters}}
+#' @family cleaning_functions
+#' @seealso \code{\link[=sq-class]{sq}} \code{\link{substitute_letters}}
 #' \code{\link{bite}}
 #' @export
 remove_na <- function(x, by_letter = FALSE, ...) {

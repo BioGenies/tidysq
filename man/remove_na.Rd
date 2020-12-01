@@ -43,6 +43,11 @@ you are reading file using \code{\link{read_fasta}} or constructing \code{sq} ob
 specified.
 }
 \seealso{
-\code{\link[=sq-class]{sq}} \code{\link{is_empty_sq}} \code{\link{substitute_letters}}
+\code{\link[=sq-class]{sq}} \code{\link{substitute_letters}}
 \code{\link{bite}}
+
+Functions that clean sequences:
+\code{\link{is_empty_sq}()},
+\code{\link{remove_ambiguous}()}
 }
+\concept{cleaning_functions}

@@ -6,6 +6,7 @@
 #' @template NA_letter
 #' @template three-dots
 #'
+#' @family cleaning_functions
 #' @export
 remove_ambiguous <- function(x, by_letter = FALSE, ...) {
   assert_flag(by_letter)
