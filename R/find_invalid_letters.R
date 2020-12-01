@@ -3,8 +3,7 @@
 #' Function finds elements in given sequence not matching to amino acid or nucleotide 
 #' alphabet. 
 #' 
-#' @param x a \code{\link[=sq-class]{sq}} object to be checked.
-#' 
+#' @template x
 #' @param dest_type a \code{\link{character}} string denoting destination type - it may be 
 #' "dna" for \strong{dna} type (DNA), "rna" for \strong{rna} type (RNA) or
 #' "ami" for \strong{ami} type (amino acids).

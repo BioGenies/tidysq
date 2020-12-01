@@ -7,6 +7,9 @@
 export_sq(x, export_format, name = NULL, ...)
 }
 \arguments{
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
+
 \item{export_format}{[\code{character(1)}]\cr
 A string indicating desired class (with specified package for unambiguity).}
 

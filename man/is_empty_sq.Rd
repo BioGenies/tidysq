@@ -8,7 +8,7 @@ is_empty_sq(x)
 }
 \arguments{
 \item{x}{[\code{sq}]\cr
-An object to be tested.}
+An object this function is applied to.}
 }
 \value{
 A logical vector of the same length as input \code{sq}, indicating

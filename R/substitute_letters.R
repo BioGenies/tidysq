@@ -11,8 +11,7 @@
 #' The function is only used to replace letters in the alphabet. 
 #' It cannot be used to merge multiple characters into one.
 #' 
-#' 
-#' @inheritParams reverse
+#' @template x
 #' @param encoding a vector of letters to be replaced together with their replacements.
 #' One letter can be replaced with multiple symbols. 
 #' To perform substitution create a named vector, e.g.

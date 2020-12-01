@@ -2,8 +2,9 @@
 #' 
 #' Removes sequences containing ambiguous elements or removes \code{\link[=sq-class]{NA values}}
 #' from sequences in a \code{\link[=sq-class]{sq}} object.
-#' 
-#' @inheritParams remove_ambiguous
+#'
+#' @template x
+#' @template by_letter
 #' @template NA_letter
 #' @template three-dots
 #'  

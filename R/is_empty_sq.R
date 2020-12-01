@@ -3,8 +3,7 @@
 #' @description Test an \code{\link[=sq-class]{sq}} object for presence of
 #' empty sequences.
 #' 
-#' @param x [\code{sq}]\cr
-#'  An object to be tested.
+#' @template x
 #'  
 #' @return A logical vector of the same length as input \code{sq}, indicating
 #' whether elements are empty sequences (of length 0).

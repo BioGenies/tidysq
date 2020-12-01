@@ -7,7 +7,8 @@
 sqapply(x, fun, ..., paste_char = FALSE, use_na_letter = paste_char)
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
 \item{fun}{a \code{\link{function}} to apply to each sequence in \code{sq} object; it should
 take a character vector, numeric vector or single character string as an input.}

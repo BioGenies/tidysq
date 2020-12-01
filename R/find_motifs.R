@@ -3,7 +3,7 @@
 #' @description Find all given motifs in all sequences and return their 
 #' positions.
 #' 
-#' @inheritParams reverse
+#' @template x
 #' @param name a non-\code{NULL} \code{character} vector without \code{\link{NA}} values, 
 #' containing names of the sequences in the sq. It has to be of the same length 
 #' as the \code{sq}. 

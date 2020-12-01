@@ -1,7 +1,8 @@
 #' Save sq to fasta file
 #' 
 #' Writes \code{\link[=sq-class]{sq}} objects with their names to a fasta file.
-#' @param x a \code{\link[=sq-class]{sq}} object.
+#'
+#' @template x
 #' @param name a \code{\link{character}} vector of length equal to \code{sq} length.
 #' @param file a \code{\link{character}} string indicating path to file to write into.
 #' @param width a positive \code{\link{integer}} value informing about maximum number of 

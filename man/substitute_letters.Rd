@@ -10,7 +10,8 @@ substitute_letters(x, encoding, ...)
 \method{substitute_letters}{sq}(x, encoding, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
 \item{encoding}{a vector of letters to be replaced together with their replacements.
 One letter can be replaced with multiple symbols. 

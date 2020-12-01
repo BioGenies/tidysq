@@ -15,7 +15,8 @@ find_invalid_letters(x, dest_type, ...)
 )
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object to be checked.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
 \item{dest_type}{a \code{\link{character}} string denoting destination type - it may be 
 "dna" for \strong{dna} type (DNA), "rna" for \strong{rna} type (RNA) or

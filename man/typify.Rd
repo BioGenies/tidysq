@@ -10,8 +10,8 @@ typify(x, dest_type, ...)
 \method{typify}{sq}(x, dest_type, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
-\item{x}{an object of class \code{\link[=sq-class]{sq}} with one of the types \strong{ami},
-\strong{dna}, \strong{rna}, \strong{unt} or \strong{atp}.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
 \item{dest_type}{\code{\link{character}} string, destination type, one of "ami",
 "dna" or "rna".}

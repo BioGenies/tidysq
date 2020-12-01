@@ -13,7 +13,8 @@ write_fasta(
 )
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
 \item{file}{a \code{\link{character}} string indicating path to file to write into.}
 

@@ -10,7 +10,8 @@ find_motifs(x, name, motifs, ...)
 \method{find_motifs}{sq}(x, name, motifs, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
 \item{name}{a non-\code{NULL} \code{character} vector without \code{\link{NA}} values, 
 containing names of the sequences in the sq. It has to be of the same length 

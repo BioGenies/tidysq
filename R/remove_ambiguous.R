@@ -1,8 +1,7 @@
 #' Remove sequences that contain ambiguous elements
 #'
-#' @param x
-#'
-#' @param by_letter
+#' @template x
+#' @template by_letter
 #' @template NA_letter
 #' @template three-dots
 #'

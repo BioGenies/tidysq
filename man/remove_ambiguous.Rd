@@ -7,7 +7,12 @@
 remove_ambiguous(x, by_letter = FALSE, ...)
 }
 \arguments{
-\item{x}{}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
+
+\item{by_letter}{[\code{logical(1)}]\cr
+If \code{FALSE}, filter condition is applied to sequence as a whole. If
+\code{TRUE}, each letter is applied filter to separately.}
 
 \item{...}{further arguments to be passed from or to other methods.}
 

@@ -5,8 +5,7 @@
 #' (which can be checked using \code{\link{get_sq_alphabet}} and
 #' \code{\link{get_invalid_letters}}).
 #' 
-#' @param x an object of class \code{\link[=sq-class]{sq}} with one of the types \strong{ami},
-#' \strong{dna}, \strong{rna}, \strong{unt} or \strong{atp}.
+#' @template x
 #' @param dest_type \code{\link{character}} string, destination type, one of "ami",
 #' "dna" or "rna".
 #' @template NA_letter

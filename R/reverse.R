@@ -2,7 +2,7 @@
 #' 
 #' @description Reverse given list of sequences.
 #' 
-#' @param x a \code{\link[=sq-class]{sq}} object.
+#' @template x
 #' @template NA_letter
 #' @template three-dots
 #' 

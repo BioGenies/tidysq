@@ -4,7 +4,7 @@
 #' (or numeric, if type of \code{sq} is \strong{enc}) or single character strings, depending on 
 #' parameter.
 #' 
-#' @inheritParams reverse
+#' @template x
 #' @param fun a \code{\link{function}} to apply to each sequence in \code{sq} object; it should
 #' take a character vector, numeric vector or single character string as an input.
 #' @template three-dots

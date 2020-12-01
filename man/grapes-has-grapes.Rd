@@ -7,7 +7,8 @@
 x \%has\% y
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object to be tested.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
 \item{y}{a \code{character} vector of motifs to be searched for.}
 }

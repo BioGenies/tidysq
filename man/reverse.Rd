@@ -10,7 +10,8 @@ reverse(x, ...)
 \method{reverse}{sq}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
 \item{...}{further arguments to be passed from or to other methods.}
 

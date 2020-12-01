@@ -16,13 +16,12 @@ bite(x, indices, ...)
 )
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
 \item{indices}{a \code{\link{numeric}} vector of subsequence indices to extract from
 each sequence. The function follows the normal R conventions for indexing 
 vectors, including negative indices.}
-
-\item{...}{further arguments to be passed from or to other methods.}
 
 \item{NA_letter}{[\code{character(1)}]\cr
 A string that is used to interpret and display \code{NA} value in the

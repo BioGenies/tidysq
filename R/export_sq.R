@@ -7,6 +7,7 @@
 #' \pkg{Bioconductor} and \pkg{seqinr}. For exact list of supported classes and
 #' resulting types, see details.
 #'
+#' @template x
 #' @param export_format [\code{character(1)}]\cr
 #'  A string indicating desired class (with specified package for unambiguity).
 #' @template name
