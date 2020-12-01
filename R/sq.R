@@ -109,6 +109,82 @@
 #' \strong{rna_ext}, \strong{ami_bsc} or \strong{ami_ext}. If your sequences
 #' contain \code{NA} values, use \code{\link{remove_na}}.
 #'
+#' @examples
+#' # constructing sq without specifying alphabet:
+#' # Correct sq type will be guessed from appearing letters
+#' ## dna_bsc
+#' sq(c("ATGC", "TCGTTA", "TT--AG"))
+#'
+#' ## rna_bsc
+#' sq(c("CUUAC", "UACCGGC", "GCA-ACGU"))
+#'
+#' ## ami_bsc
+#' sq(c("YQQPAVVM", "PQCFL"))
+#'
+#' ## ami cln sq can contain "*" - a letter meaning end of translation:
+#' sq(c("MMDF*", "SYIHR*", "MGG*"))
+#'
+#' ## dna_ext
+#' sq(c("TMVCCDA", "BASDT-CNN"))
+#'
+#' ## rna_ext
+#' sq(c("WHDHKYN", "GCYVCYU"))
+#'
+#' ## ami_ext
+#' sq(c("XYOQWWKCNJLO"))
+#'
+#' ## unt - assume that one wants to mark some special element in sequence with "%"
+#' sq(c("%%YAPLAA", "PLAA"))
+#'
+#' # passing type as alphabet parameter:
+#' # All above examples yield an identical result if type specified is the same as guessed
+#' sq(c("ATGC", "TCGTTA", "TT--AG"), "dna_bsc")
+#' sq(c("CUUAC", "UACCGGC", "GCA-ACGU"), "rna_bsc")
+#' sq(c("YQQPAVVM", "PQCFL"), "ami_bsc")
+#' sq(c("MMDF*", "SYIHR*", "MGG*"), "ami_bsc")
+#' sq(c("TMVCCDA", "BASDT-CNN"), "dna_ext")
+#' sq(c("WHDHKYN", "GCYVCYU"), "rna_ext")
+#' sq(c("XYOQWWKCNJLO"), "ami_ext")
+#' sq(c("%%YAPLAA", "PLAA"), "unt")
+#'
+#' # Type doesn't have to be the same as the guessed one if letters fit in the destination alphabet
+#' sq(c("ATGC", "TCGTTA", "TT--AG"), "dna_ext")
+#' sq(c("ATGC", "TCGTTA", "TT--AG"), "ami_bsc")
+#' sq(c("ATGC", "TCGTTA", "TT--AG"), "ami_ext")
+#' sq(c("ATGC", "TCGTTA", "TT--AG"), "unt")
+#'
+#' # constructing sq with specified letters of alphabet:
+#' # In sequences below "mA" denotes methyled alanine - two characters are treated as single letter
+#' sq(c("LmAQYmASSR", "LmASMKLKFmAmA"), alphabet = c("mA", LETTERS))
+#' # Order of alphabet letters are not meaningful in most cases
+#' sq(c("LmAQYmASSR", "LmASMKLKFmAmA"), alphabet = c(LETTERS, "mA"))
+#'
+#' # reading sequences with three-letter names:
+#' sq(c("ProProGlyAlaMetAlaCys"), alphabet = c("Pro", "Gly", "Ala", "Met", "Cys"))
+#'
+#' # using safe mode:
+#' # Safe mode guarantees that no element is read as NA
+#' # But resulting alphabet might be different to the passed one (albeit with warning/error)
+#' sq(c("CUUAC", "UACCGGC", "GCA-ACGU"), alphabet = "dna_bsc", safe_mode = TRUE)
+#' sq(c("CUUAC", "UACCGGC", "GCA-ACGU"), alphabet = "dna_bsc")
+#'
+#' # Safe mode guesses alphabet based on whole sequence
+#' long_sequence <- paste0(paste0(rep("A", 4500), collapse = ""), "N")
+#' sq(long_sequence, safe_mode = TRUE)
+#' sq(long_sequence)
+#'
+#' # ignoring case:
+#' # By default, lower- and uppercase letters are treated separately
+#' # This behaviour can be changed by setting ignore_case = TRUE
+#' sq(c("aTGc", "tcgTTA", "tt--AG"), ignore_case = TRUE)
+#' sq(c("XYOqwwKCNJLo"), ignore_case = TRUE)
+#'
+#' # It is possible to construct sq with length 0
+#' sq(character())
+#'
+#' # As well as sq with empty sequences
+#' sq(c("AGTGGC", "", "CATGA", ""))
+#'
 #' @family io_functions
 #' @seealso \code{\link[=sq-class]{sq class}} \code{\link{read_fasta}}
 #' \code{\link{tidysq-options}} \code{\link{substitute_letters}}
