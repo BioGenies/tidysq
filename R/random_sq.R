@@ -21,7 +21,6 @@
 #'
 #' @family io_functions
 #' @seealso \code{\link{construct_sq}} \code{\link[=sq-class]{sq}}
-#' @importFrom stringi stri_rand_strings stri_paste
 #' @export
 random_sq <- function(n, len, alphabet, sd = NULL, use_gap = FALSE) {
   assert_count(n)
