@@ -46,6 +46,26 @@ Currently supported formats are as follows (grouped by \code{sq} types):
  }
 }
 }
+\examples{
+# DNA and amino acid sequences can be exported to most packages
+sq_ami <- sq(c("MVVGL", "LAVPP"), alphabet = "ami_bsc")
+export_sq(sq_ami, "ape::AAbin")
+export_sq(sq_ami, "Biostrings::AAStringSet", c("one", "two"))
+export_sq(sq_ami, "seqinr::SeqFastaAA")
+
+sq_dna <- sq(c("TGATGAAGCGCA", "TTGATGGGAA"), alphabet = "dna_bsc")
+export_sq(sq_dna, "ape::DNAbin", name = c("one", "two"))
+export_sq(sq_dna, "Biostrings::DNAStringSet")
+export_sq(sq_dna, "seqinr::SeqFastadna")
+
+# RNA sequences are limited to Biostrings
+sq_rna <- sq(c("NUARYGCB", "", "DRKCNYBAU"), alphabet = "rna_ext")
+export_sq(sq_rna, "Biostrings::RNAStringSet")
+
+# Biostrings accept single sequences as well
+export_sq(sq_dna[1], "Biostrings::DNAString")
+
+}
 \seealso{
 \code{\link[=sq-class]{sq class}}
 
