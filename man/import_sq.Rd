@@ -7,27 +7,68 @@
 import_sq(object, ...)
 }
 \arguments{
-\item{object}{- an object of one of classes: \code{AAbin}, \code{DNAbin}, \code{AAStringSet}, 
-\code{DNAStringSet}, \code{SeqFastaAA}, \code{SeqFastadna}.}
+\item{object}{[\code{any(1)}]\cr
+An object of one of supported classes.}
 
 \item{...}{further arguments to be passed from or to other methods.}
 }
 \value{
-A \code{\link[tibble]{tibble}} with \code{sq} column of \code{\link[=sq-class]{sq}} type
-representing the same 
-sequences as given object; the object has a type corresponding to the input type; if given
-sequences had names, output \code{\link[tibble]{tibble}} has also another column 
-\code{name} with those names
+A \code{\link[tibble]{tibble}} with \code{sq} column of
+\code{\link[=sq-class]{sq}} type representing the same sequences as given
+object; the object has a type corresponding to the input type; if given
+sequences have names, output \code{\link[tibble]{tibble}} will also have
+another column \code{name} with those names
 }
 \description{
-Creates \code{\link[=sq-class]{sq object}} from \code{object} of class from another package.
-Currently supported packages are \pkg{ape} with its formats (\code{AAbin} and \code{DNAbin}),
-\pkg{Bioconductor} (\code{AAStringSet}, \code{DNAStringSet}) and
-\pkg{seqinr} (\code{SeqFastaAA}, \code{SeqFastadna}).
+Creates \code{\link[=sq-class]{sq}} object from object of class
+from another package. Currently supported packages are \pkg{ape},
+\pkg{Bioconductor} and \pkg{seqinr}. For exact list of supported classes and
+resulting types, see details.
 }
 \details{
-Providing object of class other than specified will result in error.
+Currently supported classes are as follows:
+\itemize{
+\item \code{ape}:
+ \itemize{
+ \item \code{AAbin} - imported as \strong{ami_bsc}
+ \item \code{DNAbin} - imported as \strong{dna_bsc}
+ \item \code{alignment} - exact type is guessed within \code{\link{sq}}
+  function
+ }
+\item \code{Biostrings}:
+ \itemize{
+ \item \code{AAString} - imported as \strong{ami_ext} with exactly one
+  sequence
+ \item \code{AAStringSet} - imported as \strong{ami_ext}
+ \item \code{DNAString} - imported as \strong{dna_ext} with exactly one
+  sequence
+ \item \code{DNAStringSet} - imported as \strong{dna_ext}
+ \item \code{RNAString} - imported as \strong{rna_ext} with exactly one
+  sequence
+ \item \code{RNAStringSet} - imported as \strong{rna_ext}
+ \item \code{BString} - imported as \strong{unt} with exactly one
+  sequence
+ \item \code{BStringSet} - imported as \strong{unt}
+ \item \code{XStringSetList} - each element of a list can be imported as
+  a separate \code{\link[tibble]{tibble}}, resulting in a list of tibbles;
+  if passed argument \code{separate = FALSE}, these tibbles are bound into
+  one bigger tibble
+ }
+\item \code{seqinr}:
+ \itemize{
+ \item \code{SeqFastaAA} - imported as \strong{ami_bsc}
+ \item \code{SeqFastadna} - imported as \strong{dna_bsc}
+ }
+}
+
+Providing object of class other than specified will result in an error.
 }
 \seealso{
-\code{\link{export_sq}} \code{\link[=sq-class]{sq}}
+\code{\link[=sq-class]{sq class}}
+
+Functions from I/O module:
+\code{\link{export_sq}()},
+\code{\link{random_sq}()},
+\code{\link{sq}()}
 }
+\concept{io_functions}

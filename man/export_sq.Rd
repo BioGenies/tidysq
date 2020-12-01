@@ -7,22 +7,51 @@
 export_sq(x, export_format, name = NULL, ...)
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object.}
+\item{export_format}{[\code{character(1)}]\cr
+A string indicating desired class (with specified package for unambiguity).}
 
-\item{export_format}{a \code{\link{character}} string indicating package and the destination 
-class; it should be one of the following: "seqinr::SeqFastaAA", "ape::AAbin", 
-"Biostrings::AAStringSet", "seqinr::SeqFastadna", "ape::DNAbin", "Biostrings::DNAStringSet".}
-
-\item{name}{a \code{\link{character}} vector of length equal to \code{sq} length.}
+\item{name}{[\code{character}]\cr
+Vector of sequence names. Must be of the same length as \code{sq} object.
+ Can be \code{NULL}.}
 
 \item{...}{further arguments to be passed from or to other methods.}
 }
 \description{
-Convert object of class \code{\link[=sq-class]{sq}} to another class from another package. Currently
-supported packages are \pkg{ape} with its formats (\code{AAbin} and \code{DNAbin}),
-\pkg{Bioconductor} (\code{AAStringSet}, \code{DNAStringSet}) and
-\pkg{seqinr} (\code{SeqFastaAA}, \code{SeqFastadna}).
+Converts object of class \code{\link[=sq-class]{sq}} to a class
+from another package. Currently supported packages are \pkg{ape},
+\pkg{Bioconductor} and \pkg{seqinr}. For exact list of supported classes and
+resulting types, see details.
+}
+\details{
+Currently supported formats are as follows (grouped by \code{sq} types):
+\itemize{
+\item \strong{ami}:
+ \itemize{
+ \item \code{"ape::AAbin"}
+ \item \code{"Biostrings::AAString"}
+ \item \code{"Biostrings::AAStringSet"}
+ \item \code{"seqinr::SeqFastaAA"}
+ }
+\item \strong{dna}:
+ \itemize{
+ \item \code{"ape::DNAbin"}
+ \item \code{"Biostrings::DNAString"}
+ \item \code{"Biostrings::DNAStringSet"}
+ \item \code{"seqinr::SeqFastadna"}
+ }
+\item \strong{rna}:
+ \itemize{
+ \item \code{"Biostrings::RNAString"}
+ \item \code{"Biostrings::RNAStringSet"}
+ }
+}
 }
 \seealso{
-\code{\link[=sq-class]{sq}} \code{\link{import_sq}}
+\code{\link[=sq-class]{sq class}}
+
+Functions from I/O module:
+\code{\link{import_sq}()},
+\code{\link{random_sq}()},
+\code{\link{sq}()}
 }
+\concept{io_functions}

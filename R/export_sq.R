@@ -1,16 +1,43 @@
 #' Export sq objects into other formats
+#'
+#' @templateVar name_null_ok TRUE
 #' 
-#' Convert object of class \code{\link[=sq-class]{sq}} to another class from another package. Currently
-#' supported packages are \pkg{ape} with its formats (\code{AAbin} and \code{DNAbin}),
-#' \pkg{Bioconductor} (\code{AAStringSet}, \code{DNAStringSet}) and
-#' \pkg{seqinr} (\code{SeqFastaAA}, \code{SeqFastadna}).
-#' @inheritParams write_fasta
-#' @param export_format a \code{\link{character}} string indicating package and the destination 
-#' class; it should be one of the following: "seqinr::SeqFastaAA", "ape::AAbin", 
-#' "Biostrings::AAStringSet", "seqinr::SeqFastadna", "ape::DNAbin", "Biostrings::DNAStringSet".
+#' @description Converts object of class \code{\link[=sq-class]{sq}} to a class
+#' from another package. Currently supported packages are \pkg{ape},
+#' \pkg{Bioconductor} and \pkg{seqinr}. For exact list of supported classes and
+#' resulting types, see details.
+#'
+#' @param export_format [\code{character(1)}]\cr
+#'  A string indicating desired class (with specified package for unambiguity).
+#' @template name
 #' @template three-dots
-#' 
-#' @seealso \code{\link[=sq-class]{sq}} \code{\link{import_sq}}
+#'
+#' @details
+#' Currently supported formats are as follows (grouped by \code{sq} types):
+#' \itemize{
+#' \item \strong{ami}:
+#'  \itemize{
+#'  \item \code{"ape::AAbin"}
+#'  \item \code{"Biostrings::AAString"}
+#'  \item \code{"Biostrings::AAStringSet"}
+#'  \item \code{"seqinr::SeqFastaAA"}
+#'  }
+#' \item \strong{dna}:
+#'  \itemize{
+#'  \item \code{"ape::DNAbin"}
+#'  \item \code{"Biostrings::DNAString"}
+#'  \item \code{"Biostrings::DNAStringSet"}
+#'  \item \code{"seqinr::SeqFastadna"}
+#'  }
+#' \item \strong{rna}:
+#'  \itemize{
+#'  \item \code{"Biostrings::RNAString"}
+#'  \item \code{"Biostrings::RNAStringSet"}
+#'  }
+#' }
+#'
+#' @family io_functions
+#' @seealso \code{\link[=sq-class]{sq class}}
 #' @export
 export_sq <- function(x, export_format, name = NULL, ...) {
   assert_string(export_format)

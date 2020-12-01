@@ -40,7 +40,9 @@ Letter '*' is not used in generating \strong{ami} sequences. If parameter
 \code{sd} is passed, then all generated negative values are replaced with 0s.
 }
 \seealso{
-Functions from I/O module
+Functions from I/O module:
+\code{\link{export_sq}()},
+\code{\link{import_sq}()},
 \code{\link{sq}()}
 }
 \concept{io_functions}
