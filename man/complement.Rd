@@ -68,5 +68,8 @@ complement(sq_rna)
 }
 \seealso{
 \code{\link[=sq-class]{sq}}
+
+Functions interpreting sq in biological context:
+\code{\link{translate}()}
 }
 \concept{bio_functions}

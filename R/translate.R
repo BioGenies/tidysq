@@ -35,7 +35,8 @@
 #' @examples
 #' sq_dna <- sq(c("TACTGGGCATGA", "CAGGTC", "TAGTCCTAG"), alphabet = "dna_bsc")
 #' translate(sq_dna)
-#' 
+#'
+#' @family bio_functions
 #' @seealso \code{\link{remove_ambiguous}}, \code{\link{substitute_letters}} and
 #' \code{\link{typify}} for necessary actions before using \code{translate()}
 #' @export

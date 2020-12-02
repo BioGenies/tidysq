@@ -73,4 +73,8 @@ translate(sq_dna)
 \seealso{
 \code{\link{remove_ambiguous}}, \code{\link{substitute_letters}} and
 \code{\link{typify}} for necessary actions before using \code{translate()}
+
+Functions interpreting sq in biological context:
+\code{\link{complement}()}
 }
+\concept{bio_functions}
