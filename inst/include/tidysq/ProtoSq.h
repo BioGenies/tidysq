@@ -2,7 +2,6 @@
 
 #include "tidysq/tidysq-typedefs.h"
 #include "tidysq/Alphabet.h"
-#include "tidysq/TypeMapper.h"
 #include "tidysq/sqapply.h"
 #include "tidysq/ops/OperationPack.h"
 #include "tidysq/Proxy.h"
@@ -12,24 +11,24 @@ namespace tidysq {
     class Sq;
 
     template<typename INTERNAL, typename PROTO>
-    inline typename ProtoSq<INTERNAL, PROTO>::ContentType export_to_R(const ProtoSq<INTERNAL, PROTO> &proto_sq);
+    inline typename ProtoSq<INTERNAL, PROTO>::ContentStorageType export_to_R(const ProtoSq<INTERNAL, PROTO> &proto_sq);
 
     template<typename INTERNAL, typename PROTO>
     class ProtoSq {
-        typename TypeMapper<INTERNAL, PROTO>::ProtoSqContentType content_;
+        typename TypeBinder<INTERNAL, PROTO>::ProtoSqContentStorageType content_;
         Alphabet alphabet_;
     public:
-        typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSqContentType ContentType;
-        typedef typename TypeMapper<INTERNAL, PROTO>::ProtoSqElementType ElementType;
+        typedef ProtoSequence<INTERNAL, PROTO>                                      ElementType;
+        typedef typename TypeBinder<INTERNAL, PROTO>::ProtoSqContentStorageType     ContentStorageType;
 
-        ProtoSq(const ContentType &content, const Alphabet &alphabet) :
+        ProtoSq(const ContentStorageType &content, const Alphabet &alphabet) :
                 content_(content),
                 alphabet_(alphabet) {};
 
         ProtoSq(const LenSq length, const Alphabet &alphabet) :
-                ProtoSq(ContentType(length), alphabet) {};
+                ProtoSq(ContentStorageType(length), alphabet) {};
 
-        ProtoSq(const ContentType &content, const SqType &type) :
+        ProtoSq(const ContentStorageType &content, const SqType &type) :
                 ProtoSq(content, Alphabet(type)) {};
 
         ProtoSq(const LenSq length, const SqType &type) :
@@ -78,7 +77,7 @@ namespace tidysq {
         }
 
 
-        friend typename ProtoSq<INTERNAL, PROTO>::ContentType export_to_R<INTERNAL, PROTO>(const ProtoSq<INTERNAL, PROTO> &proto_sq);
+        friend typename ProtoSq<INTERNAL, PROTO>::ContentStorageType export_to_R<INTERNAL, PROTO>(const ProtoSq<INTERNAL, PROTO> &proto_sq);
     };
 
 

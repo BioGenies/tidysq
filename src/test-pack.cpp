@@ -6,7 +6,7 @@
 using namespace tidysq;
 
 template<typename PROTO>
-void test_pack_RCPP_IT(const std::vector<typename TypeMapper<RCPP_IT, PROTO>::ProtoSequenceContentType> &proto, const Alphabet &alphabet) {
+void test_pack_RCPP_IT(const std::vector<typename TypeBinder<RCPP_IT, PROTO>::ProtoSequenceContentStorageType> &proto, const Alphabet &alphabet) {
     auto list = Rcpp::List::create();
 
     for (const auto &sequence : proto) {
@@ -20,7 +20,7 @@ void test_pack_RCPP_IT(const std::vector<typename TypeMapper<RCPP_IT, PROTO>::Pr
 }
 
 template<>
-void test_pack_RCPP_IT<STRING_PT>(const std::vector<typename TypeMapper<RCPP_IT, STRING_PT>::ProtoSequenceContentType> &proto, const Alphabet &alphabet) {
+void test_pack_RCPP_IT<STRING_PT>(const std::vector<typename TypeBinder<RCPP_IT, STRING_PT>::ProtoSequenceContentStorageType> &proto, const Alphabet &alphabet) {
     ProtoSq<RCPP_IT, STRING_PT> sq_proto = ProtoSq<RCPP_IT, STRING_PT>(util::convert_string_vector(proto), alphabet);
     ProtoSq<RCPP_IT, STRING_PT> repacked = sq_proto.template pack<RCPP_IT>().template unpack<RCPP_IT, STRING_PT>();
 
@@ -28,7 +28,7 @@ void test_pack_RCPP_IT<STRING_PT>(const std::vector<typename TypeMapper<RCPP_IT,
 }
 
 template<typename PROTO>
-void test_pack_STD_IT(const typename TypeMapper<STD_IT, PROTO>::ProtoSqContentType &proto, const Alphabet &alphabet) {
+void test_pack_STD_IT(const typename TypeBinder<STD_IT, PROTO>::ProtoSqContentStorageType &proto, const Alphabet &alphabet) {
     ProtoSq<STD_IT, PROTO> sq_proto = ProtoSq<STD_IT, PROTO>(proto, alphabet);
     ProtoSq<STD_IT, PROTO> repacked = sq_proto.template pack<STD_IT>().template unpack<STD_IT, PROTO>();
 
