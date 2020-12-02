@@ -84,16 +84,21 @@ namespace tidysq {
         typedef ElementStringSimple                         ProtoSequenceElementType;
     };
 
-//#define COMMON_STRING_PROTO_TYPE_TYPEDEFS_ \
-//    typedef std::string                                                         ProtoSequenceContentStorageType; \
-//    typedef ElementStringSimple &                                               ProtoSequenceContentAccessType; \
-//    typedef const ElementStringSimple &                                         ProtoSequenceContentConstAccessType; \
+#define COMMON_STRING_PROTO_TYPE_TYPEDEFS_ \
+    typedef std::string                                                         ProtoSequenceContentStorageType; \
+    typedef ElementStringSimple &                                               ProtoSequenceContentAccessType; \
+    typedef const ElementStringSimple &                                         ProtoSequenceContentConstAccessType; \
 
-//#define COMMON_RCPP_INTERNAL_TYPE_TYPEDEFS_ \
-//    typedef Rcpp::List                                                          ProtoSqListConstructorType; \
-//    typedef Rcpp::List                                                          ProtoSqContentStorageType; \
-//    typedef Rcpp::List::Proxy                                                   ProtoSqContentAccessType; \
-//    typedef Rcpp::List::const_Proxy                                             ProtoSqContentConstAccessType;
+#define COMMON_RCPP_INTERNAL_TYPE_TYPEDEFS_ \
+    typedef Rcpp::List                                                          ProtoSqListConstructorType; \
+    typedef Rcpp::List                                                          ProtoSqContentStorageType; \
+    typedef Rcpp::List::Proxy                                                   ProtoSqContentAccessType; \
+    typedef Rcpp::List::const_Proxy                                             ProtoSqContentConstAccessType;
+
+#define COMMON_RCPP_INTERNAL_TYPE_PROTO_SEQUENCE_TYPEDEFS_(VECTOR_TYPE) \
+    typedef VECTOR_TYPE                                                         ProtoSequenceContentStorageType; \
+    typedef VECTOR_TYPE::Proxy                                                  ProtoSequenceContentAccessType; \
+    typedef VECTOR_TYPE::const_Proxy                                            ProtoSequenceContentConstAccessType; \
 
     template<typename INTERNAL, typename PROTO>
     struct TypeBinder;
@@ -115,9 +120,7 @@ namespace tidysq {
     template<>
     struct TypeBinder<STD_IT, STRING_PT> {
         typedef ProtoSequence<STD_IT, STRING_PT>                                    ProtoSequenceType;
-        typedef std::string                                                         ProtoSequenceContentStorageType;
-        typedef ElementStringSimple &                                               ProtoSequenceContentAccessType;
-        typedef const ElementStringSimple &                                         ProtoSequenceContentConstAccessType;
+        COMMON_STRING_PROTO_TYPE_TYPEDEFS_
 
         typedef ProtoSq<STD_IT, STRING_PT>                                          ProtoSqType;
         typedef std::vector<std::string>                                            ProtoSqListConstructorType;
@@ -129,51 +132,34 @@ namespace tidysq {
     template<>
     struct TypeBinder<RCPP_IT, RAWS_PT> {
         typedef ProtoSequence<RCPP_IT, RAWS_PT>                                     ProtoSequenceType;
-        typedef Rcpp::RawVector                                                     ProtoSequenceContentStorageType;
-        typedef Rcpp::RawVector::Proxy                                              ProtoSequenceContentAccessType;
-        typedef Rcpp::RawVector::const_Proxy                                        ProtoSequenceContentConstAccessType;
+        COMMON_RCPP_INTERNAL_TYPE_PROTO_SEQUENCE_TYPEDEFS_(Rcpp::RawVector)
 
         typedef ProtoSq<RCPP_IT, RAWS_PT>                                           ProtoSqType;
-        typedef Rcpp::List                                                          ProtoSqListConstructorType;
-        typedef Rcpp::List                                                          ProtoSqContentStorageType;
-        typedef Rcpp::List::Proxy                                                   ProtoSqContentAccessType;
-        typedef Rcpp::List::const_Proxy                                             ProtoSqContentConstAccessType;
+        COMMON_RCPP_INTERNAL_TYPE_TYPEDEFS_
     };
 
     template<>
     struct TypeBinder<RCPP_IT, INTS_PT> {
         typedef ProtoSequence<RCPP_IT, INTS_PT>                                     ProtoSequenceType;
-        typedef Rcpp::IntegerVector                                                 ProtoSequenceContentStorageType;
-        typedef Rcpp::IntegerVector::Proxy                                          ProtoSequenceContentAccessType;
-        typedef Rcpp::IntegerVector::const_Proxy                                    ProtoSequenceContentConstAccessType;
+        COMMON_RCPP_INTERNAL_TYPE_PROTO_SEQUENCE_TYPEDEFS_(Rcpp::IntegerVector)
 
         typedef ProtoSq<RCPP_IT, INTS_PT>                                           ProtoSqType;
-        typedef Rcpp::List                                                          ProtoSqListConstructorType;
-        typedef Rcpp::List                                                          ProtoSqContentStorageType;
-        typedef Rcpp::List::Proxy                                                   ProtoSqContentAccessType;
-        typedef Rcpp::List::const_Proxy                                             ProtoSqContentConstAccessType;
+        COMMON_RCPP_INTERNAL_TYPE_TYPEDEFS_
     };
 
     template<>
     struct TypeBinder<RCPP_IT, STRINGS_PT> {
         typedef ProtoSequence<RCPP_IT, STRINGS_PT>                                  ProtoSequenceType;
-        typedef Rcpp::StringVector                                                  ProtoSequenceContentStorageType;
-        typedef Rcpp::StringVector::Proxy                                           ProtoSequenceContentAccessType;
-        typedef Rcpp::StringVector::const_Proxy                                     ProtoSequenceContentConstAccessType;
+        COMMON_RCPP_INTERNAL_TYPE_PROTO_SEQUENCE_TYPEDEFS_(Rcpp::StringVector)
 
         typedef ProtoSq<RCPP_IT, STRINGS_PT>                                        ProtoSqType;
-        typedef Rcpp::List                                                          ProtoSqListConstructorType;
-        typedef Rcpp::List                                                          ProtoSqContentStorageType;
-        typedef Rcpp::List::Proxy                                                   ProtoSqContentAccessType;
-        typedef Rcpp::List::const_Proxy                                             ProtoSqContentConstAccessType;
+        COMMON_RCPP_INTERNAL_TYPE_TYPEDEFS_
     };
 
     template<>
     struct TypeBinder<RCPP_IT, STRING_PT> {
         typedef ProtoSequence<RCPP_IT, STRING_PT>                                   ProtoSequenceType;
-        typedef std::string                                                         ProtoSequenceContentStorageType;
-        typedef ElementStringSimple &                                               ProtoSequenceContentAccessType;
-        typedef const ElementStringSimple &                                         ProtoSequenceContentConstAccessType;
+        COMMON_STRING_PROTO_TYPE_TYPEDEFS_
 
         typedef ProtoSq<RCPP_IT, STRING_PT>                                         ProtoSqType;
         typedef Rcpp::StringVector                                                  ProtoSqListConstructorType;
@@ -181,6 +167,10 @@ namespace tidysq {
         typedef Rcpp::StringVector::Proxy                                           ProtoSqContentAccessType;
         typedef Rcpp::StringVector::const_Proxy                                     ProtoSqContentConstAccessType;
     };
+
+#undef COMMON_STRING_PROTO_TYPE_TYPEDEFS_
+#undef COMMON_RCPP_INTERNAL_TYPE_TYPEDEFS_
+#undef COMMON_RCPP_INTERNAL_TYPE_PROTO_SEQUENCE_TYPEDEFS_
 
     template<typename INTERNAL, typename PROTO, bool PACKED, bool CONST>
     struct UniversalTypeBinder {
