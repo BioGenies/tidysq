@@ -1,6 +1,8 @@
 #' Remove sequences that contain ambiguous elements
 #'
-#' @template x
+#' @param x [\code{sq_dna_bsc} || \code{sq_rna_bsc} || \code{sq_dna_ext} ||
+#' \code{sq_rna_ext} || \code{sq_ami_bsc} || \code{sq_ami_ext}]\cr
+#'  An object this function is applied to.
 #' @template by_letter
 #' @template NA_letter
 #' @template three-dots

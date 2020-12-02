@@ -7,8 +7,9 @@
 remove_ambiguous(x, by_letter = FALSE, ...)
 }
 \arguments{
-\item{x}{[\code{sq}]\cr
-An object this function is applied to.}
+\item{x}{[\code{sq_dna_bsc} || \code{sq_rna_bsc} || \code{sq_dna_ext} ||
+\code{sq_rna_ext} || \code{sq_ami_bsc} || \code{sq_ami_ext}]\cr
+ An object this function is applied to.}
 
 \item{by_letter}{[\code{logical(1)}]\cr
 If \code{FALSE}, filter condition is applied to sequence as a whole. If
