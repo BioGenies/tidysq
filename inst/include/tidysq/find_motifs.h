@@ -99,7 +99,7 @@ namespace tidysq {
 
         public:
             Motif(const std::string &motif, const Alphabet &alph) :
-                    sought_(motif), alph_(alph) {
+                    alph_(alph), sought_(motif) {
                 content_ = {};
                 for (auto it = motif.begin(); it != motif.end(); ++it) {
                     // In general, special handling of ^ and $ -- the only regex options implemented
