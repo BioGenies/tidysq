@@ -7,7 +7,7 @@
 #include <Rcpp.h>
 
 namespace tidysq {
-    typedef unsigned long long int  LenSq;
+    typedef R_xlen_t                LenSq;
     typedef unsigned char           ElementPacked;
     typedef unsigned char           ElementRaws;
     typedef unsigned short int      ElementInts;
