@@ -31,7 +31,8 @@ values, whereas the latter replaces sequences with \code{NA} values with
 }
 \examples{
 # Creating an object to work on:
-sq_dna_ext <- sq(c("ACGATTAGACG", "", "GACGANTCCAGNTAC"), type = "dna_ext")
+sq_dna_ext <- sq(c("ACGATTAGACG", "", "GACGANTCCAGNTAC"),
+                 alphabet = "dna_ext")
 
 # Testing for presence of empty sequences:
 is_empty_sq(sq_dna_ext)
