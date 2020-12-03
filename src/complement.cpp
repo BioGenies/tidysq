@@ -1,6 +1,8 @@
 #include <Rcpp.h>
 
-#include "tidysq.h"
+#include "tidysq/ops/complement.h"
+#include "tidysq/Rcpp-import.h"
+#include "tidysq/Rcpp-export.h"
 
 using namespace tidysq;
 
