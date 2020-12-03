@@ -9,7 +9,6 @@
 #include "tidysq/Rcpp-import.h"
 #include "tidysq/Rcpp-export.h"
 
-
 #include "tidysq/sqapply.h"
 
 #include "tidysq/bite.h"
@@ -19,7 +18,6 @@
 #include "tidysq/random_sq.h"
 #include "tidysq/read_fasta.h"
 #include "tidysq/remove_on_condition.h"
-#include "tidysq/reverse.h"
 #include "tidysq/substitute_letters.h"
 #include "tidysq/translate.h"
 #include "tidysq/typify.h"
@@ -27,6 +25,7 @@
 
 #include "tidysq/ops/pack.h"
 #include "tidysq/ops/unpack.h"
+#include "tidysq/ops/reverse.h"
 
 #include "tidysq/util/obtain_alphabet.h"
 
