@@ -22,8 +22,53 @@ A string that is used to interpret and display \code{NA} value in the
 context of \code{\link[=sq-class]{sq class}}. Default value equals to
 "\code{!}".}
 }
+\value{
+An \code{\link{sq}} object with the \strong{_bsc} version of
+inputted type.
+}
 \description{
-Remove sequences that contain ambiguous elements
+This function replaces sequences with ambiguous elements by
+empty (\code{NULL}) sequences or removes ambiguous elements from sequences
+in an \code{sq} object.
+}
+\details{
+Biological sequences, whether of DNA, RNA or amino acid elements, are not
+always exactly determined. Sometimes the only information the user has about
+an element is that it's one of given set of possible elements. In this case
+the element is described with one of special letters, here called
+\strong{ambiguous}.
+
+The inclusion of these letters is the difference between extended and basic
+alphabets (and, conversely, types). For amino acid alphabet these letters
+are: B, J, O, U, X, Z; whereas for DNA and RNA: W, S, M, K, R, Y, B, D, H, V,
+N.
+
+\code{remove_ambiguous()} is used to create sequences without any of the
+elements above. Depending on value of \code{by_letter} argument, the function
+either replaces "ambiguous" sequences with empty sequences (if
+\code{by_letter} is equal to \code{TRUE}) or shortens original sequence by
+retaining only unambiguous letters (if opposite is true).
+}
+\examples{
+# Creating objects to work on:
+sq_ami <- sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
+             alphabet = "ami_ext")
+sq_dna <- sq(c("ATGCAGGA", "GACCGAACGAN", "TGACGAGCTTA", "ACTNNAGCN"),
+             alphabet = "dna_ext")
+
+# Removing whole sequences with ambiguous elements:
+rm_ambiguous(sq_ami)
+rm_ambiguous(sq_dna)
+
+# Removing ambiguous elements from sequences:
+rm_ambiguous(sq_ami, by_letter = TRUE)
+rm_ambiguous(sq_dna, by_letter = TRUE)
+
+# Analysis of the result
+sq_clean <- rm_ambiguous(sq_ami)
+is_empty_sq(sq_clean)
+sq_type(sq_clean)
+
 }
 \seealso{
 Functions that clean sequences:
