@@ -4,24 +4,26 @@
 #include "tidysq/ops/Operation.h"
 
 namespace tidysq {
-    template <typename TYPE_IN, typename TYPE_OUT>
-    TYPE_OUT sqapply(const TYPE_IN &sq,
-                     const ops::OperationSq<typename TYPE_IN::ElementType, typename TYPE_OUT::ElementType> &op) {
-        TYPE_OUT ret(sq.length(), sq.alphabet());
-        for (LenSq i = 0; i < sq.length(); i++) {
-            ret[i] = op(sq[i], sq.alphabet());
+    template<typename VECTOR_IN, typename ELEMENT_IN,
+             typename VECTOR_OUT, typename ELEMENT_OUT>
+    VECTOR_OUT sqapply(const VECTOR_IN &vector_in,
+                       ops::OperationVectorToVector<VECTOR_IN, ELEMENT_IN, VECTOR_OUT, ELEMENT_OUT> &&operation) {
+        VECTOR_OUT ret = operation.initialize_vector_out(vector_in);
+        for (LenSq i = 0; i < vector_in.length(); i++) {
+            ret[i] = operation(vector_in[i]);
         }
         return ret;
     }
 
-    template <typename TYPE_IN, typename TYPE_OUT>
-    TYPE_OUT sqapply(const TYPE_IN &sq,
-                     const ops::OperationSq<typename TYPE_IN::ElementType, typename TYPE_OUT::ElementType> &op,
-                     const LenSq from,
-                     const LenSq to) {
-        TYPE_OUT ret(to - from, sq.alphabet());
+    template<typename VECTOR_IN, typename ELEMENT_IN,
+            typename VECTOR_OUT, typename ELEMENT_OUT>
+    VECTOR_OUT sqapply(const VECTOR_IN &vector_in,
+                       ops::OperationVectorToVector<VECTOR_IN, ELEMENT_IN, VECTOR_OUT, ELEMENT_OUT> &&operation,
+                       const LenSq from,
+                       const LenSq to) {
+        VECTOR_OUT ret = operation.initialize_vector_out(vector_in, from, to);
         for (LenSq i = 0; i < to - from; i++) {
-            ret[i] = op(sq[from + i], sq.alphabet());
+            ret[i] = operation(vector_in[i + from]);
         }
         return ret;
     }
