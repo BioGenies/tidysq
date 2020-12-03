@@ -4,7 +4,7 @@
 \alias{sq_type}
 \alias{sq_type.default}
 \alias{sq_type.sq}
-\title{Get type of a sq object}
+\title{Get type of an sq object}
 \usage{
 sq_type(x, ...)
 
@@ -19,18 +19,38 @@ An object this function is applied to.}
 \item{...}{further arguments to be passed from or to other methods.}
 }
 \value{
-A \code{\link{character}} string, type of\code{\link[=sq-class]{sq}} object - can be one of
-"ami", "dna", "rna", "unt", "atp" or "enc".
+A string, one of: "ami_bsc", "ami_ext", "dna_bsc", "dna_ext",
+"rna_bsc", "rna_ext", "unt" or "atp".
 }
 \description{
-Function checks which type of sequences are contained in \code{\link[=sq-class]{sq}} object.
+Returns type of sequences/alphabet contained in
+\code{\link[=sq-class]{sq}} object.
 }
 \details{
-This function returns type of sequence from \code{\link[=sq-class]{sq}} object.
-If the type of sequence is \strong{dna}, \strong{rna}, \strong{ami}, \strong{unt},
-\strong{atp} or \strong{enc} function returns "dna", "rna", "ami", "unt", "atp" or
-"enc" respectivetly.
+Types returned by this function can be passed as argument to functions like
+\code{\link{random_sq}} and \code{\link{find_invalid_letters}}.
+}
+\examples{
+# Creating objects to work on:
+sq_ami <- sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
+             alphabet = "ami_ext")
+sq_dna <- sq(c("ATGCAGGA", "GACCGAACGA", "TGACGAGCTTA", "ACTTTAGC"),
+             alphabet = "dna_bsc")
+
+# Extracting type of sq objects:
+sq_type(sq_ami)
+sq_type(sq_dna)
+
+# Classes are tightly related to these types:
+class(sq_ami)[1]
+class(sq_dna)[1]
+
 }
 \seealso{
-\code{\link[=sq-class]{sq}} \code{\link[=sq-class]{sq}}
+\code{\link[=sq-class]{sq class}}
+
+Functions that manipulate type of sequences:
+\code{\link{substitute_letters}()},
+\code{\link{typify}()}
 }
+\concept{type_functions}
