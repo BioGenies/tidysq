@@ -7,7 +7,8 @@
 get_sq_lengths(x)
 }
 \arguments{
-\item{x}{an \code{\link[=sq-class]{sq}} object.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 }
 \value{
 A \code{\link{numeric}} vector, where each element gives length of according 

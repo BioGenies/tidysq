@@ -7,7 +7,8 @@
 as.sq(x, ...)
 }
 \arguments{
-\item{x}{a object of a class that supports conversion to \code{\link[=sq-class]{sq}}.}
+\item{x}{[\code{any}]
+An object of a class that supports conversion to \code{\link[=sq-class]{sq class}}.}
 
 \item{...}{further arguments to be passed from or to other methods.}
 }

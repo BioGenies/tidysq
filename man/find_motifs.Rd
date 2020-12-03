@@ -13,11 +13,11 @@ find_motifs(x, name, motifs, ...)
 \item{x}{[\code{sq}]\cr
 An object this function is applied to.}
 
-\item{name}{a non-\code{NULL} \code{character} vector without \code{\link{NA}} values, 
-containing names of the sequences in the sq. It has to be of the same length 
-as the \code{sq}.}
+\item{name}{[\code{character}]\cr
+Vector of sequence names. Must be of the same length as \code{sq} object.}
 
-\item{motifs}{a \code{character} vector of motifs to be searched for.}
+\item{motifs}{[\code{character}]\cr
+Motifs to be searched for.}
 
 \item{...}{further arguments to be passed from or to other methods.}
 

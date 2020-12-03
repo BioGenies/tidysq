@@ -3,7 +3,8 @@
 #' @description Test if elements of a \code{\link[=sq-class]{sq}} object contain given motifs
 #' 
 #' @template x
-#' @param y a \code{character} vector of motifs to be searched for.
+#' @param y [\code{character}]\cr
+#'  Motifs to be searched for.
 #' 
 #' @return A \code{\link{logical}} vector of the same length as input \code{sq}, indicating 
 #' which elements contain all given motifs

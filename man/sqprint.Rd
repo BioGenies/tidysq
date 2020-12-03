@@ -5,16 +5,17 @@
 \alias{sq-print}
 \title{Print sq object}
 \arguments{
-\item{x}{\code{\link[=sq-class]{sq}} object}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
-\item{max_sequences}{\code{numeric} value indicating how many sequences 
-should be printed}
+\item{max_sequences}{[\code{numeric(1)}]\cr
+How many sequences should be printed.}
 
-\item{use_color}{\code{logical} value indicating if sequences should 
-be colored}
+\item{use_color}{[\code{logical(1)}]\cr
+Should sequences be colored?}
 
-\item{letters_sep}{\code{character} value indicating how the letters 
-should be separated}
+\item{letters_sep}{[\code{character(1)}]\cr
+How the letters should be separated.}
 
 \item{NA_letter}{[\code{character(1)}]\cr
 A string that is used to interpret and display \code{NA} value in the

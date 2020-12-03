@@ -7,10 +7,11 @@
 \method{==}{sq}(e1, e2)
 }
 \arguments{
-\item{x1}{an \code{\link[=sq-class]{sq}} object.}
+\item{e1}{[\code{sq}]\cr
+An object this comparison is applied to.}
 
-\item{x2}{an object (a character vector or an \code{\link[=sq-class]{sq}} object) to compare with
-\code{x1}.}
+\item{e2}{[\code{sq} || \code{character}]\cr
+An object to compare with \code{x1}.}
 }
 \value{
 A \code{\link{logical}} vector indicating on which positions the objects are equal

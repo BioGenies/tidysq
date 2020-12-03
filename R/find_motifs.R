@@ -1,13 +1,14 @@
 #' Find given motifs
+#'
+#' @templateVar name_null_ok FALSE
 #' 
 #' @description Find all given motifs in all sequences and return their 
 #' positions.
 #' 
 #' @template x
-#' @param name a non-\code{NULL} \code{character} vector without \code{\link{NA}} values, 
-#' containing names of the sequences in the sq. It has to be of the same length 
-#' as the \code{sq}. 
-#' @param motifs a \code{character} vector of motifs to be searched for.
+#' @template name
+#' @param motifs [\code{character}]\cr
+#'  Motifs to be searched for.
 #' @template NA_letter
 #' @template three-dots
 #' 

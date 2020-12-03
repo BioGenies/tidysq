@@ -13,8 +13,8 @@ typify(x, dest_type, ...)
 \item{x}{[\code{sq}]\cr
 An object this function is applied to.}
 
-\item{dest_type}{\code{\link{character}} string, destination type, one of "ami",
-"dna" or "rna".}
+\item{dest_type}{[\code{character(1)}]\cr
+The name of destination type - any valid sq type.}
 
 \item{...}{further arguments to be passed from or to other methods.}
 

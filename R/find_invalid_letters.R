@@ -4,9 +4,9 @@
 #' alphabet. 
 #' 
 #' @template x
-#' @param dest_type a \code{\link{character}} string denoting destination type - it may be 
-#' "dna" for \strong{dna} type (DNA), "rna" for \strong{rna} type (RNA) or
-#' "ami" for \strong{ami} type (amino acids).
+#' @param dest_type [\code{character(1)}]\cr
+#'  The name of destination type - one of \code{"dna_bsc"}, \code{"dna_ext"},
+#'  \code{"rna_bsc"}, \code{"rna_ext"}, \code{"ami_bsc"} and \code{"ami_ext"}.
 #' @template NA_letter
 #' @template three-dots
 #'  

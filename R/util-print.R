@@ -88,13 +88,13 @@ pillar_shaft.encsq <- function(x, ...,
 #' object is used as a parameter for print function. To see the generic function 
 #' page, check \code{\link[base:print]{here}}.
 #' 
-#' @param x \code{\link[=sq-class]{sq}} object
-#' @param max_sequences \code{numeric} value indicating how many sequences 
-#' should be printed
-#' @param use_color \code{logical} value indicating if sequences should 
-#' be colored
-#' @param letters_sep \code{character} value indicating how the letters 
-#' should be separated
+#' @template x
+#' @param max_sequences [\code{numeric(1)}]\cr
+#'  How many sequences should be printed.
+#' @param use_color [\code{logical(1)}]\cr
+#'  Should sequences be colored?
+#' @param letters_sep [\code{character(1)}]\cr
+#'  How the letters should be separated.
 #' @template NA_letter
 #' @template three-dots
 #' 

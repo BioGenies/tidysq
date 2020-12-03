@@ -5,10 +5,12 @@
 \alias{sq-extract}
 \title{Extract parts of a sq object}
 \arguments{
-\item{x}{sq object from which to extract element(s)}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
-\item{i, j, ...}{indices specifying elements to extract. They may be 
-\code{\link{numeric}}, \code{\link{character}} or \code{\link{logical}} vectors or empty. 
+\item{i, j, ...}{[\code{numeric} || \code{character} || \code{logical}]\cr
+Indices specifying elements to extract. They may be
+\code{\link{numeric}}, \code{\link{character}} or \code{\link{logical}} vectors or empty.
 This function follows \code{\link[vctrs]{vctrs-package}} conventions regarding argument
 interpretation for indexing vectors, which are a bit stricter that normal R
 conventions, for example implicit argument recycling is prohibited.}

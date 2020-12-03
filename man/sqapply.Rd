@@ -10,16 +10,19 @@ sqapply(x, fun, ..., paste_char = FALSE, use_na_letter = paste_char)
 \item{x}{[\code{sq}]\cr
 An object this function is applied to.}
 
-\item{fun}{a \code{\link{function}} to apply to each sequence in \code{sq} object; it should
+\item{fun}{[\code{function(1)}]\cr
+A function to apply to each sequence in \code{sq} object; it should
 take a character vector, numeric vector or single character string as an input.}
 
 \item{...}{further arguments to be passed from or to other methods.}
 
-\item{paste_char}{a \code{\link{logical}} value indicating in which form sequences should be
+\item{paste_char}{[\code{logical(1)}]\cr
+A value indicating in which form sequences should be
 passed to the function \code{fun}; if \code{FALSE} (default), they will be treated as character
 vectors, if \code{TRUE}, they will be pasted into a single string.}
 
-\item{use_na_letter}{a \code{\link{logical}} value indicating whether to use a printing character
+\item{use_na_letter}{[\code{logical(1)}]\cr
+A value indicating whether to use a printing character
 to represent \code{\link{NA}} values; if \code{TRUE}, letter from option "tidysq_p_na_letter"
 will be used instead of \code{NA} values (default value for this option is "!", for details
 see \code{\link{tidysq-options}}), otherwise just \code{NA} values will be used; default value

@@ -6,8 +6,8 @@
 #' \code{\link{get_invalid_letters}}).
 #' 
 #' @template x
-#' @param dest_type \code{\link{character}} string, destination type, one of "ami",
-#' "dna" or "rna".
+#' @param dest_type [\code{character(1)}]\cr
+#'  The name of destination type - any valid sq type.
 #' @template NA_letter
 #' @template three-dots
 #' 

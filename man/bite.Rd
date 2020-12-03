@@ -19,9 +19,9 @@ bite(x, indices, ...)
 \item{x}{[\code{sq}]\cr
 An object this function is applied to.}
 
-\item{indices}{a \code{\link{numeric}} vector of subsequence indices to extract from
-each sequence. The function follows the normal R conventions for indexing 
-vectors, including negative indices.}
+\item{indices}{[\code{integer}]\cr
+Indices to extract from each sequence. The function follows the normal R
+conventions for indexing vectors, including negative indices.}
 
 \item{NA_letter}{[\code{character(1)}]\cr
 A string that is used to interpret and display \code{NA} value in the
@@ -62,5 +62,9 @@ a message or no information (you can check details in \code{\link{tidysq-options
 \code{NA} values can be removed by using \code{\link{remove_na}} function.
 }
 \seealso{
-\code{\link[=sq-class]{sq}} \code{\link{remove_na}} \code{\link{tidysq-options}}
+\code{\link{remove_na}}
+
+Functions that affect order of elements:
+\code{\link{reverse}()}
 }
+\concept{order_functions}

@@ -12,10 +12,11 @@
 #' It cannot be used to merge multiple characters into one.
 #' 
 #' @template x
-#' @param encoding a vector of letters to be replaced together with their replacements.
-#' One letter can be replaced with multiple symbols. 
-#' To perform substitution create a named vector, e.g.
-#' \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
+#' @param encoding [\code{character}]\cr
+#'  Letters to be replaced together with their replacements.
+#'  One letter can be replaced with multiple symbols.
+#'  To perform substitution create a named vector, e.g.
+#'  \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
 #' @template NA_letter
 #' @template three-dots
 #' 

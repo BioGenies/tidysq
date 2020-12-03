@@ -45,4 +45,8 @@ reverse(sq_dna)
 reverse(sq_unt)
 
 }
+\seealso{
+Functions that affect order of elements:
+\code{\link{bite}()}
+}
 \concept{order_functions}

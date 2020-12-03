@@ -18,9 +18,9 @@ find_invalid_letters(x, dest_type, ...)
 \item{x}{[\code{sq}]\cr
 An object this function is applied to.}
 
-\item{dest_type}{a \code{\link{character}} string denoting destination type - it may be 
-"dna" for \strong{dna} type (DNA), "rna" for \strong{rna} type (RNA) or
-"ami" for \strong{ami} type (amino acids).}
+\item{dest_type}{[\code{character(1)}]\cr
+The name of destination type - one of \code{"dna_bsc"}, \code{"dna_ext"},
+\code{"rna_bsc"}, \code{"rna_ext"}, \code{"ami_bsc"} and \code{"ami_ext"}.}
 
 \item{...}{further arguments to be passed from or to other methods.}
 

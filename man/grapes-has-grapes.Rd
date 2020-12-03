@@ -10,7 +10,8 @@ x \%has\% y
 \item{x}{[\code{sq}]\cr
 An object this function is applied to.}
 
-\item{y}{a \code{character} vector of motifs to be searched for.}
+\item{y}{[\code{character}]\cr
+Motifs to be searched for.}
 }
 \value{
 A \code{\link{logical}} vector of the same length as input \code{sq}, indicating 

@@ -10,7 +10,8 @@ is.sq(x)
 is.sq_ami_bsc(x)
 }
 \arguments{
-\item{x}{an object to be checked.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 }
 \value{
 A \code{\link{logical}} value - \code{TRUE} if \code{x} has specified type, \code{FALSE}

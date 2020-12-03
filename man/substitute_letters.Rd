@@ -13,8 +13,9 @@ substitute_letters(x, encoding, ...)
 \item{x}{[\code{sq}]\cr
 An object this function is applied to.}
 
-\item{encoding}{a vector of letters to be replaced together with their replacements.
-One letter can be replaced with multiple symbols. 
+\item{encoding}{[\code{character}]\cr
+Letters to be replaced together with their replacements.
+One letter can be replaced with multiple symbols.
 To perform substitution create a named vector, e.g.
 \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.}
 

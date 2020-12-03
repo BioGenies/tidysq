@@ -1,12 +1,17 @@
 #' Save sq to fasta file
+#'
+#' @templateVar name_null_ok FALSE
 #' 
 #' Writes \code{\link[=sq-class]{sq}} objects with their names to a fasta file.
 #'
 #' @template x
-#' @param name a \code{\link{character}} vector of length equal to \code{sq} length.
-#' @param file a \code{\link{character}} string indicating path to file to write into.
-#' @param width a positive \code{\link{integer}} value informing about maximum number of 
-#' characters to put in each line of file.
+#' @template name
+#' @param file [\code{character(1)}]\cr
+#'  Path to file to write to.
+#' @param width [\code{integer(1)}]\cr
+#'  Maximum number of characters to put in each line of file. Must be positive.
+#' @template NA_letter
+#'
 #' @export
 write_fasta <- function(x, names, file, 
                         width = 80,

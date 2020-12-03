@@ -13,7 +13,8 @@ sq_type(x, ...)
 \method{sq_type}{sq}(x, ...)
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object to be checked.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
 \item{...}{further arguments to be passed from or to other methods.}
 }

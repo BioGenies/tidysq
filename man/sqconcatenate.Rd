@@ -5,7 +5,8 @@
 \alias{sq-concatenate}
 \title{Concatenate sq objects}
 \arguments{
-\item{...}{multiple \code{\link[=sq-class]{sq}} and \code{character} objects. For exact behaviour,
+\item{...}{[\code{sq} || \code{character}]\cr
+Multiple objects. For exact behaviour,
 check Details section. First argument must be of \code{sq} class due to R mechanism of
 single dispatch. If this is a problem, recommended alternative is \code{\link[vctrs]{vec_c}}
 method from \code{vctrs} package.}

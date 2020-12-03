@@ -4,9 +4,9 @@
 #' from a sequence.
 #' 
 #' @template x
-#' @param indices a \code{\link{numeric}} vector of subsequence indices to extract from
-#' each sequence. The function follows the normal R conventions for indexing 
-#' vectors, including negative indices.
+#' @param indices [\code{integer}]\cr
+#'  Indices to extract from each sequence. The function follows the normal R
+#'  conventions for indexing vectors, including negative indices.
 #' @template NA_letter
 #' @template on_warning
 #' 
@@ -14,7 +14,8 @@
 #' element is a subsequence created by indexing corresponding sequence from 
 #' input sq object with input indices.
 #' 
-#' @details Amino acids and nucleic acid sequences are represented as \code{\link[=sq-class]{sq}}
+#' @details
+#' Amino acids and nucleic acid sequences are represented as \code{\link[=sq-class]{sq}}
 #' object in the \code{\link{tidysq}} package. Often one needs to get only a 
 #' single letter, or the sequence of a defined range from the original sequences. 
 #' A subsequence is a sequence that can be derived from the original sequence 
@@ -33,7 +34,8 @@
 #' a message or no information (you can check details in \code{\link{tidysq-options})}. 
 #' \code{NA} values can be removed by using \code{\link{remove_na}} function.
 #'
-#' @seealso \code{\link[=sq-class]{sq}} \code{\link{remove_na}} \code{\link{tidysq-options}}
+#' @family order_functions
+#' @seealso \code{\link{remove_na}}
 #' @export
 bite <- function(x, indices, ...)
   UseMethod("bite")

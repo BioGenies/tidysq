@@ -16,13 +16,21 @@ write_fasta(
 \item{x}{[\code{sq}]\cr
 An object this function is applied to.}
 
-\item{file}{a \code{\link{character}} string indicating path to file to write into.}
+\item{file}{[\code{character(1)}]\cr
+Path to file to write to.}
 
-\item{width}{a positive \code{\link{integer}} value informing about maximum number of 
-characters to put in each line of file.}
+\item{width}{[\code{integer(1)}]\cr
+Maximum number of characters to put in each line of file. Must be positive.}
 
-\item{name}{a \code{\link{character}} vector of length equal to \code{sq} length.}
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
+
+\item{name}{[\code{character}]\cr
+Vector of sequence names. Must be of the same length as \code{sq} object.
+NA}
 }
 \description{
-Writes \code{\link[=sq-class]{sq}} objects with their names to a fasta file.
+Save sq to fasta file
 }

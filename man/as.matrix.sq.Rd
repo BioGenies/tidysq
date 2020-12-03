@@ -7,7 +7,8 @@
 \method{as.matrix}{sq}(x, ...)
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object to be converted.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
 \item{...}{further arguments to be passed from or to other methods.}
 }

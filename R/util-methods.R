@@ -4,7 +4,8 @@
 #' as an output. Default implementation of the method throws an error - there needs to be 
 #' implemented a method for specified class in order for function to work.
 #' 
-#' @param x a object of a class that supports conversion to \code{\link[=sq-class]{sq}}.
+#' @param x [\code{any}]
+#'  An object of a class that supports conversion to \code{\link[=sq-class]{sq class}}.
 #' @template three-dots
 #' 
 #' @return A \code{sq} object
@@ -23,14 +24,14 @@ as.sq.default <- function(x, ...)
   stop("'as.sq' cannot handle objects with this class")
 
 #' @export
-as.sq.character <- sq
+as.sq.character <- function(x, ...) sq(x, ...)
 
 #' Convert sq object into character vector
 #' 
 #' @description Coerce sequences from a \code{\link[=sq-class]{sq}} object to \code{\link{character}} vector
 #' of sequences
 #' 
-#' @param x a \code{\link[=sq-class]{sq}} object to be converted
+#' @template x
 #' @template NA_letter
 #' @template three-dots
 #' 
@@ -54,7 +55,7 @@ as.character.sq <- function(x, ...,
 #' @description Coerce sequences from a \code{\link[=sq-class]{sq}} object to a
 #' \code{\link{matrix}}, in which rows correspond to sequences and columns to positions
 #' 
-#' @param x a \code{\link[=sq-class]{sq}} object to be converted.
+#' @template x
 #' @template three-dots
 #' 
 #' @return A \code{\link{matrix}} with number of rows the same as number of sequences
@@ -92,7 +93,9 @@ as.matrix.sq_enc <- function(x, ...) {
 #' 
 #' Function to checks if object is a \code{\link[=sq-class]{sq}} object without specifying type or
 #' if it is a \code{\link[=sq-class]{sq}} object with specific type.
-#' @param x an object to be checked.
+#'
+#' @template x
+#'
 #' @return A \code{\link{logical}} value - \code{TRUE} if \code{x} has specified type, \code{FALSE}
 #' otherwise.
 #' 
@@ -133,10 +136,11 @@ is.sq_ami_bsc <- function(x)
 #' Comparing sequences as characters vectors cause that various types of sequences
 #' can be compared for example amino acid with nucleotide sequences so attention
 #' should be paid, which sequence types are compared.
-#' 
-#' @param x1 an \code{\link[=sq-class]{sq}} object.
-#' @param x2 an object (a character vector or an \code{\link[=sq-class]{sq}} object) to compare with
-#' \code{x1}.
+#'
+#' @param e1 [\code{sq}]\cr
+#'  An object this comparison is applied to.
+#' @param e2 [\code{sq} || \code{character}]\cr
+#'  An object to compare with \code{x1}.
 #' 
 #' @return A \code{\link{logical}} vector indicating on which positions the objects are equal
 #' 
@@ -148,7 +152,7 @@ is.sq_ami_bsc <- function(x)
 #' 
 #' Function counts number of elements in each sequence in given \code{\link[=sq-class]{sq}} object.
 #' 
-#' @param x an \code{\link[=sq-class]{sq}} object.
+#' @template x
 #'  
 #' @return A \code{\link{numeric}} vector, where each element gives length of according 
 #' sequence from \code{\link[=sq-class]{sq}} object.
@@ -169,12 +173,13 @@ get_sq_lengths <- function(x) {
 #' 
 #' @description Operator to extract subsets of sq objects.
 #' 
-#' @param x sq object from which to extract element(s)
-#' @param i,j,... indices specifying elements to extract. They may be 
-#' \code{\link{numeric}}, \code{\link{character}} or \code{\link{logical}} vectors or empty. 
-#' This function follows \code{\link[vctrs]{vctrs-package}} conventions regarding argument
-#' interpretation for indexing vectors, which are a bit stricter that normal R
-#' conventions, for example implicit argument recycling is prohibited.
+#' @template x
+#' @param i,j,... [\code{numeric} || \code{character} || \code{logical}]\cr
+#'  Indices specifying elements to extract. They may be
+#'  \code{\link{numeric}}, \code{\link{character}} or \code{\link{logical}} vectors or empty.
+#'  This function follows \code{\link[vctrs]{vctrs-package}} conventions regarding argument
+#'  interpretation for indexing vectors, which are a bit stricter that normal R
+#'  conventions, for example implicit argument recycling is prohibited.
 #' 
 #' @return \code{\link[=sq-class]{sq}} object of the same type as input sq, containing
 #' extracted elements
@@ -197,10 +202,11 @@ NULL
 #' @description Merges multiple \code{\link[=sq-class]{sq}} and maybe \code{character} objects
 #' into one larger \code{sq} object.
 #' 
-#' @param ... multiple \code{\link[=sq-class]{sq}} and \code{character} objects. For exact behaviour,
-#' check Details section. First argument must be of \code{sq} class due to R mechanism of
-#' single dispatch. If this is a problem, recommended alternative is \code{\link[vctrs]{vec_c}}
-#' method from \code{vctrs} package.
+#' @param ... [\code{sq} || \code{character}]\cr
+#'  Multiple objects. For exact behaviour,
+#'  check Details section. First argument must be of \code{sq} class due to R mechanism of
+#'  single dispatch. If this is a problem, recommended alternative is \code{\link[vctrs]{vec_c}}
+#'  method from \code{vctrs} package.
 #' 
 #' @return A \code{\link[=sq-class]{sq}} object with length equal to sum of lengths of individual objects
 #' passed as parameters. Elements of \code{\link[=sq-class]{sq}} are concatenated just as if they were normal
