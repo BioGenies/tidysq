@@ -78,4 +78,9 @@ cannot be separated in future operations into single letters.
 }
 \seealso{
 \code{\link[=sq-class]{sq}}
+
+Functions that manipulate type of sequences:
+\code{\link{sq_type}()},
+\code{\link{typify}()}
 }
+\concept{type_functions}

@@ -55,7 +55,8 @@
 #' All replaced letters will have the character type. 
 #' Multiple symbol replacement will be recognized as one letter and 
 #' cannot be separated in future operations into single letters. 
-#' 
+#'
+#' @family type_functions
 #' @seealso \code{\link[=sq-class]{sq}}
 #' 
 #' @export

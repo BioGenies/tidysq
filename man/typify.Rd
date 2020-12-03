@@ -56,3 +56,9 @@ be changed in package options (see \code{\link{tidysq-options}}).
 Output \code{sq} object will not have \strong{cln} subtype, even if all letters of it fit in
 clean alphabet of destination type (with exception of passing already clean object as input).
 }
+\seealso{
+Functions that manipulate type of sequences:
+\code{\link{sq_type}()},
+\code{\link{substitute_letters}()}
+}
+\concept{type_functions}

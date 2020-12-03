@@ -36,8 +36,9 @@
 #' 
 #' Output \code{sq} object will not have \strong{cln} subtype, even if all letters of it fit in
 #' clean alphabet of destination type (with exception of passing already clean object as input).
-#' 
-#' @export 
+#'
+#' @family type_functions
+#' @export
 typify <- function(x, dest_type, ...) {
   assert_sq_type(dest_type)
   
