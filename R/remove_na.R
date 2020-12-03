@@ -21,7 +21,7 @@
 #' \code{\link{sq}} function without \code{safe_mode} turned on - and there are
 #' letters in file or strings other than specified in the alphabet.
 #'
-#' \code{remove_na} is used to filter out sequences or elements that have
+#' \code{remove_na()} is used to filter out sequences or elements that have
 #' \code{NA} value(s). By default, if any letter in a sequence is \code{NA},
 #' then whole sequence is replaced by empty (\code{NULL}) sequence. However, if
 #' \code{by_letter} parameter is set to \code{TRUE}, then sequences are

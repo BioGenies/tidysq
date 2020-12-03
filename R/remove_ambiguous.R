@@ -11,8 +11,8 @@
 #' @template NA_letter
 #' @template three-dots
 #'
-#' @return An \code{\link{sq}} object with the \strong{_bsc} version of
-#' inputted type.
+#' @return An \code{\link[=sq-class]]{sq}} object with the \strong{_bsc}
+#' version of inputted type.
 #'
 #' @details
 #' Biological sequences, whether of DNA, RNA or amino acid elements, are not
