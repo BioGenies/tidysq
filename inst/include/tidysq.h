@@ -9,8 +9,6 @@
 #include "tidysq/Rcpp-import.h"
 #include "tidysq/Rcpp-export.h"
 
-#include "tidysq/ops/OperationPack.h"
-#include "tidysq/ops/OperationUnpack.h"
 
 #include "tidysq/sqapply.h"
 
@@ -26,6 +24,9 @@
 #include "tidysq/translate.h"
 #include "tidysq/typify.h"
 #include "tidysq/write_fasta.h"
+
+#include "tidysq/ops/pack.h"
+#include "tidysq/ops/unpack.h"
 
 #include "tidysq/util/obtain_alphabet.h"
 

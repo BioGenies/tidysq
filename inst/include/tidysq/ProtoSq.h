@@ -3,7 +3,7 @@
 #include "tidysq/tidysq-typedefs.h"
 #include "tidysq/Alphabet.h"
 #include "tidysq/sqapply.h"
-#include "tidysq/ops/OperationPack.h"
+#include "tidysq/ops/pack.h"
 #include "tidysq/Proxy.h"
 
 namespace tidysq {
@@ -60,8 +60,7 @@ namespace tidysq {
 
         template<typename INTERNAL_OUT>
         Sq<INTERNAL_OUT> pack() {
-            return sqapply<ProtoSq<INTERNAL, PROTO>, Sq<INTERNAL_OUT>>(*this,
-                                                                       ops::OperationPack<INTERNAL, PROTO, INTERNAL_OUT>());
+            return tidysq::pack<INTERNAL, PROTO, INTERNAL_OUT>(*this);
         }
 
         inline bool operator==(const ProtoSq<INTERNAL, PROTO> &other) {
