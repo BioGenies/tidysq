@@ -28,4 +28,9 @@ namespace tidysq {
     Sq<INTERNAL_OUT> reverse(const Sq<INTERNAL_IN> &sq) {
         return sqapply(sq, ops::OperationReverse<INTERNAL_IN, INTERNAL_OUT>(sq.alphabet().alphabet_size()));
     }
+
+    template<typename INTERNAL_IN, typename INTERNAL_OUT = INTERNAL_IN>
+    Sequence<INTERNAL_OUT> reverse(const Sequence<INTERNAL_IN> &sequence, const AlphSize alph_size) {
+        return ops::OperationReverse<INTERNAL_IN, INTERNAL_OUT>(alph_size)(sequence);
+    }
 }
