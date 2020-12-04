@@ -6,7 +6,7 @@
 \usage{
 write_fasta(
   x,
-  names,
+  name,
   file,
   width = 80,
   NA_letter = getOption("tidysq_NA_letter")
@@ -15,6 +15,9 @@ write_fasta(
 \arguments{
 \item{x}{[\code{sq}]\cr
 An object this function is applied to.}
+
+\item{name}{[\code{character}]\cr
+Vector of sequence names. Must be of the same length as \code{sq} object.}
 
 \item{file}{[\code{character(1)}]\cr
 Absolute path to file to write to.}
@@ -26,11 +29,33 @@ Maximum number of characters to put in each line of file. Must be positive.}
 A string that is used to interpret and display \code{NA} value in the
 context of \code{\link[=sq-class]{sq class}}. Default value equals to
 "\code{!}".}
-
-\item{name}{[\code{character}]\cr
-Vector of sequence names. Must be of the same length as \code{sq} object.
-NA}
 }
 \description{
-Save sq to fasta file
+Writes \code{\link[=sq-class]{sq}} objects with their names to
+a fasta file.
 }
+\details{
+Whenever a name has more letters than \code{width} parameter, nothing
+happens, as only sequences are splitted to fit within designated space.
+}
+\examples{
+\dontrun{
+sq_dna <- sq(c("ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"),
+             alphabet = "dna_bsc")
+write_fasta(sq_dna,
+            c("bat", "cat", "rat", "elephant_swallowed_by_A_snake"),
+            "~/fasta_rubbish/example.fasta")
+}
+
+}
+\seealso{
+Functions from I/O module:
+\code{\link{as.character.sq}()},
+\code{\link{as.matrix.sq}()},
+\code{\link{as.sq}()},
+\code{\link{export_sq}()},
+\code{\link{import_sq}()},
+\code{\link{random_sq}()},
+\code{\link{sq}()}
+}
+\concept{io_functions}

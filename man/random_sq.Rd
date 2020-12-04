@@ -63,6 +63,7 @@ Functions from I/O module:
 \code{\link{as.sq}()},
 \code{\link{export_sq}()},
 \code{\link{import_sq}()},
-\code{\link{sq}()}
+\code{\link{sq}()},
+\code{\link{write_fasta}()}
 }
 \concept{io_functions}
