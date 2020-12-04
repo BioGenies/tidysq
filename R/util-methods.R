@@ -66,28 +66,41 @@ as.character.sq <- function(x, ...,
 
 #' Convert sq object into matrix
 #' 
-#' @description Coerce sequences from a \code{\link[=sq-class]{sq}} object to a
-#' \code{\link{matrix}}, in which rows correspond to sequences and columns to positions
+#' @description Coerces sequences from a \code{\link[=sq-class]{sq}} object to
+#' a \code{\link{matrix}}, in which rows correspond to sequences and columns to
+#' positions.
 #' 
 #' @template x
 #' @template three-dots
 #' 
-#' @return A \code{\link{matrix}} with number of rows the same as number of sequences
-#' and number of columns corresponding to the length of the longest sequence
-#' in the converted sq object. Matrix is either character (if type of \code{sq} is
-#' \strong{ami}, \strong{dna}, \strong{rna}, \strong{atp} or \strong{unt})
-#' or numeric (if type is \strong{enc}).
+#' @return A \code{\link{matrix}} with number of rows the same as number of
+#' sequences and number of columns corresponding to the length of the longest
+#' sequence in the converted sq object.
 #' 
-#' @details This method for class \code{sq} allows converting sequences from
-#' the sq object into a matrix. Each row corresponds to the separate sequence
-#' from the sq object, whereas each column indicates a single position within 
-#' a sequence. Dimensions of matrix are determined by the number of sequences 
-#' (rows) and the length of the longest sequence (columns). If a length of
-#' sequence is smaller than the length of the longest sequence, the remaining
-#' columns will be filled with \code{\link{NA}}. All attributes of the input
+#' @details
+#' This method for class \code{sq} allows converting sequences from the
+#' \code{sq} object into a matrix. Each row corresponds to the separate sequence
+#' from the \code{sq} object, whereas each column indicates a single position
+#' within a sequence. Dimensions of matrix are determined by the number of
+#' sequences (rows) and the length of the longest sequence (columns). If length
+#' of a sequence is smaller than the length of the longest sequence, the
+#' remaining columns are filled with \code{NA}. All attributes of the input
 #' \code{sq} are lost during the conversion to matrix.
-#' 
-#' @seealso \code{\link[=sq-class]{sq}}
+#'
+#' @examples
+#' # Creating objects to work on:
+#' sq_dna <- sq(c("CGATAGACA", "TGACAAAAC", "GTGACCGTA"),
+#'              alphabet = "dna_bsc")
+#' sq_rna <- sq(c("CUGAAUGCAGUACCGUAAU", "AUGCCGUAAAUGCCAU", "CAGACCANNNAUAG"),
+#'              alphabet = "rna_ext")
+#'
+#' # Sequences of the same lengths can be converted easily:
+#' as.matrix(sq_dna)
+#'
+#' # Sequences that differ in length are filled with NA to the maximum length:
+#' as.matrix(sq_rna)
+#'
+#' @family io_functions
 #' @export
 as.matrix.sq <- function(x, ...) {
   max_len <- max(get_sq_lengths(x))
@@ -96,6 +109,7 @@ as.matrix.sq <- function(x, ...) {
   ret
 }
 
+#' @rdname as.matrix.sq
 #' @export
 as.matrix.sq_enc <- function(x, ...) {
   ret <- NextMethod()
