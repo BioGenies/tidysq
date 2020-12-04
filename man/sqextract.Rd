@@ -55,4 +55,8 @@ sq_unt[]
 sq_unt[NULL]
 
 }
+\seealso{
+Functions from utility module:
+\code{\link{sqconcatenate}}
+}
 \concept{util_functions}
