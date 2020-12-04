@@ -1,6 +1,8 @@
 #include <Rcpp.h>
 
-#include "tidysq.h"
+#include "tidysq/ops/random_sq.h"
+#include "tidysq/Rcpp-import.h"
+#include "tidysq/Rcpp-export.h"
 
 using namespace tidysq;
 
@@ -18,7 +20,7 @@ Rcpp::List CPP_random_sq(const Rcpp::IntegerVector &n,
                 util::convert_to_scalar(use_gap)));
     }
     return export_to_R(random_sq<RCPP_IT>(
-            Rcpp::as<std::vector<int>>(len),
+            Rcpp::as<std::vector<LenSq>>(len),
             import_alphabet_from_R(alphabet, constants::DEFAULT_NA_LETTER),
             util::convert_to_scalar(use_gap)));
 }
