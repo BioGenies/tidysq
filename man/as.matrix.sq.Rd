@@ -51,6 +51,7 @@ as.matrix(sq_rna)
 }
 \seealso{
 Functions from I/O module:
+\code{\link{as.character.sq}()},
 \code{\link{as.sq}()},
 \code{\link{export_sq}()},
 \code{\link{import_sq}()},

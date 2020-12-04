@@ -237,6 +237,7 @@ sq(c("AGTGGC", "", "CATGA", ""))
 \code{\link{remove_na}}
 
 Functions from I/O module:
+\code{\link{as.character.sq}()},
 \code{\link{as.matrix.sq}()},
 \code{\link{as.sq}()},
 \code{\link{export_sq}()},

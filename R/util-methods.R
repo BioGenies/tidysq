@@ -42,23 +42,32 @@ as.sq.character <- function(x, ...)
 
 #' Convert sq object into character vector
 #' 
-#' @description Coerce sequences from a \code{\link[=sq-class]{sq}} object to \code{\link{character}} vector
-#' of sequences
+#' @description Coerces sequences from an \code{\link[=sq-class]{sq}} object to
+#' \code{\link{character}} vector of sequences.
 #' 
 #' @template x
 #' @template NA_letter
 #' @template three-dots
 #' 
-#' @return A \code{character} vector of the length the same as number
-#' of sequences in the converted \code{sq} object
+#' @return A \code{character} vector where each element represents the content
+#' of respective sequence in input \code{sq} object.
 #' 
-#' @details This method for class \code{\link[=sq-class]{sq}} allows converting sequences from
-#' the sq object into a character vector of length equal to the length 
-#' of sq. Each element of resulting vector is a separate sequence. 
-#' All attributes of the input sq are lost during the conversion to 
-#' character vector.
-#' 
-#' @seealso sq
+#' @details
+#' This method for \code{\link[=sq-class]{sq}} class allows converting sequences
+#' from the \code{sq} object into a character vector of length equal to the
+#' length of input. Each element of resulting vector is a separate sequence.
+#' All attributes of the input sq are lost during the conversion to character
+#' vector.
+#'
+#' @examples
+#' # Creating an object to work on:
+#' sq_dna <- sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", "CAGACCANNNATAG"),
+#'              alphabet = "dna_ext")
+#'
+#' # Converting sq object into a character vector:
+#' as.character(sq_dna)
+#'
+#' @family io_functions
 #' @export
 as.character.sq <- function(x, ...,
                             NA_letter = getOption("tidysq_NA_letter"))

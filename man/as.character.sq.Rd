@@ -18,20 +18,36 @@ context of \code{\link[=sq-class]{sq class}}. Default value equals to
 "\code{!}".}
 }
 \value{
-A \code{character} vector of the length the same as number
-of sequences in the converted \code{sq} object
+A \code{character} vector where each element represents the content
+of respective sequence in input \code{sq} object.
 }
 \description{
-Coerce sequences from a \code{\link[=sq-class]{sq}} object to \code{\link{character}} vector
-of sequences
+Coerces sequences from an \code{\link[=sq-class]{sq}} object to
+\code{\link{character}} vector of sequences.
 }
 \details{
-This method for class \code{\link[=sq-class]{sq}} allows converting sequences from
-the sq object into a character vector of length equal to the length 
-of sq. Each element of resulting vector is a separate sequence. 
-All attributes of the input sq are lost during the conversion to 
-character vector.
+This method for \code{\link[=sq-class]{sq}} class allows converting sequences
+from the \code{sq} object into a character vector of length equal to the
+length of input. Each element of resulting vector is a separate sequence.
+All attributes of the input sq are lost during the conversion to character
+vector.
+}
+\examples{
+# Creating an object to work on:
+sq_dna <- sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", "CAGACCANNNATAG"),
+             alphabet = "dna_ext")
+
+# Converting sq object into a character vector:
+as.character(sq_dna)
+
 }
 \seealso{
-sq
+Functions from I/O module:
+\code{\link{as.matrix.sq}()},
+\code{\link{as.sq}()},
+\code{\link{export_sq}()},
+\code{\link{import_sq}()},
+\code{\link{random_sq}()},
+\code{\link{sq}()}
 }
+\concept{io_functions}

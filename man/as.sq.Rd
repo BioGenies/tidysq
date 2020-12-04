@@ -43,6 +43,7 @@ identical(sq_1, sq_2)
 }
 \seealso{
 Functions from I/O module:
+\code{\link{as.character.sq}()},
 \code{\link{as.matrix.sq}()},
 \code{\link{export_sq}()},
 \code{\link{import_sq}()},
