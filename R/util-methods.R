@@ -1,31 +1,44 @@
 #' Convert an object to sq
 #' 
-#' This generic function takes an object of arbitrary type and returns an \code{\link[=sq-class]{sq}} object
-#' as an output. Default implementation of the method throws an error - there needs to be 
-#' implemented a method for specified class in order for function to work.
+#' @description Takes an object of arbitrary type and returns an
+#' \code{\link[=sq-class]{sq}} object as an output.
 #' 
 #' @param x [\code{any}]
-#'  An object of a class that supports conversion to \code{\link[=sq-class]{sq class}}.
+#'  An object of a class that supports conversion to \code{sq} class.
 #' @template three-dots
 #' 
-#' @return A \code{sq} object
+#' @return An \code{sq} object.
 #' 
-#' @details In \pkg{tidysq} only for \code{\link{character}} vector there is an implemented method 
-#' which in fact works exactly like \code{\link{construct_sq}} - you can also pass other arguments
-#' like those supported by \code{\link{construct_sq}}.
-#' 
-#' @seealso \code{\link[=sq-class]{sq}} \code{\link{construct_sq}}
+#' @details
+#' There are two possible cases: if \code{x} is a character vector, then this
+#' method calls \code{\link{sq}} function, else it passes \code{x} to
+#' \code{\link{import_sq}} and hopes it works.
+#'
+#' @examples
+#' # Constructing an example sequence in the usual way:
+#' sq_1 <- sq("CTGA")
+#'
+#' # Using a method for character vector:
+#' sq_2 <- as.sq("CTGA")
+#'
+#' # Checking that both objects are identical:
+#' identical(sq_1, sq_2)
+#'
+#' @family io_functions
 #' @export
 # TODO: could we possibly delete this function?
 as.sq <- function(x, ...)
   UseMethod("as.sq")
 
+#' @rdname as.sq
 #' @export
 as.sq.default <- function(x, ...)
-  stop("'as.sq' cannot handle objects with this class")
+  import_sq(x, ...)
 
+#' @rdname as.sq
 #' @export
-as.sq.character <- function(x, ...) sq(x, ...)
+as.sq.character <- function(x, ...)
+   sq(x, ...)
 
 #' Convert sq object into character vector
 #' 

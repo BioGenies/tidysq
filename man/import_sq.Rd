@@ -84,6 +84,7 @@ import_sq(seqinr_dna)
 \code{\link[=sq-class]{sq class}}
 
 Functions from I/O module:
+\code{\link{as.sq}()},
 \code{\link{export_sq}()},
 \code{\link{random_sq}()},
 \code{\link{sq}()}
