@@ -57,6 +57,7 @@ sq_unt[NULL]
 }
 \seealso{
 Functions from utility module:
+\code{\link{get_sq_lengths}()},
 \code{\link{sqconcatenate}}
 }
 \concept{util_functions}

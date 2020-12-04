@@ -94,6 +94,7 @@ c(sq_unt, "&#JIA$O02t30,9ec", sq_ami)
 }
 \seealso{
 Functions from utility module:
+\code{\link{get_sq_lengths}()},
 \code{\link{sqextract}}
 }
 \concept{util_functions}

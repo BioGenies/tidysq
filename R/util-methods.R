@@ -120,7 +120,7 @@ is.sq_ami_bsc <- function(x)
 
 #' Compare sq objects
 #' @description Compares input \code{\link[=sq-class]{sq}} object with another given.
-#' 
+#'
 #' @details \code{`==`} converts left-hand side of the comparison (\code{x1}) to
 #' a character vector using \code{\link{as.character}} and checks whether object
 #' given on the right side can be compared with \code{\link[=sq-class]{sq}} object. Function
@@ -130,11 +130,11 @@ is.sq_ami_bsc <- function(x)
 #' replaces them with corresponding capital ones using \code{\link{toupper}}.
 #' If right-hand side object (\code{x2}) is of class \code{\link[=sq-class]{sq}}, then it is
 #' converted to a character vector also using \code{\link{as.character}} function.
-#' 
-#' When both objects are already converted to character vectors, comparison is carried out 
+#'
+#' When both objects are already converted to character vectors, comparison is carried out
 #' element-wise with standard R rules, (e.g., recycling is used). You can check details at
 #' \code{\link{Comparison}}.
-#' 
+#'
 #' Comparing sequences as characters vectors cause that various types of sequences
 #' can be compared for example amino acid with nucleotide sequences so attention
 #' should be paid, which sequence types are compared.
@@ -152,19 +152,33 @@ is.sq_ami_bsc <- function(x)
 
 #' Get lengths of sequences in sq object
 #' 
-#' Function counts number of elements in each sequence in given \code{\link[=sq-class]{sq}} object.
+#' @description Returns number of elements in each sequence in given
+#' \code{\link[=sq-class]{sq}} object.
 #' 
 #' @template x
 #'  
-#' @return A \code{\link{numeric}} vector, where each element gives length of according 
-#' sequence from \code{\link[=sq-class]{sq}} object.
+#' @return A \code{\link{numeric}} vector, where each element gives length of
+#' corresponding sequence from \code{\link[=sq-class]{sq}} object.
 #' 
-#' @details This function allows returning numeric vector of lengths of sequences from
-#' \code{\link[=sq-class]{sq}} object. The numeric vector is as long as number of sequences present
-#' in \code{\link[=sq-class]{sq}} object.
-#' The function counts elements in all types of sequences.
+#' @details
+#' Due to storage implementation, using \code{\link[base]{lengths}} method
+#' returns length of stored raw vectors instead of real sequence lengths. This
+#' function accesses \code{original_length} attribute of each sequence, which
+#' attribute stores information about how many elements are there in given
+#' sequence.
 #'
-#' @seealso \code{\link[=sq-class]{sq}} \code{\link{construct_sq}}
+#' @examples
+#' # Creating objects to work on:
+#' sq_ami <- sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
+#'              alphabet = "ami_ext")
+#' sq_dna <- sq(c("ATGCAGGA", "GACCGAACGAN", "TGACGAGCTTA", "ACTNNAGCN"),
+#'              alphabet = "dna_ext")
+#'
+#' # Counting number of elements in sq object:
+#' get_sq_lengths(sq_dna)
+#' get_sq_lengths(sq_ami)
+#'
+#' @family util_functions
 #' @export
 get_sq_lengths <- function(x) {
   if (length(x) == 0) numeric(0)

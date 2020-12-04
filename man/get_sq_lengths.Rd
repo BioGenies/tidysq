@@ -11,18 +11,35 @@ get_sq_lengths(x)
 An object this function is applied to.}
 }
 \value{
-A \code{\link{numeric}} vector, where each element gives length of according 
-sequence from \code{\link[=sq-class]{sq}} object.
+A \code{\link{numeric}} vector, where each element gives length of
+corresponding sequence from \code{\link[=sq-class]{sq}} object.
 }
 \description{
-Function counts number of elements in each sequence in given \code{\link[=sq-class]{sq}} object.
+Returns number of elements in each sequence in given
+\code{\link[=sq-class]{sq}} object.
 }
 \details{
-This function allows returning numeric vector of lengths of sequences from
-\code{\link[=sq-class]{sq}} object. The numeric vector is as long as number of sequences present
-in \code{\link[=sq-class]{sq}} object.
-The function counts elements in all types of sequences.
+Due to storage implementation, using \code{\link[base]{lengths}} method
+returns length of stored raw vectors instead of real sequence lengths. This
+function accesses \code{original_length} attribute of each sequence, which
+attribute stores information about how many elements are there in given
+sequence.
+}
+\examples{
+# Creating objects to work on:
+sq_ami <- sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
+             alphabet = "ami_ext")
+sq_dna <- sq(c("ATGCAGGA", "GACCGAACGAN", "TGACGAGCTTA", "ACTNNAGCN"),
+             alphabet = "dna_ext")
+
+# Counting number of elements in sq object:
+get_sq_lengths(sq_dna)
+get_sq_lengths(sq_ami)
+
 }
 \seealso{
-\code{\link[=sq-class]{sq}} \code{\link{construct_sq}}
+Functions from utility module:
+\code{\link{sqconcatenate}},
+\code{\link{sqextract}}
 }
+\concept{util_functions}
