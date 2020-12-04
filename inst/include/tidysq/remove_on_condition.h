@@ -3,7 +3,8 @@
 #include <functional>
 
 #include "tidysq/Sq.h"
-#include "tidysq/internal/pack.h"
+#include "tidysq/ops/pack.h"
+#include "tidysq/ops/unpack.h"
 
 namespace tidysq {
     template<typename INTERNAL>
@@ -20,22 +21,14 @@ namespace tidysq {
                     selected_letters.push_back(alph[*it]);
                 }
             }
-            ProtoSequence<STD_IT, STRINGS_PT> unpacked{selected_letters};
-            Sequence<INTERNAL> repacked =
-                    util::reserve_space_for_packed<INTERNAL>(unpacked.length(), dest_alph.alphabet_size());
-            internal::pack<STD_IT, STRINGS_PT, INTERNAL, true>(unpacked, repacked, dest_alph);
-            return repacked;
+            return pack<STD_IT, STRINGS_PT, INTERNAL>(ProtoSequence<STD_IT, STRINGS_PT>{selected_letters}, dest_alph);
         } else {
             if (std::all_of(sequence.cbegin(alph.alphabet_size()), sequence.cend(alph.alphabet_size()),
                             [=](const LetterValue element) { return condition(element); })) {
                 if (alph != dest_alph) {
-                    ProtoSequence<STD_IT, STRINGS_PT> unpacked =
-                            util::reserve_space_for_unpacked<INTERNAL, STD_IT, STRINGS_PT>(sequence);
-                    internal::unpack_common(sequence, unpacked, alph);
-                    Sequence<INTERNAL> repacked =
-                            util::reserve_space_for_packed<INTERNAL>(unpacked.length(), dest_alph.alphabet_size());
-                    internal::pack<STD_IT, STRINGS_PT, INTERNAL, true>(unpacked, repacked, dest_alph);
-                    return repacked;
+                    return pack<STD_IT, STRINGS_PT, INTERNAL>(
+                            unpack<INTERNAL, STD_IT, STRINGS_PT>(sequence, alph),
+                                    dest_alph);
                 } else {
                     return sequence;
                 }

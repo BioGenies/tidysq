@@ -7,7 +7,7 @@
 #include "tidysq/constants/standard_letters.h"
 #include "tidysq/Sq.h"
 
-#include "tidysq/internal/pack.h"
+#include "tidysq/ops/pack.h"
 
 namespace tidysq {
     namespace internal {
@@ -187,16 +187,7 @@ namespace tidysq {
 
             void parse_sequence_buffer() {
                 if (proto_sequence_buffer.length() == 0) return;
-
-                Sequence<INTERNAL> packed = util::reserve_space_for_packed<INTERNAL>(
-                        proto_sequence_buffer.length(), alphabet_.alphabet_size());
-                if (alphabet_.is_simple()) {
-                    internal::pack<STD_IT, STRING_PT, INTERNAL, true>(proto_sequence_buffer, packed, alphabet_);
-                } else {
-                    internal::pack<STD_IT, STRING_PT, INTERNAL, false>(proto_sequence_buffer, packed, alphabet_);
-                }
-
-                sq_.push_back(packed);
+                sq_.push_back(pack<STD_IT, STRING_PT, INTERNAL>(proto_sequence_buffer, alphabet_));
                 proto_sequence_buffer = ProtoSequence<STD_IT, STRING_PT>(0);
             }
 

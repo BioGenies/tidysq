@@ -3,7 +3,7 @@
 #include <map>
 
 #include "tidysq/Sq.h"
-#include "tidysq/internal/pack.h"
+#include "tidysq/ops/pack.h"
 
 namespace tidysq {
     template<typename INTERNAL>
@@ -25,11 +25,7 @@ namespace tidysq {
             }
         }
 
-        Sequence<INTERNAL> repacked =
-                util::reserve_space_for_packed<INTERNAL>(encoded.length(), dest_alph.alphabet_size());
-        // TODO: actually encoding may introduce non-simple letters
-        internal::pack<INTERNAL, STRINGS_PT, INTERNAL, true>(encoded, repacked, dest_alph);
-        return repacked;
+        return pack<INTERNAL, STRINGS_PT, INTERNAL>(encoded, dest_alph);
     }
 
     template<typename INTERNAL>
