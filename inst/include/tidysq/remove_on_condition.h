@@ -61,9 +61,9 @@ namespace tidysq {
     Sq<INTERNAL> remove_NA(const Sq<INTERNAL> &sq,
                            const bool by_letter) {
         const Alphabet &alph = sq.alphabet();
-        Sq<INTERNAL> ret(sq.length(), alph);
+        Sq<INTERNAL> ret(sq.size(), alph);
 
-        for (LenSq i = 0; i < sq.length(); ++i) {
+        for (LenSq i = 0; i < sq.size(); ++i) {
             ret[i] = remove_NA<INTERNAL>(sq[i].get(), alph, by_letter);
         }
         return ret;
@@ -94,9 +94,9 @@ namespace tidysq {
         }
         const Alphabet &alph = sq.alphabet();
         const Alphabet dest_alph = Alphabet(type, alph.NA_letter());
-        Sq<INTERNAL> ret(sq.length(), dest_alph);
+        Sq<INTERNAL> ret(sq.size(), dest_alph);
 
-        for (LenSq i = 0; i < sq.length(); ++i) {
+        for (LenSq i = 0; i < sq.size(); ++i) {
             ret[i] = remove_ambiguous<INTERNAL>(sq[i].get(), alph, dest_alph, by_letter);
         }
         return ret;

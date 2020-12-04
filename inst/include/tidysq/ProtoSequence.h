@@ -47,7 +47,7 @@ namespace tidysq {
             return content_[index];
         }
 
-        [[nodiscard]] inline LenSq length() const {
+        [[nodiscard]] inline LenSq size() const {
             return content_.size();
         }
 

@@ -141,7 +141,7 @@ namespace tidysq {
 
         Alphabet& operator=(const Alphabet &other) = default;
 
-        [[nodiscard]] inline LetterValue length() const {
+        [[nodiscard]] inline LetterValue size() const {
             return static_cast<LetterValue>(value_to_letter_.size());
         }
 

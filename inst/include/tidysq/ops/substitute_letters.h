@@ -21,7 +21,7 @@ namespace tidysq {
                 // We cannot rely on range-based loop, because it isn't ordered alphabetical by key. Thus it's necessary
                 // to do manual looping. It should work as long as Alphabet class doesn't change to much.
                 // TODO: come up with an idea for ordered looping that doesn't rely on this exact implementation of Alphabet
-                for (LetterValue key = 0; key < alphabet_.length(); ++key) {
+                for (LetterValue key = 0; key < alphabet_.size(); ++key) {
                     const Letter letter = alphabet_[key];
                     if (encoding_.count(letter) == 0) {
                         if (std::none_of(dest_letters.begin(), dest_letters.end(), [=](const Letter &other) {
@@ -71,7 +71,7 @@ namespace tidysq {
 
                     // We have content as vector of strings, so that it's easier to swap them with encoding map
                     ProtoSequence<STD_IT, STRINGS_PT> encoded(unpacked.content());
-                    for (LenSq index = 0; index < encoded.length(); ++index) {
+                    for (LenSq index = 0; index < encoded.size(); ++index) {
                         Letter letter = alphabet_[sequence_in[{index, alphabet_.alphabet_size()}]];
                         if (encoding_.count(letter) > 0) {
                             encoded[index] = encoding_.at(letter);

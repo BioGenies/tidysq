@@ -11,9 +11,9 @@ namespace tidysq::util {
 
         std::set<Letter> letters;
 
-        if (NA_letter.length() == 0) {
+        if (NA_letter.size() == 0) {
             throw std::invalid_argument("'NA_letter' should have at least one character!");
-        } else if (NA_letter.length() == 1) {
+        } else if (NA_letter.size() == 1) {
             letters = tidysq::internal::obtain_alphabet<INTERNAL, true>(x, sample_size, NA_letter, ignore_case);
         } else {
             letters = tidysq::internal::obtain_alphabet<INTERNAL, false>(x, sample_size, NA_letter, ignore_case);

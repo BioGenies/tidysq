@@ -14,7 +14,7 @@ namespace tidysq::internal {
                          ProtoSequence<INTERNAL_OUT, PROTO_OUT> &unpacked,
                          const Alphabet &alphabet) {
         LenSq in_byte = 0;
-        LenSq out_len = unpacked.length();
+        LenSq out_len = unpacked.size();
         LenSq i = 0;
         for (; i + 8 <= out_len; i += 8) {
             unpacked[i] = util::match_letter<PROTO_OUT>((packed(in_byte)) & 3, alphabet);
@@ -78,7 +78,7 @@ namespace tidysq::internal {
                          ProtoSequence<INTERNAL_OUT, PROTO_OUT> &unpacked,
                          const Alphabet &alphabet) {
         LenSq in_byte = 0;
-        LenSq out_len = unpacked.length();
+        LenSq out_len = unpacked.size();
         LenSq i = 0;
         for (; i + 8 <= out_len; i += 8) {
             unpacked[i] = util::match_letter<PROTO_OUT>((packed(in_byte)) & 7, alphabet);
@@ -151,7 +151,7 @@ namespace tidysq::internal {
                          ProtoSequence<INTERNAL_OUT, PROTO_OUT> &unpacked,
                          const Alphabet &alphabet) {
         LenSq in_byte = 0;
-        LenSq out_len = unpacked.length();
+        LenSq out_len = unpacked.size();
         LenSq i = 0;
         for (; i + 8 <= out_len; i += 8) {
             unpacked[i] = util::match_letter<PROTO_OUT>((packed(in_byte)) & 15, alphabet);
@@ -215,7 +215,7 @@ namespace tidysq::internal {
                          ProtoSequence<INTERNAL_OUT, PROTO_OUT> &unpacked,
                          const Alphabet &alphabet) {
         LenSq in_byte = 0;
-        LenSq out_len = unpacked.length();
+        LenSq out_len = unpacked.size();
         LenSq i = 0;
         for (; i + 8 <= out_len; i += 8) {
             unpacked[i] = util::match_letter<PROTO_OUT>((packed(in_byte)) & 31, alphabet);

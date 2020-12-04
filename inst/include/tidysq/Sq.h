@@ -42,7 +42,7 @@ namespace tidysq {
             return SequenceConstProxy<INTERNAL>(content_[index]);
         }
 
-        [[nodiscard]] LenSq length() const {
+        [[nodiscard]] LenSq size() const {
             return content_.size();
         }
 

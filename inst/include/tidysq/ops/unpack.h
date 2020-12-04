@@ -69,7 +69,7 @@ namespace tidysq {
 
     template<typename INTERNAL_IN, typename INTERNAL_OUT, typename PROTO_OUT>
     inline ProtoSq<INTERNAL_OUT, PROTO_OUT> unpack(const Sq<INTERNAL_IN> &sq) {
-        return unpack<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(sq, 0, sq.length());
+        return unpack<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(sq, 0, sq.size());
     }
 
     template<typename INTERNAL_IN, typename INTERNAL_OUT, typename PROTO_OUT>

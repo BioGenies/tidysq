@@ -20,7 +20,7 @@ namespace tidysq {
             }
 
             inline Sequence<INTERNAL_OUT> initialize_element_out(const ProtoSequence<INTERNAL_IN, PROTO_IN> &proto_sequence) override {
-                return util::reserve_space_for_packed<INTERNAL_OUT>(proto_sequence.length(), alphabet_.alphabet_size());
+                return util::reserve_space_for_packed<INTERNAL_OUT>(proto_sequence.size(), alphabet_.alphabet_size());
             }
 
             inline void operator() (const ProtoSequence<INTERNAL_IN, PROTO_IN> &proto_sequence,
@@ -41,7 +41,7 @@ namespace tidysq {
 
     template<typename INTERNAL_IN, typename PROTO_IN, typename INTERNAL_OUT = INTERNAL_IN>
     inline Sq<INTERNAL_OUT> pack(const ProtoSq<INTERNAL_IN, PROTO_IN> &proto_sq) {
-        return pack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(proto_sq, 0, proto_sq.length());
+        return pack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(proto_sq, 0, proto_sq.size());
     }
 
 

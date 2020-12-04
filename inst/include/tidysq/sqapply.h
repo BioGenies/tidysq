@@ -9,7 +9,7 @@ namespace tidysq {
     VECTOR_OUT sqapply(const VECTOR_IN &vector_in,
                        ops::OperationVectorToVector<VECTOR_IN, ELEMENT_IN, VECTOR_OUT, ELEMENT_OUT> &&operation) {
         VECTOR_OUT ret = operation.initialize_vector_out(vector_in);
-        for (LenSq i = 0; i < vector_in.length(); i++) {
+        for (LenSq i = 0; i < vector_in.size(); i++) {
             ret[i] = operation(vector_in[i]);
         }
         return ret;

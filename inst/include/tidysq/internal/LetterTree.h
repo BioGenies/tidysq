@@ -70,7 +70,7 @@ namespace tidysq::internal {
                 root_(LetterNode(alphabet.NA_value())),
                 iterator_(iterator),
                 end_(end) {
-            for (LetterValue i = 0; i < alphabet.length(); i++) {
+            for (LetterValue i = 0; i < alphabet.size(); i++) {
                 put_letter(alphabet[i], i);
             }
             put_letter(alphabet.NA_letter(), alphabet.NA_value());

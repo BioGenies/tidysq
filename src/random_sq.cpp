@@ -12,7 +12,7 @@ Rcpp::List CPP_random_sq(const Rcpp::IntegerVector &n,
                          const Rcpp::StringVector &alphabet,
                          const Rcpp::LogicalVector &use_gap) {
 //    srand(seed);
-    if (len.length() == 1) {
+    if (len.size() == 1) {
         return export_to_R(random_sq<RCPP_IT>(
                 util::convert_to_scalar(n),
                 util::convert_to_scalar(len),

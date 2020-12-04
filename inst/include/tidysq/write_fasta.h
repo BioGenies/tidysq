@@ -22,12 +22,12 @@ namespace tidysq {
 
             void write_sequence_part(const std::string &content,
                                      LenSq &written) {
-                if (content.length() - written < width_) {
+                if (content.size() - written < width_) {
                     stream_.write(content.data() + written, width_);
                     written += width_;
                 } else {
-                    stream_.write(content.data() + written, content.length() - written);
-                    written = content.length();
+                    stream_.write(content.data() + written, content.size() - written);
+                    written = content.size();
                 }
                 stream_ << std::endl;
             }
@@ -67,7 +67,7 @@ namespace tidysq {
             }
 
             void write() {
-                for (LenSq i = 0; i < sq_.length(); i++) {
+                for (LenSq i = 0; i < sq_.size(); i++) {
                     write_name(i);
                     write_sequence(i);
                 }

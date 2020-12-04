@@ -186,7 +186,7 @@ namespace tidysq {
             std::vector<std::string> names_;
 
             void parse_sequence_buffer() {
-                if (proto_sequence_buffer.length() == 0) return;
+                if (proto_sequence_buffer.size() == 0) return;
                 sq_.push_back(pack<STD_IT, STRING_PT, INTERNAL>(proto_sequence_buffer, alphabet_));
                 proto_sequence_buffer = ProtoSequence<STD_IT, STRING_PT>(0);
             }

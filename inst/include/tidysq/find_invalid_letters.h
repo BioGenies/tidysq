@@ -11,7 +11,7 @@ namespace tidysq {
         const Alphabet dest_alph = Alphabet(type, alph.NA_letter());
 
         std::vector<LetterValue> invalid_indices;
-        for (LetterValue i = 0; i < alph.length(); ++i) {
+        for (LetterValue i = 0; i < alph.size(); ++i) {
             if (std::none_of(dest_alph.cbegin(), dest_alph.cend(),
                              [alph, i](const auto& pair){ return alph[i] == pair.second; })) {
                 invalid_indices.push_back(i);
@@ -20,7 +20,7 @@ namespace tidysq {
 
         std::vector<std::vector<Letter>> ret;
 
-        for (LenSq i = 0; i < sq.length(); ++i) {
+        for (LenSq i = 0; i < sq.size(); ++i) {
             const Sequence<RCPP_IT> sequence = sq[i];
             std::vector<Letter> invalid_found;
             for (const LetterValue &index : invalid_indices) {

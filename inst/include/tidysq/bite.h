@@ -45,12 +45,12 @@ namespace tidysq {
     template<typename INTERNAL>
     std::pair<std::string, Sq<INTERNAL>> bite(const Sq<INTERNAL> &sq,
                                               const std::vector<long long int> &indices) {
-        Sq<INTERNAL> ret(sq.length(), sq.alphabet());
+        Sq<INTERNAL> ret(sq.size(), sq.alphabet());
         bool warning_called = false;
         // TODO: replace with NULL once it works
         std::string NA_warning;
 
-        for (LenSq i = 0; i < sq.length(); ++i) {
+        for (LenSq i = 0; i < sq.size(); ++i) {
             ret[i] = bite(sq[i].get(), indices, sq.alphabet().alphabet_size(), &warning_called);
         }
         if (warning_called)
@@ -91,7 +91,7 @@ namespace tidysq {
     template<typename INTERNAL>
     Sq<INTERNAL> skip(const Sq<INTERNAL> &sq,
                       const std::vector<long long int> &indices) {
-        Sq<INTERNAL> ret(sq.length(), sq.alphabet());
+        Sq<INTERNAL> ret(sq.size(), sq.alphabet());
 
         // First extract unique indices (as multiple instances of the same index doesn't change the result)
         std::vector<long long int> unique_indices = indices;
@@ -99,7 +99,7 @@ namespace tidysq {
         auto last = std::unique(unique_indices.begin(), unique_indices.end());
         unique_indices.erase(last, unique_indices.end());
 
-        for (LenSq i = 0; i < sq.length(); ++i) {
+        for (LenSq i = 0; i < sq.size(); ++i) {
             ret[i] = skip(sq[i].get(), unique_indices, sq.alphabet().alphabet_size());
         }
         return ret;

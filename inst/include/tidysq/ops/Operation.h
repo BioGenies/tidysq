@@ -10,7 +10,7 @@ namespace tidysq::ops {
         virtual VECTOR_OUT initialize_vector_out(const VECTOR_IN &vector_in, const LenSq from, const LenSq to) = 0;
 
         inline virtual VECTOR_OUT initialize_vector_out(const VECTOR_IN &vector_in) {
-            return initialize_vector_out(vector_in, 0, vector_in.length());
+            return initialize_vector_out(vector_in, 0, vector_in.size());
         }
 
         virtual ELEMENT_OUT initialize_element_out(const ELEMENT_IN &element_in) = 0;
@@ -38,7 +38,7 @@ namespace tidysq::ops {
         }
 
         Sequence<INTERNAL_OUT> initialize_element_out(const Sequence<INTERNAL_IN> &sequence_in) override {
-            return Sequence<INTERNAL_OUT>(sequence_in.length(), sequence_in.original_length());
+            return Sequence<INTERNAL_OUT>(sequence_in.size(), sequence_in.original_length());
         }
 
         [[nodiscard]] virtual Alphabet map_alphabet(const Alphabet &alphabet_in) const {

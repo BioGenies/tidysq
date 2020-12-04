@@ -127,7 +127,7 @@ namespace tidysq {
                 return content_.empty();
             }
 
-            [[nodiscard]] inline LenSq length() const {
+            [[nodiscard]] inline LenSq size() const {
                 return content_.size();
             }
 
@@ -193,23 +193,23 @@ namespace tidysq {
             [[nodiscard]] bool appears_in(const Sequence<INTERNAL>& sequence) const {
                 bool contains_motif = empty();
                 // Don't run checks if motif is longer than sequence
-                if (sequence.original_length() >= length()) {
+                if (sequence.original_length() >= size()) {
                     // Lot of ^ and $ handling mostly
                     if (from_start_) {
                         if (until_end_) {
-                            contains_motif = (sequence.original_length() == length()) &&
+                            contains_motif = (sequence.original_length() == size()) &&
                                              aligns_with<INTERNAL>(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()));
                         } else {
                             contains_motif = aligns_with<INTERNAL>(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()));
                         }
                     } else if (until_end_) {
-                        contains_motif = aligns_with<INTERNAL>(sequence.cend(alph_.alphabet_size()) - length(), sequence.cend(alph_.alphabet_size()));
+                        contains_motif = aligns_with<INTERNAL>(sequence.cend(alph_.alphabet_size()) - size(), sequence.cend(alph_.alphabet_size()));
                     } else {
                         // Basic case below (without ^ or $)
                         typename Sequence<INTERNAL>::const_iterator it = sequence.cbegin(alph_.alphabet_size());
                         // Stop when motif no longer fits in what little part of sequence is left or we already
                         // know that there is a motif here
-                        while (!contains_motif && it <= sequence.cend(alph_.alphabet_size()) - length()) {
+                        while (!contains_motif && it <= sequence.cend(alph_.alphabet_size()) - size()) {
                             contains_motif = aligns_with<INTERNAL>(it, sequence.cend(alph_.alphabet_size()));
                             ++it;
                         }
@@ -223,18 +223,18 @@ namespace tidysq {
                          const std::string &name,
                          internal::FoundMotifs<INTERNAL> &ret) const {
                 // Don't run checks if motif is longer than sequence
-                if (sequence.original_length() >= length()) {
+                if (sequence.original_length() >= size()) {
                     // Lot of ^ and $ handling mostly
                     if (from_start_) {
-                        if (!until_end_ || sequence.original_length() == length()) {
+                        if (!until_end_ || sequence.original_length() == size()) {
                             locate(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()), name, ret);
                         }
                     } else if (until_end_) {
-                        locate(sequence.cend(alph_.alphabet_size()) - length(), sequence.cend(alph_.alphabet_size()), name, ret);
+                        locate(sequence.cend(alph_.alphabet_size()) - size(), sequence.cend(alph_.alphabet_size()), name, ret);
                     } else {
                         // Basic case below (without ^ or $)
                         typename Sequence<INTERNAL>::const_iterator it = sequence.cbegin(alph_.alphabet_size());
-                        while (it <= sequence.cend(alph_.alphabet_size()) - length()) {
+                        while (it <= sequence.cend(alph_.alphabet_size()) - size()) {
                             locate(it, sequence.cend(alph_.alphabet_size()), name, ret);
                             ++it;
                         }
@@ -264,9 +264,9 @@ namespace tidysq {
             throw std::invalid_argument("For now, %has% is supported only for simple letter alphabets");
 
         const std::list<Motif> motif_list = convert_motifs(motifs, alph);
-        Rcpp::LogicalVector ret(sq.length());
+        Rcpp::LogicalVector ret(sq.size());
 
-        for (LenSq i = 0; i < sq.length(); ++i) {
+        for (LenSq i = 0; i < sq.size(); ++i) {
             // all_of guarantees early stopping if any motif is not present
             ret[i] = std::all_of(motif_list.begin(), motif_list.end(), [=](const Motif& motif) {
                 return motif.appears_in<INTERNAL>(sq[i]);
@@ -290,7 +290,7 @@ namespace tidysq {
         internal::FoundMotifs<INTERNAL> ret(sq);
 
         for (const Motif &motif : motif_list) {
-            for (LenSq i = 0; i < sq.length(); ++i) {
+            for (LenSq i = 0; i < sq.size(); ++i) {
                 motif.find_in<INTERNAL>(sq[i], names[i], ret);
             }
         }
