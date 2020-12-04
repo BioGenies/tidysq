@@ -10,7 +10,7 @@ namespace tidysq {
     namespace ops {
         template<typename INTERNAL_IN, typename INTERNAL_OUT = INTERNAL_IN>
         class OperationTranslate : public OperationSqToSq<INTERNAL_IN, INTERNAL_OUT> {
-            const AlphSize DNA_BSC_ALPH_SIZE = Alphabet(DNA_BSC).alphabet_size();
+            const AlphSize NUC_BSC_ALPH_SIZE = Alphabet(DNA_BSC).alphabet_size();
             const AlphSize AMI_BSC_ALPH_SIZE = Alphabet(AMI_BSC).alphabet_size();
 
             const unsigned int table_;
@@ -69,9 +69,9 @@ namespace tidysq {
 
             void operator()(const Sequence<INTERNAL_IN> &sequence_in, Sequence<INTERNAL_OUT> &sequence_out) override {
                 if (sequence_out.length() > 0) {
-                    auto input_it = sequence_in.cbegin(DNA_BSC_ALPH_SIZE);
+                    auto input_it = sequence_in.cbegin(NUC_BSC_ALPH_SIZE);
                     auto output_it = sequence_out.begin(AMI_BSC_ALPH_SIZE);
-                    while (input_it < sequence_in.cend(DNA_BSC_ALPH_SIZE) - 2) {
+                    while (input_it < sequence_in.cend(NUC_BSC_ALPH_SIZE) - 2) {
                         auto codon_1 = *input_it++;
                         auto codon_2 = *input_it++;
                         auto codon_3 = *input_it++;
