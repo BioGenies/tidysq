@@ -83,6 +83,7 @@ sq_ami_1 == sq_unt
 \seealso{
 Functions from utility module:
 \code{\link{get_sq_lengths}()},
+\code{\link{is.sq}()},
 \code{\link{sqconcatenate}},
 \code{\link{sqextract}}
 }

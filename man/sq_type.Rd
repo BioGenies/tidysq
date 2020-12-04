@@ -50,6 +50,7 @@ class(sq_dna)[1]
 \code{\link[=sq-class]{sq class}}
 
 Functions that manipulate type of sequences:
+\code{\link{is.sq}()},
 \code{\link{substitute_letters}()},
 \code{\link{typify}()}
 }

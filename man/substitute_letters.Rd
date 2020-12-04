@@ -80,6 +80,7 @@ cannot be separated in future operations into single letters.
 \code{\link[=sq-class]{sq}}
 
 Functions that manipulate type of sequences:
+\code{\link{is.sq}()},
 \code{\link{sq_type}()},
 \code{\link{typify}()}
 }

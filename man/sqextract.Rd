@@ -59,6 +59,7 @@ sq_unt[NULL]
 Functions from utility module:
 \code{\link{==.sq}()},
 \code{\link{get_sq_lengths}()},
+\code{\link{is.sq}()},
 \code{\link{sqconcatenate}}
 }
 \concept{util_functions}

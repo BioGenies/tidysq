@@ -2,31 +2,108 @@
 % Please edit documentation in R/util-methods.R
 \name{is.sq}
 \alias{is.sq}
+\alias{is.sq_dna_bsc}
+\alias{is.sq_dna_ext}
+\alias{is.sq_dna}
+\alias{is.sq_rna_bsc}
+\alias{is.sq_rna_ext}
+\alias{is.sq_rna}
 \alias{is.sq_ami_bsc}
+\alias{is.sq_ami_ext}
+\alias{is.sq_ami}
+\alias{is.sq_unt}
+\alias{is.sq_atp}
 \title{Check if object has specified type}
 \usage{
 is.sq(x)
 
+is.sq_dna_bsc(x)
+
+is.sq_dna_ext(x)
+
+is.sq_dna(x)
+
+is.sq_rna_bsc(x)
+
+is.sq_rna_ext(x)
+
+is.sq_rna(x)
+
 is.sq_ami_bsc(x)
+
+is.sq_ami_ext(x)
+
+is.sq_ami(x)
+
+is.sq_unt(x)
+
+is.sq_atp(x)
 }
 \arguments{
 \item{x}{[\code{sq}]\cr
 An object this function is applied to.}
 }
 \value{
-A \code{\link{logical}} value - \code{TRUE} if \code{x} has specified type, \code{FALSE}
-otherwise.
+A \code{logical} value - \code{TRUE} if \code{x} has specified type,
+\code{FALSE} otherwise.
 }
 \description{
-Function to checks if object is a \code{\link[=sq-class]{sq}} object without specifying type or
-if it is a \code{\link[=sq-class]{sq}} object with specific type.
+Checks if object is an \code{\link[=sq-class]{sq}} object
+without specifying type or if it is an \code{sq} object with specific type.
 }
 \details{
-These function does not only check objects classes - they also check if their format is 
-correct (e.g. if they have alphabet parameter, if they have exactly one type, if they are
-list of raws, etc. - to see details, how does \code{sq} object look like under the hood, 
-read \code{\link[=sq-class]{sq class}} manual).
+These functions are mostly simply calls to class checks. There are also
+grouped checks, i.e. \code{is.sq_dna}, \code{is.sq_rna} and \code{is.sq_ami}.
+These check for sq type regardless of if the type is basic or extended.
+}
+\examples{
+# Creating objects to work on:
+sq_dna <- sq(c("GGCAT", "TATC-A", "TGA"), alphabet = "dna_bsc")
+sq_rna <- sq(c("CGAUUACG", "UUCUAGA", "UUCA"), alphabet = "rna_bsc")
+sq_ami <- sq(c("CVMPQGQQ", "AHLC--PPQ"), alphabet = "ami_ext")
+sq_unt <- sq("BAHHAJJ&HAN&JD&", alphabet = "unt")
+sq_atp <- sq(c("mALPVQAmAmA", "mAmAPQ"), alphabet = c("mA", LETTERS))
+
+# What is considered sq:
+is.sq(sq_dna)
+is.sq(sq_rna)
+is.sq(sq_ami)
+is.sq(sq_unt)
+is.sq(sq_atp)
+
+# What is not:
+is.sq(c(1,2,3))
+is.sq(LETTERS)
+is.sq(TRUE)
+is.sq(NULL)
+
+# Checking for exact class:
+is.sq_dna_bsc(sq_dna)
+is.sq_dna_ext(sq_rna)
+is.sq_rna_bsc(sq_ami)
+is.sq_rna_ext(sq_rna)
+is.sq_ami_bsc(sq_ami)
+is.sq_ami_ext(sq_atp)
+is.sq_atp(sq_atp)
+is.sq_unt(sq_unt)
+
+# Checking for generalized type:
+is.sq_dna(sq_atp)
+is.sq_rna(sq_rna)
+is.sq_ami(sq_ami)
+
 }
 \seealso{
-\code{\link[=sq-class]{sq}}
+Functions that manipulate type of sequences:
+\code{\link{sq_type}()},
+\code{\link{substitute_letters}()},
+\code{\link{typify}()}
+
+Functions from utility module:
+\code{\link{==.sq}()},
+\code{\link{get_sq_lengths}()},
+\code{\link{sqconcatenate}},
+\code{\link{sqextract}}
 }
+\concept{type_functions}
+\concept{util_functions}

@@ -128,31 +128,115 @@ as.matrix.sq_enc <- function(x, ...) {
 
 #' Check if object has specified type
 #' 
-#' Function to checks if object is a \code{\link[=sq-class]{sq}} object without specifying type or
-#' if it is a \code{\link[=sq-class]{sq}} object with specific type.
+#' @description Checks if object is an \code{\link[=sq-class]{sq}} object
+#' without specifying type or if it is an \code{sq} object with specific type.
 #'
 #' @template x
 #'
-#' @return A \code{\link{logical}} value - \code{TRUE} if \code{x} has specified type, \code{FALSE}
-#' otherwise.
+#' @return A \code{logical} value - \code{TRUE} if \code{x} has specified type,
+#' \code{FALSE} otherwise.
 #' 
-#' @details 
-#' These function does not only check objects classes - they also check if their format is 
-#' correct (e.g. if they have alphabet parameter, if they have exactly one type, if they are
-#' list of raws, etc. - to see details, how does \code{sq} object look like under the hood, 
-#' read \code{\link[=sq-class]{sq class}} manual).
-#' 
-#' @seealso \code{\link[=sq-class]{sq}}
+#' @details
+#' These functions are mostly simply calls to class checks. There are also
+#' grouped checks, i.e. \code{is.sq_dna}, \code{is.sq_rna} and \code{is.sq_ami}.
+#' These check for sq type regardless of if the type is basic or extended.
+#'
+#' @examples
+#' # Creating objects to work on:
+#' sq_dna <- sq(c("GGCAT", "TATC-A", "TGA"), alphabet = "dna_bsc")
+#' sq_rna <- sq(c("CGAUUACG", "UUCUAGA", "UUCA"), alphabet = "rna_bsc")
+#' sq_ami <- sq(c("CVMPQGQQ", "AHLC--PPQ"), alphabet = "ami_ext")
+#' sq_unt <- sq("BAHHAJJ&HAN&JD&", alphabet = "unt")
+#' sq_atp <- sq(c("mALPVQAmAmA", "mAmAPQ"), alphabet = c("mA", LETTERS))
+#'
+#' # What is considered sq:
+#' is.sq(sq_dna)
+#' is.sq(sq_rna)
+#' is.sq(sq_ami)
+#' is.sq(sq_unt)
+#' is.sq(sq_atp)
+#'
+#' # What is not:
+#' is.sq(c(1,2,3))
+#' is.sq(LETTERS)
+#' is.sq(TRUE)
+#' is.sq(NULL)
+#'
+#' # Checking for exact class:
+#' is.sq_dna_bsc(sq_dna)
+#' is.sq_dna_ext(sq_rna)
+#' is.sq_rna_bsc(sq_ami)
+#' is.sq_rna_ext(sq_rna)
+#' is.sq_ami_bsc(sq_ami)
+#' is.sq_ami_ext(sq_atp)
+#' is.sq_atp(sq_atp)
+#' is.sq_unt(sq_unt)
+#'
+#' # Checking for generalized type:
+#' is.sq_dna(sq_atp)
+#' is.sq_rna(sq_rna)
+#' is.sq_ami(sq_ami)
+#'
+#' @family type_functions
+#' @family util_functions
 #' @export
-# TODO: could we possibly delete this function?
 is.sq <- function(x)
   test_class(x, "sq")
 
-# TODO: Are these necessary? Should we create e.g. is.sq_ami() that check for either one?
+#' @rdname is.sq
+#' @export
+is.sq_dna_bsc <- function(x)
+  test_class(x, "sq_dna_bsc")
+
+#' @rdname is.sq
+#' @export
+is.sq_dna_ext <- function(x)
+  test_class(x, "sq_dna_ext")
+
+#' @rdname is.sq
+#' @export
+is.sq_dna <- function(x)
+  is.sq_dna_bsc(x) || is.sq_dna_ext(x)
+
+#' @rdname is.sq
+#' @export
+is.sq_rna_bsc <- function(x)
+  test_class(x, "sq_rna_bsc")
+
+#' @rdname is.sq
+#' @export
+is.sq_rna_ext <- function(x)
+  test_class(x, "sq_rna_ext")
+
+#' @rdname is.sq
+#' @export
+is.sq_rna <- function(x)
+  is.sq_rna_bsc(x) || is.sq_rna_ext(x)
+
 #' @rdname is.sq
 #' @export
 is.sq_ami_bsc <- function(x)
   test_class(x, "sq_ami_bsc")
+
+#' @rdname is.sq
+#' @export
+is.sq_ami_ext <- function(x)
+  test_class(x, "sq_ami_ext")
+
+#' @rdname is.sq
+#' @export
+is.sq_ami <- function(x)
+  is.sq_ami_bsc(x) || is.sq_ami_ext(x)
+
+#' @rdname is.sq
+#' @export
+is.sq_unt <- function(x)
+  test_class(x, "sq_unt")
+
+#' @rdname is.sq
+#' @export
+is.sq_atp <- function(x)
+  test_class(x, "sq_atp")
 
 #' Compare sq objects
 #'

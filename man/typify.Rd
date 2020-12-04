@@ -64,6 +64,7 @@ typify(sq_sub, "ami_ext")
 }
 \seealso{
 Functions that manipulate type of sequences:
+\code{\link{is.sq}()},
 \code{\link{sq_type}()},
 \code{\link{substitute_letters}()}
 }
