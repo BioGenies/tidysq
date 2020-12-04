@@ -16,6 +16,7 @@
 #' 
 #' @seealso \code{\link[=sq-class]{sq}} \code{\link{construct_sq}}
 #' @export
+# TODO: could we possibly delete this function?
 as.sq <- function(x, ...)
   UseMethod("as.sq")
 
@@ -107,6 +108,7 @@ as.matrix.sq_enc <- function(x, ...) {
 #' 
 #' @seealso \code{\link[=sq-class]{sq}}
 #' @export
+# TODO: could we possibly delete this function?
 is.sq <- function(x)
   test_class(x, "sq")
 
