@@ -30,31 +30,44 @@ context of \code{\link[=sq-class]{sq class}}. Default value equals to
 "\code{!}".}
 }
 \value{
-A list of mismatched elements for every sequence from \code{\link[=sq-class]{sq}} object.
+A list of mismatched elements for every sequence from
+\code{\link[=sq-class]{sq}} object.
 }
 \description{
-Function finds elements in given sequence not matching to amino acid or nucleotide 
-alphabet.
+Finds elements in given sequence not contained in amino acid or
+nucleotide alphabet.
 }
 \details{
-This function allows obtaining list of mismatched elements of sequences from  
-a \code{\link[=sq-class]{sq}} object to amino acid, DNA or RNA alphabet. Output list has number of
-elements equal to length of \code{sq} object and each element is a character vector 
-of elements that appear in according sequence that does not fit destination type. This 
-function might be used to find specifically, which sequences have letters - user
-may want to use this information for example to check input sequences.
+Amino acid, DNA and RNA standard alphabets have predefined letters. This
+function allows the user to check which letters from input sequences are not
+contained in selected one of these alphabets.
 
-You can check, which letters are valid for specified type in \code{\link[=sq-class]{sq}} class
-documentation.
+Returned list contains a character vector for each input sequence. Each
+element of a vector is a letter that appear in corresponding sequence and not
+in the target alphabet.
 
-Mismatched elements might be replaced with other letters or \code{NA} using 
-\code{\link{substitute_letters}} and then, after removal of all non-standard letters,
-set type to destinated using \code{\link{typify}}.
+You can check which letters are valid for specified type in
+\code{\link{alphabet}} documentation.
+}
+\examples{
+# Creating objects to work on:
+sq_unt <- sq(c("ACGPOIUATTAGACG","GGATFGHA"), alphabet = "unt")
+sq_ami <- sq(c("QWERTYUIZXCVBNM","LKJHGFDSAZXCVBN"), alphabet = "ami_ext")
 
-Returned lists for \strong{ami}, \strong{dna} and \strong{rna} \code{sq} objects,
-if \code{des_type} is specified respectively "ami", "dna" and "rna", will contain
-only \code{\link[=sq-class]{NULL}} elements.
+# Mismatched elements might be from basic type:
+find_invalid_letters(sq_ami, "ami_bsc")
+
+# But also from type completely unrelated to the current one:
+find_invalid_letters(sq_unt, "dna_ext")
+
 }
 \seealso{
-\code{\link[=sq-class]{sq}} \code{\link{construct_sq}}
+\code{\link{alphabet}()}
+
+Functions that manipulate type of sequences:
+\code{\link{is.sq}()},
+\code{\link{sq_type}()},
+\code{\link{substitute_letters}()},
+\code{\link{typify}()}
 }
+\concept{type_functions}

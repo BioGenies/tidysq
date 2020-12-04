@@ -95,6 +95,7 @@ is.sq_ami(sq_ami)
 }
 \seealso{
 Functions that manipulate type of sequences:
+\code{\link{find_invalid_letters}()},
 \code{\link{sq_type}()},
 \code{\link{substitute_letters}()},
 \code{\link{typify}()}

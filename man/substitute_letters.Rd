@@ -76,6 +76,7 @@ substitute_letters(sq_ami, c(X = NA))
 }
 \seealso{
 Functions that manipulate type of sequences:
+\code{\link{find_invalid_letters}()},
 \code{\link{is.sq}()},
 \code{\link{sq_type}()},
 \code{\link{typify}()}
