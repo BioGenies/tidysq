@@ -39,6 +39,7 @@ get_sq_lengths(sq_ami)
 }
 \seealso{
 Functions from utility module:
+\code{\link{==.sq}()},
 \code{\link{sqconcatenate}},
 \code{\link{sqextract}}
 }
