@@ -17,7 +17,7 @@ write_fasta(
 An object this function is applied to.}
 
 \item{file}{[\code{character(1)}]\cr
-Path to file to write to.}
+Absolute path to file to write to.}
 
 \item{width}{[\code{integer(1)}]\cr
 Maximum number of characters to put in each line of file. Must be positive.}
