@@ -5,6 +5,7 @@ list(
     bio_functions = "Functions interpreting sq in biological context:",
     order_functions = "Functions that affect order of elements:",
     type_functions = "Functions that manipulate type of sequences:",
-    util_functions = "Functions from utility module:"
+    util_functions = "Functions from utility module:",
+    display_functions = "Functions that display sequence info:"
   )
 )
