@@ -1,4 +1,4 @@
-0#' Convert an object to sq
+#' Convert an object to sq
 #' 
 #' This generic function takes an object of arbitrary type and returns an \code{\link[=sq-class]{sq}} object
 #' as an output. Default implementation of the method throws an error - there needs to be 
