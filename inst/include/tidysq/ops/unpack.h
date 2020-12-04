@@ -17,7 +17,7 @@ namespace tidysq {
                     alphabet_(alphabet) {};
 
             inline ProtoSq<INTERNAL_OUT, PROTO_OUT> initialize_vector_out(const Sq<INTERNAL_IN> &sq, const LenSq from, const LenSq to) override {
-                return ProtoSq<INTERNAL_OUT, PROTO_OUT>(from - to, alphabet_);
+                return ProtoSq<INTERNAL_OUT, PROTO_OUT>(to - from, alphabet_);
             }
 
             inline ProtoSequence<INTERNAL_OUT, PROTO_OUT> initialize_element_out(const Sequence<INTERNAL_IN> &sequence) override {
