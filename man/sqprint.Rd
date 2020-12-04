@@ -8,7 +8,7 @@
 \item{x}{[\code{sq}]\cr
 An object this function is applied to.}
 
-\item{max_sequences}{[\code{numeric(1)}]\cr
+\item{max_sequences}{[\code{integer(1)}]\cr
 How many sequences should be printed.}
 
 \item{use_color}{[\code{logical(1)}]\cr

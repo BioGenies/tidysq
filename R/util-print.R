@@ -57,7 +57,7 @@ pillar_shaft.encsq <- function(x, ...,
 #' human-friendly form.
 #'
 #' @template x
-#' @param max_sequences [\code{numeric(1)}]\cr
+#' @param max_sequences [\code{integer(1)}]\cr
 #'  How many sequences should be printed.
 #' @param use_color [\code{logical(1)}]\cr
 #'  Should sequences be colored?
