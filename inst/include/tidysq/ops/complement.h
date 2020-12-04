@@ -53,6 +53,9 @@ namespace tidysq {
 
     template<typename INTERNAL_IN, typename INTERNAL_OUT = INTERNAL_IN>
     Sequence<INTERNAL_OUT> complement(const Sequence<INTERNAL_IN> &sequence, const AlphSize alph_size, const SqType &type) {
-        return ops::OperationComplement<INTERNAL_IN, INTERNAL_OUT>(alph_size, type)(sequence);
+        auto x = ops::OperationComplement<INTERNAL_IN, INTERNAL_OUT>(alph_size, type);
+        return ops::OperationComplement<INTERNAL_IN, INTERNAL_OUT>(alph_size, type).
+                template OperationVectorToVector<Sq<INTERNAL_IN>, Sequence<INTERNAL_IN>,
+                        Sq<INTERNAL_OUT>, Sequence<INTERNAL_OUT>>::operator()(sequence);
     }
 }

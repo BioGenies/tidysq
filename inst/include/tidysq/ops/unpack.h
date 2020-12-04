@@ -63,17 +63,19 @@ namespace tidysq {
     }
 
     template<typename INTERNAL_IN, typename INTERNAL_OUT, typename PROTO_OUT>
-    inline ProtoSq<INTERNAL_OUT, PROTO_OUT> unpack(const Sq<INTERNAL_IN> &packed, const LenSq from, const LenSq to) {
-        return sqapply(packed, ops::OperationUnpack<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed.alphabet()), from, to);
+    inline ProtoSq<INTERNAL_OUT, PROTO_OUT> unpack(const Sq<INTERNAL_IN> &sq, const LenSq from, const LenSq to) {
+        return sqapply(sq, ops::OperationUnpack<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(sq.alphabet()), from, to);
     }
 
     template<typename INTERNAL_IN, typename INTERNAL_OUT, typename PROTO_OUT>
-    inline ProtoSq<INTERNAL_OUT, PROTO_OUT> unpack(const Sq<INTERNAL_IN> &packed) {
-        return unpack<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed, 0, packed.length());
+    inline ProtoSq<INTERNAL_OUT, PROTO_OUT> unpack(const Sq<INTERNAL_IN> &sq) {
+        return unpack<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(sq, 0, sq.length());
     }
 
     template<typename INTERNAL_IN, typename INTERNAL_OUT, typename PROTO_OUT>
-    inline ProtoSequence<INTERNAL_OUT, PROTO_OUT> unpack(const Sequence<INTERNAL_IN> &packed) {
-        return ops::OperationUnpack<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(packed.alphabet())(packed);
+    inline ProtoSequence<INTERNAL_OUT, PROTO_OUT> unpack(const Sequence<INTERNAL_IN> &sequence, const Alphabet &alphabet) {
+        return ops::OperationUnpack<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(alphabet).
+                template OperationVectorToVector<Sq<INTERNAL_IN>, Sequence<INTERNAL_IN>,
+                ProtoSq<INTERNAL_OUT, PROTO_OUT>, ProtoSequence<INTERNAL_OUT, PROTO_OUT>>::operator()(sequence);
     }
 }

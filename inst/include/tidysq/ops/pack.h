@@ -24,7 +24,7 @@ namespace tidysq {
             }
 
             inline void operator() (const ProtoSequence<INTERNAL_IN, PROTO_IN> &proto_sequence,
-                             Sequence<INTERNAL_OUT> &sequence) override {
+                                    Sequence<INTERNAL_OUT> &sequence) override {
                 if (alphabet_.is_simple()) {
                     internal::pack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT, true>(proto_sequence, sequence, alphabet_);
                 } else {
@@ -35,18 +35,20 @@ namespace tidysq {
     }
 
     template<typename INTERNAL_IN, typename PROTO_IN, typename INTERNAL_OUT = INTERNAL_IN>
-    inline Sq<INTERNAL_OUT> pack(const ProtoSq<INTERNAL_IN, PROTO_IN> &unpacked, const LenSq from, const LenSq to) {
-        return sqapply(unpacked, ops::OperationPack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(unpacked.alphabet()), from, to);
+    inline Sq<INTERNAL_OUT> pack(const ProtoSq<INTERNAL_IN, PROTO_IN> &proto_sq, const LenSq from, const LenSq to) {
+        return sqapply(proto_sq, ops::OperationPack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(proto_sq.alphabet()), from, to);
     }
 
     template<typename INTERNAL_IN, typename PROTO_IN, typename INTERNAL_OUT = INTERNAL_IN>
-    inline Sq<INTERNAL_OUT> pack(const ProtoSq<INTERNAL_IN, PROTO_IN> &unpacked) {
-        return pack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(unpacked, 0, unpacked.length());
+    inline Sq<INTERNAL_OUT> pack(const ProtoSq<INTERNAL_IN, PROTO_IN> &proto_sq) {
+        return pack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(proto_sq, 0, proto_sq.length());
     }
 
 
     template<typename INTERNAL_IN, typename PROTO_IN, typename INTERNAL_OUT = INTERNAL_IN>
-    inline Sequence<INTERNAL_OUT> pack(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked) {
-        return ops::OperationPack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(unpacked.alphabet())(unpacked);
+    inline Sequence<INTERNAL_OUT> pack(const ProtoSequence<INTERNAL_IN, PROTO_IN> &proto_sequence, const Alphabet &alphabet) {
+        return ops::OperationPack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(alphabet).
+                template OperationVectorToVector<ProtoSq<INTERNAL_IN, PROTO_IN>, ProtoSequence<INTERNAL_IN, PROTO_IN>,
+                                                      Sq<INTERNAL_OUT>, Sequence<INTERNAL_OUT>>::operator() (proto_sequence);
     }
 }
