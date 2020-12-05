@@ -25,7 +25,7 @@ obj_print_footer.sq <- function(x, ...,
   invisible(x)
 }
 
-#' @importFrom cli col_green col_silver
+#' @importFrom cli col_green
 #' @importFrom pillar pillar_shaft
 #' @export
 pillar_shaft.sq <- function(x, ...,

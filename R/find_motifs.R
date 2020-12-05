@@ -62,7 +62,6 @@ find_motifs.default <- function(x, name, motifs, ...)
 
 #' @rdname find_motifs
 #' @export
-#' @importFrom stringi stri_sub
 #' @importFrom tibble as_tibble
 find_motifs.sq <- function(x, name, motifs, ...,
                            NA_letter = getOption("tidysq_NA_letter")) {
