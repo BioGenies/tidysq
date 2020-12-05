@@ -40,15 +40,15 @@
 #'              alphabet = "dna_ext")
 #'
 #' # Removing whole sequences with ambiguous elements:
-#' rm_ambiguous(sq_ami)
-#' rm_ambiguous(sq_dna)
+#' remove_ambiguous(sq_ami)
+#' remove_ambiguous(sq_dna)
 #'
 #' # Removing ambiguous elements from sequences:
-#' rm_ambiguous(sq_ami, by_letter = TRUE)
-#' rm_ambiguous(sq_dna, by_letter = TRUE)
+#' remove_ambiguous(sq_ami, by_letter = TRUE)
+#' remove_ambiguous(sq_dna, by_letter = TRUE)
 #'
 #' # Analysis of the result
-#' sq_clean <- rm_ambiguous(sq_ami)
+#' sq_clean <- remove_ambiguous(sq_ami)
 #' is_empty_sq(sq_clean)
 #' sq_type(sq_clean)
 #'
