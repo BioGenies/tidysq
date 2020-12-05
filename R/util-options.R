@@ -46,7 +46,7 @@
 #'  that does not appear in the original alphabet.
 #' }
 #'
-#' @library display_functions
+#' @family display_functions
 #' @export
 get_tidysq_options <- function() {
   options()[c("tidysq_NA_letter",

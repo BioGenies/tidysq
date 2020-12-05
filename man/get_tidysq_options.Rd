@@ -54,3 +54,8 @@ Full list of options included in \pkg{tidysq} package is listed below:
  that does not appear in the original alphabet.
 }
 }
+\seealso{
+Functions that display sequence info:
+\code{\link{sqprint}}
+}
+\concept{display_functions}

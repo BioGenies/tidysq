@@ -83,4 +83,8 @@ print(sq_dna, max_sequences = 1, use_color = FALSE)
 print(sq_unt, letters_sep = ":")
 
 }
+\seealso{
+Functions that display sequence info:
+\code{\link{get_tidysq_options}()}
+}
 \concept{display_functions}
