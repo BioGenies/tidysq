@@ -40,7 +40,7 @@
 #' # Generating empty sequences (why would anyone though)
 #' random_sq(8, 0, "rna_ext")
 #'
-#' @family io_functions
+#' @family input_functions
 #' @export
 random_sq <- function(n, len, alphabet, sd = NULL, use_gap = FALSE) {
   assert_count(n)

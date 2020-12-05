@@ -236,13 +236,9 @@ sq(c("AGTGGC", "", "CATGA", ""))
 \code{\link{tidysq-options}} \code{\link{substitute_letters}}
 \code{\link{remove_na}}
 
-Functions from I/O module:
-\code{\link{as.character.sq}()},
-\code{\link{as.matrix.sq}()},
-\code{\link{as.sq}()},
-\code{\link{export_sq}()},
+Functions from input module:
 \code{\link{import_sq}()},
 \code{\link{random_sq}()},
-\code{\link{write_fasta}()}
+\code{\link{read_fasta}()}
 }
-\concept{io_functions}
+\concept{input_functions}

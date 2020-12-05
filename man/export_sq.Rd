@@ -72,13 +72,10 @@ export_sq(sq_dna[1], "Biostrings::DNAString")
 \seealso{
 \code{\link[=sq-class]{sq class}}
 
-Functions from I/O module:
+Functions from output module:
 \code{\link{as.character.sq}()},
 \code{\link{as.matrix.sq}()},
 \code{\link{as.sq}()},
-\code{\link{import_sq}()},
-\code{\link{random_sq}()},
-\code{\link{sq}()},
 \code{\link{write_fasta}()}
 }
-\concept{io_functions}
+\concept{output_functions}

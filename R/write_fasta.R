@@ -26,7 +26,7 @@
 #'             "~/fasta_rubbish/example.fasta")
 #' }
 #'
-#' @family io_functions
+#' @family output_functions
 #' @export
 write_fasta <- function(x, name, file,
                         width = 80,

@@ -83,13 +83,9 @@ import_sq(seqinr_dna)
 \seealso{
 \code{\link[=sq-class]{sq class}}
 
-Functions from I/O module:
-\code{\link{as.character.sq}()},
-\code{\link{as.matrix.sq}()},
-\code{\link{as.sq}()},
-\code{\link{export_sq}()},
+Functions from input module:
 \code{\link{random_sq}()},
-\code{\link{sq}()},
-\code{\link{write_fasta}()}
+\code{\link{read_fasta}()},
+\code{\link{sq}()}
 }
-\concept{io_functions}
+\concept{input_functions}

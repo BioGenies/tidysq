@@ -42,13 +42,10 @@ as.character(sq_dna)
 
 }
 \seealso{
-Functions from I/O module:
+Functions from output module:
 \code{\link{as.matrix.sq}()},
 \code{\link{as.sq}()},
 \code{\link{export_sq}()},
-\code{\link{import_sq}()},
-\code{\link{random_sq}()},
-\code{\link{sq}()},
 \code{\link{write_fasta}()}
 }
-\concept{io_functions}
+\concept{output_functions}

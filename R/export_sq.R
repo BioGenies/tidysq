@@ -56,7 +56,7 @@
 #' # Biostrings accept single sequences as well
 #' export_sq(sq_dna[1], "Biostrings::DNAString")
 #'
-#' @family io_functions
+#' @family output_functions
 #' @seealso \code{\link[=sq-class]{sq class}}
 #' @export
 export_sq <- function(x, export_format, name = NULL, ...) {

@@ -1,6 +1,7 @@
 list(
   rd_family_title = list(
-    io_functions = "Functions from I/O module:",
+    input_functions = "Functions from input module:",
+    output_functions = "Functions from output module:",
     cleaning_functions = "Functions that clean sequences:",
     bio_functions = "Functions interpreting sq in biological context:",
     order_functions = "Functions that affect order of elements:",

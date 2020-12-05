@@ -185,7 +185,7 @@
 #' # As well as sq with empty sequences
 #' sq(c("AGTGGC", "", "CATGA", ""))
 #'
-#' @family io_functions
+#' @family input_functions
 #' @seealso \code{\link[=sq-class]{sq class}} \code{\link{read_fasta}}
 #' \code{\link{tidysq-options}} \code{\link{substitute_letters}}
 #' \code{\link{remove_na}}

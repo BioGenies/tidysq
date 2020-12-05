@@ -24,7 +24,7 @@
 #' # Checking that both objects are identical:
 #' identical(sq_1, sq_2)
 #'
-#' @family io_functions
+#' @family output_functions
 #' @export
 # TODO: could we possibly delete this function?
 as.sq <- function(x, ...)
@@ -67,7 +67,7 @@ as.sq.character <- function(x, ...)
 #' # Converting sq object into a character vector:
 #' as.character(sq_dna)
 #'
-#' @family io_functions
+#' @family output_functions
 #' @export
 as.character.sq <- function(x, ...,
                             NA_letter = getOption("tidysq_NA_letter"))
@@ -109,7 +109,7 @@ as.character.sq <- function(x, ...,
 #' # Sequences that differ in length are filled with NA to the maximum length:
 #' as.matrix(sq_rna)
 #'
-#' @family io_functions
+#' @family output_functions
 #' @export
 as.matrix.sq <- function(x, ...) {
   max_len <- max(get_sq_lengths(x))

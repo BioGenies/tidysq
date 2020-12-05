@@ -57,13 +57,9 @@ random_sq(8, 0, "rna_ext")
 
 }
 \seealso{
-Functions from I/O module:
-\code{\link{as.character.sq}()},
-\code{\link{as.matrix.sq}()},
-\code{\link{as.sq}()},
-\code{\link{export_sq}()},
+Functions from input module:
 \code{\link{import_sq}()},
-\code{\link{sq}()},
-\code{\link{write_fasta}()}
+\code{\link{read_fasta}()},
+\code{\link{sq}()}
 }
-\concept{io_functions}
+\concept{input_functions}

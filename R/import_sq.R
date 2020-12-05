@@ -69,7 +69,7 @@
 #' seqinr_dna <- as.SeqFastadna(c("C", "T", "C", "A"), name = "one")
 #' import_sq(seqinr_dna)
 #'
-#' @family io_functions
+#' @family input_functions
 #' @seealso \code{\link[=sq-class]{sq class}}
 #' @export
 import_sq <- function(object, ...)
