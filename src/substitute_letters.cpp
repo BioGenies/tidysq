@@ -7,7 +7,7 @@ using namespace tidysq;
 // [[Rcpp::export]]
 Rcpp::List CPP_substitute_letters(const Rcpp::List &x,
                                   const Rcpp::StringVector &encoding,
-                                  const Rcpp::StringVector &NA_letter) {
+                                  const tidysq::Letter &NA_letter) {
     std::unordered_map<Letter, Letter> encoding_map;
     std::vector<std::string> std_encoding = util::convert_string_vector(encoding);
     std::vector<std::string> names = util::convert_string_vector(Rcpp::StringVector(encoding.names()));

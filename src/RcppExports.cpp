@@ -7,341 +7,341 @@
 using namespace Rcpp;
 
 // CPP_bite
-Rcpp::List CPP_bite(const Rcpp::List& x, const Rcpp::IntegerVector& indices, const Rcpp::StringVector& NA_letter);
+Rcpp::List CPP_bite(const Rcpp::List& x, const Rcpp::IntegerVector& indices, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_bite(SEXP xSEXP, SEXP indicesSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type indices(indicesSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_bite(x, indices, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_complement
-Rcpp::List CPP_complement(const Rcpp::List& x, const Rcpp::StringVector& NA_letter);
+Rcpp::List CPP_complement(const Rcpp::List& x, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_complement(SEXP xSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_complement(x, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_find_invalid_letters
-Rcpp::List CPP_find_invalid_letters(const Rcpp::List& x, const Rcpp::StringVector& dest_type, const Rcpp::StringVector& NA_letter);
+Rcpp::List CPP_find_invalid_letters(const Rcpp::List& x, const std::string& dest_type, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_find_invalid_letters(SEXP xSEXP, SEXP dest_typeSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type dest_type(dest_typeSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type dest_type(dest_typeSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_find_invalid_letters(x, dest_type, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_find_motifs
-Rcpp::List CPP_find_motifs(const Rcpp::List& x, const Rcpp::StringVector& names, const Rcpp::StringVector& motifs, const Rcpp::StringVector& NA_letter);
+Rcpp::List CPP_find_motifs(const Rcpp::List& x, const std::vector<std::string>& names, const std::vector<tidysq::Letter>& motifs, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_find_motifs(SEXP xSEXP, SEXP namesSEXP, SEXP motifsSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type names(namesSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type motifs(motifsSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type names(namesSEXP);
+    Rcpp::traits::input_parameter< const std::vector<tidysq::Letter>& >::type motifs(motifsSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_find_motifs(x, names, motifs, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_has
-Rcpp::LogicalVector CPP_has(const Rcpp::List& x, const Rcpp::StringVector& motifs, const Rcpp::StringVector& NA_letter);
+Rcpp::LogicalVector CPP_has(const Rcpp::List& x, const std::vector<tidysq::Letter>& motifs, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_has(SEXP xSEXP, SEXP motifsSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type motifs(motifsSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const std::vector<tidysq::Letter>& >::type motifs(motifsSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_has(x, motifs, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_get_standard_alphabet
-Rcpp::StringVector CPP_get_standard_alphabet(const Rcpp::StringVector& dest_type);
+Rcpp::StringVector CPP_get_standard_alphabet(const std::string& dest_type);
 RcppExport SEXP _tidysq_CPP_get_standard_alphabet(SEXP dest_typeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type dest_type(dest_typeSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type dest_type(dest_typeSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_get_standard_alphabet(dest_type));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_guess_standard_alph
-Rcpp::StringVector CPP_guess_standard_alph(const Rcpp::StringVector& alph, const Rcpp::StringVector& NA_letter);
+Rcpp::StringVector CPP_guess_standard_alph(const std::vector<std::string>& alph, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_guess_standard_alph(SEXP alphSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type alph(alphSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type alph(alphSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_guess_standard_alph(alph, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_obtain_alphabet
-Rcpp::StringVector CPP_obtain_alphabet(const Rcpp::StringVector& x, const Rcpp::NumericVector& sample_size, const Rcpp::StringVector& NA_letter, const Rcpp::LogicalVector& ignore_case);
+Rcpp::StringVector CPP_obtain_alphabet(const Rcpp::StringVector& x, const Rcpp::NumericVector& sample_size, const tidysq::Letter& NA_letter, const bool& ignore_case);
 RcppExport SEXP _tidysq_CPP_obtain_alphabet(SEXP xSEXP, SEXP sample_sizeSEXP, SEXP NA_letterSEXP, SEXP ignore_caseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type x(xSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type sample_size(sample_sizeSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type ignore_case(ignore_caseSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type ignore_case(ignore_caseSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_obtain_alphabet(x, sample_size, NA_letter, ignore_case));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_pack_RAWS
-Rcpp::List CPP_pack_RAWS(const Rcpp::List& proto, const Rcpp::StringVector& alphabet, const Rcpp::StringVector& NA_letter, const Rcpp::LogicalVector& ignore_case);
+Rcpp::List CPP_pack_RAWS(const Rcpp::List& proto, const Rcpp::StringVector& alphabet, const tidysq::Letter& NA_letter, const bool& ignore_case);
 RcppExport SEXP _tidysq_CPP_pack_RAWS(SEXP protoSEXP, SEXP alphabetSEXP, SEXP NA_letterSEXP, SEXP ignore_caseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type proto(protoSEXP);
     Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type alphabet(alphabetSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type ignore_case(ignore_caseSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type ignore_case(ignore_caseSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_pack_RAWS(proto, alphabet, NA_letter, ignore_case));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_pack_INTS
-Rcpp::List CPP_pack_INTS(const Rcpp::List& proto, const Rcpp::StringVector& alphabet, const Rcpp::StringVector& NA_letter, const Rcpp::LogicalVector& ignore_case);
+Rcpp::List CPP_pack_INTS(const Rcpp::List& proto, const Rcpp::StringVector& alphabet, const tidysq::Letter& NA_letter, const bool& ignore_case);
 RcppExport SEXP _tidysq_CPP_pack_INTS(SEXP protoSEXP, SEXP alphabetSEXP, SEXP NA_letterSEXP, SEXP ignore_caseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type proto(protoSEXP);
     Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type alphabet(alphabetSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type ignore_case(ignore_caseSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type ignore_case(ignore_caseSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_pack_INTS(proto, alphabet, NA_letter, ignore_case));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_pack_STRINGS
-Rcpp::List CPP_pack_STRINGS(const Rcpp::List& proto, const Rcpp::StringVector& alphabet, const Rcpp::StringVector& NA_letter, const Rcpp::LogicalVector& ignore_case);
+Rcpp::List CPP_pack_STRINGS(const Rcpp::List& proto, const Rcpp::StringVector& alphabet, const tidysq::Letter& NA_letter, const bool& ignore_case);
 RcppExport SEXP _tidysq_CPP_pack_STRINGS(SEXP protoSEXP, SEXP alphabetSEXP, SEXP NA_letterSEXP, SEXP ignore_caseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type proto(protoSEXP);
     Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type alphabet(alphabetSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type ignore_case(ignore_caseSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type ignore_case(ignore_caseSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_pack_STRINGS(proto, alphabet, NA_letter, ignore_case));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_pack_STRING
-Rcpp::List CPP_pack_STRING(const Rcpp::StringVector& proto, const Rcpp::StringVector& alphabet, const Rcpp::StringVector& NA_letter, const Rcpp::LogicalVector& ignore_case);
+Rcpp::List CPP_pack_STRING(const Rcpp::StringVector& proto, const Rcpp::StringVector& alphabet, const tidysq::Letter& NA_letter, const bool& ignore_case);
 RcppExport SEXP _tidysq_CPP_pack_STRING(SEXP protoSEXP, SEXP alphabetSEXP, SEXP NA_letterSEXP, SEXP ignore_caseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type proto(protoSEXP);
     Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type alphabet(alphabetSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type ignore_case(ignore_caseSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type ignore_case(ignore_caseSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_pack_STRING(proto, alphabet, NA_letter, ignore_case));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_random_sq
-Rcpp::List CPP_random_sq(const Rcpp::IntegerVector& n, const Rcpp::IntegerVector& len, const Rcpp::StringVector& alphabet, const Rcpp::LogicalVector& use_gap);
+Rcpp::List CPP_random_sq(const int& n, const Rcpp::IntegerVector& len, const Rcpp::StringVector& alphabet, const bool& use_gap);
 RcppExport SEXP _tidysq_CPP_random_sq(SEXP nSEXP, SEXP lenSEXP, SEXP alphabetSEXP, SEXP use_gapSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type n(nSEXP);
+    Rcpp::traits::input_parameter< const int& >::type n(nSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type len(lenSEXP);
     Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type alphabet(alphabetSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type use_gap(use_gapSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type use_gap(use_gapSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_random_sq(n, len, alphabet, use_gap));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_read_fasta
-Rcpp::DataFrame CPP_read_fasta(const Rcpp::StringVector& file_name, const Rcpp::StringVector& alphabet, const Rcpp::StringVector& NA_letter, const Rcpp::LogicalVector& ignore_case);
+Rcpp::DataFrame CPP_read_fasta(const std::string& file_name, const Rcpp::StringVector& alphabet, const tidysq::Letter& NA_letter, const bool& ignore_case);
 RcppExport SEXP _tidysq_CPP_read_fasta(SEXP file_nameSEXP, SEXP alphabetSEXP, SEXP NA_letterSEXP, SEXP ignore_caseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type file_name(file_nameSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type file_name(file_nameSEXP);
     Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type alphabet(alphabetSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type ignore_case(ignore_caseSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type ignore_case(ignore_caseSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_read_fasta(file_name, alphabet, NA_letter, ignore_case));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_sample_fasta
-Rcpp::StringVector CPP_sample_fasta(const Rcpp::StringVector& file_name, const Rcpp::NumericVector& sample_size, const Rcpp::StringVector& NA_letter, const Rcpp::LogicalVector& ignore_case);
+Rcpp::StringVector CPP_sample_fasta(const std::string& file_name, const Rcpp::NumericVector& sample_size, const tidysq::Letter& NA_letter, const bool& ignore_case);
 RcppExport SEXP _tidysq_CPP_sample_fasta(SEXP file_nameSEXP, SEXP sample_sizeSEXP, SEXP NA_letterSEXP, SEXP ignore_caseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type file_name(file_nameSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type file_name(file_nameSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type sample_size(sample_sizeSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type ignore_case(ignore_caseSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type ignore_case(ignore_caseSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_sample_fasta(file_name, sample_size, NA_letter, ignore_case));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_remove_NA
-Rcpp::List CPP_remove_NA(const Rcpp::List& x, const Rcpp::LogicalVector& by_letter, const Rcpp::StringVector& NA_letter);
+Rcpp::List CPP_remove_NA(const Rcpp::List& x, const bool& by_letter, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_remove_NA(SEXP xSEXP, SEXP by_letterSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type by_letter(by_letterSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type by_letter(by_letterSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_remove_NA(x, by_letter, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_remove_ambiguous
-Rcpp::List CPP_remove_ambiguous(const Rcpp::List& x, const Rcpp::LogicalVector& by_letter, const Rcpp::StringVector& NA_letter);
+Rcpp::List CPP_remove_ambiguous(const Rcpp::List& x, const bool& by_letter, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_remove_ambiguous(SEXP xSEXP, SEXP by_letterSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type by_letter(by_letterSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type by_letter(by_letterSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_remove_ambiguous(x, by_letter, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_reverse
-Rcpp::List CPP_reverse(const Rcpp::List& x, const Rcpp::StringVector& NA_letter);
+Rcpp::List CPP_reverse(const Rcpp::List& x, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_reverse(SEXP xSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_reverse(x, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_substitute_letters
-Rcpp::List CPP_substitute_letters(const Rcpp::List& x, const Rcpp::StringVector& encoding, const Rcpp::StringVector& NA_letter);
+Rcpp::List CPP_substitute_letters(const Rcpp::List& x, const Rcpp::StringVector& encoding, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_substitute_letters(SEXP xSEXP, SEXP encodingSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
     Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type encoding(encodingSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_substitute_letters(x, encoding, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_translate
-Rcpp::List CPP_translate(const Rcpp::List& x, const Rcpp::IntegerVector& table, const Rcpp::StringVector& NA_letter, const Rcpp::LogicalVector& interpret_as_stop);
+Rcpp::List CPP_translate(const Rcpp::List& x, const int& table, const tidysq::Letter& NA_letter, const bool& interpret_as_stop);
 RcppExport SEXP _tidysq_CPP_translate(SEXP xSEXP, SEXP tableSEXP, SEXP NA_letterSEXP, SEXP interpret_as_stopSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type table(tableSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type interpret_as_stop(interpret_as_stopSEXP);
+    Rcpp::traits::input_parameter< const int& >::type table(tableSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type interpret_as_stop(interpret_as_stopSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_translate(x, table, NA_letter, interpret_as_stop));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_typify
-Rcpp::List CPP_typify(const Rcpp::List& x, const Rcpp::StringVector& dest_type, const Rcpp::StringVector& NA_letter);
+Rcpp::List CPP_typify(const Rcpp::List& x, const std::string& dest_type, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_typify(SEXP xSEXP, SEXP dest_typeSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type dest_type(dest_typeSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type dest_type(dest_typeSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_typify(x, dest_type, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_unpack_RAWS
-Rcpp::List CPP_unpack_RAWS(const Rcpp::List& sq, const Rcpp::StringVector& NA_letter);
+Rcpp::List CPP_unpack_RAWS(const Rcpp::List& sq, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_unpack_RAWS(SEXP sqSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type sq(sqSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_unpack_RAWS(sq, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_unpack_INTS
-Rcpp::List CPP_unpack_INTS(const Rcpp::List& sq, const Rcpp::StringVector& NA_letter);
+Rcpp::List CPP_unpack_INTS(const Rcpp::List& sq, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_unpack_INTS(SEXP sqSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type sq(sqSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_unpack_INTS(sq, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_unpack_STRINGS
-Rcpp::List CPP_unpack_STRINGS(const Rcpp::List& sq, const Rcpp::StringVector& NA_letter);
+Rcpp::List CPP_unpack_STRINGS(const Rcpp::List& sq, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_unpack_STRINGS(SEXP sqSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type sq(sqSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_unpack_STRINGS(sq, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_unpack_STRING
-Rcpp::StringVector CPP_unpack_STRING(const Rcpp::List& sq, const Rcpp::StringVector& NA_letter);
+Rcpp::StringVector CPP_unpack_STRING(const Rcpp::List& sq, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_unpack_STRING(SEXP sqSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type sq(sqSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_unpack_STRING(sq, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_write_fasta
-void CPP_write_fasta(Rcpp::List& x, Rcpp::StringVector& names, Rcpp::StringVector& file, Rcpp::IntegerVector& width, Rcpp::StringVector& NA_value);
+void CPP_write_fasta(const Rcpp::List& x, const std::vector<std::string>& names, const std::string& file, const int& width, const tidysq::Letter& NA_value);
 RcppExport SEXP _tidysq_CPP_write_fasta(SEXP xSEXP, SEXP namesSEXP, SEXP fileSEXP, SEXP widthSEXP, SEXP NA_valueSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::List& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::StringVector& >::type names(namesSEXP);
-    Rcpp::traits::input_parameter< Rcpp::StringVector& >::type file(fileSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector& >::type width(widthSEXP);
-    Rcpp::traits::input_parameter< Rcpp::StringVector& >::type NA_value(NA_valueSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type names(namesSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type file(fileSEXP);
+    Rcpp::traits::input_parameter< const int& >::type width(widthSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_value(NA_valueSEXP);
     CPP_write_fasta(x, names, file, width, NA_value);
     return R_NilValue;
 END_RCPP

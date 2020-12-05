@@ -6,12 +6,11 @@ using namespace tidysq;
 
 //[[Rcpp::export]]
 Rcpp::List CPP_translate(const Rcpp::List &x,
-                         const Rcpp::IntegerVector &table,
-                         const Rcpp::StringVector &NA_letter,
-                         const Rcpp::LogicalVector &interpret_as_stop) {
-    // TODO: replace with Rcpp::IntegerVector and coercing to scalar int
+                         const int &table,
+                         const tidysq::Letter &NA_letter,
+                         const bool &interpret_as_stop) {
     return export_to_R(translate<RCPP_IT>(
             import_from_R(x, NA_letter),
-            util::convert_to_scalar(table),
-            util::convert_to_scalar(interpret_as_stop)));
+            table,
+            interpret_as_stop));
 }

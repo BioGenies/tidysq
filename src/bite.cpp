@@ -7,7 +7,7 @@ using namespace tidysq;
 // [[Rcpp::export]]
 Rcpp::List CPP_bite(const Rcpp::List& x,
                     const Rcpp::IntegerVector& indices,
-                    const Rcpp::StringVector &NA_letter) {
+                    const tidysq::Letter &NA_letter) {
     if (Rcpp::is_true(Rcpp::all(indices > 0))) {
         Rcpp::IntegerVector cpp_indices = indices - 1;
         std::pair<std::string, Sq<RCPP_IT>> ret =
