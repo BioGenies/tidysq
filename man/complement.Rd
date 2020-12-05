@@ -70,6 +70,8 @@ complement(sq_rna)
 \code{\link[=sq-class]{sq}}
 
 Functions interpreting sq in biological context:
+\code{\link{\%has\%}()},
+\code{\link{find_motifs}()},
 \code{\link{translate}()}
 }
 \concept{bio_functions}

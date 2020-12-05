@@ -28,46 +28,67 @@ context of \code{\link[=sq-class]{sq class}}. Default value equals to
 }
 \value{
 A \code{\link[tibble]{tibble}} with following columns:
- \item{name}{name of the sequence}
- \item{sq}{sequence}
+ \item{name}{name of the sequence in which a motif was found}
  \item{sought}{sought motif}
- \item{found}{motif found in a sequence, may differ from sought if a motif
- contained ambiguous letters}
- \item{start}{position of motif start}
- \item{end}{position of motif end}
+ \item{found}{found subsequence, may differ from sought if the motif
+  contained ambiguous letters}
+ \item{start}{position of first element of found motif}
+ \item{end}{position of last element of found motif}
 }
 \description{
-Find all given motifs in all sequences and return their 
-positions.
+Finds all given motifs in sequences and returns their positions.
 }
 \details{
-This function allows search of a given motif or motifs in the \code{sq} 
-object. It returns all motifs found with their start and end positions 
-within a sequence.
+This function allows search of a given motif or motifs in the \code{sq}
+object. It returns all motifs found with their start and end positions within
+a sequence.
 }
-\section{Allowed and forbidden letters and characters details}{
+\section{Motif capabilities and restrictions}{
 
-Note if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
-search for motifs cannot be performed and an error will be displayed (with 
-exception of sq objects of type ami - there is '*' letter in their alphabet
-and it can be contained in sought motif). To search for motifs with those 
-characters, you have to replace them first using 
-\code{\link{substitute_letters}}. 
+There are more options than to simply create a motif that is a string
+representation of searched subsequence. For example, when using this function
+with any of standard types, i.e. \strong{ami}, \strong{dna} or \strong{rna},
+the user can create a motif with ambiguous letters. In this case the engine
+will try to match any of possible meanings of this letter. For example, take
+"B" from extended DNA alphabet. It means "not A", so it can be matched with
+"C", "G" and "T", but also "B", "Y" (either "C" or "T"), "K" (either "G" or
+"T") and "S" (either "C" or "G").
 
-If sq objects of type \strong{ami}, \strong{dna} and \strong{rna}, motifs have to
-consist of upper case letters from amino acid, DNA and RNA alphabets respectively.
-Use of lower case letters will return an error. Two additional characters 
-are allowed: '^' and '$' indicating the beginning and the end of a sequence 
-respectively. Moreover, notice that '*' character may be used in amino acid 
-motifs, as it is a part of the amino acid alphabet. If a motif contains 
-ambiguous letters, all possible matches will be searched for. For example the 
-amino acid motif "MAJ" (where "J" is an ambiguous letter indicating L or I) will 
-find the motifs: "MAJ", "MAL" and "MAI". 
+Full list of ambiguous letters with their meaning can be found on IUPAC site.
 
-Detailed list of all letters corresponding to each ambiguous letter may be found at
-\code{\link{aminoacids_df}} and \code{\link{nucleotides_df}}.
+Motifs are also restricted in that the alphabets of \code{sq} objects on
+which search operations are conducted cannot contain "^" and "$" symbols.
+These two have a special meaning - they are used to indicate beginning and
+end of sequence respectively and can be used to limit the position of matched
+subsequences.
 }
 
+\examples{
+# Creating objects to work on:
+sq_dna <- sq(c("ATGCAGGA", "GACCGNBAACGAN", "TGACGAGCTTAG"),
+             alphabet = "dna_bsc")
+sq_ami <- sq(c("AGNTYIKFGGAYTI", "MATEGILIAADGYTWIL", "MIPADHICAANGIENAGIK"),
+             alphabet = "ami_bsc")
+sq_names <- c("sq1", "sq2", "sq3")
+
+# Finding motif of two alanines followed by aspartic acid or asparagine
+# ("AAB" motif matches "AAB", "AAD" and "AAN"):
+find_motifs(sq_ami, sq_names, "AAB")
+
+# Finding "C" at fourth position:
+find_motifs(sq_dna, sq_names, "^NNNC")
+
+# Finding motif "I" at second-to-last position:
+find_motifs(sq_ami, sq_names, "IX$")
+
+# Finding multiple motifs:
+find_motifs(sq_dna, sq_names, c("^ABN", "ANCBY", "BAN$"))
+
+}
 \seealso{
-\code{\link[=sq-class]{sq}} \code{\link{substitute_letters}} \code{\link{\%has\%}}
+Functions interpreting sq in biological context:
+\code{\link{\%has\%}()},
+\code{\link{complement}()},
+\code{\link{translate}()}
 }
+\concept{bio_functions}

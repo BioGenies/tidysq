@@ -75,6 +75,8 @@ translate(sq_dna)
 \code{\link{typify}} for necessary actions before using \code{translate()}
 
 Functions interpreting sq in biological context:
-\code{\link{complement}()}
+\code{\link{\%has\%}()},
+\code{\link{complement}()},
+\code{\link{find_motifs}()}
 }
 \concept{bio_functions}
