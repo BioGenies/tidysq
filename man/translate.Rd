@@ -25,15 +25,23 @@ translate(x, table = 1, ...)
 )
 }
 \arguments{
-\item{x}{an object of class \code{\link[=sq-class]{sq}} with either \strong{dna} or
-\strong{rna} type}
+\item{x}{[\code{sq_dna_bsc} || \code{sq_rna_bsc}]\cr
+An object this function is applied to.}
 
-\item{table}{integer number of translation table used, as specified
-\href{https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi}{here}}
+\item{table}{[\code{integer(1)}]\cr
+ The number of translation table used, as specified
+\href{https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi}{here}.}
+
+\item{...}{further arguments to be passed from or to other methods.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
 }
 \value{
-An object of \code{\link[=sq-class]{class sq}} with \strong{ami} type and
-\strong{cln} subtype.
+An object of \code{\link[=sq-class]{class sq}} with \strong{ami_bsc}
+type.
 }
 \description{
 This function allows the user to input DNA or RNA sequences and
@@ -50,14 +58,25 @@ key is equal to the current chunk and the value is one letter that encodes
 the corresponding protein. These resulting letters are then pasted into one
 sequence for each input sequence and objectifized into an \code{sq} object.
 
-Due to how the table works, \code{translate()} does not support inputting
-uncleaned sequences, as ambiguous letters mostly cannot be translated into
-exactly one protein.
+Due to how the tables works, \code{translate()} does not support inputting
+sequences with extended alphabets, as ambiguous letters in most cases cannot
+be translated into exactly one protein.
 
-Moreover, behaviour of this function is undefined whenever cleaned sequence
-contain either \code{-} or \code{NA} sign.
+Moreover, behaviour of this function is undefined whenever input sequence
+contain either "\code{-}" or \code{NA} value.
+}
+\examples{
+sq_dna <- sq(c("TACTGGGCATGA", "CAGGTC", "TAGTCCTAG"), alphabet = "dna_bsc")
+translate(sq_dna)
+
 }
 \seealso{
-\code{\link{clean}}, \code{\link{substitute_letters}} and
+\code{\link{remove_ambiguous}}, \code{\link{substitute_letters}} and
 \code{\link{typify}} for necessary actions before using \code{translate()}
+
+Functions interpreting sq in biological context:
+\code{\link{\%has\%}()},
+\code{\link{complement}()},
+\code{\link{find_motifs}()}
 }
+\concept{bio_functions}

@@ -16,43 +16,75 @@ bite(x, indices, ...)
 )
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
-\item{indices}{a \code{\link{numeric}} vector of subsequence indices to extract from
-each sequence. The function follows the normal R conventions for indexing 
-vectors, including negative indices.}
+\item{indices}{[\code{integer}]\cr
+Indices to extract from each sequence. The function follows the normal R
+conventions for indexing vectors, including negative indices.}
 
-\item{NA_letter}{an \code{NA_letter} - a string value.}
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
+
+\item{on_warning}{[\code{"none" || "message" || "warning" || "error"}]\cr
+Determines the method of handling warning message. Default value is
+\code{"warning"}.}
 }
 \value{
-\code{\link[=sq-class]{sq}} object of the same type as input sq, where each
-element is a subsequence created by indexing corresponding sequence from 
-input sq object with input indices.
+\code{\link[=sq-class]{sq}} object of the same type as input
+\code{sq}, where each element is a subsequence created by indexing
+corresponding sequence from input \code{sq} object with input indices.
 }
 \description{
-Extracts a defined range of elements (amino acids or nucleotides) 
-from a sequence.
+Extracts a defined range of elements from all sequences.
 }
 \details{
-Amino acids and nucleic acid sequences are represented as \code{\link[=sq-class]{sq}}
-object in the \code{\link{tidysq}} package. Often one needs to get only a 
-single letter, or the sequence of a defined range from the original sequences. 
-A subsequence is a sequence that can be derived from the original sequence 
-by trimming some elements (letters) without changing the order of the 
-remaining elements. To get a subsequence from each sequence contained in 
-the \code{\link[=sq-class]{sq}} object with the same indices. This is for example
-useful to extract a user-defined region from a sequence. 
+\code{bite} function allows user to access specific elements from multiple
+sequences at once.
 
-The usage of \code{bite} follows the normal R conventions. For details 
-refer to the R documentation (see 
-\url{https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Index-vectors}). 
-Extracting indices not present in the sequence results in introducing 
-\code{\link{NA}} (‘Not Available’ / Missing Value) values. 
-Information about it is printed on a console depending on the value of option 
-'tidysq_a_bite_na' - it can be either a warning (default), an error,
-a message or no information (you can check details in \code{\link{tidysq-options})}. 
-\code{NA} values can be removed by using \code{\link{remove_na}} function.
+By passing positive indices the user can choose, which elements they want
+from each sequence. If a sequence is shorter than an index, then \code{NA}
+value is inserted into the result in this place and a warning is issued.
+The user can specify behaviour of R in this case by specifying
+\code{on_warning} parameter.
+
+Negative indices are supported as well. Their interpretation is "to select
+all elements except those on positions specified by these negative indices".
+This means that e.g. \code{c(-1, -3, -5)} vector will be used to bite all
+sequence elements except the first, the third and the fifth. If a sequence
+is shorter than any index, then nothing happens, as it's physically
+impossible to extract an element at said index.
+
+As per normal R convention, it isn't accepted to mix positive and negative
+indices, because there is no good interpretation possible for that.
+}
+\examples{
+# Creating objects to work on:
+sq_dna <- sq(c("ATGCAGGA", "GACCGNBAACGAN", "TGACGAGCTTA"),
+             alphabet = "dna_bsc")
+sq_ami <- sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
+             alphabet = "ami_ext")
+sq_unt <- sq(c("ATGCAGGA?", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
+
+# Extracting first five letters:
+bite(sq_dna, 1:5)
+
+# If a sequence is shorter than 5, then NA is introduced:
+bite(sq_unt, 1:5)
+
+# Selecting fourth, seventh and fourth again letter:
+bite(sq_ami, c(4, 7, 4))
+
+# Selecting all letters except first four:
+bite(sq_dna, -1:-4)
+
 }
 \seealso{
-\code{\link[=sq-class]{sq}} \code{\link{remove_na}} \code{\link{tidysq-options}}
+\code{\link{remove_na}}
+
+Functions that affect order of elements:
+\code{\link{reverse}()}
 }
+\concept{order_functions}

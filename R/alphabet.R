@@ -1,37 +1,73 @@
 #' Get alphabet of given sq object.
 #' 
-#' Function returns amino acid, DNA, RNA or atypical alphabet based on a \code{\link[=sq-class]{sq}}
-#' object type. 
+#' @description Returns \code{alphabet} attribute of an object.
 #' 
-#' @param x a \code{\link[=sq-class]{sq}} object to be recognized.
+#' @param x [\code{sq}]\cr
+#'  An object to extract alphabet from.
 #'  
 #' @return A character vector of letters of the alphabet.
 #' 
-#' @details This function allows returning alphabet of \code{sq} object which is a character
-#' or numeric vector. The function reads provided \code{\link[=sq-class]{sq}} object and determines,
-#' which kind of sequences user assigned to a \code{\link[=sq-class]{sq}} object (DNA, RNA, amino acid,
-#' atypical or encoded one).
-#' 
-#' If \code{\link[=sq-class]{sq}} has \strong{ami} type and \strong{cln} subtype, the function returns
-#' the set of 20 aminoacids, the gap (-) and the stop codon (*) letter. If \strong{cln} is
-#' missing, ambiguous letters are included as well.
-#' 
-#' If a \code{\link[=sq-class]{sq}} contains \strong{dna} or \strong{rna} sequences and \strong{cln}
-#' subtype, the function returns a set of respective 4 nucleotides with gap (-) element.
-#' If \strong{cln} is missing, ambiguous letters are included as well.
-#' 
-#' If \code{\link[=sq-class]{sq}} type is \strong{unt} or \strong{atp}, the function returns a list of
-#' letters present in sequences of a \code{\link[=sq-class]{sq}} object.
-#' 
-#' If type is \strong{enc}, a numeric vector of values encoded for letters is returned
-#' (see \code{\link{encode}}).
-#' 
-#' The details about amino acid and nucleotide alphabets can be checked in
-#' \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}} respectively. General
-#' information about alphabets and types of \code{sq} objects can be found in \code{\link[=sq-class]{sq}}
-#' class documentation.
+#' @details
+#' Each \code{sq} object have an \strong{alphabet} associated with it. Alphabet
+#' is a set of possible \strong{letters} that can appear in sequences contained
+#' in object. Alphabet is kept mostly as a character vector, where each element
+#' represents one \strong{letter}.
 #'
-#' @seealso \code{\link[=sq-class]{sq}} \code{\link{construct_sq}} \code{\link{encode}}
+#' \code{sq} objects of type \strong{ami}, \strong{dna} or \strong{rna} have
+#' fixed, predefined alphabets. In other words, if two \code{sq} objects have
+#' exactly the same type - \strong{ami_bsc}, \strong{dna_ext}, \strong{rna_bsc}
+#' or any other combination - they are ensured to have the same alphabet.
+#'
+#' Below are listed alphabets for these types:
+#' \itemize{
+#' \item \strong{ami_bsc} - ACDEFGHIKLMNPQRSTVWY-*
+#' \item \strong{ami_ext} - ABCDEFGHIJKLMNOPQRSTUVWXYZ-*
+#' \item \strong{dna_bsc} - ACGT-
+#' \item \strong{dna_ext} - ACGTWSMKRYBDHVN-
+#' \item \strong{rna_bsc} - ACGU-
+#' \item \strong{rna_ext} - ACGUWSMKRYBDHVN-
+#' }
+#'
+#' Other types of \code{sq} objects are allowed to have different alphabets.
+#' Furthermore, having an alphabet exactly identical to one of those above does
+#' not automatically indicate that the type of the sequence is one of those -
+#' e.g., there might be an \strong{atp} \code{sq} that has an alphabet
+#' identical to \strong{ami_bsc} alphabet. To set the type, one should
+#' use the \code{\link{typify}} or \code{`sq_type<-`} function.
+#'
+#' The purpose of co-existence of \strong{unt} and \strong{atp} alphabets is
+#' the fact that although there is a standard for format of \emph{fasta} files,
+#' sometimes there are other types of symbols, which do not match the standard.
+#' Thanks to these types, tidysq can import files with customized alphabets.
+#' Moreover, the user may want to group amino acids with similar properties
+#' (e.g., for machine learning) and replace the standard alphabet with symbols
+#' for whole groups. To check details, see \code{\link{read_fasta}},
+#' \code{\link{sq}} and \code{\link{substitute_letters}}.
+#'
+#' \strong{Important note:} in \strong{atp} alphabets there is a possibility
+#' of letters appearing that consist of more than one character - this
+#' functionality is provided in order to handle situations like
+#' post-translational modifications, (e.g., using "\code{mA}" to indicate
+#' methylated alanine).
+#'
+#' \strong{Important note:} alphabets of \strong{atp} and \strong{unt}
+#' \code{sq} objects are case sensitive. Thus, in their alphabets both
+#' lowercase and uppercase characters can appear simultaneously and they are
+#' treated as different letters. Alphabets of \strong{dna}, \strong{rna} and
+#' \strong{ami} types are always uppercase and all functions converts other
+#' parameters to uppercase when working with \strong{dna}, \strong{rna} or
+#' \strong{ami} - e.g. \code{\link{\%has\%}} operator converts lower letters to
+#' upper when searching for motifs in \strong{dna}, \strong{rna} or
+#' \strong{ami} object.
+#'
+#' \strong{Important note:} maximum length of an alphabet is
+#' \strong{30 letters}. The user is not allowed to read fasta files or
+#' construct \code{sq} objects from character vectors that have more than 30
+#' distinct characters in sequences (unless creating \strong{ami}, \strong{dna}
+#' or \strong{rna} objects with \code{ignore_case} parameter set equal to
+#' \code{TRUE}).
+#'
+#' @seealso \code{\link[=sq-class]{sq class}}
 #' @export
 alphabet <- function(x)
   attr(x, "alphabet")
@@ -59,12 +95,14 @@ get_standard_alphabet <- function(type) {
   CPP_get_standard_alphabet(type)
 }
 
+# Scans ProtoSq object to determine alphabet (understood as unique encountered letters).
 obtain_alphabet <- function(x, sample_size = 4096, 
                             NA_letter = getOption("tidysq_NA_letter"),
                             ignore_case = FALSE) {
   CPP_obtain_alphabet(x, sample_size, NA_letter, ignore_case)
 }
 
+# Finds smallest standard alphabet that contains all letters from alph.
 guess_standard_alphabet <- function(alph,
                                     NA_letter = getOption("tidysq_NA_letter")) {
   CPP_guess_standard_alph(alph, NA_letter)
@@ -79,6 +117,7 @@ guess_standard_alphabet <- function(alph,
   ret
 }
 
+# Returns number of bits that each letter uses.
 size <- function(alph) {
   ceiling(log2(length(alph) + 1))
 }

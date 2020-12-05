@@ -10,65 +10,75 @@ substitute_letters(x, encoding, ...)
 \method{substitute_letters}{sq}(x, encoding, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
-\item{encoding}{a vector of letters to be replaced together with their replacements.
-One letter can be replaced with multiple symbols. 
-To perform substitution create a named vector, e.g.
-\code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.}
+\item{encoding}{[\code{character} || \code{numeric}]\cr
+A dictionary (named vector), where names are letters to be replaced and
+elements are their respective replacements.}
 
-\item{NA_letter}{an \code{NA_letter} - a string value.}
+\item{...}{further arguments to be passed from or to other methods.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
 }
 \value{
-a \code{\link[=sq-class]{sq}} object with \strong{atp} type with replaced alphabet,
-defined by user.
+An \code{\link[=sq-class]{sq}} object of \strong{atp} type with
+updated alphabet.
 }
 \description{
-1) Replace ambiguous/extraordinary letters in a nucleic or 
-amino acid sequence, stored in a \code{\link[=sq-class]{sq}} object, with the ones
-that are compliant with the IUPAC standard, ones that are user-defined 
-or with \code{NA} values.
-
-2) Replace default amino acid letters in a sequence with a custom encoding 
-to create sequences with simplified alphabets.
-
-The function is only used to replace letters in the alphabet. 
-It cannot be used to merge multiple characters into one.
+Replaces all occurences of a letter with another.
 }
 \details{
-\code{substitute_letters} allows to replace ambiguous/extraordinary 
-letters in nucleic or amino acid sequence with user-defined or IUPAC 
-symbols. Letters can also be replaced with \code{\link{NA}} values, so that they 
-can be later removed, from the sequence, by \code{\link{clean}} function.
+\code{substitute_letters} allows to replace unwanted letters in any sequence
+with user-defined or IUPAC  symbols. Letters can also be replaced with
+\code{\link{NA}} values, so that they  can be later removed from the sequence
+by \code{\link{remove_na}} function.
 
-\code{substitute_letters} can be used to replace default amino acid letters 
-with encodings. They can be user-defined or be derived from various 
-simplified alphabets.
+It doesn't matter whether replaced or replacing letter is single or multiple
+character. However, the user cannot replace multiple letters with one nor one
+letter with more than one.
 
-One letter of the alphabet may be replaced by a multiple character. 
+Of course, multiple different letters can be encoded to the same symbol, so
+\code{c(A = "rep1", H = "rep1", G = "rep1")} is allowed, but
+\code{c(AHG = "rep1")} is not (unless there is a letter "\code{AHG}" in
+the alphabet). By doing that any information of separateness of original
+letters is lost, so it isn't possible to retrieve original sequence after
+this operation.
 
-The alphabet characters to be replaced need to be written in capital letters
-and must originate from default alphabets, otherwise error will be 
-introduced.
+All encoding names must be letters contained within the alphabet, otherwise
+an error will be thrown.
+}
+\examples{
+# Creating objects to work on:
+sq_dna <- sq(c("ATGCAGGA", "GACCGAACGAN", "TGACGAGCTTA", "ACTNNAGCN"),
+             alphabet = "dna_ext")
+sq_ami <- sq(c("MIOONYTWIL","TIOOLGNIIYROIE", "NYERTGHLI", "MOYXXXIOLN"),
+             alphabet = "ami_ext")
+sq_atp <- sq(c("mALPVQAmAmA", "mAmAPQ"), alphabet = c("mA", LETTERS))
 
-Multiple string of letters to be substituted 
-(ex. \code{c(AHG = "replacement")}) will also produce an error.
+# Not all letters must have their encoding specified:
+substitute_letters(sq_dna, c(T = "t", A = "a", C = "c", G = "g"))
+substitute_letters(sq_ami, c(M = "X"))
 
-Replacing multiple letters with the same symbol 
-(ex. \code{c(A = "rep1", H  = "rep1", G = "rep1")}) is allowed.
+# Multiple character letters are supported in encodings:
+substitute_letters(sq_atp, c(mA = "-"))
+substitute_letters(sq_ami, c(I = "ough", O = "eau"))
 
-Created sequence will be stripped of \strong{cln} subtype, 
-if the original sequence possessed it. This will also occur when
-the letter to be replaced will not be found in the sequence. 
-It remain unchanged but will lose subclass.
+# Numeric substitutions are allowed too, these are coerced to characters:
+substitute_letters(sq_dna, c(N = 9, G = 0.07)
 
-The newly constructed will have a new type \strong{atp}, 
-representing sequences with atypical alphabet.
+# It's possible to replace a letter with NA value:
+substitute_letters(sq_ami, c(X = NA))
 
-All replaced letters will have the character type. 
-Multiple symbol replacement will be recognized as one letter and 
-cannot be separated in future operations into single letters.
 }
 \seealso{
-\code{\link[=sq-class]{sq}}
+Functions that manipulate type of sequences:
+\code{\link{find_invalid_letters}()},
+\code{\link{is.sq}()},
+\code{\link{sq_type}()},
+\code{\link{typify}()}
 }
+\concept{type_functions}

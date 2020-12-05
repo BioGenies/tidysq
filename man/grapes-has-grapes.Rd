@@ -7,51 +7,80 @@
 x \%has\% y
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object to be tested.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
-\item{y}{a \code{character} vector of motifs to be searched for.}
+\item{y}{[\code{character}]\cr
+Motifs to be searched for.}
 }
 \value{
-A \code{\link{logical}} vector of the same length as input \code{sq}, indicating 
-which elements contain all given motifs
+A \code{\link{logical}} vector of the same length as input \code{sq},
+indicating which elements contain all given motifs.
 }
 \description{
-Test if elements of a \code{\link[=sq-class]{sq}} object contain given motifs
+Tests if elements of a \code{\link[=sq-class]{sq}} object
+contain given motifs.
 }
 \details{
-This function allows testing if elements of a \code{sq} object contain 
-a given motif or motifs, which includes start sequences and stop codons. It returns 
-a \code{logical} for every element of the \code{sq} object - \code{TRUE} if it 
-contains the motif and \code{FALSE} otherwise. When multiple motifs are searched, 
-\code{TRUE} will be returned only for sequences that contain all the given motifs. 
+This function allows testing if elements of a \code{sq} object contain the
+given motif or motifs. It returns a \code{logical} value for every element
+of the \code{sq} object - \code{TRUE} if tested sequence contains searched
+motif and \code{FALSE} otherwise. When multiple motifs are searched,
+\code{TRUE} will be returned only for sequences that contain all given
+motifs.
 
-This function only indicates if a motif is present within a sequence, to 
-find all motifs, and their positions within sequences use 
+This function only indicates if a motif is present within a sequence, to find
+all motifs and their positions within sequences use
 \code{\link{find_motifs}}.
 }
-\section{Allowed and forbidden letters and characters details}{
+\section{Motif capabilities and restrictions}{
 
-Note: if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
-search for motifs cannot be performed and an error will be displayed (with 
-exception of sq objects of type ami - in their alphabet there is '*' letter 
-and it can be contained in sought motif). To search for motifs with those 
-characters, you have to replace them first using 
-\code{\link{substitute_letters}}. 
+There are more options than to simply create a motif that is a string
+representation of searched subsequence. For example, when using this function
+with any of standard types, i.e. \strong{ami}, \strong{dna} or \strong{rna},
+the user can create a motif with ambiguous letters. In this case the engine
+will try to match any of possible meanings of this letter. For example, take
+"B" from extended DNA alphabet. It means "not A", so it can be matched with
+"C", "G" and "T", but also "B", "Y" (either "C" or "T"), "K" (either "G" or
+"T") and "S" (either "C" or "G").
 
-In case of sq objects of type \strong{ami}, \strong{dna} and \strong{rna},
-motifs have to consist of upper case letters from amino acid, DNA and RNA alphabets
-respectively. Use of lower case letters will return an error. Two additional
-characters are allowed: '^' and '$' indicating the beginning and the end of a sequence 
-respectively. Moreover, notice that '*' character may be used in amino acid 
-motifs, as it is a part of the amino acid alphabet. If a motif contains 
-ambiguous letters, all possible matches will be searched for, e.g., amino 
-acid motif "MAJ" (where "J" is an ambiguous letter indicating L, or I) will 
-find motifs: "MAJ", "MAL" and "MAI". 
+Full list of ambiguous letters with their meaning can be found on IUPAC site.
 
-Detailed list of all letters corresponding to each ambiguous letter may be found at
-\code{\link{aminoacids_df}} and \code{\link{nucleotides_df}}.
+Motifs are also restricted in that the alphabets of \code{sq} objects on
+which search operations are conducted cannot contain "^" and "$" symbols.
+These two have a special meaning - they are used to indicate beginning and
+end of sequence respectively and can be used to limit the position of matched
+subsequences.
 }
 
+\examples{
+# Creating objects to work on:
+sq_dna <- sq(c("ATGCAGGA", "GACCGNBAACGAN", "TGACGAGCTTAG"),
+             alphabet = "dna_bsc")
+sq_ami <- sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
+             alphabet = "ami_ext")
+
+# Testing if DNA sequences contain motif "ATG":
+sq_dna \%has\% "ATG"
+
+# Testing if DNA sequences begin with "ATG":
+sq_dna \%has\% "^ATG"
+
+# Testing if DNA sequences end with "TAG" (one of the stop codons):
+sq_dna \%has\% "TAG$"
+
+# Test if amino acid sequences contain motif of two alanines followed by
+# aspartic acid or asparagine ("AAB" motif matches "AAB", "AAD" and "AAN"):
+sq_ami \%has\% "AAB"
+
+# Test if amino acid sequences contain both motifs:
+sq_ami \%has\% c("AAXG", "MAT")
+
+}
 \seealso{
-\code{\link[=sq-class]{sq}} \code{\link{substitute_letters}} \code{\link{find_motifs}}
+Functions interpreting sq in biological context:
+\code{\link{complement}()},
+\code{\link{find_motifs}()},
+\code{\link{translate}()}
 }
+\concept{bio_functions}

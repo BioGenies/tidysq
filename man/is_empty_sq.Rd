@@ -2,32 +2,60 @@
 % Please edit documentation in R/is_empty_sq.R
 \name{is_empty_sq}
 \alias{is_empty_sq}
-\title{Test if a sequence is empty}
+\title{Test if sequence is empty}
 \usage{
 is_empty_sq(x)
 }
 \arguments{
-\item{sq}{a\code{\link[=sq-class]{sq}} object to be tested}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 }
 \value{
-A logical vector of the same length as input sq, 
-indicating which elements are \code{NULL sq}, i.e., an empty sequence
-of length 0.
+A logical vector of the same length as input \code{sq}, indicating
+whether elements are empty sequences (of length 0).
 }
 \description{
-Test a sq object for presence of empty sequences
+Test an \code{\link[=sq-class]{sq}} object for presence of
+empty sequences.
 }
 \details{
-This function allows identification of empty sequences (that
-have length 0) represented by the \code{NULL sq} values in the sq object. 
-It returns a logical for every element of the sq object - \code{TRUE} if
-its value is \code{NULL sq} and \code{FALSE} otherwise. \code{NULL sq} 
-values may be introduced as a result of \code{\link{clean}} and 
-\code{\link{remove_na}} functions. The first one replaces sequences 
-containing ambiguous elements with \code{NULL sq} values, whereas the 
-latter replaces \code{NA} values (which may be introduced by 
-\code{\link{bite}}) with \code{NULL sq}.
+This function allows identification of empty sequences (that have
+length 0) represented by the \code{NULL sq} values in the sq object. It
+returns a logical value for every element of the \code{sq} object -
+\code{TRUE} if its value is \code{NULL sq} and \code{FALSE} otherwise.
+\code{NULL sq} values may be introduced as a result of
+\code{\link{remove_ambiguous}} and \code{\link{remove_na}} functions. The
+former replaces sequences containing ambiguous elements with \code{NULL sq}
+values, whereas the latter replaces sequences with \code{NA} values with
+\code{NULL sq}.
+}
+\examples{
+# Creating an object to work on:
+sq_dna_ext <- sq(c("ACGATTAGACG", "", "GACGANTCCAGNTAC"),
+                 alphabet = "dna_ext")
+
+# Testing for presence of empty sequences:
+is_empty_sq(sq_dna_ext)
+
+# Testing for presence of empty sequences after cleaning - sequence
+# containing ambiguous elements is replaced by NULL sq:
+sq_dna_bsc <- remove_ambiguous(sq_dna_ext)
+is_empty_sq(sq_dna_bsc)
+
+# Testing for presence of empty sequences after using bite and removing NA.
+# Extracting letters from first to fifteenth - NA introduced:
+bitten_sq <- bite(sq_dna_ext, 1:15)
+# Removing NA:
+rm_bitten_sq <- remove_na(bitten_sq)
+# Testing for presence of empty sequences:
+is_empty_sq(rm_bitten_sq)
+
 }
 \seealso{
-\code{\link[=sq-class]{sq}} \code{\link{clean}}
+\code{\link[=sq-class]{sq class}}
+
+Functions that clean sequences:
+\code{\link{remove_ambiguous}()},
+\code{\link{remove_na}()}
 }
+\concept{cleaning_functions}

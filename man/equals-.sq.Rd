@@ -4,39 +4,87 @@
 \alias{==.sq}
 \title{Compare sq objects}
 \usage{
-\method{==}{sq}(x, y, na_equal = FALSE, .ptype = NULL)
+\method{==}{sq}(e1, e2)
 }
 \arguments{
-\item{x1}{an \code{\link[=sq-class]{sq}} object.}
+\item{e1}{[\code{sq}]\cr
+An object this comparison is applied to.}
 
-\item{x2}{an object (a character vector or an \code{\link[=sq-class]{sq}} object) to compare with
-\code{x1}.}
+\item{e2}{[\code{sq} || \code{character}]\cr
+An object to compare with \code{x1}.}
 }
 \value{
-A \code{\link{logical}} vector indicating on which positions the objects are equal
+A \code{\link{logical}} vector indicating on which positions these
+objects are equal.
 }
 \description{
-Compares input \code{\link[=sq-class]{sq}} object with another given.
+Compares input \code{\link[=sq-class]{sq}} object with either
+another \code{sq} object or \code{character} vector.
 }
 \details{
-\code{`==`} converts left-hand side of the comparison (\code{x1}) to
-a character vector using \code{\link{as.character}} and checks whether object
-given on the right side can be compared with \code{\link[=sq-class]{sq}} object. Function
-also checks the type of \code{\link[=sq-class]{sq}} object with which given object is to be
-compared. If the type of \code{\link[=sq-class]{sq}} object is "ami", "dna" or "rna" and
-given sequence is a character vector with any lowercase letters, the function
-replaces them with corresponding capital ones using \code{\link{toupper}}.
-If right-hand side object (\code{x2}) is of class \code{\link[=sq-class]{sq}}, then it is
-converted to a character vector also using \code{\link{as.character}} function.
+\code{`==`} compares compatible object for equality of their respective
+sequences. Objects are considered compatible, when either both have same
+length or one of them is a scalar value (i.e. a vector of length 1).
+Moreover, not every \code{e1} sq type can be compared to any \code{e2} sq
+type.
 
-When both objects are already converted to character vectors, comparison is carried out 
-element-wise with standard R rules, (e.g., recycling is used). You can check details at
-\code{\link{Comparison}}.
+To see which types are compatible, see Details of
+\code{\link{sq-concatenate}}.
 
-Comparing sequences as characters vectors cause that various types of sequences
-can be compared for example amino acid with nucleotide sequences so attention
-should be paid, which sequence types are compared.
+\code{`==`} returns logical vector, where each element describes whether
+elements at position \code{n} of both \code{e1} and \code{e2} are equal in
+meaning (that is, they may be represented differently, but their biological
+interpretation must be indentical). If one of compared objects is a scalar,
+then said logical vector describes comparison for each element of the other,
+longer vector.
+}
+\examples{
+# Creating objects to work on:
+sq_dna_1 <- sq(c("ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"),
+               alphabet = "dna_bsc")
+sq_dna_2 <- sq(c("ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"),
+               alphabet = "dna_bsc")
+sq_dna_3 <- sq(c("ACTGCTG", "CTTAGA", "GGAA"),
+               alphabet = "dna_bsc")
+sq_dna_4 <- sq(c("ACTGCTG", "CTTAGA", "CCCT", "GTNANN"),
+               alphabet = "dna_ext")
+sq_ami_1 <- sq(c("ACTGCTG", "NIKAAR", "CCCT", "CTGAATGT"),
+               alphabet = "ami_bsc")
+sq_unt <- sq(c("AHSNLVSCTK$SH\%&VS", "YQTVKA&#BSKJGY",
+               "CCCT", "AVYI#VSV&*DVGDJCFA"))
+
+# Comparing sq object with an object of the same length:
+sq_dna_1 == sq_dna_2
+sq_dna_1 == c("ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT")
+
+# Cannot compare sq objects of different lengths:
+\dontrun{
+sq_dna_1 == sq_dna_3
+sq_dna_1 == c("AAA", "CCC")
+}
+
+# Unless comparing sq object with scalar value:
+sq_dna_1 == "CTTAGA"
+
+# It's possible to compare basic and extended types:
+sq_dna_1 == sq_dna_4
+
+# Mixing DNA, RNA and amino acid types throws an error, however:
+\dontrun{
+sq_dna_1 == sq_ami_1
+}
+
+# On the other hand, unt sq is acceptable everywhere:
+sq_dna_1 == sq_unt
+sq_dna_4 == sq_unt
+sq_ami_1 == sq_unt
+
 }
 \seealso{
-\code{\link[=sq-class]{sq}} \code{\link{as.character}} \code{\link{is.sq}}
+Functions from utility module:
+\code{\link{get_sq_lengths}()},
+\code{\link{is.sq}()},
+\code{\link{sqconcatenate}},
+\code{\link{sqextract}}
 }
+\concept{util_functions}

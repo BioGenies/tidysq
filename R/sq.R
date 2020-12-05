@@ -1,127 +1,194 @@
 #' Construct sq object from character vector
+#'
+#' @templateVar alph_null_ok TRUE
 #' 
 #' @description This function allows the user to construct objects of 
 #' \code{\link[=sq-class]{class sq}} from a character vector.
 #' 
-#' @param sq [character] (no default)
-#' Vector to construct object from.
-#' @param alphabet [character] (default = NULL)
-#' If provided value is a single string, it will be interpreted as type (see details).
-#' If provided value has length greater than one, it will be treated as atypical alphabet for \code{sq} obejct and
-#' \code{sq} type will be \code{atp}.
-#' If provaded value is \code{NULL}, type guessing will be performed (see details).
-#' @param is_clean a \code{\link{logical}} value indicating if sequences are clean.
-#' or in other words - they don't contain ambiguous values; supported values are \code{TRUE} 
-#' for clean sequences, \code{FALSE} for unclean sequences and \code{NULL} for auto detecting
-#' (see details).
-#' @param non_standard a \code{\link{character}} vector indicating non-standard letters
-#' contained in sequences. If \code{NULL}, sequences will not be searched for non-standard letters
-#' of length more than one. Each element of this parameter should be at least two characters 
-#' long.
-#' @return object of \code{\link[=sq-class]{class sq}} with appropriate type (one of: \strong{ami},
-#' \strong{dna}, \strong{rna}, \strong{unt}, \strong{atp}).
+#' @param x [\code{character}]\cr
+#'  Vector to construct \code{sq} object from.
+#' @template alphabet
+#' @template NA_letter
+#' @template safe_mode
+#' @template on_warning
+#' @template ignore_case
+#'
+#' @return An object of \code{\link[=sq-class]{class sq}} with appropriate type.
 #' 
-#' @details 
-#' Function \code{construct_sq} covers all possibilities of standard and non-standard types and 
-#' alphabets. You can check what 'type' and 'alphabet' exactly are in \code{\link[=sq-class]{sq class}}
-#' documentation. Below there is a guide how function operates and how the program behaves 
-#' according to the given arguments and the letters in the sequences.
+#' @details
+#' Function \code{sq} covers all possibilities of standard and non-standard
+#' types and alphabets. You can check what 'type' and 'alphabet' exactly are in
+#' \code{\link[=sq-class]{sq class}} documentation. There is a guide below on
+#' how function operates and how the program behaves depending on arguments
+#' passed and letters in the sequences.
 #' 
-#' Functions \code{construct_sq_ami}, \code{construct_sq_dna} and \code{construct_sq_rna} are
-#' wrappers around \code{construct_sq} with specified \code{type} parameter - accordingly
-#' "ami", "dna" or "rna". You can also pass "is_clean" parameter to those functions, but you
-#' cannot pass "non_standard".
+#' \code{x} parameter should be a character vector. Each element of this vector
+#' is a biological sequence. If this parameter has length 0, object of class
+#' \code{sq} with 0 sequences will be created (if not specified, it will have
+#' \strong{dna_bsc} type, which is a result of rules written below). If it
+#' contains sequences of length 0, \code{NULL} sequences will be introduced (see
+#' \emph{NULL (empty) sequences} section in \code{\link[=sq-class]{sq class}}).
 #' 
-#' \code{sq} parameter should be a character vector. Each element of this vector is a biological 
-#' sequence. If this parameter has length 0, object of class \code{sq} with 0 sequences will be 
-#' created (if not specified, it will have \strong{dna} \strong{cln} type, which is a result of 
-#' rules written below). If it contains sequences of length 0, \code{\link[=sq-class]{NULL}} sequences
-#' will be introduced (see \emph{NULL (empty) sequences} section in \code{\link[=sq-class]{sq class}}).
+#' \strong{Important note:} in all below cases word 'letter' stands for an
+#' element of an alphabet. Letter might consist of more than one character, for
+#' example "\code{Ala}" might be a single letter. However, if the user wants to
+#' construct or read sequences with multi-character letters, one has to specify
+#' all letters in \code{alphabet} parameter. Details of letters, alphabet and
+#' types can be found in \code{\link[=sq-class]{sq class}} documentation.
+#'
+#' @section Simple guide to construct:
+#' In many cases, just the \code{x} parameter needs to be specified - type of
+#' sequences will be guessed according to rules described below. The user needs
+#' to pay attention, however, because for short sequences type may be guessed
+#' incorrectly - in this case they should specify type in \code{alphabet}
+#' parameter.
 #' 
-#' \strong{Important note:} in all below cases word 'letter' stands for an element of an alphabet.
-#' Letter might consist of more than one character, for example "Ala" might be a single letter.
-#' However, if you want to construct or read sequences with multi-character letters, one has 
-#' to specify \code{non_standard} parameter. Details of letters, alphabet and types can be 
-#' found in \code{\link[=sq-class]{sq class}} documentation.
+#' If your sequences contain non-standard letters, where each non-standard
+#' letter is one character long (that is, any character that is not an uppercase
+#' letter), you also don't need to specify any parameter. Optionally, you can
+#' explicitly do it by setting \code{alphabet} to \code{"unt"}.
 #' 
-#' @section Simple guide to construct :
-#' In most cases, just the \code{sq} parameter needs to be specified - type of sequences
-#' will be guessed accordingly to rules described below. You need to pay attention, however, 
-#' because for short sequences type may be guessed incorrectly - in this case you should
-#' specify \code{type} and/or \code{is_clean}.
+#' In \code{\link[=safe-mode]{safe mode}} it is guaranteed that only letters
+#' which are equal to \code{NA_letter} argument are interpreted as \code{NA}
+#' values. Due to that, resulting alphabet might be different from the
+#' \code{alphabet} argument.
 #' 
-#' If your sequences contain non-standard letters, where each non-standard letter is one
-#' character long, you also don't need to specify any parameter. Optionally, you can explicitly
-#' do it by setting \code{type} to "unt".
-#' 
-#' If you want to construct sequences with multicharacter letters, you have to specify 
-#' \code{non_standard} parameter, where you have to provide all non-standard letters longer
-#' than one character.
-#' 
-#' In \code{\link[=fast-mode]{fast mode}} you have to specify both \code{type} and \code{is_clean} 
-#' parameters. You cannot specify \code{non_standard} parameter in this mode. All letters
-#' outside specified alphabet will be red as \code{NA} values.
-#' 
-#' @section Detailed guide to construct :
-#' Below all possibilities that can occur during the construction of a \code{sq} object are listed.
-#' 
-#' In normal mode (no \code{\link[=fast-mode]{fast mode}}):
+#' @section Detailed guide to construct:
+#' Below are listed all possibilities that can occur during the construction of
+#' a \code{sq} object:
 #' \itemize{
-#' \item If you don't specify any other parameter than \code{sq}, function will try to guess
-#' sequence type and if it is clean (it will check in exactly this order):
-#' \enumerate{
-#' \item If it contains only ACGT- letters, either lowercase or uppercase, type will be set
-#' to \strong{dna} \strong{cln}.
-#' \item If it contains only ACGU- letters, either lowercase or uppercase, type will be set
-#' to \strong{dna} \strong{cln}.
-#' \item If it contains any letters from 1. and 2. and additionally letters DEFHIKLMNPQRSVWY*,
-#' either lowercase or uppercase, type will be set to \strong{ami} \strong{cln}.
-#' \item If it contains any letters from 1. and additionally letters WSMKRYBDHVN, either
-#' lowercase or uppercase, and does not contain any other letter, type will be set to 
-#' \strong{dna} without \strong{cln} subtype.
-#' \item If it contains any letters from 2. and additionally letters WSMKRYBDHVN, either
-#' lowercase or uppercase, and does not contain any other letter, type will be set to 
-#' \strong{rna} without \strong{cln} subtype.
-#' \item If it contains any letters from previous points and additionally letters JOUXZ, type will
-#' be set to \strong{ami} without \strong{cln} subtype.
-#' \item If it contains any letters that exceed all groups mentioned above, type will be set
-#' to "unt".
-#' }
-#' \item If you specify \code{type} parameter as "ami", "dna" or "rna" (and do not specify neither 
-#' \code{is_clean} nor \code{non_standard}) type will be checked during construction: 
-#' \enumerate{
-#' \item If all letters in sequences fit the clean alphabet of given type, type will be set to 
-#' given type with \strong{cln} subtype. 
-#' \item If all letters in sequences fit the unclean alphabet of given type, type will be set to 
-#' given type without \strong{cln} subtype.
-#' \item If at least one sequence contains at least one letter that is not an element of an  
-#' unclean alphabet of the provided type, an error will be thrown. 
-#' }
-#' \item If you specify both \code{type} and \code{is_clean}, function checks if letters
-#' in sequences matches exactly specified alphabet (with capitalisation accuracy). If they do, 
-#' type will be set to it. Otherwise, an error will be thrown.
-#' \item If you specify \code{type} as "unt" and neither \code{is_clean} nor \code{non_standard},
-#' type will be set to \strong{unt}. Letters won't be converted to uppercase, alphabet will
-#' consist of all letters found in sequences. 
-#' \item If you do not specify neither \code{type} nor \code{is_clean} and specify 
-#' \code{non_standard} parameter, which should be character vector where each element is at least 
-#' two characters long, all strings as specified will be detected in sequences and treated as 
-#' letters in constructed \strong{atp} \code{sq}.
-#' \item All other combinations of parameters are incorrect.
+#' \item If you don't specify any other parameter than \code{x}, function will
+#'  try to guess sequence type (it will check in exactly this order):
+#'  \enumerate{
+#'  \item If it contains only ACGT- letters, type will be set to
+#'   \strong{dna_bsc}.
+#'  \item If it contains only ACGU- letters, type will be set to
+#'   \strong{rna_bsc}.
+#'  \item If it contains any letters from 1. and 2. and additionally letters
+#'   DEFHIKLMNPQRSVWY*, type will be set to \strong{ami_bsc}.
+#'  \item If it contains any letters from 1. and additionally letters
+#'   WSMKRYBDHVN, type will be set to \strong{dna_ext}.
+#'  \item If it contains any letters from 2. and additionally letters
+#'   WSMKRYBDHVN, type will be set to \strong{rna_ext}.
+#'  \item If it contains any letters from previous points and additionally
+#'   letters JOUXZ, type will be set to \strong{ami_ext}.
+#'  \item If it contains any letters that exceed all groups mentioned above,
+#'   type will be set to \strong{unt}.
+#'  }
+#' \item If you specify \code{alphabet} parameter as any of \code{"dna_bsc"},
+#'  \code{"dna_ext"}, \code{"rna_bsc"}, \code{"rna_ext"}, \code{"ami_bsc"},
+#'  \code{"ami_ext"}; then:
+#'  \itemize{
+#'  \item If \code{safe_mode} is \code{FALSE}, then sequences will be built
+#'   with standard alphabet for given type.
+#'  \item If \code{safe_mode} is \code{TRUE}, then sequences will be scanned
+#'   for letters not in standard alphabet:
+#'   \itemize{
+#'   \item If no such letters are found, then sequences will be built with
+#'    standard alphabet for given type.
+#'   \item If at least one such letter is found, then sequences are built with
+#'    real alphabet and with type set to \strong{unt}.
+#'   }
+#'  }
+#' \item If you specify \code{alphabet} parameter as \code{"unt"}, then
+#'  sequences are scanned for alphabet and subsequently built with obtained
+#'  alphabet and type \strong{unt}.
+#' \item If you specify \code{alphabet} parameter as \code{character} vector
+#'  longer than 1, then type is set to \strong{atp} and alphabet is equal to
+#'  letters in said parameter.
 #' }
 #' 
-#' In \code{\link[=fast-mode]{fast mode}} you have to specify \code{type} (it has to have one of
-#' "ami", "dna" or "rna" values) and \code{is_clean} (\code{TRUE} or \code{FALSE}). You cannot
-#' specify \code{non_standard}. All letters that aren't elements of destination alphabet (with
-#' a letter size accuracy) will be treated as \code{NA} values.
+#' If \code{ignore_case} is set to \code{TRUE}, then lowercase letters are
+#' turned into uppercase during their interpretation, unless type is set to
+#' \strong{atp}.
 #' 
-#' @section Handling atp and unt sequences and NA values:
-#' You can convert letters into another using \code{\link{substitute_letters}} and then you
-#' can use \code{\link{typify}} function to set of \code{sq} to \strong{ami}, \strong{dna}
-#' or \strong{rna}. If your sequences contain \code{NA} values, use \code{\link{remove_na}}
-#' 
-#' @seealso \code{\link[=sq-class]{sq}} \code{\link{read_fasta}} \code{\link{tidysq-options}}
-#' \code{\link{fast-mode}} \code{\link{substitute_letters}} \code{\link{remove_na}}
+#' @section Handling \strong{unt} and \strong{atp} types and \code{NA} values:
+#' You can convert letters into another using \code{\link{substitute_letters}}
+#' and then use \code{\link{typify}} or \code{sq_type<-} function to set type of
+#' \code{sq} to \strong{dna_bsc}, \strong{dna_ext}, \strong{rna_bsc},
+#' \strong{rna_ext}, \strong{ami_bsc} or \strong{ami_ext}. If your sequences
+#' contain \code{NA} values, use \code{\link{remove_na}}.
+#'
+#' @examples
+#' # constructing sq without specifying alphabet:
+#' # Correct sq type will be guessed from appearing letters
+#' ## dna_bsc
+#' sq(c("ATGC", "TCGTTA", "TT--AG"))
+#'
+#' ## rna_bsc
+#' sq(c("CUUAC", "UACCGGC", "GCA-ACGU"))
+#'
+#' ## ami_bsc
+#' sq(c("YQQPAVVM", "PQCFL"))
+#'
+#' ## ami cln sq can contain "*" - a letter meaning end of translation:
+#' sq(c("MMDF*", "SYIHR*", "MGG*"))
+#'
+#' ## dna_ext
+#' sq(c("TMVCCDA", "BASDT-CNN"))
+#'
+#' ## rna_ext
+#' sq(c("WHDHKYN", "GCYVCYU"))
+#'
+#' ## ami_ext
+#' sq(c("XYOQWWKCNJLO"))
+#'
+#' ## unt - assume that one wants to mark some special element in sequence with "%"
+#' sq(c("%%YAPLAA", "PLAA"))
+#'
+#' # passing type as alphabet parameter:
+#' # All above examples yield an identical result if type specified is the same as guessed
+#' sq(c("ATGC", "TCGTTA", "TT--AG"), "dna_bsc")
+#' sq(c("CUUAC", "UACCGGC", "GCA-ACGU"), "rna_bsc")
+#' sq(c("YQQPAVVM", "PQCFL"), "ami_bsc")
+#' sq(c("MMDF*", "SYIHR*", "MGG*"), "ami_bsc")
+#' sq(c("TMVCCDA", "BASDT-CNN"), "dna_ext")
+#' sq(c("WHDHKYN", "GCYVCYU"), "rna_ext")
+#' sq(c("XYOQWWKCNJLO"), "ami_ext")
+#' sq(c("%%YAPLAA", "PLAA"), "unt")
+#'
+#' # Type doesn't have to be the same as the guessed one if letters fit in the destination alphabet
+#' sq(c("ATGC", "TCGTTA", "TT--AG"), "dna_ext")
+#' sq(c("ATGC", "TCGTTA", "TT--AG"), "ami_bsc")
+#' sq(c("ATGC", "TCGTTA", "TT--AG"), "ami_ext")
+#' sq(c("ATGC", "TCGTTA", "TT--AG"), "unt")
+#'
+#' # constructing sq with specified letters of alphabet:
+#' # In sequences below "mA" denotes methyled alanine - two characters are treated as single letter
+#' sq(c("LmAQYmASSR", "LmASMKLKFmAmA"), alphabet = c("mA", LETTERS))
+#' # Order of alphabet letters are not meaningful in most cases
+#' sq(c("LmAQYmASSR", "LmASMKLKFmAmA"), alphabet = c(LETTERS, "mA"))
+#'
+#' # reading sequences with three-letter names:
+#' sq(c("ProProGlyAlaMetAlaCys"), alphabet = c("Pro", "Gly", "Ala", "Met", "Cys"))
+#'
+#' # using safe mode:
+#' # Safe mode guarantees that no element is read as NA
+#' # But resulting alphabet might be different to the passed one (albeit with warning/error)
+#' sq(c("CUUAC", "UACCGGC", "GCA-ACGU"), alphabet = "dna_bsc", safe_mode = TRUE)
+#' sq(c("CUUAC", "UACCGGC", "GCA-ACGU"), alphabet = "dna_bsc")
+#'
+#' # Safe mode guesses alphabet based on whole sequence
+#' long_sequence <- paste0(paste0(rep("A", 4500), collapse = ""), "N")
+#' sq(long_sequence, safe_mode = TRUE)
+#' sq(long_sequence)
+#'
+#' # ignoring case:
+#' # By default, lower- and uppercase letters are treated separately
+#' # This behaviour can be changed by setting ignore_case = TRUE
+#' sq(c("aTGc", "tcgTTA", "tt--AG"), ignore_case = TRUE)
+#' sq(c("XYOqwwKCNJLo"), ignore_case = TRUE)
+#'
+#' # It is possible to construct sq with length 0
+#' sq(character())
+#'
+#' # As well as sq with empty sequences
+#' sq(c("AGTGGC", "", "CATGA", ""))
+#'
+#' @family input_functions
+#' @seealso \code{\link[=sq-class]{sq class}} \code{\link{read_fasta}}
+#' \code{\link{tidysq-options}} \code{\link{substitute_letters}}
+#' \code{\link{remove_na}}
 #' @export
 sq <- function(x,
                alphabet = NULL,

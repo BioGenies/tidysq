@@ -2,22 +2,31 @@
 #' 
 #' @description Reverse given list of sequences.
 #' 
-#' @param x a \code{\link[=sq-class]{sq}} object.
-#' @param NA_letter an \code{NA_letter} - a string value.
+#' @template x
+#' @template NA_letter
+#' @template three-dots
+#'
+#' @return An \code{\link[=sq-class]{sq}} object of the same type as input
+#' object but each sequence is reversed.
 #' 
-#' @details The \code{reverse} function reverses each sequence in supplied 
-#' \code{\link[=sq-class]{sq}} object (e.q. transforms "MIAANYTWIL" to "LIWTYNAAIM").
-#' Empty sequences are left with no effect. This operation does not change 
-#' the type of the input object nor its alphabet.
-#' 
-#' Since the function \code{reverse} returns a \code{\link[=sq-class]{sq}} object, the
-#' \code{\link[=sq-print]{print}} function is implicitly called.
-#' 
-#' @return A \code{\link[=sq-class]{sq}} object of the same type as input object but
-#' each sequence is reversed.
-#' 
-#' @seealso \code{\link[=sq-class]{sq}} \code{\link{clean}} \code{\link{sq-print}}
-#' 
+#' @details
+#' \code{reverse()} function reverses each sequence in supplied \code{sq} object
+#' (e.q. transforms \code{"MIAANYTWIL"} to \code{"LIWTYNAAIM"}). This operation
+#' does not alter the type of the input object nor its alphabet.
+#'
+#' @examples
+#' # Creating objects to work on:
+#' sq_ami <- sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
+#'              alphabet = "ami_ext")
+#' sq_dna <- sq(c("ATGCAGGA", "GACCGAACGAN", ""), alphabet = "dna")
+#' sq_unt <- sq(c("ATGCAGGA?", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
+#'
+#' # Reversing sequences:
+#' reverse(sq_ami)
+#' reverse(sq_dna)
+#' reverse(sq_unt)
+#'
+#' @family order_functions
 #' @export
 reverse <- function(x, ...)
   UseMethod("reverse")

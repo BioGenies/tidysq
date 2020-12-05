@@ -6,22 +6,53 @@
 \usage{
 write_fasta(
   x,
-  names,
+  name,
   file,
   width = 80,
   NA_letter = getOption("tidysq_NA_letter")
 )
 }
 \arguments{
-\item{x}{a \code{\link[=sq-class]{sq}} object.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
-\item{file}{a \code{\link{character}} string indicating path to file to write into.}
+\item{name}{[\code{character}]\cr
+Vector of sequence names. Must be of the same length as \code{sq} object.}
 
-\item{width}{a positive \code{\link{integer}} value informing about maximum number of 
-characters to put in each line of file.}
+\item{file}{[\code{character(1)}]\cr
+Absolute path to file to write to.}
 
-\item{name}{a \code{\link{character}} vector of length equal to \code{sq} length.}
+\item{width}{[\code{integer(1)}]\cr
+Maximum number of characters to put in each line of file. Must be positive.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
 }
 \description{
-Writes \code{\link[=sq-class]{sq}} objects with their names to a fasta file.
+Writes \code{\link[=sq-class]{sq}} objects with their names to
+a fasta file.
 }
+\details{
+Whenever a name has more letters than \code{width} parameter, nothing
+happens, as only sequences are splitted to fit within designated space.
+}
+\examples{
+\dontrun{
+sq_dna <- sq(c("ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"),
+             alphabet = "dna_bsc")
+write_fasta(sq_dna,
+            c("bat", "cat", "rat", "elephant_swallowed_by_A_snake"),
+            "~/fasta_rubbish/example.fasta")
+}
+
+}
+\seealso{
+Functions from output module:
+\code{\link{as.character.sq}()},
+\code{\link{as.matrix.sq}()},
+\code{\link{as.sq}()},
+\code{\link{export_sq}()}
+}
+\concept{output_functions}

@@ -2,28 +2,50 @@
 % Please edit documentation in R/util-methods.R
 \name{as.sq}
 \alias{as.sq}
+\alias{as.sq.default}
+\alias{as.sq.character}
 \title{Convert an object to sq}
 \usage{
 as.sq(x, ...)
+
+\method{as.sq}{default}(x, ...)
+
+\method{as.sq}{character}(x, ...)
 }
 \arguments{
-\item{x}{a object of a class that supports conversion to \code{\link[=sq-class]{sq}}.}
+\item{x}{[\code{any}]
+An object of a class that supports conversion to \code{sq} class.}
 
-\item{...}{other arguments passed to the method.}
+\item{...}{further arguments to be passed from or to other methods.}
 }
 \value{
-A \code{sq} object
+An \code{sq} object.
 }
 \description{
-This generic function takes an object of arbitrary type and returns an \code{\link[=sq-class]{sq}} object
-as an output. Default implementation of the method throws an error - there needs to be 
-implemented a method for specified class in order for function to work.
+Takes an object of arbitrary type and returns an
+\code{\link[=sq-class]{sq}} object as an output.
 }
 \details{
-In \pkg{tidysq} only for \code{\link{character}} vector there is an implemented method 
-which in fact works exactly like \code{\link{construct_sq}} - you can also pass other arguments
-like those supported by \code{\link{construct_sq}}.
+There are two possible cases: if \code{x} is a character vector, then this
+method calls \code{\link{sq}} function, else it passes \code{x} to
+\code{\link{import_sq}} and hopes it works.
+}
+\examples{
+# Constructing an example sequence in the usual way:
+sq_1 <- sq("CTGA")
+
+# Using a method for character vector:
+sq_2 <- as.sq("CTGA")
+
+# Checking that both objects are identical:
+identical(sq_1, sq_2)
+
 }
 \seealso{
-\code{\link[=sq-class]{sq}} \code{\link{construct_sq}}
+Functions from output module:
+\code{\link{as.character.sq}()},
+\code{\link{as.matrix.sq}()},
+\code{\link{export_sq}()},
+\code{\link{write_fasta}()}
 }
+\concept{output_functions}

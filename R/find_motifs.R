@@ -1,71 +1,73 @@
 #' Find given motifs
+#'
+#' @templateVar name_null_ok FALSE
 #' 
-#' @description Find all given motifs in all sequences and return their 
-#' positions.
+#' @description Finds all given motifs in sequences and returns their positions.
 #' 
-#' @inheritParams reverse
-#' @param name a non-\code{NULL} \code{character} vector without \code{\link{NA}} values, 
-#' containing names of the sequences in the sq. It has to be of the same length 
-#' as the \code{sq}. 
-#' @param motifs a \code{character} vector of motifs to be searched for.
+#' @template x
+#' @template name
+#' @param motifs [\code{character}]\cr
+#'  Motifs to be searched for.
+#' @template NA_letter
+#' @template three-dots
 #' 
 #' @return A \code{\link[tibble]{tibble}} with following columns:
-#'  \item{name}{name of the sequence}
-#'  \item{sq}{sequence}
+#'  \item{name}{name of the sequence in which a motif was found}
 #'  \item{sought}{sought motif}
-#'  \item{found}{motif found in a sequence, may differ from sought if a motif
-#'  contained ambiguous letters}
-#'  \item{start}{position of motif start}
-#'  \item{end}{position of motif end}
+#'  \item{found}{found subsequence, may differ from sought if the motif
+#'   contained ambiguous letters}
+#'  \item{start}{position of first element of found motif}
+#'  \item{end}{position of last element of found motif}
 #' 
-#' @details This function allows search of a given motif or motifs in the \code{sq} 
-#' object. It returns all motifs found with their start and end positions 
-#' within a sequence.
+#' @details
+#' This function allows search of a given motif or motifs in the \code{sq}
+#' object. It returns all motifs found with their start and end positions within
+#' a sequence.
 #' 
-#' @section Allowed and forbidden letters and characters details:
-#' Note if a sq object contains characters: ^$?=()\.|+*{}[] in its alphabet, 
-#' search for motifs cannot be performed and an error will be displayed (with 
-#' exception of sq objects of type ami - there is '*' letter in their alphabet
-#' and it can be contained in sought motif). To search for motifs with those 
-#' characters, you have to replace them first using 
-#' \code{\link{substitute_letters}}. 
-#' 
-#' If sq objects of type \strong{ami}, \strong{dna} and \strong{rna}, motifs have to
-#' consist of upper case letters from amino acid, DNA and RNA alphabets respectively.
-#' Use of lower case letters will return an error. Two additional characters 
-#' are allowed: '^' and '$' indicating the beginning and the end of a sequence 
-#' respectively. Moreover, notice that '*' character may be used in amino acid 
-#' motifs, as it is a part of the amino acid alphabet. If a motif contains 
-#' ambiguous letters, all possible matches will be searched for. For example the 
-#' amino acid motif "MAJ" (where "J" is an ambiguous letter indicating L or I) will 
-#' find the motifs: "MAJ", "MAL" and "MAI". 
-#' 
-#' Detailed list of all letters corresponding to each ambiguous letter may be found at
-#' \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}}.
-#' 
-#' @seealso \code{\link[=sq-class]{sq}} \code{\link{substitute_letters}} \code{\link{\%has\%}}
-#' 
+#' @template motif_details
+#'
+#' @examples
+#' # Creating objects to work on:
+#' sq_dna <- sq(c("ATGCAGGA", "GACCGNBAACGAN", "TGACGAGCTTAG"),
+#'              alphabet = "dna_bsc")
+#' sq_ami <- sq(c("AGNTYIKFGGAYTI", "MATEGILIAADGYTWIL", "MIPADHICAANGIENAGIK"),
+#'              alphabet = "ami_bsc")
+#' sq_names <- c("sq1", "sq2", "sq3")
+#'
+#' # Finding motif of two alanines followed by aspartic acid or asparagine
+#' # ("AAB" motif matches "AAB", "AAD" and "AAN"):
+#' find_motifs(sq_ami, sq_names, "AAB")
+#'
+#' # Finding "C" at fourth position:
+#' find_motifs(sq_dna, sq_names, "^NNNC")
+#'
+#' # Finding motif "I" at second-to-last position:
+#' find_motifs(sq_ami, sq_names, "IX$")
+#'
+#' # Finding multiple motifs:
+#' find_motifs(sq_dna, sq_names, c("^ABN", "ANCBY", "BAN$"))
+#'
+#' @family bio_functions
 #' @export
-find_motifs <- function(x, names, motifs, ...) {
-  assert_character(names, len = vec_size(x))
+find_motifs <- function(x, name, motifs, ...) {
+  assert_character(name, len = vec_size(x))
   assert_character(motifs, any.missing = FALSE)
   
   UseMethod("find_motifs")
 }
 
 #' @export
-find_motifs.default <- function(x, names, motifs, ...)
+find_motifs.default <- function(x, name, motifs, ...)
   stop("method 'find_motifs' isn't implemented for this type of object")
 
 #' @rdname find_motifs
 #' @export
-#' @importFrom stringi stri_sub
 #' @importFrom tibble as_tibble
-find_motifs.sq <- function(x, names, motifs, ...,
+find_motifs.sq <- function(x, name, motifs, ...,
                            NA_letter = getOption("tidysq_NA_letter")) {
   assert_string(NA_letter, min.chars = 1)
   assert_alph_regex_friendly(alphabet(x))
   
-  ret <- CPP_find_motifs(x, names, motifs, NA_letter)
+  ret <- CPP_find_motifs(x, name, motifs, NA_letter)
   as_tibble(ret)
 }

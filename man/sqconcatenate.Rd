@@ -5,48 +5,98 @@
 \alias{sq-concatenate}
 \title{Concatenate sq objects}
 \arguments{
-\item{...}{multiple \code{\link[=sq-class]{sq}} and \code{character} objects. For exact behaviour,
-check Details section. First argument must be of \code{sq} class due to R mechanism of
-single dispatch. If this is a problem, recommended alternative is \code{\link[vctrs]{vec_c}}
-method from \code{vctrs} package.}
+\item{...}{[\code{sq} || \code{character}]\cr
+Multiple objects. For exact behaviour, check Details section. First argument
+must be of \code{sq} class due to R mechanism of single dispatch. If this is
+a problem, recommended alternative is \code{\link[vctrs]{vec_c}} method from
+\code{\link[vctrs]{vctrs-package}} package.}
 }
 \value{
-A \code{\link[=sq-class]{sq}} object with length equal to sum of lengths of individual objects
-passed as parameters. Elements of \code{\link[=sq-class]{sq}} are concatenated just as if they were normal
-lists (see \code{\link[base]{c}})
+\code{\link[=sq-class]{sq}} object with length equal to sum of
+lengths of individual objects passed as parameters. Elements of
+\code{\link[=sq-class]{sq}} are concatenated just as if they were normal
+lists (see \code{\link[base]{c}}).
 }
 \description{
-Merges multiple \code{\link[=sq-class]{sq}} and maybe \code{character} objects
-into one larger \code{sq} object.
+Merges multiple \code{\link[=sq-class]{sq}} and possibly
+\code{character} objects into one larger \code{sq} object.
 }
 \details{
-Whenever all passed objects are either \code{dnasq}, \code{rnasq} or \code{amisq},
-returned object is also of the same class. If all of them contain \code{clnsq} subtype,
-resulting object contains it as well, else \code{clnsq} subtype is dropped.
+Whenever all passed objects are of one of standard types (that is,
+\strong{dna_bsc}, \strong{dna_ext}, \strong{rna_bsc}, \strong{rna_ext},
+\strong{ami_bsc} or \strong{ami_ext}), returned object is of the same class,
+as no changes to alphabet are needed.
 
-Mixing \code{dnasq}, \code{rnasq} and \code{amisq} is prohibited, as interpretation of
-symbols differ depending on the type.
+It's possible to mix both basic and extended types within one call to
+\code{c()}, however they all must be of the same type (that is, either
+\strong{dna}, \strong{rna} or \strong{ami}). In this case, returned object
+is of extended type.
 
-Whenever all objects are either \code{untsq} or \code{atpsq}, returned object is also
-of the same class. These classes are not used with \code{clnsq} subtype, so it never
-appears in this context. Resulting object has alphabet equal to the set union of all
-alphabets of the involved objects.
+Mixing \strong{dna}, \strong{rna} and \strong{ami} types is prohibited, as
+interpretation of letters differ depending on the type.
 
-Moreover, \code{untsq} objects may be concatenated with \code{dnasq}, \code{rnasq}
-and \code{amisq} objects, resulting in an \code{untsq} object with alphabet equal
-to the set union of all alphabets involved. However, user is strongly encouraged
-to use this possibility with caution, as it may result in unwanted concatenation
-of DNA and amino acid sequences.
+Whenever all objects are either of \strong{atp} type, returned object is also
+of this class and resulting alphabet is equal to set union of all input
+alphabets.
 
-Whenever character vectors are passed as second and later argument, they don't influence
-resulting \code{sq} object type. Each element of vector is interpreted as separate
-sequence. If resulting \code{sq} is predicted to have \code{clnsq} subtype, then passing
-character vector with characters not included in the resulting alphabet will cause code
-to fail with an exception. If result doesn't have \code{clnsq} subtype, all "foreign"
-characters will be silently replaced will \code{NA}.
+\strong{unt} type can be mixed with any other type, resulting in \strong{unt}
+object with alphabet equal to set union of all input alphabets. In this case,
+it is possible to concatenate \strong{dna} and \strong{ami} objects, for
+instance, by concatenating one of them first with \strong{unt} object.
+However, it is strongly discouraged, as it may result in unwanted
+concatenation of DNA and amino acid sequences.
 
-Due to R dispatch mechanism passing character vector as first will return class-less
-list. This behaviour is effectively impossible and definitely unrecommended to fix, as
-fixing it would involve changing \code{c} primitive. If such possibility is necessary,
-\code{\link[vctrs]{vec_c}} is a better alternative.
+Whenever a character vector appears, it does not influence resulting sq type.
+Each element is treated as separate sequence. If any of letters in this
+vector does not appear in resulting alphabet, it is silently replaced with
+\code{NA}.
+
+Due to R dispatch mechanism passing character vector as first will return
+class-less list. This behaviour is effectively impossible and definitely
+unrecommended to fix, as fixing it would involve changing \code{c} primitive.
+If such possibility is necessary, \code{\link[vctrs]{vec_c}} is a better
+alternative.
 }
+\examples{
+# Creating objects to work on:
+sq_dna_1 <- sq(c("GGACTGCA", "CTAGTA", ""), alphabet = "dna_bsc")
+sq_dna_2 <- sq(c("ATGACA", "AC-G", "-CCAT"), alphabet = "dna_bsc")
+sq_dna_3 <- sq(character(), alphabet = "dna_bsc")
+sq_dna_4 <- sq(c("BNACV", "GDBADHH"), alphabet = "dna_ext")
+sq_rna_1 <- sq(c("UAUGCA", "UAGCCG"), alphabet = "rna_bsc")
+sq_rna_2 <- sq(c("-AHVRYA", "G-U-HYR"), alphabet = "rna_ext")
+sq_rna_3 <- sq("AUHUCHYRBNN--", alphabet = "rna_ext")
+sq_ami <- sq("ACHNK-IFK-VYW", alphabet = "ami_bsc")
+sq_unt <- sq("AF:gf;PPQ^&XN")
+
+# Concatenating dna_bsc sequences:
+c(sq_dna_1, sq_dna_2, sq_dna_3)
+# Concatenating rna_ext sequences:
+c(sq_rna_2, sq_rna_3)
+# Mixing dna_bsc and dna_ext:
+c(sq_dna_1, sq_dna_4, sq_dna_2)
+
+# Mixing DNA and RNA sequences doesn't work:
+\dontrun{
+c(sq_dna_3, sq_rna_1)
+}
+
+# untsq can be mixed with DNA, RNA and amino acids:
+c(sq_ami, sq_unt)
+c(sq_unt, sq_rna_1, sq_rna_2)
+c(sq_dna_2, sq_unt, sq_dna_3)
+
+# Character vectors are also acceptable:
+c(sq_dna_2, "TGCA-GA")
+c(sq_rna_2, c("UACUGGGACUG", "AUGUBNAABNRYYRAU"), sq_rna_3)
+c(sq_unt, "&#JIA$O02t30,9ec", sq_ami)
+
+}
+\seealso{
+Functions from utility module:
+\code{\link{==.sq}()},
+\code{\link{get_sq_lengths}()},
+\code{\link{is.sq}()},
+\code{\link{sqextract}}
+}
+\concept{util_functions}

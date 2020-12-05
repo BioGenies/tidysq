@@ -25,7 +25,7 @@ obj_print_footer.sq <- function(x, ...,
   invisible(x)
 }
 
-#' @importFrom cli col_green col_silver
+#' @importFrom cli col_green
 #' @importFrom pillar pillar_shaft
 #' @export
 pillar_shaft.sq <- function(x, ...,
@@ -53,52 +53,74 @@ pillar_shaft.encsq <- function(x, ...,
 
 #' Print sq object
 #' 
-#' @description Prints input \code{\link[=sq-class]{sq}} object in a human-friendly form.
+#' @description Prints input \code{\link[=sq-class]{sq}} object in a
+#' human-friendly form.
+#'
+#' @template x
+#' @param max_sequences [\code{integer(1)}]\cr
+#'  How many sequences should be printed.
+#' @param use_color [\code{logical(1)}]\cr
+#'  Should sequences be colored?
+#' @param letters_sep [\code{character(1)}]\cr
+#'  How the letters should be separated.
+#' @template NA_letter
+#' @template three-dots
 #' 
-#' @details \code{Print} method is used by default in each case of calling the 
-#' \code{\link[=sq-class]{sq}} object with default parameters.
-#' Only by explicit calling the \code{print} method parameters can be changed. 
-#'  
-#' \code{Print} checks if the input \code{\link[=sq-class]{sq}} object is cleaned and includes
-#' this information alongside with type in the printed message. On the right side of 
-#' the sequence, in angle brackets, the length of each sequence is printed (e.q. "<9>").
-#' 
-#' If the \code{max_sequences} parameter is supplied, the desired number of sequences 
-#' is printed and this information is included in a message (e.q. "printed 1 out of 3"). 
-#' Only \code{max_sequences} value smaller than the number of sequences in object 
-#' affects the function. The default value indicating how many sequences should 
-#' be printed is 10, but it can be changed in \code{\link[=tidysq-options]{package options}}. 
-#' 
-#' Default value of \code{use_color} parameter is \code{TRUE} - sequences are printed
-#' in green, while empty sequences, NA character and dots in gray. If this option is disabled, 
-#' all sequences are in default color of console.
-#' 
-#' The \code{letters_sep} parameter indicates how the letters should be separated 
-#' (they are not by default). Any character string can be supplied but 
-#' \code{\link{NA_character_}}.
-#' 
-#' If sequences are too long, only leading characters are printed (as many as possible
-#' in single line) and following dots indicating that sequence is truncated.
-#' 
-#' If sequences contain \code{\link{NA}} (‘Not Available’ / Missing Values) values, they 
-#' are printed as "!" character, but it can be changed in 
-#' \code{\link[=tidysq-options]{package options}}.
-#' 
-#' This is overloaded function from base package. It is selected when \code{\link[=sq-class]{sq}}
-#' object is used as a parameter for print function. To see the generic function 
-#' page, check \code{\link[base:print]{here}}.
-#' 
-#' @param x \code{\link[=sq-class]{sq}} object
-#' @param max_sequences \code{numeric} value indicating how many sequences 
-#' should be printed
-#' @param use_color \code{logical} value indicating if sequences should 
-#' be colored
-#' @param letters_sep \code{character} value indicating how the letters 
-#' should be separated
-#' @param ... 	further arguments passed to or from other methods. 
-#' Unused.
-#' 
-#' @seealso \code{\link[=sq-class]{sq}} \code{\link{clean}} \code{\link{tidysq-options}}
+#' @details
+#' \code{print} method is often called implicitly by calling variable name.
+#' Only explicit calling of this method allows its parameters to be changed.
+#'
+#' Printed information consists of three parts:
+#' \itemize{
+#' \item First line is always a header that contains info about the type of
+#'  sequences contained.
+#' \item The next part is the content. Each sequence has its own line, but not
+#'  all sequences are printed. The number of printed sequences is limited by
+#'  parameter \code{max_sequences}, defaulting to 10. These sequences are
+#'  printed with:
+#'  \itemize{
+#'  \item left-aligned index of sequence in square brackets (e.g. \code{[3]}),
+#'  \item left-aligned sequence data (more about it in paragraph below),
+#'  \item right-aligned sequence length in angle brackets (e.g. \code{<27>}).
+#'  }
+#' \item Finally, if number of sequences is greater than \code{max_sequences},
+#'  then a footer is displayed with how many sequences are there and how many
+#'  were printed.
+#' }
+#'
+#' Each sequence data is printed as letters. If sequence is too long to fit in
+#' one line, then only a subsequence is displayed - a subsequence that begins
+#' from the first letter. Sequence printing is controlled by \code{letters_sep}
+#' and \code{NA_letter} parameters. The first one specifies a string that should
+#' be inserted between any two letters. By default it's empty when all letters
+#' are one character in length; and a space otherwise. \code{NA_letter} dictates
+#' how \code{NA} values are displayed, by default it's an exclamation mark
+#' ("\code{!}").
+#'
+#' Most consoles support color printing, but when any of these do not, then the
+#' user might use \code{use_color} parameter set to \code{FALSE} - or better
+#' yet, change related option value, where said option is called
+#' \code{"tidysq_print_use_color"}.
+#'
+#' @examples
+#' # Creating objects to work on:
+#' sq_ami <- sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
+#'              alphabet = "ami_ext")
+#' sq_dna <- sq(c("ATGCAGGA", "GACCGNBAACGAN", "TGACGAGCTTA"),
+#'              alphabet = "dna_bsc")
+#' sq_unt <- sq(c("ATGCAGGA?", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
+#'
+#' # Printing without explicit function calling with default parameters:
+#' sq_ami
+#' sq_dna
+#' sq_unt
+#'
+#' # Printing with explicit function calling and specific parameters:
+#' print(sq_ami)
+#' print(sq_dna, max_sequences = 1, use_color = FALSE)
+#' print(sq_unt, letters_sep = ":")
+#'
+#' @family display_functions
 #' @name sqprint
 #' @aliases sq-print
 NULL

@@ -5,30 +5,61 @@
 \alias{sq-extract}
 \title{Extract parts of a sq object}
 \arguments{
-\item{x}{sq object from which to extract element(s)}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
-\item{i, j, ...}{indices specifying elements to extract. They may be 
-\code{\link{numeric}}, \code{\link{character}} or \code{\link{logical}} vectors or empty. 
-This function follows \code{\link[vctrs]{vctrs-package}} conventions regarding argument
-interpretation for indexing vectors, which are a bit stricter that normal R
-conventions, for example implicit argument recycling is prohibited.}
+\item{i, j, ...}{[\code{numeric} || \code{logical}]\cr
+Indices specifying elements to extract.}
 }
 \value{
-\code{\link[=sq-class]{sq}} object of the same type as input sq, containing
-extracted elements
+\code{\link[=sq-class]{sq}} object of the same type as the input,
+containing extracted elements
 }
 \description{
 Operator to extract subsets of sq objects.
 }
 \details{
-This function allows extracting specified sequences from the 
-sq object and follows the normal R conventions. For details refer to the 
-R documentation (see 
-\url{https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Index-vectors}). 
-Subsetting of the sq object does not affect its attributes (class and alphabet 
-of the object). Attempt to extract elements using indices not present in
-the object will return an error.
+This function follows \code{\link[vctrs]{vctrs-package}} conventions
+regarding argument interpretation for indexing vectors, which are a bit
+stricter that normal R conventions, for example implicit argument recycling
+is prohibited. Subsetting of the \code{sq} object does not affect its
+attributes (class and alphabet of the object). Attempt to extract elements
+using indices not present in the object will return an error.
+}
+\examples{
+# Creating object to work on:
+sq_unt <- sq(c("AHSNLVSCTK$SH\%&VS", "YQTVKA&#BSKJGY",
+               "IAKVGDCTWCTY&GT", "AVYI#VSV&*DVGDJCFA"))
+
+# Subsetting using numeric vectors
+# Extracting second element of the object:
+sq_unt[2]
+
+# Extracting elements from second to fourth:
+sq_unt[2:4]
+
+# Extracting all elements except the third:
+sq_unt[-3]
+
+# Extracting first and third element:
+sq_unt[c(1,3)]
+
+# Subsetting using logical vectors
+# Extracing first and third element:
+sq_unt[c(TRUE, FALSE, TRUE, FALSE)]
+
+# Subsetting using empty vector returns all values:
+sq_unt[]
+
+# Using NULL, on the other hand, returns empty sq:
+sq_unt[NULL]
+
 }
 \seealso{
-\code{\link[=sq-class]{sq}} \code{\link{bite}}
+Functions from utility module:
+\code{\link{==.sq}()},
+\code{\link{get_sq_lengths}()},
+\code{\link{is.sq}()},
+\code{\link{sqconcatenate}}
 }
+\concept{util_functions}
