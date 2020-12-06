@@ -2,14 +2,61 @@
 % Please edit documentation in R/remove_ambiguous.R
 \name{remove_ambiguous}
 \alias{remove_ambiguous}
+\alias{remove_ambiguous.sq_dna_bsc}
+\alias{remove_ambiguous.sq_dna_ext}
+\alias{remove_ambiguous.sq_rna_bsc}
+\alias{remove_ambiguous.sq_rna_ext}
+\alias{remove_ambiguous.sq_ami_bsc}
+\alias{remove_ambiguous.sq_ami_ext}
 \title{Remove sequences that contain ambiguous elements}
 \usage{
 remove_ambiguous(x, by_letter = FALSE, ...)
+
+\method{remove_ambiguous}{sq_dna_bsc}(
+  x,
+  by_letter = FALSE,
+  ...,
+  NA_letter = getOption("tidysq_NA_letter")
+)
+
+\method{remove_ambiguous}{sq_dna_ext}(
+  x,
+  by_letter = FALSE,
+  ...,
+  NA_letter = getOption("tidysq_NA_letter")
+)
+
+\method{remove_ambiguous}{sq_rna_bsc}(
+  x,
+  by_letter = FALSE,
+  ...,
+  NA_letter = getOption("tidysq_NA_letter")
+)
+
+\method{remove_ambiguous}{sq_rna_ext}(
+  x,
+  by_letter = FALSE,
+  ...,
+  NA_letter = getOption("tidysq_NA_letter")
+)
+
+\method{remove_ambiguous}{sq_ami_bsc}(
+  x,
+  by_letter = FALSE,
+  ...,
+  NA_letter = getOption("tidysq_NA_letter")
+)
+
+\method{remove_ambiguous}{sq_ami_ext}(
+  x,
+  by_letter = FALSE,
+  ...,
+  NA_letter = getOption("tidysq_NA_letter")
+)
 }
 \arguments{
-\item{x}{[\code{sq_dna_bsc} || \code{sq_rna_bsc} || \code{sq_dna_ext} ||
-\code{sq_rna_ext} || \code{sq_ami_bsc} || \code{sq_ami_ext}]\cr
- An object this function is applied to.}
+\item{x}{[\code{sq_dna_bsc || sq_rna_bsc || sq_dna_ext || sq_rna_ext || sq_ami_bsc || sq_ami_ext}]\cr
+An object this function is applied to.}
 
 \item{by_letter}{[\code{logical(1)}]\cr
 If \code{FALSE}, filter condition is applied to sequence as a whole. If

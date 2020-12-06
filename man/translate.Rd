@@ -38,6 +38,10 @@ An object this function is applied to.}
 A string that is used to interpret and display \code{NA} value in the
 context of \code{\link[=sq-class]{sq class}}. Default value equals to
 "\code{!}".}
+
+\item{interpret_as_stop}{[\code{logical(1)}]\cr
+Used with tables 27, 28 and 31 and their ambiguous translations. Tells if
+these ambiguous codons should be interpreted as stop or the other option.}
 }
 \value{
 An object of \code{\link[=sq-class]{class sq}} with \strong{ami_bsc}

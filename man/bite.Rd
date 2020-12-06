@@ -23,6 +23,8 @@ An object this function is applied to.}
 Indices to extract from each sequence. The function follows the normal R
 conventions for indexing vectors, including negative indices.}
 
+\item{...}{further arguments to be passed from or to other methods.}
+
 \item{NA_letter}{[\code{character(1)}]\cr
 A string that is used to interpret and display \code{NA} value in the
 context of \code{\link[=sq-class]{sq class}}. Default value equals to

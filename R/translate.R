@@ -11,6 +11,9 @@
 #' \href{https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi}{here}.
 #' @template NA_letter
 #' @template three-dots
+#' @param interpret_as_stop [\code{logical(1)}]\cr
+#'  Used with tables 27, 28 and 31 and their ambiguous translations. Tells if
+#'  these ambiguous codons should be interpreted as stop or the other option.
 #' 
 #' @return An object of \code{\link[=sq-class]{class sq}} with \strong{ami_bsc}
 #' type.

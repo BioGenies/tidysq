@@ -6,6 +6,7 @@
 #' @param indices [\code{integer}]\cr
 #'  Indices to extract from each sequence. The function follows the normal R
 #'  conventions for indexing vectors, including negative indices.
+#' @template three-dots
 #' @template NA_letter
 #' @template on_warning
 #' 

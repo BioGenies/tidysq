@@ -20,6 +20,9 @@ sq_type(x) <- value
 An object this function is applied to.}
 
 \item{...}{further arguments to be passed from or to other methods.}
+
+\item{value}{[\code{character(1)}]\cr
+The name of destination type - any valid sq type.}
 }
 \value{
 A string, one of: "ami_bsc", "ami_ext", "dna_bsc", "dna_ext",

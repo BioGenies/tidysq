@@ -48,10 +48,9 @@
 #' letter), you also don't need to specify any parameter. Optionally, you can
 #' explicitly do it by setting \code{alphabet} to \code{"unt"}.
 #' 
-#' In \code{\link[=safe-mode]{safe mode}} it is guaranteed that only letters
-#' which are equal to \code{NA_letter} argument are interpreted as \code{NA}
-#' values. Due to that, resulting alphabet might be different from the
-#' \code{alphabet} argument.
+#' In \code{safe mode} it is guaranteed that only letters which are equal to
+#' \code{NA_letter} argument are interpreted as \code{NA} values. Due to that,
+#' resulting alphabet might be different from the \code{alphabet} argument.
 #' 
 #' @section Detailed guide to construct:
 #' Below are listed all possibilities that can occur during the construction of

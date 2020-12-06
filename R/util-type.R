@@ -5,6 +5,8 @@
 #'  
 #' @template x
 #' @template three-dots
+#' @param value [\code{character(1)}]\cr
+#'  The name of destination type - any valid sq type.
 #'  
 #' @return A string, one of: "ami_bsc", "ami_ext", "dna_bsc", "dna_ext",
 #' "rna_bsc", "rna_ext", "unt" or "atp".

@@ -4,8 +4,7 @@
 #' empty (\code{NULL}) sequences or removes ambiguous elements from sequences
 #' in an \code{sq} object.
 #'
-#' @param x [\code{sq_dna_bsc} || \code{sq_rna_bsc} || \code{sq_dna_ext} ||
-#' \code{sq_rna_ext} || \code{sq_ami_bsc} || \code{sq_ami_ext}]\cr
+#' @param x [\code{sq_dna_bsc || sq_rna_bsc || sq_dna_ext || sq_rna_ext || sq_ami_bsc || sq_ami_ext}]\cr
 #'  An object this function is applied to.
 #' @template by_letter
 #' @template NA_letter
@@ -63,10 +62,12 @@ remove_ambiguous <- function(x, by_letter = FALSE, ...) {
 remove_ambiguous.default <- function(x, by_letter = FALSE, ...)
   stop("ambiguous letters are not defined in the context of this class", call. = FALSE)
 
+#' @rdname remove_ambiguous
 #' @export
 remove_ambiguous.sq_dna_bsc <- function(x, by_letter = FALSE, ...,
                                         NA_letter = getOption("tidysq_NA_letter")) x
 
+#' @rdname remove_ambiguous
 #' @export
 remove_ambiguous.sq_dna_ext <- function(x, by_letter = FALSE, ...,
                                         NA_letter = getOption("tidysq_NA_letter")) {
@@ -75,14 +76,18 @@ remove_ambiguous.sq_dna_ext <- function(x, by_letter = FALSE, ...,
   CPP_remove_ambiguous(x, by_letter, NA_letter)
 }
 
+#' @rdname remove_ambiguous
 #' @export
 remove_ambiguous.sq_rna_bsc <- remove_ambiguous.sq_dna_bsc
 
+#' @rdname remove_ambiguous
 #' @export
 remove_ambiguous.sq_rna_ext <- remove_ambiguous.sq_dna_ext
 
+#' @rdname remove_ambiguous
 #' @export
 remove_ambiguous.sq_ami_bsc <- remove_ambiguous.sq_dna_bsc
 
+#' @rdname remove_ambiguous
 #' @export
 remove_ambiguous.sq_ami_ext <- remove_ambiguous.sq_dna_ext
