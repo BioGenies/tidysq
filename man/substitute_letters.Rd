@@ -71,7 +71,7 @@ substitute_letters(sq_ami, c(I = "ough", O = "eau"))
 substitute_letters(sq_dna, c(N = 9, G = 0.07)
 
 # It's possible to replace a letter with NA value:
-substitute_letters(sq_ami, c(X = NA))
+substitute_letters(sq_ami, c(X = NA_character_))
 
 }
 \seealso{
