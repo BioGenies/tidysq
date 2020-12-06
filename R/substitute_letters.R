@@ -49,7 +49,7 @@
 #' substitute_letters(sq_ami, c(I = "ough", O = "eau"))
 #'
 #' # Numeric substitutions are allowed too, these are coerced to characters:
-#' substitute_letters(sq_dna, c(N = 9, G = 0.07))
+#' substitute_letters(sq_dna, c(N = 9, G = 7))
 #'
 #' # It's possible to replace a letter with NA value:
 #' substitute_letters(sq_ami, c(X = NA_character_))
