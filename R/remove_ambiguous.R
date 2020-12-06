@@ -10,7 +10,7 @@
 #' @template NA_letter
 #' @template three-dots
 #'
-#' @return An \code{\link[=sq-class]]{sq}} object with the \strong{_bsc}
+#' @return An \code{\link[=sq-class]}{sq}} object with the \strong{_bsc}
 #' version of inputted type.
 #'
 #' @details
