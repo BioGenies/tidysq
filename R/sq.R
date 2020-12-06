@@ -186,9 +186,6 @@
 #' sq(c("AGTGGC", "", "CATGA", ""))
 #'
 #' @family input_functions
-#' @seealso \code{\link[=sq-class]{sq class}} \code{\link{read_fasta}}
-#' \code{\link{tidysq-options}} \code{\link{substitute_letters}}
-#' \code{\link{remove_na}}
 #' @export
 sq <- function(x,
                alphabet = NULL,

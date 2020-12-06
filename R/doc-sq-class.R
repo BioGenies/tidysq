@@ -73,7 +73,7 @@
 #' alphabet different from standard alphabets - similarly to \strong{unt}, but
 #' user has been explicitly informed about it. They are result of constructing
 #' sequences or reading from file with provided custom alphabet (for details
-#' see \code{\link{read_fasta}} and \code{\link{construct_sq}}). They are also
+#' see \code{\link{read_fasta}} and \code{\link{sq}} function). They are also
 #' result of using function \code{\link{substitute_letters}} - users can use
 #' it to for example simplify an alphabet and replace several letters by one.
 #' }
@@ -94,7 +94,7 @@
 #' \code{\link{alphabet}} function. The user can check which letters are
 #' invalid (i.e. not represented in standard amino acid or nucleotide
 #' alphabet) in each sequence of given \code{sq} object by using
-#' \code{\link{get_invalid_letters}}. To substitute one letter with another
+#' \code{\link{find_invalid_letters}}. To substitute one letter with another
 #' use \code{\link{substitute_letters}}.
 #'
 #' @section Missing/Not Available values:

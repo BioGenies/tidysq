@@ -232,10 +232,6 @@ sq(c("AGTGGC", "", "CATGA", ""))
 
 }
 \seealso{
-\code{\link[=sq-class]{sq class}} \code{\link{read_fasta}}
-\code{\link{tidysq-options}} \code{\link{substitute_letters}}
-\code{\link{remove_na}}
-
 Functions from input module:
 \code{\link{import_sq}()},
 \code{\link{random_sq}()},

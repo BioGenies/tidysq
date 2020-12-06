@@ -47,6 +47,7 @@
 #' }
 #'
 #' @family display_functions
+#' @aliases tidysq-options
 #' @export
 get_tidysq_options <- function() {
   options()[c("tidysq_NA_letter",

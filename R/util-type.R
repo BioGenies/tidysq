@@ -34,7 +34,6 @@
 sq_type <- function(x, ...)
   UseMethod("sq_type")
 
-#' @rdname sq_type
 #' @export
 sq_type.default <- function(x, ...)
   stop("cannot determine sq_type of this type of object", call. = FALSE)
@@ -44,6 +43,7 @@ sq_type.default <- function(x, ...)
 sq_type.sq <- function(x, ...)
   vec_ptype_abbr(x)
 
+#' @rdname sq_type
 #' @export
 `sq_type<-` <- function(x, value)
   UseMethod("sq_type<-")
@@ -52,6 +52,7 @@ sq_type.sq <- function(x, ...)
 `sq_type<-.default` <- function(x, value)
   stop("cannot change sq_type of this type of object", call. = FALSE)
 
+#' @rdname sq_type
 #' @export
 `sq_type<-.sq` <- function(x, value) {
   typify(x, value)

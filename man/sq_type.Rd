@@ -2,15 +2,18 @@
 % Please edit documentation in R/util-type.R
 \name{sq_type}
 \alias{sq_type}
-\alias{sq_type.default}
 \alias{sq_type.sq}
+\alias{sq_type<-}
+\alias{sq_type<-.sq}
 \title{Get type of an sq object}
 \usage{
 sq_type(x, ...)
 
-\method{sq_type}{default}(x, ...)
-
 \method{sq_type}{sq}(x, ...)
+
+sq_type(x) <- value
+
+\method{sq_type}{sq}(x) <- value
 }
 \arguments{
 \item{x}{[\code{sq}]\cr

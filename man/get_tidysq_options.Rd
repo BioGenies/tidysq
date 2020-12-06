@@ -2,6 +2,7 @@
 % Please edit documentation in R/util-options.R
 \name{get_tidysq_options}
 \alias{get_tidysq_options}
+\alias{tidysq-options}
 \title{Obtain current state of tidysq options}
 \usage{
 get_tidysq_options()
