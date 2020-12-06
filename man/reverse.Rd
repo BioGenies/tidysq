@@ -36,7 +36,7 @@ does not alter the type of the input object nor its alphabet.
 # Creating objects to work on:
 sq_ami <- sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
              alphabet = "ami_ext")
-sq_dna <- sq(c("ATGCAGGA", "GACCGAACGAN", ""), alphabet = "dna")
+sq_dna <- sq(c("ATGCAGGA", "GACCGAACGAN", ""), alphabet = "dna_ext")
 sq_unt <- sq(c("ATGCAGGA?", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
 
 # Reversing sequences:
