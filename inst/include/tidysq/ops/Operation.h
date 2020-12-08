@@ -17,11 +17,8 @@ namespace tidysq::ops {
 
         virtual void operator() (const ELEMENT_IN &element_in, ELEMENT_OUT &element_out) = 0;
 
-        inline void operator() (const ELEMENT_IN &element_in, ELEMENT_OUT &&element_out) {
-            operator()(element_in, element_out);
-        }
-
-        inline ELEMENT_OUT operator() (const ELEMENT_IN &element_in) {
+        // TODO: find out why this method is not seen when trying to call it from objects that inherit
+        virtual ELEMENT_OUT operator() (const ELEMENT_IN &element_in) {
             ELEMENT_OUT element_out = initialize_element_out(element_in);
             operator()(element_in, element_out);
             return element_out;
@@ -33,15 +30,15 @@ namespace tidysq::ops {
             public OperationVectorToVector<Sq<INTERNAL_IN>, Sequence<INTERNAL_IN>,
                                            Sq<INTERNAL_OUT>, Sequence<INTERNAL_OUT>> {
     public:
-        Sq<INTERNAL_OUT> initialize_vector_out(const Sq<INTERNAL_IN> &sq_in, LenSq from, LenSq to) override {
+        inline Sq<INTERNAL_OUT> initialize_vector_out(const Sq<INTERNAL_IN> &sq_in, LenSq from, LenSq to) override {
             return Sq<INTERNAL_OUT>(to - from, map_alphabet(sq_in.alphabet()));
         }
 
-        Sequence<INTERNAL_OUT> initialize_element_out(const Sequence<INTERNAL_IN> &sequence_in) override {
+        inline Sequence<INTERNAL_OUT> initialize_element_out(const Sequence<INTERNAL_IN> &sequence_in) override {
             return Sequence<INTERNAL_OUT>(sequence_in.size(), sequence_in.original_length());
         }
 
-        [[nodiscard]] virtual Alphabet map_alphabet(const Alphabet &alphabet_in) const {
+        [[nodiscard]] virtual inline Alphabet map_alphabet(const Alphabet &alphabet_in) const {
             return alphabet_in;
         }
     };
