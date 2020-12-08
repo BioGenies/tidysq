@@ -8,6 +8,7 @@ namespace tidysq {
              typename VECTOR_OUT, typename ELEMENT_OUT>
     VECTOR_OUT sqapply(const VECTOR_IN &vector_in,
                        ops::OperationVectorToVector<VECTOR_IN, ELEMENT_IN, VECTOR_OUT, ELEMENT_OUT> &operation) {
+        if (operation.may_return_early(vector_in)) return operation.return_early(vector_in);
         VECTOR_OUT ret = operation.initialize_vector_out(vector_in);
         for (LenSq i = 0; i < vector_in.size(); i++) {
             ret[i] = operation(vector_in[i]);
@@ -28,6 +29,7 @@ namespace tidysq {
                        ops::OperationVectorToVector<VECTOR_IN, ELEMENT_IN, VECTOR_OUT, ELEMENT_OUT> &operation,
                        const LenSq from,
                        const LenSq to) {
+        if (operation.may_return_early(vector_in)) return operation.return_early(vector_in);
         VECTOR_OUT ret = operation.initialize_vector_out(vector_in, from, to);
         for (LenSq i = 0; i < to - from; i++) {
             ret[i] = operation(vector_in[i + from]);

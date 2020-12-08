@@ -7,6 +7,14 @@ namespace tidysq::ops {
              typename VECTOR_OUT, typename ELEMENT_OUT>
     class OperationVectorToVector {
     public:
+        virtual bool may_return_early(const VECTOR_IN &vector_in) {
+            return false;
+        }
+
+        virtual VECTOR_OUT return_early(const VECTOR_IN &vector_in) {
+            return  initialize_vector_out(vector_in);
+        }
+
         virtual VECTOR_OUT initialize_vector_out(const VECTOR_IN &vector_in, const LenSq from, const LenSq to) = 0;
 
         inline virtual VECTOR_OUT initialize_vector_out(const VECTOR_IN &vector_in) {
