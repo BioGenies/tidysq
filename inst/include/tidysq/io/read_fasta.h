@@ -267,22 +267,24 @@ namespace tidysq {
         };
     }
 
-    template<typename INTERNAL>
-    internal::NamedSqibble<INTERNAL> read_fasta(const std::string &file_name,
-                                                const Alphabet &alphabet) {
-        internal::FastaReader<INTERNAL> reader(file_name, alphabet);
-        reader.read();
-        return reader.sqibble();
-        return std::make_pair(Sq<INTERNAL>(SqType::UNT), std::vector<std::string>(0));
+    namespace io {
+        template<typename INTERNAL>
+        internal::NamedSqibble<INTERNAL> read_fasta(const std::string &file_name,
+                                                    const Alphabet &alphabet) {
+            internal::FastaReader<INTERNAL> reader(file_name, alphabet);
+            reader.read();
+            return reader.sqibble();
+        }
+
+        inline Alphabet sample_fasta(const std::string &file_name,
+                                         const LenSq sample_size = constants::BUFF_SIZE,
+                                         const Letter &NA_letter = constants::DEFAULT_NA_LETTER,
+                                         const bool ignore_case = constants::DEFAULT_IGNORE_CASE) {
+            internal::FastaSampler sampler(file_name, sample_size, NA_letter, ignore_case);
+            sampler.sample();
+            return sampler.alphabet();
+        }
     }
 
-    inline Alphabet sample_fasta(const std::string &file_name,
-                                 const LenSq sample_size = constants::BUFF_SIZE,
-                                 const Letter &NA_letter = constants::DEFAULT_NA_LETTER,
-                                 const bool ignore_case = constants::DEFAULT_IGNORE_CASE) {
-        internal::FastaSampler sampler(file_name, sample_size, NA_letter, ignore_case);
-        sampler.sample();
-        return sampler.alphabet();
-    }
 }
 

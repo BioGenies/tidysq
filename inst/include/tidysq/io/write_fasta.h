@@ -75,12 +75,15 @@ namespace tidysq {
         };
     }
 
-    template<typename INTERNAL>
-    void write_fasta(const Sq<INTERNAL> &sq,
-                     const std::vector<std::string> &names,
-                     const std::string &file_name,
-                     const unsigned int &width) {
-        auto writer = internal::FastaWriter<INTERNAL>(sq, names, file_name, width);
-        writer.write();
+    namespace io {
+        template<typename INTERNAL>
+        void write_fasta(const Sq<INTERNAL> &sq,
+                         const std::vector<std::string> &names,
+                         const std::string &file_name,
+                         const unsigned int &width) {
+            auto writer = internal::FastaWriter<INTERNAL>(sq, names, file_name, width);
+            writer.write();
+        }
     }
+
 }
