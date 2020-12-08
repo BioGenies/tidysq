@@ -8,6 +8,7 @@
 
 namespace tidysq::constants {
     const Letter DEFAULT_NA_LETTER{"!"};
+    const bool DEFAULT_IGNORE_CASE = false;
 
     const std::unordered_map<SqType, const std::vector<Letter>>  STANDARD_LETTERS{
             {DNA_BSC, {"A", "C", "G", "T", "-"}},
