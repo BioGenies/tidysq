@@ -49,7 +49,5 @@ bite.sq <- function(x, indices, ...,
   assert_warning_handling(on_warning)
   assert_integerish(indices, any.missing = FALSE, null.ok = TRUE)
   
-  ret <- CPP_bite(x, indices, NA_letter)
-  handle_warning_message(ret[["warning"]], on_warning)
-  ret[["sq"]]
+  CPP_bite(x, indices, NA_letter, on_warning)
 }

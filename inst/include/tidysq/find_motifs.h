@@ -1,7 +1,7 @@
 #pragma once
 
 #include "tidysq/Sq.h"
-#include "tidysq/bite.h"
+#include "tidysq/ops/bite.h"
 #include "tidysq/constants/ambiguous_maps.h"
 #include <map>
 #include <algorithm>
@@ -162,7 +162,8 @@ namespace tidysq {
 
             // sequence_it is passed as copy, because we want a new iterator that starts from that point
             template<typename INTERNAL>
-            void locate(typename Sequence<INTERNAL>::const_iterator sequence_it,
+            void locate(const Sequence<INTERNAL> &sequence,
+                        typename Sequence<INTERNAL>::const_iterator sequence_it,
                         const typename Sequence<INTERNAL>::const_iterator &iterator_end,
                         const std::string &name,
                         internal::FoundMotifs<INTERNAL> &ret) const {
@@ -177,11 +178,11 @@ namespace tidysq {
                     // or before motif stops corresponding to sequence
                     if (motif_it == end()) {
                         // TODO: append located motif and other info to ret
-                        std::vector<long long int> indices(content_.size());
+                        std::vector<LenSq> indices(content_.size());
                         std::generate(indices.rbegin(), indices.rend(), [=]() mutable {
                             return (--sequence_it).index();
                         });
-                        Sequence<INTERNAL> found_sequence = bite<INTERNAL>(sequence_it, indices);
+                        Sequence<INTERNAL> found_sequence = bite(sequence, alph_.alphabet_size(), indices);
                         ret.append(name, found_sequence, sought_, sequence_it.index() - content_.size(), sequence_it.index() - 1);
                         return;
                     }
@@ -227,15 +228,15 @@ namespace tidysq {
                     // Lot of ^ and $ handling mostly
                     if (from_start_) {
                         if (!until_end_ || sequence.original_length() == size()) {
-                            locate(sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()), name, ret);
+                            locate(sequence, sequence.cbegin(alph_.alphabet_size()), sequence.cend(alph_.alphabet_size()), name, ret);
                         }
                     } else if (until_end_) {
-                        locate(sequence.cend(alph_.alphabet_size()) - size(), sequence.cend(alph_.alphabet_size()), name, ret);
+                        locate(sequence, sequence.cend(alph_.alphabet_size()) - size(), sequence.cend(alph_.alphabet_size()), name, ret);
                     } else {
                         // Basic case below (without ^ or $)
                         typename Sequence<INTERNAL>::const_iterator it = sequence.cbegin(alph_.alphabet_size());
                         while (it <= sequence.cend(alph_.alphabet_size()) - size()) {
-                            locate(it, sequence.cend(alph_.alphabet_size()), name, ret);
+                            locate(sequence, it, sequence.cend(alph_.alphabet_size()), name, ret);
                             ++it;
                         }
                     }
