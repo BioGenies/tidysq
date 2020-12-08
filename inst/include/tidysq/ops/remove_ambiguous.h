@@ -31,6 +31,8 @@ namespace tidysq {
                 return early_return_;
             }
 
+
+
         public:
             OperationRemoveAmbiguous(const Alphabet &alphabet,
                                      const bool by_letter) :

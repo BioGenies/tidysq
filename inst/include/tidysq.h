@@ -13,7 +13,6 @@
 
 #include "tidysq/find_invalid_letters.h"
 #include "tidysq/find_motifs.h"
-#include "tidysq/typify.h"
 
 #include "tidysq/ops/pack.h"
 #include "tidysq/ops/unpack.h"
@@ -28,6 +27,8 @@
 #include "tidysq/ops/skip.h"
 #include "tidysq/ops/substitute_letters.h"
 #include "tidysq/ops/translate.h"
+#include "tidysq/ops/typify.h"
+
 
 #include "tidysq/io/read_fasta.h"
 #include "tidysq/io/write_fasta.h"

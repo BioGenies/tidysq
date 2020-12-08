@@ -1,6 +1,8 @@
 #include <Rcpp.h>
 
-#include "tidysq.h"
+#include "tidysq/Rcpp-import.h"
+#include "tidysq/Rcpp-export.h"
+#include "tidysq/ops/typify.h"
 
 using namespace tidysq;
 
