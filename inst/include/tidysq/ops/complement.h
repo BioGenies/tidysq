@@ -43,6 +43,13 @@ namespace tidysq {
                     ++out_seq_iter;
                 }
             }
+
+            inline Sequence<INTERNAL_OUT> operator() (const Sequence<INTERNAL_IN> &sequence_in) override {
+                //TODO: find out why we have to directly specify that we're calling base class method
+                Sequence<INTERNAL_OUT> sequence_out = OperationSqToSq<INTERNAL_IN, INTERNAL_OUT>::initialize_element_out(sequence_in);
+                operator()(sequence_in, sequence_out);
+                return sequence_out;
+            }
         };
     }
 
@@ -53,9 +60,6 @@ namespace tidysq {
 
     template<typename INTERNAL_IN, typename INTERNAL_OUT = INTERNAL_IN>
     Sequence<INTERNAL_OUT> complement(const Sequence<INTERNAL_IN> &sequence, const AlphSize alph_size, const SqType &type) {
-        auto x = ops::OperationComplement<INTERNAL_IN, INTERNAL_OUT>(alph_size, type);
-        return ops::OperationComplement<INTERNAL_IN, INTERNAL_OUT>(alph_size, type).
-                template OperationVectorToVector<Sq<INTERNAL_IN>, Sequence<INTERNAL_IN>,
-                        Sq<INTERNAL_OUT>, Sequence<INTERNAL_OUT>>::operator()(sequence);
+        return ops::OperationComplement<INTERNAL_IN, INTERNAL_OUT>(alph_size, type)(sequence);
     }
 }

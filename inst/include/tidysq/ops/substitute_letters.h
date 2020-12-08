@@ -83,6 +83,13 @@ namespace tidysq {
                     sequence_out = sequence_in;
                 }
             }
+
+            inline Sequence<INTERNAL_OUT> operator() (const Sequence<INTERNAL_IN> &sequence_in) override {
+                //TODO: find out why we have to directly specify that we're calling base class method
+                Sequence<INTERNAL_OUT> sequence_out = OperationSqToSq<INTERNAL_IN, INTERNAL_OUT>::initialize_element_out(sequence_in);
+                operator()(sequence_in, sequence_out);
+                return sequence_out;
+            }
         };
     }
 
@@ -96,8 +103,6 @@ namespace tidysq {
     Sequence<INTERNAL_OUT> substitute_letters(const Sequence<INTERNAL_IN> &sequence,
                                               const Alphabet &alphabet,
                                               const std::unordered_map<Letter, Letter> &encoding) {
-        return ops::OperationSubstituteLetters<INTERNAL_IN, INTERNAL_OUT>(alphabet, encoding).
-                template OperationVectorToVector<Sq<INTERNAL_IN>, Sequence<INTERNAL_IN>,
-                Sq<INTERNAL_OUT>, Sequence<INTERNAL_OUT>>::operator()(sequence);
+        return ops::OperationSubstituteLetters<INTERNAL_IN, INTERNAL_OUT>(alphabet, encoding)(sequence);
     }
 }

@@ -80,6 +80,12 @@ namespace tidysq {
                     }
                 }
             }
+
+            inline Sequence<INTERNAL_OUT> operator() (const Sequence<INTERNAL_IN> &sequence_in) override {
+                Sequence<INTERNAL_OUT> sequence_out = initialize_element_out(sequence_in);
+                operator()(sequence_in, sequence_out);
+                return sequence_out;
+            }
         };
     }
 
@@ -94,8 +100,6 @@ namespace tidysq {
     Sequence<INTERNAL_OUT> translate(const Sequence<INTERNAL_IN> &sequence,
                                      const unsigned int &table = 1,
                                      const bool &interpret_as_stop = false) {
-        return ops::OperationTranslate<INTERNAL_IN, INTERNAL_OUT>(table, interpret_as_stop).
-                template OperationVectorToVector<Sq<INTERNAL_IN>, Sequence<INTERNAL_IN>,
-                        Sq<INTERNAL_OUT>, Sequence<INTERNAL_OUT>>::operator()(sequence);
+        return ops::OperationTranslate<INTERNAL_IN, INTERNAL_OUT>(table, interpret_as_stop)(sequence);
     }
 }

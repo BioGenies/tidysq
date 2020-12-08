@@ -28,6 +28,12 @@ namespace tidysq {
                        ProtoSequence<INTERNAL_OUT, PROTO_OUT> &proto_sequence) override {
                 internal::unpack_common<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(sequence, proto_sequence, alphabet_);
             }
+
+            inline ProtoSequence<INTERNAL_OUT, PROTO_OUT> operator() (const Sequence<INTERNAL_IN> &sequence) override {
+                ProtoSequence<INTERNAL_OUT, PROTO_OUT> proto_sequence = initialize_element_out(sequence);
+                operator()(sequence, proto_sequence);
+                return proto_sequence;
+            }
         };
 
         template<typename INTERNAL_IN, typename INTERNAL_OUT>
@@ -59,6 +65,12 @@ namespace tidysq {
                     internal::unpack_multichar_string<INTERNAL_IN, INTERNAL_OUT>(sequence, proto_sequence, alphabet_);
                 }
             }
+
+            inline ProtoSequence<INTERNAL_OUT, STRING_PT> operator() (const Sequence<INTERNAL_IN> &sequence) override {
+                ProtoSequence<INTERNAL_OUT, STRING_PT> proto_sequence = initialize_element_out(sequence);
+                operator()(sequence, proto_sequence);
+                return proto_sequence;
+            }
         };
     }
 
@@ -74,8 +86,6 @@ namespace tidysq {
 
     template<typename INTERNAL_IN, typename INTERNAL_OUT, typename PROTO_OUT>
     inline ProtoSequence<INTERNAL_OUT, PROTO_OUT> unpack(const Sequence<INTERNAL_IN> &sequence, const Alphabet &alphabet) {
-        return ops::OperationUnpack<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(alphabet).
-                template OperationVectorToVector<Sq<INTERNAL_IN>, Sequence<INTERNAL_IN>,
-                ProtoSq<INTERNAL_OUT, PROTO_OUT>, ProtoSequence<INTERNAL_OUT, PROTO_OUT>>::operator()(sequence);
+        return ops::OperationUnpack<INTERNAL_IN, INTERNAL_OUT, PROTO_OUT>(alphabet)(sequence);
     }
 }

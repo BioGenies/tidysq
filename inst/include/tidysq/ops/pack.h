@@ -31,6 +31,12 @@ namespace tidysq {
                     internal::pack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT, false>(proto_sequence, sequence, alphabet_);
                 }
             }
+
+            inline Sequence<INTERNAL_OUT> operator() (const ProtoSequence<INTERNAL_IN, PROTO_IN> &proto_sequence) override {
+                Sequence<INTERNAL_OUT> sequence = initialize_element_out(proto_sequence);
+                operator()(proto_sequence, sequence);
+                return sequence;
+            }
         };
     }
 
@@ -47,8 +53,6 @@ namespace tidysq {
 
     template<typename INTERNAL_IN, typename PROTO_IN, typename INTERNAL_OUT = INTERNAL_IN>
     inline Sequence<INTERNAL_OUT> pack(const ProtoSequence<INTERNAL_IN, PROTO_IN> &proto_sequence, const Alphabet &alphabet) {
-        return ops::OperationPack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(alphabet).
-                template OperationVectorToVector<ProtoSq<INTERNAL_IN, PROTO_IN>, ProtoSequence<INTERNAL_IN, PROTO_IN>,
-                                                      Sq<INTERNAL_OUT>, Sequence<INTERNAL_OUT>>::operator() (proto_sequence);
+        return ops::OperationPack<INTERNAL_IN, PROTO_IN, INTERNAL_OUT>(alphabet)(proto_sequence);
     }
 }

@@ -47,6 +47,12 @@ namespace tidysq {
                     it.assign(letter_values_[rand() % letter_values_.size()]);
                 }
             }
+
+            inline Sequence<INTERNAL_OUT> operator() (const LenSq &length) override {
+                Sequence<INTERNAL_OUT> sequence = initialize_element_out(length);
+                operator() (length, sequence);
+                return sequence;
+            }
         };
     }
 
@@ -64,8 +70,6 @@ namespace tidysq {
 
     template<typename INTERNAL>
     Sq<INTERNAL> random_sequence(const LenSq length, const Alphabet &alphabet, const bool &use_gap) {
-        return ops::OperationRandomSq<INTERNAL>(alphabet, use_gap).
-                template OperationVectorToVector<std::vector<LenSq>, LenSq,
-                Sq<INTERNAL>, Sequence<INTERNAL>>::operator()(length);
+        return ops::OperationRandomSq<INTERNAL>(alphabet, use_gap)(length);
     }
 }
