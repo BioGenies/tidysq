@@ -104,7 +104,7 @@ namespace tidysq {
         Alphabet(const std::vector<Letter> &letters,
                  const SqType &type,
                  const Letter &NA_letter = constants::DEFAULT_NA_LETTER,
-                 const bool ignore_case = false) :
+                 const bool ignore_case = constants::DEFAULT_IGNORE_CASE) :
                 ignore_case_(ignore_case),
                 value_to_letter_(prepare_value_to_letter(letters)),
                 NA_letter_(prepare_NA_letter(NA_letter)),
@@ -119,7 +119,7 @@ namespace tidysq {
 
         explicit Alphabet(const SqType &type,
                           const Letter &NA_letter = constants::DEFAULT_NA_LETTER,
-                          const bool ignore_case = false) :
+                          const bool ignore_case = constants::DEFAULT_IGNORE_CASE) :
                       Alphabet(util::standard_letters_for_sq_type(type),
                               type,
                               NA_letter,
@@ -129,7 +129,7 @@ namespace tidysq {
         //TODO: do it better!
         explicit Alphabet(const std::vector<Letter> &letters,
                           const Letter &NA_letter = constants::DEFAULT_NA_LETTER,
-                          const bool ignore_case = false) :
+                          const bool ignore_case = constants::DEFAULT_IGNORE_CASE) :
                 Alphabet(util::has_standard_alphabet(util::guess_sq_type_from_letters(letters)) ? util::standard_letters_for_sq_type(util::guess_sq_type_from_letters(letters)) : letters,
                          util::guess_sq_type_from_letters(letters),
                          NA_letter,

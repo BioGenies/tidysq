@@ -279,7 +279,7 @@ namespace tidysq {
     inline Alphabet sample_fasta(const std::string &file_name,
                                  const LenSq sample_size = constants::BUFF_SIZE,
                                  const Letter &NA_letter = constants::DEFAULT_NA_LETTER,
-                                 const bool ignore_case = false) {
+                                 const bool ignore_case = constants::DEFAULT_IGNORE_CASE) {
         internal::FastaSampler sampler(file_name, sample_size, NA_letter, ignore_case);
         sampler.sample();
         return sampler.alphabet();
