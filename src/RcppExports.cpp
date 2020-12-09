@@ -7,29 +7,30 @@
 using namespace Rcpp;
 
 // CPP_apply_R_function
-Rcpp::List CPP_apply_R_function(const Rcpp::List& x, const Rcpp::Function& fun, const Rcpp::LogicalVector& single_string, const Rcpp::StringVector& NA_letter);
+Rcpp::List CPP_apply_R_function(const Rcpp::List& x, const Rcpp::Function& fun, const bool& single_string, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_apply_R_function(SEXP xSEXP, SEXP funSEXP, SEXP single_stringSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
     Rcpp::traits::input_parameter< const Rcpp::Function& >::type fun(funSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type single_string(single_stringSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const bool& >::type single_string(single_stringSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_apply_R_function(x, fun, single_string, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
 // CPP_bite
-Rcpp::List CPP_bite(const Rcpp::List& x, const Rcpp::IntegerVector& indices, const tidysq::Letter& NA_letter);
-RcppExport SEXP _tidysq_CPP_bite(SEXP xSEXP, SEXP indicesSEXP, SEXP NA_letterSEXP) {
+Rcpp::List CPP_bite(const Rcpp::List& x, const Rcpp::IntegerVector& indices, const tidysq::Letter& NA_letter, const std::string& on_warning);
+RcppExport SEXP _tidysq_CPP_bite(SEXP xSEXP, SEXP indicesSEXP, SEXP NA_letterSEXP, SEXP on_warningSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type indices(indicesSEXP);
     Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
-    rcpp_result_gen = Rcpp::wrap(CPP_bite(x, indices, NA_letter));
+    Rcpp::traits::input_parameter< const std::string& >::type on_warning(on_warningSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_bite(x, indices, NA_letter, on_warning));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -72,19 +73,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// CPP_has
-Rcpp::LogicalVector CPP_has(const Rcpp::List& x, const std::vector<tidysq::Letter>& motifs, const tidysq::Letter& NA_letter);
-RcppExport SEXP _tidysq_CPP_has(SEXP xSEXP, SEXP motifsSEXP, SEXP NA_letterSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const std::vector<tidysq::Letter>& >::type motifs(motifsSEXP);
-    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
-    rcpp_result_gen = Rcpp::wrap(CPP_has(x, motifs, NA_letter));
-    return rcpp_result_gen;
-END_RCPP
-}
 // CPP_get_standard_alphabet
 Rcpp::StringVector CPP_get_standard_alphabet(const std::string& dest_type);
 RcppExport SEXP _tidysq_CPP_get_standard_alphabet(SEXP dest_typeSEXP) {
@@ -109,14 +97,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // CPP_has
-Rcpp::LogicalVector CPP_has(const Rcpp::List& x, const Rcpp::StringVector& motifs, const Rcpp::StringVector& NA_letter);
+Rcpp::LogicalVector CPP_has(const Rcpp::List& x, const std::vector<std::string>& motifs, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_has(SEXP xSEXP, SEXP motifsSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type motifs(motifsSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type motifs(motifsSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_has(x, motifs, NA_letter));
     return rcpp_result_gen;
 END_RCPP

@@ -6,7 +6,7 @@ using namespace tidysq;
 
 //[[Rcpp::export]]
 Rcpp::LogicalVector CPP_has(const Rcpp::List &x,
-                            const Rcpp::StringVector &motifs,
-                            const Rcpp::StringVector &NA_letter) {
-   return Rcpp::wrap(has<RCPP_IT>(import_from_R(x, NA_letter), util::convert_string_vector(motifs)));
+                            const std::vector<std::string> &motifs,
+                            const tidysq::Letter &NA_letter) {
+   return Rcpp::wrap(has<RCPP_IT>(import_from_R(x, NA_letter), motifs));
 }
