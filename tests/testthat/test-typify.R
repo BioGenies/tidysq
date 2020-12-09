@@ -10,6 +10,9 @@ test_that("typify() returns an sq object of desired type", {
   expect_vector(typify(sq_unt, "ami_ext"),
                 ptype = sq_ptype(get_standard_alphabet("ami_ext"), "ami_ext"),
                 size = vec_size(sq_unt))
+  expect_vector(typify(sq_dna, "dna_ext"),
+                ptype = sq_ptype(get_standard_alphabet("dna_ext"), "dna_ext"),
+                size = vec_size(sq_dna))
 })
 
 # NO CHANGES IF ALREADY TARGET CLASS ----
@@ -26,6 +29,13 @@ test_that("typify() treats multiple-character letters as a whole (and throws err
   # If each character was considered separate, character-only sequences like sq_atp
   # would be typified to AMI_EXT, as AMI_EXT alphabet contains all LETTERS
   expect_error(typify(sq_atp, "ami_ext"))
+})
+
+test_that("typify() returns object that is convertible to identical character vector ", {
+  expect_equal(as.character(typify(sq_dna, "dna_ext")),
+               as.character(sq_dna))
+  expect_equal(as.character(typify(sq_unt, "ami_ext")),
+               as.character(sq_unt))
 })
 
 # EDGE CASES ----
