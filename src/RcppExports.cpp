@@ -6,6 +6,20 @@
 
 using namespace Rcpp;
 
+// CPP_apply_R_function
+Rcpp::List CPP_apply_R_function(const Rcpp::List& x, const Rcpp::Function& fun, const Rcpp::LogicalVector& single_string, const Rcpp::StringVector& NA_letter);
+RcppExport SEXP _tidysq_CPP_apply_R_function(SEXP xSEXP, SEXP funSEXP, SEXP single_stringSEXP, SEXP NA_letterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::Function& >::type fun(funSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type single_string(single_stringSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_apply_R_function(x, fun, single_string, NA_letter));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_bite
 Rcpp::List CPP_bite(const Rcpp::List& x, const Rcpp::IntegerVector& indices, const Rcpp::StringVector& NA_letter, const std::string& on_warning);
 RcppExport SEXP _tidysq_CPP_bite(SEXP xSEXP, SEXP indicesSEXP, SEXP NA_letterSEXP, SEXP on_warningSEXP) {
@@ -351,6 +365,7 @@ END_RCPP
 RcppExport SEXP run_testthat_tests();
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_tidysq_CPP_apply_R_function", (DL_FUNC) &_tidysq_CPP_apply_R_function, 4},
     {"_tidysq_CPP_bite", (DL_FUNC) &_tidysq_CPP_bite, 4},
     {"_tidysq_CPP_complement", (DL_FUNC) &_tidysq_CPP_complement, 2},
     {"_tidysq_CPP_find_invalid_letters", (DL_FUNC) &_tidysq_CPP_find_invalid_letters, 3},

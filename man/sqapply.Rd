@@ -4,7 +4,13 @@
 \alias{sqapply}
 \title{Apply function to each sequence}
 \usage{
-sqapply(x, fun, ..., paste_char = FALSE, use_na_letter = paste_char)
+sqapply(
+  x,
+  fun,
+  ...,
+  single_string = FALSE,
+  NA_letter = getOption("tidysq_NA_letter")
+)
 }
 \arguments{
 \item{x}{a \code{\link[=sq-class]{sq}} object.}
@@ -13,6 +19,8 @@ sqapply(x, fun, ..., paste_char = FALSE, use_na_letter = paste_char)
 take a character vector, numeric vector or single character string as an input.}
 
 \item{...}{another arguments passed to \code{fun}.}
+
+\item{NA_letter}{an \code{NA_letter} - a string value.}
 
 \item{paste_char}{a \code{\link{logical}} value indicating in which form sequences should be
 passed to the function \code{fun}; if \code{FALSE} (default), they will be treated as character
