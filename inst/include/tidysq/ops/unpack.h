@@ -3,6 +3,8 @@
 #include "tidysq/internal/unpack_common.h"
 #include "tidysq/internal/unpack_multichar.h"
 #include "tidysq/ops/Operation.h"
+#include "tidysq/ProtoSq.h"
+#include "tidysq/Sq.h"
 #include "tidysq/sqapply.h"
 
 namespace tidysq {
