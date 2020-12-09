@@ -45,7 +45,7 @@ namespace tidysq {
             }
 
             void operator()(const Sequence<INTERNAL_IN> &sequence_in, Sequence<INTERNAL_OUT> &sequence_out) override {
-                pack<STD_IT, RAWS_PT, INTERNAL_OUT>(unpack<INTERNAL_IN, STD_IT, RAWS_PT>(sequence_in, alph_), dest_alph_);
+                sequence_out = pack<STD_IT, STRING_PT, INTERNAL_OUT>(unpack<INTERNAL_IN, STD_IT, STRING_PT>(sequence_in, alph_), dest_alph_);
             }
 
             inline Sequence<INTERNAL_OUT> operator() (const Sequence<INTERNAL_IN> &sequence_in) override {
