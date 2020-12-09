@@ -1,9 +1,9 @@
 #pragma once
 
-#include <tidysq/Alphabet.h>
-#include <tidysq/constants/ambiguous_maps.h>
-#include <tidysq/Sequence.h>
-#include <tidysq.h>
+#include "tidysq/Alphabet.h"
+#include "tidysq/constants/ambiguous_maps.h"
+#include "tidysq/Sequence.h"
+#include "tidysq/ops/bite.h"
 
 namespace tidysq::internal {
     template<typename INTERNAL>
