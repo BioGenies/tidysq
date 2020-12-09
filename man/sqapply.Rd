@@ -4,7 +4,13 @@
 \alias{sqapply}
 \title{Apply function to each sequence}
 \usage{
-sqapply(x, fun, ..., paste_char = FALSE, use_na_letter = paste_char)
+sqapply(
+  x,
+  fun,
+  ...,
+  single_string = FALSE,
+  NA_letter = getOption("tidysq_NA_letter")
+)
 }
 \arguments{
 \item{x}{[\code{sq}]\cr

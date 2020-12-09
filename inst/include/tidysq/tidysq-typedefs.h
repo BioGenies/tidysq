@@ -87,7 +87,7 @@ namespace tidysq {
 #define COMMON_STRING_PROTO_TYPE_TYPEDEFS_ \
     typedef std::string                                                         ProtoSequenceContentStorageType; \
     typedef ElementStringSimple &                                               ProtoSequenceContentAccessType; \
-    typedef const ElementStringSimple &                                         ProtoSequenceContentConstAccessType; \
+    typedef const ElementStringSimple &                                         ProtoSequenceContentConstAccessType;
 
 #define COMMON_RCPP_INTERNAL_TYPE_TYPEDEFS_ \
     typedef Rcpp::List                                                          ProtoSqListConstructorType; \
@@ -98,7 +98,7 @@ namespace tidysq {
 #define COMMON_RCPP_INTERNAL_TYPE_PROTO_SEQUENCE_TYPEDEFS_(VECTOR_TYPE) \
     typedef VECTOR_TYPE                                                         ProtoSequenceContentStorageType; \
     typedef VECTOR_TYPE::Proxy                                                  ProtoSequenceContentAccessType; \
-    typedef VECTOR_TYPE::const_Proxy                                            ProtoSequenceContentConstAccessType; \
+    typedef VECTOR_TYPE::const_Proxy                                            ProtoSequenceContentConstAccessType;
 
     template<typename INTERNAL, typename PROTO>
     struct TypeBinder;

@@ -7,7 +7,7 @@
 #include "tidysq/constants/standard_letters.h"
 #include "tidysq/Sq.h"
 
-#include "tidysq/internal/pack.h"
+#include "tidysq/ops/pack.h"
 
 namespace tidysq {
     namespace internal {
@@ -186,17 +186,8 @@ namespace tidysq {
             std::vector<std::string> names_;
 
             void parse_sequence_buffer() {
-                if (proto_sequence_buffer.length() == 0) return;
-
-                Sequence<INTERNAL> packed = util::reserve_space_for_packed<INTERNAL>(
-                        proto_sequence_buffer.length(), alphabet_.alphabet_size());
-                if (alphabet_.is_simple()) {
-                    internal::pack<STD_IT, STRING_PT, INTERNAL, true>(proto_sequence_buffer, packed, alphabet_);
-                } else {
-                    internal::pack<STD_IT, STRING_PT, INTERNAL, false>(proto_sequence_buffer, packed, alphabet_);
-                }
-
-                sq_.push_back(packed);
+                if (proto_sequence_buffer.size() == 0) return;
+                sq_.push_back(pack<STD_IT, STRING_PT, INTERNAL>(proto_sequence_buffer, alphabet_));
                 proto_sequence_buffer = ProtoSequence<STD_IT, STRING_PT>(0);
             }
 
@@ -276,22 +267,24 @@ namespace tidysq {
         };
     }
 
-    template<typename INTERNAL>
-    internal::NamedSqibble<INTERNAL> read_fasta(const std::string &file_name,
-                                                const Alphabet &alphabet) {
-        internal::FastaReader<INTERNAL> reader(file_name, alphabet);
-        reader.read();
-        return reader.sqibble();
-        return std::make_pair(Sq<INTERNAL>(SqType::UNT), std::vector<std::string>(0));
+    namespace io {
+        template<typename INTERNAL>
+        internal::NamedSqibble<INTERNAL> read_fasta(const std::string &file_name,
+                                                    const Alphabet &alphabet) {
+            internal::FastaReader<INTERNAL> reader(file_name, alphabet);
+            reader.read();
+            return reader.sqibble();
+        }
+
+        inline Alphabet sample_fasta(const std::string &file_name,
+                                         const LenSq sample_size = constants::BUFF_SIZE,
+                                         const Letter &NA_letter = constants::DEFAULT_NA_LETTER,
+                                         const bool ignore_case = constants::DEFAULT_IGNORE_CASE) {
+            internal::FastaSampler sampler(file_name, sample_size, NA_letter, ignore_case);
+            sampler.sample();
+            return sampler.alphabet();
+        }
     }
 
-    inline Alphabet sample_fasta(const std::string &file_name,
-                                 const LenSq sample_size = constants::BUFF_SIZE,
-                                 const Letter &NA_letter = constants::DEFAULT_NA_LETTER,
-                                 const bool ignore_case = false) {
-        internal::FastaSampler sampler(file_name, sample_size, NA_letter, ignore_case);
-        sampler.sample();
-        return sampler.alphabet();
-    }
 }
 

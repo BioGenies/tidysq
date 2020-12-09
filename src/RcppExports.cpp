@@ -6,6 +6,20 @@
 
 using namespace Rcpp;
 
+// CPP_apply_R_function
+Rcpp::List CPP_apply_R_function(const Rcpp::List& x, const Rcpp::Function& fun, const Rcpp::LogicalVector& single_string, const Rcpp::StringVector& NA_letter);
+RcppExport SEXP _tidysq_CPP_apply_R_function(SEXP xSEXP, SEXP funSEXP, SEXP single_stringSEXP, SEXP NA_letterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::Function& >::type fun(funSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::LogicalVector& >::type single_string(single_stringSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_apply_R_function(x, fun, single_string, NA_letter));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_bite
 Rcpp::List CPP_bite(const Rcpp::List& x, const Rcpp::IntegerVector& indices, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_bite(SEXP xSEXP, SEXP indicesSEXP, SEXP NA_letterSEXP) {
@@ -91,6 +105,19 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const std::vector<std::string>& >::type alph(alphSEXP);
     Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_guess_standard_alph(alph, NA_letter));
+    return rcpp_result_gen;
+END_RCPP
+}
+// CPP_has
+Rcpp::LogicalVector CPP_has(const Rcpp::List& x, const Rcpp::StringVector& motifs, const Rcpp::StringVector& NA_letter);
+RcppExport SEXP _tidysq_CPP_has(SEXP xSEXP, SEXP motifsSEXP, SEXP NA_letterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type motifs(motifsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_has(x, motifs, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -350,13 +377,14 @@ END_RCPP
 RcppExport SEXP run_testthat_tests();
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_tidysq_CPP_bite", (DL_FUNC) &_tidysq_CPP_bite, 3},
+    {"_tidysq_CPP_apply_R_function", (DL_FUNC) &_tidysq_CPP_apply_R_function, 4},
+    {"_tidysq_CPP_bite", (DL_FUNC) &_tidysq_CPP_bite, 4},
     {"_tidysq_CPP_complement", (DL_FUNC) &_tidysq_CPP_complement, 2},
     {"_tidysq_CPP_find_invalid_letters", (DL_FUNC) &_tidysq_CPP_find_invalid_letters, 3},
     {"_tidysq_CPP_find_motifs", (DL_FUNC) &_tidysq_CPP_find_motifs, 4},
-    {"_tidysq_CPP_has", (DL_FUNC) &_tidysq_CPP_has, 3},
     {"_tidysq_CPP_get_standard_alphabet", (DL_FUNC) &_tidysq_CPP_get_standard_alphabet, 1},
     {"_tidysq_CPP_guess_standard_alph", (DL_FUNC) &_tidysq_CPP_guess_standard_alph, 2},
+    {"_tidysq_CPP_has", (DL_FUNC) &_tidysq_CPP_has, 3},
     {"_tidysq_CPP_obtain_alphabet", (DL_FUNC) &_tidysq_CPP_obtain_alphabet, 4},
     {"_tidysq_CPP_pack_RAWS", (DL_FUNC) &_tidysq_CPP_pack_RAWS, 4},
     {"_tidysq_CPP_pack_INTS", (DL_FUNC) &_tidysq_CPP_pack_INTS, 4},

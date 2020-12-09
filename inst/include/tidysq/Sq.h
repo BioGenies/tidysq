@@ -2,7 +2,7 @@
 
 #include "tidysq/tidysq-typedefs.h"
 #include "tidysq/Alphabet.h"
-#include "tidysq/ops/OperationUnpack.h"
+#include "tidysq/ops/unpack.h"
 #include "tidysq/Proxy.h"
 #include "tidysq/sqapply.h"
 
@@ -42,7 +42,7 @@ namespace tidysq {
             return SequenceConstProxy<INTERNAL>(content_[index]);
         }
 
-        [[nodiscard]] LenSq length() const {
+        [[nodiscard]] LenSq size() const {
             return content_.size();
         }
 
@@ -72,12 +72,12 @@ namespace tidysq {
 
         template<typename INTERNAL_OUT, typename PROTO_OUT>
         ProtoSq<INTERNAL_OUT, PROTO_OUT> unpack() const {
-            return sqapply<Sq<INTERNAL>, ProtoSq<INTERNAL_OUT, PROTO_OUT>>(*this, ops::OperationUnpack<INTERNAL, INTERNAL_OUT, PROTO_OUT>());
+            return tidysq::unpack<INTERNAL, INTERNAL_OUT, PROTO_OUT>(*this);
         }
 
         template<typename INTERNAL_OUT, typename PROTO_OUT>
         ProtoSq<INTERNAL_OUT, PROTO_OUT> unpack(const LenSq from, const LenSq to) const {
-            return sqapply<Sq<INTERNAL>, ProtoSq<INTERNAL_OUT, PROTO_OUT>>(*this, ops::OperationUnpack<INTERNAL, INTERNAL_OUT, PROTO_OUT>(), from, to);
+            return tidysq::unpack<INTERNAL, INTERNAL_OUT, PROTO_OUT>(*this, from, to);
         }
 
         friend Rcpp::List export_to_R(const Sq<RCPP_IT> &sq);

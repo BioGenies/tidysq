@@ -37,7 +37,7 @@ namespace tidysq::internal {
                          tmp  =  interpreter.get_next_value()        ;
             packed(out_byte) |= (tmp                          << 6u) ;
 
-            if (++out_byte == packed.length()) break;
+            if (++out_byte == packed.size()) break;
             
             packed(out_byte)  = (tmp                          >> 2u) |
                                 (interpreter.get_next_value() << 1u) |
@@ -45,7 +45,7 @@ namespace tidysq::internal {
                          tmp  = interpreter.get_next_value()         ;
             packed(out_byte) |= (tmp                          << 7u) ;
 
-            if (++out_byte == packed.length()) break;
+            if (++out_byte == packed.size()) break;
 
             packed(out_byte)  = (tmp                          >> 1u) |
                                 (interpreter.get_next_value() << 2u) |
@@ -83,27 +83,27 @@ namespace tidysq::internal {
                          tmp  =  interpreter.get_next_value()           ;
             packed(out_byte) |= (tmp                             << 5u) ;
 
-            if (++out_byte == packed.length()) break;
+            if (++out_byte == packed.size()) break;
 
             packed(out_byte)  = (tmp                             >> 3u) |
                                 (interpreter.get_next_value()    << 2u) ;
                          tmp  =  interpreter.get_next_value()           ;
             packed(out_byte) |= (tmp                             << 7u) ;
 
-            if (++out_byte == packed.length()) break;
+            if (++out_byte == packed.size()) break;
 
             packed(out_byte)  = (tmp                             >> 1u) ;
                          tmp  =  interpreter.get_next_value()           ;
             packed(out_byte) |= (tmp                             << 4u) ;
 
-            if (++out_byte == packed.length()) break;
+            if (++out_byte == packed.size()) break;
 
             packed(out_byte)  = (tmp                             >> 4u) |
                                 (interpreter.get_next_value()    << 1u) ;
                          tmp  =  interpreter.get_next_value()           ;
             packed(out_byte) |= (tmp                             << 6u) ;
 
-            if (++out_byte == packed.length()) break;
+            if (++out_byte == packed.size()) break;
 
             packed(out_byte)  = (tmp                             >> 2u) |
                                 (interpreter.get_next_value()    << 3u) ;

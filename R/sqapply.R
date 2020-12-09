@@ -25,18 +25,16 @@
 #' 
 #' @seealso \code{\link[=sq-class]{sq}} \code{\link[base]{lapply}}
 #' @export 
-sqapply <- function(x, fun, ..., paste_char = FALSE,
-                    use_na_letter = paste_char) {
+#' @export
+sqapply <- function(x, fun, ...,
+                    single_string = FALSE, 
+                    NA_letter = getOption("tidysq_NA_letter")) {
   assert_class(x, "sq")
-  assert_flag(paste_char)
-  assert_flag(use_na_letter)
-  assert_false(paste_char && use_na_letter)
+  assert_function(fun)
+  assert_flag(single_string)
+  assert_string(NA_letter, min.chars = 1)
   
-  na_letter <- getOption("tidysq_NA_letter")
-  type <- sq_type(x)
-  .apply_sq(x, if (paste_char) "string" else "char", "none", function(s) {
-    if (!use_na_letter) s[s == na_letter] <- NA
-    if (type == "enc") s <- as.numeric(s)
-    fun(s, ...)
-  })
+  CPP_apply_R_function(x, 
+                       function(sequence) fun(sequence, ...), 
+                       single_string, NA_letter)
 }
