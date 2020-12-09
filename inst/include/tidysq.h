@@ -19,6 +19,7 @@
 #include "tidysq/ops/bite.h"
 #include "tidysq/ops/complement.h"
 #include "tidysq/ops/find_invalid_letters.h"
+#include "tidysq/ops/has.h"
 #include "tidysq/ops/random_sq.h"
 #include "tidysq/ops/remove_ambiguous.h"
 #include "tidysq/ops/remove_NA.h"

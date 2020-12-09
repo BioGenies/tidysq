@@ -1,5 +1,6 @@
 #pragma once
 
+#include <tidysq/internal/MotifFrame.h>
 #include "tidysq/Sq.h"
 #include "tidysq/ProtoSq.h"
 #include "tidysq/find_motifs.h"
@@ -29,6 +30,18 @@ namespace tidysq {
     inline Rcpp::DataFrame export_to_R(const internal::NamedSqibble<RCPP_IT> &sqibble) {
         auto ret = Rcpp::DataFrame::create(Rcpp::Named("sq") = export_to_R(std::get<0>(sqibble)),
                                            Rcpp::Named("name") = util::convert_string_vector(std::get<1>(sqibble)));
+        ret.attr("class") = Rcpp::StringVector{"tbl_df", "tbl", "data.frame"};
+        return ret;
+    }
+
+
+    inline Rcpp::DataFrame export_to_R(const internal::MotifFrame<RCPP_IT> &found_motifs) {
+        auto ret = Rcpp::DataFrame::create(
+                Rcpp::Named("names", found_motifs.names()),
+                Rcpp::Named("found", export_to_R(found_motifs.found())),
+                Rcpp::Named("sought", found_motifs.sought()),
+                Rcpp::Named("start", Rcpp::IntegerVector(Rcpp::wrap(found_motifs.start())) + 1),
+                Rcpp::Named("end", Rcpp::IntegerVector(Rcpp::wrap(found_motifs.end())) + 1));
         ret.attr("class") = Rcpp::StringVector{"tbl_df", "tbl", "data.frame"};
         return ret;
     }

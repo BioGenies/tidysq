@@ -17,16 +17,16 @@ CPP_find_motifs <- function(x, names, motifs, NA_letter) {
     .Call(`_tidysq_CPP_find_motifs`, x, names, motifs, NA_letter)
 }
 
-CPP_has <- function(x, motifs, NA_letter) {
-    .Call(`_tidysq_CPP_has`, x, motifs, NA_letter)
-}
-
 CPP_get_standard_alphabet <- function(dest_type) {
     .Call(`_tidysq_CPP_get_standard_alphabet`, dest_type)
 }
 
 CPP_guess_standard_alph <- function(alph, NA_letter) {
     .Call(`_tidysq_CPP_guess_standard_alph`, alph, NA_letter)
+}
+
+CPP_has <- function(x, motifs, NA_letter) {
+    .Call(`_tidysq_CPP_has`, x, motifs, NA_letter)
 }
 
 CPP_obtain_alphabet <- function(x, sample_size, NA_letter, ignore_case) {
