@@ -59,19 +59,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// CPP_has
-Rcpp::LogicalVector CPP_has(const Rcpp::List& x, const Rcpp::StringVector& motifs, const Rcpp::StringVector& NA_letter);
-RcppExport SEXP _tidysq_CPP_has(SEXP xSEXP, SEXP motifsSEXP, SEXP NA_letterSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type motifs(motifsSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
-    rcpp_result_gen = Rcpp::wrap(CPP_has(x, motifs, NA_letter));
-    return rcpp_result_gen;
-END_RCPP
-}
 // CPP_get_standard_alphabet
 Rcpp::StringVector CPP_get_standard_alphabet(const Rcpp::StringVector& dest_type);
 RcppExport SEXP _tidysq_CPP_get_standard_alphabet(SEXP dest_typeSEXP) {
@@ -92,6 +79,19 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type alph(alphSEXP);
     Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
     rcpp_result_gen = Rcpp::wrap(CPP_guess_standard_alph(alph, NA_letter));
+    return rcpp_result_gen;
+END_RCPP
+}
+// CPP_has
+Rcpp::LogicalVector CPP_has(const Rcpp::List& x, const Rcpp::StringVector& motifs, const Rcpp::StringVector& NA_letter);
+RcppExport SEXP _tidysq_CPP_has(SEXP xSEXP, SEXP motifsSEXP, SEXP NA_letterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type motifs(motifsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type NA_letter(NA_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_has(x, motifs, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -355,9 +355,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_complement", (DL_FUNC) &_tidysq_CPP_complement, 2},
     {"_tidysq_CPP_find_invalid_letters", (DL_FUNC) &_tidysq_CPP_find_invalid_letters, 3},
     {"_tidysq_CPP_find_motifs", (DL_FUNC) &_tidysq_CPP_find_motifs, 4},
-    {"_tidysq_CPP_has", (DL_FUNC) &_tidysq_CPP_has, 3},
     {"_tidysq_CPP_get_standard_alphabet", (DL_FUNC) &_tidysq_CPP_get_standard_alphabet, 1},
     {"_tidysq_CPP_guess_standard_alph", (DL_FUNC) &_tidysq_CPP_guess_standard_alph, 2},
+    {"_tidysq_CPP_has", (DL_FUNC) &_tidysq_CPP_has, 3},
     {"_tidysq_CPP_obtain_alphabet", (DL_FUNC) &_tidysq_CPP_obtain_alphabet, 4},
     {"_tidysq_CPP_pack_RAWS", (DL_FUNC) &_tidysq_CPP_pack_RAWS, 4},
     {"_tidysq_CPP_pack_INTS", (DL_FUNC) &_tidysq_CPP_pack_INTS, 4},
