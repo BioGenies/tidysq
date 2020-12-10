@@ -16,6 +16,7 @@ namespace tidysq {
 
         class FastaSampler {
             enum State {
+                AWAITING,
                 READING_SEQUENCE,
                 READING_NAME,
                 VIBING
@@ -108,7 +109,7 @@ namespace tidysq {
                     stream_(std::ifstream(file_name)),
                     sample_size_(sample_size),
                     mock_alphabet_(Alphabet({}, tidysq::SqType::UNT, NA_letter, ignore_case)),
-                    current_state_(READING_NAME),
+                    current_state_(AWAITING),
                     input_buffer_(new char[constants::BUFF_SIZE]),
                     sequence_buffer_({}),
                     letters_({}),
@@ -156,6 +157,7 @@ namespace tidysq {
         template<typename INTERNAL>
         class FastaReader {
             enum State {
+                AWAITING,
                 READING_SEQUENCE,
                 READING_NAME,
                 VIBING
@@ -234,7 +236,7 @@ namespace tidysq {
             FastaReader(const std::string &file_name, const Alphabet &alphabet) :
                     stream_(std::ifstream(file_name)),
                     alphabet_(alphabet),
-                    current_state_(READING_NAME),
+                    current_state_(AWAITING),
                     input_buffer_(new char[constants::BUFF_SIZE]),
                     proto_sequence_buffer({}),
                     name_buffer_({}),
