@@ -81,6 +81,12 @@ parameter." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -115,38 +121,45 @@ parameter." />
 parameter.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sqapply</span><span class='op'>(</span><span class='va'>sq</span>, <span class='va'>fun</span>, <span class='va'>...</span>, paste_char <span class='op'>=</span> <span class='cn'>FALSE</span>, use_na_letter <span class='op'>=</span> <span class='va'>paste_char</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>sqapply</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>fun</span>,
+  <span class='va'>...</span>,
+  single_string <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  NA_letter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_NA_letter"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>sq</th>
-      <td><p>a <code><a href='sq.html'>sq</a></code> object.</p></td>
+      <th>x</th>
+      <td><p>[<code>sq</code>]<br />
+An object this function is applied to.</p></td>
     </tr>
     <tr>
       <th>fun</th>
-      <td><p>a <code><a href='https://rdrr.io/r/base/function.html'>function</a></code> to apply to each sequence in <code>sq</code> object; it should
+      <td><p>[<code>function(1)</code>]<br />
+A function to apply to each sequence in <code>sq</code> object; it should
 take a character vector, numeric vector or single character string as an input.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>another arguments passed to <code>fun</code>.</p></td>
+      <td><p>further arguments to be passed from or to other methods.</p></td>
     </tr>
     <tr>
-      <th>paste_char</th>
-      <td><p>a <code><a href='https://rdrr.io/r/base/logical.html'>logical</a></code> value indicating in which form sequences should be
+      <th>single_string</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>]<br />
+A value indicating in which form sequences should be
 passed to the function <code>fun</code>; if <code>FALSE</code> (default), they will be treated as character
 vectors, if <code>TRUE</code>, they will be pasted into a single string.</p></td>
     </tr>
     <tr>
-      <th>use_na_letter</th>
-      <td><p>a <code><a href='https://rdrr.io/r/base/logical.html'>logical</a></code> value indicating whether to use a printing character
-to represent <code><a href='https://rdrr.io/r/base/NA.html'>NA</a></code> values; if <code>TRUE</code>, letter from option "tidysq_p_na_letter"
-will be used instead of <code>NA</code> values (default value for this option is "!", for details
-see <code><a href='tidysq-options.html'>tidysq-options</a></code>), otherwise just <code>NA</code> values will be used; default value
-for this parameter is equal to <code>paste_char</code> value; <code>use_na_letter</code> cannot be
-<code>FALSE</code> if <code>paste_char</code> is <code>TRUE</code>.</p></td>
+      <th>NA_letter</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
+A string that is used to interpret and display <code>NA</code> value in the
+context of <code><a href='sq-class.html'>sq class</a></code>. Default value equals to
+"<code><a href='https://rdrr.io/r/base/Logic.html'>!</a></code>".</p></td>
     </tr>
     </table>
 
@@ -155,29 +168,8 @@ for this parameter is equal to <code>paste_char</code> value; <code>use_na_lette
     <p>A list of values returned by function for each sequence in corresponding order.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code> <code><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></code></p></div>
+    <div class='dont-index'><p><code><a href='sq-class.html'>sq</a></code> <code><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></code></p></div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"YCYWIFTSRIK"</span>, <span class='st'>"GGWGDVKCG"</span>, <span class='st'>"KTKHIEQKL"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># count how many times "K" appears in each sequence:</span>
-<span class='fu'>sqapply</span><span class='op'>(</span><span class='va'>sq_ami</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>sequence</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>sequence</span> <span class='op'>==</span> <span class='st'>"K"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] 1
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] 1
-#&gt; 
-#&gt; [[3]]
-#&gt; [1] 3
-#&gt; </div><div class='input'>
-<span class='co'># duplicate each element of sequence, then paste it and construct new sq</span>
-<span class='va'>duplicated</span> <span class='op'>&lt;-</span> <span class='fu'>sqapply</span><span class='op'>(</span><span class='va'>sq_ami</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>sequence</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>sequence</span>, each <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>, collapse <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='va'>duplicated</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>ami (amino acids), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>YYCCYYWWIIFFTTSSRRIIKK</span><span>                                                  </span><span style='color: #0000BB;'>&lt;22&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>GGGGWWGGDDVVKKCCGG</span><span>                                                      </span><span style='color: #0000BB;'>&lt;18&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>KKTTKKHHIIEEQQKKLL</span><span>                                                      </span><span style='color: #0000BB;'>&lt;18&gt;</span><span></div><div class='input'>
-</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -193,7 +185,7 @@ for this parameter is equal to <code>paste_char</code> value; <code>use_na_lette
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

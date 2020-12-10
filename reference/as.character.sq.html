@@ -40,8 +40,8 @@
 
 
 <meta property="og:title" content="Convert sq object into character vector — as.character.sq" />
-<meta property="og:description" content="Coerce sequences from a sq object to character vector
-of sequences" />
+<meta property="og:description" content="Coerces sequences from an sq object to
+character vector of sequences." />
 
 
 
@@ -80,6 +80,12 @@ of sequences" />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -104,52 +110,64 @@ of sequences" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Convert sq object into character vector</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util_methods.R'><code>R/util_methods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util-methods.R'><code>R/util-methods.R</code></a></small>
     <div class="hidden name"><code>as.character.sq.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Coerce sequences from a <code><a href='sq.html'>sq</a></code> object to <code><a href='https://rdrr.io/r/base/character.html'>character</a></code> vector
-of sequences</p>
+    <p>Coerces sequences from an <code><a href='sq-class.html'>sq</a></code> object to
+<code><a href='https://rdrr.io/r/base/character.html'>character</a></code> vector of sequences.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for sq</span>
-<span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, NA_letter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_NA_letter"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a <code><a href='sq.html'>sq</a></code> object to be converted</p></td>
+      <td><p>[<code>sq</code>]<br />
+An object this function is applied to.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>further arguments to be passed from or to other methods.</p></td>
     </tr>
+    <tr>
+      <th>NA_letter</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
+A string that is used to interpret and display <code>NA</code> value in the
+context of <code><a href='sq-class.html'>sq class</a></code>. Default value equals to
+"<code><a href='https://rdrr.io/r/base/Logic.html'>!</a></code>".</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>character</code> vector of the length the same as number
-of sequences in the converted <code>sq</code> object</p>
+    <p>A <code>character</code> vector where each element represents the content
+of respective sequence in input <code>sq</code> object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This method for class <code><a href='sq.html'>sq</a></code> allows converting sequences from
-the sq object into a character vector of length equal to the length 
-of sq. Each element of resulting vector is a separate sequence. 
-All attributes of the input sq are lost during the conversion to 
-character vector.</p>
+    <p>This method for <code><a href='sq-class.html'>sq</a></code> class allows converting sequences
+from the <code>sq</code> object into a character vector of length equal to the
+length of input. Each element of resulting vector is a separate sequence.
+All attributes of the input sq are lost during the conversion to character
+vector.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>sq</p></div>
+    <div class='dont-index'><p>Functions from output module:
+<code><a href='as.matrix.sq.html'>as.matrix.sq</a>()</code>,
+<code><a href='as.sq.html'>as.sq</a>()</code>,
+<code><a href='export_sq.html'>export_sq</a>()</code>,
+<code><a href='write_fasta.html'>write_fasta</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Creating an object to work on:</span>
-<span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CTGAATGCAGTACCGTAAT"</span>, <span class='st'>"ATGCCGTAAATGCCAT"</span>, 
-                         <span class='st'>"CAGACCANNNATAG"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>'dna'</span><span class='op'>)</span>
-                         
-<span class='co'># Converting the sq object into a character vector:</span>
+<span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CTGAATGCAGTACCGTAAT"</span>, <span class='st'>"ATGCCGTAAATGCCAT"</span>, <span class='st'>"CAGACCANNNATAG"</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='st'>"dna_ext"</span><span class='op'>)</span>
+
+<span class='co'># Converting sq object into a character vector:</span>
 <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "CTGAATGCAGTACCGTAAT" "ATGCCGTAAATGCCAT"    "CAGACCANNNATAG"     </div><div class='input'>
 </div></pre>
@@ -168,7 +186,7 @@ character vector.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

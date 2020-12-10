@@ -40,8 +40,9 @@
 
 
 <meta property="og:title" content="Convert sq object into matrix — as.matrix.sq" />
-<meta property="og:description" content="Coerce sequences from a sq object to a 
-matrix, in which rows correspond to sequences and columns to positions" />
+<meta property="og:description" content="Coerces sequences from a sq object to
+a matrix, in which rows correspond to sequences and columns to
+positions." />
 
 
 
@@ -80,6 +81,12 @@ matrix, in which rows correspond to sequences and columns to positions" />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -104,16 +111,20 @@ matrix, in which rows correspond to sequences and columns to positions" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Convert sq object into matrix</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util_methods.R'><code>R/util_methods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util-methods.R'><code>R/util-methods.R</code></a></small>
     <div class="hidden name"><code>as.matrix.sq.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Coerce sequences from a <code><a href='sq.html'>sq</a></code> object to a 
-<code><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></code>, in which rows correspond to sequences and columns to positions</p>
+    <p>Coerces sequences from a <code><a href='sq-class.html'>sq</a></code> object to
+a <code><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></code>, in which rows correspond to sequences and columns to
+positions.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for sq</span>
+<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for sq_enc</span>
 <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -121,7 +132,8 @@ matrix, in which rows correspond to sequences and columns to positions" />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a <code><a href='sq.html'>sq</a></code> object to be converted.</p></td>
+      <td><p>[<code>sq</code>]<br />
+An object this function is applied to.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -131,48 +143,49 @@ matrix, in which rows correspond to sequences and columns to positions" />
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></code> with number of rows the same as number of sequences
-and number of columns corresponding to the length of the longest sequence
-in the converted sq object. Matrix is either character (if type of <code>sq</code> is
-<strong>ami</strong>, <strong>dna</strong>, <strong>rna</strong>, <strong>atp</strong> or <strong>unt</strong>)
-or numeric (if type is <strong>enc</strong>).</p>
+    <p>A <code><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></code> with number of rows the same as number of
+sequences and number of columns corresponding to the length of the longest
+sequence in the converted sq object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This method for class <code>sq</code> allows converting sequences from
-the sq object into a matrix. Each row corresponds to the separate sequence
-from the sq object, whereas each column indicates a single position within 
-a sequence. Dimensions of matrix are determined by the number of sequences 
-(rows) and the length of the longest sequence (columns). If a length of
-sequence is smaller than the length of the longest sequence, the remaining
-columns will be filled with <code><a href='https://rdrr.io/r/base/NA.html'>NA</a></code>. All attributes of the input
+    <p>This method for class <code>sq</code> allows converting sequences from the
+<code>sq</code> object into a matrix. Each row corresponds to the separate sequence
+from the <code>sq</code> object, whereas each column indicates a single position
+within a sequence. Dimensions of matrix are determined by the number of
+sequences (rows) and the length of the longest sequence (columns). If length
+of a sequence is smaller than the length of the longest sequence, the
+remaining columns are filled with <code>NA</code>. All attributes of the input
 <code>sq</code> are lost during the conversion to matrix.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code></p></div>
+    <div class='dont-index'><p>Functions from output module:
+<code><a href='as.character.sq.html'>as.character.sq</a>()</code>,
+<code><a href='as.sq.html'>as.sq</a>()</code>,
+<code><a href='export_sq.html'>export_sq</a>()</code>,
+<code><a href='write_fasta.html'>write_fasta</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
-<span class='va'>sq_same_len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CGATAGACA"</span>, <span class='st'>"TGACAAAAC"</span>, <span class='st'>"GTGACCGTA"</span><span class='op'>)</span>,
-                            type <span class='op'>=</span> <span class='st'>'dna'</span><span class='op'>)</span>
-<span class='va'>sq_diff_len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CTGAATGCAGTACCGTAAT"</span>, <span class='st'>"ATGCCGTAAATGCCAT"</span>, 
-                              <span class='st'>"CAGACCANNNATAG"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>'dna'</span><span class='op'>)</span>
+<span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CGATAGACA"</span>, <span class='st'>"TGACAAAAC"</span>, <span class='st'>"GTGACCGTA"</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span><span class='op'>)</span>
+<span class='va'>sq_rna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CUGAAUGCAGUACCGUAAU"</span>, <span class='st'>"AUGCCGUAAAUGCCAU"</span>, <span class='st'>"CAGACCANNNAUAG"</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='st'>"rna_ext"</span><span class='op'>)</span>
 
-<span class='co'># Converting sq object containing sequences of the same lengths to matrix:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>sq_same_len</span><span class='op'>)</span>
+<span class='co'># Sequences of the same lengths can be converted easily:</span>
+<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
 #&gt; [1,] "C"  "G"  "A"  "T"  "A"  "G"  "A"  "C"  "A" 
 #&gt; [2,] "T"  "G"  "A"  "C"  "A"  "A"  "A"  "A"  "C" 
 #&gt; [3,] "G"  "T"  "G"  "A"  "C"  "C"  "G"  "T"  "A" </div><div class='input'>
-<span class='co'># Converting sq object containing sequences of different lengths to </span>
-<span class='co'># matrix - NA introduced:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>sq_diff_len</span><span class='op'>)</span>
+<span class='co'># Sequences that differ in length are filled with NA to the maximum length:</span>
+<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>sq_rna</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]
-#&gt; [1,] "C"  "T"  "G"  "A"  "A"  "T"  "G"  "C"  "A"  "G"   "T"   "A"   "C"   "C"  
-#&gt; [2,] "A"  "T"  "G"  "C"  "C"  "G"  "T"  "A"  "A"  "A"   "T"   "G"   "C"   "C"  
-#&gt; [3,] "C"  "A"  "G"  "A"  "C"  "C"  "A"  "N"  "N"  "N"   "A"   "T"   "A"   "G"  
+#&gt; [1,] "C"  "U"  "G"  "A"  "A"  "U"  "G"  "C"  "A"  "G"   "U"   "A"   "C"   "C"  
+#&gt; [2,] "A"  "U"  "G"  "C"  "C"  "G"  "U"  "A"  "A"  "A"   "U"   "G"   "C"   "C"  
+#&gt; [3,] "C"  "A"  "G"  "A"  "C"  "C"  "A"  "N"  "N"  "N"   "A"   "U"   "A"   "G"  
 #&gt;      [,15] [,16] [,17] [,18] [,19]
-#&gt; [1,] "G"   "T"   "A"   "A"   "T"  
-#&gt; [2,] "A"   "T"   NA    NA    NA   
+#&gt; [1,] "G"   "U"   "A"   "A"   "U"  
+#&gt; [2,] "A"   "U"   NA    NA    NA   
 #&gt; [3,] NA    NA    NA    NA    NA   </div><div class='input'>
 </div></pre>
   </div>
@@ -190,7 +203,7 @@ columns will be filled with <code><a href='https://rdrr.io/r/base/NA.html'>NA</a
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

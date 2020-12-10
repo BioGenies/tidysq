@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Obtain current state of tidysq options — get_tidysq_options" />
-<meta property="og:description" content="Obtain current state of tidysq options" />
+<meta property="og:description" content="Subsets all global options to display those related to
+tidysq package." />
 
 
 
@@ -79,6 +80,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -103,12 +110,13 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Obtain current state of tidysq options</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/get_tidysq_options.R'><code>R/get_tidysq_options.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util-options.R'><code>R/util-options.R</code></a></small>
     <div class="hidden name"><code>get_tidysq_options.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Obtain current state of tidysq options</p>
+    <p>Subsets all global options to display those related to
+<span class="pkg">tidysq</span> package.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_tidysq_options</span><span class='op'>(</span><span class='op'>)</span></pre>
@@ -116,15 +124,51 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>named list</code> containing values of 
-currently set options associated with the <span class="pkg">tidysq</span> package.</p>
+    <p>A <code>named list</code> with selected option
+values.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>To see full list of options and their meanings, 
-see <code><a href='tidysq-options.html'>tidysq-options</a></code> man page.</p>
+    <p>The user can display value of selected option by calling
+<code>getOptions(option_name)</code> and set its value with
+<code><a href='https://rdrr.io/r/base/options.html'>options(option_name = value)</a></code>, where <code>option_name</code> is an option
+name and <code>value</code> is a value to assign to an option.</p>
+<p>Full list of options included in <span class="pkg">tidysq</span> package is listed below:</p><ul>
+<li><p>tidysq_NA_letter [<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
+ A letter to be used when printing, constructing or interpreting <code>NA</code>
+ value. Defaults to <code>"!"</code>.</p></li>
+<li><p>tidysq_on_warning [<code>"none" || "message" || "warning" || "error"</code>]<br />
+ Determines the method of handling warning message. Setting <code>"error"</code>
+ makes any warning throw an exception and stop execution of the code. The
+ difference between <code>"message"</code> and <code>"warning"</code> is that while both
+ display warning text to the console, only the latter registers it so that
+ it can be accessed with a call to <code><a href='https://rdrr.io/r/base/warnings.html'>warnings()</a></code>. Lastly, <code>"none"</code>
+ setting causes any warnings to be completely ignored. Default value is
+ <code>"warning"</code>.</p></li>
+<li><p>tidysq_pillar_max_width [codeinteger(1)]<br />
+ Determines max width of a column of <code>sq</code> class within a
+ <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code>. Default value is 15.</p></li>
+<li><p>tidysq_print_max_sequences [<code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code>]<br />
+ Controls maximum number of sequences printed to console. If an <code>sq</code>
+ object is longer than this value, then only first
+ <code>tidysq_print_max_sequences</code> are printed, just like in any R vector.
+ Default value is 10.</p></li>
+<li><p>tidysq_print_use_color [<code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>]<br />
+ Determines whether coloring should be used to increase readability of text
+ printed to console. While it is advised to keep this option turned on due
+ to above concern, some environments may not support coloring and thus
+ turning it off can be necessary. Defaults to <code>TRUE</code>.</p></li>
+<li><p>tidysq_safe_mode [<code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>]<br />
+ Default value is <code>FALSE</code>. When turned on, safe mode guarantees that
+ <code>NA</code> appears within a sequence if and only if input sequence contains
+ value passed with <code>NA_letter</code>. This means that resulting type might be
+ different to the one passed as argument, if there are letters in a sequence
+ that does not appear in the original alphabet.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='tidysq-options.html'>tidysq-options</a></code></p></div>
+    <div class='dont-index'><p>Functions that display sequence info:
+<code><a href='sqprint.html'>sqprint</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -141,7 +185,7 @@ see <code><a href='tidysq-options.html'>tidysq-options</a></code> man page.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

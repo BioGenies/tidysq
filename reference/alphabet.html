@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get lengths of sequences in sq object — get_sq_lengths • tidysq</title>
+<title>Get alphabet of given sq object. — alphabet • tidysq</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Get lengths of sequences in sq object — get_sq_lengths" />
-<meta property="og:description" content="Returns number of elements in each sequence in given
-sq object." />
+<meta property="og:title" content="Get alphabet of given sq object. — alphabet" />
+<meta property="og:description" content="Returns alphabet attribute of an object." />
 
 
 
@@ -109,17 +108,16 @@ sq object." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get lengths of sequences in sq object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util-methods.R'><code>R/util-methods.R</code></a></small>
-    <div class="hidden name"><code>get_sq_lengths.Rd</code></div>
+    <h1>Get alphabet of given sq object.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/alphabet.R'><code>R/alphabet.R</code></a></small>
+    <div class="hidden name"><code>alphabet.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Returns number of elements in each sequence in given
-<code><a href='sq-class.html'>sq</a></code> object.</p>
+    <p>Returns <code>alphabet</code> attribute of an object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_sq_lengths</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>alphabet</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -127,41 +125,70 @@ sq object." />
     <tr>
       <th>x</th>
       <td><p>[<code>sq</code>]<br />
-An object this function is applied to.</p></td>
+An object to extract alphabet from.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></code> vector, where each element gives length of
-corresponding sequence from <code><a href='sq-class.html'>sq</a></code> object.</p>
+    <p>A character vector of letters of the alphabet.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Due to storage implementation, using <code><a href='https://rdrr.io/r/base/lengths.html'>lengths</a></code> method
-returns length of stored raw vectors instead of real sequence lengths. This
-function accesses <code>original_length</code> attribute of each sequence, which
-attribute stores information about how many elements are there in given
-sequence.</p>
+    <p>Each <code>sq</code> object have an <strong>alphabet</strong> associated with it. Alphabet
+is a set of possible <strong>letters</strong> that can appear in sequences contained
+in object. Alphabet is kept mostly as a character vector, where each element
+represents one <strong>letter</strong>.</p>
+<p><code>sq</code> objects of type <strong>ami</strong>, <strong>dna</strong> or <strong>rna</strong> have
+fixed, predefined alphabets. In other words, if two <code>sq</code> objects have
+exactly the same type - <strong>ami_bsc</strong>, <strong>dna_ext</strong>, <strong>rna_bsc</strong>
+or any other combination - they are ensured to have the same alphabet.</p>
+<p>Below are listed alphabets for these types:</p><ul>
+<li><p><strong>ami_bsc</strong> - ACDEFGHIKLMNPQRSTVWY-*</p></li>
+<li><p><strong>ami_ext</strong> - ABCDEFGHIJKLMNOPQRSTUVWXYZ-*</p></li>
+<li><p><strong>dna_bsc</strong> - ACGT-</p></li>
+<li><p><strong>dna_ext</strong> - ACGTWSMKRYBDHVN-</p></li>
+<li><p><strong>rna_bsc</strong> - ACGU-</p></li>
+<li><p><strong>rna_ext</strong> - ACGUWSMKRYBDHVN-</p></li>
+</ul>
+
+<p>Other types of <code>sq</code> objects are allowed to have different alphabets.
+Furthermore, having an alphabet exactly identical to one of those above does
+not automatically indicate that the type of the sequence is one of those -
+e.g., there might be an <strong>atp</strong> <code>sq</code> that has an alphabet
+identical to <strong>ami_bsc</strong> alphabet. To set the type, one should
+use the <code><a href='typify.html'>typify</a></code> or <code>`sq_type&lt;-`</code> function.</p>
+<p>The purpose of co-existence of <strong>unt</strong> and <strong>atp</strong> alphabets is
+the fact that although there is a standard for format of <em>fasta</em> files,
+sometimes there are other types of symbols, which do not match the standard.
+Thanks to these types, tidysq can import files with customized alphabets.
+Moreover, the user may want to group amino acids with similar properties
+(e.g., for machine learning) and replace the standard alphabet with symbols
+for whole groups. To check details, see <code><a href='read_fasta.html'>read_fasta</a></code>,
+<code><a href='sq.html'>sq</a></code> and <code><a href='substitute_letters.html'>substitute_letters</a></code>.</p>
+<p><strong>Important note:</strong> in <strong>atp</strong> alphabets there is a possibility
+of letters appearing that consist of more than one character - this
+functionality is provided in order to handle situations like
+post-translational modifications, (e.g., using "<code>mA</code>" to indicate
+methylated alanine).</p>
+<p><strong>Important note:</strong> alphabets of <strong>atp</strong> and <strong>unt</strong>
+<code>sq</code> objects are case sensitive. Thus, in their alphabets both
+lowercase and uppercase characters can appear simultaneously and they are
+treated as different letters. Alphabets of <strong>dna</strong>, <strong>rna</strong> and
+<strong>ami</strong> types are always uppercase and all functions converts other
+parameters to uppercase when working with <strong>dna</strong>, <strong>rna</strong> or
+<strong>ami</strong> - e.g. <code><a href='%has%.html'>%has%</a></code> operator converts lower letters to
+upper when searching for motifs in <strong>dna</strong>, <strong>rna</strong> or
+<strong>ami</strong> object.</p>
+<p><strong>Important note:</strong> maximum length of an alphabet is
+<strong>30 letters</strong>. The user is not allowed to read fasta files or
+construct <code>sq</code> objects from character vectors that have more than 30
+distinct characters in sequences (unless creating <strong>ami</strong>, <strong>dna</strong>
+or <strong>rna</strong> objects with <code>ignore_case</code> parameter set equal to
+<code>TRUE</code>).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Functions from utility module:
-<code><a href='==.sq.html'>==.sq</a>()</code>,
-<code><a href='is.sq.html'>is.sq</a>()</code>,
-<code><a href='sqconcatenate.html'>sqconcatenate</a></code>,
-<code><a href='sqextract.html'>sqextract</a></code></p></div>
+    <div class='dont-index'><p><code><a href='sq-class.html'>sq class</a></code></p></div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
-<span class='va'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MIAANYTWIL"</span>,<span class='st'>"TIAALGNIIYRAIE"</span>, <span class='st'>"NYERTGHLI"</span>, <span class='st'>"MAYXXXIALN"</span><span class='op'>)</span>,
-             alphabet <span class='op'>=</span> <span class='st'>"ami_ext"</span><span class='op'>)</span>
-<span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGCAGGA"</span>, <span class='st'>"GACCGAACGAN"</span>, <span class='st'>"TGACGAGCTTA"</span>, <span class='st'>"ACTNNAGCN"</span><span class='op'>)</span>,
-             alphabet <span class='op'>=</span> <span class='st'>"dna_ext"</span><span class='op'>)</span>
-
-<span class='co'># Counting number of elements in sq object:</span>
-<span class='fu'>get_sq_lengths</span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  8 11 11  9</div><div class='input'><span class='fu'>get_sq_lengths</span><span class='op'>(</span><span class='va'>sq_ami</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 10 14  9 10</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set type of an sq object — typify • tidysq</title>
+<title>Convert DNA or RNA into proteins using genetic code — translate • tidysq</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,10 @@
 
 
 
-<meta property="og:title" content="Set type of an sq object — typify" />
-<meta property="og:description" content="Sets sequence type (and, consequently, alphabet attribute) to
-one of ami, dna or rna types." />
+<meta property="og:title" content="Convert DNA or RNA into proteins using genetic code — translate" />
+<meta property="og:description" content="This function allows the user to input DNA or RNA sequences and
+acquire sequences of corresponding proteins, where correspondence is encoded
+in specified table." />
 
 
 
@@ -109,34 +110,50 @@ one of ami, dna or rna types." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set type of an sq object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/typify.R'><code>R/typify.R</code></a></small>
-    <div class="hidden name"><code>typify.Rd</code></div>
+    <h1>Convert DNA or RNA into proteins using genetic code</h1>
+    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/translate.R'><code>R/translate.R</code></a></small>
+    <div class="hidden name"><code>translate.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Sets sequence type (and, consequently, alphabet attribute) to
-one of <strong>ami</strong>, <strong>dna</strong> or <strong>rna</strong> types.</p>
+    <p>This function allows the user to input DNA or RNA sequences and
+acquire sequences of corresponding proteins, where correspondence is encoded
+in specified table.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>typify</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>dest_type</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>translate</span><span class='op'>(</span><span class='va'>x</span>, table <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S3 method for sq</span>
-<span class='fu'>typify</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>dest_type</span>, <span class='va'>...</span>, NA_letter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_NA_letter"</span><span class='op'>)</span><span class='op'>)</span></pre>
+<span class='co'># S3 method for sq_dna_bsc</span>
+<span class='fu'>translate</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  table <span class='op'>=</span> <span class='fl'>1</span>,
+  <span class='va'>...</span>,
+  NA_letter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_NA_letter"</span><span class='op'>)</span>,
+  interpret_as_stop <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for sq_rna_bsc</span>
+<span class='fu'>translate</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  table <span class='op'>=</span> <span class='fl'>1</span>,
+  <span class='va'>...</span>,
+  NA_letter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_NA_letter"</span><span class='op'>)</span>,
+  interpret_as_stop <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>[<code>sq</code>]<br />
+      <td><p>[<code>sq_dna_bsc</code> || <code>sq_rna_bsc</code>]<br />
 An object this function is applied to.</p></td>
     </tr>
     <tr>
-      <th>dest_type</th>
-      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
-The name of destination type - one of <code>"dna_bsc"</code>, <code>"dna_ext"</code>,
-<code>"rna_bsc"</code>, <code>"rna_ext"</code>, <code>"ami_bsc"</code> and <code>"ami_ext"</code>.</p></td>
+      <th>table</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code>]<br />
+ The number of translation table used, as specified
+<a href='https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi'>here</a>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -149,49 +166,46 @@ A string that is used to interpret and display <code>NA</code> value in the
 context of <code><a href='sq-class.html'>sq class</a></code>. Default value equals to
 "<code><a href='https://rdrr.io/r/base/Logic.html'>!</a></code>".</p></td>
     </tr>
+    <tr>
+      <th>interpret_as_stop</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>]<br />
+Used with tables 27, 28 and 31 and their ambiguous translations. Tells if
+these ambiguous codons should be interpreted as stop or the other option.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='sq-class.html'>sq</a></code> object with the same letters as input
-<code>x</code>, but with type as specified in <code>dest_type</code>.</p>
+    <p>An object of <code><a href='sq-class.html'>class sq</a></code> with <strong>ami_bsc</strong>
+type.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Sometimes functions from I/O module return sequences of incorrect type, most
-often <strong>unt</strong> (which indicates no type). It happens mostly whenever
-there are letters that don't fit into target alphabet. After replacing wrong
-letters with correct ones with <code><a href='substitute_letters.html'>substitute_letters</a></code> the user has
-sequences of type <strong>atp</strong>, even if their alphabet is contained in the
-target one. At the same time, many functions demand sequences to be of
-standard type (i.e. <strong>ami</strong>, <strong>dna</strong> or <strong>rna</strong>) or behave
-differently for these.</p>
-<p><code>typify()</code> is used to help with these situations by allowing the user
-to convert their sequences to target type. There are some conditions that
-must be met to use this function. The most important is that typified
-<code>sq</code> object must not contain invalid letters. If this condition is not
-satisfied, an error is thrown.</p>
-<p>If <code>dest_type</code> is equal to type of <code>sq</code>, function simply returns
-input value.</p>
+    <p>DNA and RNA sequences use combinations of three consecutive nucleic acids to
+encode one of 22 amino acids. This encoding is called "genetic code".</p>
+<p><code>translate()</code> first splits passed DNA or RNA sequences into
+three-letter chunks. Then searches the codon table for the entry where the
+key is equal to the current chunk and the value is one letter that encodes
+the corresponding protein. These resulting letters are then pasted into one
+sequence for each input sequence and objectifized into an <code>sq</code> object.</p>
+<p>Due to how the tables works, <code>translate()</code> does not support inputting
+sequences with extended alphabets, as ambiguous letters in most cases cannot
+be translated into exactly one protein.</p>
+<p>Moreover, behaviour of this function is undefined whenever input sequence
+contain either "<code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code>" or <code>NA</code> value.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Functions that manipulate type of sequences:
-<code><a href='find_invalid_letters.html'>find_invalid_letters</a>()</code>,
-<code><a href='is.sq.html'>is.sq</a>()</code>,
-<code><a href='sq_type.html'>sq_type</a>()</code>,
-<code><a href='substitute_letters.html'>substitute_letters</a>()</code></p></div>
+    <div class='dont-index'><p><code><a href='remove_ambiguous.html'>remove_ambiguous</a></code>, <code><a href='substitute_letters.html'>substitute_letters</a></code> and
+<code><a href='typify.html'>typify</a></code> for necessary actions before using <code>translate()</code></p>
+<p>Functions interpreting sq in biological context:
+<code><a href='%has%.html'>%has%</a>()</code>,
+<code><a href='complement.html'>complement</a>()</code>,
+<code><a href='find_motifs.html'>find_motifs</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Constructing sq object with strange characters (type will be set to "unt"):</span>
-<span class='va'>sq_unt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"&amp;VPLG&amp;#"</span>, <span class='st'>"##LCG"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># Substituting letters with "X", which stands for unknown amino acid:</span>
-<span class='va'>sq_sub</span> <span class='op'>&lt;-</span> <span class='fu'><a href='substitute_letters.html'>substitute_letters</a></span><span class='op'>(</span><span class='va'>sq_unt</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>`&amp;` <span class='op'>=</span> <span class='st'>"X"</span>, `#` <span class='op'>=</span> <span class='st'>"X"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># Setting extended amino acid type (only extended one has "X" letter):</span>
-<span class='fu'>typify</span><span class='op'>(</span><span class='va'>sq_sub</span>, <span class='st'>"ami_ext"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>extended amino acid sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>XVPLGXX</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>XXLCG</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
-</div></span></pre>
+    <pre class="examples"><div class='input'><span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"TACTGGGCATGA"</span>, <span class='st'>"CAGGTC"</span>, <span class='st'>"TAGTCCTAG"</span><span class='op'>)</span>, alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span><span class='op'>)</span>
+<span class='fu'>translate</span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in s2n(seq, levels = s2c("tcag")): sequence is not a vector of chars</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

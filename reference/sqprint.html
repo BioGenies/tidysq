@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Print sq object — sqprint" />
-<meta property="og:description" content="Prints input sq object in a human-friendly form." />
+<meta property="og:description" content="Prints input sq object in a
+human-friendly form." />
 
 
 
@@ -79,6 +80,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -103,12 +110,13 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Print sq object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util_print.R'><code>R/util_print.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util-print.R'><code>R/util-print.R</code></a></small>
     <div class="hidden name"><code>sqprint.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Prints input <code><a href='sq.html'>sq</a></code> object in a human-friendly form.</p>
+    <p>Prints input <code><a href='sq-class.html'>sq</a></code> object in a
+human-friendly form.</p>
     </div>
 
 
@@ -117,102 +125,106 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='sq.html'>sq</a></code> object</p></td>
+      <td><p>[<code>sq</code>]<br />
+An object this function is applied to.</p></td>
     </tr>
     <tr>
       <th>max_sequences</th>
-      <td><p><code>numeric</code> value indicating how many sequences 
-should be printed</p></td>
+      <td><p>[<code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code>]<br />
+How many sequences should be printed.</p></td>
     </tr>
     <tr>
       <th>use_color</th>
-      <td><p><code>logical</code> value indicating if sequences should 
-be colored</p></td>
+      <td><p>[<code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>]<br />
+Should sequences be colored?</p></td>
     </tr>
     <tr>
       <th>letters_sep</th>
-      <td><p><code>character</code> value indicating how the letters 
-should be separated</p></td>
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
+How the letters should be separated.</p></td>
+    </tr>
+    <tr>
+      <th>NA_letter</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
+A string that is used to interpret and display <code>NA</code> value in the
+context of <code><a href='sq-class.html'>sq class</a></code>. Default value equals to
+"<code><a href='https://rdrr.io/r/base/Logic.html'>!</a></code>".</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments passed to or from other methods. 
-Unused.</p></td>
+      <td><p>further arguments to be passed from or to other methods.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>Print</code> method is used by default in each case of calling the 
-<code><a href='sq.html'>sq</a></code> object with default parameters. 
-Only by explicit calling the <code>print</code> method parameters can be changed.</p> 
-<p><code>Print</code> checks if the input <code><a href='sq.html'>sq</a></code> object is cleaned and includes 
-this information alongside with type in the printed message. On the right side of 
-the sequence, in angle brackets, the length of each sequence is printed (e.q. "&lt;9&gt;").</p>
-<p>If the <code>max_sequences</code> parameter is supplied, the desired number of sequences 
-is printed and this information is included in a message (e.q. "printed 1 out of 3"). 
-Only <code>max_sequences</code> value smaller than the number of sequences in object 
-affects the function. The default value indicating how many sequences should 
-be printed is 10, but it can be changed in <code><a href='tidysq-options.html'>package options</a></code>.</p>
-<p>Default value of <code>use_color</code> parameter is <code>TRUE</code> - sequences are printed
-in green, while empty sequences, NA character and dots in gray. If this option is disabled, 
-all sequences are in default color of console.</p>
-<p>The <code>letters_sep</code> parameter indicates how the letters should be separated 
-(they are not by default). Any character string can be supplied but 
-<code><a href='https://rdrr.io/r/base/NA.html'>NA_character_</a></code>.</p>
-<p>If sequences are too long, only leading characters are printed (as many as possible
-in single line) and following dots indicating that sequence is truncated.</p>
-<p>If sequences contain <code><a href='https://rdrr.io/r/base/NA.html'>NA</a></code> (‘Not Available’ / Missing Values) values, they 
-are printed as "!" character, but it can be changed in 
-<code><a href='tidysq-options.html'>package options</a></code>.</p>
-<p>This is overloaded function from base package. It is selected when <code><a href='sq.html'>sq</a></code> 
-object is used as a parameter for print function. To see the generic function 
-page, check <code><a href='https://rdrr.io/r/base/print.html'>here</a></code>.</p>
+    <p><code>print</code> method is often called implicitly by calling variable name.
+Only explicit calling of this method allows its parameters to be changed.</p>
+<p>Printed information consists of three parts:</p><ul>
+<li><p>First line is always a header that contains info about the type of
+ sequences contained.</p></li>
+<li><p>The next part is the content. Each sequence has its own line, but not
+ all sequences are printed. The number of printed sequences is limited by
+ parameter <code>max_sequences</code>, defaulting to 10. These sequences are
+ printed with:</p><ul>
+<li><p>left-aligned index of sequence in square brackets (e.g. <code>[3]</code>),</p></li>
+<li><p>left-aligned sequence data (more about it in paragraph below),</p></li>
+<li><p>right-aligned sequence length in angle brackets (e.g. <code>&lt;27&gt;</code>).</p></li>
+</ul></li>
+<li><p>Finally, if number of sequences is greater than <code>max_sequences</code>,
+ then a footer is displayed with how many sequences are there and how many
+ were printed.</p></li>
+</ul>
+
+<p>Each sequence data is printed as letters. If sequence is too long to fit in
+one line, then only a subsequence is displayed - a subsequence that begins
+from the first letter. Sequence printing is controlled by <code>letters_sep</code>
+and <code>NA_letter</code> parameters. The first one specifies a string that should
+be inserted between any two letters. By default it's empty when all letters
+are one character in length; and a space otherwise. <code>NA_letter</code> dictates
+how <code>NA</code> values are displayed, by default it's an exclamation mark
+("<code><a href='https://rdrr.io/r/base/Logic.html'>!</a></code>").</p>
+<p>Most consoles support color printing, but when any of these do not, then the
+user might use <code>use_color</code> parameter set to <code>FALSE</code> - or better
+yet, change related option value, where said option is called
+<code>"tidysq_print_use_color"</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code> <code><a href='clean.html'>clean</a></code> <code><a href='tidysq-options.html'>tidysq-options</a></code></p></div>
+    <div class='dont-index'><p>Functions that display sequence info:
+<code><a href='get_tidysq_options.html'>get_tidysq_options</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># Creating sq objects using construct_sq:</span>
-<span class='va'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MIAANYTWIL"</span>,<span class='st'>"TIAALGNIIYRAIE"</span>, 
-                         <span class='st'>"NYERTGHLI"</span>, <span class='st'>"MAYXXXIALN"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"ami"</span><span class='op'>)</span>
-<span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGCAGGA"</span>, <span class='st'>"GACCGAACGAN"</span>, 
-                         <span class='st'>"TGACGAGCTTA"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"dna"</span><span class='op'>)</span>
-<span class='va'>sq_unt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGCAGGA!"</span>, <span class='st'>"TGACGAGCTTA"</span>, <span class='st'>""</span>, <span class='st'>"TIAALGNIIYRAIE"</span><span class='op'>)</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
+<span class='va'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MIAANYTWIL"</span>,<span class='st'>"TIAALGNIIYRAIE"</span>, <span class='st'>"NYERTGHLI"</span>, <span class='st'>"MAYXXXIALN"</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='st'>"ami_ext"</span><span class='op'>)</span>
+<span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGCAGGA"</span>, <span class='st'>"GACCGNBAACGAN"</span>, <span class='st'>"TGACGAGCTTA"</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span><span class='op'>)</span>
+<span class='va'>sq_unt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGCAGGA?"</span>, <span class='st'>"TGACGAGCTTA"</span>, <span class='st'>""</span>, <span class='st'>"TIAALGNIIYRAIE"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Printing without explicit function calling with default parameters:</span>
 <span class='va'>sq_ami</span>
-</div><div class='output co'>#&gt; <span class='message'>ami (amino acids) sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>MIAANYTWIL</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+</div><div class='output co'>#&gt; <span class='message'>extended amino acid sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>MIAANYTWIL</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>TIAALGNIIYRAIE</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>NYERTGHLI</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
 #&gt; [4] </span><span style='color: #00BB00;'>MAYXXXIALN</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span></div><div class='input'><span class='va'>sq_dna</span>
-</div><div class='output co'>#&gt; <span class='message'>dna (DNA) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>GACCGAACGAN</span><span>                                                             </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
+</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>GACCG</span><span style='color: #555555;'>!!</span><span style='color: #00BB00;'>AACGA</span><span style='color: #555555;'>!</span><span>                                                           </span><span style='color: #0000BB;'>&lt;13&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>TGACGAGCTTA</span><span>                                                             </span><span style='color: #0000BB;'>&lt;11&gt;</span><span></div><div class='input'><span class='va'>sq_unt</span>
-</div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGA!</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+</div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGA?</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>TGACGAGCTTA</span><span>                                                             </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
 #&gt; [3] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
 #&gt; [4] </span><span style='color: #00BB00;'>TIAALGNIIYRAIE</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span></div><div class='input'>
 <span class='co'># Printing with explicit function calling and specific parameters:</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sq_ami</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>ami (amino acids) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>MIAANYTWIL</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+</div><div class='output co'>#&gt; <span class='message'>extended amino acid sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>MIAANYTWIL</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>TIAALGNIIYRAIE</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>NYERTGHLI</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
 #&gt; [4] </span><span style='color: #00BB00;'>MAYXXXIALN</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sq_dna</span>, max_sequences <span class='op'>=</span> <span class='fl'>1</span>, use_color <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>dna (DNA) sequences list:</span></div><div class='output co'>#&gt; [1] ATGCAGGA                                                                 &lt;8&gt;</div><div class='output co'>#&gt; <span class='message'>printed 1 out of 3</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sq_unt</span>, letters_sep <span class='op'>=</span> <span class='st'>":"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>A:T:G:C:A:G:G:A:!</span><span>                                                        </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>T:G:A:C:G:A:G:C:T:T:A</span><span>                                                   </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
+</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGA</span><span>                                                                 &lt;8&gt;</div><div class='output co'>#&gt; <span class='message'>printed 1 out of 3</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sq_unt</span>, letters_sep <span class='op'>=</span> <span class='st'>":"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>A</span><span>:</span><span style='color: #00BB00;'>T</span><span>:</span><span style='color: #00BB00;'>G</span><span>:</span><span style='color: #00BB00;'>C</span><span>:</span><span style='color: #00BB00;'>A</span><span>:</span><span style='color: #00BB00;'>G</span><span>:</span><span style='color: #00BB00;'>G</span><span>:</span><span style='color: #00BB00;'>A</span><span>:</span><span style='color: #00BB00;'>?</span><span>                                                        </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>T</span><span>:</span><span style='color: #00BB00;'>G</span><span>:</span><span style='color: #00BB00;'>A</span><span>:</span><span style='color: #00BB00;'>C</span><span>:</span><span style='color: #00BB00;'>G</span><span>:</span><span style='color: #00BB00;'>A</span><span>:</span><span style='color: #00BB00;'>G</span><span>:</span><span style='color: #00BB00;'>C</span><span>:</span><span style='color: #00BB00;'>T</span><span>:</span><span style='color: #00BB00;'>T</span><span>:</span><span style='color: #00BB00;'>A</span><span>                                                   </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
 #&gt; [3] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>T:I:A:A:L:G:N:I:I:Y:R:A:I:E</span><span>                                             </span><span style='color: #0000BB;'>&lt;14&gt;</span><span></div><div class='input'>
-<span class='co'># Printing of the cleaned object:</span>
-<span class='fu'><a href='clean.html'>clean</a></span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>dna (DNA), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
-#&gt; [2] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>TGACGAGCTTA</span><span>                                                             </span><span style='color: #0000BB;'>&lt;11&gt;</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='clean.html'>clean</a></span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>, letters_sep <span class='op'>=</span> <span class='st'>"-"</span>, use_color <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>dna (DNA), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt; [1] A-T-G-C-A-G-G-A                                                          &lt;8&gt;
-#&gt; [2] &lt;NULL&gt;                                                                   &lt;0&gt;
-#&gt; [3] T-G-A-C-G-A-G-C-T-T-A                                                   &lt;11&gt;</div><div class='input'>
+#&gt; [4] </span><span style='color: #00BB00;'>T</span><span>:</span><span style='color: #00BB00;'>I</span><span>:</span><span style='color: #00BB00;'>A</span><span>:</span><span style='color: #00BB00;'>A</span><span>:</span><span style='color: #00BB00;'>L</span><span>:</span><span style='color: #00BB00;'>G</span><span>:</span><span style='color: #00BB00;'>N</span><span>:</span><span style='color: #00BB00;'>I</span><span>:</span><span style='color: #00BB00;'>I</span><span>:</span><span style='color: #00BB00;'>Y</span><span>:</span><span style='color: #00BB00;'>R</span><span>:</span><span style='color: #00BB00;'>A</span><span>:</span><span style='color: #00BB00;'>I</span><span>:</span><span style='color: #00BB00;'>E</span><span>                                             </span><span style='color: #0000BB;'>&lt;14&gt;</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -229,7 +241,7 @@ page, check <code><a href='https://rdrr.io/r/base/print.html'>here</a></code>.</
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

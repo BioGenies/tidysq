@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>sq: class for keeping biological sequences tidy — sq • tidysq</title>
+<title>Construct sq object from character vector — sq • tidysq</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,9 @@
 
 
 
-<meta property="og:title" content="sq: class for keeping biological sequences tidy — sq" />
-<meta property="og:description" content="An object of class sq represents a list of biological sequences. It is the 
-main internal format of the tidysq package and most functions operate on it. 
-The storage method is memory-optimized so that objects require as little memory
-as possible (details below)." />
+<meta property="og:title" content="Construct sq object from character vector — sq" />
+<meta property="og:description" content="This function allows the user to construct objects of 
+class sq from a character vector." />
 
 
 
@@ -82,6 +80,12 @@ as possible (details below)." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -105,216 +109,292 @@ as possible (details below)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>sq: class for keeping biological sequences tidy</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/construct_sq.R'><code>R/construct_sq.R</code></a></small>
+    <h1>Construct sq object from character vector</h1>
+    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/sq.R'><code>R/sq.R</code></a></small>
     <div class="hidden name"><code>sq.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>An object of class <strong>sq</strong> represents a list of biological sequences. It is the 
-main internal format of the <span class="pkg">tidysq</span> package and most functions operate on it. 
-The storage method is memory-optimized so that objects require as little memory
-as possible (details below).</p>
+    <p>This function allows the user to construct objects of 
+<code><a href='sq-class.html'>class sq</a></code> from a character vector.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>sq</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  alphabet <span class='op'>=</span> <span class='cn'>NULL</span>,
+  NA_letter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_NA_letter"</span><span class='op'>)</span>,
+  safe_mode <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_safe_mode"</span><span class='op'>)</span>,
+  on_warning <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_on_warning"</span><span class='op'>)</span>,
+  ignore_case <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>[<code>character</code>]<br />
+Vector to construct <code>sq</code> object from.</p></td>
+    </tr>
+    <tr>
+      <th>alphabet</th>
+      <td><p>[<code>character</code>]<br />
+If provided value is a single string, it will be interpreted as type (see
+details). If provided value has length greater than one, it will be treated
+as atypical alphabet for <code>sq</code> obejct and <code>sq</code> type will be
+<code>atp</code>. If provided value is <code>NULL</code>, type
+guessing will be performed (see details).</p></td>
+    </tr>
+    <tr>
+      <th>NA_letter</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
+A string that is used to interpret and display <code>NA</code> value in the
+context of <code><a href='sq-class.html'>sq class</a></code>. Default value equals to
+"<code><a href='https://rdrr.io/r/base/Logic.html'>!</a></code>".</p></td>
+    </tr>
+    <tr>
+      <th>safe_mode</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>]<br />
+Default value is <code>FALSE</code>. When turned on, safe mode guarantees that
+<code>NA</code> appears within a sequence if and only if input sequence contains
+value passed with <code>NA_letter</code>. This means that resulting type might be
+different to the one passed as argument, if there are letters in a sequence
+that does not appear in the original alphabet.</p></td>
+    </tr>
+    <tr>
+      <th>on_warning</th>
+      <td><p>[<code>"none" || "message" || "warning" || "error"</code>]<br />
+Determines the method of handling warning message. Default value is
+<code>"warning"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>ignore_case</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>]<br />
+If turned on, lowercase letters are turned into respective uppercase ones
+and interpreted as such. If not, either <code>sq</code> object must be of type
+<strong>unt</strong> or all lowercase letters are interpreted as <code>NA</code> values.
+Default value is <code>FALSE</code>. Ignoring case does not work with <strong>atp</strong>
+alphabets.</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="construction-reading-import-of-sq-objects"><a class="anchor" href="#construction-reading-import-of-sq-objects"></a>Construction/reading/import of sq objects</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An object of <code><a href='sq-class.html'>class sq</a></code> with appropriate type.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Function <code>sq</code> covers all possibilities of standard and non-standard
+types and alphabets. You can check what 'type' and 'alphabet' exactly are in
+<code><a href='sq-class.html'>sq class</a></code> documentation. There is a guide below on
+how function operates and how the program behaves depending on arguments
+passed and letters in the sequences.</p>
+<p><code>x</code> parameter should be a character vector. Each element of this vector
+is a biological sequence. If this parameter has length 0, object of class
+<code>sq</code> with 0 sequences will be created (if not specified, it will have
+<strong>dna_bsc</strong> type, which is a result of rules written below). If it
+contains sequences of length 0, <code>NULL</code> sequences will be introduced (see
+<em>NULL (empty) sequences</em> section in <code><a href='sq-class.html'>sq class</a></code>).</p>
+<p><strong>Important note:</strong> in all below cases word 'letter' stands for an
+element of an alphabet. Letter might consist of more than one character, for
+example "<code>Ala</code>" might be a single letter. However, if the user wants to
+construct or read sequences with multi-character letters, one has to specify
+all letters in <code>alphabet</code> parameter. Details of letters, alphabet and
+types can be found in <code><a href='sq-class.html'>sq class</a></code> documentation.</p>
+    <h2 class="hasAnchor" id="simple-guide-to-construct"><a class="anchor" href="#simple-guide-to-construct"></a>Simple guide to construct</h2>
 
     
 
-<p>There are multiple ways of obtaining <code>sq</code> objects:</p><ul>
-<li><p>constructing from a <code><a href='https://rdrr.io/r/base/character.html'>character</a></code> vector with <code><a href='construct_sq.html'>construct_sq</a></code>,</p></li>
-<li><p>constructing from another object with <code><a href='as.sq.html'>as.sq</a></code> method,</p></li>
-<li><p>reading from the fasta file with <code><a href='read_fasta.html'>read_fasta</a></code>,</p></li>
-<li><p>importing from a format of other package like <span class="pkg">ape</span> or
-<span class="pkg">Biostrings</span> with <code><a href='import_sq.html'>import_sq</a></code>.</p></li>
+<p>In many cases, just the <code>x</code> parameter needs to be specified - type of
+sequences will be guessed according to rules described below. The user needs
+to pay attention, however, because for short sequences type may be guessed
+incorrectly - in this case they should specify type in <code>alphabet</code>
+parameter.</p>
+<p>If your sequences contain non-standard letters, where each non-standard
+letter is one character long (that is, any character that is not an uppercase
+letter), you also don't need to specify any parameter. Optionally, you can
+explicitly do it by setting <code>alphabet</code> to <code>"unt"</code>.</p>
+<p>In <code>safe mode</code> it is guaranteed that only letters which are equal to
+<code>NA_letter</code> argument are interpreted as <code>NA</code> values. Due to that,
+resulting alphabet might be different from the <code>alphabet</code> argument.</p>
+    <h2 class="hasAnchor" id="detailed-guide-to-construct"><a class="anchor" href="#detailed-guide-to-construct"></a>Detailed guide to construct</h2>
+
+    
+
+<p>Below are listed all possibilities that can occur during the construction of
+a <code>sq</code> object:</p><ul>
+<li><p>If you don't specify any other parameter than <code>x</code>, function will
+ try to guess sequence type (it will check in exactly this order):</p><ol>
+<li><p>If it contains only ACGT- letters, type will be set to
+  <strong>dna_bsc</strong>.</p></li>
+<li><p>If it contains only ACGU- letters, type will be set to
+  <strong>rna_bsc</strong>.</p></li>
+<li><p>If it contains any letters from 1. and 2. and additionally letters
+  DEFHIKLMNPQRSVWY*, type will be set to <strong>ami_bsc</strong>.</p></li>
+<li><p>If it contains any letters from 1. and additionally letters
+  WSMKRYBDHVN, type will be set to <strong>dna_ext</strong>.</p></li>
+<li><p>If it contains any letters from 2. and additionally letters
+  WSMKRYBDHVN, type will be set to <strong>rna_ext</strong>.</p></li>
+<li><p>If it contains any letters from previous points and additionally
+  letters JOUXZ, type will be set to <strong>ami_ext</strong>.</p></li>
+<li><p>If it contains any letters that exceed all groups mentioned above,
+  type will be set to <strong>unt</strong>.</p></li>
+</ol></li>
+<li><p>If you specify <code>alphabet</code> parameter as any of <code>"dna_bsc"</code>,
+ <code>"dna_ext"</code>, <code>"rna_bsc"</code>, <code>"rna_ext"</code>, <code>"ami_bsc"</code>,
+ <code>"ami_ext"</code>; then:</p><ul>
+<li><p>If <code>safe_mode</code> is <code>FALSE</code>, then sequences will be built
+  with standard alphabet for given type.</p></li>
+<li><p>If <code>safe_mode</code> is <code>TRUE</code>, then sequences will be scanned
+  for letters not in standard alphabet:</p><ul>
+<li><p>If no such letters are found, then sequences will be built with
+   standard alphabet for given type.</p></li>
+<li><p>If at least one such letter is found, then sequences are built with
+   real alphabet and with type set to <strong>unt</strong>.</p></li>
+</ul></li>
+</ul></li>
+<li><p>If you specify <code>alphabet</code> parameter as <code>"unt"</code>, then
+ sequences are scanned for alphabet and subsequently built with obtained
+ alphabet and type <strong>unt</strong>.</p></li>
+<li><p>If you specify <code>alphabet</code> parameter as <code>character</code> vector
+ longer than 1, then type is set to <strong>atp</strong> and alphabet is equal to
+ letters in said parameter.</p></li>
 </ul>
 
-<p><strong>Important note:</strong> A manual assignment of a class <code>sq</code> to an object is
-<strong>strongly discouraged</strong> - due to the usage of low-level functions for
-bit packing such assignment may lead to calling one of those functions during
-operating on object or even printing it which can cause a crash of R session and,
-in consequence, loss of data.</p>
-    <h2 class="hasAnchor" id="export-writing-of-sq-objects"><a class="anchor" href="#export-writing-of-sq-objects"></a>Export/writing of sq objects</h2>
+<p>If <code>ignore_case</code> is set to <code>TRUE</code>, then lowercase letters are
+turned into uppercase during their interpretation, unless type is set to
+<strong>atp</strong>.</p>
+    <h2 class="hasAnchor" id="handling-unt-and-atp-types-and-na-values"><a class="anchor" href="#handling-unt-and-atp-types-and-na-values"></a>Handling <strong>unt</strong> and <strong>atp</strong> types and <code>NA</code> values</h2>
 
     
 
-<p>There are multiple ways of saving <code>sq</code> objects or converting them into
-other formats:</p><ul>
-<li><p>converting into a character vector with <code><a href='as.character.sq.html'>as.character</a></code> 
-method,</p></li>
-<li><p>converting into a character matrix (or numeric matrix, in case of <strong>enc</strong>) 
-with <code><a href='as.matrix.sq.html'>as.matrix</a></code> method,</p></li>
-<li><p>converting into a list of numerics with <code><a href='encsq_to_list.html'>encsq_to_list</a></code> (only
-for <strong>enc</strong> <code>sq</code>),</p></li>
-<li><p>saving as fasta file with <code><a href='write_fasta.html'>write_fasta</a></code>,</p></li>
-<li><p>exporting into a format of other package like <code>ape</code> or
-<code>Biostrings</code> with <code><a href='export_sq.html'>export_sq</a></code>.</p></li>
-</ul>
+<p>You can convert letters into another using <code><a href='substitute_letters.html'>substitute_letters</a></code>
+and then use <code><a href='typify.html'>typify</a></code> or <code>sq_type&lt;-</code> function to set type of
+<code>sq</code> to <strong>dna_bsc</strong>, <strong>dna_ext</strong>, <strong>rna_bsc</strong>,
+<strong>rna_ext</strong>, <strong>ami_bsc</strong> or <strong>ami_ext</strong>. If your sequences
+contain <code>NA</code> values, use <code><a href='remove_na.html'>remove_na</a></code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <h2 class="hasAnchor" id="types-of-sq"><a class="anchor" href="#types-of-sq"></a>Types of sq</h2>
+    <div class='dont-index'><p>Functions from input module:
+<code><a href='import_sq.html'>import_sq</a>()</code>,
+<code><a href='random_sq.html'>random_sq</a>()</code>,
+<code><a href='read_fasta.html'>read_fasta</a>()</code></p></div>
 
-    
-
-<p>This package is meant to handle both amino acid, DNA and RNA sequences, 
-thus there is need to differentiate <code>sq</code> objects that keep them. In 
-addition, there are special types for handling non-standard sequence 
-formats and encodings.</p>
-<p>Each <strong>sq</strong> object has exactly one of <strong>types</strong>:</p><ul>
-<li><p><strong>ami</strong> - (<em>amino acids</em>) represents a list of sequences of amino acids
-(peptides or proteins),</p></li>
-<li><p><strong>dna</strong> - (<em>DNA</em>) represents a list of DNA sequences,</p></li>
-<li><p><strong>rna</strong> - (<em>RNA</em>) represents a list of RNA sequences (together with
-<strong>dna</strong> above often collectively called "nucleotide sequences"),</p></li>
-<li><p><strong>unt</strong> - (<em>untyped</em>) represents a list of sequences that do not have 
-specified type. They are mainly result of reading sequences from a file that 
-contains some letters that are not in standard nucleotide or amino acid alphabets 
-and user has not specified them explicitly. They should be converted to <strong>ami</strong> ,
-<strong>dna</strong> or <strong>rna</strong> sequences (using functions like <code><a href='substitute_letters.html'>substitute_letters</a></code>
-or <code><a href='typify.html'>typify</a></code>).</p></li>
-<li><p><strong>atp</strong> - (<em>atypical</em>) represents sequences that have an alphabet
-different from standard <strong>ami</strong>, <strong>dna</strong> or <strong>rna</strong> alphabets - similarly
-to <strong>unt</strong>, but user has explicitly informed about it. They are
-result of constructing sequences or reading from file with specifying 
-<code>non_standard</code> parameter (for details see <code><a href='read_fasta.html'>read_fasta</a></code>
-and <code><a href='construct_sq.html'>construct_sq</a></code>). They are also result of using function
-<code><a href='substitute_letters.html'>substitute_letters</a></code> - users can use this for example to simplify 
-an alphabet and to replace a few letters by one.</p></li>
-<li><p><strong>enc</strong> - (<em>encoded</em>) represents list of sequences that have been
-encoded with function <code><a href='encode.html'>encode</a></code> where each letter is assigned with 
-numeric value.</p></li>
-</ul>
-
-<p>Additionally, there is a special subtype <strong>cln</strong> (standing for <em>clean</em>).
-Only <strong>ami</strong>, <strong>dna</strong> or <strong>rna</strong> <code>sq</code> objects may have this subtype.
-It indicates that sequences do not contain ambiguous letters (see "alphabets" section below).</p>
-<p><code>sq</code> object type is printed when using overloaded method 
-<code><a href='sqprint.html'>print</a></code>. It can be also checked by using <code><a href='get_sq_type.html'>get_sq_type</a></code></p>
-    <h2 class="hasAnchor" id="alphabet"><a class="anchor" href="#alphabet"></a>Alphabet</h2>
-
-    
-
-<p>Each <code>sq</code> object have an <strong>alphabet</strong> associated with it. Alphabet is
-a set of possible <strong>letters</strong> that can appear in sequences contained in object.
-Alphabet is kept mostly as a character vector, where each element represents one
-<strong>letter</strong>.</p>
-<p><code>sq</code> objects of type <strong>ami</strong>, <strong>dna</strong> or <strong>rna</strong> have fixed alphabets
-(depending also if object has <strong>cln</strong> subtype). In other words, if two <code>sq</code>
-objects have exactly the same type - <strong>ami</strong>, <strong>dna</strong> or <strong>rna</strong> - and
-either both have or both do not have a <strong>cln</strong> subtype, they are ensured to have
-the same alphabets.</p>
-<p>Here are listed alphabets for these types:</p><ul>
-<li><p><strong>ami</strong> <strong>cln</strong> - ACDEFGHIKLMNPQRSTVWY-*</p></li>
-<li><p><strong>ami</strong>, (not <strong>cln</strong>) - ABCDEFGHIJKLMNOPQRSTUVWXYZ-*</p></li>
-<li><p><strong>dna</strong> <strong>cln</strong> - ACGT-</p></li>
-<li><p><strong>dna</strong>, (not <strong>cln</strong>) - ACGTWSMKRYBDHVN-</p></li>
-<li><p><strong>rna</strong> <strong>cln</strong> - ACGU-</p></li>
-<li><p><strong>rna</strong>, (not <strong>cln</strong>) - ACGUWSMKRYBDHVN-</p></li>
-</ul>
-
-<p>To see details of these alphabets see <code><a href='aminoacids_df.html'>aminoacids_df</a></code> and 
-<code><a href='nucleotides_df.html'>nucleotides_df</a></code>.</p>
-<p>Other types of <code>sq</code> objects are allowed to have different alphabets. Having an alphabet
-exactly identical to one of those above does not automatically indicate that the type of
-the sequence is one of those - e. g., there might be <strong>unt</strong> <code>sq</code> that has an alphabet
-identical to <strong>ami</strong> <strong>cln</strong> alphabet. To set the type, one should use the
-<code><a href='typify.html'>typify</a></code> function.</p>
-<p>The purpose of co-existence of <strong>unt</strong> and <strong>atp</strong> alphabets is the 
-fact that although there is a standard for format of <em>fasta</em> files, sometimes 
-there are other types of symbols, which do not match the standard. Thanks to these types, 
-tidysq can import files with customized alphabets can be imported. Moreover, a user 
-may want to group amino acids with similar properties (e. g., for machine learning) 
-and replace the longer alphabet with symbols of groups. To check details, see 
-<code><a href='read_fasta.html'>read_fasta</a></code>, <code><a href='construct_sq.html'>construct_sq</a></code> and <code><a href='substitute_letters.html'>substitute_letters</a></code>.</p>
-<p>All of the types: <strong>ami</strong>, <strong>dna</strong>, <strong>rna</strong>, <strong>atp</strong>, <strong>unt</strong>
-have alphabets that are character vectors while <strong>enc</strong> objects have alphabets that
-are numeric vectors. They are result of <code><a href='encode.html'>encode</a></code> function, see its manual
-for details.</p>
-<p><strong>Important note:</strong> in <strong>atp</strong> alphabets there is possibility of appearance of
-letters that consists of more than one character - this functionality is provided in
-order to handle situations like post-translational modifications, (e.g., using "mA" to 
-indicating methylated alanine).</p>
-<p><strong>Important note:</strong> alphabets of <strong>atp</strong> and <strong>unt</strong> <code>sq</code> objects
-are case sensitive. Thus, in their alphabets both lowercase and uppercase letters can
-appear simultaneously and they are treated as different characters. Alphabets of
-<strong>dna</strong>, <strong>rna</strong> and <strong>ami</strong> objects are always uppercase and all functions converts
-other parameters to uppercase when working with <strong>dna</strong>, <strong>rna</strong> or <strong>ami</strong> - e.g.,
-<code><a href='%has%.html'>%has%</a></code> operator converts lower letters to upper when searching for motifs in
-<strong>dna</strong>, <strong>rna</strong> or <strong>ami</strong> object.</p>
-<p><strong>Important note:</strong> maximum length of an alphabet is <strong>30 letters</strong>. You are
-not allowed to read fasta files or construct from character vectors that have more
-than 30 distinct characters in sequences (with exception of reading or constructing
-<strong>ami</strong>, <strong>dna</strong> or <strong>rna</strong> objects - during their construction lowercase
-letters are automatically converted to uppercase).</p>
-<p>You can obtain an alphabet of the <code>sq</code> object using the <code><a href='get_sq_alphabet.html'>get_sq_alphabet</a></code>
-function. You can check which letters are invalid (are not represented in standard
-amino acid or nucleotide alphabet) in each sequence of given <code>sq</code> object of type
-<strong>unt</strong> or <strong>atp</strong> by using <code><a href='get_invalid_letters.html'>get_invalid_letters</a></code>. You can
-substitute one letter with another using <code><a href='substitute_letters.html'>substitute_letters</a></code>.</p>
-    <h2 class="hasAnchor" id="missing-not-available-values"><a class="anchor" href="#missing-not-available-values"></a>Missing/Not Available values</h2>
-
-    
-
-<p>There is a possibility of introducing <code><a href='https://rdrr.io/r/base/NA.html'>NA</a></code> values into sequences. <code>NA</code> value
-does not represents gap (which are represented by <code>'-'</code>) or wildcard elements 
-(<code>N</code> in the case of nucleotides and <code>'X'</code> in the case of amino acids), but is used 
-as a representation of an empty position or invalid letters (not represented in nucleotide or 
-amino acid alphabet).
-<code>NA</code> does not belong to any alphabet (with exception of <strong>enc</strong> objects where some of
-letters might be <code>NA</code>, see <code><a href='encode.html'>encode</a></code> for details). It is printed as
-'!' and, thus, it is highly unrecommended to use '!' as special letter in <strong>atp</strong>
-sequences (but print character can be changed in options, see <code><a href='tidysq-options.html'>tidysq-options</a></code>).</p>
-<p><code>NA</code> might be introduced by:</p><ul>
-<li><p>reading fasta file with non-standard letters in
-<code><a href='fast-mode.html'>fast mode</a></code> with <code><a href='read_fasta.html'>read_fasta</a></code>,</p></li>
-<li><p>replacing a letter with <code>NA</code> value with <code><a href='substitute_letters.html'>substitute_letters</a></code>,</p></li>
-<li><p>subsetting sequences beyond their lengths with <code><a href='bite.html'>bite</a></code>.</p></li>
-</ul>
-
-<p>An user can convert sequences that contain <code>NA</code> values into <code>NULL</code>
-sequences with <code><a href='remove_na.html'>remove_na</a></code>.</p>
-    <h2 class="hasAnchor" id="null-empty-sequences"><a class="anchor" href="#null-empty-sequences"></a>NULL (empty) sequences</h2>
-
-    
-
-<p><code>NULL</code> sequence is a sequence of length 0.</p>
-<p><code>NULL</code> sequences might be introduced by:</p><ul>
-<li><p>constructing <code>sq</code> object from character string of length zero with
-<code><a href='construct_sq.html'>construct_sq</a></code>,</p></li>
-<li><p>using the <code><a href='clean.html'>clean</a></code> function,</p></li>
-<li><p>using the <code><a href='remove_na.html'>remove_na</a></code> function,</p></li>
-<li><p>subsetting <code>sq</code> object with <a href='sqextract.html'>extract operator</a></p></li>
-</ul>
-
-    <h2 class="hasAnchor" id="storage-format"><a class="anchor" href="#storage-format"></a>Storage format</h2>
-
-    
-
-<p><code>sq</code> object is, in fact, <strong>list of raw vectors</strong>. The fact that it is list
-implies that an user can concatenate <code>sq</code> objects using <code><a href='sqconcatenate.html'>c</a></code>
-method and subset them using <code><a href='sqextract.html'>extract operator</a></code>. Alphabet is kept
-as an attribute of the object.</p>
-<p>Raw vectors are the most efficient way of storage - each letter of the sequence has assigned
-an integer (its index in alphabet of <code>sq</code> object). Those integers in binary format
-fit in less than 8 bits, but normally are stored on 16 bits. However, thanks to bit
-packing it is possible to remove unused bits and store numbers more tightly. This 
-operations result in a little time overhead in all operations, because most of them 
-require unpacking and repacking sequences, but this cost is relatively low in comparison
-to amount of saved memory.</p>
-<p>For example - <strong>dna</strong> <strong>cln</strong> alphabet consist of 6 values: ACGT-. They are 
-assigned numbers 1 to 5 respectively. Those numbers in binary format take form: <code>001</code>,
-<code>010</code>, <code>011</code>, <code>100</code>, <code>101</code>. Each of the letters can  be coded with
-just 3 bits instead of 8 which is demanded by <code>char</code> - this allows
-us to save more than 60% of memory spent on storage of nucleotide sequences.</p>
-    <h2 class="hasAnchor" id="tibble-compatibility"><a class="anchor" href="#tibble-compatibility"></a>tibble compatibility</h2>
-
-    
-
-<p><code>sq</code> objects are compatible with <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> class - that means one can 
-have a <code>sq</code> object as a column of a <code>tibble</code>. There are overloaded print methods, so
-that it is printed in pretty format.</p>
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># constructing sq without specifying alphabet:</span>
+<span class='co'># Correct sq type will be guessed from appearing letters</span>
+<span class='co'>## dna_bsc</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGC"</span>, <span class='st'>"TCGTTA"</span>, <span class='st'>"TT--AG"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>ATGC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TCGTTA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TT--AG</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span></div><div class='input'>
+<span class='co'>## rna_bsc</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CUUAC"</span>, <span class='st'>"UACCGGC"</span>, <span class='st'>"GCA-ACGU"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic RNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>CUUAC</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>UACCGGC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>GCA-ACGU</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'>
+<span class='co'>## ami_bsc</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"YQQPAVVM"</span>, <span class='st'>"PQCFL"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic amino acid sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>YQQPAVVM</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>PQCFL</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
+<span class='co'>## ami cln sq can contain "*" - a letter meaning end of translation:</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MMDF*"</span>, <span class='st'>"SYIHR*"</span>, <span class='st'>"MGG*"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic amino acid sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>MMDF*</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>SYIHR*</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>MGG*</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span></div><div class='input'>
+<span class='co'>## dna_ext</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"TMVCCDA"</span>, <span class='st'>"BASDT-CNN"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>extended DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>TMVCCDA</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>BASDT-CNN</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span></div><div class='input'>
+<span class='co'>## rna_ext</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"WHDHKYN"</span>, <span class='st'>"GCYVCYU"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>extended RNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>WHDHKYN</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>GCYVCYU</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span></div><div class='input'>
+<span class='co'>## ami_ext</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"XYOQWWKCNJLO"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>extended amino acid sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>XYOQWWKCNJLO</span><span>                                                            </span><span style='color: #0000BB;'>&lt;12&gt;</span><span></div><div class='input'>
+<span class='co'>## unt - assume that one wants to mark some special element in sequence with "%"</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"%%YAPLAA"</span>, <span class='st'>"PLAA"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>%%YAPLAA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>PLAA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span></div><div class='input'>
+<span class='co'># passing type as alphabet parameter:</span>
+<span class='co'># All above examples yield an identical result if type specified is the same as guessed</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGC"</span>, <span class='st'>"TCGTTA"</span>, <span class='st'>"TT--AG"</span><span class='op'>)</span>, <span class='st'>"dna_bsc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TCGTTA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TT--AG</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span></div><div class='input'><span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CUUAC"</span>, <span class='st'>"UACCGGC"</span>, <span class='st'>"GCA-ACGU"</span><span class='op'>)</span>, <span class='st'>"rna_bsc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic RNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>CUUAC</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>UACCGGC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>GCA-ACGU</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'><span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"YQQPAVVM"</span>, <span class='st'>"PQCFL"</span><span class='op'>)</span>, <span class='st'>"ami_bsc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic amino acid sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>YQQPAVVM</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>PQCFL</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'><span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MMDF*"</span>, <span class='st'>"SYIHR*"</span>, <span class='st'>"MGG*"</span><span class='op'>)</span>, <span class='st'>"ami_bsc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic amino acid sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>MMDF*</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>SYIHR*</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>MGG*</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span></div><div class='input'><span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"TMVCCDA"</span>, <span class='st'>"BASDT-CNN"</span><span class='op'>)</span>, <span class='st'>"dna_ext"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>extended DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>TMVCCDA</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>BASDT-CNN</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span></div><div class='input'><span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"WHDHKYN"</span>, <span class='st'>"GCYVCYU"</span><span class='op'>)</span>, <span class='st'>"rna_ext"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>extended RNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>WHDHKYN</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>GCYVCYU</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span></div><div class='input'><span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"XYOQWWKCNJLO"</span><span class='op'>)</span>, <span class='st'>"ami_ext"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>extended amino acid sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>XYOQWWKCNJLO</span><span>                                                            </span><span style='color: #0000BB;'>&lt;12&gt;</span><span></div><div class='input'><span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"%%YAPLAA"</span>, <span class='st'>"PLAA"</span><span class='op'>)</span>, <span class='st'>"unt"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>%%YAPLAA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>PLAA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span></div><div class='input'>
+<span class='co'># Type doesn't have to be the same as the guessed one if letters fit in the destination alphabet</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGC"</span>, <span class='st'>"TCGTTA"</span>, <span class='st'>"TT--AG"</span><span class='op'>)</span>, <span class='st'>"dna_ext"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>extended DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TCGTTA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TT--AG</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span></div><div class='input'><span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGC"</span>, <span class='st'>"TCGTTA"</span>, <span class='st'>"TT--AG"</span><span class='op'>)</span>, <span class='st'>"ami_bsc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic amino acid sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TCGTTA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TT--AG</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span></div><div class='input'><span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGC"</span>, <span class='st'>"TCGTTA"</span>, <span class='st'>"TT--AG"</span><span class='op'>)</span>, <span class='st'>"ami_ext"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>extended amino acid sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TCGTTA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TT--AG</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span></div><div class='input'><span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGC"</span>, <span class='st'>"TCGTTA"</span>, <span class='st'>"TT--AG"</span><span class='op'>)</span>, <span class='st'>"unt"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TCGTTA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TT--AG</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span></div><div class='input'>
+<span class='co'># constructing sq with specified letters of alphabet:</span>
+<span class='co'># In sequences below "mA" denotes methyled alanine - two characters are treated as single letter</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"LmAQYmASSR"</span>, <span class='st'>"LmASMKLKFmAmA"</span><span class='op'>)</span>, alphabet <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mA"</span>, <span class='va'>LETTERS</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>atp (atypical alphabet) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>L</span><span> </span><span style='color: #00BB00;'>mA</span><span> </span><span style='color: #00BB00;'>Q</span><span> </span><span style='color: #00BB00;'>Y</span><span> </span><span style='color: #00BB00;'>mA</span><span> </span><span style='color: #00BB00;'>S</span><span> </span><span style='color: #00BB00;'>S</span><span> </span><span style='color: #00BB00;'>R</span><span>                                                        </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>L</span><span> </span><span style='color: #00BB00;'>mA</span><span> </span><span style='color: #00BB00;'>S</span><span> </span><span style='color: #00BB00;'>M</span><span> </span><span style='color: #00BB00;'>K</span><span> </span><span style='color: #00BB00;'>L</span><span> </span><span style='color: #00BB00;'>K</span><span> </span><span style='color: #00BB00;'>F</span><span> </span><span style='color: #00BB00;'>mA</span><span> </span><span style='color: #00BB00;'>mA</span><span>                                                  </span><span style='color: #0000BB;'>&lt;10&gt;</span><span></div><div class='input'><span class='co'># Order of alphabet letters are not meaningful in most cases</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"LmAQYmASSR"</span>, <span class='st'>"LmASMKLKFmAmA"</span><span class='op'>)</span>, alphabet <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>LETTERS</span>, <span class='st'>"mA"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>atp (atypical alphabet) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>L</span><span> </span><span style='color: #00BB00;'>mA</span><span> </span><span style='color: #00BB00;'>Q</span><span> </span><span style='color: #00BB00;'>Y</span><span> </span><span style='color: #00BB00;'>mA</span><span> </span><span style='color: #00BB00;'>S</span><span> </span><span style='color: #00BB00;'>S</span><span> </span><span style='color: #00BB00;'>R</span><span>                                                        </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>L</span><span> </span><span style='color: #00BB00;'>mA</span><span> </span><span style='color: #00BB00;'>S</span><span> </span><span style='color: #00BB00;'>M</span><span> </span><span style='color: #00BB00;'>K</span><span> </span><span style='color: #00BB00;'>L</span><span> </span><span style='color: #00BB00;'>K</span><span> </span><span style='color: #00BB00;'>F</span><span> </span><span style='color: #00BB00;'>mA</span><span> </span><span style='color: #00BB00;'>mA</span><span>                                                  </span><span style='color: #0000BB;'>&lt;10&gt;</span><span></div><div class='input'>
+<span class='co'># reading sequences with three-letter names:</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ProProGlyAlaMetAlaCys"</span><span class='op'>)</span>, alphabet <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Pro"</span>, <span class='st'>"Gly"</span>, <span class='st'>"Ala"</span>, <span class='st'>"Met"</span>, <span class='st'>"Cys"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>atp (atypical alphabet) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>Pro</span><span> </span><span style='color: #00BB00;'>Pro</span><span> </span><span style='color: #00BB00;'>Gly</span><span> </span><span style='color: #00BB00;'>Ala</span><span> </span><span style='color: #00BB00;'>Met</span><span> </span><span style='color: #00BB00;'>Ala</span><span> </span><span style='color: #00BB00;'>Cys</span><span>                                              </span><span style='color: #0000BB;'>&lt;7&gt;</span><span></div><div class='input'>
+<span class='co'># using safe mode:</span>
+<span class='co'># Safe mode guarantees that no element is read as NA</span>
+<span class='co'># But resulting alphabet might be different to the passed one (albeit with warning/error)</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CUUAC"</span>, <span class='st'>"UACCGGC"</span>, <span class='st'>"GCA-ACGU"</span><span class='op'>)</span>, alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span>, safe_mode <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Detected letters that do not match specified type!</span></div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>CUUAC</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>UACCGGC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>GCA-ACGU</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'><span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CUUAC"</span>, <span class='st'>"UACCGGC"</span>, <span class='st'>"GCA-ACGU"</span><span class='op'>)</span>, alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>C</span><span style='color: #555555;'>!!</span><span style='color: #00BB00;'>AC</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [2] </span><span style='color: #555555;'>!</span><span style='color: #00BB00;'>ACCGGC</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>GCA-ACG</span><span style='color: #555555;'>!</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'>
+<span class='co'># Safe mode guesses alphabet based on whole sequence</span>
+<span class='va'>long_sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='fl'>4500</span><span class='op'>)</span>, collapse <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span>, <span class='st'>"N"</span><span class='op'>)</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='va'>long_sequence</span>, safe_mode <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic amino acid sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;4501&gt;</span><span></div><div class='input'><span class='fu'>sq</span><span class='op'>(</span><span class='va'>long_sequence</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;4501&gt;</span><span></div><div class='input'>
+<span class='co'># ignoring case:</span>
+<span class='co'># By default, lower- and uppercase letters are treated separately</span>
+<span class='co'># This behaviour can be changed by setting ignore_case = TRUE</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"aTGc"</span>, <span class='st'>"tcgTTA"</span>, <span class='st'>"tt--AG"</span><span class='op'>)</span>, ignore_case <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TCGTTA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TT--AG</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span></div><div class='input'><span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"XYOqwwKCNJLo"</span><span class='op'>)</span>, ignore_case <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>extended amino acid sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>XYOQWWKCNJLO</span><span>                                                            </span><span style='color: #0000BB;'>&lt;12&gt;</span><span></div><div class='input'>
+<span class='co'># It is possible to construct sq with length 0</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list of length 0</span></div><div class='input'>
+<span class='co'># As well as sq with empty sequences</span>
+<span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"AGTGGC"</span>, <span class='st'>""</span>, <span class='st'>"CATGA"</span>, <span class='st'>""</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>AGTGGC</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [2] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>CATGA</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [4] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -330,7 +410,7 @@ that it is printed in pretty format.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

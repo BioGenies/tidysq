@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Compare sq objects — ==.sq" />
-<meta property="og:description" content="Compares input sq object with another given." />
+<meta property="og:description" content="Compares input sq object with either
+another sq object or character vector." />
 
 
 
@@ -79,6 +80,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -103,101 +110,101 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Compare sq objects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util_methods.R'><code>R/util_methods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util-methods.R'><code>R/util-methods.R</code></a></small>
     <div class="hidden name"><code>equals-.sq.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compares input <code><a href='sq.html'>sq</a></code> object with another given.</p>
+    <p>Compares input <code><a href='sq-class.html'>sq</a></code> object with either
+another <code>sq</code> object or <code>character</code> vector.</p>
     </div>
 
     <pre class="usage"># S3 method for sq
-==(x1, x2)</pre>
+==(e1, e2)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x1</th>
-      <td><p>an <code><a href='sq.html'>sq</a></code> object.</p></td>
+      <th>e1</th>
+      <td><p>[<code>sq</code>]<br />
+An object this comparison is applied to.</p></td>
     </tr>
     <tr>
-      <th>x2</th>
-      <td><p>an object (a character vector or an <code><a href='sq.html'>sq</a></code> object) to compare with
-<code>x1</code>.</p></td>
+      <th>e2</th>
+      <td><p>[<code>sq</code> || <code>character</code>]<br />
+An object to compare with <code>x1</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://rdrr.io/r/base/logical.html'>logical</a></code> vector indicating on which positions the objects are equal</p>
+    <p>A <code><a href='https://rdrr.io/r/base/logical.html'>logical</a></code> vector indicating on which positions these
+objects are equal.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code><a href='https://rdrr.io/r/base/Comparison.html'>`==`</a></code> converts left-hand side of the comparison (<code>x1</code>) to
-a character vector using <code><a href='https://rdrr.io/r/base/character.html'>as.character</a></code> and checks whether object
-given on the right side can be compared with <code><a href='sq.html'>sq</a></code> object. Function
-also checks the type of <code><a href='sq.html'>sq</a></code> object with which given object is to be
-compared. If the type of <code><a href='sq.html'>sq</a></code> object is "ami", "dna" or "rna" and
-given sequence is a character vector with any lowercase letters, the function
-replaces them with corresponding capital ones using <code><a href='https://rdrr.io/r/base/chartr.html'>toupper</a></code>.
-If right-hand side object (<code>x2</code>) is of class <code><a href='sq.html'>sq</a></code>, then it is
-converted to a character vector also using <code><a href='https://rdrr.io/r/base/character.html'>as.character</a></code> function.</p>
-<p>When both objects are already converted to character vectors, comparison is carried out 
-element-wise with standard R rules, (e.g., recycling is used). You can check details at
-<code><a href='https://rdrr.io/r/base/Comparison.html'>Comparison</a></code>.</p>
-<p>Comparing sequences as characters vectors cause that various types of sequences
-can be compared for example amino acid with nucleotide sequences so attention
-should be paid, which sequence types are compared.</p>
+    <p><code><a href='https://rdrr.io/r/base/Comparison.html'>`==`</a></code> compares compatible object for equality of their respective
+sequences. Objects are considered compatible, when either both have same
+length or one of them is a scalar value (i.e. a vector of length 1).
+Moreover, not every <code>e1</code> sq type can be compared to any <code>e2</code> sq
+type.</p>
+<p>To see which types are compatible, see Details of
+<code><a href='sqconcatenate.html'>sq-concatenate</a></code>.</p>
+<p><code><a href='https://rdrr.io/r/base/Comparison.html'>`==`</a></code> returns logical vector, where each element describes whether
+elements at position <code>n</code> of both <code>e1</code> and <code>e2</code> are equal in
+meaning (that is, they may be represented differently, but their biological
+interpretation must be indentical). If one of compared objects is a scalar,
+then said logical vector describes comparison for each element of the other,
+longer vector.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code> <code><a href='https://rdrr.io/r/base/character.html'>as.character</a></code> <code><a href='is.sq.html'>is.sq</a></code></p></div>
+    <div class='dont-index'><p>Functions from utility module:
+<code><a href='get_sq_lengths.html'>get_sq_lengths</a>()</code>,
+<code><a href='is.sq.html'>is.sq</a>()</code>,
+<code><a href='sqconcatenate.html'>sqconcatenate</a></code>,
+<code><a href='sqextract.html'>sqextract</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># Creating sq object to work on:</span>
-<span class='va'>sq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACTGCTG"</span>, <span class='st'>"CTTAGA"</span>, 
-                     <span class='st'>"CCCT"</span>, <span class='st'>"CTGAATGT"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"dna"</span><span class='op'>)</span>
-                     
-<span class='va'>sq_different_len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACTGCTG"</span>, <span class='st'>"CTTAGA"</span>, 
-                                   <span class='st'>"GGAA"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"dna"</span><span class='op'>)</span>
-                                   
-<span class='va'>sq_the_same_len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACTGCTG"</span>, <span class='st'>"CTTAGA"</span>, 
-                                 <span class='st'>"CCCT"</span>, <span class='st'>"CTGAATGT"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"dna"</span><span class='op'>)</span>
-                                                                                       
-<span class='co'># Get an overview of the sequences:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>sq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      Length Class  Mode
-#&gt; [1,] 3      -none- raw 
-#&gt; [2,] 3      -none- raw 
-#&gt; [3,] 2      -none- raw 
-#&gt; [4,] 3      -none- raw </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>sq_the_same_len</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      Length Class  Mode
-#&gt; [1,] 3      -none- raw 
-#&gt; [2,] 3      -none- raw 
-#&gt; [3,] 2      -none- raw 
-#&gt; [4,] 3      -none- raw </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>sq_different_len</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      Length Class  Mode
-#&gt; [1,] 3      -none- raw 
-#&gt; [2,] 3      -none- raw 
-#&gt; [3,] 2      -none- raw </div><div class='input'>
-<span class='co'># Comparing sq object with an object of the same length :</span>
-<span class='va'>sq</span> <span class='op'>==</span> <span class='va'>sq_the_same_len</span>
+    <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
+<span class='va'>sq_dna_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACTGCTG"</span>, <span class='st'>"CTTAGA"</span>, <span class='st'>"CCCT"</span>, <span class='st'>"CTGAATGT"</span><span class='op'>)</span>,
+               alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span><span class='op'>)</span>
+<span class='va'>sq_dna_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACTGCTG"</span>, <span class='st'>"CTTAGA"</span>, <span class='st'>"CCCT"</span>, <span class='st'>"CTGAATGT"</span><span class='op'>)</span>,
+               alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span><span class='op'>)</span>
+<span class='va'>sq_dna_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACTGCTG"</span>, <span class='st'>"CTTAGA"</span>, <span class='st'>"GGAA"</span><span class='op'>)</span>,
+               alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span><span class='op'>)</span>
+<span class='va'>sq_dna_4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACTGCTG"</span>, <span class='st'>"CTTAGA"</span>, <span class='st'>"CCCT"</span>, <span class='st'>"GTNANN"</span><span class='op'>)</span>,
+               alphabet <span class='op'>=</span> <span class='st'>"dna_ext"</span><span class='op'>)</span>
+<span class='va'>sq_ami_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACTGCTG"</span>, <span class='st'>"NIKAAR"</span>, <span class='st'>"CCCT"</span>, <span class='st'>"CTGAATGT"</span><span class='op'>)</span>,
+               alphabet <span class='op'>=</span> <span class='st'>"ami_bsc"</span><span class='op'>)</span>
+<span class='va'>sq_unt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"AHSNLVSCTK$SH%&amp;VS"</span>, <span class='st'>"YQTVKA&amp;#BSKJGY"</span>,
+               <span class='st'>"CCCT"</span>, <span class='st'>"AVYI#VSV&amp;*DVGDJCFA"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># Comparing sq object with an object of the same length:</span>
+<span class='va'>sq_dna_1</span> <span class='op'>==</span> <span class='va'>sq_dna_2</span>
+</div><div class='output co'>#&gt; [1] TRUE TRUE TRUE TRUE</div><div class='input'><span class='va'>sq_dna_1</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACTGCTG"</span>, <span class='st'>"CTTAGA"</span>, <span class='st'>"CCCT"</span>, <span class='st'>"CTGAATGT"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE TRUE TRUE TRUE</div><div class='input'>
-<span class='co'># Comparing object sq object with an object of a different length : </span>
-<span class='va'>sq</span> <span class='op'>==</span> <span class='va'>sq_different_len</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: longer object length is not a multiple of shorter object length</span></div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE FALSE</div><div class='input'> 
-<span class='co'># Comparing sq object to a given character vector of a different length:</span>
-<span class='va'>sq</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'AAA'</span>,<span class='st'>'CCC'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE FALSE</div><div class='input'>
-<span class='co'># Comparing sq object to a given character vector of the same length:</span>
-<span class='va'>sq</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACTGCTG"</span>, <span class='st'>"CTTAGA"</span>,<span class='st'>'CCCT'</span>, <span class='st'>'CTGAATGT'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE TRUE TRUE TRUE</div><div class='input'>
-<span class='co'># Comparing sq object to a given DNA element 'ATGTGA':</span>
-<span class='va'>sq</span> <span class='op'>==</span> <span class='st'>'ATGTGA'</span>
-</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE FALSE</div><div class='input'>
-<span class='co'># Comparing sq object to a given amino acid vector:</span>
-<span class='va'>sq</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'RISGQQD'</span>,<span class='st'>'RISGQQD'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE FALSE</div><div class='input'> 
+<span class='co'># Cannot compare sq objects of different lengths:</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>sq_dna_1</span> <span class='op'>==</span> <span class='va'>sq_dna_3</span>
+<span class='va'>sq_dna_1</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"AAA"</span>, <span class='st'>"CCC"</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='co'># Unless comparing sq object with scalar value:</span>
+<span class='va'>sq_dna_1</span> <span class='op'>==</span> <span class='st'>"CTTAGA"</span>
+</div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE FALSE</div><div class='input'>
+<span class='co'># It's possible to compare basic and extended types:</span>
+<span class='va'>sq_dna_1</span> <span class='op'>==</span> <span class='va'>sq_dna_4</span>
+</div><div class='output co'>#&gt; [1]  TRUE  TRUE  TRUE FALSE</div><div class='input'>
+<span class='co'># Mixing DNA, RNA and amino acid types throws an error, however:</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>sq_dna_1</span> <span class='op'>==</span> <span class='va'>sq_ami_1</span>
+<span class='op'>}</span>
+
+<span class='co'># On the other hand, unt sq is acceptable everywhere:</span>
+<span class='va'>sq_dna_1</span> <span class='op'>==</span> <span class='va'>sq_unt</span>
+</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE FALSE</div><div class='input'><span class='va'>sq_dna_4</span> <span class='op'>==</span> <span class='va'>sq_unt</span>
+</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE FALSE</div><div class='input'><span class='va'>sq_ami_1</span> <span class='op'>==</span> <span class='va'>sq_unt</span>
+</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE FALSE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -214,7 +221,7 @@ should be paid, which sequence types are compared.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

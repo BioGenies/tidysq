@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get lengths of sequences in sq object — get_sq_lengths • tidysq</title>
+<title>Find elements which are not suitable for specified type. — find_invalid_letters • tidysq</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="Get lengths of sequences in sq object — get_sq_lengths" />
-<meta property="og:description" content="Returns number of elements in each sequence in given
-sq object." />
+<meta property="og:title" content="Find elements which are not suitable for specified type. — find_invalid_letters" />
+<meta property="og:description" content="Finds elements in given sequence not contained in amino acid or
+nucleotide alphabet." />
 
 
 
@@ -109,17 +109,25 @@ sq object." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get lengths of sequences in sq object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util-methods.R'><code>R/util-methods.R</code></a></small>
-    <div class="hidden name"><code>get_sq_lengths.Rd</code></div>
+    <h1>Find elements which are not suitable for specified type.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/find_invalid_letters.R'><code>R/find_invalid_letters.R</code></a></small>
+    <div class="hidden name"><code>find_invalid_letters.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Returns number of elements in each sequence in given
-<code><a href='sq-class.html'>sq</a></code> object.</p>
+    <p>Finds elements in given sequence not contained in amino acid or
+nucleotide alphabet.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_sq_lengths</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>find_invalid_letters</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>dest_type</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for sq</span>
+<span class='fu'>find_invalid_letters</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>dest_type</span>,
+  <span class='va'>...</span>,
+  NA_letter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_NA_letter"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -129,38 +137,69 @@ sq object." />
       <td><p>[<code>sq</code>]<br />
 An object this function is applied to.</p></td>
     </tr>
+    <tr>
+      <th>dest_type</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
+The name of destination type - one of <code>"dna_bsc"</code>, <code>"dna_ext"</code>,
+<code>"rna_bsc"</code>, <code>"rna_ext"</code>, <code>"ami_bsc"</code> and <code>"ami_ext"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>further arguments to be passed from or to other methods.</p></td>
+    </tr>
+    <tr>
+      <th>NA_letter</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
+A string that is used to interpret and display <code>NA</code> value in the
+context of <code><a href='sq-class.html'>sq class</a></code>. Default value equals to
+"<code><a href='https://rdrr.io/r/base/Logic.html'>!</a></code>".</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></code> vector, where each element gives length of
-corresponding sequence from <code><a href='sq-class.html'>sq</a></code> object.</p>
+    <p>A list of mismatched elements for every sequence from
+<code><a href='sq-class.html'>sq</a></code> object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Due to storage implementation, using <code><a href='https://rdrr.io/r/base/lengths.html'>lengths</a></code> method
-returns length of stored raw vectors instead of real sequence lengths. This
-function accesses <code>original_length</code> attribute of each sequence, which
-attribute stores information about how many elements are there in given
-sequence.</p>
+    <p>Amino acid, DNA and RNA standard alphabets have predefined letters. This
+function allows the user to check which letters from input sequences are not
+contained in selected one of these alphabets.</p>
+<p>Returned list contains a character vector for each input sequence. Each
+element of a vector is a letter that appear in corresponding sequence and not
+in the target alphabet.</p>
+<p>You can check which letters are valid for specified type in
+<code><a href='alphabet.html'>alphabet</a></code> documentation.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Functions from utility module:
-<code><a href='==.sq.html'>==.sq</a>()</code>,
+    <div class='dont-index'><p><code><a href='alphabet.html'>alphabet</a>()</code></p>
+<p>Functions that manipulate type of sequences:
 <code><a href='is.sq.html'>is.sq</a>()</code>,
-<code><a href='sqconcatenate.html'>sqconcatenate</a></code>,
-<code><a href='sqextract.html'>sqextract</a></code></p></div>
+<code><a href='sq_type.html'>sq_type</a>()</code>,
+<code><a href='substitute_letters.html'>substitute_letters</a>()</code>,
+<code><a href='typify.html'>typify</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
-<span class='va'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MIAANYTWIL"</span>,<span class='st'>"TIAALGNIIYRAIE"</span>, <span class='st'>"NYERTGHLI"</span>, <span class='st'>"MAYXXXIALN"</span><span class='op'>)</span>,
-             alphabet <span class='op'>=</span> <span class='st'>"ami_ext"</span><span class='op'>)</span>
-<span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGCAGGA"</span>, <span class='st'>"GACCGAACGAN"</span>, <span class='st'>"TGACGAGCTTA"</span>, <span class='st'>"ACTNNAGCN"</span><span class='op'>)</span>,
-             alphabet <span class='op'>=</span> <span class='st'>"dna_ext"</span><span class='op'>)</span>
+<span class='va'>sq_unt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACGPOIUATTAGACG"</span>,<span class='st'>"GGATFGHA"</span><span class='op'>)</span>, alphabet <span class='op'>=</span> <span class='st'>"unt"</span><span class='op'>)</span>
+<span class='va'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"QWERTYUIZXCVBNM"</span>,<span class='st'>"LKJHGFDSAZXCVBN"</span><span class='op'>)</span>, alphabet <span class='op'>=</span> <span class='st'>"ami_ext"</span><span class='op'>)</span>
 
-<span class='co'># Counting number of elements in sq object:</span>
-<span class='fu'>get_sq_lengths</span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  8 11 11  9</div><div class='input'><span class='fu'>get_sq_lengths</span><span class='op'>(</span><span class='va'>sq_ami</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 10 14  9 10</div><div class='input'>
+<span class='co'># Mismatched elements might be from basic type:</span>
+<span class='fu'>find_invalid_letters</span><span class='op'>(</span><span class='va'>sq_ami</span>, <span class='st'>"ami_bsc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "B" "U" "X" "Z"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "B" "J" "X" "Z"
+#&gt; </div><div class='input'>
+<span class='co'># But also from type completely unrelated to the current one:</span>
+<span class='fu'>find_invalid_letters</span><span class='op'>(</span><span class='va'>sq_unt</span>, <span class='st'>"dna_ext"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] "I" "O" "P" "U"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "F"
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

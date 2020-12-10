@@ -40,8 +40,8 @@
 
 
 <meta property="og:title" content="Check if object has specified type — is.sq" />
-<meta property="og:description" content="Function to checks if object is a sq object without specifying type or
-if it is a sq object with specific type." />
+<meta property="og:description" content="Checks if object is an sq object
+without specifying type or if it is an sq object with specific type." />
 
 
 
@@ -80,6 +80,12 @@ if it is a sq object with specific type." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -104,83 +110,108 @@ if it is a sq object with specific type." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Check if object has specified type</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util_methods.R'><code>R/util_methods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util-methods.R'><code>R/util-methods.R</code></a></small>
     <div class="hidden name"><code>is.sq.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Function to checks if object is a <code><a href='sq.html'>sq</a></code> object without specifying type or
-if it is a <code><a href='sq.html'>sq</a></code> object with specific type.</p>
+    <p>Checks if object is an <code><a href='sq-class.html'>sq</a></code> object
+without specifying type or if it is an <code>sq</code> object with specific type.</p>
     </div>
 
     <pre class="usage"><span class='fu'>is.sq</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>is.amisq</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>is.sq_dna_bsc</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>is.dnasq</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>is.sq_dna_ext</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>is.rnasq</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>is.sq_dna</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>is.untsq</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>is.sq_rna_bsc</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>is.atpsq</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>is.sq_rna_ext</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>is.encsq</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+<span class='fu'>is.sq_rna</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>is.sq_ami_bsc</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>is.sq_ami_ext</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>is.sq_ami</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>is.sq_unt</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>is.sq_atp</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an object to be checked.</p></td>
+      <td><p>[<code>sq</code>]<br />
+An object this function is applied to.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://rdrr.io/r/base/logical.html'>logical</a></code> value - <code>TRUE</code> if <code>x</code> has specified type, <code>FALSE</code>
-otherwise.</p>
+    <p>A <code>logical</code> value - <code>TRUE</code> if <code>x</code> has specified type,
+<code>FALSE</code> otherwise.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These function does not only check objects classes - they also check if their format is 
-correct (e.g. if they have alphabet parameter, if they have exactly one type, if they are
-list of raws, etc. - to see details, how does <code>sq</code> object look like under the hood, 
-read <code><a href='sq.html'>sq class</a></code> manual).</p>
+    <p>These functions are mostly simply calls to class checks. There are also
+grouped checks, i.e. <code>is.sq_dna</code>, <code>is.sq_rna</code> and <code>is.sq_ami</code>.
+These check for sq type regardless of if the type is basic or extended.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code></p></div>
+    <div class='dont-index'><p>Functions that manipulate type of sequences:
+<code><a href='find_invalid_letters.html'>find_invalid_letters</a>()</code>,
+<code><a href='sq_type.html'>sq_type</a>()</code>,
+<code><a href='substitute_letters.html'>substitute_letters</a>()</code>,
+<code><a href='typify.html'>typify</a>()</code></p>
+<p>Functions from utility module:
+<code><a href='==.sq.html'>==.sq</a>()</code>,
+<code><a href='get_sq_lengths.html'>get_sq_lengths</a>()</code>,
+<code><a href='sqconcatenate.html'>sqconcatenate</a></code>,
+<code><a href='sqextract.html'>sqextract</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CVMPQGQQ"</span>, <span class='st'>"AHLC--PPQ"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GGCAT"</span>, <span class='st'>"TATC-A"</span>, <span class='st'>"TGA"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>sq_rna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CGAUUACG"</span>, <span class='st'>"UUCUAGA"</span>, <span class='st'>"UUCA"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>sq_unt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='st'>"BAHHAJJ&amp;HAN&amp;JD&amp;"</span><span class='op'>)</span>
-<span class='va'>sq_atp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mALPVQAmAmA"</span>, <span class='st'>"mAmAPQ"</span><span class='op'>)</span>, non_standard <span class='op'>=</span> <span class='st'>"mA"</span><span class='op'>)</span>
-<span class='va'>sq_enc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span><span class='op'>(</span><span class='va'>sq_rna</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>A <span class='op'>=</span> <span class='fl'>1.23</span>, C <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.72</span>, G <span class='op'>=</span> <span class='fl'>0.97</span>, U <span class='op'>=</span> <span class='fl'>3.01</span><span class='op'>)</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
+<span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GGCAT"</span>, <span class='st'>"TATC-A"</span>, <span class='st'>"TGA"</span><span class='op'>)</span>, alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span><span class='op'>)</span>
+<span class='va'>sq_rna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CGAUUACG"</span>, <span class='st'>"UUCUAGA"</span>, <span class='st'>"UUCA"</span><span class='op'>)</span>, alphabet <span class='op'>=</span> <span class='st'>"rna_bsc"</span><span class='op'>)</span>
+<span class='va'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CVMPQGQQ"</span>, <span class='st'>"AHLC--PPQ"</span><span class='op'>)</span>, alphabet <span class='op'>=</span> <span class='st'>"ami_ext"</span><span class='op'>)</span>
+<span class='va'>sq_unt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='st'>"BAHHAJJ&amp;HAN&amp;JD&amp;"</span>, alphabet <span class='op'>=</span> <span class='st'>"unt"</span><span class='op'>)</span>
+<span class='va'>sq_atp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mALPVQAmAmA"</span>, <span class='st'>"mAmAPQ"</span><span class='op'>)</span>, alphabet <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mA"</span>, <span class='va'>LETTERS</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>is.sq</span><span class='op'>(</span><span class='va'>sq_ami</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
+<span class='co'># What is considered sq:</span>
+<span class='fu'>is.sq</span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span><span class='op'>(</span><span class='va'>sq_rna</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span><span class='op'>(</span><span class='va'>sq_ami</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span><span class='op'>(</span><span class='va'>sq_unt</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span><span class='op'>(</span><span class='va'>sq_atp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq</span><span class='op'>(</span><span class='va'>sq_enc</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># What is not:</span>
 <span class='fu'>is.sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span><span class='op'>(</span><span class='va'>LETTERS</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span><span class='op'>(</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq</span><span class='op'>(</span><span class='cn'>NULL</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-<span class='fu'>is.amisq</span><span class='op'>(</span><span class='va'>sq_ami</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.dnasq</span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.rnasq</span><span class='op'>(</span><span class='va'>sq_rna</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.atpsq</span><span class='op'>(</span><span class='va'>sq_atp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.untsq</span><span class='op'>(</span><span class='va'>sq_unt</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.encsq</span><span class='op'>(</span><span class='va'>sq_enc</span><span class='op'>)</span>
+<span class='co'># Checking for exact class:</span>
+<span class='fu'>is.sq_dna_bsc</span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq_dna_ext</span><span class='op'>(</span><span class='va'>sq_rna</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq_rna_bsc</span><span class='op'>(</span><span class='va'>sq_ami</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq_rna_ext</span><span class='op'>(</span><span class='va'>sq_rna</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq_ami_bsc</span><span class='op'>(</span><span class='va'>sq_ami</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq_ami_ext</span><span class='op'>(</span><span class='va'>sq_atp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq_atp</span><span class='op'>(</span><span class='va'>sq_atp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq_unt</span><span class='op'>(</span><span class='va'>sq_unt</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'>is.dnasq</span><span class='op'>(</span><span class='va'>sq_enc</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.amisq</span><span class='op'>(</span><span class='va'>sq_atp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.untsq</span><span class='op'>(</span><span class='va'>sq_ami</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE</div></pre>
+<span class='co'># Checking for generalized type:</span>
+<span class='fu'>is.sq_dna</span><span class='op'>(</span><span class='va'>sq_atp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.sq_rna</span><span class='op'>(</span><span class='va'>sq_rna</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.sq_ami</span><span class='op'>(</span><span class='va'>sq_ami</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -196,7 +227,7 @@ read <code><a href='sq.html'>sq class</a></code> manual).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

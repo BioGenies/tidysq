@@ -40,8 +40,8 @@
 
 
 <meta property="og:title" content="Generate random sequences — random_sq" />
-<meta property="og:description" content="Generates a sq object with specified number of sequences of given length 
-and given type." />
+<meta property="og:description" content="Generates an sq object with specified
+number of sequences of given length and alphabet." />
 
 
 
@@ -80,6 +80,12 @@ and given type." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -109,98 +115,121 @@ and given type." />
     </div>
 
     <div class="ref-description">
-    <p>Generates a <code><a href='sq.html'>sq</a></code> object with specified number of sequences of given length 
-and given type.</p>
+    <p>Generates an <code><a href='sq-class.html'>sq</a></code> object with specified
+number of sequences of given length and alphabet.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>random_sq</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>len</span>, <span class='va'>type</span>, <span class='va'>is_clean</span>, sd <span class='op'>=</span> <span class='cn'>NULL</span>, use_gap <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>random_sq</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>len</span>, <span class='va'>alphabet</span>, sd <span class='op'>=</span> <span class='cn'>NULL</span>, use_gap <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>n</th>
-      <td><p>a positive <code><a href='https://rdrr.io/r/base/integer.html'>integer</a></code> value - number of sequences to generate.</p></td>
+      <td><p>[<code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code>]<br />
+A number of sequences to generate - must be non-negative.</p></td>
     </tr>
     <tr>
       <th>len</th>
-      <td><p>a positive <code><a href='https://rdrr.io/r/base/integer.html'>integer</a></code> value - length of each sequence if <code>sd</code> not 
-specified and mean length of sequences if <code>sd</code> specified</p></td>
+      <td><p>[<code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code>]<br />
+Length of each sequence if <code>sd</code> not specified and mean length of
+sequences if <code>sd</code> specified - must be non-negative.</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p>a type of generated sq object; possible values are "ami", "dna" and "rna"
-(see section <em>sq types</em> in <code><a href='sq.html'>sq</a></code> documentation for details).</p></td>
-    </tr>
-    <tr>
-      <th>is_clean</th>
-      <td><p>a <code><a href='https://rdrr.io/r/base/logical.html'>logical</a></code> value - if <code>TRUE</code>, letters will be drawn from
-clean alphabet, if <code>FALSE</code> - ambiguous letters might be also generated.</p></td>
+      <th>alphabet</th>
+      <td><p>[<code>character</code>]<br />
+If provided value is a single string, it will be interpreted as type (see
+details). If provided value has length greater than one, it will be treated
+as atypical alphabet for <code>sq</code> obejct and <code>sq</code> type will be
+<code>atp</code>.</p></td>
     </tr>
     <tr>
       <th>sd</th>
-      <td><p>a positive <code><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></code> value; if specified, gives standard deviation of
-length of generated sequences.</p></td>
+      <td><p>[<code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code>]<br />
+If specified, gives standard deviation of length of generated sequences -
+must be non-negative.</p></td>
     </tr>
     <tr>
       <th>use_gap</th>
-      <td><p>- a <code><a href='https://rdrr.io/r/base/logical.html'>logical</a></code> value; if <code>TRUE</code>, sequences will be generated
-with random gaps inside.</p></td>
+      <td><p>[<code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>]<br />
+If <code>TRUE</code>, sequences will be generated with random gaps inside
+(commonly denoted as "<code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code>").</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of class <code>sq</code> with type as specified.</p>
-<p>Sequences are generated using <code><a href='https://rdrr.io/r/base/sample.html'>sample</a></code> function. There is no possibility of 
-generating a sequence of length 0, even if <code>sd</code> is given. Letter '*' is not used 
-in generating <strong>ami</strong> sequences.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Letter '*' is not used in generating <strong>ami</strong> sequences. If parameter
+<code>sd</code> is passed, then all generated negative values are replaced with 0s.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='construct_sq.html'>construct_sq</a></code> <code><a href='sq.html'>sq</a></code></p></div>
+    <div class='dont-index'><p>Functions from input module:
+<code><a href='import_sq.html'>import_sq</a>()</code>,
+<code><a href='read_fasta.html'>read_fasta</a>()</code>,
+<code><a href='sq.html'>sq</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># setting seed for reproducibility</span>
+    <pre class="examples"><div class='input'><span class='co'># Setting seed for reproducibility</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>16</span><span class='op'>)</span>
 
-<span class='co'># generating random sequences</span>
-<span class='fu'>random_sq</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>10</span>, <span class='st'>"ami"</span>, <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>ami (amino acids), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt;  [1] <span style='color: #00BB00;'>QFLFVHCTVD</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [2] </span><span style='color: #00BB00;'>HNEQMFTQRC</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [3] </span><span style='color: #00BB00;'>YTMKFPYYSL</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [4] </span><span style='color: #00BB00;'>AVRVQLGVVH</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [5] </span><span style='color: #00BB00;'>AKICKSWGES</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [6] </span><span style='color: #00BB00;'>WMVHTPSSNT</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [7] </span><span style='color: #00BB00;'>GYNTLDELEC</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [8] </span><span style='color: #00BB00;'>PKRLNCPIIE</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [9] </span><span style='color: #00BB00;'>CNYWNWIDGE</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt; [10] </span><span style='color: #00BB00;'>PTMPRGRLLY</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span></div><div class='input'><span class='fu'>random_sq</span><span class='op'>(</span><span class='fl'>25</span>, <span class='fl'>18</span>, <span class='st'>"rna"</span>, <span class='cn'>TRUE</span>, sd <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>rna (RNA), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt;  [1] </span><span style='color: #00BB00;'>GUCUAUCUUCGCACU</span><span>                                                        </span><span style='color: #0000BB;'>&lt;15&gt;</span><span>
-#&gt;  [2] </span><span style='color: #00BB00;'>UACGUAAUCCGGAGGUGUAAG</span><span>                                                  </span><span style='color: #0000BB;'>&lt;21&gt;</span><span>
-#&gt;  [3] </span><span style='color: #00BB00;'>GGGAGUAUAGCUCGUGAAGCG</span><span>                                                  </span><span style='color: #0000BB;'>&lt;21&gt;</span><span>
-#&gt;  [4] </span><span style='color: #00BB00;'>CGUGUCGGCACGAUC</span><span>                                                        </span><span style='color: #0000BB;'>&lt;15&gt;</span><span>
-#&gt;  [5] </span><span style='color: #00BB00;'>CCAACAUUUUCCGC</span><span>                                                         </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
-#&gt;  [6] </span><span style='color: #00BB00;'>UACUCAAGUCUGUUGCGGUCAGACACU</span><span>                                            </span><span style='color: #0000BB;'>&lt;27&gt;</span><span>
-#&gt;  [7] </span><span style='color: #00BB00;'>AUCCCACGAAAGAAGUGAGG</span><span>                                                   </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
-#&gt;  [8] </span><span style='color: #00BB00;'>ACGUCAGGGCAGACGGCUCC</span><span>                                                   </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
-#&gt;  [9] </span><span style='color: #00BB00;'>CUCACAUGCGUACAAUUGGC</span><span>                                                   </span><span style='color: #0000BB;'>&lt;20&gt;</span><span>
-#&gt; [10] </span><span style='color: #00BB00;'>UGAGUUGCGU</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span></div><div class='output co'>#&gt; <span class='message'>printed 10 out of 25</span></div><div class='input'><span class='fu'>random_sq</span><span class='op'>(</span><span class='fl'>50</span>, <span class='fl'>8</span>, <span class='st'>"dna"</span>, <span class='cn'>FALSE</span>, sd <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>dna (DNA) sequences list:</span></div><div class='output co'>#&gt;  [1] </span><span style='color: #00BB00;'>VCRCSGYW</span><span>                                                                </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
-#&gt;  [2] </span><span style='color: #00BB00;'>TCGWKKGKTV</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
-#&gt;  [3] </span><span style='color: #00BB00;'>TNHDDSD</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
-#&gt;  [4] </span><span style='color: #00BB00;'>TYWVAVTWWRC</span><span>                                                            </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
-#&gt;  [5] </span><span style='color: #00BB00;'>VGKBHBHDSVWRH</span><span>                                                          </span><span style='color: #0000BB;'>&lt;13&gt;</span><span>
-#&gt;  [6] </span><span style='color: #00BB00;'>YG</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;2&gt;</span><span>
-#&gt;  [7] </span><span style='color: #00BB00;'>AMBWW</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
-#&gt;  [8] </span><span style='color: #00BB00;'>YMSAS</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
-#&gt;  [9] </span><span style='color: #00BB00;'>YWARKSC</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
-#&gt; [10] </span><span style='color: #00BB00;'>HMRRVTARK</span><span>                                                               </span><span style='color: #0000BB;'>&lt;9&gt;</span><span></div><div class='output co'>#&gt; <span class='message'>printed 10 out of 50</span></div><div class='input'><span class='fu'>random_sq</span><span class='op'>(</span><span class='fl'>6</span>, <span class='fl'>100</span>, <span class='st'>"ami"</span>, <span class='cn'>TRUE</span>, use_gap <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>ami (amino acids), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>GHK-QFPESSVFFMSEPIAAWCRMYYWFWHSPIIHRVPYWKWHKS-TRCLMPPVKAQQCWA-FCQAL</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>SP-GGRAFPFVVMWHHVNSVHCYDWSHVTEC-YHDELIYSQESRLEQMQLPYIIWELLTK-REVSQH</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
-#&gt; [3] </span><span style='color: #00BB00;'>DQGQQR-GGISHHDMHNYNNVFWIRWLHVNGPMLTPK-HVWLCPMWWAMEQGP-DNRLNCQHIPNYP</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
-#&gt; [4] </span><span style='color: #00BB00;'>MQMKMMQCKREVIGLHQAFQMMQVHWCKKCP-EIMPHYWVICVQQCK-NQTVITICCNEAGHYTSCL</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
-#&gt; [5] </span><span style='color: #00BB00;'>KL-P-CPRIDTPGKF-SHYDP---WKMFFYINPVQWDWCQRPRMMVHWRPECYFVRLREASPAGYTM</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
-#&gt; [6] </span><span style='color: #00BB00;'>WNGILTAQCQEEIYKRWTGHQGRMHC-MWVHKGTFIQPNWKGGHWPPWTSLDCSQWYCQC-DMPVTH</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span></div></span></pre>
+<span class='co'># Generating random sequences</span>
+<span class='fu'>random_sq</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>10</span>, <span class='st'>"ami_bsc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic amino acid sequences list:</span></div><div class='output co'>#&gt;  [1] <span style='color: #00BB00;'>DHVTWESIAD</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [2] </span><span style='color: #00BB00;'>KDPRFMMSSY</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [3] </span><span style='color: #00BB00;'>RYNDFYLTCS</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [4] </span><span style='color: #00BB00;'>QMDYGEVCMD</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [5] </span><span style='color: #00BB00;'>MSEMVIQPEE</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [6] </span><span style='color: #00BB00;'>GKEEMIEHMF</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [7] </span><span style='color: #00BB00;'>DKYFKHWEWE</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [8] </span><span style='color: #00BB00;'>FPAVCDLIYQ</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [9] </span><span style='color: #00BB00;'>RGWAIEWMTE</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt; [10] </span><span style='color: #00BB00;'>CRRCLHWDKT</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span></div><div class='input'><span class='fu'>random_sq</span><span class='op'>(</span><span class='fl'>25</span>, <span class='fl'>18</span>, <span class='st'>"rna_bsc"</span>, sd <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic RNA sequences list:</span></div><div class='output co'>#&gt;  [1] </span><span style='color: #00BB00;'>UCCAUCUUUUCGGUGACCUCGUACG</span><span>                                              </span><span style='color: #0000BB;'>&lt;25&gt;</span><span>
+#&gt;  [2] </span><span style='color: #00BB00;'>AACUCGUGAAGGACC</span><span>                                                        </span><span style='color: #0000BB;'>&lt;15&gt;</span><span>
+#&gt;  [3] </span><span style='color: #00BB00;'>UUAGUUUAAGGU</span><span>                                                           </span><span style='color: #0000BB;'>&lt;12&gt;</span><span>
+#&gt;  [4] </span><span style='color: #00BB00;'>GUCCACGAUCUGCAAAAG</span><span>                                                     </span><span style='color: #0000BB;'>&lt;18&gt;</span><span>
+#&gt;  [5] </span><span style='color: #00BB00;'>GAGGUCGUGUGCUACAGGGCUGGU</span><span>                                               </span><span style='color: #0000BB;'>&lt;24&gt;</span><span>
+#&gt;  [6] </span><span style='color: #00BB00;'>AAUCCAAUCUGCCCCAAUGAA</span><span>                                                  </span><span style='color: #0000BB;'>&lt;21&gt;</span><span>
+#&gt;  [7] </span><span style='color: #00BB00;'>ACUUAAGGUGUAGCGUGGCGCUUGAAUAG</span><span>                                          </span><span style='color: #0000BB;'>&lt;29&gt;</span><span>
+#&gt;  [8] </span><span style='color: #00BB00;'>ACUCCGGGCCGACUGUCGG</span><span>                                                    </span><span style='color: #0000BB;'>&lt;19&gt;</span><span>
+#&gt;  [9] </span><span style='color: #00BB00;'>AUACUAAACACACU</span><span>                                                         </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [10] </span><span style='color: #00BB00;'>UUAGCUAUCCACAAUGGUGUCGAGGGUA</span><span>                                           </span><span style='color: #0000BB;'>&lt;28&gt;</span><span></div><div class='output co'>#&gt; <span class='message'>printed 10 out of 25</span></div><div class='input'><span class='fu'>random_sq</span><span class='op'>(</span><span class='fl'>50</span>, <span class='fl'>8</span>, <span class='st'>"dna_ext"</span>, sd <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>extended DNA sequences list:</span></div><div class='output co'>#&gt;  [1] </span><span style='color: #00BB00;'>KYKDVHBHWV</span><span>                                                             </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt;  [2] </span><span style='color: #00BB00;'>MDTSSHMD</span><span>                                                                </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt;  [3] </span><span style='color: #00BB00;'>YKVKGSMKH</span><span>                                                               </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt;  [4] </span><span style='color: #00BB00;'>RARHCDV</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt;  [5] </span><span style='color: #00BB00;'>AHNH</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt;  [6] </span><span style='color: #00BB00;'>DSSSTTWTGHRSNY</span><span>                                                         </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt;  [7] </span><span style='color: #00BB00;'>MGCMTKCMT</span><span>                                                               </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt;  [8] </span><span style='color: #00BB00;'>CYCGTRY</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;7&gt;</span><span>
+#&gt;  [9] </span><span style='color: #00BB00;'>YMCYSV</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>
+#&gt; [10] </span><span style='color: #00BB00;'>VWDBTMYDY</span><span>                                                               </span><span style='color: #0000BB;'>&lt;9&gt;</span><span></div><div class='output co'>#&gt; <span class='message'>printed 10 out of 50</span></div><div class='input'><span class='fu'>random_sq</span><span class='op'>(</span><span class='fl'>6</span>, <span class='fl'>100</span>, <span class='st'>"ami_bsc"</span>, use_gap <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic amino acid sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>DPIP-CKQHWCMIHS-YELCIMIRYFD-WHEEESDEGSMTATY-KT-MIITAENHFCYGCGVPVRCH</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>GDHWDGCIFCGSGMAHLWVHQ-TGLIWPPEHDNQFQPNPEQFINDWFTTKMEKPYDGVQFG-PCADK</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>KL-YQDKPFGHAQNLLWKYC-IQRRKNSKLGFEEGMYRIELALYTGNRQPHSF-CLHAYCWF-HVEC</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>DYGYCRHCMIFRRPSLLPPYHHS-SVCCCNANPNNASFI-TRQCTFV-CW-VISVPAFAKAKFAHAH</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
+#&gt; [5] </span><span style='color: #00BB00;'>EE-YEQL-PFNFQN-QWRGIPGMRTVTYSPPHAMKLTDIVYFGADGGFNVSKK-YMVRPCVLWDHKR</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span>
+#&gt; [6] </span><span style='color: #00BB00;'>GEEVP-V-YHMSRCWYWKMNAWNGCRED-SIGHSLGVPEWEQSMKALMYHLAKG-WPFGPIQDADRP</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;100&gt;</span><span></div><div class='input'>
+<span class='co'># Passing whole alphabet instead of type</span>
+<span class='fu'>random_sq</span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>12</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Pro"</span>, <span class='st'>"Gly"</span>, <span class='st'>"Ala"</span>, <span class='st'>"Met"</span>, <span class='st'>"Cys"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>atp (atypical alphabet) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>Cys</span><span> </span><span style='color: #00BB00;'>Ala</span><span> </span><span style='color: #00BB00;'>Pro</span><span> </span><span style='color: #00BB00;'>Gly</span><span> </span><span style='color: #00BB00;'>Met</span><span> </span><span style='color: #00BB00;'>Pro</span><span> </span><span style='color: #00BB00;'>Cys</span><span> </span><span style='color: #00BB00;'>Pro</span><span> </span><span style='color: #00BB00;'>Gly</span><span> </span><span style='color: #00BB00;'>Cys</span><span> </span><span style='color: #00BB00;'>Gly</span><span> </span><span style='color: #00BB00;'>Gly</span><span>                         </span><span style='color: #0000BB;'>&lt;12&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>Ala</span><span> </span><span style='color: #00BB00;'>Cys</span><span> </span><span style='color: #00BB00;'>Gly</span><span> </span><span style='color: #00BB00;'>Gly</span><span> </span><span style='color: #00BB00;'>Pro</span><span> </span><span style='color: #00BB00;'>Gly</span><span> </span><span style='color: #00BB00;'>Gly</span><span> </span><span style='color: #00BB00;'>Cys</span><span> </span><span style='color: #00BB00;'>Met</span><span> </span><span style='color: #00BB00;'>Gly</span><span> </span><span style='color: #00BB00;'>Ala</span><span> </span><span style='color: #00BB00;'>Cys</span><span>                         </span><span style='color: #0000BB;'>&lt;12&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>Pro</span><span> </span><span style='color: #00BB00;'>Gly</span><span> </span><span style='color: #00BB00;'>Met</span><span> </span><span style='color: #00BB00;'>Pro</span><span> </span><span style='color: #00BB00;'>Cys</span><span> </span><span style='color: #00BB00;'>Pro</span><span> </span><span style='color: #00BB00;'>Gly</span><span> </span><span style='color: #00BB00;'>Ala</span><span> </span><span style='color: #00BB00;'>Gly</span><span> </span><span style='color: #00BB00;'>Cys</span><span> </span><span style='color: #00BB00;'>Ala</span><span> </span><span style='color: #00BB00;'>Pro</span><span>                         </span><span style='color: #0000BB;'>&lt;12&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>Met</span><span> </span><span style='color: #00BB00;'>Ala</span><span> </span><span style='color: #00BB00;'>Met</span><span> </span><span style='color: #00BB00;'>Pro</span><span> </span><span style='color: #00BB00;'>Cys</span><span> </span><span style='color: #00BB00;'>Met</span><span> </span><span style='color: #00BB00;'>Ala</span><span> </span><span style='color: #00BB00;'>Pro</span><span> </span><span style='color: #00BB00;'>Ala</span><span> </span><span style='color: #00BB00;'>Gly</span><span> </span><span style='color: #00BB00;'>Ala</span><span> </span><span style='color: #00BB00;'>Met</span><span>                         </span><span style='color: #0000BB;'>&lt;12&gt;</span><span></div><div class='input'>
+<span class='co'># Generating empty sequences (why would anyone though)</span>
+<span class='fu'>random_sq</span><span class='op'>(</span><span class='fl'>8</span>, <span class='fl'>0</span>, <span class='st'>"rna_ext"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>extended RNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
+#&gt; [2] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
+#&gt; [3] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
+#&gt; [4] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
+#&gt; [5] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
+#&gt; [6] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
+#&gt; [7] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
+#&gt; [8] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -216,7 +245,7 @@ in generating <strong>ami</strong> sequences.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -79,6 +79,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -103,7 +109,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Extract parts of a sq object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util_methods.R'><code>R/util_methods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/util-methods.R'><code>R/util-methods.R</code></a></small>
     <div class="hidden name"><code>sqextract.Rd</code></div>
     </div>
 
@@ -117,41 +123,40 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>sq object from which to extract element(s)</p></td>
+      <td><p>[<code>sq</code>]<br />
+An object this function is applied to.</p></td>
     </tr>
     <tr>
       <th>i, j, ...</th>
-      <td><p>indices specifying elements to extract. They may be 
-<code><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></code>, <code><a href='https://rdrr.io/r/base/character.html'>character</a></code> or <code><a href='https://rdrr.io/r/base/logical.html'>logical</a></code> vectors or empty. 
-This function follows <code><a href='https://vctrs.r-lib.org/reference/vctrs-package.html'>vctrs-package</a></code> conventions regarding argument
-interpretation for indexing vectors, which are a bit stricter that normal R
-conventions, for example implicit argument recycling is prohibited.</p></td>
+      <td><p>[<code>numeric</code> || <code>logical</code>]<br />
+Indices specifying elements to extract.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='sq.html'>sq</a></code> object of the same type as input sq, containing
-extracted elements</p>
+    <p><code><a href='sq-class.html'>sq</a></code> object of the same type as the input,
+containing extracted elements</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function allows extracting specified sequences from the 
-sq object and follows the normal R conventions. For details refer to the 
-R documentation (see 
-<a href='https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Index-vectors'>https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Index-vectors</a>). 
-Subsetting of the sq object does not affect its attributes (class and alphabet 
-of the object). Attempt to extract elements using indices not present in
-the object will return an error.</p>
+    <p>This function follows <code><a href='https://vctrs.r-lib.org/reference/vctrs-package.html'>vctrs-package</a></code> conventions
+regarding argument interpretation for indexing vectors, which are a bit
+stricter that normal R conventions, for example implicit argument recycling
+is prohibited. Subsetting of the <code>sq</code> object does not affect its
+attributes (class and alphabet of the object). Attempt to extract elements
+using indices not present in the object will return an error.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code> <code><a href='bite.html'>bite</a></code></p></div>
+    <div class='dont-index'><p>Functions from utility module:
+<code><a href='==.sq.html'>==.sq</a>()</code>,
+<code><a href='get_sq_lengths.html'>get_sq_lengths</a>()</code>,
+<code><a href='is.sq.html'>is.sq</a>()</code>,
+<code><a href='sqconcatenate.html'>sqconcatenate</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
-<span class='va'>sq_unt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"AHSNLVSCTK$SH%&amp;VS"</span>, <span class='st'>"YQTVKA&amp;#BSKJGY"</span>, 
-                         <span class='st'>"IAKVGDCTWCTY&amp;GT"</span>, <span class='st'>"AVYI#VSV&amp;*DVGDJCFA"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>s1 <span class='op'>=</span> <span class='st'>"MAIATNCEPILLKNYAS"</span>, s2 <span class='op'>=</span> <span class='st'>"YASDGLIPAKNTEWYTV"</span>, 
-                         s3 <span class='op'>=</span> <span class='st'>"TIKSNAALIETRY"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"ami"</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'># Creating object to work on:</span>
+<span class='va'>sq_unt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"AHSNLVSCTK$SH%&amp;VS"</span>, <span class='st'>"YQTVKA&amp;#BSKJGY"</span>,
+               <span class='st'>"IAKVGDCTWCTY&amp;GT"</span>, <span class='st'>"AVYI#VSV&amp;*DVGDJCFA"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Subsetting using numeric vectors</span>
 <span class='co'># Extracting second element of the object:</span>
@@ -171,23 +176,20 @@ the object will return an error.</p>
 <span class='va'>sq_unt</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span>
 </div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>AHSNLVSCTK$SH%&amp;VS</span><span>                                                       </span><span style='color: #0000BB;'>&lt;17&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>IAKVGDCTWCTY&amp;GT</span><span>                                                         </span><span style='color: #0000BB;'>&lt;15&gt;</span><span></div><div class='input'>
-<span class='co'># Subsetting using character vectors</span>
-<span class='co'># Extracting elements named 's1' and 's3':</span>
-<span class='va'>sq_ami</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'s1'</span>, <span class='st'>'s3'</span><span class='op'>)</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; <span class='message'>ami (amino acids), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>MAIATNCEPILLKNYAS</span><span>                                                       </span><span style='color: #0000BB;'>&lt;17&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>TIKSNAALIETRY</span><span>                                                           </span><span style='color: #0000BB;'>&lt;13&gt;</span><span></div><div class='input'>
 <span class='co'># Subsetting using logical vectors</span>
 <span class='co'># Extracing first and third element:</span>
-<span class='va'>sq_ami</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; <span class='message'>ami (amino acids), cln (cleaned) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>MAIATNCEPILLKNYAS</span><span>                                                       </span><span style='color: #0000BB;'>&lt;17&gt;</span><span>
-#&gt; [2] </span><span style='color: #00BB00;'>TIKSNAALIETRY</span><span>                                                           </span><span style='color: #0000BB;'>&lt;13&gt;</span><span></div><div class='input'>
-<span class='co'># Subsetting using empty vector</span>
-<span class='co'># Empty index will return all values:</span>
+<span class='va'>sq_unt</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span>, <span class='cn'>TRUE</span>, <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>AHSNLVSCTK$SH%&amp;VS</span><span>                                                       </span><span style='color: #0000BB;'>&lt;17&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>IAKVGDCTWCTY&amp;GT</span><span>                                                         </span><span style='color: #0000BB;'>&lt;15&gt;</span><span></div><div class='input'>
+<span class='co'># Subsetting using empty vector returns all values:</span>
 <span class='va'>sq_unt</span><span class='op'>[</span><span class='op'>]</span>
 </div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>AHSNLVSCTK$SH%&amp;VS</span><span>                                                       </span><span style='color: #0000BB;'>&lt;17&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>YQTVKA&amp;#BSKJGY</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
 #&gt; [3] </span><span style='color: #00BB00;'>IAKVGDCTWCTY&amp;GT</span><span>                                                         </span><span style='color: #0000BB;'>&lt;15&gt;</span><span>
 #&gt; [4] </span><span style='color: #00BB00;'>AVYI#VSV&amp;*DVGDJCFA</span><span>                                                      </span><span style='color: #0000BB;'>&lt;18&gt;</span><span></div><div class='input'>
+<span class='co'># Using NULL, on the other hand, returns empty sq:</span>
+<span class='va'>sq_unt</span><span class='op'>[</span><span class='cn'>NULL</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list of length 0</span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -204,7 +206,7 @@ the object will return an error.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

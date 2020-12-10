@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Save sq to fasta file — write_fasta" />
-<meta property="og:description" content="Writes sq objects with their names to a fasta file." />
+<meta property="og:description" content="Writes sq objects with their names to
+a fasta file." />
 
 
 
@@ -79,6 +80,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -108,34 +115,72 @@
     </div>
 
     <div class="ref-description">
-    <p>Writes <code><a href='sq.html'>sq</a></code> objects with their names to a fasta file.</p>
+    <p>Writes <code><a href='sq-class.html'>sq</a></code> objects with their names to
+a fasta file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>write_fasta</span><span class='op'>(</span><span class='va'>sq</span>, <span class='va'>name</span>, <span class='va'>file</span>, nchar <span class='op'>=</span> <span class='fl'>80</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>write_fasta</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>name</span>,
+  <span class='va'>file</span>,
+  width <span class='op'>=</span> <span class='fl'>80</span>,
+  NA_letter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_NA_letter"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>sq</th>
-      <td><p>a <code><a href='sq.html'>sq</a></code> object.</p></td>
+      <th>x</th>
+      <td><p>[<code>sq</code>]<br />
+An object this function is applied to.</p></td>
     </tr>
     <tr>
       <th>name</th>
-      <td><p>a <code><a href='https://rdrr.io/r/base/character.html'>character</a></code> vector of length equal to <code>sq</code> length.</p></td>
+      <td><p>[<code>character</code>]<br />
+Vector of sequence names. Must be of the same length as <code>sq</code> object.</p></td>
     </tr>
     <tr>
       <th>file</th>
-      <td><p>a <code><a href='https://rdrr.io/r/base/character.html'>character</a></code> string indicating path to file to write into.</p></td>
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
+Absolute path to file to write to.</p></td>
     </tr>
     <tr>
-      <th>nchar</th>
-      <td><p>a positive <code><a href='https://rdrr.io/r/base/integer.html'>integer</a></code> value informing about maximum number of 
-characters to put in each line of file.</p></td>
+      <th>width</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code>]<br />
+Maximum number of characters to put in each line of file. Must be positive.</p></td>
+    </tr>
+    <tr>
+      <th>NA_letter</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
+A string that is used to interpret and display <code>NA</code> value in the
+context of <code><a href='sq-class.html'>sq class</a></code>. Default value equals to
+"<code><a href='https://rdrr.io/r/base/Logic.html'>!</a></code>".</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p>Whenever a name has more letters than <code>width</code> parameter, nothing
+happens, as only sequences are splitted to fit within designated space.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Functions from output module:
+<code><a href='as.character.sq.html'>as.character.sq</a>()</code>,
+<code><a href='as.matrix.sq.html'>as.matrix.sq</a>()</code>,
+<code><a href='as.sq.html'>as.sq</a>()</code>,
+<code><a href='export_sq.html'>export_sq</a>()</code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ACTGCTG"</span>, <span class='st'>"CTTAGA"</span>, <span class='st'>"CCCT"</span>, <span class='st'>"CTGAATGT"</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span><span class='op'>)</span>
+<span class='fu'>write_fasta</span><span class='op'>(</span><span class='va'>sq_dna</span>,
+            <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bat"</span>, <span class='st'>"cat"</span>, <span class='st'>"rat"</span>, <span class='st'>"elephant_swallowed_by_A_snake"</span><span class='op'>)</span>,
+            <span class='st'>"~/fasta_rubbish/example.fasta"</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -151,7 +196,7 @@ characters to put in each line of file.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
