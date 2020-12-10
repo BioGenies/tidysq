@@ -4,7 +4,7 @@
 
 #include "tidysq/Sq.h"
 #include "tidysq/constants/io.h"
-#include "tidysq/internal/unpack_common.h"
+#include "tidysq/ops/unpack.h"
 
 namespace tidysq {
     namespace internal {
@@ -22,10 +22,11 @@ namespace tidysq {
 
             void write_sequence_part(const std::string &content,
                                      LenSq &written) {
-                if (content.size() - written < width_) {
+                // if there is more to be written than content size, write only part of it
+                if (content.size() - written >= width_) {
                     stream_.write(content.data() + written, width_);
                     written += width_;
-                } else {
+                } else { // else - write everything that's left
                     stream_.write(content.data() + written, content.size() - written);
                     written = content.size();
                 }
@@ -33,15 +34,7 @@ namespace tidysq {
             }
 
             void write_sequence(LenSq i) {
-                ProtoSequence <STD_IT, STRING_PT> unpacked;
-                Sequence<INTERNAL> packed = sq_[i];
-                if (sq_.alphabet().is_simple()) {
-                    unpacked = util::reserve_space_for_unpacked<INTERNAL, STD_IT, STRING_PT>(packed);
-                    internal::unpack_common<INTERNAL, STD_IT, STRING_PT>(packed, unpacked, sq_.alphabet());
-                } else {
-                    unpacked = {};
-                    internal::unpack_multichar_string<INTERNAL, STD_IT>(packed, unpacked, sq_.alphabet());
-                }
+                ProtoSequence<STD_IT, STRING_PT> unpacked = unpack<INTERNAL, STD_IT, STRING_PT>(sq_[i], sq_.alphabet());
                 const std::string &content = unpacked.content();
                 LenSq written = 0;
 
