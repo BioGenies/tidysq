@@ -63,6 +63,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
+      ## to avoid conversion of configure.ac
+      - name: Configure git
+          run: git config --global core.autocrlf false
 
       ## Set the R library to the directory matching the
       ## R packages cache step further below when running on Docker (Linux).
@@ -269,5 +272,5 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@master
         with:
-          name: ${{ runner.os }}-biocversion-RELEASE_3_11-r-4.0-results
+          name: ${{ runner.os }}-biocversion-RELEASE_3_12-r-4.0-results
           path: check
