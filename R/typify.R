@@ -1,73 +1,62 @@
-#' Set type of untyped and atypical sequences
+#' Set type of an sq object
+#'
+#' @description Sets sequence type (and, consequently, alphabet attribute) to
+#' one of \strong{ami}, \strong{dna} or \strong{rna} types.
+#'
+#' @template x
+#' @template dest_type
+#' @template NA_letter
+#' @template three-dots
 #' 
-#' Function to set type of \strong{atp} or \strong{unt} sequences to \strong{ami},
-#' \strong{dna} or \strong{rna} provided that they do not have invalid letters
-#' (which can be checked using \code{\link{get_sq_alphabet}} and
-#' \code{\link{get_invalid_letters}}).
+#' @return \code{\link[=sq-class]{sq}} object with the same letters as input
+#' \code{x}, but with type as specified in \code{dest_type}.
 #' 
-#' @param sq an object of class \code{\link{sq}} with one of the types \strong{ami}, 
-#' \strong{dna}, \strong{rna}, \strong{unt} or \strong{atp}.
-#' @param dest_type \code{\link{character}} string, destination type, one of "ami",
-#' "dna" or "rna".
-#' 
-#' @return An object of class \code{sq} that represents the same sequences as input \code{sq},
-#' but with type as specified in \code{dest_type}.
-#' 
-#' @details 
-#' Sometimes during reading \code{sq} from fasta file (using \code{\link{read_fasta}}) or 
-#' constructing from character vector (using \code{\link{construct_sq}} or 
-#' \code{\link{as.character}}) there are letters that are not in standard alphabets (see
-#' \code{\link{aminoacids_df}} and \code{\link{nucleotides_df}}). In consequence, newly created
-#' \code{sq} objects might have other type - \strong{atp} or \strong{unt}. After removal of those
-#' non-standard letters (using \code{\link{substitute_letters}}), user might want to set type of 
-#' \code{sq} object to one of standard types - \strong{ami}, \strong{dna} and \strong{rna} -
-#' as this is demanded by some functions. This is what this function is designed for.
-#' 
-#' If \code{dest_type} is equal to type of \code{sq}, function does not do anything.
-#' 
-#' If \code{sq} object contain letters that are not in specified destination alphabet, an error 
-#' will be thrown. However, \code{typify} converts automatically lowercase letters to uppercase
-#' letters, so e.g. "a" is treated as element of amino acid alphabet.
-#' 
-#' If \code{sq} contains both lower and uppercase letters, they will be converted to uppercase, but
-#' a message informing about it will be printed in the console. This action is default and can
-#' be changed in package options (see \code{\link{tidysq-options}}).
-#' 
-#' Output \code{sq} object will not have \strong{cln} subtype, even if all letters of it fit in
-#' clean alphabet of destination type (with exception of passing already clean object as input).
-#' 
-#' @examples 
-#' # constructing artificial sq object with strange characters - type will be "unt"
-#' sq_unt <- construct_sq(c("&VPLG&#", "##LCG"))
-#' 
-#' # substituting letters with "X", which stands for unknown amino acid
+#' @details
+#' Sometimes functions from I/O module return sequences of incorrect type, most
+#' often \strong{unt} (which indicates no type). It happens mostly whenever
+#' there are letters that don't fit into target alphabet. After replacing wrong
+#' letters with correct ones with \code{\link{substitute_letters}} the user has
+#' sequences of type \strong{atp}, even if their alphabet is contained in the
+#' target one. At the same time, many functions demand sequences to be of
+#' standard type (i.e. \strong{ami}, \strong{dna} or \strong{rna}) or behave
+#' differently for these.
+#'
+#' \code{typify()} is used to help with these situations by allowing the user
+#' to convert their sequences to target type. There are some conditions that
+#' must be met to use this function. The most important is that typified
+#' \code{sq} object must not contain invalid letters. If this condition is not
+#' satisfied, an error is thrown.
+#'
+#' If \code{dest_type} is equal to type of \code{sq}, function simply returns
+#' input value.
+#'
+#' @examples
+#' # Constructing sq object with strange characters (type will be set to "unt"):
+#' sq_unt <- sq(c("&VPLG&#", "##LCG"))
+#'
+#' # Substituting letters with "X", which stands for unknown amino acid:
 #' sq_sub <- substitute_letters(sq_unt, c(`&` = "X", `#` = "X"))
-#' 
-#' # setting type
-#' typify(sq_sub, "ami")
-#' 
-#' @export 
-typify <- function(sq, dest_type) {
-  .validate_sq(sq)
-  .check_type(dest_type, "'dest_type'")
+#'
+#' # Setting extended amino acid type (only extended one has "X" letter):
+#' typify(sq_sub, "ami_ext")
+#'
+#' @family type_functions
+#' @export
+typify <- function(x, dest_type, ...) {
+  assert_sq_type(dest_type)
   
-  if (.get_sq_type(sq) == dest_type) {
-    return(sq)
-  }
+  UseMethod("typify")
+}
+
+#' @export
+typify.default <- function(x, dest_type, ...)
+  stop("'typify' isn't implemented for this type of object", call. = FALSE)
+
+#' @rdname typify
+#' @export
+typify.sq <- function(x, dest_type, ...,
+                      NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
   
-  alph <- alphabet(sq)
-  up_alph <- unique(toupper(alph))
-  dest_alph <- .get_standard_alph(dest_type, FALSE)
-  
-  .check_all_up_alph_proper(up_alph, dest_alph)
-  if (!(length(alph) == length(up_alph))) {
-    .handle_opt_txt("tidysq_a_typify_small_cap_let",
-                    "in 'alphabet' attribute of 'sq' some letters appear as both lower and capital")
-  }
-  
-  ret <- .apply_sq(sq, "char", "char", toupper, im_alph = dest_alph)
-  new_list_of(ret,
-              ptype = raw(),
-              alphabet = dest_alph,
-              class = c(paste0(dest_type, "sq"), "sq"))
+  CPP_typify(x, dest_type, NA_letter)
 }

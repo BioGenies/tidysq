@@ -1,153 +1,86 @@
 #' Substitute letters in a sequence
 #' 
-#' @description 1) Replace ambiguous/extraordinary letters in a nucleic or 
-#' amino acid sequence, stored in a \code{\link{sq}} object, with the ones 
-#' that are compliant with the IUPAC standard, ones that are user-defined 
-#' or with \code{NA} values.
+#' @description Replaces all occurences of a letter with another.
 #' 
-#' 2) Replace default amino acid letters in a sequence with a custom encoding 
-#' to create sequences with simplified alphabets.
+#' @template x
+#' @param encoding [\code{character} || \code{numeric}]\cr
+#'  A dictionary (named vector), where names are letters to be replaced and
+#'  elements are their respective replacements.
+#' @template NA_letter
+#' @template three-dots
 #' 
-#' The function is only used to replace letters in the alphabet. 
-#' It cannot be used to merge multiple characters into one.
+#' @return An \code{\link[=sq-class]{sq}} object of \strong{atp} type with
+#' updated alphabet.
 #' 
-#' 
-#' @inheritParams reverse
-#' @param encoding a vector of letters to be replaced together with their replacements.
-#' One letter can be replaced with multiple symbols. 
-#' To perform substitution create a named vector, e.g.
-#' \code{c(A = Ala, H = His, amino_or_nucleic_acid_symbol = replacement)}.
-#' 
-#' @return a \code{\link{sq}} object with \strong{atp} type with replaced alphabet, 
-#' defined by user.
-#' 
-#' @details \code{substitute_letters} allows to replace ambiguous/extraordinary 
-#' letters in nucleic or amino acid sequence with user-defined or IUPAC 
-#' symbols. Letters can also be replaced with \code{\link{NA}} values, so that they 
-#' can be later removed, from the sequence, by \code{\link{clean}} function.
-#' 
-#' \code{substitute_letters} can be used to replace default amino acid letters 
-#' with encodings. They can be user-defined or be derived from various 
-#' simplified alphabets.
-#' 
-#' One letter of the alphabet may be replaced by a multiple character. 
-#' 
-#' The alphabet characters to be replaced need to be written in capital letters
-#' and must originate from default alphabets, otherwise error will be 
-#' introduced.
-#' 
-#' Multiple string of letters to be substituted 
-#' (ex. \code{c(AHG = "replacement")}) will also produce an error.
-#' 
-#' Replacing multiple letters with the same symbol 
-#' (ex. \code{c(A = "rep1", H  = "rep1", G = "rep1")}) is allowed.
-#' 
-#' Created sequence will be stripped of \strong{cln} subtype, 
-#' if the original sequence possessed it. This will also occur when
-#' the letter to be replaced will not be found in the sequence. 
-#' It remain unchanged but will lose subclass.
-#' 
-#' The newly constructed will have a new type \strong{atp}, 
-#' representing sequences with atypical alphabet.
-#' 
-#' All replaced letters will have the character type. 
-#' Multiple symbol replacement will be recognized as one letter and 
-#' cannot be separated in future operations into single letters. 
-#' 
-#' @examples 
-#' # Creating sq object to work on:
+#' @details
+#' \code{substitute_letters} allows to replace unwanted letters in any sequence
+#' with user-defined or IUPAC  symbols. Letters can also be replaced with
+#' \code{\link{NA}} values, so that they  can be later removed from the sequence
+#' by \code{\link{remove_na}} function.
 #'
-#' sq_dna <- construct_sq(c("TATGAATTAGCTGTCTTTGCTGCTTTGGTTATCTATGA", 
-#'                          "CTTTGGTTATCTAGCTGTATGA", "TATCTAGCTGTATG", 
-#'                          "CTGCTG", "CTTAGA", "CCCT", "CTGAATGT"), 
-#'                        type = "dna")
-#' 
-#' sq_ami <- construct_sq(c("NYMITGGREEYERTVIYRAIALNAANYTWIL", 
-#'                         "TIAALGNIIYRAIE", "NYERTGHLI", 
-#'                         "MAYNNNIALN", "MN", "NAAAT"), 
-#'                         type = "ami")
-#'                      
-#' 
-#' # Replace single letter of alphabet with single character encoding:
-#' 
-#' substitute_letters(sq_dna, c(T = "t", A = "a", C = "H", G = "Z"))
-#' substitute_letters(sq_dna, c(T = 1, A = 2, C = 3, G = 4))
-#' 
-#' substitute_letters(sq_ami, c(M = "m", Q = "g", R = "#", D = "$"))
-#' substitute_letters(sq_ami, c(M = "2", Q = "5", R = "9", D = "7"))
-#' 
-#' 
-#' # Replace single letter of alphabet with multiple character encoding:
-#' 
-#' substitute_letters(sq_dna, c(T = "th", A = "ad", C = "cy", G = "gu"))
-#' substitute_letters(sq_dna, c(T = 111, A = 222, C = 333, G = 444))
-#' 
-#' substitute_letters(sq_ami, c(M = "Met", Q = "Gln", R = "Arg", D = "Asp"))
-#' substitute_letters(sq_ami, c(M = "222", Q = "555", R = "999", D = "777"))
-#' 
-#' # Replace single letter of alphabet with NA value:
-#' 
-#' substitute_letters(sq_dna, c(A = NA, G = NA))
-#' 
-#' 
-#' # Use created encoding
-#' 
-#' sub_dna <- c(T = "t", A = "a", C = "c", G = "g")
-#' sub_ami <- c(M = "Met", Q = "Gln", R = "Arg", D = "Asp", 
-#'              H = "His", K = "Lys", A = "Ala")
-#' 
-#' substitute_letters(sq_dna, sub_dna)
-#' substitute_letters(sq_ami, sub_ami)
-#' 
-#' 
-#' # Use created encoding from other package 
-#' # (ex. AmyloGram::AmyloGram_model)
-#' 
-#' library(AmyloGram)
-#' 
-#' AG_sub_raw <- unlist(AmyloGram_model[["enc"]])
-#' 
-#' sub_AG <- substr(names(AG_sub_raw), 1, 1)
-#' names(sub_AG) <- toupper(AG_sub_raw)
-#' sub_AG 
-#' 
-#' substitute_letters(sq_ami, sub_AG)
-#' 
-#' @seealso \code{\link{sq}} 
+#' It doesn't matter whether replaced or replacing letter is single or multiple
+#' character. However, the user cannot replace multiple letters with one nor one
+#' letter with more than one.
+#'
+#' Of course, multiple different letters can be encoded to the same symbol, so
+#' \code{c(A = "rep1", H = "rep1", G = "rep1")} is allowed, but
+#' \code{c(AHG = "rep1")} is not (unless there is a letter "\code{AHG}" in
+#' the alphabet). By doing that any information of separateness of original
+#' letters is lost, so it isn't possible to retrieve original sequence after
+#' this operation.
+#'
+#' All encoding names must be letters contained within the alphabet, otherwise
+#' an error will be thrown.
+#'
+#' @examples
+#' # Creating objects to work on:
+#' sq_dna <- sq(c("ATGCAGGA", "GACCGAACGAN", "TGACGAGCTTA", "ACTNNAGCN"),
+#'              alphabet = "dna_ext")
+#' sq_ami <- sq(c("MIOONYTWIL","TIOOLGNIIYROIE", "NYERTGHLI", "MOYXXXIOLN"),
+#'              alphabet = "ami_ext")
+#' sq_atp <- sq(c("mALPVQAmAmA", "mAmAPQ"), alphabet = c("mA", LETTERS))
+#'
+#' # Not all letters must have their encoding specified:
+#' substitute_letters(sq_dna, c(T = "t", A = "a", C = "c", G = "g"))
+#' substitute_letters(sq_ami, c(M = "X"))
+#'
+#' # Multiple character letters are supported in encodings:
+#' substitute_letters(sq_atp, c(mA = "-"))
+#' substitute_letters(sq_ami, c(I = "ough", O = "eau"))
+#'
+#' # Numeric substitutions are allowed too, these are coerced to characters:
+#' substitute_letters(sq_dna, c(N = 9, G = 7))
+#'
+#' # It's possible to replace a letter with NA value:
+#' substitute_letters(sq_ami, c(X = NA_character_))
+#'
+#' @family type_functions
 #' @export
+substitute_letters <- function(x, encoding, ...)
+  UseMethod("substitute_letters")
 
-substitute_letters <- function(sq, encoding) {
-  .validate_sq(sq)
-  alph <- alphabet(sq)
-  .check_isnt_missing(encoding, "'encoding'")
-  .check_isnt_null(encoding, "'encoding'")
-  .check_is_named(encoding, "'encoding'")
-  .check_enc_names_in_alph(encoding, alph)
-  .check_is_unique(names(encoding), "names of 'encoding'")
+#' @export
+substitute_letters.default <- function(x, encoding, ...)
+  stop("cannot substitute letters in this type of object", call. = FALSE)
+
+#' @rdname substitute_letters
+#' @export
+substitute_letters.sq <- function(x, encoding, ...,
+                                  NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
+  assert_atomic_vector(encoding, names = "unique")
+  assert_subset(names(encoding), alphabet(x))
   
   if (is.numeric(encoding)) {
-    .check_integer(encoding, "if is numeric 'encoding'", allow_na = TRUE)
+    assert_integerish(encoding)
     # Changes storage mode, because it preserves attributes
     # (and we want to preserve names)
     mode(encoding) <- "character"
   } else if (is.character(encoding)) {
-    .check_character(encoding, "if is character 'encoding'", allow_na = TRUE)
-  } else .check_simple(!all(is.na(encoding)), "if is neither numeric nor character 'encoding'", "has to contain only NA values")
-  
-  inds_fun <- alph
-  inds_fun[match(names(encoding), alph)] <- encoding
-  new_alph <- vec_cast(na.omit(unique(inds_fun)), sq_alphabet_ptype())
-  inds_fun <- match(inds_fun, new_alph)
-  inds_fun[is.na(inds_fun)] <- .get_na_val(new_alph)
-  
-  ret <- .apply_sq(sq, "int", "int", function(s) inds_fun[s], new_alph)
-  if (.is_cleaned(sq)) {
-    .handle_opt_txt("tidysq_a_cln_sub_letters",
-                    "'sq' object passed to substitute_letters had 'cln' subtype, output doesn't have it")
+    assert_character(encoding)
+  } else {
+    stop("encoding must be either numeric of character vector", call. = FALSE)
   }
   
-  new_list_of(ret,
-              ptype = raw(),
-              alphabet = new_alph,
-              class = c("atpsq", "sq"))
+  CPP_substitute_letters(x, encoding, NA_letter)
 }

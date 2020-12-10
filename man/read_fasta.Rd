@@ -2,65 +2,81 @@
 % Please edit documentation in R/read_fasta.R
 \name{read_fasta}
 \alias{read_fasta}
-\alias{read_fasta_ami}
-\alias{read_fasta_dna}
-\alias{read_fasta_rna}
 \title{Read a FASTA file}
 \usage{
-read_fasta(file, type = NULL, is_clean = NULL, non_standard = NULL)
-
-read_fasta_ami(file, is_clean = NULL)
-
-read_fasta_dna(file, is_clean = NULL)
-
-read_fasta_rna(file, is_clean = NULL)
+read_fasta(
+  file_name,
+  alphabet = NULL,
+  NA_letter = getOption("tidysq_NA_letter"),
+  safe_mode = getOption("tidysq_safe_mode"),
+  ignore_case = FALSE
+)
 }
 \arguments{
-\item{file}{a \code{\link{character}} string indicating path to file or url.}
+\item{file_name}{[\code{character(1)}]\cr
+Absolute path to file or url to read from.}
 
-\item{type}{a \code{\link{character}} string indicating type of \code{sq} object that
-is going to be constructed; supported values are "ami" for amino acid sequences,
-"dna" for DNA sequences, "rna" for RNA sequences, "unt" for and \code{NULL} for
-type guessing (see details)}
+\item{alphabet}{[\code{character}]\cr
+If provided value is a single string, it will be interpreted as type (see
+details). If provided value has length greater than one, it will be treated
+as atypical alphabet for \code{sq} obejct and \code{sq} type will be
+\code{atp}. If provided value is \code{NULL}, type
+guessing will be performed (see details).}
 
-\item{is_clean}{a \code{\link{logical}} value indicating if sequences are clean.
-or in other words - they don't contain ambiguous values; supported values are \code{TRUE} 
-for clean sequences, \code{FALSE} for unclean sequences and \code{NULL} for auto detecting
-(see details).}
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
 
-\item{non_standard}{a \code{\link{character}} vector indicating non-standard letters
-contained in sequences. If \code{NULL}, sequences will not be searched for non-standard letters
-of length more than one. Each element of this parameter should be at least two characters 
-long.}
+\item{safe_mode}{[\code{logical(1)}]\cr
+Default value is \code{FALSE}. When turned on, safe mode guarantees that
+\code{NA} appears within a sequence if and only if input sequence contains
+value passed with \code{NA_letter}. This means that resulting type might be
+different to the one passed as argument, if there are letters in a sequence
+that does not appear in the original alphabet.}
+
+\item{ignore_case}{[\code{logical(1)}]\cr
+If turned on, lowercase letters are turned into respective uppercase ones
+and interpreted as such. If not, either \code{sq} object must be of type
+\strong{unt} or all lowercase letters are interpreted as \code{NA} values.
+Default value is \code{FALSE}. Ignoring case does not work with \strong{atp}
+alphabets.}
 }
 \value{
-A \code{\link[tibble]{tibble}} with number of rows equal to the number of sequences 
-and two columns: 'name' - specifying how to call a sequence - and 'sq' - 
-containing the sequence itself.
+A \code{\link[tibble]{tibble}} with number of rows equal to the
+number of sequences and two columns:
+\itemize{
+\item{name}{specifies name of a sequence, used in functions like
+ \code{\link{find_motifs}}}
+\item{sq}{contains extracted sequence itself}
+}
 }
 \description{
-Reads a FASTA file, that contains nucleotide or amino acid sequences, and returns
-a \code{\link[tibble]{tibble}} with number of rows equal to the number of sequences 
-and the following columns: 'name' - specifying how to call a sequence - and 'sq' - 
-containing the sequence itself.
+Reads a FASTA file that contains nucleotide or amino acid
+sequences and returns a \code{\link[tibble]{tibble}} with obtained data.
 }
 \details{
-All rules of creating sq objects are the same as in \code{\link{construct_sq}}.
-
-Functions \code{read_fasta_ami}, \code{read_fasta_dna} and \code{read_fasta_rna}
-are wrappers around \code{read_fasta} with specified \code{type} parameter -
-accordingly "ami", "dna" and "rna". You can also pass "is_clean" parameter
-to those functions, but you cannot pass "non_standard".
+All rules of creating \code{sq} objects are the same as in \code{\link{sq}}.
 }
 \examples{
-fasta_file <- system.file(package = "tidysq", 
-                     "sample_fasta/sample_ami.fasta")
+fasta_file <- system.file(package = "tidysq", "examples/example_aa.fasta")
+
+# In this case, these two calls are equivalent in result:
 read_fasta(fasta_file)
-read_fasta_ami(fasta_file)
+read_fasta(fasta_file, alphabet = "ami_bsc")
+
 \dontrun{
+# It's possible to read FASTA file from URL:
 read_fasta("https://www.uniprot.org/uniprot/P28307.fasta")
 }
+
 }
 \seealso{
-\code{\link[base]{readLines}} \code{\link{construct_sq}}
+\code{\link[base]{readLines}}
+
+Functions from input module:
+\code{\link{import_sq}()},
+\code{\link{random_sq}()},
+\code{\link{sq}()}
 }
+\concept{input_functions}

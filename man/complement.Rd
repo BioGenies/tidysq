@@ -2,61 +2,76 @@
 % Please edit documentation in R/complement.R
 \name{complement}
 \alias{complement}
-\alias{complement_dna}
-\alias{complement_rna}
+\alias{complement.sq_dna_bsc}
+\alias{complement.sq_dna_ext}
+\alias{complement.sq_rna_bsc}
+\alias{complement.sq_rna_ext}
 \title{Create complement sequence from dnasq or rnasq object}
 \usage{
-complement(sq)
+complement(x, ...)
 
-complement_dna(sq)
+\method{complement}{sq_dna_bsc}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
 
-complement_rna(sq)
+\method{complement}{sq_dna_ext}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
+
+\method{complement}{sq_rna_bsc}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
+
+\method{complement}{sq_rna_ext}(x, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
-\item{sq}{a \code{\link{sq}} object of type \strong{dna} or \strong{rna}.}
+\item{x}{[\code{sq_dna_bsc} || \code{sq_rna_bsc} || \code{sq_dna_ext} ||
+\code{sq_rna_ext}]\cr
+ An object this function is applied to.}
+
+\item{...}{further arguments to be passed from or to other methods.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
 }
 \value{
-\code{sq} object of the same type as input \code{dnasq} (\strong{dna})
-or \code{rnasq} (\strong{rna}) but built of complementary nucleotides to entered
-sequence.
+\code{\link[=sq-class]{sq}} object of the same type as input but
+built of nucleotides complementary to those in the entered sequences.
 }
 \description{
 Creates the complementary sequence from a given RNA or DNA 
- nucleotide sequence. The function differentiates between RNA and DNA sequences.
+sequence. The function keeps the type of sequence intact.
 }
 \details{
-This function allows to get complement sequence, which is created by 
-matching elements (nucleotides) with complementary to input dnasq or rnasq object.
-Whether 'U' (uracil) or 'T' (thymine) is used depends on the class of the sq object.
+This function matches elements of sequence to their complementary letters.
+For unambiguous letters, "\code{C}" is matched with "\code{G}" and "\code{A}"
+is matched with either "\code{T}" (thymine) or "\code{U}" (uracil), depending
+on whether input is of \strong{dna} or \strong{rna} type.
 
-Functions \code{complement_dna} and \code{complement_rna} are provided as a safe
-way of limiting classes \code{complement} function is used on.
+Ambiguous letters are matched as well, for example "\code{N}" (any
+nucleotide) is matched with itself, while "\code{B}" (not alanine) is matched
+with "\code{V}" (not thymine/uracil).
 }
 \examples{
-# Creating objects dna_sequence (with DNA sequences) and rna_sequence 
-# (with RNA sequences) to work on:
+# Creating DNA and RNA sequences to work on:
+sq_dna <- sq(c("ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"),
+             alphabet = "dna_bsc")
+sq_rna <- sq(c("BRAUDUG", "URKKBKUCA", "ANKRUGBNNG", "YYAUNAAAG"),
+             alphabet = "rna_ext")
 
-dna_sequence <- construct_sq(c("ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"),
-                             type = "dna")
-rna_sequence <- construct_sq(c("ACUGCUG", "CUUAGA", "CCCU", "CUGAAUGU"),
-                             type = "rna")
+# Here complement() function is used to make PCR (Polymerase Chain Reaction)
+# primers. Every sequence is rewritten to its complementary equivalent as
+# in the following example: AAATTTGGG -> TTTAAACCC.
 
+complement(sq_dna)
+complement(sq_rna)
 
-# In the following the complement function is used to make a PCR (Polymerase Chain Reaction)
-# primers. Every sequence will be rewritten to its complementary equivalent as 
-# following example: AAATTTGGG to TTTAAACCC.
- 
-# creating complementary sequences with the basic function and using wrappers:
-complement(dna_sequence)
-complement_dna(dna_sequence)
-
-complement(rna_sequence)
-complement_rna(rna_sequence)
-
-# Each sequence from dna_sequence and rna_sequence object have now an own
-# complementary equivalent, which can be helpful during constructing PCR primers.
+# Each sequence have now a complementary equivalent, which can be helpful
+# during constructing PCR primers.
 
 }
 \seealso{
-\code{\link{sq}}
+\code{\link[=sq-class]{sq}}
+
+Functions interpreting sq in biological context:
+\code{\link{\%has\%}()},
+\code{\link{find_motifs}()},
+\code{\link{translate}()}
 }
+\concept{bio_functions}

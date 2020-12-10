@@ -1,4 +1,5 @@
+CXX_STD = CXX17
+
 PKG_CXXFLAGS = @OPENMP_FLAG@
-PKG_CPPFLAGS =  -I../inst/include/
+PKG_CPPFLAGS =  -I../inst/include
 PKG_LIBS = @OPENMP_FLAG@ $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
-PKG_LIBS += $(shell ${R_HOME}/bin/Rscript -e "RcppParallel::RcppParallelLibs()")

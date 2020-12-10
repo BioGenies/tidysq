@@ -2,56 +2,67 @@
 % Please edit documentation in R/remove_na.R
 \name{remove_na}
 \alias{remove_na}
-\title{Remove sequences containing NA values}
+\alias{remove_na.sq}
+\title{Remove sequences that contain NA values}
 \usage{
-remove_na(sq, only_elements = FALSE)
+remove_na(x, by_letter = FALSE, ...)
+
+\method{remove_na}{sq}(x, by_letter = FALSE, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
-\item{sq}{a \code{\link{sq}} object of type \strong{ami}, \strong{dna} or \strong{rna}.}
+\item{x}{[\code{sq}]\cr
+An object this function is applied to.}
 
-\item{only_elements}{\code{\link{logical}} value indicating if only ambiguous elements
-(i.e., matching more than one amino acid/nucleotide) of sequences should
-be removed. If \code{FALSE} (default) whole sequences containing ambiguous 
-elements are removed.}
+\item{by_letter}{[\code{logical(1)}]\cr
+If \code{FALSE}, filter condition is applied to sequence as a whole. If
+\code{TRUE}, each letter is applied filter to separately.}
+
+\item{...}{further arguments to be passed from or to other methods.}
+
+\item{NA_letter}{[\code{character(1)}]\cr
+A string that is used to interpret and display \code{NA} value in the
+context of \code{\link[=sq-class]{sq class}}. Default value equals to
+"\code{!}".}
 }
 \value{
-A \code{\link{sq}} object with the same type as input type. Sequences not containing
-any \code{\link[=sq]{NA}} values are left untouched.
+An \code{\link[=sq-class]{sq}} object with the same type as the
+input type. Sequences that do not contain any \code{NA} values are left
+unchanged.
 }
 \description{
-Removes sequences containing ambiguous elements or removes \code{\link[=sq]{NA values}} 
-from sequences in a \code{\link{sq}} object.
+This function replaces sequences with \code{NA} values by
+empty (\code{NULL}) sequences or removes \code{NA} values from sequences
+in an \code{sq} object.
 }
 \details{
-This function allows removal of sequences containing \code{\link[=sq]{NA}} values.
-By default, whole sequences containing ambiguous elements are removed 
-and \code{\link[=sq]{NULL}} (empty) sequences are introduced in their place. If 
-\code{only_elements = TRUE} then only \code{\link[=sq]{NA}} values are removed 
-from sequences in \code{sq} object. \code{\link[=sq]{NULL}} values (empty sequences) 
-can be identified using \code{\link{is_null_sq}} function. 
+\code{NA} may be introduced as a result of using functions like
+\code{\link{substitute_letters}} or \code{\link{bite}}. They can also appear
+in sequences if the user reads FASTA file using \code{\link{read_fasta}} or
+constructs \code{sq} object from \code{\link{character}} vector with
+\code{\link{sq}} function without \code{safe_mode} turned on - and there are
+letters in file or strings other than specified in the alphabet.
 
-\code{NA} may be introduced as a result of using functions like 
-\code{\link{substitute_letters}} or \code{\link{bite}}. They also appear in sequences if
-you are reading file using \code{\link{read_fasta}} or constructing \code{sq} object from
-\code{\link{character}} vector with \code{\link{construct_sq}} in 
-\code{\link[=fast-mode]{fast mode}} and there are letters in file or in strings other than
-specified.
+\code{remove_na()} is used to filter out sequences or elements that have
+\code{NA} value(s). By default, if any letter in a sequence is \code{NA},
+then whole sequence is replaced by empty (\code{NULL}) sequence. However, if
+\code{by_letter} parameter is set to \code{TRUE}, then sequences are
+only shortened by excluding \code{NA} values.
 }
 \examples{
 # Creating objects to work on:
-sq_ami <- construct_sq(c("MIAANYTWIL","TIAALGNIIYRAIE", 
-                         "NYERTGHLI", "MAYXXXIALN"), type = "ami")
-sq_dna <- construct_sq(c("ATGCAGGA", "GACCGAACGAN", 
-                         "TGACGAGCTTA", "ACTNNAGCN"), type = "dna")
+sq_ami <- sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
+             alphabet = "ami_ext")
+sq_dna <- sq(c("ATGCAGGA", "GACCGAACGAN", "TGACGAGCTTA", "ACTNNAGCN"),
+             alphabet = "dna_ext")
 
 # Substituting some letters with NA
-sq_ami_sub <- substitute_letters(sq_ami, c(E = NA, R = NA))
-sq_dna_sub <- substitute_letters(sq_dna, c(N = NA))
+sq_ami_sub <- substitute_letters(sq_ami, c(E = NA_character_, R = NA_character_))
+sq_dna_sub <- substitute_letters(sq_dna, c(N = NA_character_))
 
 # Biting sequences out of range
 sq_bitten <- bite(sq_ami, 1:15)
 
-# Printing them
+# Printing the sequences
 sq_ami_sub
 sq_dna_sub
 
@@ -61,12 +72,16 @@ remove_na(sq_dna_sub)
 remove_na(sq_bitten)
 
 # Removing only NA elements
-remove_na(sq_ami_sub, only_elements = TRUE)
+remove_na(sq_ami_sub, by_letter = TRUE)
 remove_na(sq_dna_sub, TRUE)
 remove_na(sq_bitten, TRUE)
 
 }
 \seealso{
-\code{\link{sq}} \code{\link{is_null_sq}} \code{\link{substitute_letters}}
-\code{\link{bite}}
+\code{\link[=sq-class]{sq}}
+
+Functions that clean sequences:
+\code{\link{is_empty_sq}()},
+\code{\link{remove_ambiguous}()}
 }
+\concept{cleaning_functions}

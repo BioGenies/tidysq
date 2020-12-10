@@ -1,142 +1,184 @@
 #' Import sq objects from other objects
 #' 
-#' Creates \code{\link[=sq]{sq object}} from \code{object} of class from another package.
-#' Currently supported packages are \pkg{ape} with its formats (\code{AAbin} and \code{DNAbin}),
-#' \pkg{Bioconductor} (\code{AAStringSet}, \code{DNAStringSet}) and
-#' \pkg{seqinr} (\code{SeqFastaAA}, \code{SeqFastadna}).
+#' @description Creates \code{\link[=sq-class]{sq}} object from object of class
+#' from another package. Currently supported packages are \pkg{ape},
+#' \pkg{Bioconductor} and \pkg{seqinr}. For exact list of supported classes and
+#' resulting types, see details.
 #' 
-#' @param object - an object of one of classes: \code{AAbin}, \code{DNAbin}, \code{AAStringSet}, 
-#' \code{DNAStringSet}, \code{SeqFastaAA}, \code{SeqFastadna}.
-#' @param ... - additional arguments passed to the function.
+#' @param object [\code{any(1)}]\cr
+#'  An object of one of supported classes.
+#' @template three-dots
 #' 
-#' @return A \code{\link[tibble]{tibble}} with \code{sq} column of \code{\link{sq}} type 
-#' representing the same 
-#' sequences as given object; the object has a type corresponding to the input type; if given
-#' sequences had names, output \code{\link[tibble]{tibble}} has also another column 
-#' \code{name} with those names
+#' @return A \code{\link[tibble]{tibble}} with \code{sq} column of
+#' \code{\link[=sq-class]{sq}} type representing the same sequences as given
+#' object; the object has a type corresponding to the input type; if given
+#' sequences have names, output \code{\link[tibble]{tibble}} will also have
+#' another column \code{name} with those names
 #' 
-#' @details 
-#' Providing object of class other than specified will result in error.
-#' 
-#' @examples 
-#' ## ape example
+#' @details
+#' Currently supported classes are as follows:
+#' \itemize{
+#' \item \code{ape}:
+#'  \itemize{
+#'  \item \code{AAbin} - imported as \strong{ami_bsc}
+#'  \item \code{DNAbin} - imported as \strong{dna_bsc}
+#'  \item \code{alignment} - exact type is guessed within \code{\link{sq}}
+#'   function
+#'  }
+#' \item \code{Biostrings}:
+#'  \itemize{
+#'  \item \code{AAString} - imported as \strong{ami_ext} with exactly one
+#'   sequence
+#'  \item \code{AAStringSet} - imported as \strong{ami_ext}
+#'  \item \code{DNAString} - imported as \strong{dna_ext} with exactly one
+#'   sequence
+#'  \item \code{DNAStringSet} - imported as \strong{dna_ext}
+#'  \item \code{RNAString} - imported as \strong{rna_ext} with exactly one
+#'   sequence
+#'  \item \code{RNAStringSet} - imported as \strong{rna_ext}
+#'  \item \code{BString} - imported as \strong{unt} with exactly one
+#'   sequence
+#'  \item \code{BStringSet} - imported as \strong{unt}
+#'  \item \code{XStringSetList} - each element of a list can be imported as
+#'   a separate \code{\link[tibble]{tibble}}, resulting in a list of tibbles;
+#'   if passed argument \code{separate = FALSE}, these tibbles are bound into
+#'   one bigger tibble
+#'  }
+#' \item \code{seqinr}:
+#'  \itemize{
+#'  \item \code{SeqFastaAA} - imported as \strong{ami_bsc}
+#'  \item \code{SeqFastadna} - imported as \strong{dna_bsc}
+#'  }
+#' }
+#'
+#' Providing object of class other than specified will result in an error.
+#'
+#' @examples
+#' # ape example
 #' library(ape)
 #' ape_dna <- as.DNAbin(list(one = c("C", "T", "C", "A"), two = c("T", "G", "A", "G", "G")))
 #' import_sq(ape_dna)
-#' 
-#' ## Biostrings example
+#'
+#' # Biostrings example
 #' library(Biostrings)
-#' Biostrings_dna <- DNAStringSet(c(one = "CTCA", two = "TGAGG"))
-#' import_sq(Biostrings_dna)
-#' 
-#' ## seqinr example
+#' Biostrings_ami <- AAStringSet(c(one = "FEAPQLIWY", two = "EGITENAK"))
+#' import_sq(Biostrings_ami)
+#'
+#' # seqinr example
 #' library(seqinr)
 #' seqinr_dna <- as.SeqFastadna(c("C", "T", "C", "A"), name = "one")
 #' import_sq(seqinr_dna)
-#' 
-#' @seealso \code{\link{export_sq}} \code{\link{sq}}
+#'
+#' @family input_functions
+#' @seealso \code{\link[=sq-class]{sq class}}
 #' @export
-import_sq <- function(object, ...) {
+import_sq <- function(object, ...)
   UseMethod("import_sq")
-}
 
 #' @export
-import_sq.default <- function(object, ...) {
+import_sq.default <- function(object, ...)
   stop("import_sq() function cannot handle objects with this class", call. = FALSE)
-}
 
 #' @export
 import_sq.AAbin <- function(object, ...) {
   # From package `ape`
-  sq <- as.character(object)
-  if (is.matrix(sq)) {
-    sq <- construct_sq_ami(apply(sq, 1, paste, collapse = ""))
-  } else if (is.list(sq)) {
-    sq <- construct_sq_ami(vapply(sq, paste, character(1), collapse = ""))
-  } else if (is.character(sq)) {
+  x <- as.character(object)
+  if (is.matrix(x)) {
+    x <- sq(apply(x, 1, function(i) {
+      toupper(paste(i, collapse = ""))
+    }), alphabet = "ami_bsc", ...)
+  } else if (is.list(x)) {
+    x <- sq(vapply(x, function(i) {
+      toupper(paste(i, collapse = ""))
+    }, character(1)), alphabet = "ami_bsc", ...)
+  } else if (is.character(x)) {
     # Sometimes obtained e.g. by extracting an element from whole AAbin list
     # Using code for list case should work as well, separate case is probably an overkill
-    sq <- construct_sq_ami(paste(sq, collapse = ""))
+    x <- sq(toupper(paste(x, collapse = "")), alphabet = "ami_bsc", ...)
   }
-  .return_sqibble(sq, labels(object))
+  bind_into_sqibble(x, labels(object))
 }
 
 #' @export
 import_sq.DNAbin <- function(object, ...) {
   # From package `ape`
-  sq <- as.character(object)
-  if (is.matrix(sq)) {
-    sq <- construct_sq_dna(apply(sq, 1, paste, collapse = ""))
-  } else if (is.list(sq)) {
-    sq <- construct_sq_dna(vapply(sq, paste, character(1), collapse = ""))
-  } else if (is.character(sq)) {
+  x <- as.character(object)
+  if (is.matrix(x)) {
+    x <- sq(apply(x, 1, function(i) {
+      toupper(paste(i, collapse = ""))
+    }), alphabet = "dna_bsc", ...)
+  } else if (is.list(x)) {
+    x <- sq(vapply(x, function(i) {
+      toupper(paste(i, collapse = ""))
+    }, character(1)), alphabet = "dna_bsc", ...)
+  } else if (is.character(x)) {
     # Sometimes obtained e.g. by extracting an element from whole DNAbin list
     # Using code for list case should work as well, separate case is probably an overkill
-    sq <- construct_sq_dna(paste(sq, collapse = ""))
+    x <- sq(toupper(paste(x, collapse = "")), alphabet = "dna_bsc", ...)
   }
-  .return_sqibble(sq, labels(object))
+  bind_into_sqibble(x, labels(object))
 }
 
 #' @export
 import_sq.alignment <- function(object, ...) {
   # From package `ape`
-  .return_sqibble(construct_sq(object[["seq"]]), object[["nam"]])
+  bind_into_sqibble(sq(object[["seq"]], ...), object[["nam"]])
 }
 
 #' @export
 import_sq.AAString <- function(object, ...) {
   # From package `Biostrings`
-  sq <- construct_sq_ami(as.character(object))
-  .return_sqibble(sq, names(object))
+  x <- sq(as.character(object), alphabet = "ami_ext", ...)
+  bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.AAStringSet <- function(object, ...) {
   # From package `Biostrings`
-  sq <- construct_sq_ami(as.character(object))
-  .return_sqibble(sq, names(object))
+  x <- sq(as.character(object), alphabet = "ami_ext", ...)
+  bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.DNAString <- function(object, ...) {
   # From package `Biostrings`
-  sq <- construct_sq_dna(as.character(object))
-  .return_sqibble(sq, names(object))
+  x <- sq(as.character(object), alphabet = "dna_ext", ...)
+  bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.DNAStringSet <- function(object, ...) {
   # From package `Biostrings`
-  sq <- construct_sq_dna(as.character(object))
-  .return_sqibble(sq, names(object))
+  x <- sq(as.character(object), alphabet = "dna_ext", ...)
+  bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.RNAString <- function(object, ...) {
   # From package `Biostrings`
-  sq <- construct_sq_rna(as.character(object))
-  .return_sqibble(sq, names(object))
+  x <- sq(as.character(object), alphabet = "rna_ext", ...)
+  bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.RNAStringSet <- function(object, ...) {
   # From package `Biostrings`
-  sq <- construct_sq_rna(as.character(object))
-  .return_sqibble(sq, names(object))
+  x <- sq(as.character(object), alphabet = "rna_ext", ...)
+  bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.BString <- function(object, ...) {
   # From package `Biostrings`
-  sq <- construct_sq(as.character(object), type = "unt")
-  .return_sqibble(sq, names(object))
+  x <- sq(as.character(object), alphabet = "unt", ...)
+  bind_into_sqibble(x, names(object))
 }
 
 #' @export
 import_sq.BStringSet <- function(object, ...) {
   # From package `Biostrings`
-  sq <- construct_sq(as.character(object), type = "unt")
-  .return_sqibble(sq, names(object))
+  x <- sq(as.character(object), alphabet = "unt", ...)
+  bind_into_sqibble(x, names(object))
 }
 
 #' @export
@@ -150,15 +192,15 @@ import_sq.XStringSetList <- function(object, ...) {
 #' @export
 import_sq.SeqFastaAA <- function(object, ...) {
   # From package `seqinr`
-  sq <- construct_sq_ami(paste(object, collapse = ""))
-  .return_sqibble(sq, attr(object, "name"))
+  x <- sq(paste(object, collapse = ""), alphabet = "ami_bsc", ...)
+  bind_into_sqibble(x, attr(object, "name"))
 }
 
 #' @export
 import_sq.SeqFastadna <- function(object, ...) {
   # From package `seqinr`
-  sq <- construct_sq_dna(paste(object, collapse = ""))
-  .return_sqibble(sq, attr(object, "name"))
+  x <- sq(paste(object, collapse = ""), alphabet = "dna_bsc", ...)
+  bind_into_sqibble(x, attr(object, "name"))
 }
 
 #' @importFrom dplyr bind_rows
@@ -172,9 +214,9 @@ import_sq.list <- function(object, separate = TRUE, ...) {
     do.call(bind_rows, lapply(object, import_sq))
 }
 
-.return_sqibble <- function(sq, name = NULL) {
+bind_into_sqibble <- function(x, name = NULL) {
   if (is.null(name))
-    tibble(sq = sq)
+    tibble(sq = x)
   else 
-    tibble(name = name, sq = sq)
+    tibble(name = name, sq = x)
 }

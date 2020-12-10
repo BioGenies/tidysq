@@ -1,101 +1,136 @@
 #' Export sq objects into other formats
+#'
+#' @templateVar name_null_ok TRUE
 #' 
-#' Convert object of class \code{\link{sq}} to another class from another package. Currently 
-#' supported packages are \pkg{ape} with its formats (\code{AAbin} and \code{DNAbin}),
-#' \pkg{Bioconductor} (\code{AAStringSet}, \code{DNAStringSet}) and
-#' \pkg{seqinr} (\code{SeqFastaAA}, \code{SeqFastadna}).
-#' @inheritParams write_fasta
-#' @param export_format a \code{\link{character}} string indicating package and the destination 
-#' class; it should be one of the following: "seqinr::SeqFastaAA", "ape::AAbin", 
-#' "Biostrings::AAStringSet", "seqinr::SeqFastadna", "ape::DNAbin", "Biostrings::DNAStringSet".
-#' @param ... - additional arguments passed to the function.
-#' 
-#' @examples 
-#' sq_ami <- construct_sq(c("MVVGL", "LAVPP"))
+#' @description Converts object of class \code{\link[=sq-class]{sq}} to a class
+#' from another package. Currently supported packages are \pkg{ape},
+#' \pkg{Bioconductor} and \pkg{seqinr}. For exact list of supported classes and
+#' resulting types, see details.
+#'
+#' @template x
+#' @param export_format [\code{character(1)}]\cr
+#'  A string indicating desired class (with specified package for unambiguity).
+#' @template name
+#' @template three-dots
+#'
+#' @details
+#' Currently supported formats are as follows (grouped by \code{sq} types):
+#' \itemize{
+#' \item \strong{ami}:
+#'  \itemize{
+#'  \item \code{"ape::AAbin"}
+#'  \item \code{"Biostrings::AAString"}
+#'  \item \code{"Biostrings::AAStringSet"}
+#'  \item \code{"seqinr::SeqFastaAA"}
+#'  }
+#' \item \strong{dna}:
+#'  \itemize{
+#'  \item \code{"ape::DNAbin"}
+#'  \item \code{"Biostrings::DNAString"}
+#'  \item \code{"Biostrings::DNAStringSet"}
+#'  \item \code{"seqinr::SeqFastadna"}
+#'  }
+#' \item \strong{rna}:
+#'  \itemize{
+#'  \item \code{"Biostrings::RNAString"}
+#'  \item \code{"Biostrings::RNAStringSet"}
+#'  }
+#' }
+#'
+#' @examples
+#' # DNA and amino acid sequences can be exported to most packages
+#' sq_ami <- sq(c("MVVGL", "LAVPP"), alphabet = "ami_bsc")
 #' export_sq(sq_ami, "ape::AAbin")
 #' export_sq(sq_ami, "Biostrings::AAStringSet", c("one", "two"))
 #' export_sq(sq_ami, "seqinr::SeqFastaAA")
-#' 
-#' sq_dna <- construct_sq(c("TGATGAAGCGCA", "TTGATGGGAA"))
+#'
+#' sq_dna <- sq(c("TGATGAAGCGCA", "TTGATGGGAA"), alphabet = "dna_bsc")
 #' export_sq(sq_dna, "ape::DNAbin", name = c("one", "two"))
 #' export_sq(sq_dna, "Biostrings::DNAStringSet")
 #' export_sq(sq_dna, "seqinr::SeqFastadna")
-#' @seealso \code{\link{sq}} \code{\link{import_sq}}
+#'
+#' # RNA sequences are limited to Biostrings
+#' sq_rna <- sq(c("NUARYGCB", "", "DRKCNYBAU"), alphabet = "rna_ext")
+#' export_sq(sq_rna, "Biostrings::RNAStringSet")
+#'
+#' # Biostrings accept single sequences as well
+#' export_sq(sq_dna[1], "Biostrings::DNAString")
+#'
+#' @family output_functions
+#' @seealso \code{\link[=sq-class]{sq class}}
 #' @export
-export_sq <- function(sq, export_format, name = NULL, ...) {
-  .validate_sq(sq)
-  if (!is.null(name)) {
-    .check_character(name, "'name'")
-    .check_eq_lens(sq, name, "'sq'", "'name'")
-  }
+export_sq <- function(x, export_format, name = NULL, ...) {
+  assert_string(export_format)
+  assert_character(name, len = vec_size(x), null.ok = TRUE)
   
   UseMethod("export_sq")
 }
 
 #' @export
-export_sq.default <- function(sq, export_format, name = NULL, ...) {
+export_sq.default <- function(x, export_format, name = NULL, ...)
   stop("export_sq() function cannot export objects of this class", call. = FALSE)
-}
 
 #' @export
-export_sq.amisq <- function(sq, export_format, name = NULL, ...) {
+export_sq.sq_ami_bsc <- function(x, export_format, name = NULL, ...) {
   switch (export_format,
     `ape::AAbin` = {
-      .check_is_installed("ape")
-      ape::as.AAbin(setNames(lapply(.unpack_from_sq(sq, "char"), `attributes<-`, NULL), name))
+      assert_package_installed("ape")
+      ape::as.AAbin(setNames(lapply(unpack(x, "STRINGS"), `attributes<-`, NULL), name))
     },
     `Biostrings::AAString` = {
-      .check_is_installed("Biostrings")
-      if (vec_size(sq) != 1)
+      assert_package_installed("Biostrings")
+      if (vec_size(x) != 1)
         stop("sq object must contain exactly one sentence; otherwise use \"Biostrings::AAStringSet\"", call. = FALSE)
-      Biostrings::AAString(setNames(unlist(.unpack_from_sq(sq, "string")), name))
+      Biostrings::AAString(setNames(unlist(unpack(x, "STRING")), name))
     },
     `Biostrings::AAStringSet` = {
-      .check_is_installed("Biostrings")
-      Biostrings::AAStringSet(setNames(unlist(.unpack_from_sq(sq, "string")), name))
+      assert_package_installed("Biostrings")
+      Biostrings::AAStringSet(setNames(unlist(unpack(x, "STRING")), name))
     },
     `seqinr::SeqFastaAA` = {
-      .check_is_installed("seqinr")
+      assert_package_installed("seqinr")
       if (is.null(name)) {
-        lapply(.unpack_from_sq(sq, "char"), seqinr::as.SeqFastaAA)
+        lapply(unpack(x, "STRINGS"), seqinr::as.SeqFastaAA)
       } else {
         mapply(function(sequence, seq_name) {
           `attr<-`(seqinr::as.SeqFastaAA(sequence), "name", seq_name)
-        }, .unpack_from_sq(sq, "char"), name, SIMPLIFY = FALSE)
+        }, unpack(x, "STRINGS"), name, SIMPLIFY = FALSE)
       }
     },
     {
       stop("exporting to this format is not yet supported; else, maybe you misspelled export_format parameter?", call. = FALSE)
     }
   )
-  
 }
 
 #' @export
-export_sq.dnasq <- function(sq, export_format, name = NULL, ...) {
+export_sq.sq_ami_ext <- export_sq.sq_ami_bsc
+
+#' @export
+export_sq.sq_dna_bsc <- function(x, export_format, name = NULL, ...) {
   switch (export_format,
     `ape::DNAbin` = {
-      .check_is_installed("ape")
-      ape::as.DNAbin(setNames(lapply(.unpack_from_sq(sq, "char"), `attributes<-`, NULL), name))
+      assert_package_installed("ape")
+      ape::as.DNAbin(setNames(lapply(unpack(x, "STRINGS"), `attributes<-`, NULL), name))
     },
     `Biostrings::DNAString` = {
-      .check_is_installed("Biostrings")
-      if (vec_size(sq) != 1)
+      assert_package_installed("Biostrings")
+      if (vec_size(x) != 1)
         stop("sq object must contain exactly one sentence; otherwise use \"Biostrings::DNAStringSet\"", call. = FALSE)
-      Biostrings::DNAString(setNames(unlist(.unpack_from_sq(sq, "string")), name))
+      Biostrings::DNAString(setNames(unlist(unpack(x, "STRING")), name))
     },
     `Biostrings::DNAStringSet` = {
-      .check_is_installed("Biostrings")
-      Biostrings::DNAStringSet(setNames(unlist(.unpack_from_sq(sq, "string")), name))
+      assert_package_installed("Biostrings")
+      Biostrings::DNAStringSet(setNames(unlist(unpack(x, "STRING")), name))
     },
     `seqinr::SeqFastadna` = {
-      .check_is_installed("seqinr")
+      assert_package_installed("seqinr")
       if (is.null(name)) {
-        lapply(.unpack_from_sq(sq, "char"), seqinr::as.SeqFastadna)
+        lapply(unpack(x, "STRINGS"), seqinr::as.SeqFastadna)
       } else {
         mapply(function(sequence, seq_name) {
           `attr<-`(seqinr::as.SeqFastadna(sequence), "name", seq_name)
-        }, .unpack_from_sq(sq, "char"), name, SIMPLIFY = FALSE)
+        }, unpack(x, "STRINGS"), name, SIMPLIFY = FALSE)
       }
     },
     {
@@ -105,20 +140,26 @@ export_sq.dnasq <- function(sq, export_format, name = NULL, ...) {
 }
 
 #' @export
-export_sq.rnasq <- function(sq, export_format, name = NULL, ...) {
+export_sq.sq_dna_ext <- export_sq.sq_dna_bsc
+
+#' @export
+export_sq.sq_rna_bsc <- function(x, export_format, name = NULL, ...) {
   switch (export_format,
     `Biostrings::RNAString` = {
-      .check_is_installed("Biostrings")
-      if (vec_size(sq) != 1)
+      assert_package_installed("Biostrings")
+      if (vec_size(x) != 1)
         stop("sq object must contain exactly one sentence; otherwise use \"Biostrings::RNAStringSet\"", call. = FALSE)
-      Biostrings::RNAString(setNames(unlist(.unpack_from_sq(sq, "string")), name))
+      Biostrings::RNAString(setNames(unlist(unpack(x, "STRING")), name))
     },
     `Biostrings::RNAStringSet` = {
-      .check_is_installed("Biostrings")
-      Biostrings::RNAStringSet(setNames(unlist(.unpack_from_sq(sq, "string")), name))
+      assert_package_installed("Biostrings")
+      Biostrings::RNAStringSet(setNames(unlist(unpack(x, "STRING")), name))
     },
     {
       stop("exporting to this format is not yet supported; else, maybe you misspelled export_format parameter?", call. = FALSE)
     }
   )
 }
+
+#' @export
+export_sq.sq_rna_ext <- export_sq.sq_rna_bsc

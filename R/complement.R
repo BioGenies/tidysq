@@ -1,122 +1,71 @@
 #' Create complement sequence from dnasq or rnasq object 
 #' 
 #' @description Creates the complementary sequence from a given RNA or DNA 
-#'  nucleotide sequence. The function differentiates between RNA and DNA sequences. 
+#' sequence. The function keeps the type of sequence intact.
 #' 
-#' @param sq a \code{\link{sq}} object of type \strong{dna} or \strong{rna}.
+#' @param x [\code{sq_dna_bsc} || \code{sq_rna_bsc} || \code{sq_dna_ext} ||
+#' \code{sq_rna_ext}]\cr
+#'  An object this function is applied to.
+#' @template NA_letter
+#' @template three-dots
 #'
-#' @return \code{sq} object of the same type as input \code{dnasq} (\strong{dna})
-#' or \code{rnasq} (\strong{rna}) but built of complementary nucleotides to entered
-#' sequence.
+#' @return \code{\link[=sq-class]{sq}} object of the same type as input but
+#' built of nucleotides complementary to those in the entered sequences.
 #' 
-#' @details This function allows to get complement sequence, which is created by 
-#' matching elements (nucleotides) with complementary to input dnasq or rnasq object.
-#' Whether 'U' (uracil) or 'T' (thymine) is used depends on the class of the sq object.
-#' 
-#' Functions \code{complement_dna} and \code{complement_rna} are provided as a safe
-#' way of limiting classes \code{complement} function is used on.
-#' 
-#' @examples 
-#' # Creating objects dna_sequence (with DNA sequences) and rna_sequence 
-#' # (with RNA sequences) to work on:
-#' 
-#' dna_sequence <- construct_sq(c("ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"),
-#'                              type = "dna")
-#' rna_sequence <- construct_sq(c("ACUGCUG", "CUUAGA", "CCCU", "CUGAAUGU"),
-#'                              type = "rna")
-#' 
-#' 
-#' # In the following the complement function is used to make a PCR (Polymerase Chain Reaction)
-#' # primers. Every sequence will be rewritten to its complementary equivalent as 
-#' # following example: AAATTTGGG to TTTAAACCC.
-#'  
-#' # creating complementary sequences with the basic function and using wrappers:
-#' complement(dna_sequence)
-#' complement_dna(dna_sequence)
-#' 
-#' complement(rna_sequence)
-#' complement_rna(rna_sequence)
-#' 
-#' # Each sequence from dna_sequence and rna_sequence object have now an own
-#' # complementary equivalent, which can be helpful during constructing PCR primers.
-#' 
-#' @seealso \code{\link{sq}}
+#' @details
+#' This function matches elements of sequence to their complementary letters.
+#' For unambiguous letters, "\code{C}" is matched with "\code{G}" and "\code{A}"
+#' is matched with either "\code{T}" (thymine) or "\code{U}" (uracil), depending
+#' on whether input is of \strong{dna} or \strong{rna} type.
+#'
+#' Ambiguous letters are matched as well, for example "\code{N}" (any
+#' nucleotide) is matched with itself, while "\code{B}" (not alanine) is matched
+#' with "\code{V}" (not thymine/uracil).
+#'
+#' @examples
+#' # Creating DNA and RNA sequences to work on:
+#' sq_dna <- sq(c("ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"),
+#'              alphabet = "dna_bsc")
+#' sq_rna <- sq(c("BRAUDUG", "URKKBKUCA", "ANKRUGBNNG", "YYAUNAAAG"),
+#'              alphabet = "rna_ext")
+#'
+#' # Here complement() function is used to make PCR (Polymerase Chain Reaction)
+#' # primers. Every sequence is rewritten to its complementary equivalent as
+#' # in the following example: AAATTTGGG -> TTTAAACCC.
+#'
+#' complement(sq_dna)
+#' complement(sq_rna)
+#'
+#' # Each sequence have now a complementary equivalent, which can be helpful
+#' # during constructing PCR primers.
+#'
+#' @family bio_functions
+#' @seealso \code{\link[=sq-class]{sq}}
 #' @export
-complement <- function(sq) {
+complement <- function(x, ...)
   UseMethod("complement")
-}
 
 #' @export
-complement.default <- function(sq) {
-  stop("method 'complement' isn't implemented for this type of object")
-}
+complement.default <- function(x, ...)
+  stop("method 'complement' isn't implemented for this type of object", call. = FALSE)
 
+#' @rdname complement
 #' @export
-complement.dnasq <- function(sq) {
-  .validate_sq(sq, "dna")
+complement.sq_dna_bsc <- function(x, ...,
+                                  NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(NA_letter, min.chars = 1)
   
-  .check_is_clean(sq, "'dnasq'")
-  alph <- alphabet(sq)
-  alph_size <- .get_alph_size(alph)
-  ret <- .unpack_from_sq(sq, "int")
-  
-  dict <- c(G = "C", C = "G", T = "A", A = "T", `-` = "-")
-  
-  inds_fun <- match(dict[alph], alph)
-  names(inds_fun) <- as.character(1:length(alph))
-  ret <- lapply(ret, function(s)  structure(C_pack_ints(inds_fun[s], alph_size),
-                                            original_length = attr(s, "original_length")))
-  
-  vec_restore(ret, sq)
-}
-
-#' @export
-complement.rnasq <- function(sq) {
-  .validate_sq(sq, "rna")
-  
-  .check_is_clean(sq, "'rnasq'")
-  alph <- alphabet(sq)
-  alph_size <- .get_alph_size(alph)
-  ret <- .unpack_from_sq(sq, "int")
-  
-  dict <- c(G = "C", C = "G", U = "A", A = "U", `-` = "-")
-  
-  inds_fun <- match(dict[alph], alph)
-  names(inds_fun) <- as.character(1:length(alph))
-  ret <- lapply(ret, function(s)  structure(C_pack_ints(inds_fun[s], alph_size),
-                                            original_length = attr(s, "original_length")))
-  
-  vec_restore(ret, sq)
+  CPP_complement(x, NA_letter)
 }
 
 #' @rdname complement
 #' @export
-complement_dna <- function(sq) {
-  UseMethod("complement_dna")
-}
-
-#' @export
-complement_dna.default <- function(sq) {
-  stop("method 'complement_dna' isn't implemented for this type of object")
-}
-
-#' @export
-complement_dna.dnasq <- function(sq) {
-  complement.dnasq(sq)
-}
+complement.sq_dna_ext <- complement.sq_dna_bsc
 
 #' @rdname complement
 #' @export
-complement_rna <- function(sq) {
-  UseMethod("complement_rna")
-}
+complement.sq_rna_bsc <- complement.sq_dna_bsc
 
+#' @rdname complement
 #' @export
-complement_rna.default <- function(sq) {
-  stop("method 'complement_rna' isn't implemented for this type of object")
-}
-
-#' @export
-complement_rna.rnasq <- function(sq) {
-  complement.rnasq(sq)
-}
+complement.sq_rna_ext <- complement.sq_dna_bsc

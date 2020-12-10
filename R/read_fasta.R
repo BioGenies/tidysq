@@ -1,120 +1,76 @@
 #' Read a FASTA file
 #'
-#' Reads a FASTA file, that contains nucleotide or amino acid sequences, and returns
-#' a \code{\link[tibble]{tibble}} with number of rows equal to the number of sequences 
-#' and the following columns: 'name' - specifying how to call a sequence - and 'sq' - 
-#' containing the sequence itself.
-#' @param file a \code{\link{character}} string indicating path to file or url.
-#' @inheritParams construct_sq
-#' @return 
-#' A \code{\link[tibble]{tibble}} with number of rows equal to the number of sequences 
-#' and two columns: 'name' - specifying how to call a sequence - and 'sq' - 
-#' containing the sequence itself.
-#' @details 
-#' All rules of creating sq objects are the same as in \code{\link{construct_sq}}.
-#' 
-#' Functions \code{read_fasta_ami}, \code{read_fasta_dna} and \code{read_fasta_rna}
-#' are wrappers around \code{read_fasta} with specified \code{type} parameter -
-#' accordingly "ami", "dna" and "rna". You can also pass "is_clean" parameter
-#' to those functions, but you cannot pass "non_standard".
-#' 
+#' @templateVar alph_null_ok TRUE
+#'
+#' @description Reads a FASTA file that contains nucleotide or amino acid
+#' sequences and returns a \code{\link[tibble]{tibble}} with obtained data.
+#'
+#' @param file_name [\code{character(1)}]\cr
+#'  Absolute path to file or url to read from.
+#' @template alphabet
+#' @template NA_letter
+#' @template safe_mode
+#' @template ignore_case
+#'
+#' @return A \code{\link[tibble]{tibble}} with number of rows equal to the
+#' number of sequences and two columns:
+#' \itemize{
+#' \item{name}{specifies name of a sequence, used in functions like
+#'  \code{\link{find_motifs}}}
+#' \item{sq}{contains extracted sequence itself}
+#' }
+#'
+#' @details
+#' All rules of creating \code{sq} objects are the same as in \code{\link{sq}}.
+#'
 #' @examples
-#' fasta_file <- system.file(package = "tidysq", 
-#'                      "sample_fasta/sample_ami.fasta")
+#' fasta_file <- system.file(package = "tidysq", "examples/example_aa.fasta")
+#'
+#' # In this case, these two calls are equivalent in result:
 #' read_fasta(fasta_file)
-#' read_fasta_ami(fasta_file)
+#' read_fasta(fasta_file, alphabet = "ami_bsc")
+#'
 #' \dontrun{
+#' # It's possible to read FASTA file from URL:
 #' read_fasta("https://www.uniprot.org/uniprot/P28307.fasta")
 #' }
-#' @seealso \code{\link[base]{readLines}} \code{\link{construct_sq}}
-#' @importFrom stringi stri_detect_regex stri_join
+#'
+#' @family input_functions
+#' @seealso \code{\link[base]{readLines}}
 #' @export
-read_fasta <- function(file, type = NULL, is_clean = NULL, non_standard = NULL) {
-  .check_character(file, "'file'", single_elem = TRUE)
-  file <- .get_readable_file(file)
+read_fasta <- function(file_name,
+                       alphabet = NULL,
+                       NA_letter = getOption("tidysq_NA_letter"),
+                       safe_mode = getOption("tidysq_safe_mode"),
+                       ignore_case = FALSE) {
+  assert_character(file_name, any.missing = FALSE)
+  assert_flag(safe_mode)
+  assert_string(NA_letter)
+  assert_character(alphabet, any.missing = FALSE, min.len = 0, unique = TRUE, null.ok = TRUE)
+  assert_flag(ignore_case)
   
-  if (.is_fast_mode()) {
-    .check_logical(is_clean, "'is_clean'", single_elem = TRUE)
-    .check_type(type)
-    .nc_read_fasta(file, type, is_clean)
-  } else {
-    .check_logical(is_clean, "'is_clean'", single_elem = TRUE, allow_null = TRUE)
-    .check_type(type, allow_unt = TRUE, allow_null = TRUE)
-    
-    if (!is.null(non_standard)) {
-      .nonst_read_fasta(file, type, is_clean, non_standard)
+  if (is.null(alphabet)) {
+    alphabet <- CPP_sample_fasta(file_name, if (safe_mode) Inf else 4096, 
+                                 NA_letter, ignore_case)
+    alphabet <- guess_standard_alphabet(alphabet)
+  } else if (length(alphabet) == 1) {
+    type <- interpret_type(alphabet)
+    if (type == "unt") {
+      alphabet <- CPP_sample_fasta(file_name, Inf, NA_letter, ignore_case)
     } else {
-      alph <- vec_cast(find_alph(file), sq_alphabet_ptype())
-      if (!is.null(type) && type %in% c("ami", "dna", "rna")) alph <- toupper(alph)
-      .check_alph_matches_type(alph, type, is_clean)
-      
-      if (is.null(type)) {
-        type_clean <- .guess_type_subtype_by_alph(alph)
-        type <- type_clean[["type"]]
-        if (is.null(is_clean) && type != "unt") is_clean <- type_clean[["is_clean"]]
-      } else if (type != "unt" && is.null(is_clean)) {
-        if      (type == "ami") is_clean <- .guess_ami_is_clean(alph)
-        else if (type == "dna") is_clean <- .guess_dna_is_clean(alph)
-        else if (type == "rna") is_clean <- .guess_rna_is_clean(alph)
-      } 
-      if (type != "unt") {
-        .nc_read_fasta(file, type, is_clean)
-      } else {
-        .check_alph_length(alph)
-        
-        sqtibble <- read_fasta_file(file, alph)
-        sqtibble[["sq"]] <- new_list_of(sqtibble[["sq"]],
-                                        ptype = raw(),
-                                        alphabet = alph,
-                                        class = c("untsq", "sq"))
-        
-        # TODO: replace with adding length inside C++ code
-        sqtibble[["sq"]] <- .set_original_length(sqtibble[["sq"]],
-                                                 sapply(.unpack_from_sq(sqtibble[["sq"]], "char"), length))
-        as_tibble(sqtibble)
+      alphabet <- get_standard_alphabet(type)
+      if (safe_mode) {
+        actual_alphabet <- CPP_sample_fasta(file_name, Inf, NA_letter, ignore_case)
+        if (!identical(actual_alphabet, alphabet)){
+          warning("Detected letters that do not match specified type!")
+          alphabet <- actual_alphabet
+        }
       }
     }
+  } else {
+    #TODO: safe mode should also be implemented for atp
+    alphabet <- sq_alphabet(alphabet, "atp")
   }
-}
-
-#' @rdname read_fasta
-#' @export
-read_fasta_ami <- function(file, is_clean = NULL) {
-  read_fasta(file, type = "ami", is_clean)
-}
-
-#' @rdname read_fasta
-#' @export
-read_fasta_dna <- function(file, is_clean = NULL) {
-  read_fasta(file, type = "dna", is_clean)
-}
-
-#' @rdname read_fasta
-#' @export
-read_fasta_rna <- function(file, is_clean = NULL) {
-  read_fasta(file, type = "rna", is_clean)
-}
-
-.nc_read_fasta <- function(file, type, is_clean) {
-  sqtibble <- nc_read_fasta_file(file, type, is_clean)
-  sqtibble[["sq"]] <- new_list_of(sqtibble[["sq"]],
-                                  ptype = raw(),
-                                  alphabet = .get_standard_alph(type, is_clean),
-                                  class = c(paste0(type, "sq"), if (is_clean) "clnsq" else NULL, "sq"))
   
-  # TODO: replace with adding length inside C++ code
-  sqtibble[["sq"]] <- .set_original_length(sqtibble[["sq"]],
-                                           sapply(.unpack_from_sq(sqtibble[["sq"]], "char"), length))
-  as_tibble(sqtibble)
-}
-
-.nonst_read_fasta <- function(file, type, is_clean, non_standard) {
-  all_lines <- readLines(file)
-  s_id <- cumsum(stri_detect_regex(all_lines, "^>"))
-  all_s <- split(all_lines, s_id)
-  s_list <- unname(sapply(all_s, function(s) stri_join(s[-1], collapse = "")))
-  sq <- construct_sq(s_list, type, is_clean, non_standard)
-  names_vec <- stri_sub(sapply(all_s, function(s) s[1]), 2)
-  
-  tibble(name = names_vec, sq = sq)
+  CPP_read_fasta(file_name, alphabet, NA_letter, ignore_case)
 }
