@@ -65,7 +65,8 @@ jobs:
     steps:
       ## to avoid conversion of configure.ac
       - name: Configure git
-          run: git config --global core.autocrlf false
+          run: |
+            git config --global core.autocrlf false
 
       ## Set the R library to the directory matching the
       ## R packages cache step further below when running on Docker (Linux).
