@@ -125,8 +125,7 @@ jobs:
       - name: Install macOS system dependencies
         if: matrix.config.os == 'macOS-latest'
         run: |
-          touch "~/.R/Makevars" 
-          echo "CXX_STD = CXX17" >> "~/.R/Makevars"
+          echo "CXX_STD = CXX17" > "~/.R/Makevars"
         
           ## Enable installing XML from source if needed
           brew install libxml2
