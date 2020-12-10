@@ -1,5 +1,9 @@
-[![Build Status](https://api.travis-ci.org/michbur/tidysq.png)](https://travis-ci.org/michbur/tidysq)
-[![codecov.io](https://codecov.io/github/michbur/tidysq/coverage.svg?branch=master)](https://codecov.io/github/michbur/tidysq?branch=master) 
+<!-- badges: start -->
+  [![R build status](https://github.com/BioGenies/tidysq/workflows/R-CMD-check/badge.svg)](https://github.com/BioGenies/tidysq/actions)
+  [![codecov.io](https://codecov.io/github/BioGenies/tidysq/coverage.svg?branch=master)](https://codecov.io/github/BioGenies/tidysq?branch=master) 
+  [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+<!-- badges: end -->
+
 
 
 ## tidysq package
