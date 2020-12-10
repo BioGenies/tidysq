@@ -125,8 +125,8 @@ jobs:
       - name: Install macOS system dependencies
         if: matrix.config.os == 'macOS-latest'
         run: |
-          ## we need newest version of clang to fully use C++17 features
-          brew upgrade llvm
+          echo "CXX_STD = CXX17" >> "~/.R/Makevars"
+          echo "ccache clang++ -Wall -pedantic -Wno-unknown-pragmas -fdiagnostics-color=always"
         
           ## Enable installing XML from source if needed
           brew install libxml2
