@@ -32,7 +32,7 @@ namespace tidysq::util {
         }
 
         [[nodiscard]] std::string message_text() const {
-            return message_.value();
+            return *message_;
         }
     };
 }
