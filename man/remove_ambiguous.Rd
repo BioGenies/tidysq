@@ -70,7 +70,8 @@ context of \code{\link[=sq-class]{sq class}}. Default value equals to
 "\code{!}".}
 }
 \value{
-
+An \code{\link[=sq-class]{sq}} object with the \strong{_bsc}
+version of inputted type.
 }
 \description{
 This function replaces sequences with ambiguous elements by
