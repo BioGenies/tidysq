@@ -6,6 +6,9 @@ tidysq.Rproj
 *.o
 *.so
 
+benchmark/*.fasta
+benchmark/*.csv
+
 src/Makevars
 
 config.log
