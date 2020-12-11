@@ -126,7 +126,7 @@ character objects into one larger sq object." />
     <tr>
       <th>...</th>
       <td><p>[<code>sq</code> || <code>character</code>]<br />
-Multiple objects. For exact behaviour, check Details section. First argument
+Multiple objects. For exact behavior, check Details section. First argument
 must be of <code>sq</code> class due to R mechanism of single dispatch. If this is
 a problem, recommended alternative is <code><a href='https://vctrs.r-lib.org/reference/vec_c.html'>vec_c</a></code> method from
 <code><a href='https://vctrs.r-lib.org/reference/vctrs-package.html'>vctrs-package</a></code> package.</p></td>
@@ -165,7 +165,7 @@ Each element is treated as separate sequence. If any of letters in this
 vector does not appear in resulting alphabet, it is silently replaced with
 <code>NA</code>.</p>
 <p>Due to R dispatch mechanism passing character vector as first will return
-class-less list. This behaviour is effectively impossible and definitely
+class-less list. This behavior is effectively impossible and definitely
 unrecommended to fix, as fixing it would involve changing <code>c</code> primitive.
 If such possibility is necessary, <code><a href='https://vctrs.r-lib.org/reference/vec_c.html'>vec_c</a></code> is a better
 alternative.</p>

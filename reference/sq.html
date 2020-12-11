@@ -141,7 +141,7 @@ Vector to construct <code>sq</code> object from.</p></td>
       <td><p>[<code>character</code>]<br />
 If provided value is a single string, it will be interpreted as type (see
 details). If provided value has length greater than one, it will be treated
-as atypical alphabet for <code>sq</code> obejct and <code>sq</code> type will be
+as atypical alphabet for <code>sq</code> object and <code>sq</code> type will be
 <code>atp</code>. If provided value is <code>NULL</code>, type
 guessing will be performed (see details).</p></td>
     </tr>
@@ -379,7 +379,7 @@ contain <code>NA</code> values, use <code><a href='remove_na.html'>remove_na</a>
 </div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span><span style='color: #555555;'>...</span><span> </span><span style='color: #0000BB;'>&lt;4501&gt;</span><span></div><div class='input'>
 <span class='co'># ignoring case:</span>
 <span class='co'># By default, lower- and uppercase letters are treated separately</span>
-<span class='co'># This behaviour can be changed by setting ignore_case = TRUE</span>
+<span class='co'># This behavior can be changed by setting ignore_case = TRUE</span>
 <span class='fu'>sq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"aTGc"</span>, <span class='st'>"tcgTTA"</span>, <span class='st'>"tt--AG"</span><span class='op'>)</span>, ignore_case <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGC</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
 #&gt; [2] </span><span style='color: #00BB00;'>TCGTTA</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span>

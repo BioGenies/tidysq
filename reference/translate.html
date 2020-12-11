@@ -186,11 +186,11 @@ encode one of 22 amino acids. This encoding is called "genetic code".</p>
 three-letter chunks. Then searches the codon table for the entry where the
 key is equal to the current chunk and the value is one letter that encodes
 the corresponding protein. These resulting letters are then pasted into one
-sequence for each input sequence and objectifized into an <code>sq</code> object.</p>
+sequence for each input sequence.</p>
 <p>Due to how the tables works, <code>translate()</code> does not support inputting
 sequences with extended alphabets, as ambiguous letters in most cases cannot
 be translated into exactly one protein.</p>
-<p>Moreover, behaviour of this function is undefined whenever input sequence
+<p>Moreover, behavior of this function is undefined whenever input sequence
 contain either "<code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code>" or <code>NA</code> value.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
