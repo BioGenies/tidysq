@@ -136,6 +136,7 @@ precut_body_as_unpackeds <- function(x, print_width, letters_sep, NA_letter, bod
 
 #' @importFrom cli col_blue col_silver
 #' @importFrom crayon col_nchar
+#' @importFrom utils tail
 format_sequences_and_lengths <- function(x, lens, letters_sep, width, use_color) {
   lens_width <- max(nchar(lens)) + 2 # max width of length number
 
