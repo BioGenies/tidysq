@@ -19,7 +19,7 @@ test_that("export_sq() throws an error whenever passed object of class other tha
 
 # ERROR FOR UNSUPPORTED TARGET FORMAT ----
 test_that("export_sq() throws an error whenever exporting to nonexistent format", {
-  expect_error(export_sq(sq_dna), "MGMT::Kids")
-  expect_error(export_sq(sq_rna), "Darude::Sandstorm")
-  expect_error(export_sq(sq_ami), "Ferrari::F430")
+  expect_error(export_sq(sq_dna, "MGMT::Kids"))
+  expect_error(export_sq(sq_rna, "Darude::Sandstorm"))
+  expect_error(export_sq(sq_ami, "Ferrari::F430"))
 })
