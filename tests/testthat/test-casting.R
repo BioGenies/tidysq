@@ -19,6 +19,11 @@ sq_ami_ext <- sq(str_ami_ext, alphabet = "ami_ext")
 sq_unt <- sq(str_unt, alphabet = "unt")
 sq_atp <- sq(str_atp, alphabet = alph_atp)
 
+sq_with_na <- sq(str_dna_ext, alphabet = "dna_bsc")
+str_with_na_1 <- c("!A!T!!TC!", "", "AT!C!G!!", "", "!!A!!T!")
+str_with_na_2 <- c("?A?T??TC?", "", "AT?C?G??", "", "??A??T?")
+str_with_na_3 <- c("<?>A<?>T<?><?>TC<?>", "", "AT<?>C<?>G<?><?>", "", "<?><?>A<?><?>T<?>")
+
 # CASTING TO CHARACTER ----
 test_that("applying as.character() returns original character vector", {
   expect_equivalent(as.character(sq_dna_bsc), str_dna_bsc)
@@ -29,6 +34,13 @@ test_that("applying as.character() returns original character vector", {
   expect_equivalent(as.character(sq_ami_ext), str_ami_ext)
   expect_equivalent(as.character(sq_unt), str_unt)
   expect_equivalent(as.character(sq_atp), str_atp)
+})
+
+test_that("as.character() has NA_letter parameter with default value", {
+  withr::local_options(list(tidysq_NA_letter = "!"))
+  expect_equivalent(as.character(sq_with_na), str_with_na_1)
+  expect_equivalent(as.character(sq_with_na, NA_letter = "?"), str_with_na_2)
+  expect_equivalent(as.character(sq_with_na, NA_letter = "<?>"), str_with_na_3)
 })
 
 test_that("vec_cast() to character works like as.character()", {
