@@ -61,7 +61,7 @@
 
 #' @export
 `%has%.sq` <- function(x, y) {
-  assert_alph_regex_friendly(alphabet(x))
+  assert_alph_no_special_chars(alphabet(x))
   
   CPP_has(x, y, getOption("tidysq_NA_letter"))
 }

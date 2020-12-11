@@ -37,10 +37,9 @@ assert_motifs_for_type <- makeAssertionFunction(check_motifs_for_type)
 test_motifs_for_type <- makeTestFunction(check_motifs_for_type)
 expect_motifs_for_type <- makeExpectationFunction(check_motifs_for_type)
 
-check_alph_regex_friendly <- function(alph) {
-  # TODO: reconsider name, it's pretty poor regex now
+check_alph_no_special_chars <- function(alph) {
   check_disjunct(alph, c("^", "$"))
 }
-assert_alph_regex_friendly <- makeAssertionFunction(check_alph_regex_friendly)
-test_alph_regex_friendly <- makeTestFunction(check_alph_regex_friendly)
-expect_alph_regex_friendly <- makeExpectationFunction(check_alph_regex_friendly)
+assert_alph_no_special_chars <- makeAssertionFunction(check_alph_no_special_chars)
+test_alph_no_special_chars <- makeTestFunction(check_alph_no_special_chars)
+expect_alph_no_special_chars <- makeExpectationFunction(check_alph_no_special_chars)
