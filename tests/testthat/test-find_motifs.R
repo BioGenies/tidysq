@@ -6,8 +6,7 @@ sq_dna <- sq(c("CTGAATGCAGT", "ATGCCGT", "CAGACCANN"),
 sq_rna <- sq(c("UUACGACUU", "UUAAGCGC", "ACUAAGACCA"),
              alphabet = "rna_bsc")
 
-# TODO: make these tests as organized as the others
-
+# TODO: issue #54
 
 test_that("find_motifs detects correctly motif that is single unambiguous amino acid in sequences", {
   expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "A")[["start"]],

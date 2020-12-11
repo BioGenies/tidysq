@@ -1,5 +1,4 @@
 check_sq_type <- function(type, null.ok = FALSE, unt.ok = FALSE, atp.ok = FALSE) {
-  # TODO: rethink the idea
   check_choice(type,
                choices = c("dna_bsc", "dna_ext", "rna_bsc",
                            "rna_ext", "ami_bsc", "ami_ext",

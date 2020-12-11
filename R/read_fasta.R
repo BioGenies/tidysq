@@ -68,7 +68,7 @@ read_fasta <- function(file_name,
       }
     }
   } else {
-    #TODO: safe mode should also be implemented for atp
+    #TODO: issue #56
     alphabet <- sq_alphabet(alphabet, "atp")
   }
   

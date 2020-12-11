@@ -24,7 +24,7 @@ namespace tidysq {
                 return table;
             }
 
-            // TODO: calculate codon tables at compile time - everything inside calculates with every codon!
+            // TODO: issue #58
             inline LetterValue codon_table(const LetterValue &codon_1,
                                            const LetterValue &codon_2,
                                            const LetterValue &codon_3) {
@@ -46,7 +46,7 @@ namespace tidysq {
                         codon_diff_table.at(codon_1).count(codon_2) > 0 &&
                         codon_diff_table.at(codon_1).at(codon_2).count(codon_3) > 0) {
                         const auto amino_acid = codon_diff_table.at(codon_1).at(codon_2).at(codon_3);
-                        // TODO: handle case if (amino_acid == 31u) (i.e. NA_letter)
+                        // TODO: issue #62
                         return amino_acid;
                     }
                 }

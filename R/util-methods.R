@@ -26,7 +26,6 @@
 #'
 #' @family output_functions
 #' @export
-# TODO: could we possibly delete this function?
 as.sq <- function(x, ...)
   UseMethod("as.sq")
 

@@ -221,7 +221,7 @@ sq <- function(x,
       }
     }
   } else {
-    #TODO: safe mode should also be implemented for atp
+    #TODO: issue #56
     alphabet <- sq_alphabet(alphabet, "atp")
   }
   

@@ -17,7 +17,7 @@ namespace tidysq {
             OperationHas(const Alphabet &alphabet,
                          const std::vector<std::string> &motifs) :
                     motif_list_(internal::Motif::convert_motifs(motifs, alphabet)) {
-                // TODO: implement possibility of reading motifs for multiletter alphabets
+                // TODO: issue #61
                 if (!alphabet.is_simple())
                     throw std::invalid_argument("For now, %has% is supported only for simple letter alphabets");
             };
