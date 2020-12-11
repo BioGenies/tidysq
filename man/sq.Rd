@@ -20,7 +20,7 @@ Vector to construct \code{sq} object from.}
 \item{alphabet}{[\code{character}]\cr
 If provided value is a single string, it will be interpreted as type (see
 details). If provided value has length greater than one, it will be treated
-as atypical alphabet for \code{sq} obejct and \code{sq} type will be
+as atypical alphabet for \code{sq} object and \code{sq} type will be
 \code{atp}. If provided value is \code{NULL}, type
 guessing will be performed (see details).}
 
@@ -219,7 +219,7 @@ sq(long_sequence)
 
 # ignoring case:
 # By default, lower- and uppercase letters are treated separately
-# This behaviour can be changed by setting ignore_case = TRUE
+# This behavior can be changed by setting ignore_case = TRUE
 sq(c("aTGc", "tcgTTA", "tt--AG"), ignore_case = TRUE)
 sq(c("XYOqwwKCNJLo"), ignore_case = TRUE)
 

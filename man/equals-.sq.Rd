@@ -34,7 +34,7 @@ To see which types are compatible, see Details of
 \code{`==`} returns logical vector, where each element describes whether
 elements at position \code{n} of both \code{e1} and \code{e2} are equal in
 meaning (that is, they may be represented differently, but their biological
-interpretation must be indentical). If one of compared objects is a scalar,
+interpretation must be identical). If one of compared objects is a scalar,
 then said logical vector describes comparison for each element of the other,
 longer vector.
 }
