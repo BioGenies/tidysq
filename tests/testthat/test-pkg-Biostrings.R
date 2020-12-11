@@ -95,3 +95,19 @@ test_that("correctly exports sq object to Biostrings::AAString", {
   expect_identical(export_sq(sq_1_ami, "Biostrings::AAString"),
                    biostr_1_ami)
 })
+
+# EDGE CASES ----
+test_that("Biostrings::XString without Set demands sq of length 1", {
+  expect_error(
+    export_sq(sq_dna, "Biostrings::DNAString"),
+    regexp = "sq object must contain exactly one sentence.*"
+  )
+  expect_error(
+    export_sq(sq_rna, "Biostrings::RNAString"),
+    regexp = "sq object must contain exactly one sentence.*"
+  )
+  expect_error(
+    export_sq(sq_ami, "Biostrings::AAString"),
+    regexp = "sq object must contain exactly one sentence.*"
+  )
+})
