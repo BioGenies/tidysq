@@ -17,8 +17,21 @@
 #' 
 #' @return A list of values returned by function for each sequence in corresponding order.
 #' 
+#' @examples
+#' # Creating objects to work on:
+#' sq_dna <- sq(c("ATGCAGGA", "GACCGNBAACGAN", "TGACGAGCTTA"),
+#'              alphabet = "dna_bsc")
+#' sq_ami <- sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
+#'              alphabet = "ami_ext")
+#' sq_unt <- sq(c("ATGCAGGA?", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
+#'
+#' # Counting how may "A" elements are present in sequences:
+#' 
+#' sqapply(sq_dna, function(sequence) sum(sequence == "A"))
+#' sqapply(sq_ami, function(sequence) sum(sequence == "A"))
+#' sqapply(sq_unt, function(sequence) sum(sequence == "A"))
+#' 
 #' @seealso \code{\link[=sq-class]{sq}} \code{\link[base]{lapply}}
-#' @export 
 #' @export
 sqapply <- function(x, fun, ...,
                     single_string = FALSE, 

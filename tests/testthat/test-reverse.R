@@ -17,6 +17,13 @@ test_that("reverse() preserves all attributes of original vector", {
                 size = vec_size(sq_ami))
 })
 
+# ERROR FOR NON-SQ OBJECTS ----
+test_that("reverse() throws an error whenever passed object of class other that sq", {
+  expect_error(reverse(1:7))
+  expect_error(reverse(LETTERS))
+  expect_error(reverse(list(mean, sum, sd)))
+})
+
 # VALUE COMPUTATION ----
 test_that("reverse() returns correct value", {
   expect_equivalent(as.character(reverse(sq_dna)),

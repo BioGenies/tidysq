@@ -20,6 +20,13 @@ test_that("is_empty_sq() returns logical vector", {
                 size = length(sq_empty))
 })
 
+# ERROR FOR NON-SQ OBJECTS ----
+test_that("find_invalid_letters() throws an error whenever passed object of class other that sq", {
+  expect_error(is_empty_sq(1:7))
+  expect_error(is_empty_sq(LETTERS))
+  expect_error(is_empty_sq(list(mean, sum, sd)))
+})
+
 # VALUE COMPUTATION
 test_that("is_empty_sq() correctly computes return value", {
   expect_equivalent(is_empty_sq(sq_ami), c(TRUE, FALSE, FALSE))

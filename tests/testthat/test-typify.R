@@ -15,6 +15,13 @@ test_that("typify() returns an sq object of desired type", {
                 size = vec_size(sq_dna))
 })
 
+# ERROR FOR NON-SQ OBJECTS ----
+test_that("typify() throws an error whenever passed object of class other that sq", {
+  expect_error(typify(1:7, "dna_bsc"))
+  expect_error(typify(LETTERS, "rna_bsc"))
+  expect_error(typify(list(mean, sum, sd), "ami_ext"))
+})
+
 # NO CHANGES IF ALREADY TARGET CLASS ----
 test_that("typify() returns unaltered sq when sq is already of target class", {
   expect_reference(typify(sq_dna, "dna_bsc"), sq_dna)

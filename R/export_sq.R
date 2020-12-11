@@ -93,8 +93,8 @@ export_sq.sq_ami_bsc <- function(x, export_format, name = NULL, ...) {
         lapply(unpack(x, "STRINGS"), seqinr::as.SeqFastaAA)
       } else {
         mapply(function(sequence, seq_name) {
-          `attr<-`(seqinr::as.SeqFastaAA(sequence), "name", seq_name)
-        }, unpack(x, "STRINGS"), name, SIMPLIFY = FALSE)
+          seqinr::as.SeqFastaAA(sequence, name = seq_name)
+        }, unpack(x, "STRINGS"), name, SIMPLIFY = FALSE, USE.NAMES = FALSE)
       }
     },
     {
@@ -129,8 +129,8 @@ export_sq.sq_dna_bsc <- function(x, export_format, name = NULL, ...) {
         lapply(unpack(x, "STRINGS"), seqinr::as.SeqFastadna)
       } else {
         mapply(function(sequence, seq_name) {
-          `attr<-`(seqinr::as.SeqFastadna(sequence), "name", seq_name)
-        }, unpack(x, "STRINGS"), name, SIMPLIFY = FALSE)
+          seqinr::as.SeqFastadna(sequence, name = seq_name)
+        }, unpack(x, "STRINGS"), name, SIMPLIFY = FALSE, USE.NAMES = FALSE)
       }
     },
     {
