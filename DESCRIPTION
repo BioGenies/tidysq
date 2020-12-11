@@ -40,8 +40,7 @@ Authors@R: c(person("Dominik", "Rafacz",
            comment = c(ORCID = "0000-0001-5467-018X"),
            role = c("ctb")))
 Description: A tidy approach to analysis of biological sequences. All processing and data-storage functions are heavily optimized to allow the fastest and most efficient data storage.
-Depends: R (>= 3.0.0),
-         tibble (>= 2.1.3)
+Depends: R (>= 3.0.0)
 Imports: 
     checkmate (>= 1.9.0),
     cli (>= 2.0.0),
@@ -50,6 +49,7 @@ Imports:
     pillar (>= 1.4.2),
     Rcpp (>= 1.0.1),
     vctrs (>= 0.3.0),
+    tibble (>= 2.1.3),
     lifecycle
 Suggests: AmyloGram (>= 1.0),
           ape (>= 5.3),
