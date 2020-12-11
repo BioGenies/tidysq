@@ -16,11 +16,11 @@ names_2 <- c("Unionists", "Confederates", "Mexicans")
 
 seqinr_dna_n <- mapply(
   function(x, name) seqinr::as.SeqFastadna(seqinr::s2c(x), name = name),
-  str_dna, names_1
+  str_dna, names_1, SIMPLIFY = FALSE, USE.NAMES = FALSE
 )
 seqinr_ami_n <- mapply(
   function(x, name) seqinr::as.SeqFastaAA(seqinr::s2c(x), name = name),
-  str_ami, names_2
+  str_ami, names_2, SIMPLIFY = FALSE, USE.NAMES = FALSE
 )
 
 # IMPORT ----
