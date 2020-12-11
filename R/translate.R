@@ -26,13 +26,13 @@
 #' three-letter chunks. Then searches the codon table for the entry where the
 #' key is equal to the current chunk and the value is one letter that encodes
 #' the corresponding protein. These resulting letters are then pasted into one
-#' sequence for each input sequence and objectifized into an \code{sq} object.
+#' sequence for each input sequence.
 #' 
 #' Due to how the tables works, \code{translate()} does not support inputting
 #' sequences with extended alphabets, as ambiguous letters in most cases cannot
 #' be translated into exactly one protein.
 #' 
-#' Moreover, behaviour of this function is undefined whenever input sequence
+#' Moreover, behavior of this function is undefined whenever input sequence
 #' contain either "\code{-}" or \code{NA} value.
 #'
 #' @examples

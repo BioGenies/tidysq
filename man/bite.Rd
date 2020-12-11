@@ -49,7 +49,7 @@ sequences at once.
 By passing positive indices the user can choose, which elements they want
 from each sequence. If a sequence is shorter than an index, then \code{NA}
 value is inserted into the result in this place and a warning is issued.
-The user can specify behaviour of R in this case by specifying
+The user can specify behavior of R in this case by specifying
 \code{on_warning} parameter.
 
 Negative indices are supported as well. Their interpretation is "to select

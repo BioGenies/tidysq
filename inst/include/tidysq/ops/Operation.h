@@ -25,7 +25,7 @@ namespace tidysq::ops {
 
         virtual void operator() (const ELEMENT_IN &element_in, ELEMENT_OUT &element_out) = 0;
 
-        // TODO: find out why this method is not seen when trying to call it from objects that inherit
+        //TODO: issue #57
         virtual ELEMENT_OUT operator() (const ELEMENT_IN &element_in) {
             ELEMENT_OUT element_out = initialize_element_out(element_in);
             operator()(element_in, element_out);

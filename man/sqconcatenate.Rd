@@ -6,7 +6,7 @@
 \title{Concatenate sq objects}
 \arguments{
 \item{...}{[\code{sq} || \code{character}]\cr
-Multiple objects. For exact behaviour, check Details section. First argument
+Multiple objects. For exact behavior, check Details section. First argument
 must be of \code{sq} class due to R mechanism of single dispatch. If this is
 a problem, recommended alternative is \code{\link[vctrs]{vec_c}} method from
 \code{\link[vctrs]{vctrs-package}} package.}
@@ -52,7 +52,7 @@ vector does not appear in resulting alphabet, it is silently replaced with
 \code{NA}.
 
 Due to R dispatch mechanism passing character vector as first will return
-class-less list. This behaviour is effectively impossible and definitely
+class-less list. This behavior is effectively impossible and definitely
 unrecommended to fix, as fixing it would involve changing \code{c} primitive.
 If such possibility is necessary, \code{\link[vctrs]{vec_c}} is a better
 alternative.

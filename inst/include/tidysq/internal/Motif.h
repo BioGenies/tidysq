@@ -144,7 +144,7 @@ namespace tidysq::internal {
                 // Success is only whenever we arrive at the end of the motif before the end of the sequence
                 // or before motif stops corresponding to sequence
                 if (motif_it == end()) {
-                    // TODO: append located motif and other info to ret
+                    // Append located motif and other info to ret
                     std::vector<LenSq> indices(content_.size());
                     std::generate(indices.rbegin(), indices.rend(), [=]() mutable {
                         return (--sequence_it).index();

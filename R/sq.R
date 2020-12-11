@@ -174,7 +174,7 @@
 #'
 #' # ignoring case:
 #' # By default, lower- and uppercase letters are treated separately
-#' # This behaviour can be changed by setting ignore_case = TRUE
+#' # This behavior can be changed by setting ignore_case = TRUE
 #' sq(c("aTGc", "tcgTTA", "tt--AG"), ignore_case = TRUE)
 #' sq(c("XYOqwwKCNJLo"), ignore_case = TRUE)
 #'
@@ -221,7 +221,7 @@ sq <- function(x,
       }
     }
   } else {
-    #TODO: safe mode should also be implemented for atp
+    #TODO: issue #56
     alphabet <- sq_alphabet(alphabet, "atp")
   }
   

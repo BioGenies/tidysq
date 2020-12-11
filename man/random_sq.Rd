@@ -17,7 +17,7 @@ sequences if \code{sd} specified - must be non-negative.}
 \item{alphabet}{[\code{character}]\cr
 If provided value is a single string, it will be interpreted as type (see
 details). If provided value has length greater than one, it will be treated
-as atypical alphabet for \code{sq} obejct and \code{sq} type will be
+as atypical alphabet for \code{sq} object and \code{sq} type will be
 \code{atp}.}
 
 \item{sd}{[\code{integer(1)}]\cr

@@ -14,7 +14,7 @@ namespace tidysq {
                     alph_size_(alph_size) {};
 
             void operator()(const Sequence<INTERNAL_IN> &sequence_in, Sequence<INTERNAL_OUT> &sequence_out) override {
-                // TODO: replace with const_reverse_iterator once implemented
+                // TODO: replace with const_reverse_iterator once implemented (issue #42)
                 LenSq reverse_index = sequence_in.original_length() - 1;
                 for (auto it = sequence_out.begin(alph_size_); it != sequence_out.end(alph_size_); ++it) {
                     it.assign(sequence_in[{reverse_index, alph_size_}]);
@@ -23,7 +23,7 @@ namespace tidysq {
             }
 
             inline Sequence<INTERNAL_OUT> operator() (const Sequence<INTERNAL_IN> &sequence_in) override {
-                //TODO: find out why we have to directly specify that we're calling base class method
+                //TODO: issue #57
                 Sequence<INTERNAL_OUT> sequence_out = OperationSqToSq<INTERNAL_IN, INTERNAL_OUT>::initialize_element_out(sequence_in);
                 operator()(sequence_in, sequence_out);
                 return sequence_out;

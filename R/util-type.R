@@ -61,15 +61,16 @@ sq_type.sq <- function(x, ...)
 }
 
 interpret_type <- function(name) {
-  # TODO: improve; just improve
-  switch(name,
-         dna_bsc = "dna_bsc",
-         dna_ext = "dna_ext",
-         rna_bsc = "rna_bsc",
-         rna_ext = "rna_ext",
-         ami_bsc = "ami_bsc",
-         ami_ext = "ami_ext",
-         unt = "unt")
+  name <- tolower(gsub(" ", "_", name))
+  if      (name %in% c("dna_bsc", "bsc_dna", "basic_dna", "dna_basic")) "dna_bsc"
+  else if (name %in% c("dna_ext", "ext_dna", "extended_dna", "dna_extended", "dna")) "dna_ext"
+  else if (name %in% c("rna_bsc", "bsc_rna", "basic_rna", "rna_basic")) "rna_bsc"
+  else if (name %in% c("rna_ext", "ext_rna", "extended_rna", "rna_extended", "rna")) "rna_ext"
+  else if (name %in% c("ami_bsc", "bsc_ami", "basic_ami", "ami_basic")) "ami_bsc"
+  else if (name %in% c("ami_ext", "ext_ami", "extended_ami", "ami_extended", "ami", "aminoacids")) "ami_ext"
+  else if (name %in% c("unt", "untyped")) "unt"
+  else if (name %in% c("atp", "atypical")) stop("When creating atp sq, alphabet should be vector of letters", call. = FALSE)
+  else stop("Cannot interpret type for provided alphabet", call. = FALSE)
 }
 
 type_as_class <- function(type)

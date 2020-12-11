@@ -66,7 +66,7 @@ find_motifs.default <- function(x, name, motifs, ...)
 find_motifs.sq <- function(x, name, motifs, ...,
                            NA_letter = getOption("tidysq_NA_letter")) {
   assert_string(NA_letter, min.chars = 1)
-  assert_alph_regex_friendly(alphabet(x))
+  assert_alph_no_special_chars(alphabet(x))
   
   ret <- CPP_find_motifs(x, name, motifs, NA_letter)
   as_tibble(ret)

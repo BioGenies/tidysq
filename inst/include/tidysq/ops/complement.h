@@ -45,7 +45,7 @@ namespace tidysq {
             }
 
             inline Sequence<INTERNAL_OUT> operator() (const Sequence<INTERNAL_IN> &sequence_in) override {
-                //TODO: find out why we have to directly specify that we're calling base class method
+                //TODO: issue #57
                 Sequence<INTERNAL_OUT> sequence_out = OperationSqToSq<INTERNAL_IN, INTERNAL_OUT>::initialize_element_out(sequence_in);
                 operator()(sequence_in, sequence_out);
                 return sequence_out;

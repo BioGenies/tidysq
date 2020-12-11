@@ -36,7 +36,7 @@ a fasta file.
 }
 \details{
 Whenever a name has more letters than \code{width} parameter, nothing
-happens, as only sequences are splitted to fit within designated space.
+happens, as only sequences are splited to fit within designated space.
 }
 \examples{
 \dontrun{

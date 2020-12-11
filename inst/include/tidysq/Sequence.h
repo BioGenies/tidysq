@@ -5,11 +5,6 @@
 #include "tidysq/util/calculate_length.h"
 
 namespace tidysq {
-    namespace util {
-        //TODO: find out why the heck it doesn't find this function
-        LenSq calculate_packed_internal_length(LenSq, const AlphSize&);
-    }
-
     template<typename INTERNAL>
     class Sequence {
         typename INTERNAL::SequenceContentStorageType content_;
@@ -40,7 +35,7 @@ namespace tidysq {
             GenericSequenceIterator& operator--();
             GenericSequenceIterator operator--(int);
 
-            // TODO: possibly implement swap()
+            // TODO: issue #26 (especially swap())
             ElementPacked operator*() const;
             bool operator==(const GenericSequenceIterator& other) const;
             bool operator!=(const GenericSequenceIterator& other) const;

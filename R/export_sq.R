@@ -9,7 +9,7 @@
 #'
 #' @template x
 #' @param export_format [\code{character(1)}]\cr
-#'  A string indicating desired class (with specified package for unambiguity).
+#'  A string indicating desired class (with specified package for disambiguity).
 #' @template name
 #' @template three-dots
 #'

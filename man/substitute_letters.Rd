@@ -29,7 +29,7 @@ An \code{\link[=sq-class]{sq}} object of \strong{atp} type with
 updated alphabet.
 }
 \description{
-Replaces all occurences of a letter with another.
+Replaces all occurrfuences of a letter with another.
 }
 \details{
 \code{substitute_letters} allows to replace unwanted letters in any sequence

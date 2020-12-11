@@ -1,6 +1,6 @@
 #' Substitute letters in a sequence
 #' 
-#' @description Replaces all occurences of a letter with another.
+#' @description Replaces all occurrfuences of a letter with another.
 #' 
 #' @template x
 #' @param encoding [\code{character} || \code{numeric}]\cr
