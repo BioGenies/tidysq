@@ -131,3 +131,39 @@ test_that("sq() correctly guesses sq type", {
   expect_identical(sq(str_ami, alphabet = "ami_ext"),
                    sq(str_ami))
 })
+
+# TYPE INTERPRETING ----
+test_that("sq() correctly interpetes alphabet parameter", {
+  expect_identical(sq(str_dna, "dna bsc"),
+                   sq(str_dna, "dna_bsc"))
+  expect_identical(sq(str_dna, "basic DNA"),
+                   sq(str_dna, "dna_bsc"))
+  expect_identical(sq(str_dna, "DNA EXT"),
+                   sq(str_dna, "dna_ext"))
+  expect_identical(sq(str_dna, "dna"),
+                   sq(str_dna, "dna_ext"))
+  expect_identical(sq(str_rna, "RNA bsc"),
+                   sq(str_rna, "rna_bsc"))
+  expect_identical(sq(str_rna, "Basic RNA"),
+                   sq(str_rna, "rna_bsc"))
+  expect_identical(sq(str_rna, "Rna"),
+                   sq(str_rna, "rna_ext"))
+  expect_identical(sq(str_rna, "Extended Rna"),
+                   sq(str_rna, "rna_ext"))
+  expect_identical(sq(str_ami, "bAsiC AmI"),
+                   sq(str_ami, "ami_bsc"))
+  expect_identical(sq(str_ami, "ami"),
+                   sq(str_ami, "ami_ext"))
+  expect_identical(sq(str_ami, "Aminoacids"),
+                   sq(str_ami, "ami_ext"))
+  expect_identical(sq(str_unt, "untyped"),
+                   sq(str_unt, "unt"))
+  expect_error(sq(str_atp, "atp"),
+               "When creating atp sq, alphabet should be vector of letters")
+  expect_error(sq(str_unt, "idk whatever"),
+               "Cannot interpret type for provided alphabet")
+  expect_error(sq(str_unt, " dna bsc"),
+               "Cannot interpret type for provided alphabet")
+  expect_error(sq(str_unt, " dna  bsc"),
+               "Cannot interpret type for provided alphabet")
+})
