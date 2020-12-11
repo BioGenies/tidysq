@@ -17,6 +17,15 @@ test_that("translate() returns clean amino acid sq object", {
                 size = vec_size(sq_rna))
 })
 
+# ERROR FOR NON-DNA/RNA OBJECTS ----
+test_that("translate() throws an error whenever passed object of class other that sq_dna/sq_rna", {
+  expect_error(translate(19:8))
+  expect_error(translate(list(mean, sum, sd)))
+  expect_error(translate(LETTERS))
+  expect_error(translate(sq(character(), "ami_bsc")))
+  expect_error(translate(sq(c("accmsce", "auprcacc"), alphabet = c("auprc", "acc", "msce"))))
+})
+
 # VALUE COMPUTATION ----
 test_that("translate() returns correct value", {
   expect_equivalent(as.character(translate(sq_dna)),

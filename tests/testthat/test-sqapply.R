@@ -5,6 +5,13 @@ sq_dna <- sq(str_dna, "dna_bsc")
 fun_1 <- function(sequence) sequence[1]
 fun_2 <- function(sequence) sum(sequence == "A")
 
+# ERROR FOR NON-SQ OBJECTS ----
+test_that("sqapply() throws an error whenever passed object of class other that sq", {
+  expect_error(sqapply(1:7, fun_1))
+  expect_error(sqapply(LETTERS, fun_2))
+  expect_error(sqapply(list(mean, sum, sd), fun_1))
+})
+
 # TYPE CORRECTNESS
 test_that("sqapply() returns list", {
   expect_list(sqapply(sq_dna, fun_1))

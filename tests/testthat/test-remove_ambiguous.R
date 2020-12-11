@@ -31,6 +31,15 @@ test_that("remove_ambiguous() returns an sq object with _bsc class", {
                 size = vec_size(sq_rna_2))
 })
 
+# ERROR FOR NON-STANDARD SQ OBJECTS ----
+test_that("remove_ambiguous() throws an error whenever passed object of class other that standard sq classes", {
+  expect_error(remove_ambiguous(1:7))
+  expect_error(remove_ambiguous(LETTERS))
+  expect_error(remove_ambiguous(list(mean, sum, sd)))
+  expect_error(remove_ambiguous(sq(c(")R#)#!Vawr9fy", "*V)RUgBa^%#!b]"))))
+  expect_error(remove_ambiguous(sq(c("accmsce", "auprcacc"), alphabet = c("auprc", "acc", "msce"))))
+})
+
 # VALUE COMPUTATION ----
 test_that("remove_ambiguous() removes whole sequences correctly", {
   expect_equal(remove_ambiguous(sq_ami),

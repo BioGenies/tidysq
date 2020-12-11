@@ -18,7 +18,6 @@ sq_dna_3 <- sq(c("", "GACCGAACGAN", "TGACGAGCTTA", ""),
 suppressWarnings({
   sq_rna <- bite(sq(c("UAAACGGGCUA", "UACACGGGCGACU", "AGGCA", "AUGGCGGAUGUUC"),
                     alphabet = "rna_bsc"), 1:13)
-  
 })
 sq_rna_2 <- sq(c("UAAACGGGCUA", "UACACGGGCGACU", "AGGCA", "AUGGCGGAUGUUC"),
                alphabet = "rna_bsc")
@@ -48,6 +47,13 @@ test_that("remove_na() with `by_letter = FALSE` preserves all attributes of orig
   expect_vector(remove_na(sq_rna, by_letter = FALSE),
                 ptype = vec_ptype(sq_rna),
                 size = vec_size(sq_rna))
+})
+
+# ERROR FOR NON-SQ OBJECTS ----
+test_that("remove_na() throws an error whenever passed object of class other that sq", {
+  expect_error(remove_na(1:7))
+  expect_error(remove_na(LETTERS))
+  expect_error(remove_na(list(mean, sum, sd)))
 })
 
 # VALUE COMPUTATION ----

@@ -49,6 +49,13 @@ test_that("substitute_letters() keep original_lengths unchanged", {
   )
 })
 
+# ERROR FOR NON-SQ OBJECTS ----
+test_that("substitute_letters() throws an error whenever passed object of class other that sq", {
+  expect_error(substitute_letters(1:7, c(S = "H")))
+  expect_error(substitute_letters(LETTERS, c(S = "SH", H = "HS")))
+  expect_error(substitute_letters(list(mean, sum, sd), c(`mean` = "Aix")))
+})
+
 # CORRECT RETURN VALUE ----
 test_that("substitute_letters() correctly computes value", {
   expect_equivalent(

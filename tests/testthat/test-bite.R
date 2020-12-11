@@ -27,6 +27,13 @@ test_that("bite() returns an sq object of original type", {
   })
 })
 
+# ERROR FOR NON-SQ OBJECTS ----
+test_that("bite() throws an error whenever passed object of class other that sq", {
+  expect_error(bite(1:7, 4:6))
+  expect_error(bite(LETTERS, -7:-11))
+  expect_error(bite(list(mean, sum, sd), 1))
+})
+
 # HANDLING INDICES INSIDE SEQUENCE ORIGINAL LENGTH ----
 test_that("bite() interprets positive indices correctly", {
   expect_equivalent(as.character(bite(sq_unt, c(4, 2, 1))),

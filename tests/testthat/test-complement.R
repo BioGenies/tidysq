@@ -25,6 +25,15 @@ test_that("complement() preserves all attributes of original vector", {
                 size = vec_size(sq_dna_2))
 })
 
+# ERROR FOR NON-DNA/RNA OBJECTS ----
+test_that("complement() throws an error whenever passed object of class other that sq_dna/sq_rna", {
+  expect_error(complement(19:8))
+  expect_error(complement(list(mean, sum, sd)))
+  expect_error(complement(LETTERS))
+  expect_error(complement(sq(character(), "ami_bsc")))
+  expect_error(complement(sq(c("accmsce", "auprcacc"), alphabet = c("auprc", "acc", "msce"))))
+})
+
 # VALUE COMPUTATION ----
 # NOTE: used as.character() because hypothetically one value might have
 #  multiple equivalent representations
