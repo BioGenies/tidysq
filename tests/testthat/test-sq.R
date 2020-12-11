@@ -97,31 +97,6 @@ test_that("ignore_case parameter works correctly", {
   )
 })
 
-
-# REVERSING TO CHARACTER ----
-test_that("applying as.character() returns original character vector", {
-  expect_equivalent(
-    as.character(sq(str_dna, alphabet = "dna_bsc")),
-    str_dna
-  )
-  expect_equivalent(
-    as.character(sq(str_rna, alphabet = "rna_ext")),
-    str_rna
-  )
-  expect_equivalent(
-    as.character(sq(str_ami, alphabet = "ami_ext")),
-    str_ami
-  )
-  expect_equivalent(
-    as.character(sq(str_atp, alphabet = atp_alph)),
-    str_atp
-  )
-  expect_equivalent(
-    as.character(sq(str_unt, alphabet = "unt")),
-    str_unt
-  )
-})
-
 # TYPE GUESSING ----
 test_that("sq() correctly guesses sq type", {
   expect_identical(sq(str_dna, alphabet = "dna_bsc"),

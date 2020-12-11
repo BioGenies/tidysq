@@ -20,6 +20,17 @@ sq_unt <- sq(str_unt, alphabet = "unt")
 sq_atp <- sq(str_atp, alphabet = alph_atp)
 
 # CASTING TO CHARACTER ----
+test_that("applying as.character() returns original character vector", {
+  expect_equivalent(as.character(sq_dna_bsc), str_dna_bsc)
+  expect_equivalent(as.character(sq_dna_ext), str_dna_ext)
+  expect_equivalent(as.character(sq_rna_bsc), str_rna_bsc)
+  expect_equivalent(as.character(sq_rna_ext), str_rna_ext)
+  expect_equivalent(as.character(sq_ami_bsc), str_ami_bsc)
+  expect_equivalent(as.character(sq_ami_ext), str_ami_ext)
+  expect_equivalent(as.character(sq_unt), str_unt)
+  expect_equivalent(as.character(sq_atp), str_atp)
+})
+
 test_that("vec_cast() to character works like as.character()", {
   expect_identical(vec_cast(sq_dna_bsc, character()),
                    as.character(sq_dna_bsc))
