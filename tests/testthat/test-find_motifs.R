@@ -19,6 +19,13 @@ names_3 <- c("naiz", "haiz", "da")
 
 N_interpretations <- c("A", "C", "G", "T", "K", "R", "Y", "W", "S", "M", "B", "D", "H", "V", "N")
 
+# ERROR FOR NON-SQ OBJECTS ----
+test_that("find_motifs() throws an error whenever passed object of class other that sq", {
+  expect_error(find_motifs(1:5, names_5, "ACC"))
+  expect_error(find_motifs(LETTERS, letters, "H"))
+  expect_error(find_motifs(list(mean, sum, sd), names_3, "mean"))
+})
+
 # CORRECT PROTOTYPE OF RETURNED VALUE ----
 test_that("find_motifs() returns a tibble with columns specified in docs", {
   expect_vector(find_motifs(sq_dna_bsc, names_5, "TAG"),
@@ -60,6 +67,16 @@ test_that("name argument must contain unique elements", {
   expect_error(find_motifs(sq_dna_bsc,
                            c("Monza", "Imola", "Mugello", "Monza", "Mugello"),
                            "TAG"))
+})
+
+test_that("^ cannot appear in any position other than first", {
+  expect_error(find_motifs(sq_dna_bsc, names_5, "T^A"))
+  expect_error(find_motifs(sq_unt, names_4, c("^VIP", "ONE^")))
+})
+
+test_that("$ cannot appear in any position other than last", {
+  expect_error(find_motifs(sq_dna_bsc, names_5, "T$A"))
+  expect_error(find_motifs(sq_unt, names_4, c("^VIP", "$ONE")))
 })
 
 # NAMES COLUMN ----
@@ -171,4 +188,8 @@ test_that("index columns can be used to retrieve found subsequence from original
   })
 })
 
-# TODO: issue #54 ----
+# HANDLING MULTICHARACTER LETTERS ----
+# TODO: issue #61
+test_that("find_motifs() throws an error when there are multicharacter letters in alphabet", {
+  expect_error(find_motifs(sq_atp, names_3, "mYmY"))
+})
