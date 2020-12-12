@@ -6,12 +6,21 @@ test_that("random_sq() returns an object of sq class", {
   expect_vector(random_sq(1, 26, "ami_ext"),
                 ptype = sq_ptype(get_standard_alphabet("ami_ext"), "ami_ext"),
                 size = 1)
+  expect_vector(random_sq(5, 8, c("mA", "nY")),
+                ptype = sq_ptype(c("mA", "nY"), "atp"),
+                size = 5)
 })
 
 test_that("each sequence of random_sq() is of the passed length", {
   for (sq in random_sq(3, 27, "rna_bsc")) {
     expect_equal(attr(sq, "original_length"), 27)
   }
+})
+
+# ARGUMENT PREREQUISITES ----
+test_that("random_sq() doesn't accept \"unt\" as type", {
+  expect_error(random_sq(5, 11, "unt"),
+               "method 'random_sq' cannot take 'unt' as alphabet type")
 })
 
 # LENGTH SAFETY ----

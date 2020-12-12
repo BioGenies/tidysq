@@ -50,7 +50,7 @@
 #' @family bio_functions
 #' @export
 find_motifs <- function(x, name, motifs, ...) {
-  assert_character(name, len = vec_size(x))
+  assert_character(name, len = vec_size(x), unique = TRUE)
   assert_character(motifs, any.missing = FALSE)
   
   UseMethod("find_motifs")
