@@ -27,6 +27,7 @@ names_ami <- c("naiz", "haiz", "da")
 names_unt <- c("gara", "zara", "zarete", "dira")
 
 biostr_dna <- Biostrings::DNAStringSet(str_dna)
+biostr_dna_list <- Biostrings::DNAStringSetList(biostr_dna, biostr_dna)
 biostr_dna_n <- Biostrings::DNAStringSet(setNames(str_dna, names_dna))
 biostr_1_dna <- Biostrings::DNAString(str_1_dna)
 biostr_rna <- Biostrings::RNAStringSet(str_rna)
@@ -90,6 +91,13 @@ test_that("correctly imports Biostrings::BStringSet", {
 test_that("correctly imports Biostrings::BString", {
   expect_identical(import_sq(biostr_1_unt)[["sq"]],
                    sq_1_unt)
+})
+
+test_that("correctly imports Biostrings::XStringSetList", {
+  expect_identical(import_sq(biostr_dna_list),
+                   list(import_sq(biostr_dna), import_sq(biostr_dna)))
+  expect_identical(import_sq(biostr_dna_list, separate = FALSE),
+                   dplyr::bind_rows(import_sq(biostr_dna), import_sq(biostr_dna)))
 })
 
 # EXPORT ----
