@@ -68,91 +68,91 @@ test_that("c() on same type sequences return correct value", {
 
 # CONCATENATION OF BASIC AND EXTENDED TYPES ----
 test_that("c() generalizes basic and extended types to extended", {
-  expect_vector(c(sq_dna_bsc, sq_dna_ext),
+  expect_vector(c(sq_dna_bsc, sq_dna_ext, sq_dna_bsc),
                 ptype = vec_ptype(sq_dna_ext),
-                size = vec_size(sq_dna_bsc) + vec_size(sq_dna_ext))
-  expect_vector(c(sq_rna_bsc, sq_rna_ext),
+                size = 2 * vec_size(sq_dna_bsc) + vec_size(sq_dna_ext))
+  expect_vector(c(sq_rna_bsc, sq_rna_ext, sq_rna_bsc),
                 ptype = vec_ptype(sq_rna_ext),
-                size = vec_size(sq_rna_bsc) + vec_size(sq_rna_ext))
-  expect_vector(c(sq_ami_bsc, sq_ami_ext),
+                size = 2 * vec_size(sq_rna_bsc) + vec_size(sq_rna_ext))
+  expect_vector(c(sq_ami_bsc, sq_ami_ext, sq_ami_bsc),
                 ptype = vec_ptype(sq_ami_ext),
-                size = vec_size(sq_ami_bsc) + vec_size(sq_ami_ext))
+                size = 2 * vec_size(sq_ami_bsc) + vec_size(sq_ami_ext))
 })
 
 test_that("c() on basic and extended sequences return correct value", {
-  expect_identical(c(sq_dna_bsc, sq_dna_ext),
-                   sq(c(str_dna_bsc, str_dna_ext), alphabet = "dna_ext"))
-  expect_identical(c(sq_rna_bsc, sq_rna_ext),
-                   sq(c(str_rna_bsc, str_rna_ext), alphabet = "rna_ext"))
-  expect_identical(c(sq_ami_bsc, sq_ami_ext),
-                   sq(c(str_ami_bsc, str_ami_ext), alphabet = "ami_ext"))
+  expect_identical(c(sq_dna_bsc, sq_dna_ext, sq_dna_bsc),
+                   sq(c(str_dna_bsc, str_dna_ext, str_dna_bsc), alphabet = "dna_ext"))
+  expect_identical(c(sq_rna_bsc, sq_rna_ext, sq_rna_bsc),
+                   sq(c(str_rna_bsc, str_rna_ext, str_rna_bsc), alphabet = "rna_ext"))
+  expect_identical(c(sq_ami_bsc, sq_ami_ext, sq_ami_bsc),
+                   sq(c(str_ami_bsc, str_ami_ext, str_ami_bsc), alphabet = "ami_ext"))
 })
 
 # CONCATENATION WITH UNT SQ ----
 test_that("c() generalizes any standard type and untyped sequences to unt sq", {
-  expect_vector(c(sq_dna_bsc, sq_unt),
+  expect_vector(c(sq_dna_bsc, sq_unt, sq_dna_bsc),
                 ptype = sq_ptype(union(alphabet(sq_dna_bsc), alphabet(sq_unt)), "unt"),
-                size = vec_size(sq_dna_bsc) + vec_size(sq_unt))
-  expect_vector(c(sq_unt, sq_dna_ext),
-                ptype = sq_ptype(union(alphabet(sq_unt), alphabet(sq_dna_ext)), "unt"),
-                size = vec_size(sq_unt) + vec_size(sq_dna_ext))
-  expect_vector(c(sq_unt, sq_rna_bsc),
-                ptype = sq_ptype(union(alphabet(sq_unt), alphabet(sq_rna_bsc)), "unt"),
-                size = vec_size(sq_unt) + vec_size(sq_rna_bsc))
-  expect_vector(c(sq_rna_ext, sq_unt),
+                size = 2 * vec_size(sq_dna_bsc) + vec_size(sq_unt))
+  expect_vector(c(sq_dna_ext, sq_unt, sq_dna_ext),
+                ptype = sq_ptype(union(alphabet(sq_dna_ext), alphabet(sq_unt)), "unt"),
+                size = 2 * vec_size(sq_dna_ext) + vec_size(sq_unt))
+  expect_vector(c(sq_rna_bsc, sq_unt, sq_rna_bsc),
+                ptype = sq_ptype(union(alphabet(sq_rna_bsc), alphabet(sq_unt)), "unt"),
+                size = 2 * vec_size(sq_rna_bsc) + vec_size(sq_unt))
+  expect_vector(c(sq_rna_ext, sq_unt, sq_rna_ext),
                 ptype = sq_ptype(union(alphabet(sq_rna_ext), alphabet(sq_unt)), "unt"),
-                size = vec_size(sq_rna_ext) + vec_size(sq_unt))
-  expect_vector(c(sq_ami_bsc, sq_unt),
+                size = 2 * vec_size(sq_rna_ext) + vec_size(sq_unt))
+  expect_vector(c(sq_ami_bsc, sq_unt, sq_ami_bsc),
                 ptype = sq_ptype(union(alphabet(sq_ami_bsc), alphabet(sq_unt)), "unt"),
-                size = vec_size(sq_ami_bsc) + vec_size(sq_unt))
+                size = 2 * vec_size(sq_ami_bsc) + vec_size(sq_unt))
 
   skip("demands 6-bit encoded alphabet")
-  expect_vector(c(sq_unt, sq_ami_ext),
-                ptype = sq_ptype(union(alphabet(sq_unt), alphabet(sq_ami_ext)), "unt"),
-                size = vec_size(sq_unt) + vec_size(sq_ami_ext))
+  expect_vector(c(sq_ami_ext, sq_unt, sq_ami_ext),
+                ptype = sq_ptype(union(alphabet(sq_ami_ext), alphabet(sq_unt)), "unt"),
+                size = 2 * vec_size(sq_ami_ext) + vec_size(sq_unt))
 })
 
 test_that("c() on any standard type and untyped sequences return correct value", {
-  expect_identical(c(sq_dna_bsc, sq_unt),
+  expect_identical(c(sq_dna_bsc, sq_unt, sq_dna_bsc),
                    {
-                     x <- sq(c(str_dna_bsc, str_unt), alphabet = union(alphabet(sq_dna_bsc), alphabet(sq_unt)))
+                     x <- sq(c(str_dna_bsc, str_unt, str_dna_bsc), alphabet = union(alphabet(sq_dna_bsc), alphabet(sq_unt)))
                      attr(alphabet(x), "type") <- "unt"
                      class(x)[class(x) == "sq_atp"] <- "sq_unt"
                      x
                    })
-  expect_identical(c(sq_unt, sq_dna_ext),
+  expect_identical(c(sq_dna_ext, sq_unt, sq_dna_ext),
                    {
-                     x <- sq(c(str_unt, str_dna_ext), alphabet = union(alphabet(sq_unt), alphabet(sq_dna_ext)))
+                     x <- sq(c(str_dna_ext, str_unt, str_dna_ext), alphabet = union(alphabet(sq_dna_ext), alphabet(sq_unt)))
                      attr(alphabet(x), "type") <- "unt"
                      class(x)[class(x) == "sq_atp"] <- "sq_unt"
                      x
                    })
-  expect_identical(c(sq_unt, sq_rna_bsc),
+  expect_identical(c(sq_rna_bsc, sq_unt, sq_rna_bsc),
                    {
-                     x <- sq(c(str_unt, str_rna_bsc), alphabet = union(alphabet(sq_unt), alphabet(sq_rna_bsc)))
+                     x <- sq(c(str_rna_bsc, str_unt, str_rna_bsc), alphabet = union(alphabet(sq_rna_bsc), alphabet(sq_unt)))
                      attr(alphabet(x), "type") <- "unt"
                      class(x)[class(x) == "sq_atp"] <- "sq_unt"
                      x
                    })
-  expect_identical(c(sq_rna_ext, sq_unt),
+  expect_identical(c(sq_rna_ext, sq_unt, sq_rna_ext),
                    {
-                     x <- sq(c(str_rna_ext, str_unt), alphabet = union(alphabet(sq_rna_ext), alphabet(sq_unt)))
+                     x <- sq(c(str_rna_ext, str_unt, str_rna_ext), alphabet = union(alphabet(sq_rna_ext), alphabet(sq_unt)))
                      attr(alphabet(x), "type") <- "unt"
                      class(x)[class(x) == "sq_atp"] <- "sq_unt"
                      x
                    })
-  expect_identical(c(sq_ami_bsc, sq_unt),
+  expect_identical(c(sq_ami_bsc, sq_unt, sq_ami_bsc),
                    {
-                     x <- sq(c(str_ami_bsc, str_unt), alphabet = union(alphabet(sq_ami_bsc), alphabet(sq_unt)))
+                     x <- sq(c(str_ami_bsc, str_unt, str_ami_bsc), alphabet = union(alphabet(sq_ami_bsc), alphabet(sq_unt)))
                      attr(alphabet(x), "type") <- "unt"
                      class(x)[class(x) == "sq_atp"] <- "sq_unt"
                      x
                    })
 
   skip("demands 6-bit encoded alphabet")
-  expect_identical(c(sq_unt, sq_ami_ext),
+  expect_identical(c(sq_ami_ext, sq_unt, sq_ami_ext),
                    {
-                     x <- sq(c(str_unt, str_ami_ext), alphabet = union(alphabet(sq_unt), alphabet(sq_ami_ext)))
+                     x <- sq(c(str_ami_ext, str_unt, str_ami_ext), alphabet = union(alphabet(sq_ami_ext), alphabet(sq_unt)))
                      attr(alphabet(x), "type") <- "unt"
                      class(x)[class(x) == "sq_atp"] <- "sq_unt"
                      x
