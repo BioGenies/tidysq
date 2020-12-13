@@ -6,6 +6,8 @@ sq_dna <- sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", "CAGACCANNNATAG"),
 sq_rna <- sq(c("GGCUGCGGGACUGAGGC", "UUCAUGCGGCUAGGGCU", "UAGGCGAGCAGAGUAG"),
              alphabet = "rna_bsc")
 sq_unt <- sq(c("GO%NC@E(123)RO", "NFI%(#)VT;"), alphabet = "unt")
+sq_atp <- sq(c("mAmYmY", "nbAnsAmA", ""),
+             alphabet = c("mA", "mY", "nbA", "nsA"))
 
 # CORRECT PROTOTYPE OF RETURNED VALUE ----
 test_that("%has% returns a logical vector", {
@@ -105,4 +107,10 @@ test_that("%has% of many motifs is equal to logical AND of many %has% with one m
     sq_unt %has% c("@", "%"),
     (sq_unt %has% "@") & (sq_unt %has% "%")
   )
+})
+
+# HANDLING MULTICHARACTER LETTERS ----
+# TODO: issue #61
+test_that("%has% throws an error when there are multicharacter letters in alphabet", {
+  expect_error(find_motifs(sq_atp, names_3, "mYmY"))
 })
