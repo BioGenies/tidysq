@@ -5,6 +5,7 @@ sq_dna <- sq(c("CTGAATGCAGTACCGTAAT", "ATGCCGTAAATGCCAT", "CAGACCANNNATAG"),
              alphabet = "dna_ext")
 sq_rna <- sq(c("GGCUGCGGGACUGAGGC", "UUCAUGCGGCUAGGGCU", "UAGGCGAGCAGAGUAG"),
              alphabet = "rna_bsc")
+sq_unt <- sq(c("GO%NC@E(123)RO", "NFI%(#)VT;"), alphabet = "unt")
 
 # CORRECT PROTOTYPE OF RETURNED VALUE ----
 test_that("%has% returns a logical vector", {
@@ -17,6 +18,9 @@ test_that("%has% returns a logical vector", {
   expect_vector(sq_rna %has% c("GGG", "UGA", "CUGC"),
                 ptype = logical(),
                 size = vec_size(sq_rna))
+  expect_vector(sq_unt %has% c("NFI", ";"),
+                ptype = logical(),
+                size = vec_size(sq_unt))
 })
 
 # ERROR FOR NON-SQ OBJECTS ----
@@ -40,6 +44,8 @@ test_that("%has% works correctly for basic letters", {
                c(TRUE, TRUE, TRUE))
   expect_equal(sq_rna %has% "GGGA",
                c(TRUE, FALSE, FALSE))
+  expect_equal(sq_unt %has% "(123)",
+               c(TRUE, FALSE))
 })
 
 test_that("%has% correctly interprets ambiguous letters in a motif", {
@@ -59,6 +65,8 @@ test_that("^ at the beginning matches only from the beginning of a motif", {
                c(TRUE, FALSE, TRUE))
   expect_equal(sq_rna %has% "^U",
                c(FALSE, TRUE, TRUE))
+  expect_equal(sq_unt %has% "^NFI",
+               c(FALSE, TRUE))
 })
 
 test_that("$ at the end matches only to the end of a motif", {
@@ -68,6 +76,8 @@ test_that("$ at the end matches only to the end of a motif", {
                c(TRUE, TRUE, FALSE))
   expect_equal(sq_rna %has% "A$",
                c(FALSE, FALSE, FALSE))
+  expect_equal(sq_unt %has% "(#)$",
+               c(FALSE, FALSE))
 })
 
 test_that("^ and $ can be used simultaneously", {
@@ -90,5 +100,9 @@ test_that("%has% of many motifs is equal to logical AND of many %has% with one m
   expect_equal(
     sq_rna %has% c("GC$", "GA"),
     (sq_rna %has% "GC$") & (sq_rna %has% "GA")
+  )
+  expect_equal(
+    sq_unt %has% c("@", "%"),
+    (sq_unt %has% "@") & (sq_unt %has% "%")
   )
 })
