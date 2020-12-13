@@ -53,6 +53,15 @@ test_that("sq() returns object with alphabet attribute that contains existing le
     alphabet(sq(str_unt, alphabet = "unt")),
     obtain_alphabet(str_unt)
   )
+  expect_setequal(
+    alphabet(sq(str_unt, alphabet = "unt", NA_letter = "?")),
+    obtain_alphabet(str_unt, NA_letter = "?")
+  )
+  # TODO: issue #64
+  #expect_setequal(
+  #  alphabet(sq(str_unt, alphabet = "unt", NA_letter = "(?)")),
+  #  obtain_alphabet(str_unt, NA_letter = "(?)")
+  #)
 })
 
 # NA WHEN ACTUAL ALPHABET MISMATCHES ----
