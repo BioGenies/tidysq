@@ -96,8 +96,3 @@ test_that("bite() ignores multiple instances of the same negative index", {
   expect_identical(as.character(bite(sq_dna, c(-4, -1, -1, -7, -4))),
                    c("TCGGCTAG", "GATG", "AGTT"))
 })
-
-test_that("bite() throws an error when passed mixed positive and negative indices", {
-  expect_error(bite(sq_dna, -5:5))
-  expect_error(bite(sq_empty, c(6, -1, 0, 5)))
-})
