@@ -1,4 +1,5 @@
 # SETUP ----
+# 0,1,2,3,4,5,6,7
 sq_dna_bsc <- sq(c("TACTGGGCATG", "CAGGTCGGA", "TAGTAGTCCG", "", "ACGGT"),
                  alphabet = "dna_bsc")
 sq_dna_ext <- sq(c("NARTYVTCY", "", "ATKCYGDD", "", "DNAKYTD"),
@@ -11,16 +12,25 @@ sq_ami_bsc <- sq(c("ACEH", "PASAI", "MALACCA", "SIAK"),
                  alphabet = "ami_bsc")
 sq_ami_ext <- sq(c("OUTLANDISH", "UNSTRUCTURIZED", "FEAR"),
                  alphabet = "ami_ext")
-sq_unt_2 <- sq(c("VII", "IVVV", ""), alphabet = "unt")
-sq_unt_4 <- sq(c("VIP01", "VIP02", "VIP04", "MISSING_ONE"),
+
+sq_unt_2 <- sq(c("VII", "IVVV", "", "IVVVIVIIVI", "I", "IIVVI", "VIIVIIV",
+                 "IVVVVIVVIVIIII"),
                alphabet = "unt")
-sq_atp_2 <- sq(c("mAnbAnbAmY", "nbAnbAmA", "mYnbA"),
+sq_unt_4 <- sq(c("VIP01", "VIP002", "VIP0004", "MISSING_ONE", "ONEONEONE",
+                 "01", "IGNO", "ENGINE_0"),
+               alphabet = "unt")
+
+sq_atp_2 <- sq(c("mAnbAnbAmY", "nbAnbAmA", "mYnbA", "", "mAmYmAnbAnbAmAmY",
+                 "nbAnbAmAmYnbAmYnbAmYmA", "mAmAmAmYnbA", "mAmAmAmYnbAmY"),
                alphabet = c("mA", "mY", "nbA"))
-sq_atp_3 <- sq(c("mAmYmY", "nbAnsAmA", ""),
+sq_atp_3 <- sq(c("mAmYmY", "nbAnsAmAmA", "ngYnsAmAnsAnsAngYnbAmY", "nsAmAmAngYmYmYnbA",
+                 "mAmYmYnbAmA", "nsA", "nsAnsA", "ngYnsAmYmYnbAnsA"),
                alphabet = c("mA", "mY", "nbA", "nsA", "ngY"))
-sq_atp_4 <- sq(c("iaice(?)(?)", "j(?)ajeech(?)cihi", "(?)chi(?)cahi(?)bd"),
+sq_atp_4 <- sq(c("iaice(?)(?)", "j(?)ajeech(?)cihi", "(?)chi(?)cahi(?)bd",
+                 "bef(?)ia", "", "efbihcibfh", "cb(?)(?)iahef", "ag(?)"),
                alphabet = c(letters[1:10], "(?)"))
-sq_atp_5 <- sq(c("VPDIN**DVNI**D", "B??PQBOBI**??FNO", "??", "??VNI**??NIV**"),
+sq_atp_5 <- sq(c("VPDIN**DVNI**D", "B??PQBOBI**??FNO", "??", "??VNI**??NIV**",
+                 "PP??UDO**", "", "PQB??**P", "PABIK**S??IQ??"),
                alphabet = c(LETTERS, "??", "**"))
 
 # PACK-UNPACK COMPATIBILITY ----
