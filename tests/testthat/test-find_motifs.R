@@ -135,58 +135,58 @@ test_that("'found' column can handle both special characters and ambiguous lette
 })
 
 # INDEX COLUMNS ----
-test_that("'start' and 'end' columns have values between 1 and length(sequence)", {
-  sqibble_1 <- find_motifs(sq_dna_bsc, names_5, "TAG")
-  sqibble_1[["found_length"]] <- get_sq_lengths(sqibble_1[["found"]])
-  purrr::pwalk(sqibble_1, function(names, sought, found, start, end, found_length) {
-    sequence_length <- get_sq_lengths(sq_dna_bsc)[which(names == names_5)]
-    expect_gte(start, 1)
-    expect_gte(end - found_length + 1, 1)
-    expect_lte(start + found_length - sequence_length, 1)
-    expect_lte(end - sequence_length + 1, 1)
-  })
-
-  sqibble_2 <- find_motifs(sq_unt, names_4, c("^VIP", "ONE$", "_"))
-  sqibble_2[["found_length"]] <- get_sq_lengths(sqibble_2[["found"]])
-  purrr::pwalk(sqibble_2, function(names, sought, found, start, end, found_length) {
-    sequence_length <- get_sq_lengths(sq_unt)[which(names == names_4)]
-    expect_gte(start, 1)
-    expect_gte(end - found_length + 1, 1)
-    expect_lte(start + found_length - sequence_length, 1)
-    expect_lte(end - sequence_length + 1, 1)
-  })
-
-  sqibble_3 <- find_motifs(sq_ami_bsc, names_4, c("XAI", "CX"))
-  sqibble_3[["found_length"]] <- get_sq_lengths(sqibble_3[["found"]])
-  purrr::pwalk(sqibble_3, function(names, sought, found, start, end, found_length) {
-    sequence_length <- get_sq_lengths(sq_ami_bsc)[which(names == names_4)]
-    expect_gte(start, 1)
-    expect_gte(end - found_length + 1, 1)
-    expect_lte(start + found_length - sequence_length, 1)
-    expect_lte(end - sequence_length + 1, 1)
-  })
-})
-
-test_that("index columns can be used to retrieve found subsequence from original sequence", {
-  purrr::pwalk(find_motifs(sq_dna_bsc, names_5, "TAG"), function(names, sought, found, start, end) {
-    expect_identical(
-      bite(sq_dna_bsc[which(names == names_5)], start:end)[[1]],
-      found
-    )
-  })
-  purrr::pwalk(find_motifs(sq_ami_bsc, names_4, c("XAI", "CX")), function(names, sought, found, start, end) {
-    expect_identical(
-      bite(sq_ami_bsc[which(names == names_4)], start:end)[[1]],
-      found
-    )
-  })
-  purrr::pwalk(find_motifs(sq_unt, names_4, c("^VIP", "ONE$", "_")), function(names, sought, found, start, end) {
-    expect_identical(
-      bite(sq_unt[which(names == names_4)], start:end)[[1]],
-      found
-    )
-  })
-})
+#test_that("'start' and 'end' columns have values between 1 and length(sequence)", {
+#  sqibble_1 <- find_motifs(sq_dna_bsc, names_5, "TAG")
+#  sqibble_1[["found_length"]] <- get_sq_lengths(sqibble_1[["found"]])
+#  purrr::pwalk(sqibble_1, function(names, sought, found, start, end, found_length) {
+#    sequence_length <- get_sq_lengths(sq_dna_bsc)[which(names == names_5)]
+#    expect_gte(start, 1)
+#    expect_gte(end - found_length + 1, 1)
+#    expect_lte(start + found_length - sequence_length, 1)
+#    expect_lte(end - sequence_length + 1, 1)
+#  })
+#
+#  sqibble_2 <- find_motifs(sq_unt, names_4, c("^VIP", "ONE$", "_"))
+#  sqibble_2[["found_length"]] <- get_sq_lengths(sqibble_2[["found"]])
+#  purrr::pwalk(sqibble_2, function(names, sought, found, start, end, found_length) {
+#    sequence_length <- get_sq_lengths(sq_unt)[which(names == names_4)]
+#    expect_gte(start, 1)
+#    expect_gte(end - found_length + 1, 1)
+#    expect_lte(start + found_length - sequence_length, 1)
+#    expect_lte(end - sequence_length + 1, 1)
+#  })
+#
+#  sqibble_3 <- find_motifs(sq_ami_bsc, names_4, c("XAI", "CX"))
+#  sqibble_3[["found_length"]] <- get_sq_lengths(sqibble_3[["found"]])
+#  purrr::pwalk(sqibble_3, function(names, sought, found, start, end, found_length) {
+#    sequence_length <- get_sq_lengths(sq_ami_bsc)[which(names == names_4)]
+#    expect_gte(start, 1)
+#    expect_gte(end - found_length + 1, 1)
+#    expect_lte(start + found_length - sequence_length, 1)
+#    expect_lte(end - sequence_length + 1, 1)
+#  })
+#})
+#
+#test_that("index columns can be used to retrieve found subsequence from original sequence", {
+#  purrr::pwalk(find_motifs(sq_dna_bsc, names_5, "TAG"), function(names, sought, found, start, end) {
+#    expect_identical(
+#      bite(sq_dna_bsc[which(names == names_5)], start:end)[[1]],
+#      found
+#    )
+#  })
+#  purrr::pwalk(find_motifs(sq_ami_bsc, names_4, c("XAI", "CX")), function(names, sought, found, start, end) {
+#    expect_identical(
+#      bite(sq_ami_bsc[which(names == names_4)], start:end)[[1]],
+#      found
+#    )
+#  })
+#  purrr::pwalk(find_motifs(sq_unt, names_4, c("^VIP", "ONE$", "_")), function(names, sought, found, start, end) {
+#    expect_identical(
+#      bite(sq_unt[which(names == names_4)], start:end)[[1]],
+#      found
+#    )
+#  })
+#})
 
 # HANDLING MULTICHARACTER LETTERS ----
 # TODO: issue #61
