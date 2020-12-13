@@ -117,14 +117,6 @@ as.matrix.sq <- function(x, ...) {
   ret
 }
 
-#' @rdname as.matrix.sq
-#' @export
-as.matrix.sq_enc <- function(x, ...) {
-  ret <- NextMethod()
-  storage.mode(ret) <- "numeric"
-  ret
-}
-
 #' Check if object has specified type
 #' 
 #' @description Checks if object is an \code{\link[=sq-class]{sq}} object

@@ -47,12 +47,6 @@ vec_ptype_abbr.sq_atp <- function(x, ...) "atp"
 vec_ptype_full.sq_atp <- function(x, ...) "atp (atypical alphabet)"
 
 #' @export
-vec_ptype_abbr.sq_enc <- function(x, ...) "enc"
-
-#' @export
-vec_ptype_full.sq_enc <- function(x, ...) "enc (encoded values)"
-
-#' @export
 vec_ptype_abbr.sq_alphabet <- function(x, ...) "sq_alph"
 
 #' @export

@@ -2,12 +2,9 @@
 % Please edit documentation in R/util-methods.R
 \name{as.matrix.sq}
 \alias{as.matrix.sq}
-\alias{as.matrix.sq_enc}
 \title{Convert sq object into matrix}
 \usage{
 \method{as.matrix}{sq}(x, ...)
-
-\method{as.matrix}{sq_enc}(x, ...)
 }
 \arguments{
 \item{x}{[\code{sq}]\cr
