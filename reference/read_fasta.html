@@ -124,6 +124,7 @@ sequences and returns a <code><a href='https://tibble.tidyverse.org/reference/ti
   alphabet <span class='op'>=</span> <span class='cn'>NULL</span>,
   NA_letter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_NA_letter"</span><span class='op'>)</span>,
   safe_mode <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_safe_mode"</span><span class='op'>)</span>,
+  on_warning <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_on_warning"</span><span class='op'>)</span>,
   ignore_case <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
@@ -159,6 +160,12 @@ Default value is <code>FALSE</code>. When turned on, safe mode guarantees that
 value passed with <code>NA_letter</code>. This means that resulting type might be
 different to the one passed as argument, if there are letters in a sequence
 that does not appear in the original alphabet.</p></td>
+    </tr>
+    <tr>
+      <th>on_warning</th>
+      <td><p>[<code>"silent" || "message" || "warning" || "error"</code>]<br />
+Determines the method of handling warning message. Default value is
+<code>"warning"</code>.</p></td>
     </tr>
     <tr>
       <th>ignore_case</th>
