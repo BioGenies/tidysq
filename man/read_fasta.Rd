@@ -9,6 +9,7 @@ read_fasta(
   alphabet = NULL,
   NA_letter = getOption("tidysq_NA_letter"),
   safe_mode = getOption("tidysq_safe_mode"),
+  on_warning = getOption("tidysq_on_warning"),
   ignore_case = FALSE
 )
 }
@@ -34,6 +35,10 @@ Default value is \code{FALSE}. When turned on, safe mode guarantees that
 value passed with \code{NA_letter}. This means that resulting type might be
 different to the one passed as argument, if there are letters in a sequence
 that does not appear in the original alphabet.}
+
+\item{on_warning}{[\code{"silent" || "message" || "warning" || "error"}]\cr
+Determines the method of handling warning message. Default value is
+\code{"warning"}.}
 
 \item{ignore_case}{[\code{logical(1)}]\cr
 If turned on, lowercase letters are turned into respective uppercase ones
