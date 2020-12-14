@@ -22,7 +22,7 @@ expect_package_installed <- makeExpectationFunction(check_package_installed)
 
 check_warning_handling <- function(method) {
   check_choice(method,
-               choices = c("error", "warning", "message", "none"))
+               choices = c("error", "warning", "message", "silent"))
 }
 assert_warning_handling <- makeAssertionFunction(check_warning_handling)
 test_warning_handling <- makeTestFunction(check_warning_handling)

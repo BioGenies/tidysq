@@ -30,7 +30,7 @@ A string that is used to interpret and display \code{NA} value in the
 context of \code{\link[=sq-class]{sq class}}. Default value equals to
 "\code{!}".}
 
-\item{on_warning}{[\code{"none" || "message" || "warning" || "error"}]\cr
+\item{on_warning}{[\code{"silent" || "message" || "warning" || "error"}]\cr
 Determines the method of handling warning message. Default value is
 \code{"warning"}.}
 }

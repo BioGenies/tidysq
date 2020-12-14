@@ -9,7 +9,7 @@ namespace tidysq::util {
     inline void handle_warning_message(const std::string &message,
                                        const constants::WarningLevel &warning_level) {
         switch (warning_level) {
-            case constants::LVL_NONE:
+            case constants::LVL_SILENT:
                 break;
             case constants::LVL_MESSAGE:
                 Rcpp::Rcout << message << std::endl;
