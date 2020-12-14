@@ -46,6 +46,7 @@ test_that("on_warning = \"message\" produces a message", {
 })
 
 # SILENT OPTION ----
+# TODO: issue #65
 test_that("on_warning = \"none\" suppresses all warnings", {
   expect_silent(sq(str_dna, "rna_bsc", safe_mode = TRUE, on_warning = "none"))
   expect_silent(bite(sq_dna, 13:16, on_warning = "none"))
