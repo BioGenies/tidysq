@@ -19,6 +19,9 @@ sq_unt_2 <- sq(c("VII", "IVVV", "", "IVVVIVIIVI", "I", "IIVVI", "VIIVIIV",
 sq_unt_4 <- sq(c("VIP01", "VIP002", "VIP0004", "MISSING_ONE", "ONEONEONE",
                  "01", "IGNO", "ENGINE_0"),
                alphabet = "unt")
+sq_unt_6 <- sq(c("POfobyBiY", "", "ZMEepq", "FUasmgh", "iA", "DdG", "voSI",
+                 "VLuzQ"),
+               alphabet = "unt")
 
 sq_atp_2 <- sq(c("mAnbAnbAmY", "nbAnbAmA", "mYnbA", "", "mAmYmAnbAnbAmAmY",
                  "nbAnbAmAmYnbAmYnbAmYmA", "mAmAmAmYnbA", "mAmAmAmYnbAmY"),
@@ -32,6 +35,9 @@ sq_atp_4 <- sq(c("iaice(?)(?)", "j(?)ajeech(?)cihi", "(?)chi(?)cahi(?)bd",
 sq_atp_5 <- sq(c("VPDIN**DVNI**D", "B??PQBOBI**??FNO", "??", "??VNI**??NIV**",
                  "PP??UDO**", "", "PQB??**P", "PABIK**S??IQ??"),
                alphabet = c(LETTERS, "??", "**"))
+sq_atp_6 <- sq(c("P**fobqoiV", "", "ZMg**pq", "FUbsmgh", "i**", "DDG", "goSI",
+                 "VbuG**"),
+               alphabet = c(LETTERS, letters, "**"))
 
 # PACK-UNPACK COMPATIBILITY ----
 test_that("unpacking and packing returns original sq object for STRING", {
@@ -52,6 +58,8 @@ test_that("unpacking and packing returns original sq object for STRING", {
                    sq_unt_2)
   expect_identical(pack(unpack(sq_unt_4, "STRING"), alphabet(sq_unt_4)),
                    sq_unt_4)
+  expect_identical(pack(unpack(sq_unt_6, "STRING"), alphabet(sq_unt_6)),
+                   sq_unt_6)
 
   expect_identical(pack(unpack(sq_atp_2, "STRING"), alphabet(sq_atp_2)),
                    sq_atp_2)
@@ -61,6 +69,8 @@ test_that("unpacking and packing returns original sq object for STRING", {
                    sq_atp_4)
   expect_identical(pack(unpack(sq_atp_5, "STRING"), alphabet(sq_atp_5)),
                    sq_atp_5)
+  expect_identical(pack(unpack(sq_atp_6, "STRING"), alphabet(sq_atp_6)),
+                   sq_atp_6)
 })
 
 test_that("unpacking and packing returns original sq object for STRINGS", {
@@ -81,6 +91,8 @@ test_that("unpacking and packing returns original sq object for STRINGS", {
                    sq_unt_2)
   expect_identical(pack(unpack(sq_unt_4, "STRINGS"), alphabet(sq_unt_4)),
                    sq_unt_4)
+  expect_identical(pack(unpack(sq_unt_6, "STRINGS"), alphabet(sq_unt_6)),
+                   sq_unt_6)
 
   expect_identical(pack(unpack(sq_atp_2, "STRINGS"), alphabet(sq_atp_2)),
                    sq_atp_2)
@@ -90,6 +102,8 @@ test_that("unpacking and packing returns original sq object for STRINGS", {
                    sq_atp_4)
   expect_identical(pack(unpack(sq_atp_5, "STRINGS"), alphabet(sq_atp_5)),
                    sq_atp_5)
+  expect_identical(pack(unpack(sq_atp_6, "STRINGS"), alphabet(sq_atp_6)),
+                   sq_atp_6)
 })
 
 test_that("unpacking and packing returns original sq object for RAWS", {
@@ -110,6 +124,8 @@ test_that("unpacking and packing returns original sq object for RAWS", {
                    sq_unt_2)
   expect_identical(pack(unpack(sq_unt_4, "RAWS"), alphabet(sq_unt_4)),
                    sq_unt_4)
+  expect_identical(pack(unpack(sq_unt_6, "RAWS"), alphabet(sq_unt_6)),
+                   sq_unt_6)
 
   expect_identical(pack(unpack(sq_atp_2, "RAWS"), alphabet(sq_atp_2)),
                    sq_atp_2)
@@ -119,6 +135,8 @@ test_that("unpacking and packing returns original sq object for RAWS", {
                    sq_atp_4)
   expect_identical(pack(unpack(sq_atp_5, "RAWS"), alphabet(sq_atp_5)),
                    sq_atp_5)
+  expect_identical(pack(unpack(sq_atp_6, "RAWS"), alphabet(sq_atp_6)),
+                   sq_atp_6)
 })
 
 test_that("unpacking and packing returns original sq object for INTS", {
@@ -139,6 +157,8 @@ test_that("unpacking and packing returns original sq object for INTS", {
                    sq_unt_2)
   expect_identical(pack(unpack(sq_unt_4, "INTS"), alphabet(sq_unt_4)),
                    sq_unt_4)
+  expect_identical(pack(unpack(sq_unt_6, "INTS"), alphabet(sq_unt_6)),
+                   sq_unt_6)
 
   expect_identical(pack(unpack(sq_atp_2, "INTS"), alphabet(sq_atp_2)),
                    sq_atp_2)
@@ -148,4 +168,6 @@ test_that("unpacking and packing returns original sq object for INTS", {
                    sq_atp_4)
   expect_identical(pack(unpack(sq_atp_5, "INTS"), alphabet(sq_atp_5)),
                    sq_atp_5)
+  expect_identical(pack(unpack(sq_atp_6, "INTS"), alphabet(sq_atp_6)),
+                   sq_atp_6)
 })

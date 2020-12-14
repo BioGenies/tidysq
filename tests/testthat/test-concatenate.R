@@ -105,8 +105,6 @@ test_that("c() generalizes any standard type and untyped sequences to unt sq", {
   expect_vector(c(sq_ami_bsc, sq_unt, sq_ami_bsc),
                 ptype = sq_ptype(union(alphabet(sq_ami_bsc), alphabet(sq_unt)), "unt"),
                 size = 2 * vec_size(sq_ami_bsc) + vec_size(sq_unt))
-
-  skip("demands 6-bit encoded alphabet")
   expect_vector(c(sq_ami_ext, sq_unt, sq_ami_ext),
                 ptype = sq_ptype(union(alphabet(sq_ami_ext), alphabet(sq_unt)), "unt"),
                 size = 2 * vec_size(sq_ami_ext) + vec_size(sq_unt))
@@ -148,8 +146,6 @@ test_that("c() on any standard type and untyped sequences return correct value",
                      class(x)[class(x) == "sq_atp"] <- "sq_unt"
                      x
                    })
-
-  skip("demands 6-bit encoded alphabet")
   expect_identical(c(sq_ami_ext, sq_unt, sq_ami_ext),
                    {
                      x <- sq(c(str_ami_ext, str_unt, str_ami_ext), alphabet = union(alphabet(sq_ami_ext), alphabet(sq_unt)))
