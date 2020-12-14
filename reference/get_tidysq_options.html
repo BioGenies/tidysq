@@ -136,12 +136,12 @@ name and <code>value</code> is a value to assign to an option.</p>
 <li><p>tidysq_NA_letter [<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
  A letter to be used when printing, constructing or interpreting <code>NA</code>
  value. Defaults to <code>"!"</code>.</p></li>
-<li><p>tidysq_on_warning [<code>"none" || "message" || "warning" || "error"</code>]<br />
+<li><p>tidysq_on_warning [<code>"silent" || "message" || "warning" || "error"</code>]<br />
  Determines the method of handling warning message. Setting <code>"error"</code>
  makes any warning throw an exception and stop execution of the code. The
  difference between <code>"message"</code> and <code>"warning"</code> is that while both
  display warning text to the console, only the latter registers it so that
- it can be accessed with a call to <code><a href='https://rdrr.io/r/base/warnings.html'>warnings()</a></code>. Lastly, <code>"none"</code>
+ it can be accessed with a call to <code><a href='https://rdrr.io/r/base/warnings.html'>warnings()</a></code>. Lastly, <code>"silent"</code>
  setting causes any warnings to be completely ignored. Default value is
  <code>"warning"</code>.</p></li>
 <li><p>tidysq_pillar_max_width [codeinteger(1)]<br />
