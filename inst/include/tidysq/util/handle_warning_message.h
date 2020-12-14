@@ -10,6 +10,7 @@ namespace tidysq::util {
                                        const constants::WarningLevel &warning_level) {
         switch (warning_level) {
             case constants::LVL_NONE:
+                break;
             case constants::LVL_MESSAGE:
                 Rcpp::Rcout << message << std::endl;
                 break;
@@ -17,8 +18,7 @@ namespace tidysq::util {
                 Rcpp::warning(message);
                 break;
             case constants::LVL_ERROR:
-                Rcpp::Rcerr << message << std::endl;
-                break;
+                Rcpp::stop(message);
             default:
                 throw std::invalid_argument("cannot handle warning - invalid warning level!");
         }

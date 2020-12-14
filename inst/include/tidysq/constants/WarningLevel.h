@@ -19,7 +19,7 @@ namespace tidysq::constants {
             {"none", LVL_NONE},
             {"message", LVL_MESSAGE},
             {"warning", LVL_WARNING},
-            {"error", LVL_WARNING}
+            {"error", LVL_ERROR}
     };
 }
 #pragma clang diagnostic pop

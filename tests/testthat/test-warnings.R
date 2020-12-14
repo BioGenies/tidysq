@@ -23,8 +23,6 @@ test_that("on_warning = \"error\" throws an error", {
     sq(str_dna, "rna_bsc", safe_mode = TRUE, on_warning = "error"),
     sq_warning
   )
-
-  skip("warning handling on C++ side is poorly implemented")
   expect_error(
     bite(sq_dna, 13:16, on_warning = "error"),
     bite_warning
