@@ -64,6 +64,16 @@ test_that("sq() returns object with alphabet attribute that contains existing le
   #)
 })
 
+# ARGUMENT PREREQUISITES ----
+test_that("NA_letter argument must have at least one character", {
+  expect_error(sq(str_ami, "ami_ext", NA_letter = ""))
+})
+
+test_that("letters in atp alphabet must contain at least one character each", {
+  expect_error(sq(str_atp, alphabet = c(atp_alph, "")))
+  expect_error(sq(str_atp, alphabet = c("", atp_alph)))
+})
+
 # NA WHEN ACTUAL ALPHABET MISMATCHES ----
 test_that("letters not in alphabet are loaded as NA's ", {
   expect_equivalent(
@@ -104,6 +114,10 @@ test_that("ignore_case parameter works correctly", {
     sq(str_dna, "dna_bsc", ignore_case = TRUE),
     sq(str_dna, "dna_bsc", ignore_case = FALSE)
   )
+})
+
+test_that("ignore_case cannot be used with multicharacter alphabet", {
+  expect_error(sq(str_atp, alphabet = atp_alph, ignore_case = TRUE))
 })
 
 # TYPE GUESSING ----
