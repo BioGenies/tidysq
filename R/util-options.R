@@ -17,12 +17,12 @@
 #' \item tidysq_NA_letter [\code{character(1)}]\cr
 #'  A letter to be used when printing, constructing or interpreting \code{NA}
 #'  value. Defaults to \code{"!"}.
-#' \item tidysq_on_warning [\code{"none" || "message" || "warning" || "error"}]\cr
+#' \item tidysq_on_warning [\code{"silent" || "message" || "warning" || "error"}]\cr
 #'  Determines the method of handling warning message. Setting \code{"error"}
 #'  makes any warning throw an exception and stop execution of the code. The
 #'  difference between \code{"message"} and \code{"warning"} is that while both
 #'  display warning text to the console, only the latter registers it so that
-#'  it can be accessed with a call to \code{warnings()}. Lastly, \code{"none"}
+#'  it can be accessed with a call to \code{warnings()}. Lastly, \code{"silent"}
 #'  setting causes any warnings to be completely ignored. Default value is
 #'  \code{"warning"}.
 #' \item tidysq_pillar_max_width [code{integer(1)}]\cr
@@ -65,5 +65,5 @@ handle_warning_message <- function(msg,
            error = stop(msg, call. = FALSE),
            warning = warning(msg, call. = FALSE),
            message = message(msg),
-           none = invisible())
+           silent = invisible())
 }
