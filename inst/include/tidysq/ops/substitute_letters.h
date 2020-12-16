@@ -24,12 +24,12 @@ namespace tidysq {
                 for (LetterValue key = 0; key < alphabet_.size(); ++key) {
                     const Letter letter = alphabet_[key];
                     if (encoding_.count(letter) == 0) {
-                        if (std::none_of(dest_letters.begin(), dest_letters.end(), [=](const Letter &other) {
+                        if (std::none_of(dest_letters.begin(), dest_letters.end(), [&](const Letter &other) {
                             return letter == other;
                         })) {
                             dest_letters.push_back(letter);
                         }
-                    } else if (std::none_of(dest_letters.begin(), dest_letters.end(), [=](const Letter &other) {
+                    } else if (std::none_of(dest_letters.begin(), dest_letters.end(), [&](const Letter &other) {
                         return encoding_.at(letter) == other;
                     })) {
                         dest_letters.push_back(encoding_.at(letter));
@@ -66,7 +66,6 @@ namespace tidysq {
 
             void operator()(const Sequence<INTERNAL_IN> &sequence_in, Sequence<INTERNAL_OUT> &sequence_out) override {
                 if (need_repacking_) {
-                    // TODO: maybe we can do something to avoid unpacking (and not lose performance)
                     ProtoSequence<STD_IT, STRINGS_PT> unpacked = unpack<INTERNAL_IN, STD_IT, STRINGS_PT>(sequence_in, alphabet_);
 
                     // We have content as vector of strings, so that it's easier to swap them with encoding map
@@ -85,7 +84,7 @@ namespace tidysq {
             }
 
             inline Sequence<INTERNAL_OUT> operator() (const Sequence<INTERNAL_IN> &sequence_in) override {
-                //TODO: find out why we have to directly specify that we're calling base class method
+                //TODO: issue #57
                 Sequence<INTERNAL_OUT> sequence_out = OperationSqToSq<INTERNAL_IN, INTERNAL_OUT>::initialize_element_out(sequence_in);
                 operator()(sequence_in, sequence_out);
                 return sequence_out;

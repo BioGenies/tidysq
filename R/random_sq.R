@@ -60,7 +60,7 @@ random_sq <- function(n, len, alphabet, sd = NULL, use_gap = FALSE) {
   }
   
   if (!is.null(sd)) {
-    # TODO: consider using other distribution than normal maybe?
+    # TODO: issue #55
     len <- round(rnorm(n, len, sd))
     len <- ifelse(len < 0, 0, len)
   }

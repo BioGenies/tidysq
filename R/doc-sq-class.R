@@ -79,7 +79,7 @@
 #' }
 #'
 #' For clarity, \strong{ami_bsc} and \strong{ami_ext} types are often referred
-#' to collectively as \strong{ami} when there is no need to explicitely specify
+#' to collectively as \strong{ami} when there is no need to explicitly specify
 #' every possible type. The same applies to \strong{dna} and \strong{rna}.
 #'
 #' \code{sq} object type is printed when using overloaded method

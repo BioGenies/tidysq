@@ -40,6 +40,21 @@ Applies given function to each sequence. Sequences are passed to function as cha
 (or numeric, if type of \code{sq} is \strong{enc}) or single character strings, depending on 
 parameter.
 }
+\examples{
+# Creating objects to work on:
+sq_dna <- sq(c("ATGCAGGA", "GACCGNBAACGAN", "TGACGAGCTTA"),
+             alphabet = "dna_bsc")
+sq_ami <- sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
+             alphabet = "ami_ext")
+sq_unt <- sq(c("ATGCAGGA?", "TGACGAGCTTA", "", "TIAALGNIIYRAIE"))
+
+# Counting how may "A" elements are present in sequences:
+
+sqapply(sq_dna, function(sequence) sum(sequence == "A"))
+sqapply(sq_ami, function(sequence) sum(sequence == "A"))
+sqapply(sq_unt, function(sequence) sum(sequence == "A"))
+
+}
 \seealso{
 \code{\link[=sq-class]{sq}} \code{\link[base]{lapply}}
 }

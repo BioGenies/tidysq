@@ -4,7 +4,9 @@ sq_ami <- sq(c("APOPNIQEV", "CSVMIBF"), alphabet = "ami_ext")
 # sq_unt <- sq(c("GO%NC@E(123)RO", "NFI%(#)VT;"), alphabet = "unt")
 
 str_dna <- c("ACBGBC", "CGCGBBA")
+str_dna_num <- c("AC6G6C", "CGCG66A")
 str_ami <- c("AQWQXEQEV", "CSVZECF")
+str_ami_num <- c("A11O11NIQ3322", "CS22MI7F")
 
 # CORRECT PROTOTYPE OF RETURNED VALUE ----
 test_that("substitute_letters() returns an sq_atp object", {
@@ -49,6 +51,19 @@ test_that("substitute_letters() keep original_lengths unchanged", {
   )
 })
 
+# ARGUMENT PREREQUISITES ----
+test_that("substitute_letters() throws an error whenever passed object of class other that sq", {
+  expect_error(substitute_letters(1:7, c(S = "H")))
+  expect_error(substitute_letters(LETTERS, c(S = "SH", H = "HS")))
+  expect_error(substitute_letters(list(mean, sum, sd), c(`mean` = "Aix")))
+})
+
+test_that("encoding must be either numeric or character", {
+  expect_error(substitute_letters(sq_dna, c(A = TRUE, T = FALSE)),
+               "encoding must be either numeric of character vector")
+  expect_error(substitute_letters(sq_dna, list(G = mean, C = sum)))
+})
+
 # CORRECT RETURN VALUE ----
 test_that("substitute_letters() correctly computes value", {
   expect_equivalent(
@@ -59,6 +74,18 @@ test_that("substitute_letters() correctly computes value", {
     as.character(substitute_letters(sq_ami, c(P = "Q", O = "W", I = "E", U = "R", Y = "T", G = "V",
                                               L = "A", K = "S", J = "D", H = "F", M = "Z", N = "X", B = "C"))),
     str_ami
+  )
+})
+
+# COERCING NUMERIC VECTORS TO CHARACTERS ----
+test_that("substitute_letters() coerces numeric encodings to string vectors", {
+  expect_equivalent(
+    as.character(substitute_letters(sq_dna, c(T = 6))),
+    str_dna_num
+  )
+  expect_equivalent(
+    as.character(substitute_letters(sq_ami, c(P = 11, V = 22, E = 33, X = 6, B = 7))),
+    str_ami_num
   )
 })
 

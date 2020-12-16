@@ -1,8 +1,15 @@
 #pragma once
 
-#include "tidysq/Sequence.h"
-#include "tidysq/ProtoSequence.h"
 #include "tidysq/Alphabet.h"
+
+namespace tidysq {
+    template<typename INTERNAL, typename PROTO>
+    class ProtoSequence;
+
+    template<typename INTERNAL>
+    class Sequence;
+}
+
 
 namespace tidysq::util {
     inline LenSq calculate_packed_internal_length(const LenSq unpackedLength, const AlphSize &alph_size) {

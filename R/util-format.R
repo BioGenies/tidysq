@@ -1,3 +1,5 @@
+# TODO: issue #59
+
 #' @importFrom cli col_green
 #' @export
 format.sq <- function(x, ...,
@@ -37,8 +39,7 @@ format.encsq <- function(x, ...,
 format.pillar_shaft_sq <- function(x, width, ...) {
   if (width < attr(x, "min_width"))
     stop("need at least width ", attr(x, "min_width"), ", requested ", width, ".", call. = FALSE)
-  
-  # TODO: maybe get rid of those intermediate variables?
+
   lens <- attr(x, "lens")
   letters_sep <- attr(x, "letters_sep")
   body_color <- attr(x, "body_color")
@@ -99,7 +100,6 @@ pillar_shaft_sq <- function(x, letters_sep, NA_letter, body_color = identity, ma
 }
 
 choose_letters_sep <- function(letters_sep, alph) {
-  # TODO: find out what with encoded alphabet
   # \u00a0 is hard space
   if (!is.null(letters_sep)) letters_sep
   else if (is.numeric(alph)) "\u00a0"
@@ -136,6 +136,7 @@ precut_body_as_unpackeds <- function(x, print_width, letters_sep, NA_letter, bod
 
 #' @importFrom cli col_blue col_silver
 #' @importFrom crayon col_nchar
+#' @importFrom utils tail
 format_sequences_and_lengths <- function(x, lens, letters_sep, width, use_color) {
   lens_width <- max(nchar(lens)) + 2 # max width of length number
 

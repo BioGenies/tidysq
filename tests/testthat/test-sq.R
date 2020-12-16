@@ -53,6 +53,25 @@ test_that("sq() returns object with alphabet attribute that contains existing le
     alphabet(sq(str_unt, alphabet = "unt")),
     obtain_alphabet(str_unt)
   )
+  expect_setequal(
+    alphabet(sq(str_unt, alphabet = "unt", NA_letter = "?")),
+    obtain_alphabet(str_unt, NA_letter = "?")
+  )
+  # TODO: issue #64
+  #expect_setequal(
+  #  alphabet(sq(str_unt, alphabet = "unt", NA_letter = "(?)")),
+  #  obtain_alphabet(str_unt, NA_letter = "(?)")
+  #)
+})
+
+# ARGUMENT PREREQUISITES ----
+test_that("NA_letter argument must have at least one character", {
+  expect_error(sq(str_ami, "ami_ext", NA_letter = ""))
+})
+
+test_that("letters in atp alphabet must contain at least one character each", {
+  expect_error(sq(str_atp, alphabet = c(atp_alph, "")))
+  expect_error(sq(str_atp, alphabet = c("", atp_alph)))
 })
 
 # NA WHEN ACTUAL ALPHABET MISMATCHES ----
@@ -97,29 +116,8 @@ test_that("ignore_case parameter works correctly", {
   )
 })
 
-
-# REVERSING TO CHARACTER ----
-test_that("applying as.character() returns original character vector", {
-  expect_equivalent(
-    as.character(sq(str_dna, alphabet = "dna_bsc")),
-    str_dna
-  )
-  expect_equivalent(
-    as.character(sq(str_rna, alphabet = "rna_ext")),
-    str_rna
-  )
-  expect_equivalent(
-    as.character(sq(str_ami, alphabet = "ami_ext")),
-    str_ami
-  )
-  expect_equivalent(
-    as.character(sq(str_atp, alphabet = atp_alph)),
-    str_atp
-  )
-  expect_equivalent(
-    as.character(sq(str_unt, alphabet = "unt")),
-    str_unt
-  )
+test_that("ignore_case cannot be used with multicharacter alphabet", {
+  expect_error(sq(str_atp, alphabet = atp_alph, ignore_case = TRUE))
 })
 
 # TYPE GUESSING ----
@@ -130,4 +128,40 @@ test_that("sq() correctly guesses sq type", {
                    sq(str_rna))
   expect_identical(sq(str_ami, alphabet = "ami_ext"),
                    sq(str_ami))
+})
+
+# TYPE INTERPRETING ----
+test_that("sq() correctly interpetes alphabet parameter", {
+  expect_identical(sq(str_dna, "dna bsc"),
+                   sq(str_dna, "dna_bsc"))
+  expect_identical(sq(str_dna, "basic DNA"),
+                   sq(str_dna, "dna_bsc"))
+  expect_identical(sq(str_dna, "DNA EXT"),
+                   sq(str_dna, "dna_ext"))
+  expect_identical(sq(str_dna, "dna"),
+                   sq(str_dna, "dna_ext"))
+  expect_identical(sq(str_rna, "RNA bsc"),
+                   sq(str_rna, "rna_bsc"))
+  expect_identical(sq(str_rna, "Basic RNA"),
+                   sq(str_rna, "rna_bsc"))
+  expect_identical(sq(str_rna, "Rna"),
+                   sq(str_rna, "rna_ext"))
+  expect_identical(sq(str_rna, "Extended Rna"),
+                   sq(str_rna, "rna_ext"))
+  expect_identical(sq(str_ami, "bAsiC AmI"),
+                   sq(str_ami, "ami_bsc"))
+  expect_identical(sq(str_ami, "ami"),
+                   sq(str_ami, "ami_ext"))
+  expect_identical(sq(str_ami, "Aminoacids"),
+                   sq(str_ami, "ami_ext"))
+  expect_identical(sq(str_unt, "untyped"),
+                   sq(str_unt, "unt"))
+  expect_error(sq(str_atp, "atp"),
+               "When creating atp sq, alphabet should be vector of letters")
+  expect_error(sq(str_unt, "idk whatever"),
+               "Cannot interpret type for provided alphabet")
+  expect_error(sq(str_unt, " dna bsc"),
+               "Cannot interpret type for provided alphabet")
+  expect_error(sq(str_unt, " dna  bsc"),
+               "Cannot interpret type for provided alphabet")
 })

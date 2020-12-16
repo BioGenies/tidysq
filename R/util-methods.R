@@ -26,7 +26,6 @@
 #'
 #' @family output_functions
 #' @export
-# TODO: could we possibly delete this function?
 as.sq <- function(x, ...)
   UseMethod("as.sq")
 
@@ -115,14 +114,6 @@ as.matrix.sq <- function(x, ...) {
   max_len <- max(get_sq_lengths(x))
   ret <- do.call(rbind, lapply(unpack(x, "STRINGS"), function(row) row[1:max_len]))
   ret[ret == getOption("tidysq_NA_letter")] <- NA
-  ret
-}
-
-#' @rdname as.matrix.sq
-#' @export
-as.matrix.sq_enc <- function(x, ...) {
-  ret <- NextMethod()
-  storage.mode(ret) <- "numeric"
   ret
 }
 
@@ -264,7 +255,7 @@ is.sq_atp <- function(x)
 #' \code{`==`} returns logical vector, where each element describes whether
 #' elements at position \code{n} of both \code{e1} and \code{e2} are equal in
 #' meaning (that is, they may be represented differently, but their biological
-#' interpretation must be indentical). If one of compared objects is a scalar,
+#' interpretation must be identical). If one of compared objects is a scalar,
 #' then said logical vector describes comparison for each element of the other,
 #' longer vector.
 #'
@@ -406,7 +397,7 @@ NULL
 #' \code{character} objects into one larger \code{sq} object.
 #' 
 #' @param ... [\code{sq} || \code{character}]\cr
-#'  Multiple objects. For exact behaviour, check Details section. First argument
+#'  Multiple objects. For exact behavior, check Details section. First argument
 #'  must be of \code{sq} class due to R mechanism of single dispatch. If this is
 #'  a problem, recommended alternative is \code{\link[vctrs]{vec_c}} method from
 #'  \code{\link[vctrs]{vctrs-package}} package.
@@ -447,7 +438,7 @@ NULL
 #' \code{NA}.
 #'
 #' Due to R dispatch mechanism passing character vector as first will return
-#' class-less list. This behaviour is effectively impossible and definitely
+#' class-less list. This behavior is effectively impossible and definitely
 #' unrecommended to fix, as fixing it would involve changing \code{c} primitive.
 #' If such possibility is necessary, \code{\link[vctrs]{vec_c}} is a better
 #' alternative.

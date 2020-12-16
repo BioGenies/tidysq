@@ -1,3 +1,5 @@
+# TODO: issue #59
+
 #' @importFrom cli cli_text
 #' @export
 obj_print_header.sq <- function(x, ...) {

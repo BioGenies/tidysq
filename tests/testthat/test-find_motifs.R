@@ -1,142 +1,195 @@
 # SETUP ----
-sq_ami <- sq(c("AGNTYIB", "MATEGILI", "MIPADHICA"),
-             alphabet = "ami_ext")
-sq_dna <- sq(c("CTGAATGCAGT", "ATGCCGT", "CAGACCANN"),
-             alphabet = "dna_ext")
-sq_rna <- sq(c("UUACGACUU", "UUAAGCGC", "ACUAAGACCA"),
-             alphabet = "rna_bsc")
+sq_dna_bsc <- sq(c("TACTGGGCATG", "CAGGTCGGA", "TAGTAGTCCG", "", "ACGGT"),
+                 alphabet = "dna_bsc")
+sq_dna_ext <- sq(c("NARTYVTCY", "", "ATKCYGDD", "", "DNAKYTD"),
+                 alphabet = "dna_ext")
+sq_rna_ext <- sq(c("", "KBS-UVW-AWWWG", "YGHHH-", "-CRASH", "MND-KUUBV-MY-"),
+                 alphabet = "rna_ext")
+sq_ami_bsc <- sq(c("ACEH", "PASAI", "MALACCA", "SIAK"),
+                 alphabet = "ami_bsc")
+sq_unt <- sq(c("VIP01", "VIP02", "VIP04", "MISSING_ONE"),
+             alphabet = "unt")
+sq_atp <- sq(c("mAmYmY", "nbAnsAmA", ""),
+             alphabet = c("mA", "mY", "nbA", "nsA"))
 
-# TODO: make these tests as organized as the others
+# Names below are just chosen for extravagance, not political reasons
+names_5 <- c("Monza", "Imola", "Mugello", "Pescara", "Modena")
+names_4 <- c("gara", "zara", "zarete", "dira")
+names_3 <- c("naiz", "haiz", "da")
 
+N_interpretations <- c("A", "C", "G", "T", "K", "R", "Y", "W", "S", "M", "B", "D", "H", "V", "N")
 
-test_that("find_motifs detects correctly motif that is single unambiguous amino acid in sequences", {
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "A")[["start"]],
-               c(1, 2, 4, 9))
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "C")[["start"]],
-               8)
+# ERROR FOR NON-SQ OBJECTS ----
+test_that("find_motifs() throws an error whenever passed object of class other that sq", {
+  expect_error(find_motifs(1:5, names_5, "ACC"))
+  expect_error(find_motifs(LETTERS, letters, "H"))
+  expect_error(find_motifs(list(mean, sum, sd), names_3, "mean"))
 })
 
-test_that("find_motifs detects correctly motif that is single unambiguous DNA nucleotide in sequences", {
-  expect_equal(find_motifs(sq_dna, c("sq1", "sq2", "sq3"), "A")[["start"]],
-               c(4, 5, 9, 1, 2, 4, 7))
-  expect_equal(find_motifs(sq_dna, c("sq1", "sq2", "sq3"), "C")[["start"]],
-               c(1, 8, 4, 5, 1, 5, 6))
+# CORRECT PROTOTYPE OF RETURNED VALUE ----
+test_that("find_motifs() returns a tibble with columns specified in docs", {
+  expect_vector(find_motifs(sq_dna_bsc, names_5, "TAG"),
+                ptype = tibble::tibble(
+                  names = character(),
+                  found = vec_ptype(sq_dna_bsc),
+                  sought = character(),
+                  start = integer(),
+                  end = integer()
+                ))
+  expect_vector(find_motifs(sq_rna_ext, names_5, c("YNG", "CHK")),
+                ptype = tibble::tibble(
+                  names = character(),
+                  found = vec_ptype(sq_rna_ext),
+                  sought = character(),
+                  start = integer(),
+                  end = integer()
+                ))
+  expect_vector(find_motifs(sq_unt, names_4, "^VIP"),
+                ptype = tibble::tibble(
+                  names = character(),
+                  found = vec_ptype(sq_unt),
+                  sought = character(),
+                  start = integer(),
+                  end = integer()
+                ))
 })
 
-test_that("find_motifs detects correctly motif that is single unambiguous RNA nucleotide in sequences", {
-  expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), "A")[["start"]],
-               c(3, 6, 3, 4, 1, 4, 5, 7, 10))
-  expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), "C")[["start"]],
-               c(4, 7, 6, 8, 2, 8, 9))
+# ARGUMENT PREREQUISITES ----
+test_that("x must be an sq object", {
+  expect_error(find_motifs(list(5, LETTERS, mean), names_3, "TAG"),
+               "method 'find_motifs' isn't implemented for this type of object")
 })
 
-test_that("find_motifs detects correctly motif that is single ambiguous amino acid in sequences", {
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "B")[["start"]],
-               c(3, 7, 5))
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "J")[["start"]],
-               c(6, 6, 7, 8, 2, 7))
+test_that("name argument must contain unique elements", {
+  # There would be a test that the same code works with unique names, but
+  # it would involve creating separate expectation and we don't have to do that,
+  # as said code is already tested in prototype tests
+  expect_error(find_motifs(sq_dna_bsc,
+                           c("Monza", "Imola", "Mugello", "Monza", "Mugello"),
+                           "TAG"))
 })
 
-test_that("find_motifs detects correctly motif that is single ambiguous DNA nucleotide in sequences", {
-  expect_equal(find_motifs(sq_dna, c("sq1", "sq2", "sq3"), "W")[["start"]],
-               c(2, 4, 5, 6, 9, 11, 1, 2, 7, 2, 4, 7))
-  expect_equal(find_motifs(sq_dna, c("sq1", "sq2", "sq3"), "K")[["start"]],
-               c(2, 3, 6, 7, 10, 11, 2, 3, 6, 7, 3))
+test_that("^ cannot appear in any position other than first", {
+  expect_error(find_motifs(sq_dna_bsc, names_5, "T^A"))
+  expect_error(find_motifs(sq_unt, names_4, c("^VIP", "ONE^")))
 })
 
-test_that("find_motifs detects correctly motif that is single ambiguous RNA nucleotide in sequences", {
-  expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), "B")[["start"]],
-               c(1, 2, 4, 5, 7, 8, 9, 1, 2, 5, 6, 7, 8, 2, 3, 6, 8, 9))
-  expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), "Y")[["start"]],
-               c(1, 2, 4, 7, 8, 9, 1, 2, 6, 8, 2, 3, 8, 9))
+test_that("$ cannot appear in any position other than last", {
+  expect_error(find_motifs(sq_dna_bsc, names_5, "T$A"))
+  expect_error(find_motifs(sq_unt, names_4, c("^VIP", "$ONE")))
 })
 
-test_that("find_motifs detects correctly leading letters of amino acid sequences using '^'", {
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "^A")[["start"]],
-               1)
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "^M")[["start"]],
-               c(1, 1))
+# NAMES COLUMN ----
+test_that("'names' column contains only elements from vector passed to find_motifs()", {
+  expect_subset(find_motifs(sq_dna_bsc, names_5, "TAG")[["names"]],
+                names_5)
+  expect_subset(find_motifs(sq_rna_ext, names_5, c("YNG", "CHK"))[["names"]],
+                names_5)
+  expect_subset(find_motifs(sq_unt, names_4, "^VIP")[["names"]],
+                names_4)
 })
 
-test_that("find_motifs detects correctly leading letters of DNA nucleotide sequences using '^'", {
-  expect_equal(find_motifs(sq_dna, c("sq1", "sq2", "sq3"), "^C")[["start"]],
-               c(1, 1))
-  expect_equal(find_motifs(sq_dna, c("sq1", "sq2", "sq3"), "^A")[["start"]],
-               1)
+# SOUGHT COLUMN ----
+test_that("'sought' column contains a subset of searched motifs", {
+  expect_subset(find_motifs(sq_dna_bsc, names_5, "TAG")[["sought"]],
+                "TAG")
+  expect_subset(find_motifs(sq_dna_ext, names_5, "NND$")[["sought"]],
+                "NND$")
+  expect_subset(find_motifs(sq_ami_bsc, names_4, c("AC", "AI", "AH"))[["sought"]],
+                c("AC", "AI", "AH"))
+  expect_subset(find_motifs(sq_rna_ext, names_5, c("YNG", "CHK"))[["sought"]],
+                c("YNG", "CHK"))
+  expect_subset(find_motifs(sq_unt, names_4, "^VIP")[["sought"]],
+                "^VIP")
 })
 
-test_that("find_motifs detects correctly leading letters of RNA nucleotide sequences using '^'", {
-  expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), "^C")[["start"]],
-               numeric(0))
-  expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), "^A")[["start"]],
-               1)
-  expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), "^UU")[["start"]],
-               c(1, 1))
+# FOUND COLUMN ----
+test_that("'found' column contains sequences that are subset of searched simple motifs", {
+  expect_subset(as.character(find_motifs(sq_dna_bsc, names_5, "TAG")[["found"]]),
+                "TAG")
+  expect_subset(as.character(find_motifs(sq_rna_ext, names_5, "AU")[["found"]]),
+                "AU")
+  expect_subset(as.character(find_motifs(sq_ami_bsc, names_4, c("AC", "AI", "AH"))[["found"]]),
+                c("AC", "AI", "AH"))
+  expect_subset(as.character(find_motifs(sq_unt, names_4, c("OUGH", "VIP"))[["found"]]),
+                c("OUGH", "VIP"))
 })
 
-test_that("find_motifs detects correctly letters at the end of amino acid sequences using '$'", {
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "B$")[["start"]],
-               7)
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "I$")[["start"]],
-               8)
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "A$")[["start"]],
-               9)
+test_that("special characters are not included in 'found' column", {
+  expect_subset(as.character(find_motifs(sq_dna_bsc, names_5, "G$")[["found"]]),
+                "G")
+  expect_subset(as.character(find_motifs(sq_unt, names_4, c("^VIP", "ONE$", "_"))[["found"]]),
+                c("VIP", "ONE", "_"))
 })
 
-test_that("find_motifs detects correctly letters at the end of DNA nucleotide sequences using '$'", {
-  expect_equal(find_motifs(sq_dna, c("sq1", "sq2", "sq3"), "T$")[["start"]],
-               c(11, 7))
-  expect_equal(find_motifs(sq_dna, c("sq1", "sq2", "sq3"), "N$")[["start"]],
-               c(11, 7, 9))
+test_that("'found' column can contain any interpretation of an ambiguous motif", {
+  expect_subset(as.character(find_motifs(sq_dna_bsc, names_5, "ANT")[["found"]]),
+                paste0("A", N_interpretations, "T"))
+  expect_subset(as.character(find_motifs(sq_ami_bsc, names_4, c("XAI", "CX"))[["found"]]),
+                c(paste0(LETTERS, "AI"), paste0("C", LETTERS)))
 })
 
-test_that("find_motifs detects correctly letters at the end of RNA nucleotide sequences using '$'", {
-  expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), "D$")[["start"]],
-               c(9, 10))
-  expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), "C$")[["start"]],
-               8)
+test_that("'found' column can handle both special characters and ambiguous letters at once", {
+  expect_subset(as.character(find_motifs(sq_ami_bsc, names_4, "^XA")[["found"]]),
+                paste0(LETTERS, "A"))
 })
 
-test_that("find_motifs detects correctly multiple-letter motifs in amino acid sequences", {
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "TY")[["start"]],
-               4)
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "PAD")[["start"]],
-               3)
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "GILI")[["start"]],
-               5)
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), "RARARARA")[["start"]],
-               numeric(0))
+# INDEX COLUMNS ----
+test_that("'start' and 'end' columns have values between 1 and length(sequence)", {
+  sqibble_1 <- find_motifs(sq_dna_bsc, names_5, "TAG")
+  sqibble_1[["found_length"]] <- get_sq_lengths(sqibble_1[["found"]])
+  purrr::pwalk(sqibble_1, function(names, sought, found, start, end, found_length) {
+    sequence_length <- get_sq_lengths(sq_dna_bsc)[which(names == names_5)]
+    expect_gte(start, 1)
+    expect_gte(end - found_length + 1, 1)
+    expect_lte(start + found_length - sequence_length, 1)
+    expect_lte(end - sequence_length + 1, 1)
+  })
+
+  sqibble_2 <- find_motifs(sq_unt, names_4, c("^VIP", "ONE$", "_"))
+  sqibble_2[["found_length"]] <- get_sq_lengths(sqibble_2[["found"]])
+  purrr::pwalk(sqibble_2, function(names, sought, found, start, end, found_length) {
+    sequence_length <- get_sq_lengths(sq_unt)[which(names == names_4)]
+    expect_gte(start, 1)
+    expect_gte(end - found_length + 1, 1)
+    expect_lte(start + found_length - sequence_length, 1)
+    expect_lte(end - sequence_length + 1, 1)
+  })
+
+  sqibble_3 <- find_motifs(sq_ami_bsc, names_4, c("XAI", "CX"))
+  sqibble_3[["found_length"]] <- get_sq_lengths(sqibble_3[["found"]])
+  purrr::pwalk(sqibble_3, function(names, sought, found, start, end, found_length) {
+    sequence_length <- get_sq_lengths(sq_ami_bsc)[which(names == names_4)]
+    expect_gte(start, 1)
+    expect_gte(end - found_length + 1, 1)
+    expect_lte(start + found_length - sequence_length, 1)
+    expect_lte(end - sequence_length + 1, 1)
+  })
 })
 
-test_that("find_motifs detects correctly multiple-letter motifs in nucleotide sequences", {
-  expect_equal(find_motifs(sq_dna, c("sq1", "sq2", "sq3"), "CA")[["start"]],
-               c(8, 1, 6))
-  expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), "NCA")[["start"]],
-               8)
-  expect_equal(find_motifs(sq_dna, c("sq1", "sq2", "sq3"), "GAAT")[["start"]],
-               3)
-  expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), "RARARARA")[["start"]],
-               numeric(0))
+test_that("index columns can be used to retrieve found subsequence from original sequence", {
+  purrr::pwalk(find_motifs(sq_dna_bsc, names_5, "TAG"), function(names, sought, found, start, end) {
+    expect_identical(
+      bite(sq_dna_bsc[which(names == names_5)], start:end)[[1]],
+      found
+    )
+  })
+  purrr::pwalk(find_motifs(sq_ami_bsc, names_4, c("XAI", "CX")), function(names, sought, found, start, end) {
+    expect_identical(
+      bite(sq_ami_bsc[which(names == names_4)], start:end)[[1]],
+      found
+    )
+  })
+  purrr::pwalk(find_motifs(sq_unt, names_4, c("^VIP", "ONE$", "_")), function(names, sought, found, start, end) {
+    expect_identical(
+      bite(sq_unt[which(names == names_4)], start:end)[[1]],
+      found
+    )
+  })
 })
 
-test_that("find_motifs detects correctly multiple motifs in amino acid sequences", {
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), c("TY", "TYM"))[["start"]],
-               4)
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), c("PAD", "TY", "GILI"))[["start"]],
-               c(3, 4, 5))
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), c("GILI", "PAD"))[["start"]],
-               c(5, 3))
-  expect_equal(find_motifs(sq_ami, c("sq1", "sq2", "sq3"), c("RARARARA", "GILI"))[["start"]],
-               5)
-})
-
-test_that("find_motifs detects correctly multiple motifs in nucleotide sequences", {
-  expect_equal(find_motifs(sq_dna, c("sq1", "sq2", "sq3"), c("CA", "CAN"))[["start"]],
-               c(8, 1, 6, 8, 1, 6))
-  expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), c("CAN", "BRA"))[["start"]],
-               c(4, 2, 3))
-  expect_equal(find_motifs(sq_dna, c("sq1", "sq2", "sq3"), c("GAAT", "CAN"))[["start"]],
-               c(3, 8, 1, 6))
-  expect_equal(find_motifs(sq_rna, c("sq1", "sq2", "sq3"), c("RARARARA", "BYBYBYBYBYBY"))[["start"]],
-               numeric(0))
+# HANDLING MULTICHARACTER LETTERS ----
+# TODO: issue #61
+test_that("find_motifs() throws an error when there are multicharacter letters in alphabet", {
+  expect_error(find_motifs(sq_atp, names_3, "mYmY"))
 })

@@ -30,7 +30,7 @@ A string that is used to interpret and display \code{NA} value in the
 context of \code{\link[=sq-class]{sq class}}. Default value equals to
 "\code{!}".}
 
-\item{on_warning}{[\code{"none" || "message" || "warning" || "error"}]\cr
+\item{on_warning}{[\code{"silent" || "message" || "warning" || "error"}]\cr
 Determines the method of handling warning message. Default value is
 \code{"warning"}.}
 }
@@ -49,7 +49,7 @@ sequences at once.
 By passing positive indices the user can choose, which elements they want
 from each sequence. If a sequence is shorter than an index, then \code{NA}
 value is inserted into the result in this place and a warning is issued.
-The user can specify behaviour of R in this case by specifying
+The user can specify behavior of R in this case by specifying
 \code{on_warning} parameter.
 
 Negative indices are supported as well. Their interpretation is "to select
