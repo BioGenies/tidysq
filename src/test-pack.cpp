@@ -1,9 +1,15 @@
-#include <Rcpp.h>
 #include <testthat.h>
 
 #include "tidysq.h"
 
 using namespace tidysq;
+
+void test_unpack_std_ints(Rcpp::List sq_p) {
+    auto sq = import_from_R(sq_p); // sequences to Rcpp::List
+    const auto &sqAlphabet = sq.alphabet();
+    auto sqUnpackedInts = sq.unpack<STD_IT, INTS_PT>(0, 2);
+}
+
 
 template<typename PROTO>
 void test_pack_RCPP_IT(const std::vector<typename TypeBinder<RCPP_IT, PROTO>::ProtoSequenceContentStorageType> &proto, const Alphabet &alphabet) {
@@ -146,6 +152,18 @@ context("test_packing") {
                                ProtoSequence<STD_IT, STRING_PT>("mA"),
                                ProtoSequence<STD_IT, STRING_PT>("")
                               }, Alphabet(std::vector<Letter>{"A", "mA", "L", "J"}, "?"));
-    }
 
+
+        test_that("unpacking RCPP_IT to STD_IT INTS") {
+            ProtoSq<STD_IT, STRING_PT> proto({
+                ProtoSequence<STD_IT, STRING_PT> ("GAGAT"),
+                ProtoSequence<STD_IT, STRING_PT> ("AGATA"),
+                ProtoSequence<STD_IT, STRING_PT> ("TAAAAAAA"),
+                ProtoSequence<STD_IT, STRING_PT> ("")
+                }, Alphabet(DNA_BSC)
+            );
+            test_unpack_std_ints(export_to_R(proto.pack<RCPP_IT>()));
+        }
+
+    }
 }
