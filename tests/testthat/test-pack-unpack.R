@@ -39,37 +39,15 @@ sq_atp_6 <- sq(c("P**fobqoiV", "", "ZMg**pq", "FUbsmgh", "i**", "DDG", "goSI",
                  "VbuG**"),
                alphabet = c(LETTERS, letters, "**"))
 
+all_sq <- list(sq_dna_bsc, sq_dna_ext, sq_rna_bsc, sq_rna_ext, sq_ami_bsc, sq_ami_ext,
+               sq_unt_2, sq_unt_4, sq_unt_6,
+               sq_atp_2, sq_atp_3, sq_atp_4, sq_atp_5, sq_atp_6)
+
 local_test_pack_unpack <- function(unpack_format) {
-  expect_identical(pack(unpack(sq_dna_bsc, unpack_format), alphabet(sq_dna_bsc)),
-                   sq_dna_bsc)
-  expect_identical(pack(unpack(sq_dna_ext, unpack_format), alphabet(sq_dna_ext)),
-                   sq_dna_ext)
-  expect_identical(pack(unpack(sq_rna_bsc, unpack_format), alphabet(sq_rna_bsc)),
-                   sq_rna_bsc)
-  expect_identical(pack(unpack(sq_rna_ext, unpack_format), alphabet(sq_rna_ext)),
-                   sq_rna_ext)
-  expect_identical(pack(unpack(sq_ami_bsc, unpack_format), alphabet(sq_ami_bsc)),
-                   sq_ami_bsc)
-  expect_identical(pack(unpack(sq_ami_ext, unpack_format), alphabet(sq_ami_ext)),
-                   sq_ami_ext)
-
-  expect_identical(pack(unpack(sq_unt_2, unpack_format), alphabet(sq_unt_2)),
-                   sq_unt_2)
-  expect_identical(pack(unpack(sq_unt_4, unpack_format), alphabet(sq_unt_4)),
-                   sq_unt_4)
-  expect_identical(pack(unpack(sq_unt_6, unpack_format), alphabet(sq_unt_6)),
-                   sq_unt_6)
-
-  expect_identical(pack(unpack(sq_atp_2, unpack_format), alphabet(sq_atp_2)),
-                   sq_atp_2)
-  expect_identical(pack(unpack(sq_atp_3, unpack_format), alphabet(sq_atp_3)),
-                   sq_atp_3)
-  expect_identical(pack(unpack(sq_atp_4, unpack_format), alphabet(sq_atp_4)),
-                   sq_atp_4)
-  expect_identical(pack(unpack(sq_atp_5, unpack_format), alphabet(sq_atp_5)),
-                   sq_atp_5)
-  expect_identical(pack(unpack(sq_atp_6, unpack_format), alphabet(sq_atp_6)),
-                   sq_atp_6)
+  for (sq_xxx in all_sq) {
+    expect_identical(pack(unpack(sq_xxx, unpack_format), alphabet(sq_xxx)),
+                     sq_xxx)
+  }
 }
 
 # PACK-UNPACK COMPATIBILITY ----
