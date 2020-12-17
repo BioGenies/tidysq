@@ -63,13 +63,23 @@ namespace tidysq {
             return !operator==(other);
         }
 
-        inline ProtoSequence<INTERNAL, PROTO>& operator+=(const Letter &letter) {
-            throw std::exception();
+        template<bool ENABLED = std::is_same_v<PROTO, STRING_PT>>
+        inline ProtoSequence<INTERNAL, PROTO>& operator+=(std::enable_if_t<ENABLED, const Letter &> letter) {
+            content_ += letter;
+            return *this;
         }
 
-        inline ProtoSequence<INTERNAL, PROTO>& operator+=(const SimpleLetter &letter) {
-            throw std::exception();
+        template<bool ENABLED = std::is_same_v<PROTO, STRING_PT>>
+        inline ProtoSequence<INTERNAL, PROTO>& operator+=(std::enable_if_t<!ENABLED, const Letter &> letter) {}
+
+        template<bool ENABLED = std::is_same_v<PROTO, STRING_PT>>
+        inline ProtoSequence<INTERNAL, PROTO>& operator+=(std::enable_if_t<ENABLED, const SimpleLetter &> letter) {
+            content_ += letter;
+            return *this;
         }
+
+        template<bool ENABLED = std::is_same_v<PROTO, STRING_PT>>
+        inline ProtoSequence<INTERNAL, PROTO>& operator+=(std::enable_if_t<!ENABLED, const SimpleLetter &> letter) {}
 
         template<bool SIMPLE>
         inline ProtoSequenceInputInterpreter<INTERNAL, PROTO, SIMPLE> content_interpreter(const Alphabet &alphabet) const {
@@ -84,31 +94,6 @@ namespace tidysq {
     template<>
     inline ProtoSequence<RCPP_IT, STRING_PT>::ProtoSequence(const LenSq length) :
             ProtoSequence(ContentStorageType(length, ' ')) {}
-
-
-    template<>
-    inline ProtoSequence<RCPP_IT, STRING_PT>& ProtoSequence<RCPP_IT, STRING_PT>::operator+=(const Letter &letter) {
-        content_ += letter;
-        return *this;
-    }
-
-    template<>
-    inline ProtoSequence<STD_IT, STRING_PT>& ProtoSequence<STD_IT, STRING_PT>::operator+=(const Letter &letter) {
-        content_ += letter;
-        return *this;
-    }
-
-    template<>
-    inline ProtoSequence<RCPP_IT, STRING_PT>& ProtoSequence<RCPP_IT, STRING_PT>::operator+=(const SimpleLetter &letter) {
-        content_ += letter;
-        return *this;
-    }
-
-    template<>
-    inline ProtoSequence<STD_IT, STRING_PT>& ProtoSequence<STD_IT, STRING_PT>::operator+=(const SimpleLetter &letter) {
-        content_ += letter;
-        return *this;
-    }
 
     template<>
     inline bool ProtoSequence<RCPP_IT, RAWS_PT>::operator==(const ProtoSequence<RCPP_IT, RAWS_PT> &other) const {
