@@ -58,7 +58,7 @@ namespace tidysq {
             content_.push_back(sequence);
         }
 
-        inline bool operator==(const Sq<INTERNAL> &other) {
+        inline bool operator==(const Sq<INTERNAL> &other) const {
             if ((alphabet_ != other.alphabet_) || (content_.size() != other.content_.size())) return false;
             for (LenSq i = 0; i < content_.size(); i++) {
                 if ((*this)[i] != other[i]) return false;
@@ -66,7 +66,7 @@ namespace tidysq {
             return true;
         }
 
-        inline bool operator!=(const Sq<INTERNAL> &other) {
+        inline bool operator!=(const Sq<INTERNAL> &other) const {
             return !operator==(other);
         }
 
