@@ -396,7 +396,9 @@ namespace tidysq::internal {
                 unpack_multichar_string_6(packed, unpacked, alphabet);
                 return;
             default:
-                throw std::invalid_argument("\"alphabet\" has bad alphabet size");
+                throw std::invalid_argument(std::string("\"alphabet\" has invalid alphabet size - it is ") +
+                                              std::to_string(alphabet.alphabet_size()) +
+                                              " but it should be between 2 and 6 inclusive");
         }
     }
 }
