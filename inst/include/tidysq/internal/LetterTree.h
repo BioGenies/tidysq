@@ -21,7 +21,10 @@ namespace tidysq::internal {
 
         inline LetterNode &match_or_insert(const char &character, const LetterValue &NA_value) {
             LetterNode &ret = further_nodes_[character];
-            if (ret.def_init_) ret.value_ = NA_value;
+            if (ret.def_init_) {
+                ret.value_ = NA_value;
+                ret.def_init_ = false;
+            }
             return ret;
         }
 
