@@ -39,135 +39,30 @@ sq_atp_6 <- sq(c("P**fobqoiV", "", "ZMg**pq", "FUbsmgh", "i**", "DDG", "goSI",
                  "VbuG**"),
                alphabet = c(LETTERS, letters, "**"))
 
+all_sq <- list(sq_dna_bsc, sq_dna_ext, sq_rna_bsc, sq_rna_ext, sq_ami_bsc, sq_ami_ext,
+               sq_unt_2, sq_unt_4, sq_unt_6,
+               sq_atp_2, sq_atp_3, sq_atp_4, sq_atp_5, sq_atp_6)
+
+local_test_pack_unpack <- function(unpack_format) {
+  for (sq_xxx in all_sq) {
+    expect_identical(pack(unpack(sq_xxx, unpack_format), alphabet(sq_xxx)),
+                     sq_xxx)
+  }
+}
+
 # PACK-UNPACK COMPATIBILITY ----
 test_that("unpacking and packing returns original sq object for STRING", {
-  expect_identical(pack(unpack(sq_dna_bsc, "STRING"), alphabet(sq_dna_bsc)),
-                   sq_dna_bsc)
-  expect_identical(pack(unpack(sq_dna_ext, "STRING"), alphabet(sq_dna_ext)),
-                   sq_dna_ext)
-  expect_identical(pack(unpack(sq_rna_bsc, "STRING"), alphabet(sq_rna_bsc)),
-                   sq_rna_bsc)
-  expect_identical(pack(unpack(sq_rna_ext, "STRING"), alphabet(sq_rna_ext)),
-                   sq_rna_ext)
-  expect_identical(pack(unpack(sq_ami_bsc, "STRING"), alphabet(sq_ami_bsc)),
-                   sq_ami_bsc)
-  expect_identical(pack(unpack(sq_ami_ext, "STRING"), alphabet(sq_ami_ext)),
-                   sq_ami_ext)
-
-  expect_identical(pack(unpack(sq_unt_2, "STRING"), alphabet(sq_unt_2)),
-                   sq_unt_2)
-  expect_identical(pack(unpack(sq_unt_4, "STRING"), alphabet(sq_unt_4)),
-                   sq_unt_4)
-  expect_identical(pack(unpack(sq_unt_6, "STRING"), alphabet(sq_unt_6)),
-                   sq_unt_6)
-
-  expect_identical(pack(unpack(sq_atp_2, "STRING"), alphabet(sq_atp_2)),
-                   sq_atp_2)
-  expect_identical(pack(unpack(sq_atp_3, "STRING"), alphabet(sq_atp_3)),
-                   sq_atp_3)
-  expect_identical(pack(unpack(sq_atp_4, "STRING"), alphabet(sq_atp_4)),
-                   sq_atp_4)
-  expect_identical(pack(unpack(sq_atp_5, "STRING"), alphabet(sq_atp_5)),
-                   sq_atp_5)
-  expect_identical(pack(unpack(sq_atp_6, "STRING"), alphabet(sq_atp_6)),
-                   sq_atp_6)
+  local_test_pack_unpack("STRING")
 })
 
 test_that("unpacking and packing returns original sq object for STRINGS", {
-  expect_identical(pack(unpack(sq_dna_bsc, "STRINGS"), alphabet(sq_dna_bsc)),
-                   sq_dna_bsc)
-  expect_identical(pack(unpack(sq_dna_ext, "STRINGS"), alphabet(sq_dna_ext)),
-                   sq_dna_ext)
-  expect_identical(pack(unpack(sq_rna_bsc, "STRINGS"), alphabet(sq_rna_bsc)),
-                   sq_rna_bsc)
-  expect_identical(pack(unpack(sq_rna_ext, "STRINGS"), alphabet(sq_rna_ext)),
-                   sq_rna_ext)
-  expect_identical(pack(unpack(sq_ami_bsc, "STRINGS"), alphabet(sq_ami_bsc)),
-                   sq_ami_bsc)
-  expect_identical(pack(unpack(sq_ami_ext, "STRINGS"), alphabet(sq_ami_ext)),
-                   sq_ami_ext)
-
-  expect_identical(pack(unpack(sq_unt_2, "STRINGS"), alphabet(sq_unt_2)),
-                   sq_unt_2)
-  expect_identical(pack(unpack(sq_unt_4, "STRINGS"), alphabet(sq_unt_4)),
-                   sq_unt_4)
-  expect_identical(pack(unpack(sq_unt_6, "STRINGS"), alphabet(sq_unt_6)),
-                   sq_unt_6)
-
-  expect_identical(pack(unpack(sq_atp_2, "STRINGS"), alphabet(sq_atp_2)),
-                   sq_atp_2)
-  expect_identical(pack(unpack(sq_atp_3, "STRINGS"), alphabet(sq_atp_3)),
-                   sq_atp_3)
-  expect_identical(pack(unpack(sq_atp_4, "STRINGS"), alphabet(sq_atp_4)),
-                   sq_atp_4)
-  expect_identical(pack(unpack(sq_atp_5, "STRINGS"), alphabet(sq_atp_5)),
-                   sq_atp_5)
-  expect_identical(pack(unpack(sq_atp_6, "STRINGS"), alphabet(sq_atp_6)),
-                   sq_atp_6)
+  local_test_pack_unpack("STRINGS")
 })
 
 test_that("unpacking and packing returns original sq object for RAWS", {
-  expect_identical(pack(unpack(sq_dna_bsc, "RAWS"), alphabet(sq_dna_bsc)),
-                   sq_dna_bsc)
-  expect_identical(pack(unpack(sq_dna_ext, "RAWS"), alphabet(sq_dna_ext)),
-                   sq_dna_ext)
-  expect_identical(pack(unpack(sq_rna_bsc, "RAWS"), alphabet(sq_rna_bsc)),
-                   sq_rna_bsc)
-  expect_identical(pack(unpack(sq_rna_ext, "RAWS"), alphabet(sq_rna_ext)),
-                   sq_rna_ext)
-  expect_identical(pack(unpack(sq_ami_bsc, "RAWS"), alphabet(sq_ami_bsc)),
-                   sq_ami_bsc)
-  expect_identical(pack(unpack(sq_ami_ext, "RAWS"), alphabet(sq_ami_ext)),
-                   sq_ami_ext)
-
-  expect_identical(pack(unpack(sq_unt_2, "RAWS"), alphabet(sq_unt_2)),
-                   sq_unt_2)
-  expect_identical(pack(unpack(sq_unt_4, "RAWS"), alphabet(sq_unt_4)),
-                   sq_unt_4)
-  expect_identical(pack(unpack(sq_unt_6, "RAWS"), alphabet(sq_unt_6)),
-                   sq_unt_6)
-
-  expect_identical(pack(unpack(sq_atp_2, "RAWS"), alphabet(sq_atp_2)),
-                   sq_atp_2)
-  expect_identical(pack(unpack(sq_atp_3, "RAWS"), alphabet(sq_atp_3)),
-                   sq_atp_3)
-  expect_identical(pack(unpack(sq_atp_4, "RAWS"), alphabet(sq_atp_4)),
-                   sq_atp_4)
-  expect_identical(pack(unpack(sq_atp_5, "RAWS"), alphabet(sq_atp_5)),
-                   sq_atp_5)
-  expect_identical(pack(unpack(sq_atp_6, "RAWS"), alphabet(sq_atp_6)),
-                   sq_atp_6)
+  local_test_pack_unpack("RAWS")
 })
 
 test_that("unpacking and packing returns original sq object for INTS", {
-  expect_identical(pack(unpack(sq_dna_bsc, "INTS"), alphabet(sq_dna_bsc)),
-                   sq_dna_bsc)
-  expect_identical(pack(unpack(sq_dna_ext, "INTS"), alphabet(sq_dna_ext)),
-                   sq_dna_ext)
-  expect_identical(pack(unpack(sq_rna_bsc, "INTS"), alphabet(sq_rna_bsc)),
-                   sq_rna_bsc)
-  expect_identical(pack(unpack(sq_rna_ext, "INTS"), alphabet(sq_rna_ext)),
-                   sq_rna_ext)
-  expect_identical(pack(unpack(sq_ami_bsc, "INTS"), alphabet(sq_ami_bsc)),
-                   sq_ami_bsc)
-  expect_identical(pack(unpack(sq_ami_ext, "INTS"), alphabet(sq_ami_ext)),
-                   sq_ami_ext)
-
-  expect_identical(pack(unpack(sq_unt_2, "INTS"), alphabet(sq_unt_2)),
-                   sq_unt_2)
-  expect_identical(pack(unpack(sq_unt_4, "INTS"), alphabet(sq_unt_4)),
-                   sq_unt_4)
-  expect_identical(pack(unpack(sq_unt_6, "INTS"), alphabet(sq_unt_6)),
-                   sq_unt_6)
-
-  expect_identical(pack(unpack(sq_atp_2, "INTS"), alphabet(sq_atp_2)),
-                   sq_atp_2)
-  expect_identical(pack(unpack(sq_atp_3, "INTS"), alphabet(sq_atp_3)),
-                   sq_atp_3)
-  expect_identical(pack(unpack(sq_atp_4, "INTS"), alphabet(sq_atp_4)),
-                   sq_atp_4)
-  expect_identical(pack(unpack(sq_atp_5, "INTS"), alphabet(sq_atp_5)),
-                   sq_atp_5)
-  expect_identical(pack(unpack(sq_atp_6, "INTS"), alphabet(sq_atp_6)),
-                   sq_atp_6)
+  local_test_pack_unpack("INTS")
 })

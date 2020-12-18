@@ -44,7 +44,11 @@ str_with_na_1 <- c("!A!T!!TC!", "", "AT!C!G!!", "", "!!A!!T!")
 str_with_na_2 <- c("?A?T??TC?", "", "AT?C?G??", "", "??A??T?")
 str_with_na_3 <- c("<?>A<?>T<?><?>TC<?>", "", "AT<?>C<?>G<?><?>", "", "<?><?>A<?><?>T<?>")
 
-biostr_dna_bsc <- Biostrings::DNAStringSet(str_dna_bsc)
+# added because of Biostrings warning
+suppressWarnings({
+  biostr_dna_bsc <- Biostrings::DNAStringSet(str_dna_bsc)
+})
+
 seqinr_ami_bsc <- lapply(str_ami_bsc, function(x)
   seqinr::as.SeqFastaAA(seqinr::s2c(x)))
 
