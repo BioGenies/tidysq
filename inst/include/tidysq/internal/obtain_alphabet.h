@@ -25,23 +25,17 @@ namespace tidysq::internal {
             ProtoSequence<INTERNAL, STRING_PT> sequence((std::string(*iter)));
             auto interpreter = sequence.template content_interpreter<SIMPLE>(Alphabet(std::vector<Letter>{}, NA_letter));
             while (already_read < sample_size && !interpreter.reached_end()) {
-                letters.insert(wrap_to_letter(interpreter.get_next_element()));
+                Letter letter = wrap_to_letter(interpreter.get_next_element());
+                if (ignore_case && !isupper(letter[0])) {
+                    letter[0] = std::toupper(letter[0]);
+                }
+                letters.insert(letter);
                 already_read += 1;
             }
             iter++;
         }
 
         letters.erase(NA_letter);
-        if (ignore_case) {
-            std::set<Letter> letters_to_erase = {};
-            for (const auto &letter : letters) {
-                if (isalpha(letter[0]) && !isupper(letter[0]))
-                    letters_to_erase.insert(letter);
-            }
-            for (const auto &letter : letters_to_erase) {
-                letters.erase(letter);
-            }
-        }
         return letters;
     }
 }

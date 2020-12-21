@@ -107,13 +107,24 @@ test_that("type set as untyped when in safe mode and alphabet mismatches", {
 # IGNORE CASE ----
 test_that("ignore_case parameter works correctly", {
   expect_equal(
-    sq(str_dna, ignore_case = TRUE),
+    sq(str_dna_ic, ignore_case = TRUE),
     sq(str_dna, ignore_case = FALSE)
   )
   expect_equal(
-    sq(str_dna, "dna_bsc", ignore_case = TRUE),
+    sq(str_dna_ic, "dna_bsc", ignore_case = TRUE),
     sq(str_dna, "dna_bsc", ignore_case = FALSE)
   )
+  expect_equal(
+    sq(str_unt, ignore_case = TRUE),
+    sq(toupper(str_unt), ignore_case = FALSE)
+  )
+})
+
+test_that("ignore_case = TRUE returns alphabet with no lowercase letters", {
+  expect_character(alphabet(sq(str_dna_ic, ignore_case = TRUE)),
+                   pattern = "[^a-z]+")
+  expect_character(alphabet(sq(str_unt, ignore_case = TRUE)),
+                   pattern = "[^a-z]+")
 })
 
 test_that("ignore_case cannot be used with multicharacter alphabet", {
