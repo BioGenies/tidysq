@@ -54,6 +54,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/advanced-alphabet.html">Advanced alphabet techniques</a>
+    </li>
+    <li>
       <a href="../articles/quick-start.html">Quick Start</a>
     </li>
   </ul>
@@ -94,9 +97,9 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># devtools::install_github("BioGenies/tidysq")</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/michbur/tidysq">tidysq</a></span><span class="op">)</span></code></pre></div>
-<div id="sequence-creation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#sequence-creation" class="anchor"></a>Sequence creation</h1>
+<div id="sequence-creation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#sequence-creation" class="anchor"></a>Sequence creation</h2>
 <p>Biological sequences can be and often are represented as strings – sequences of letters. For example, a DNA sequence can take the form of <code>"TAGGCCCTAGACCTG"</code>, where <code>A</code> means adenine, <code>C</code> – cytosine, <code>G</code> – guanine and <code>T</code> – thymine. Exact IUPAC recommendations for one-letter codes can be found <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC341218/">here</a>.</p>
 <p>Within <code>tidysq</code> package sequence data is stored in <code>sq</code> objects, that is, vectors of biological sequences. They can be created from string vectors as above:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -107,9 +110,9 @@
 <span class="co">#&gt; [2] TAGGCCCTGGGCATG                                                         &lt;15&gt;</span></code></pre></div>
 <p>There are several thing to note. First, each sequence is an element of <code>sq</code> object. Many operations are vectorized — they are applied to all sequences of a vector — and <code>sq</code> objects are no different in this regard. Second, the first line of output says: <code>basic DNA sequences list</code>. This means that all sequences of this object are of DNA type and do not use ambiguous letters (more about that in “Advanced alphabet techniques” vignette).</p>
 </div>
-<div id="subsequencing" class="section level1">
-<h1 class="hasAnchor">
-<a href="#subsequencing" class="anchor"></a>Subsequencing</h1>
+<div id="subsequencing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#subsequencing" class="anchor"></a>Subsequencing</h2>
 <p>Manipulating sequence objects is an integral part of <code>tidysq</code>. <code>sq</code> objects can be easily subsetted using usual R syntax:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sq_dna</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
@@ -154,9 +157,9 @@
 <span class="co">#&gt; [3] GTCCAGATCCCGGAT                                                         &lt;15&gt;</span>
 <span class="co">#&gt; [4] GTACGGGTCCCGGAT                                                         &lt;15&gt;</span></code></pre></div>
 </div>
-<div id="biological-interpretation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#biological-interpretation" class="anchor"></a>Biological interpretation</h1>
+<div id="biological-interpretation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#biological-interpretation" class="anchor"></a>Biological interpretation</h2>
 <p><code>tidysq</code> offers two functions specific to DNA/RNA sequences, namely <code><a href="../reference/complement.html">complement()</a></code> and <code><a href="../reference/translate.html">translate()</a></code>. The former creates sequences with complementary bases, that is, replaces <code>A</code> with <code>T</code>, <code>C</code> with <code>G</code> and <em>vice versa</em>. The latter translates input to amino acid sequences using <a href="https://en.wikipedia.org/wiki/DNA_and_RNA_codon_tables">the translation table with three-letter codons</a>.</p>
 <p>These functions can be called as shown below:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -181,9 +184,9 @@
 <span class="co">#&gt; [3] VQIPD                                                                    &lt;5&gt;</span>
 <span class="co">#&gt; [4] VRVPD                                                                    &lt;5&gt;</span></code></pre></div>
 </div>
-<div id="finding-motifs" class="section level1">
-<h1 class="hasAnchor">
-<a href="#finding-motifs" class="anchor"></a>Finding motifs</h1>
+<div id="finding-motifs" class="section level2">
+<h2 class="hasAnchor">
+<a href="#finding-motifs" class="anchor"></a>Finding motifs</h2>
 <p>Motifs are short subsequences. These are often searched for in biological sequences. <code>tidysq</code> has two distinct functions that allow the user to perform such search.</p>
 <p>One of them is a <code><a href="../reference/%has%.html">%has%</a></code> operator that takes <code>sq</code> object and character vector as parameters respectively. It returns a logical vector of the same length as <code>sq</code> object, where each element says whether all motifs passed as strings were found in given sequence:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -229,9 +232,9 @@
 <span class="co">#&gt; 2 seq2  TAG   &lt;3&gt; ^TAG       1     3</span>
 <span class="co">#&gt; 3 seq2  ATG   &lt;3&gt; ATN$      13    15</span></code></pre></div>
 </div>
-<div id="exporting-sq-objects" class="section level1">
-<h1 class="hasAnchor">
-<a href="#exporting-sq-objects" class="anchor"></a>Exporting sq objects</h1>
+<div id="exporting-sq-objects" class="section level2">
+<h2 class="hasAnchor">
+<a href="#exporting-sq-objects" class="anchor"></a>Exporting sq objects</h2>
 <p>After doing computations the user might wish to save their sequences for future use. One of the most popular formats for storing biological sequences is FASTA. <code>tidysq</code> allows the user to write sequences to FASTA file with <code><a href="../reference/write_fasta.html">write_fasta()</a></code> function. Important thing to remember here is that it has to be passed <code>name</code> parameter, analogous to that present in <code><a href="../reference/find_motifs.html">find_motifs()</a></code>:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/write_fasta.html">write_fasta</a></span><span class="op">(</span><span class="va">sq_dna</span>,
