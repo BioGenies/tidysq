@@ -60,8 +60,7 @@ Suggests:
     spelling,
     testthat (>= 2.1.0),
     withr (>= 2.2.0),
-    knitr,
-    rmarkdown
+    knitr
 License: GPL (>= 2)
 URL: https://github.com/michbur/tidysq
 BugReports: https://github.com/michbur/tidysq/issues
