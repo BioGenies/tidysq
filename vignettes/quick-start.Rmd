@@ -23,7 +23,7 @@ The package isn't released on CRAN yet, so it has to be installed with `install_
 library(tidysq)
 ```
 
-# Sequence creation
+## Sequence creation
 
 Biological sequences can be and often are represented as strings -- sequences of letters. For example, a DNA sequence can take the form of `"TAGGCCCTAGACCTG"`, where `A` means adenine, `C` -- cytosine, `G` -- guanine and `T` -- thymine. Exact IUPAC recommendations for one-letter codes can be found [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC341218/).
 
@@ -36,7 +36,7 @@ sq_dna
 
 There are several thing to note. First, each sequence is an element of `sq` object. Many operations are vectorized --- they are applied to all sequences of a vector --- and `sq` objects are no different in this regard. Second, the first line of output says: `basic DNA sequences list`. This means that all sequences of this object are of DNA type and do not use ambiguous letters (more about that in "Advanced alphabet techniques" vignette).
 
-# Subsequencing
+## Subsequencing
 
 Manipulating sequence objects is an integral part of `tidysq`. `sq` objects can be easily subsetted using usual R syntax:
 
@@ -77,7 +77,7 @@ sq_dna <- c(sq_dna, reverse(sq_dna))
 sq_dna
 ```
 
-# Biological interpretation
+## Biological interpretation
 
 `tidysq` offers two functions specific to DNA/RNA sequences, namely `complement()` and `translate()`. The former creates sequences with complementary bases, that is, replaces `A` with `T`, `C` with `G` and *vice versa*. The latter translates input to amino acid sequences using [the translation table with three-letter codons](https://en.wikipedia.org/wiki/DNA_and_RNA_codon_tables).
 
@@ -94,7 +94,7 @@ One noteworthy feature here is that translation can be done with any genetic cod
 translate(sq_dna, table = 6)
 ```
 
-# Finding motifs
+## Finding motifs
 
 Motifs are short subsequences. These are often searched for in biological sequences. `tidysq` has two distinct functions that allow the user to perform such search.
 
@@ -126,7 +126,7 @@ Two additional characters are reserved because of their special meaning in motif
 find_motifs(sq_dna, c("seq1", "seq2", "rev1", "rev2"), c("^TAG", "ATN$"))
 ```
 
-# Exporting sq objects
+## Exporting sq objects
 
 After doing computations the user might wish to save their sequences for future use. One of the most popular formats for storing biological sequences is FASTA. `tidysq` allows the user to write sequences to FASTA file with `write_fasta()` function. Important thing to remember here is that it has to be passed `name` parameter, analogous to that present in `find_motifs()`:
 
