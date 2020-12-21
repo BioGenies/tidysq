@@ -30,7 +30,7 @@ expect_warning_handling <- makeExpectationFunction(check_warning_handling)
 
 check_motifs_for_type <- function(motifs, type) {
   check_subset(unlist(strsplit(motifs, "")),
-               choices = c(get_standard_alphabet(type), "^", "$"))
+               choices = c(CPP_get_standard_alphabet(type), "^", "$"))
 }
 assert_motifs_for_type <- makeAssertionFunction(check_motifs_for_type)
 test_motifs_for_type <- makeTestFunction(check_motifs_for_type)

@@ -217,7 +217,7 @@ sq_from_source <- function(source, alphabet, sampler, reader,
     if (type == "unt") {
       alphabet <- sampler(source, Inf, NA_letter, ignore_case)
     } else {
-      alphabet <- get_standard_alphabet(type)
+      alphabet <- CPP_get_standard_alphabet(type)
       if (safe_mode) {
         actual_alphabet <- sampler(source, Inf, NA_letter, ignore_case)
         if (!identical(actual_alphabet, alphabet)) {
