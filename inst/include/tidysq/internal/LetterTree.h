@@ -75,6 +75,7 @@ namespace tidysq::internal {
             const LetterNode *current_node = &root_;
             const LetterNode *node = &root_;
             ContentIteratorType element_it = iterator_;
+            ++iterator_;
 
             while (element_it != end_) {
                 if (current_node->contains(*element_it)) {
@@ -106,21 +107,11 @@ namespace tidysq::internal {
         };
 
         LetterValue match_value() {
-            if (root_.contains(*iterator_)) {
-                return extract_value(find_next_node());
-            } else {
-                ++iterator_;
-                return alphabet_.NA_value();
-            }
+            return extract_value(find_next_node());
         }
 
         ElementType match_element() {
-            if (root_.contains(*iterator_)) {
-                return extract_element(find_next_node());
-            } else {
-                ++iterator_;
-                return alphabet_.NA_letter();
-            }
+            return extract_element(find_next_node());
         }
 
         ElementType match_or_extract_element() {

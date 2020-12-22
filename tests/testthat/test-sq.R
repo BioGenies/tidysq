@@ -129,18 +129,18 @@ test_that("sq() correctly interpretes overlapping multicharacter letters", {
     unpack(sq("AAAX", alphabet = c("A", "AA", "X")), "INTS"),
     list(c(1, 0, 2))
   )
-  #expect_equal(
-  # unpack(sq("AX", alphabet = c("B", "AA", "X")), "INTS"),
-  # list(c(3, 2))
-  #)
+  expect_equal(
+  unpack(sq("AX", alphabet = c("B", "AA", "X")), "INTS"),
+  list(c(3, 2))
+  )
   expect_equal(
     unpack(sq("AAX", alphabet = c("B", "AA", "X")), "INTS"),
     list(c(1, 2))
   )
-  # expect_equal(
-  #  unpack(sq("AAAX", alphabet = c("B", "AA", "X")), "INTS"),
-  #  list(c(1, 3, 2))
-  # )
+  expect_equal(
+   unpack(sq("AAAX", alphabet = c("B", "AA", "X")), "INTS"),
+   list(c(1, 3, 2))
+  )
   expect_equal(
     unpack(sq("AX", alphabet = c("A", "AAA", "X")), "INTS"),
     list(c(0, 2))
