@@ -57,11 +57,10 @@ test_that("sq() returns object with alphabet attribute that contains existing le
     alphabet(sq(str_unt, alphabet = "unt", NA_letter = "?")),
     obtain_alphabet(str_unt, NA_letter = "?")
   )
-  # TODO: issue #64
-  #expect_setequal(
-  #  alphabet(sq(str_unt, alphabet = "unt", NA_letter = "(?)")),
-  #  obtain_alphabet(str_unt, NA_letter = "(?)")
-  #)
+  expect_setequal(
+    alphabet(sq(str_unt, alphabet = "unt", NA_letter = "(?)")),
+    obtain_alphabet(str_unt, NA_letter = "(?)")
+  )
 })
 
 # ARGUMENT PREREQUISITES ----
@@ -102,6 +101,58 @@ test_that("type set as untyped when in safe mode and alphabet mismatches", {
       str_rna
     )
   })
+})
+
+# MULTICHARACTER ATP ALPHABETS ----
+test_that("sq() substitutes each character not in multichar alphabet with NA_letter", {
+  expect_equal(
+    unpack(sq("CX", alphabet = c("A", "AA", "X")), "INTS"),
+    list(c(3, 2))
+  )
+  expect_equal(
+    unpack(sq("ACX", alphabet = c("A", "AA", "X")), "INTS"),
+    list(c(0, 3, 2))
+  )
+})
+
+test_that("sq() correctly interpretes overlapping multicharacter letters", {
+  # Related to issue #70
+  expect_equal(
+    unpack(sq("AX", alphabet = c("A", "AA", "X")), "INTS"),
+    list(c(0, 2))
+  )
+  expect_equal(
+    unpack(sq("AAX", alphabet = c("A", "AA", "X")), "INTS"),
+    list(c(1, 2))
+  )
+  expect_equal(
+    unpack(sq("AAAX", alphabet = c("A", "AA", "X")), "INTS"),
+    list(c(1, 0, 2))
+  )
+  #expect_equal(
+  # unpack(sq("AX", alphabet = c("B", "AA", "X")), "INTS"),
+  # list(c(3, 2))
+  #)
+  expect_equal(
+    unpack(sq("AAX", alphabet = c("B", "AA", "X")), "INTS"),
+    list(c(1, 2))
+  )
+  # expect_equal(
+  #  unpack(sq("AAAX", alphabet = c("B", "AA", "X")), "INTS"),
+  #  list(c(1, 3, 2))
+  # )
+  expect_equal(
+    unpack(sq("AX", alphabet = c("A", "AAA", "X")), "INTS"),
+    list(c(0, 2))
+  )
+  expect_equal(
+    unpack(sq("AAX", alphabet = c("A", "AAA", "X")), "INTS"),
+    list(c(0, 0, 2))
+  )
+  expect_equal(
+    unpack(sq("AAAX", alphabet = c("A", "AAA", "X")), "INTS"),
+    list(c(1, 2))
+  )
 })
 
 # IGNORE CASE ----

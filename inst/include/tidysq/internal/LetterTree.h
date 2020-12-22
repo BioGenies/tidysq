@@ -77,14 +77,14 @@ namespace tidysq::internal {
             ContentIteratorType element_it = iterator_;
 
             while (element_it != end_) {
-                try {
+                if (current_node->contains(*element_it)) {
                     current_node = &(current_node->at(*element_it));
                     ++element_it;
                     if (current_node->end_node()) {
                         node = current_node;
                         iterator_ = element_it;
                     }
-                } catch (const std::out_of_range &e) {
+                } else {
                     break;
                 }
             }
@@ -106,11 +106,21 @@ namespace tidysq::internal {
         };
 
         LetterValue match_value() {
-            return extract_value(find_next_node());
+            if (root_.contains(*iterator_)) {
+                return extract_value(find_next_node());
+            } else {
+                ++iterator_;
+                return alphabet_.NA_value();
+            }
         }
 
         ElementType match_element() {
-            return extract_element(find_next_node());
+            if (root_.contains(*iterator_)) {
+                return extract_element(find_next_node());
+            } else {
+                ++iterator_;
+                return alphabet_.NA_letter();
+            }
         }
 
         ElementType match_or_extract_element() {
@@ -119,6 +129,7 @@ namespace tidysq::internal {
                 return match_element();
             } else {
                 Letter ret = {*iterator_};
+                ++iterator_;
                 return ret;
             }
         }
