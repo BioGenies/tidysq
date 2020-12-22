@@ -46,7 +46,6 @@ namespace tidysq {
             }
         }
 
-
         inline ElementType get_next_element() {
             if (reached_end_) {
                 return (ElementType) 0;
@@ -57,6 +56,10 @@ namespace tidysq {
                 if (internal_iterator_ == end_) reached_end_ = true;
                 return ret;
             }
+        }
+
+        inline ElementType get_or_extract_next_element() {
+            return get_next_element();
         }
 
         [[nodiscard]] inline bool reached_end() const {
@@ -103,6 +106,10 @@ namespace tidysq {
             return letter_tree_.match_element();
         }
 
+        [[nodiscard]] inline ElementType match_or_extract_element() {
+            return letter_tree_.match_or_extract_element();
+        }
+
         [[nodiscard]] inline LetterValue match_value() {
             return letter_tree_.match_value();
         }
@@ -123,6 +130,16 @@ namespace tidysq {
                 return "";
             } else {
                 ElementType ret = match_element();
+                interpreted_letters_++;
+                return ret;
+            }
+        }
+
+        inline ElementType get_or_extract_next_element() {
+            if (reached_end()) {
+                return "";
+            } else {
+                ElementType ret = match_or_extract_element();
                 interpreted_letters_++;
                 return ret;
             }

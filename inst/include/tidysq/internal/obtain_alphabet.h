@@ -25,7 +25,8 @@ namespace tidysq::internal {
             ProtoSequence<INTERNAL, STRING_PT> sequence((std::string(*iter)));
             auto interpreter = sequence.template content_interpreter<SIMPLE>(Alphabet(std::vector<Letter>{}, NA_letter));
             while (already_read < sample_size && !interpreter.reached_end()) {
-                Letter letter = wrap_to_letter(interpreter.get_next_element());
+                Letter letter = wrap_to_letter(interpreter.get_or_extract_next_element());
+                // Maybe extract ignore_case parameter to template to avoid checking it for every letter?
                 if (ignore_case && !isupper(letter[0])) {
                     letter[0] = std::toupper(letter[0]);
                 }
