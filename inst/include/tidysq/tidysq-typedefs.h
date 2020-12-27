@@ -221,7 +221,6 @@ namespace tidysq {
                 const std::unordered_map<LetterValue,
                         const std::unordered_map<LetterValue,
                                 const LetterValue>>>                    CodonTable;
-        typedef std::unordered_map<ElementStringSimple,
-                        std::list<ElementStringSimple>>                 AmbiguousDict;
+        typedef std::unordered_map<Letter, std::list<Letter>>           AmbiguousDict;
     }
 }
