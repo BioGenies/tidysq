@@ -69,6 +69,8 @@ sq_dna <- sq(c("ATGCAGGA", "GACCGNBAACGAN", "TGACGAGCTTAG"),
              alphabet = "dna_bsc")
 sq_ami <- sq(c("AGNTYIKFGGAYTI", "MATEGILIAADGYTWIL", "MIPADHICAANGIENAGIK"),
              alphabet = "ami_bsc")
+sq_atp <- sq(c("mAmYmY", "nbAnsAmA", ""),
+             alphabet = c("mA", "mY", "nbA", "nsA"))
 sq_names <- c("sq1", "sq2", "sq3")
 
 # Finding motif of two alanines followed by aspartic acid or asparagine
@@ -83,6 +85,9 @@ find_motifs(sq_ami, sq_names, "IX$")
 
 # Finding multiple motifs:
 find_motifs(sq_dna, sq_names, c("^ABN", "ANCBY", "BAN$"))
+
+# Finding multicharacter motifs:
+find_motifs(sq_atp, sq_names, c("nsA", "mYmY$"))
 
 }
 \seealso{

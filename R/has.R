@@ -30,6 +30,8 @@
 #'              alphabet = "dna_bsc")
 #' sq_ami <- sq(c("MIAANYTWIL","TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),
 #'              alphabet = "ami_ext")
+#' sq_atp <- sq(c("mAmYmY", "nbAnsAmA", ""),
+#'              alphabet = c("mA", "mY", "nbA", "nsA"))
 #'
 #' # Testing if DNA sequences contain motif "ATG":
 #' sq_dna %has% "ATG"
@@ -46,6 +48,9 @@
 #'
 #' # Test if amino acid sequences contain both motifs:
 #' sq_ami %has% c("AAXG", "MAT")
+#'
+#' # Test for sequences with multicharacter alphabet:
+#' sq_atp %has% c("nsA", "mYmY$")
 #'
 #' @family bio_functions
 #' @export
