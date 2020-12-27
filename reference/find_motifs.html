@@ -214,6 +214,8 @@ subsequences.</p>
              alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span><span class='op'>)</span>
 <span class='va'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"AGNTYIKFGGAYTI"</span>, <span class='st'>"MATEGILIAADGYTWIL"</span>, <span class='st'>"MIPADHICAANGIENAGIK"</span><span class='op'>)</span>,
              alphabet <span class='op'>=</span> <span class='st'>"ami_bsc"</span><span class='op'>)</span>
+<span class='va'>sq_atp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mAmYmY"</span>, <span class='st'>"nbAnsAmA"</span>, <span class='st'>""</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mA"</span>, <span class='st'>"mY"</span>, <span class='st'>"nbA"</span>, <span class='st'>"nsA"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>sq_names</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sq1"</span>, <span class='st'>"sq2"</span>, <span class='st'>"sq3"</span><span class='op'>)</span>
 
 <span class='co'># Finding motif of two alanines followed by aspartic acid or asparagine</span>
@@ -249,6 +251,13 @@ subsequences.</p>
 #&gt; </span><span style='color: #555555;'>3</span><span> sq3   </span><span style='color: #00BB00;'>AGCTT</span><span> </span><span style='color: #0000BB;'>&lt;5&gt;</span><span> ANCBY      6    10
 #&gt; </span><span style='color: #555555;'>4</span><span> sq2   </span><span style='color: #00BB00;'>GA</span><span style='color: #555555;'>!</span><span>   </span><span style='color: #0000BB;'>&lt;3&gt;</span><span> BAN$      11    13
 #&gt; </span><span style='color: #555555;'>5</span><span> sq3   </span><span style='color: #00BB00;'>TAG</span><span>   </span><span style='color: #0000BB;'>&lt;3&gt;</span><span> BAN$      10    12</div><div class='input'>
+<span class='co'># Finding multicharacter motifs:</span>
+<span class='fu'>find_motifs</span><span class='op'>(</span><span class='va'>sq_atp</span>, <span class='va'>sq_names</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nsA"</span>, <span class='st'>"mYmY$"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 5</span><span>
+#&gt;   names found    sought start   end
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;atp&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> sq2   </span><span style='color: #00BB00;'>nsA</span><span>  </span><span style='color: #0000BB;'>&lt;1&gt;</span><span> nsA        2     2
+#&gt; </span><span style='color: #555555;'>2</span><span> sq1   </span><span style='color: #00BB00;'>mYmY</span><span> </span><span style='color: #0000BB;'>&lt;2&gt;</span><span> mYmY$      2     3</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

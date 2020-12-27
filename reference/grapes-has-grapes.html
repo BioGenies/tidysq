@@ -197,6 +197,8 @@ subsequences.</p>
              alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span><span class='op'>)</span>
 <span class='va'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MIAANYTWIL"</span>,<span class='st'>"TIAALGNIIYRAIE"</span>, <span class='st'>"NYERTGHLI"</span>, <span class='st'>"MAYXXXIALN"</span><span class='op'>)</span>,
              alphabet <span class='op'>=</span> <span class='st'>"ami_ext"</span><span class='op'>)</span>
+<span class='va'>sq_atp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mAmYmY"</span>, <span class='st'>"nbAnsAmA"</span>, <span class='st'>""</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mA"</span>, <span class='st'>"mY"</span>, <span class='st'>"nbA"</span>, <span class='st'>"nsA"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Testing if DNA sequences contain motif "ATG":</span>
 <span class='va'>sq_dna</span> <span class='op'>%has%</span> <span class='st'>"ATG"</span>
@@ -214,6 +216,9 @@ subsequences.</p>
 <span class='co'># Test if amino acid sequences contain both motifs:</span>
 <span class='va'>sq_ami</span> <span class='op'>%has%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"AAXG"</span>, <span class='st'>"MAT"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] FALSE FALSE FALSE FALSE</div><div class='input'>
+<span class='co'># Test for sequences with multicharacter alphabet:</span>
+<span class='va'>sq_atp</span> <span class='op'>%has%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nsA"</span>, <span class='st'>"mYmY$"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
