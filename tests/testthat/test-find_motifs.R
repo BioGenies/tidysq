@@ -52,6 +52,14 @@ test_that("find_motifs() returns a tibble with columns specified in docs", {
                   start = integer(),
                   end = integer()
                 ))
+  expect_vector(find_motifs(sq_atp, names_3, "mYmY"),
+                ptype = tibble::tibble(
+                  names = character(),
+                  found = vec_ptype(sq_atp),
+                  sought = character(),
+                  start = integer(),
+                  end = integer()
+                ))
 })
 
 # ARGUMENT PREREQUISITES ----
@@ -87,6 +95,8 @@ test_that("'names' column contains only elements from vector passed to find_moti
                 names_5)
   expect_subset(find_motifs(sq_unt, names_4, "^VIP")[["names"]],
                 names_4)
+  expect_subset(find_motifs(sq_atp, names_3, "mYmY")[["names"]],
+                names_3)
 })
 
 # SOUGHT COLUMN ----
@@ -101,6 +111,8 @@ test_that("'sought' column contains a subset of searched motifs", {
                 c("YNG", "CHK"))
   expect_subset(find_motifs(sq_unt, names_4, "^VIP")[["sought"]],
                 "^VIP")
+  expect_subset(find_motifs(sq_atp, names_3, "mYmY")[["sought"]],
+                "mYmY")
 })
 
 # FOUND COLUMN ----
@@ -113,6 +125,8 @@ test_that("'found' column contains sequences that are subset of searched simple 
                 c("AC", "AI", "AH"))
   expect_subset(as.character(find_motifs(sq_unt, names_4, c("OUGH", "VIP"))[["found"]]),
                 c("OUGH", "VIP"))
+  expect_subset(as.character(find_motifs(sq_atp, names_3, c("mAmY", "nsA"))[["found"]]),
+                c("mAmY", "nsA"))
 })
 
 test_that("special characters are not included in 'found' column", {
@@ -120,6 +134,8 @@ test_that("special characters are not included in 'found' column", {
                 "G")
   expect_subset(as.character(find_motifs(sq_unt, names_4, c("^VIP", "ONE$", "_"))[["found"]]),
                 c("VIP", "ONE", "_"))
+  expect_subset(as.character(find_motifs(sq_atp, names_3, "mYmY$")[["found"]]),
+                "mYmY")
 })
 
 test_that("'found' column can contain any interpretation of an ambiguous motif", {
@@ -165,6 +181,16 @@ test_that("'start' and 'end' columns have values between 1 and length(sequence)"
     expect_lte(start + found_length - sequence_length, 1)
     expect_lte(end - sequence_length + 1, 1)
   })
+
+  sqibble_4 <- find_motifs(sq_atp, names_3, c("mYmY$", "nsA"))
+  sqibble_4[["found_length"]] <- get_sq_lengths(sqibble_4[["found"]])
+  purrr::pwalk(sqibble_4, function(names, sought, found, start, end, found_length) {
+    sequence_length <- get_sq_lengths(sq_atp)[which(names == names_3)]
+    expect_gte(start, 1)
+    expect_gte(end - found_length + 1, 1)
+    expect_lte(start + found_length - sequence_length, 1)
+    expect_lte(end - sequence_length + 1, 1)
+  })
 })
 
 test_that("index columns can be used to retrieve found subsequence from original sequence", {
@@ -186,10 +212,10 @@ test_that("index columns can be used to retrieve found subsequence from original
       found
     )
   })
-})
-
-# HANDLING MULTICHARACTER LETTERS ----
-# TODO: issue #61
-test_that("find_motifs() throws an error when there are multicharacter letters in alphabet", {
-  expect_error(find_motifs(sq_atp, names_3, "mYmY"))
+  purrr::pwalk(find_motifs(sq_atp, names_3, c("mYmY$", "nsA")), function(names, sought, found, start, end) {
+    expect_identical(
+      bite(sq_atp[which(names == names_3)], start:end)[[1]],
+      found
+    )
+  })
 })

@@ -23,6 +23,9 @@ test_that("%has% returns a logical vector", {
   expect_vector(sq_unt %has% c("NFI", ";"),
                 ptype = logical(),
                 size = vec_size(sq_unt))
+  expect_vector(sq_atp %has% "mYmY",
+                ptype = logical(),
+                size = vec_size(sq_atp))
 })
 
 # ERROR FOR NON-SQ OBJECTS ----
@@ -48,6 +51,8 @@ test_that("%has% works correctly for basic letters", {
                c(TRUE, FALSE, FALSE))
   expect_equal(sq_unt %has% "(123)",
                c(TRUE, FALSE))
+  expect_equal(sq_atp %has% "mYmY",
+               c(TRUE, FALSE, FALSE))
 })
 
 test_that("%has% correctly interprets ambiguous letters in a motif", {
@@ -69,6 +74,8 @@ test_that("^ at the beginning matches only from the beginning of a motif", {
                c(FALSE, TRUE, TRUE))
   expect_equal(sq_unt %has% "^NFI",
                c(FALSE, TRUE))
+  expect_equal(sq_atp %has% "^mA",
+               c(TRUE, FALSE, FALSE))
 })
 
 test_that("$ at the end matches only to the end of a motif", {
@@ -80,12 +87,16 @@ test_that("$ at the end matches only to the end of a motif", {
                c(FALSE, FALSE, FALSE))
   expect_equal(sq_unt %has% "(#)$",
                c(FALSE, FALSE))
+  expect_equal(sq_atp %has% "mA$",
+               c(FALSE, TRUE, FALSE))
 })
 
 test_that("^ and $ can be used simultaneously", {
   expect_equal(sq_dna %has% "^AGCTAGAACTCTTGATGG$",
                c(FALSE, FALSE, FALSE))
   expect_equal(sq_rna %has% "^GGCUGCGGGACUGAGGC$",
+               c(TRUE, FALSE, FALSE))
+  expect_equal(sq_atp %has% "^mAmYmY$",
                c(TRUE, FALSE, FALSE))
 })
 
@@ -107,10 +118,8 @@ test_that("%has% of many motifs is equal to logical AND of many %has% with one m
     sq_unt %has% c("@", "%"),
     (sq_unt %has% "@") & (sq_unt %has% "%")
   )
-})
-
-# HANDLING MULTICHARACTER LETTERS ----
-# TODO: issue #61
-test_that("%has% throws an error when there are multicharacter letters in alphabet", {
-  expect_error(find_motifs(sq_atp, names_3, "mYmY"))
+  expect_equal(
+    sq_atp %has% c("mY", "nsA"),
+    (sq_atp %has% "mY") & (sq_atp %has% "nsA")
+  )
 })
