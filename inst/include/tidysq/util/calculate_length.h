@@ -12,8 +12,8 @@ namespace tidysq {
 
 
 namespace tidysq::util {
-    inline LenSq calculate_packed_internal_length(const LenSq unpackedLength, const AlphSize &alph_size) {
-        return (alph_size * unpackedLength + 7) / 8;
+    inline LenSq calculate_packed_internal_length(const LenSq unpacked_length, const AlphSize &alph_size) {
+        return (alph_size * unpacked_length + 7) / 8;
     }
 
     template<typename INTERNAL_OUT>
