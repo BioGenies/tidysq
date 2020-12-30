@@ -12,7 +12,7 @@ namespace tidysq::internal {
     }
 
     template<typename INTERNAL, bool SIMPLE>
-    std::set<Letter> obtain_alphabet(const typename TypeBinder<INTERNAL, STRING_PT>::ProtoSqListConstructorType &x,
+    std::set<Letter> obtain_alphabet(const typename util::TypeBinder<INTERNAL, STRING_PT>::ProtoSqListConstructorType &x,
                                      const LenSq sample_size,
                                      const Letter &NA_letter,
                                      const bool ignore_case) {

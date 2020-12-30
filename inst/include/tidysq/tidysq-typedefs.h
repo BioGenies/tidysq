@@ -100,108 +100,110 @@ namespace tidysq {
     typedef VECTOR_TYPE::Proxy                                                  ProtoSequenceContentAccessType; \
     typedef VECTOR_TYPE::const_Proxy                                            ProtoSequenceContentConstAccessType;
 
-    template<typename INTERNAL, typename PROTO>
-    struct TypeBinder;
+    namespace util {
+        template<typename INTERNAL, typename PROTO>
+        struct TypeBinder;
 
-    template<typename PROTO>
-    struct TypeBinder<STD_IT, PROTO> {
-        typedef ProtoSequence<STD_IT, PROTO>                                        ProtoSequenceType;
-        typedef std::vector<typename PROTO::ProtoSequenceElementType>               ProtoSequenceContentStorageType;
-        typedef typename PROTO::ProtoSequenceElementType &                          ProtoSequenceContentAccessType;
-        typedef const typename PROTO::ProtoSequenceElementType &                    ProtoSequenceContentConstAccessType;
+        template<typename PROTO>
+        struct TypeBinder<STD_IT, PROTO> {
+            typedef ProtoSequence<STD_IT, PROTO>                                        ProtoSequenceType;
+            typedef std::vector<typename PROTO::ProtoSequenceElementType>               ProtoSequenceContentStorageType;
+            typedef typename PROTO::ProtoSequenceElementType &                          ProtoSequenceContentAccessType;
+            typedef const typename PROTO::ProtoSequenceElementType &                    ProtoSequenceContentConstAccessType;
 
-        typedef ProtoSq<STD_IT, PROTO>                                              ProtoSqType;
-        typedef std::vector<std::vector<typename PROTO::ProtoSequenceElementType>>  ProtoSqListConstructorType;
-        typedef std::vector<ProtoSequence<STD_IT, PROTO>>                           ProtoSqContentStorageType;
-        typedef ProtoSequence<STD_IT, PROTO> &                                      ProtoSqContentAccessType;
-        typedef const ProtoSequence<STD_IT, PROTO> &                                ProtoSqContentConstAccessType;
-    };
+            typedef ProtoSq<STD_IT, PROTO>                                              ProtoSqType;
+            typedef std::vector<std::vector<typename PROTO::ProtoSequenceElementType>>  ProtoSqListConstructorType;
+            typedef std::vector<ProtoSequence<STD_IT, PROTO>>                           ProtoSqContentStorageType;
+            typedef ProtoSequence<STD_IT, PROTO> &                                      ProtoSqContentAccessType;
+            typedef const ProtoSequence<STD_IT, PROTO> &                                ProtoSqContentConstAccessType;
+        };
 
-    template<>
-    struct TypeBinder<STD_IT, STRING_PT> {
-        typedef ProtoSequence<STD_IT, STRING_PT>                                    ProtoSequenceType;
-        COMMON_STRING_PROTO_TYPE_TYPEDEFS_
+        template<>
+        struct TypeBinder<STD_IT, STRING_PT> {
+            typedef ProtoSequence<STD_IT, STRING_PT>                                    ProtoSequenceType;
+            COMMON_STRING_PROTO_TYPE_TYPEDEFS_
 
-        typedef ProtoSq<STD_IT, STRING_PT>                                          ProtoSqType;
-        typedef std::vector<std::string>                                            ProtoSqListConstructorType;
-        typedef std::vector<ProtoSequence<STD_IT, STRING_PT>>                       ProtoSqContentStorageType;
-        typedef ProtoSequence<STD_IT, STRING_PT> &                                  ProtoSqContentAccessType;
-        typedef const ProtoSequence<STD_IT, STRING_PT> &                            ProtoSqContentConstAccessType;
-    };
+            typedef ProtoSq<STD_IT, STRING_PT>                                          ProtoSqType;
+            typedef std::vector<std::string>                                            ProtoSqListConstructorType;
+            typedef std::vector<ProtoSequence<STD_IT, STRING_PT>>                       ProtoSqContentStorageType;
+            typedef ProtoSequence<STD_IT, STRING_PT> &                                  ProtoSqContentAccessType;
+            typedef const ProtoSequence<STD_IT, STRING_PT> &                            ProtoSqContentConstAccessType;
+        };
 
-    template<>
-    struct TypeBinder<RCPP_IT, RAWS_PT> {
-        typedef ProtoSequence<RCPP_IT, RAWS_PT>                                     ProtoSequenceType;
-        COMMON_RCPP_INTERNAL_TYPE_PROTO_SEQUENCE_TYPEDEFS_(Rcpp::RawVector)
+        template<>
+        struct TypeBinder<RCPP_IT, RAWS_PT> {
+            typedef ProtoSequence<RCPP_IT, RAWS_PT>                                     ProtoSequenceType;
+            COMMON_RCPP_INTERNAL_TYPE_PROTO_SEQUENCE_TYPEDEFS_(Rcpp::RawVector)
 
-        typedef ProtoSq<RCPP_IT, RAWS_PT>                                           ProtoSqType;
-        COMMON_RCPP_INTERNAL_TYPE_TYPEDEFS_
-    };
+            typedef ProtoSq<RCPP_IT, RAWS_PT>                                           ProtoSqType;
+            COMMON_RCPP_INTERNAL_TYPE_TYPEDEFS_
+        };
 
-    template<>
-    struct TypeBinder<RCPP_IT, INTS_PT> {
-        typedef ProtoSequence<RCPP_IT, INTS_PT>                                     ProtoSequenceType;
-        COMMON_RCPP_INTERNAL_TYPE_PROTO_SEQUENCE_TYPEDEFS_(Rcpp::IntegerVector)
+        template<>
+        struct TypeBinder<RCPP_IT, INTS_PT> {
+            typedef ProtoSequence<RCPP_IT, INTS_PT>                                     ProtoSequenceType;
+            COMMON_RCPP_INTERNAL_TYPE_PROTO_SEQUENCE_TYPEDEFS_(Rcpp::IntegerVector)
 
-        typedef ProtoSq<RCPP_IT, INTS_PT>                                           ProtoSqType;
-        COMMON_RCPP_INTERNAL_TYPE_TYPEDEFS_
-    };
+            typedef ProtoSq<RCPP_IT, INTS_PT>                                           ProtoSqType;
+            COMMON_RCPP_INTERNAL_TYPE_TYPEDEFS_
+        };
 
-    template<>
-    struct TypeBinder<RCPP_IT, STRINGS_PT> {
-        typedef ProtoSequence<RCPP_IT, STRINGS_PT>                                  ProtoSequenceType;
-        COMMON_RCPP_INTERNAL_TYPE_PROTO_SEQUENCE_TYPEDEFS_(Rcpp::StringVector)
+        template<>
+        struct TypeBinder<RCPP_IT, STRINGS_PT> {
+            typedef ProtoSequence<RCPP_IT, STRINGS_PT>                                  ProtoSequenceType;
+            COMMON_RCPP_INTERNAL_TYPE_PROTO_SEQUENCE_TYPEDEFS_(Rcpp::StringVector)
 
-        typedef ProtoSq<RCPP_IT, STRINGS_PT>                                        ProtoSqType;
-        COMMON_RCPP_INTERNAL_TYPE_TYPEDEFS_
-    };
+            typedef ProtoSq<RCPP_IT, STRINGS_PT>                                        ProtoSqType;
+            COMMON_RCPP_INTERNAL_TYPE_TYPEDEFS_
+        };
 
-    template<>
-    struct TypeBinder<RCPP_IT, STRING_PT> {
-        typedef ProtoSequence<RCPP_IT, STRING_PT>                                   ProtoSequenceType;
-        COMMON_STRING_PROTO_TYPE_TYPEDEFS_
+        template<>
+        struct TypeBinder<RCPP_IT, STRING_PT> {
+            typedef ProtoSequence<RCPP_IT, STRING_PT>                                   ProtoSequenceType;
+            COMMON_STRING_PROTO_TYPE_TYPEDEFS_
 
-        typedef ProtoSq<RCPP_IT, STRING_PT>                                         ProtoSqType;
-        typedef Rcpp::StringVector                                                  ProtoSqListConstructorType;
-        typedef Rcpp::StringVector                                                  ProtoSqContentStorageType;
-        typedef Rcpp::StringVector::Proxy                                           ProtoSqContentAccessType;
-        typedef Rcpp::StringVector::const_Proxy                                     ProtoSqContentConstAccessType;
-    };
+            typedef ProtoSq<RCPP_IT, STRING_PT>                                         ProtoSqType;
+            typedef Rcpp::StringVector                                                  ProtoSqListConstructorType;
+            typedef Rcpp::StringVector                                                  ProtoSqContentStorageType;
+            typedef Rcpp::StringVector::Proxy                                           ProtoSqContentAccessType;
+            typedef Rcpp::StringVector::const_Proxy                                     ProtoSqContentConstAccessType;
+        };
+
+        template<typename INTERNAL, typename PROTO, bool PACKED, bool CONST>
+        struct UniversalTypeBinder {
+            typedef std::conditional_t<PACKED,
+                    typename INTERNAL::SequenceType,
+                    typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceType>                        ProtoOrNotSequenceType;
+            typedef std::conditional_t<PACKED,
+                    typename INTERNAL::SequenceContentStorageType,
+                    typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentStorageType>          ProtoOrNotSequenceContentStorageType;
+            typedef std::conditional_t<PACKED,
+                    std::conditional_t<CONST,
+                            typename INTERNAL::SequenceContentConstAccessType,
+                            typename INTERNAL::SequenceContentAccessType>,
+                    std::conditional_t<CONST,
+                            typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentConstAccessType,
+                            typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentAccessType>>  ProtoOrNotSequenceContentAccessType;
+
+            typedef std::conditional_t<PACKED,
+                    typename INTERNAL::SqType,
+                    typename TypeBinder<INTERNAL, PROTO>::ProtoSqType>                              ProtoOrNotSqType;
+            typedef std::conditional_t<PACKED,
+                    typename INTERNAL::SqContentStorageType,
+                    typename TypeBinder<INTERNAL, PROTO>::ProtoSqContentStorageType>                ProtoOrNotSqContentStorageType;
+            typedef std::conditional_t<PACKED,
+                    std::conditional_t<CONST,
+                            typename INTERNAL::SqContentConstAccessType,
+                            typename INTERNAL::SqContentAccessType>,
+                    std::conditional_t<CONST,
+                            typename TypeBinder<INTERNAL, PROTO>::ProtoSqContentConstAccessType,
+                            typename TypeBinder<INTERNAL, PROTO>::ProtoSqContentAccessType>>        ProtoOrNotSqContentAccessType;
+        };
+    }
 
 #undef COMMON_STRING_PROTO_TYPE_TYPEDEFS_
 #undef COMMON_RCPP_INTERNAL_TYPE_TYPEDEFS_
 #undef COMMON_RCPP_INTERNAL_TYPE_PROTO_SEQUENCE_TYPEDEFS_
-
-    template<typename INTERNAL, typename PROTO, bool PACKED, bool CONST>
-    struct UniversalTypeBinder {
-        typedef std::conditional_t<PACKED,
-                typename INTERNAL::SequenceType,
-                typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceType>                        ProtoOrNotSequenceType;
-        typedef std::conditional_t<PACKED,
-                typename INTERNAL::SequenceContentStorageType,
-                typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentStorageType>          ProtoOrNotSequenceContentStorageType;
-        typedef std::conditional_t<PACKED,
-                std::conditional_t<CONST,
-                        typename INTERNAL::SequenceContentConstAccessType,
-                        typename INTERNAL::SequenceContentAccessType>,
-                std::conditional_t<CONST,
-                        typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentConstAccessType,
-                        typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentAccessType>>  ProtoOrNotSequenceContentAccessType;
-
-        typedef std::conditional_t<PACKED,
-                typename INTERNAL::SqType,
-                typename TypeBinder<INTERNAL, PROTO>::ProtoSqType>                              ProtoOrNotSqType;
-        typedef std::conditional_t<PACKED,
-                typename INTERNAL::SqContentStorageType,
-                typename TypeBinder<INTERNAL, PROTO>::ProtoSqContentStorageType>                ProtoOrNotSqContentStorageType;
-        typedef std::conditional_t<PACKED,
-                std::conditional_t<CONST,
-                        typename INTERNAL::SqContentConstAccessType,
-                        typename INTERNAL::SqContentAccessType>,
-                std::conditional_t<CONST,
-                        typename TypeBinder<INTERNAL, PROTO>::ProtoSqContentConstAccessType,
-                        typename TypeBinder<INTERNAL, PROTO>::ProtoSqContentAccessType>>        ProtoOrNotSqContentAccessType;
-    };
 
     enum SqType {
         AMI_EXT,

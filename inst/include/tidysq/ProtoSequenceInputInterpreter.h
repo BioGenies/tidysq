@@ -5,7 +5,7 @@
 namespace tidysq {
     template<typename INTERNAL, typename PROTO, bool SIMPLE>
     class ProtoSequenceInputInterpreter {
-        typedef typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentStorageType    ContentStorageType;
+        typedef typename util::TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentStorageType    ContentStorageType;
         typedef typename PROTO::ProtoSequenceElementType                                    ElementType;
         typedef typename ContentStorageType::const_iterator                                 ContentConstIteratorType;
 
@@ -85,7 +85,7 @@ namespace tidysq {
 
     template<typename INTERNAL>
     class ProtoSequenceInputInterpreter<INTERNAL, STRING_PT, false> {
-        typedef typename TypeBinder<INTERNAL, STRING_PT>::ProtoSequenceContentStorageType ContentStorageType;
+        typedef typename util::TypeBinder<INTERNAL, STRING_PT>::ProtoSequenceContentStorageType ContentStorageType;
         typedef ElementStringMultichar ElementType;
         typedef typename ContentStorageType::const_iterator ContentConstIteratorType;
 

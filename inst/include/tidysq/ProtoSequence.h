@@ -12,12 +12,12 @@ namespace tidysq {
 
     template<typename INTERNAL, typename PROTO>
     class ProtoSequence {
-        typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentStorageType content_;
+        typename util::TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentStorageType content_;
     public:
         typedef typename PROTO::ProtoSequenceElementType                                    ElementType;
-        typedef typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentStorageType    ContentStorageType;
-        typedef typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentAccessType            AccessType;
-        typedef typename TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentConstAccessType       ConstAccessType;
+        typedef typename util::TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentStorageType    ContentStorageType;
+        typedef typename util::TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentAccessType            AccessType;
+        typedef typename util::TypeBinder<INTERNAL, PROTO>::ProtoSequenceContentConstAccessType       ConstAccessType;
 
         explicit ProtoSequence(const ContentStorageType &content) :
                 content_(content) {};
