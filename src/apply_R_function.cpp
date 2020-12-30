@@ -9,8 +9,8 @@ Rcpp::List CPP_apply_R_function(const Rcpp::List &x,
                                 const bool &single_string,
                                 const tidysq::Letter &NA_letter) {
     if (single_string) {
-        return apply_R_function<RCPP_IT, STRING_PT>(import_from_R(x, NA_letter), fun);
+        return apply_R_function<RCPP_IT, STRING_PT>(import_sq_from_R(x, NA_letter), fun);
     } else {
-        return apply_R_function<RCPP_IT, STRINGS_PT>(import_from_R(x, NA_letter), fun);
+        return apply_R_function<RCPP_IT, STRINGS_PT>(import_sq_from_R(x, NA_letter), fun);
     }
 }
