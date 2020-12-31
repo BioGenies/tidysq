@@ -25,7 +25,7 @@ namespace tidysq::util {
     }
 
     inline void handle_warning_message(const std::string &message,
-                                       const std::string &on_warning) {
-        return handle_warning_message(message, constants::WARNING_LEVEL_NAMES.at(on_warning));
+                                       const std::string &warning_level) {
+        return handle_warning_message(message, constants::WARNING_LEVEL_NAMES.at(warning_level));
     }
 }
