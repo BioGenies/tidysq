@@ -15,11 +15,11 @@ namespace tidysq {
 
     template<typename INTERNAL, typename PROTO>
     class ProtoSq {
-        typename TypeBinder<INTERNAL, PROTO>::ProtoSqContentStorageType content_;
+        typename util::TypeBinder<INTERNAL, PROTO>::ProtoSqContentStorageType content_;
         Alphabet alphabet_;
     public:
         typedef ProtoSequence<INTERNAL, PROTO>                                      ElementType;
-        typedef typename TypeBinder<INTERNAL, PROTO>::ProtoSqContentStorageType     ContentStorageType;
+        typedef typename util::TypeBinder<INTERNAL, PROTO>::ProtoSqContentStorageType     ContentStorageType;
 
         ProtoSq(const ContentStorageType &content, const Alphabet &alphabet) :
                 content_(content),

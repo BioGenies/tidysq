@@ -12,8 +12,8 @@ namespace tidysq {
         template<typename INTERNAL, typename PROTO, bool PACKED, bool CONST>
         struct AccessTypeToElementMapper {
             inline static auto map(
-                    typename UniversalTypeBinder<INTERNAL, PROTO, PACKED, CONST>::ProtoOrNotSqContentAccessType element_access
-                    ) -> typename UniversalTypeBinder<INTERNAL, PROTO, PACKED, CONST>::ProtoOrNotSequenceType {
+                    typename util::UniversalTypeBinder<INTERNAL, PROTO, PACKED, CONST>::ProtoOrNotSqContentAccessType element_access
+                    ) -> typename util::UniversalTypeBinder<INTERNAL, PROTO, PACKED, CONST>::ProtoOrNotSequenceType {
                 return element_access;
             }
         };
@@ -22,18 +22,18 @@ namespace tidysq {
         template<typename PROTO, bool CONST>
         struct AccessTypeToElementMapper<RCPP_IT, PROTO, IS_UNPACKED, CONST> {
             inline static auto map(
-                    typename UniversalTypeBinder<RCPP_IT, PROTO, IS_UNPACKED, CONST>::ProtoOrNotSqContentAccessType element_access
-            ) -> typename UniversalTypeBinder<RCPP_IT, PROTO, IS_UNPACKED, CONST>::ProtoOrNotSequenceType {
+                    typename util::UniversalTypeBinder<RCPP_IT, PROTO, IS_UNPACKED, CONST>::ProtoOrNotSqContentAccessType element_access
+            ) -> typename util::UniversalTypeBinder<RCPP_IT, PROTO, IS_UNPACKED, CONST>::ProtoOrNotSequenceType {
                 return tidysq::ProtoSequence<RCPP_IT, PROTO>(
-                        typename TypeBinder<RCPP_IT, PROTO>::ProtoSequenceContentStorageType(element_access));
+                        typename util::TypeBinder<RCPP_IT, PROTO>::ProtoSequenceContentStorageType(element_access));
             }
         };
 
         template<typename PROTO, bool CONST>
         struct AccessTypeToElementMapper<RCPP_IT, PROTO, IS_PACKED, CONST> {
             inline static auto map(
-                    typename UniversalTypeBinder<RCPP_IT, PROTO, IS_PACKED, CONST>::ProtoOrNotSqContentAccessType element_access
-            ) -> typename UniversalTypeBinder<RCPP_IT, PROTO, IS_PACKED, CONST>::ProtoOrNotSequenceType {
+                    typename util::UniversalTypeBinder<RCPP_IT, PROTO, IS_PACKED, CONST>::ProtoOrNotSqContentAccessType element_access
+            ) -> typename util::UniversalTypeBinder<RCPP_IT, PROTO, IS_PACKED, CONST>::ProtoOrNotSequenceType {
                 Rcpp::RawVector ret(element_access);
                 return tidysq::Sequence<RCPP_IT>(ret, Rcpp::IntegerVector(ret.attr("original_length"))[0]);
             }
@@ -42,8 +42,8 @@ namespace tidysq {
         template<typename INTERNAL, typename PROTO, bool PACKED>
         struct AccessTypeAssigner {
             inline static void assign(
-                    typename UniversalTypeBinder<INTERNAL, PROTO, PACKED, IS_NONCONST>::ProtoOrNotSqContentAccessType &element_access,
-                    typename UniversalTypeBinder<INTERNAL, PROTO, PACKED, IS_NONCONST>::ProtoOrNotSequenceType element
+                    typename util::UniversalTypeBinder<INTERNAL, PROTO, PACKED, IS_NONCONST>::ProtoOrNotSqContentAccessType &element_access,
+                    typename util::UniversalTypeBinder<INTERNAL, PROTO, PACKED, IS_NONCONST>::ProtoOrNotSequenceType element
                     ) {
                 element_access = element;
             }
@@ -52,8 +52,8 @@ namespace tidysq {
         template<typename PROTO>
         struct AccessTypeAssigner<RCPP_IT, PROTO, IS_PACKED> {
             inline static void assign(
-                    typename UniversalTypeBinder<RCPP_IT, PROTO, IS_PACKED, IS_NONCONST>::ProtoOrNotSqContentAccessType &element_access,
-                    typename UniversalTypeBinder<RCPP_IT, PROTO, IS_PACKED, IS_NONCONST>::ProtoOrNotSequenceType element
+                    typename util::UniversalTypeBinder<RCPP_IT, PROTO, IS_PACKED, IS_NONCONST>::ProtoOrNotSqContentAccessType &element_access,
+                    typename util::UniversalTypeBinder<RCPP_IT, PROTO, IS_PACKED, IS_NONCONST>::ProtoOrNotSequenceType element
             ) {
                 Rcpp::RawVector content = element.content();
                 content.attr("original_length") = element.original_length();
@@ -64,8 +64,8 @@ namespace tidysq {
         template<typename PROTO>
         struct AccessTypeAssigner<RCPP_IT, PROTO, IS_UNPACKED> {
             inline static void assign(
-                    typename UniversalTypeBinder<RCPP_IT, PROTO, IS_UNPACKED, IS_NONCONST>::ProtoOrNotSqContentAccessType &element_access,
-                    typename UniversalTypeBinder<RCPP_IT, PROTO, IS_UNPACKED, IS_NONCONST>::ProtoOrNotSequenceType element
+                    typename util::UniversalTypeBinder<RCPP_IT, PROTO, IS_UNPACKED, IS_NONCONST>::ProtoOrNotSqContentAccessType &element_access,
+                    typename util::UniversalTypeBinder<RCPP_IT, PROTO, IS_UNPACKED, IS_NONCONST>::ProtoOrNotSequenceType element
             ) {
                 element_access = element.content();
             }
@@ -73,9 +73,9 @@ namespace tidysq {
 
         template<typename INTERNAL, typename PROTO, bool PACKED, bool CONST>
         class BasicElementProxy {
-            typedef typename UniversalTypeBinder<INTERNAL, PROTO, PACKED, CONST>::ProtoOrNotSqContentAccessType ElementAccessType;
-            typedef typename UniversalTypeBinder<INTERNAL, PROTO, PACKED, CONST>::ProtoOrNotSequenceType ElementType;
-            typedef typename UniversalTypeBinder<INTERNAL, PROTO, PACKED, CONST>::ProtoOrNotSqType ContainerType;
+            typedef typename util::UniversalTypeBinder<INTERNAL, PROTO, PACKED, CONST>::ProtoOrNotSqContentAccessType ElementAccessType;
+            typedef typename util::UniversalTypeBinder<INTERNAL, PROTO, PACKED, CONST>::ProtoOrNotSequenceType ElementType;
+            typedef typename util::UniversalTypeBinder<INTERNAL, PROTO, PACKED, CONST>::ProtoOrNotSqType ContainerType;
 
             ElementAccessType contained_element_access_;
 
