@@ -1,7 +1,7 @@
 Package: tidysq
 Type: Package
 Title: Tidy processing and analysis of biological sequences
-Version: 0.9.0
+Version: 1.0.0
 Date: 2020-12-10
 Authors@R: c(person("Dominik", "Rafacz", 
            email = "dominikrafacz@gmail.com",
@@ -60,7 +60,8 @@ Suggests:
     spelling,
     testthat (>= 2.1.0),
     withr (>= 2.2.0),
-    knitr
+    knitr,
+    purrr
 License: GPL (>= 2)
 URL: https://github.com/michbur/tidysq
 BugReports: https://github.com/michbur/tidysq/issues
