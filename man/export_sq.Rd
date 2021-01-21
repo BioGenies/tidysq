@@ -11,7 +11,7 @@ export_sq(x, export_format, name = NULL, ...)
 An object this function is applied to.}
 
 \item{export_format}{[\code{character(1)}]\cr
-A string indicating desired class (with specified package for disambiguity).}
+A string indicating desired class (with specified package for clarity).}
 
 \item{name}{[\code{character}]\cr
 Vector of sequence names. Must be of the same length as \code{sq} object.

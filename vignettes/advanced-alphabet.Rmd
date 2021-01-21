@@ -25,11 +25,11 @@ sq_dna <- sq(c("CTGAATGCAGT", "ATGCCGT", "CAGACCATT"))
 alphabet(sq_dna)
 ```
 
-It is strongly discouraged to manually assign different alphabet, as it may result in undesirable behaviour.
+It is strongly discouraged to manually assign different alphabet, as it may result in undesirable behavior.
 
 ## Standard alphabets
 
-Alphabets can be divided into standard and non-standard types. Both these groups have similar behaviour, but standard alphabets have additional functionalities available due to their biological interpretation.
+Alphabets can be divided into standard and non-standard types. Both these groups have similar behavior, but standard alphabets have additional functionalities available due to their biological interpretation.
 
 Standard alphabets can be subdivided into basic and extended alphabets, both groups closely linked. For every standard alphabet there exists a type such that if an `sq` object has this type, then its `alphabet` attribute has this alphabet as value.
 
