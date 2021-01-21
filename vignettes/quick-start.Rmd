@@ -36,7 +36,7 @@ sq_dna
 
 There are several thing to note. First, each sequence is an element of `sq` object. Many operations are vectorized --- they are applied to all sequences of a vector --- and `sq` objects are no different in this regard. Second, the first line of output says: `basic DNA sequences list`. This means that all sequences of this object are of DNA type and do not use ambiguous letters (more about that in "Advanced alphabet techniques" vignette).
 
-## Subsequencing
+## Subsetting sequences
 
 Manipulating sequence objects is an integral part of `tidysq`. `sq` objects can be easily subsetted using usual R syntax:
 

@@ -1,5 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cert-err58-cpp"
 #pragma once
 
 #include "tidysq/tidysq-typedefs.h"
@@ -16,5 +14,3 @@ namespace tidysq::constants {
             {14u, 14u}
     };
 }
-
-#pragma clang diagnostic pop

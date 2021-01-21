@@ -1,3 +1,5 @@
+globalVariables("x")
+
 check_sq_type <- function(type, null.ok = FALSE, unt.ok = FALSE, atp.ok = FALSE) {
   check_choice(type,
                choices = c("dna_bsc", "dna_ext", "rna_bsc",
