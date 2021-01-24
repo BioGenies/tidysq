@@ -191,6 +191,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPP_paste
+Rcpp::List CPP_paste(const Rcpp::List& list_of_x, const tidysq::Letter& NA_letter);
+RcppExport SEXP _tidysq_CPP_paste(SEXP list_of_xSEXP, SEXP NA_letterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type list_of_x(list_of_xSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_paste(list_of_x, NA_letter));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_random_sq
 Rcpp::List CPP_random_sq(const int& n, const Rcpp::IntegerVector& len, const Rcpp::StringVector& alphabet, const bool& use_gap);
 RcppExport SEXP _tidysq_CPP_random_sq(SEXP nSEXP, SEXP lenSEXP, SEXP alphabetSEXP, SEXP use_gapSEXP) {
@@ -391,6 +403,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_pack_INTS", (DL_FUNC) &_tidysq_CPP_pack_INTS, 4},
     {"_tidysq_CPP_pack_STRINGS", (DL_FUNC) &_tidysq_CPP_pack_STRINGS, 4},
     {"_tidysq_CPP_pack_STRING", (DL_FUNC) &_tidysq_CPP_pack_STRING, 4},
+    {"_tidysq_CPP_paste", (DL_FUNC) &_tidysq_CPP_paste, 2},
     {"_tidysq_CPP_random_sq", (DL_FUNC) &_tidysq_CPP_random_sq, 4},
     {"_tidysq_CPP_read_fasta", (DL_FUNC) &_tidysq_CPP_read_fasta, 4},
     {"_tidysq_CPP_sample_fasta", (DL_FUNC) &_tidysq_CPP_sample_fasta, 4},

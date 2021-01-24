@@ -57,6 +57,10 @@ CPP_pack_STRING <- function(proto, alphabet, NA_letter, ignore_case) {
     .Call(`_tidysq_CPP_pack_STRING`, proto, alphabet, NA_letter, ignore_case)
 }
 
+CPP_paste <- function(list_of_x, NA_letter) {
+    .Call(`_tidysq_CPP_paste`, list_of_x, NA_letter)
+}
+
 CPP_random_sq <- function(n, len, alphabet, use_gap) {
     .Call(`_tidysq_CPP_random_sq`, n, len, alphabet, use_gap)
 }
