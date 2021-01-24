@@ -54,6 +54,7 @@ collapse(sq_empty)
 \seealso{
 Functions that affect order of elements:
 \code{\link{bite}()},
+\code{\link{paste}()},
 \code{\link{reverse}()}
 }
 \concept{order_functions}

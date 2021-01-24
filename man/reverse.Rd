@@ -48,6 +48,7 @@ reverse(sq_unt)
 \seealso{
 Functions that affect order of elements:
 \code{\link{bite}()},
-\code{\link{collapse}()}
+\code{\link{collapse}()},
+\code{\link{paste}()}
 }
 \concept{order_functions}
