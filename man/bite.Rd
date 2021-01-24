@@ -88,6 +88,7 @@ bite(sq_dna, -1:-4)
 
 Functions that affect order of elements:
 \code{\link{collapse}()},
+\code{\link{paste}()},
 \code{\link{reverse}()}
 }
 \concept{order_functions}
