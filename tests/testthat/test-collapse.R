@@ -43,7 +43,7 @@ test_that("collapse() throws an error whenever passed object of class other that
 
 # VALUE COMPUTATION ----
 test_that("collapse() returns sequence equal to all collapsed sequences", {
-  local_options(list(tidysq_NA_letter = "!"))
+  withr::local_options(list(tidysq_NA_letter = "!"))
   expect_equivalent(as.character(collapse(sq_dna)),
                     paste0(str_dna, collapse = ""))
   expect_equivalent(as.character(collapse(sq_unt)),
