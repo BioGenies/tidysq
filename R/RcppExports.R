@@ -9,6 +9,10 @@ CPP_bite <- function(x, indices, NA_letter, on_warning) {
     .Call(`_tidysq_CPP_bite`, x, indices, NA_letter, on_warning)
 }
 
+CPP_collapse <- function(x, NA_letter) {
+    .Call(`_tidysq_CPP_collapse`, x, NA_letter)
+}
+
 CPP_complement <- function(x, NA_letter) {
     .Call(`_tidysq_CPP_complement`, x, NA_letter)
 }
