@@ -89,8 +89,8 @@ CPP_substitute_letters <- function(x, encoding, NA_letter) {
     .Call(`_tidysq_CPP_substitute_letters`, x, encoding, NA_letter)
 }
 
-CPP_translate <- function(x, table, NA_letter, interpret_as_stop) {
-    .Call(`_tidysq_CPP_translate`, x, table, NA_letter, interpret_as_stop)
+CPP_translate <- function(x, table, NA_letter) {
+    .Call(`_tidysq_CPP_translate`, x, table, NA_letter)
 }
 
 CPP_typify <- function(x, dest_type, NA_letter) {
