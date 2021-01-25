@@ -51,12 +51,3 @@ test_that("translate() correctly handles tables other than default 1", {
   expect_equivalent(as.character(translate(sq_rna, 24)),
                     str_rna_translated)
 })
-
-test_that("translate() can handle ambiguous tables (27, 28 & 31) with additional parameter", {
-  expect_equivalent(as.character(translate(sq_dna_2, 31)),
-                    str_dna_2_translated_31)
-  expect_equivalent(as.character(translate(sq_dna_2, 31, interpret_as_stop = FALSE)),
-                    str_dna_2_translated_31)
-  expect_equivalent(as.character(translate(sq_dna_2, 31, interpret_as_stop = TRUE)),
-                    str_dna_2_translated_31_as_stop)
-})

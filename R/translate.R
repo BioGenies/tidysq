@@ -11,9 +11,6 @@
 #' \href{https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi}{here}.
 #' @template NA_letter
 #' @template three-dots
-#' @param interpret_as_stop [\code{logical(1)}]\cr
-#'  Used with tables 27, 28 and 31 and their ambiguous translations. Tells if
-#'  these ambiguous codons should be interpreted as stop or the other option.
 #' 
 #' @return An object of \code{\link[=sq-class]{class sq}} with \strong{ami_bsc}
 #' type.
@@ -32,8 +29,8 @@
 #' sequences with extended alphabets, as ambiguous letters in most cases cannot
 #' be translated into exactly one protein.
 #' 
-#' Moreover, behavior of this function is undefined whenever input sequence
-#' contain either "\code{-}" or \code{NA} value.
+#' Moreover, this function raises an error whenever input sequence contain
+#' either "\code{-}" or \code{NA} value.
 #'
 #' @examples
 #' sq_dna <- sq(c("TACTGGGCATGA", "CAGGTC", "TAGTCCTAG"), alphabet = "dna_bsc")
@@ -45,7 +42,7 @@
 #' @export
 translate <- function(x, table = 1, ...) {
   assert_int(table)
-  assert_choice(table, c(1:16, 21:31, 33))
+  assert_choice(table, c(1:16, 21:26, 29, 30, 33))
   
   UseMethod("translate")
 }
@@ -57,12 +54,10 @@ translate.default <- function(x, table = 1, ...)
 #' @rdname translate
 #' @export
 translate.sq_dna_bsc <- function(x, table = 1, ...,
-                                 NA_letter = getOption("tidysq_NA_letter"),
-                                 interpret_as_stop = FALSE) {
+                                 NA_letter = getOption("tidysq_NA_letter")) {
   assert_string(NA_letter, min.chars = 1)
-  assert_flag(interpret_as_stop)
   
-  CPP_translate(x, table, NA_letter, interpret_as_stop)
+  CPP_translate(x, table, NA_letter)
 }
 
 #' @rdname translate

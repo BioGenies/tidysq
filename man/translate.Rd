@@ -8,21 +8,9 @@
 \usage{
 translate(x, table = 1, ...)
 
-\method{translate}{sq_dna_bsc}(
-  x,
-  table = 1,
-  ...,
-  NA_letter = getOption("tidysq_NA_letter"),
-  interpret_as_stop = FALSE
-)
+\method{translate}{sq_dna_bsc}(x, table = 1, ..., NA_letter = getOption("tidysq_NA_letter"))
 
-\method{translate}{sq_rna_bsc}(
-  x,
-  table = 1,
-  ...,
-  NA_letter = getOption("tidysq_NA_letter"),
-  interpret_as_stop = FALSE
-)
+\method{translate}{sq_rna_bsc}(x, table = 1, ..., NA_letter = getOption("tidysq_NA_letter"))
 }
 \arguments{
 \item{x}{[\code{sq_dna_bsc} || \code{sq_rna_bsc}]\cr
@@ -38,10 +26,6 @@ An object this function is applied to.}
 A string that is used to interpret and display \code{NA} value in the
 context of \code{\link[=sq-class]{sq class}}. Default value equals to
 "\code{!}".}
-
-\item{interpret_as_stop}{[\code{logical(1)}]\cr
-Used with tables 27, 28 and 31 and their ambiguous translations. Tells if
-these ambiguous codons should be interpreted as stop or the other option.}
 }
 \value{
 An object of \code{\link[=sq-class]{class sq}} with \strong{ami_bsc}
@@ -66,8 +50,8 @@ Due to how the tables works, \code{translate()} does not support inputting
 sequences with extended alphabets, as ambiguous letters in most cases cannot
 be translated into exactly one protein.
 
-Moreover, behavior of this function is undefined whenever input sequence
-contain either "\code{-}" or \code{NA} value.
+Moreover, this function raises an error whenever input sequence contain
+either "\code{-}" or \code{NA} value.
 }
 \examples{
 sq_dna <- sq(c("TACTGGGCATGA", "CAGGTC", "TAGTCCTAG"), alphabet = "dna_bsc")

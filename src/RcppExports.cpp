@@ -297,16 +297,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // CPP_translate
-Rcpp::List CPP_translate(const Rcpp::List& x, const int& table, const tidysq::Letter& NA_letter, const bool& interpret_as_stop);
-RcppExport SEXP _tidysq_CPP_translate(SEXP xSEXP, SEXP tableSEXP, SEXP NA_letterSEXP, SEXP interpret_as_stopSEXP) {
+Rcpp::List CPP_translate(const Rcpp::List& x, const int& table, const tidysq::Letter& NA_letter);
+RcppExport SEXP _tidysq_CPP_translate(SEXP xSEXP, SEXP tableSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
     Rcpp::traits::input_parameter< const int& >::type table(tableSEXP);
     Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type interpret_as_stop(interpret_as_stopSEXP);
-    rcpp_result_gen = Rcpp::wrap(CPP_translate(x, table, NA_letter, interpret_as_stop));
+    rcpp_result_gen = Rcpp::wrap(CPP_translate(x, table, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -411,7 +410,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_remove_ambiguous", (DL_FUNC) &_tidysq_CPP_remove_ambiguous, 3},
     {"_tidysq_CPP_reverse", (DL_FUNC) &_tidysq_CPP_reverse, 2},
     {"_tidysq_CPP_substitute_letters", (DL_FUNC) &_tidysq_CPP_substitute_letters, 3},
-    {"_tidysq_CPP_translate", (DL_FUNC) &_tidysq_CPP_translate, 4},
+    {"_tidysq_CPP_translate", (DL_FUNC) &_tidysq_CPP_translate, 3},
     {"_tidysq_CPP_typify", (DL_FUNC) &_tidysq_CPP_typify, 3},
     {"_tidysq_CPP_unpack_RAWS", (DL_FUNC) &_tidysq_CPP_unpack_RAWS, 2},
     {"_tidysq_CPP_unpack_INTS", (DL_FUNC) &_tidysq_CPP_unpack_INTS, 2},
