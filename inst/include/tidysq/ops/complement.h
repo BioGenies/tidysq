@@ -30,17 +30,15 @@ namespace tidysq {
                     table_(match_table(type)) {};
 
             void operator()(const Sequence<INTERNAL_IN> &sequence_in, Sequence<INTERNAL_OUT> &sequence_out) override {
-                auto in_seq_iter = sequence_in.cbegin(alph_size_);
-                auto out_seq_iter = sequence_out.begin(alph_size_);
-                while (out_seq_iter != sequence_out.end(alph_size_) || in_seq_iter != sequence_in.cend(alph_size_)) {
+                for (auto in_seq_iter = sequence_in.cbegin(alph_size_), out_seq_iter = sequence_out.begin(alph_size_);
+                        out_seq_iter != sequence_out.end(alph_size_) || in_seq_iter != sequence_in.cend(alph_size_);
+                        ++in_seq_iter, ++out_seq_iter) {
                     LetterValue in_letter = *in_seq_iter;
                     if (table_.count(in_letter) > 0) {
                         out_seq_iter.assign(table_.at(in_letter));
                     } else {
                         out_seq_iter.assign(in_letter);
                     }
-                    ++in_seq_iter;
-                    ++out_seq_iter;
                 }
             }
 
