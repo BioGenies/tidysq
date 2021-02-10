@@ -98,6 +98,22 @@ filter(melt_res, type == "char") %>%
         plot.title = element_text(hjust = 0.5))
 
 
+filter(melt_res, type == "cons") %>% 
+  ggplot(aes(x = sq_len, y = time_value, color = package)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
+  scale_color_manual(values = package_colors) +
+  scale_x_continuous("Średnia długość sekwencji") +
+  scale_y_continuous("Czas konstrukcji") +
+  ggtitle("Czas konstrukcji z ciągu znaków") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90),
+        legend.position = "bottom", 
+        legend.key.width = unit(1, "cm"),
+        plot.title = element_text(hjust = 0.5))
+
+
 filter(melt_res, type == "tran") %>% 
   ggplot(aes(x = sq_len, y = time_value, color = package)) +
   geom_point() +
@@ -107,6 +123,21 @@ filter(melt_res, type == "tran") %>%
   scale_x_continuous("Średnia długość sekwencji") +
   scale_y_continuous("Czas translacji") +
   ggtitle("Czas translacji kodonów") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90),
+        legend.position = "bottom", 
+        legend.key.width = unit(1, "cm"),
+        plot.title = element_text(hjust = 0.5))
+
+filter(melt_res, type == "tran", !package %in% c("seqinr", "bioseq")) %>% 
+  ggplot(aes(x = sq_len, y = time_value, color = package)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
+  scale_color_manual(values = package_colors) +
+  scale_x_continuous("Średnia długość sekwencji") +
+  scale_y_continuous("Czas translacji") +
+  ggtitle("Czas translacji kodonów (bez bioseq i seqinr)") +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 90),
         legend.position = "bottom", 
