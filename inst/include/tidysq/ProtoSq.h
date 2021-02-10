@@ -15,11 +15,11 @@ namespace tidysq {
 
     template<typename INTERNAL, typename PROTO>
     class ProtoSq {
-        typename TypeBinder<INTERNAL, PROTO>::ProtoSqContentStorageType content_;
+        typename util::TypeBinder<INTERNAL, PROTO>::ProtoSqContentStorageType content_;
         Alphabet alphabet_;
     public:
         typedef ProtoSequence<INTERNAL, PROTO>                                      ElementType;
-        typedef typename TypeBinder<INTERNAL, PROTO>::ProtoSqContentStorageType     ContentStorageType;
+        typedef typename util::TypeBinder<INTERNAL, PROTO>::ProtoSqContentStorageType     ContentStorageType;
 
         ProtoSq(const ContentStorageType &content, const Alphabet &alphabet) :
                 content_(content),
@@ -59,11 +59,11 @@ namespace tidysq {
         }
 
         template<typename INTERNAL_OUT>
-        Sq<INTERNAL_OUT> pack() {
+        Sq<INTERNAL_OUT> pack() const {
             return tidysq::pack<INTERNAL, PROTO, INTERNAL_OUT>(*this);
         }
 
-        inline bool operator==(const ProtoSq<INTERNAL, PROTO> &other) {
+        inline bool operator==(const ProtoSq<INTERNAL, PROTO> &other) const {
            if ((alphabet_ != other.alphabet_) || (content_.size() != other.content_.size())) return false;
            for (LenSq i = 0; i < content_.size(); i++) {
                if ((*this)[i] != other[i]) return false;
@@ -71,7 +71,7 @@ namespace tidysq {
            return true;
         }
 
-        inline bool operator!=(const ProtoSq<INTERNAL, PROTO> &other) {
+        inline bool operator!=(const ProtoSq<INTERNAL, PROTO> &other) const {
             return !operator==(other);
         }
 
@@ -81,7 +81,7 @@ namespace tidysq {
 
 
     template<>
-    inline bool ProtoSq<RCPP_IT, STRING_PT>::operator==(const ProtoSq<RCPP_IT, STRING_PT> &other) {
+    inline bool ProtoSq<RCPP_IT, STRING_PT>::operator==(const ProtoSq<RCPP_IT, STRING_PT> &other) const {
         if ((alphabet_ != other.alphabet_) || (content_.size() != other.content_.size())) return false;
         for (LenSq i = 0; i < content_.size(); i++) {
             if ((*this)[i] != other[i]) return false;

@@ -192,25 +192,34 @@ sq <- function(x,
                safe_mode = getOption("tidysq_safe_mode"),
                on_warning = getOption("tidysq_on_warning"),
                ignore_case = FALSE) {
-  assert_character(x, any.missing = FALSE)
+  sq_from_source(x, alphabet, obtain_alphabet, pack,
+                 NA_letter, safe_mode, on_warning, ignore_case)
+}
+
+sq_from_source <- function(source, alphabet, sampler, reader,
+                           NA_letter = getOption("tidysq_NA_letter"),
+                           safe_mode = getOption("tidysq_safe_mode"),
+                           on_warning = getOption("tidysq_on_warning"),
+                           ignore_case = FALSE) {
+  assert_character(source, any.missing = FALSE)
   assert_flag(safe_mode)
   assert_string(NA_letter, min.chars = 1)
   assert_warning_handling(on_warning)
   assert_character(alphabet, any.missing = FALSE, min.len = 0, unique = TRUE, null.ok = TRUE)
   assert_flag(ignore_case)
-  
+
   if (is.null(alphabet)) {
-    alphabet <- obtain_alphabet(x, if (safe_mode) Inf else 4096, 
+    alphabet <- sampler(source, if (safe_mode) Inf else 4096,
                                 NA_letter, ignore_case)
     alphabet <- guess_standard_alphabet(alphabet)
   } else if (length(alphabet) == 1) {
     type <- interpret_type(alphabet)
     if (type == "unt") {
-      alphabet <- obtain_alphabet(x, Inf, NA_letter, ignore_case)
+      alphabet <- sampler(source, Inf, NA_letter, ignore_case)
     } else {
-      alphabet <- get_standard_alphabet(type)
+      alphabet <- CPP_get_standard_alphabet(type)
       if (safe_mode) {
-        actual_alphabet <- obtain_alphabet(x, Inf, NA_letter, ignore_case)
+        actual_alphabet <- sampler(source, Inf, NA_letter, ignore_case)
         if (!identical(actual_alphabet, alphabet)) {
           handle_warning_message(
             "Detected letters that do not match specified type!",
@@ -224,8 +233,8 @@ sq <- function(x,
     #TODO: issue #56
     alphabet <- sq_alphabet(alphabet, "atp")
   }
-  
-  pack(x, alphabet, NA_letter, ignore_case)
+
+  reader(source, alphabet, NA_letter, ignore_case)
 }
 
 sq_ptype <- function(str_alphabet, type)

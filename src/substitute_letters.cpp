@@ -16,5 +16,5 @@ Rcpp::List CPP_substitute_letters(const Rcpp::List &x,
     for (int i = 0; i < encoding.size(); ++i) {
         encoding_map.insert_or_assign(names[i], std_encoding[i]);
     }
-    return export_to_R(substitute_letters<RCPP_IT>(import_from_R(x, NA_letter), encoding_map));
+    return export_to_R(substitute_letters<RCPP_IT>(import_sq_from_R(x, NA_letter), encoding_map));
 }

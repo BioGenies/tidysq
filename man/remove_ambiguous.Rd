@@ -2,52 +2,12 @@
 % Please edit documentation in R/remove_ambiguous.R
 \name{remove_ambiguous}
 \alias{remove_ambiguous}
-\alias{remove_ambiguous.sq_dna_bsc}
-\alias{remove_ambiguous.sq_dna_ext}
-\alias{remove_ambiguous.sq_rna_bsc}
-\alias{remove_ambiguous.sq_rna_ext}
-\alias{remove_ambiguous.sq_ami_bsc}
-\alias{remove_ambiguous.sq_ami_ext}
+\alias{remove_ambiguous.sq}
 \title{Remove sequences that contain ambiguous elements}
 \usage{
 remove_ambiguous(x, by_letter = FALSE, ...)
 
-\method{remove_ambiguous}{sq_dna_bsc}(
-  x,
-  by_letter = FALSE,
-  ...,
-  NA_letter = getOption("tidysq_NA_letter")
-)
-
-\method{remove_ambiguous}{sq_dna_ext}(
-  x,
-  by_letter = FALSE,
-  ...,
-  NA_letter = getOption("tidysq_NA_letter")
-)
-
-\method{remove_ambiguous}{sq_rna_bsc}(
-  x,
-  by_letter = FALSE,
-  ...,
-  NA_letter = getOption("tidysq_NA_letter")
-)
-
-\method{remove_ambiguous}{sq_rna_ext}(
-  x,
-  by_letter = FALSE,
-  ...,
-  NA_letter = getOption("tidysq_NA_letter")
-)
-
-\method{remove_ambiguous}{sq_ami_bsc}(
-  x,
-  by_letter = FALSE,
-  ...,
-  NA_letter = getOption("tidysq_NA_letter")
-)
-
-\method{remove_ambiguous}{sq_ami_ext}(
+\method{remove_ambiguous}{sq}(
   x,
   by_letter = FALSE,
   ...,

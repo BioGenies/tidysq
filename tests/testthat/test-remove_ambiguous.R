@@ -21,14 +21,23 @@ sq_rna_3 <- sq(c("UGGCGG", "ACGGUUUCGUU", "UGGAACG", "GGCUCGACAGACUGC"),
 # CORRECT PROTOTYPE OF RETURNED VALUE ----
 test_that("remove_ambiguous() returns an sq object with _bsc class", {
   expect_vector(remove_ambiguous(sq_ami),
-                ptype = sq_ptype(get_standard_alphabet("ami_bsc"), "ami_bsc"),
+                ptype = sq_ptype(CPP_get_standard_alphabet("ami_bsc"), "ami_bsc"),
                 size = vec_size(sq_ami))
   expect_vector(remove_ambiguous(sq_dna_3),
-                ptype = sq_ptype(get_standard_alphabet("dna_bsc"), "dna_bsc"),
+                ptype = sq_ptype(CPP_get_standard_alphabet("dna_bsc"), "dna_bsc"),
                 size = vec_size(sq_dna_3))
   expect_vector(remove_ambiguous(sq_rna_2),
-                ptype = sq_ptype(get_standard_alphabet("rna_bsc"), "rna_bsc"),
+                ptype = sq_ptype(CPP_get_standard_alphabet("rna_bsc"), "rna_bsc"),
                 size = vec_size(sq_rna_2))
+})
+
+# ERROR FOR NON-STANDARD SQ OBJECTS ----
+test_that("remove_ambiguous() throws an error whenever passed object of class other that standard sq classes", {
+  expect_error(remove_ambiguous(1:7))
+  expect_error(remove_ambiguous(LETTERS))
+  expect_error(remove_ambiguous(list(mean, sum, sd)))
+  expect_error(remove_ambiguous(sq(c(")R#)#!Vawr9fy", "*V)RUgBa^%#!b]"))))
+  expect_error(remove_ambiguous(sq(c("accmsce", "auprcacc"), alphabet = c("auprc", "acc", "msce"))))
 })
 
 # VALUE COMPUTATION ----

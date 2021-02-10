@@ -8,11 +8,18 @@ sq_empty <- sq(character(), alphabet = "dna_bsc")
 # CORRECT PROTOTYPE OF RETURNED VALUE ----
 test_that("typify() returns an sq object of desired type", {
   expect_vector(typify(sq_unt, "ami_ext"),
-                ptype = sq_ptype(get_standard_alphabet("ami_ext"), "ami_ext"),
+                ptype = sq_ptype(CPP_get_standard_alphabet("ami_ext"), "ami_ext"),
                 size = vec_size(sq_unt))
   expect_vector(typify(sq_dna, "dna_ext"),
-                ptype = sq_ptype(get_standard_alphabet("dna_ext"), "dna_ext"),
+                ptype = sq_ptype(CPP_get_standard_alphabet("dna_ext"), "dna_ext"),
                 size = vec_size(sq_dna))
+})
+
+# ERROR FOR NON-SQ OBJECTS ----
+test_that("typify() throws an error whenever passed object of class other that sq", {
+  expect_error(typify(1:7, "dna_bsc"))
+  expect_error(typify(LETTERS, "rna_bsc"))
+  expect_error(typify(list(mean, sum, sd), "ami_ext"))
 })
 
 # NO CHANGES IF ALREADY TARGET CLASS ----
@@ -41,6 +48,6 @@ test_that("typify() returns object that is convertible to identical character ve
 # EDGE CASES ----
 test_that("typify() works for empty sq and returns empty sq of target class", {
   expect_vector(typify(sq_empty, "ami_bsc"),
-                ptype = sq_ptype(get_standard_alphabet("ami_bsc"), "ami_bsc"),
+                ptype = sq_ptype(CPP_get_standard_alphabet("ami_bsc"), "ami_bsc"),
                 size = vec_size(sq_empty))
 })

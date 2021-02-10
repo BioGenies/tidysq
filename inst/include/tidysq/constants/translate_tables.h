@@ -1,214 +1,305 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cert-err58-cpp"
 #pragma once
 
 #include "tidysq/tidysq-typedefs.h"
 
 namespace tidysq::constants {
-    const internal::CodonTable CODON_TABLE_1 = {
-            {0u, {
-                         {0u, {{0u, 8u}, {1u, 11u}, {2u, 8u}, {3u, 11u}}},
-                         {1u, {{0u, 16u}, {1u, 16u}, {2u, 16u}, {3u, 16u}}},
-                         {2u, {{0u, 14u}, {1u, 15u}, {2u, 14u}, {3u, 15u}}},
-                         {3u, {{0u, 7u}, {1u, 7u}, {2u, 10u}, {3u, 7u}}}
-                 }},
-            {1u, {
-                         {0u, {{0u, 13u}, {1u, 6u}, {2u, 13u}, {3u, 6u}}},
-                         {1u, {{0u, 12u}, {1u, 12u}, {2u, 12u}, {3u, 12u}}},
-                         {2u, {{0u, 14u}, {1u, 14u}, {2u, 14u}, {3u, 14u}}},
-                         {3u, {{0u, 9u}, {1u, 9u}, {2u, 9u}, {3u, 9u}}}
-                 }},
-            {2u, {
-                         {0u, {{0u, 3u}, {1u, 2u}, {2u, 3u}, {3u, 2u}}},
-                         {1u, {{0u, 0u}, {1u, 0u}, {2u, 0u}, {3u, 0u}}},
-                         {2u, {{0u, 5u}, {1u, 5u}, {2u, 5u}, {3u, 5u}}},
-                         {3u, {{0u, 17u}, {1u, 17u}, {2u, 17u}, {3u, 17u}}}
-                 }},
-            {3u, {
-                         {0u, {{0u, 21u}, {1u, 19u}, {2u, 21u}, {3u, 19u}}},
-                         {1u, {{0u, 15u}, {1u, 15u}, {2u, 15u}, {3u, 15u}}},
-                         {2u, {{0u, 21u}, {1u, 1u}, {2u, 18u}, {3u, 1u}}},
-                         {3u, {{0u, 4u}, {1u, 9u}, {2u, 4u}, {3u, 9u}}}
-                 }}
-    };
+    template<int TABLE, LetterValue C1, LetterValue C2, LetterValue C3>
+    const LetterValue CODON = 31u;
 
-    const std::unordered_map<int, const internal::CodonTable> CODON_DIFF_TABLES = {
-            {2, {
-                        {0u, {
-                                     {2u, {{0u, 21u}, {2u, 21u}}},
-                                     {3u, {{0u, 10u}}}
-                             }},
-                        {3u, {
-                                     {2u, {{0u, 18u}}}
-                             }}
-                }},
-            {3, {
-                        {0u, {
-                                     {3u, {{0u, 10u}}}
-                             }},
-                        {1u, {
-                                     {2u, {{0u, 31u}, {1u, 31u}}},
-                                     {3u, {{0u, 16u}, {1u, 16u}, {2u, 16u}, {3u, 16u}}}
-                             }},
-                        {3u, {
-                                     {2u, {{0u, 18u}}}
-                             }}
-                }},
-            {4, {
-                        {3u, {
-                                     {2u, {{0u, 18u}}}
-                             }}
-                }},
-            {5, {
-                        {0u, {
-                                     {2u, {{0u, 15u}, {2u, 15u}}},
-                                     {3u, {{0u, 10u}}}
-                             }},
-                        {3u, {
-                                     {2u, {{0u, 18u}}}
-                             }}
-                }},
-            {6, {
-                        {3u, {
-                                     {0u, {{0u, 13u}, {2u, 13u}}}
-                             }}
-                }},
-            {9, {
-                        {0u, {
-                                     {0u, {{0u, 11u}}},
-                                     {2u, {{0u, 15u}, {2u, 15u}}}
-                             }},
-                        {3u, {
-                                     {2u, {{0u, 18u}}}
-                             }}
-                }},
-            {10, {
-                        {3u, {
-                                     {2u, {{0u, 1u}}}
-                             }}
-                }},
-            {12, {
-                        {1u, {
-                                     {3u, {{2u, 15u}}}
-                             }}
-                }},
-            {13, {
-                        {0u, {
-                                     {2u, {{0u, 5u}, {2u, 5u}}},
-                                     {3u, {{0u, 10u}}}
-                             }},
-                        {3u, {
-                                     {2u, {{0u, 18u}}}
-                             }}
-                }},
-            {14, {
-                        {0u, {
-                                     {0u, {{0u, 11u}}},
-                                     {2u, {{0u, 15u}, {2u, 15u}}}
-                             }},
-                        {3u, {
-                                     {0u, {{0u, 19u}}},
-                                     {2u, {{0u, 18u}}}
-                             }}
-                }},
-            {15, {
-                        {3u, {
-                                     {0u, {{2u, 13u}}}
-                             }}
-                }},
-            {16, {
-                        {3u, {
-                                     {0u, {{2u, 9u}}}
-                             }}
-                }},
-            {21, {
-                        {0u, {
-                                     {0u, {{0u, 11u}}},
-                                     {2u, {{0u, 15u}, {2u, 15u}}},
-                                     {3u, {{0u, 10u}}}
-                             }},
-                        {3u, {
-                                     {2u, {{0u, 18u}}}
-                             }}
-                }},
-            {22, {
-                        {3u, {
-                                     {0u, {{2u, 9u}}},
-                                     {1u, {{0u, 21u}}}
-                             }}
-                }},
-            {23, {
-                        {3u, {
-                                     {3u, {{0u, 21u}}}
-                             }}
-                }},
-            {24, {
-                        {0u, {
-                                     {2u, {{0u, 15u}, {2u, 8u}}}
-                             }},
-                        {3u, {
-                                     {2u, {{0u, 18u}}}
-                             }}
-                }},
-            {25, {
-                        {3u, {
-                                     {2u, {{0u, 5u}}}
-                             }}
-                }},
-            {26, {
-                        {1u, {
-                                     {3u, {{2u, 0u}}}
-                             }}
-                }},
-            {27, {
-                        {3u, {
-                                     {0u, {{0u, 13u}, {2u, 13u}}},
-                             }}
-                }},
-            {29, {
-                        {3u, {
-                                     {0u, {{0u, 19u}, {2u, 19u}}}
-                             }}
-                }},
-            {30, {
-                        {3u, {
-                                     {0u, {{0u, 3u}, {2u, 3u}}}
-                             }}
-                }},
-            {31, {
-                        {3u, {
-                                     {2u, {{0u, 18u}}}
-                             }}
-                }},
-            {33, {
-                        {0u, {
-                                     {2u, {{0u, 15u}, {2u, 8u}}}
-                             }},
-                        {3u, {
-                                     {0u, {{0u, 19u}}},
-                                     {2u, {{0u, 18u}}}
-                             }}
-                }}
-    };
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 0u, 0u, 0u> = 8u;
 
-    const std::unordered_map<int, const internal::CodonTable> AMB_CODON_DIFF_TABLES = {
-            {27, {
-                         {3u, {
-                                      {2u, {{0u, 18u}}}
-                              }}
-                 }},
-            {28, {
-                         {3u, {
-                                      {0u, {{0u, 13u}, {2u, 13u}}},
-                                      {2u, {{0u, 18u}}}
-                              }}
-                 }},
-            {31, {
-                         {3u, {
-                                      {0u, {{0u, 3u}, {2u, 3u}}}
-                              }}
-                 }}
-    };
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 0u, 0u, 1u> = 11u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 0u, 0u, 2u> = 8u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 0u, 0u, 3u> = 11u;
+
+    template<int TABLE, LetterValue C3>
+    const LetterValue CODON<TABLE, 0u, 1u, C3> = 16u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 0u, 2u, 0u> = 14u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 0u, 2u, 1u> = 15u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 0u, 2u, 2u> = 14u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 0u, 2u, 3u> = 15u;
+
+    template<int TABLE, LetterValue C3>
+    const LetterValue CODON<TABLE, 0u, 3u, C3> = 7u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 0u, 3u, 2u> = 10u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 1u, 0u, 0u> = 13u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 1u, 0u, 1u> = 6u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 1u, 0u, 2u> = 13u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 1u, 0u, 3u> = 6u;
+
+    template<int TABLE, LetterValue C3>
+    const LetterValue CODON<TABLE, 1u, 1u, C3> = 12u;
+
+    template<int TABLE, LetterValue C3>
+    const LetterValue CODON<TABLE, 1u, 2u, C3> = 14u;
+
+    template<int TABLE, LetterValue C3>
+    const LetterValue CODON<TABLE, 1u, 3u, C3> = 9u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 2u, 0u, 0u> = 3u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 2u, 0u, 1u> = 2u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 2u, 0u, 2u> = 3u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 2u, 0u, 3u> = 2u;
+
+    template<int TABLE, LetterValue C3>
+    const LetterValue CODON<TABLE, 2u, 1u, C3> = 0u;
+
+    template<int TABLE, LetterValue C3>
+    const LetterValue CODON<TABLE, 2u, 2u, C3> = 5u;
+
+    template<int TABLE, LetterValue C3>
+    const LetterValue CODON<TABLE, 2u, 3u, C3> = 17u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 3u, 0u, 0u> = 21u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 3u, 0u, 1u> = 19u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 3u, 0u, 2u> = 21u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 3u, 0u, 3u> = 19u;
+
+    template<int TABLE, LetterValue C3>
+    const LetterValue CODON<TABLE, 3u, 1u, C3> = 15u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 3u, 2u, 0u> = 21u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 3u, 2u, 1u> = 1u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 3u, 2u, 2u> = 18u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 3u, 2u, 3u> = 1u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 3u, 3u, 0u> = 4u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 3u, 3u, 1u> = 9u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 3u, 3u, 2u> = 4u;
+
+    template<int TABLE>
+    const LetterValue CODON<TABLE, 3u, 3u, 3u> = 9u;
+
+
+    template<>
+    const LetterValue CODON<2, 0u, 2u, 0u> = 21u;
+
+    template<>
+    const LetterValue CODON<2, 0u, 2u, 2u> = 21u;
+
+    template<>
+    const LetterValue CODON<2, 0u, 3u, 0u> = 10u;
+
+    template<>
+    const LetterValue CODON<2, 3u, 2u, 0u> = 18u;
+
+
+    template<>
+    const LetterValue CODON<3, 0u, 3u, 0u> = 10u;
+
+    template<>
+    const LetterValue CODON<3, 1u, 2u, 0u> = 31u;
+
+    template<>
+    const LetterValue CODON<3, 1u, 2u, 1u> = 31u;
+
+    template<LetterValue C3>
+    const LetterValue CODON<3, 1u, 3u, C3> = 16u;
+
+    template<>
+    const LetterValue CODON<3, 3u, 2u, 0u> = 18u;
+
+
+    template<>
+    const LetterValue CODON<4, 3u, 2u, 0u> = 18u;
+
+
+    template<>
+    const LetterValue CODON<5, 0u, 2u, 0u> = 15u;
+
+    template<>
+    const LetterValue CODON<5, 0u, 2u, 2u> = 15u;
+
+    template<>
+    const LetterValue CODON<5, 0u, 3u, 0u> = 10u;
+
+    template<>
+    const LetterValue CODON<5, 3u, 2u, 0u> = 18u;
+
+
+    template<>
+    const LetterValue CODON<6, 3u, 0u, 0u> = 13u;
+
+    template<>
+    const LetterValue CODON<6, 3u, 0u, 2u> = 13u;
+
+
+    template<>
+    const LetterValue CODON<9, 0u, 0u, 0u> = 11u;
+
+    template<>
+    const LetterValue CODON<9, 0u, 2u, 0u> = 15u;
+
+    template<>
+    const LetterValue CODON<9, 0u, 2u, 2u> = 15u;
+
+    template<>
+    const LetterValue CODON<9, 3u, 2u, 0u> = 18u;
+
+
+    template<>
+    const LetterValue CODON<10, 3u, 2u, 0u> = 1u;
+
+
+    template<>
+    const LetterValue CODON<12, 1u, 3u, 2u> = 15u;
+
+
+    template<>
+    const LetterValue CODON<13, 0u, 2u, 0u> = 5u;
+
+    template<>
+    const LetterValue CODON<13, 0u, 2u, 2u> = 5u;
+
+    template<>
+    const LetterValue CODON<13, 0u, 3u, 0u> = 10u;
+
+    template<>
+    const LetterValue CODON<13, 3u, 2u, 0u> = 18u;
+
+
+    template<>
+    const LetterValue CODON<14, 0u, 0u, 0u> = 11u;
+
+    template<>
+    const LetterValue CODON<14, 0u, 2u, 0u> = 15u;
+
+    template<>
+    const LetterValue CODON<14, 0u, 2u, 2u> = 15u;
+
+    template<>
+    const LetterValue CODON<14, 3u, 0u, 0u> = 19u;
+
+    template<>
+    const LetterValue CODON<14, 3u, 2u, 0u> = 18u;
+
+
+    template<>
+    const LetterValue CODON<15, 3u, 0u, 2u> = 13u;
+
+
+    template<>
+    const LetterValue CODON<16, 3u, 0u, 2u> = 9u;
+
+
+    template<>
+    const LetterValue CODON<21, 0u, 0u, 0u> = 11u;
+
+    template<>
+    const LetterValue CODON<21, 0u, 2u, 0u> = 15u;
+
+    template<>
+    const LetterValue CODON<21, 0u, 2u, 2u> = 15u;
+
+    template<>
+    const LetterValue CODON<21, 0u, 3u, 0u> = 10u;
+
+    template<>
+    const LetterValue CODON<21, 3u, 2u, 0u> = 18u;
+
+
+    template<>
+    const LetterValue CODON<22, 3u, 0u, 2u> = 9u;
+
+    template<>
+    const LetterValue CODON<22, 3u, 1u, 0u> = 21u;
+
+
+    template<>
+    const LetterValue CODON<23, 3u, 3u, 0u> = 21u;
+
+
+    template<>
+    const LetterValue CODON<24, 0u, 2u, 0u> = 15u;
+
+    template<>
+    const LetterValue CODON<24, 0u, 2u, 2u> = 8u;
+
+    template<>
+    const LetterValue CODON<24, 3u, 2u, 0u> = 18u;
+
+
+    template<>
+    const LetterValue CODON<25, 3u, 2u, 0u> = 5u;
+
+
+    template<>
+    const LetterValue CODON<26, 1u, 3u, 2u> = 0u;
+
+
+    template<>
+    const LetterValue CODON<29, 3u, 0u, 0u> = 19u;
+
+    template<>
+    const LetterValue CODON<29, 3u, 0u, 2u> = 19u;
+
+
+    template<>
+    const LetterValue CODON<30, 3u, 0u, 0u> = 3u;
+
+    template<>
+    const LetterValue CODON<30, 3u, 0u, 2u> = 3u;
+
+
+    template<>
+    const LetterValue CODON<33, 0u, 2u, 0u> = 15u;
+
+    template<>
+    const LetterValue CODON<33, 0u, 2u, 2u> = 8u;
+
+    template<>
+    const LetterValue CODON<33, 3u, 0u, 0u> = 19u;
+
+    template<>
+    const LetterValue CODON<33, 3u, 2u, 0u> = 18u;
 }
-
-#pragma clang diagnostic pop

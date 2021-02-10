@@ -1,0 +1,137 @@
+---
+title: "Quick Start"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Quick Start}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+`tidysq` package is meant to store and conduct operations on biological sequences. This vignette provides a guide to basic usage of `tidysq`, i.e. reading, manipulating and writing sequences to file.
+
+The package isn't released on CRAN yet, so it has to be installed with `install_github()` function from `devtools`.
+
+```{r setup}
+# devtools::install_github("BioGenies/tidysq")
+library(tidysq)
+```
+
+## Sequence creation
+
+Biological sequences can be and often are represented as strings -- sequences of letters. For example, a DNA sequence can take the form of `"TAGGCCCTAGACCTG"`, where `A` means adenine, `C` -- cytosine, `G` -- guanine and `T` -- thymine. Exact IUPAC recommendations for one-letter codes can be found [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC341218/).
+
+Within `tidysq` package sequence data is stored in `sq` objects, that is, vectors of biological sequences. They can be created from string vectors as above:
+
+```{r sq_from_string}
+sq_dna <- sq(c("TAGGCCCTAGACCTG", "TAGGCCCTGGGCATG"))
+sq_dna
+```
+
+There are several thing to note. First, each sequence is an element of `sq` object. Many operations are vectorized --- they are applied to all sequences of a vector --- and `sq` objects are no different in this regard. Second, the first line of output says: `basic DNA sequences list`. This means that all sequences of this object are of DNA type and do not use ambiguous letters (more about that in "Advanced alphabet techniques" vignette).
+
+## Subsetting sequences
+
+Manipulating sequence objects is an integral part of `tidysq`. `sq` objects can be easily subsetted using usual R syntax:
+
+```{r sq_subset}
+sq_dna[1]
+```
+
+Extracting subsequences is a bit more complicated than that --- because it uses designated function `bite()`. Its syntax, however, closely resembles that of base R --- indexing starts with one and negative indices are interpreted as "anything except that". It returns an `sq` object with all sequences subsetted:
+
+```{r sq_bite}
+bite(sq_dna, 5:10)
+bite(sq_dna, c(-9, -11, -13))
+```
+
+It's possible to reverse sequences using this function:
+
+```{r sq_bite_reversing}
+# Don't do it like that!
+bite(sq_dna, 15:1)
+```
+
+However, this usage is strongly discouraged, because it's both ineffective and works badly with sequences of different lengths. Instead, there is a designated function `reverse()`:
+
+```{r sq_reverse}
+reverse(sq_dna)
+```
+
+Note that it is very different to base `rev()`, which reverses only the order of sequences, not letters:
+
+```{r sq_rev}
+rev(sq_dna)
+```
+
+We can combine two or more `sq` objects using base `c()` function:
+
+```{r sq_c}
+sq_dna <- c(sq_dna, reverse(sq_dna))
+sq_dna
+```
+
+## Biological interpretation
+
+`tidysq` offers two functions specific to DNA/RNA sequences, namely `complement()` and `translate()`. The former creates sequences with complementary bases, that is, replaces `A` with `T`, `C` with `G` and *vice versa*. The latter translates input to amino acid sequences using [the translation table with three-letter codons](https://en.wikipedia.org/wiki/DNA_and_RNA_codon_tables).
+
+These functions can be called as shown below:
+
+```{r sq_complement_translate}
+complement(sq_dna)
+translate(sq_dna)
+```
+
+One noteworthy feature here is that translation can be done with any genetic code table of those listed [on this Wikipedia page](https://en.wikipedia.org/wiki/List_of_genetic_codes):
+
+```{r sq_translate_other_table}
+translate(sq_dna, table = 6)
+```
+
+## Finding motifs
+
+Motifs are short subsequences. These are often searched for in biological sequences. `tidysq` has two distinct functions that allow the user to perform such search.
+
+One of them is a `%has%` operator that takes `sq` object and character vector as parameters respectively. It returns a logical vector of the same length as `sq` object, where each element says whether all motifs passed as strings were found in given sequence:
+
+```{r sq_has}
+sq_dna %has% "ATC"
+# It can be used to subset sq
+sq_dna[sq_dna %has% c("AG", "CC")]
+```
+
+It says nothing about motif placement within sequence nor it exact form, however. In this case, there is `find_motifs()` function that returns a whole `tibble` (from `tibble` package; basically improved version of `data.frame`) with various info about found motifs. Important thing to note here is that the second argument is a character vector of sequence names to avoid embedding potentially long sequences in resulting `tibble` potentially many times:
+
+```{r sq_find_motifs}
+find_motifs(sq_dna, c("seq1", "seq2", "rev1", "rev2"), c("ATC", "TAG"))
+```
+
+There are ambiguous DNA bases in IUPAC codes and these can be used in motifs. One of them is `"N"` --- its meaning is "any of `A`, `C`, `G` or `T`:
+
+```{r sq_find_motifs_amb}
+find_motifs(sq_dna, c("seq1", "seq2", "rev1", "rev2"), "GNCC")
+```
+
+This example displays the difference between `"sought"` and `"found"` columns. The former contains the string representation of motif that the user was looking for, while the latter contains a `tidysq`-encoded sequence with an "instance" of motif.
+
+Two additional characters are reserved because of their special meaning in motifs. `"^"` means that this motif must be found at the start of a sequence, while `"$"` means the same, but with the end instead. They can be mixed with ambiguous letters, of course:
+
+```{r sq_find_motifs_start_end}
+find_motifs(sq_dna, c("seq1", "seq2", "rev1", "rev2"), c("^TAG", "ATN$"))
+```
+
+## Exporting sq objects
+
+After doing computations the user might wish to save their sequences for future use. One of the most popular formats for storing biological sequences is FASTA. `tidysq` allows the user to write sequences to FASTA file with `write_fasta()` function. Important thing to remember here is that it has to be passed `name` parameter, analogous to that present in `find_motifs()`:
+
+```{r write_fasta, eval=FALSE}
+write_fasta(sq_dna,
+            c("seq1", "seq2", "rev1", "rev2"),
+            "just_your_ordinary_fasta_file.fasta")
+```

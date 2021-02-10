@@ -1,5 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cert-err58-cpp"
 #pragma once
 
 #include <unordered_map>
@@ -7,7 +5,7 @@
 
 namespace tidysq::constants {
     enum WarningLevel {
-        LVL_NONE,
+        LVL_SILENT,
         LVL_MESSAGE,
         LVL_WARNING,
         LVL_ERROR
@@ -16,10 +14,9 @@ namespace tidysq::constants {
     const WarningLevel DEFAULT_WARNING_LEVEL = WarningLevel::LVL_WARNING;
 
     const std::unordered_map<std::string, WarningLevel> WARNING_LEVEL_NAMES {
-            {"none", LVL_NONE},
+            {"silent", LVL_SILENT},
             {"message", LVL_MESSAGE},
             {"warning", LVL_WARNING},
-            {"error", LVL_WARNING}
+            {"error", LVL_ERROR}
     };
 }
-#pragma clang diagnostic pop

@@ -1,0 +1,142 @@
+---
+title: "Advanced alphabet techniques"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Advanced alphabet techniques}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(tidysq)
+```
+
+Sequences in `sq` objects are compressed to take up less storage space. To achieve that, `sq` objects store an `alphabet` attribute that serves as a dictionary of possible symbols. This attribute can be accessed by its namesake function:
+
+```{r alphabet_access}
+sq_dna <- sq(c("CTGAATGCAGT", "ATGCCGT", "CAGACCATT"))
+alphabet(sq_dna)
+```
+
+It is strongly discouraged to manually assign different alphabet, as it may result in undesirable behavior.
+
+## Standard alphabets
+
+Alphabets can be divided into standard and non-standard types. Both these groups have similar behavior, but standard alphabets have additional functionalities available due to their biological interpretation.
+
+Standard alphabets can be subdivided into basic and extended alphabets, both groups closely linked. For every standard alphabet there exists a type such that if an `sq` object has this type, then its `alphabet` attribute has this alphabet as value.
+
+### Basic alphabets
+
+There are three predefined basic alphabets --- for DNA, RNA and amino acid sequences. They consist of all letter codes used for bases of given type, as well as gap letter "-" and (in amino acid case) stop letter "\*". Alphabets are stored as character vectors with added `sq_alphabet` class for additional methods. For instance, amino acid alphabet contains following letters: `r get_standard_alphabet("ami_bsc")`.
+
+Basic DNA/RNA alphabet is necessary for `translate()` operation.
+
+### Extended alphabets
+
+For each basic alphabet there is an extended counterpart. These three extended alphabets contain all letters from the respective basic ones and, additionally, ambiguous letters (that is, letters that mean "X-or-Y-or-Z base", where X, Y and Z are chosen from corresponding base alphabet).
+
+Both basic and extended alphabets can be acquired using `get_standard_alphabet()` function. It uses type interpreting not to force the user to remember exact type name (although using consistent naming is beneficial to code readability):
+
+```{r get_standard_alphabet}
+get_standard_alphabet("ami_ext")
+get_standard_alphabet("rna_bsc")
+get_standard_alphabet("DNA extended")
+```
+
+### Removing ambiguous elements
+
+When an `sq` object has an extended type, it can be converted to the basic one by utilizing `remove_ambiguous()` function. It works by removing either sequences where an ambiguous element is present or just this element, depending on `by_letter` parameter value. In the example below `N` is such an element:
+
+```{r rm_ambiguous}
+sq_rna <- sq(c("UCGGNNCAGNN", "AUUCGGUGA", "CNCUUANNNCNU"))
+sq_rna
+remove_ambiguous(sq_rna)
+remove_ambiguous(sq_rna, by_letter = TRUE)
+```
+
+Should the user wish to keep the original lengths of sequences unchanged, it's more appropriate to use `substitute_letters()` function instead. The most obvious replacement is "-" gap letter, present in all standard alphabets:
+
+```{r sub_ambiguous}
+substitute_letters(sq_rna, c(N = "-"))
+```
+
+Notice, however, that returned object has `atp` alphabet instead. More on handling that in [chapter about changing sq types](#type_manipulation).
+
+## Non-standard alphabets
+
+Non-standard alphabet group consists of two types: untyped (`unt`) and atypical (`atp`). The former is a result of not specifying alphabet and being unable to find a standard alphabet that would contain all letters appearing in sequences. The latter, on the other hand, is used whenever the user specifies used alphabet explicitly. The difference can be best shown with calls to constructing `sq()` function:
+
+```{r unt_vs_atp}
+sq(c("PFN&I&VO*&P", "&IO*&PVO"))
+sq(c("PFN&I&VO*&P", "&IO*&PVO"),
+   alphabet = c("F", "I", "N", "O", "P", "V", "&", "*"))
+```
+
+Obviously, as with standard alphabets, atypical ones can also contain more letters than actually appear:
+
+```{r atp_w_more_letters}
+sq(c("PFN&I&VO*&P", "&IO*&PVO"),
+   alphabet = c("E", "F", "I", "N", "O", "P", "Q", "V", "&", "*", ":"))
+```
+
+### Multicharacter alphabets
+
+The main usage of atypical alphabets is to allow the user to handle data with multicharacter letters. For example sometimes amino acid sequences are described using three-character codes. These can be handled as shown below (although with specifying all, not only a handful of codes):
+
+```{r atp_multichar}
+sq_multichar <- sq(c("TyrGlyArgArgAsp", "AspGlyArgGly", "CysGluGlyTyrProArg"),
+                   alphabet = c("Arg", "Asp", "Cys", "Glu", "Gly", "Pro", "Tyr"))
+sq_multichar
+```
+
+These letters are treated as a whole, meaning that they are indivisible. It can be observed during letter replacement operation:
+
+```{r sub_multichar}
+substitute_letters(sq_multichar, c(Arg = "X", Glu = "His", Pro = "X"))
+```
+
+## Type manipulation {#type_manipulation}
+
+As shown in previous chapters, `substitute_letters()` return an `sq` object of atp type. If a type isn't satisfying, then the user can utilize `typify()` function that creates new `sq` object with desired type (backticks are necessary, when the substituted letter isn't a valid variable name):
+
+```{r typify}
+sq_unt <- sq(c("UCGG&&CAG&&", "AUUCGGUGA", "C&CUUA&&&C&U"))
+sq_sub <- substitute_letters(sq_unt, c(`&` = "-"))
+sq_sub
+typify(sq_sub, "rna_bsc")
+```
+
+However, one should note that there is a requirement for `typify()` to work --- typified `sq` object must not contain any letters not in the target alphabet. For instance, following call won't work:
+
+```{r typify_fail, error=TRUE}
+typify(sq_sub, "dna_bsc")
+```
+
+The user isn't left alone to guess whether a sequence has invalid letters or not. In this case they can use `find_invalid_letters()` function that returns a list of character vectors, where each vector contains invalid letter for corresponding sequence:
+
+```{r find_invalid}
+find_invalid_letters(sq_sub, "dna_bsc")
+```
+
+However, all invalid letters within an alphabet have to be substituted before passing it to `typify()`. A more complicated call that replaces all ambiguous letters with "-" gap letter can be constructed as follows:
+
+```{r amb_to_gap}
+ambiguous_letters <- setdiff(
+  get_standard_alphabet("rna_ext"),
+  get_standard_alphabet("rna_bsc")
+)
+encoding <- rep("-", length(ambiguous_letters))
+names(encoding) <- ambiguous_letters
+encoding
+
+sq_rna_sub <- substitute_letters(sq_rna, encoding)
+typify(sq_rna_sub, "rna_bsc")
+```

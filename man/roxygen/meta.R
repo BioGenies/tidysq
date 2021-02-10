@@ -7,6 +7,7 @@ list(
     order_functions = "Functions that affect order of elements:",
     type_functions = "Functions that manipulate type of sequences:",
     util_functions = "Functions from utility module:",
-    display_functions = "Functions that display sequence info:"
+    display_functions = "Functions that display sequence info:",
+    alphabet_functions = "Functions from alphabet module:"
   )
 )

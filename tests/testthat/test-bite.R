@@ -19,12 +19,19 @@ test_that("bite() returns an sq object of original type", {
                   ptype = sq_ptype(char_atp, "atp"),
                   size = vec_size(sq_atp))
     expect_vector(bite(sq_dna, 2:5),
-                  ptype = sq_ptype(get_standard_alphabet("dna_bsc"), "dna_bsc"),
+                  ptype = sq_ptype(CPP_get_standard_alphabet("dna_bsc"), "dna_bsc"),
                   size = vec_size(sq_dna))
     expect_vector(bite(sq_empty, 2:5),
-                  ptype = sq_ptype(get_standard_alphabet("rna_bsc"), "rna_bsc"),
+                  ptype = sq_ptype(CPP_get_standard_alphabet("rna_bsc"), "rna_bsc"),
                   size = vec_size(sq_empty))
   })
+})
+
+# ERROR FOR NON-SQ OBJECTS ----
+test_that("bite() throws an error whenever passed object of class other that sq", {
+  expect_error(bite(1:7, 4:6))
+  expect_error(bite(LETTERS, -7:-11))
+  expect_error(bite(list(mean, sum, sd), 1))
 })
 
 # HANDLING INDICES INSIDE SEQUENCE ORIGINAL LENGTH ----
@@ -88,4 +95,9 @@ test_that("bite() ignores multiple instances of the same negative index", {
                    c("PQNVIFD", "PDOQX-FI", "SPBI--XXS"))
   expect_identical(as.character(bite(sq_dna, c(-4, -1, -1, -7, -4))),
                    c("TCGGCTAG", "GATG", "AGTT"))
+})
+
+test_that("bite() throws an error when passed mixed positive and negative indices", {
+  expect_error(bite(sq_dna, -5:5))
+  expect_error(bite(sq_empty, c(6, -1, 0, 5)))
 })

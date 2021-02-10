@@ -54,7 +54,7 @@ random_sq <- function(n, len, alphabet, sd = NULL, use_gap = FALSE) {
     if (type == "unt")
       stop("method 'random_sq' cannot take 'unt' as alphabet type", call. = FALSE)
     else
-      alphabet <- get_standard_alphabet(type)
+      alphabet <- CPP_get_standard_alphabet(type)
   } else {
     alphabet <- sq_alphabet(alphabet, "atp")
   }

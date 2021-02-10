@@ -18,6 +18,19 @@ test_that("sq_type() returns valid sq type", {
   expect_sq_type(sq_type(sq_atp), unt.ok = TRUE, atp.ok = TRUE)
 })
 
+# ERROR FOR NON-SQ OBJECTS ----
+test_that("sq_type() throws an error whenever passed object of class other that sq", {
+  expect_error(sq_type(1:7))
+  expect_error(sq_type(LETTERS))
+  expect_error(sq_type(list(mean, sum, sd)))
+})
+
+test_that("`sq_type<-`() throws an error whenever passed object of class other that sq", {
+  expect_error(sq_type(1:7) <- "ami_bsc")
+  expect_error(sq_type(LETTERS) <- "curiosity killed the cat")
+  expect_error(sq_type(list(mean, sum, sd)) <- "wdym")
+})
+
 # CORRECT VALUE ON ACCESS ----
 test_that("sq_type() returns correct sq type", {
   expect_equivalent(sq_type(sq_dna),

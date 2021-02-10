@@ -16,11 +16,11 @@ Rcpp::List CPP_random_sq(const int &n,
         return export_to_R(random_sq<RCPP_IT>(
                 n,
                 util::convert_to_scalar(len),
-                import_alphabet_from_R(alphabet, constants::DEFAULT_NA_LETTER),
+                import_alphabet_from_R(alphabet),
                 use_gap));
     }
     return export_to_R(random_sq<RCPP_IT>(
             Rcpp::as<std::vector<LenSq>>(len),
-            import_alphabet_from_R(alphabet, constants::DEFAULT_NA_LETTER),
+            import_alphabet_from_R(alphabet),
             use_gap));
 }

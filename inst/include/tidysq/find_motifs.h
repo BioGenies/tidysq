@@ -9,9 +9,6 @@ namespace tidysq {
                                                 const std::vector<std::string>& names,
                                                 const std::vector<std::string>& motifs) {
         const Alphabet& alph = sq.alphabet();
-        // TODO: issue #61
-        if (!alph.is_simple())
-            throw std::invalid_argument("For now, 'find_motifs' is supported only for simple letter alphabets");
 
         auto motif_list = internal::Motif::convert_motifs(motifs, alph);
         internal::MotifFrame<INTERNAL> ret(alph);

@@ -1,3 +1,5 @@
+globalVariables("x")
+
 check_sq_type <- function(type, null.ok = FALSE, unt.ok = FALSE, atp.ok = FALSE) {
   check_choice(type,
                choices = c("dna_bsc", "dna_ext", "rna_bsc",
@@ -22,7 +24,7 @@ expect_package_installed <- makeExpectationFunction(check_package_installed)
 
 check_warning_handling <- function(method) {
   check_choice(method,
-               choices = c("error", "warning", "message", "none"))
+               choices = c("error", "warning", "message", "silent"))
 }
 assert_warning_handling <- makeAssertionFunction(check_warning_handling)
 test_warning_handling <- makeTestFunction(check_warning_handling)
@@ -30,7 +32,7 @@ expect_warning_handling <- makeExpectationFunction(check_warning_handling)
 
 check_motifs_for_type <- function(motifs, type) {
   check_subset(unlist(strsplit(motifs, "")),
-               choices = c(get_standard_alphabet(type), "^", "$"))
+               choices = c(CPP_get_standard_alphabet(type), "^", "$"))
 }
 assert_motifs_for_type <- makeAssertionFunction(check_motifs_for_type)
 test_motifs_for_type <- makeTestFunction(check_motifs_for_type)

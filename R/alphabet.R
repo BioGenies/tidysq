@@ -67,6 +67,7 @@
 #' or \strong{rna} objects with \code{ignore_case} parameter set equal to
 #' \code{TRUE}).
 #'
+#' @family alphabet_functions
 #' @seealso \code{\link[=sq-class]{sq class}}
 #' @export
 alphabet <- function(x)
@@ -90,8 +91,30 @@ sq_alphabet <- function(alph, type) {
 
 sq_alphabet_ptype <- function(type)
   sq_alphabet(character(), type)
-
+#' Get standard alphabet for given type.
+#'
+#' @description Returns \code{alphabet} attribute of an object.
+#'
+#' @param type [\code{character(1)}]\cr
+#'  The name of standard sq type - one of \code{"dna_bsc"}, \code{"dna_ext"},
+#'  \code{"rna_bsc"}, \code{"rna_ext"}, \code{"ami_bsc"} and \code{"ami_ext"}.
+#'
+#' @return An \code{sq_alphabet} object related to passed sq type.
+#'
+#' @details
+#' Each of standard sq types has exactly one predefined alphabet. It allows
+#' \pkg{tidysq} to package to optimize type-specific operations like
+#' \code{\link{complement}()} or \code{\link{translate}()}. This function
+#' enables the user to access \code{alphabet} attribute common for all \code{sq}
+#' objects of given type.
+#'
+#' For list of letters specific to any of these standard alphabets, see
+#' \code{\link{alphabet}()}.
+#'
+#' @family alphabet_functions
+#' @export
 get_standard_alphabet <- function(type) {
+  type <- interpret_type(type)
   CPP_get_standard_alphabet(type)
 }
 

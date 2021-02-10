@@ -78,4 +78,8 @@ or \strong{rna} objects with \code{ignore_case} parameter set equal to
 }
 \seealso{
 \code{\link[=sq-class]{sq class}}
+
+Functions from alphabet module:
+\code{\link{get_standard_alphabet}()}
 }
+\concept{alphabet_functions}

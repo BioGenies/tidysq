@@ -113,6 +113,33 @@ namespace tidysq::internal {
     }
 
     template<typename INTERNAL_IN, typename PROTO_IN, typename INTERNAL_OUT, bool SIMPLE>
+    void pack6(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
+               Sequence<INTERNAL_OUT> &packed,
+               const Alphabet &alphabet) {
+        LenSq out_byte = 0;
+        auto interpreter = unpacked.template content_interpreter<SIMPLE>(alphabet);
+        LetterValue tmp;
+        while (!interpreter.reached_end()) {
+            packed(out_byte)  = (interpreter.get_next_value()      ) ;
+                         tmp  =  interpreter.get_next_value()        ;
+            packed(out_byte) |= (tmp                          << 6u) ;
+
+            if (++out_byte == packed.size()) break;
+
+            packed(out_byte)  = (tmp                          >> 2u) ;
+                         tmp  = interpreter.get_next_value()         ;
+            packed(out_byte) |= (tmp                          << 4u) ;
+
+            if (++out_byte == packed.size()) break;
+
+            packed(out_byte)  = (tmp                          >> 4u) |
+                                (interpreter.get_next_value() << 2u) ;
+            ++out_byte;
+        }
+        packed.trim(interpreter.interpreted_letters(), alphabet);
+    }
+
+    template<typename INTERNAL_IN, typename PROTO_IN, typename INTERNAL_OUT, bool SIMPLE>
     void pack(const ProtoSequence<INTERNAL_IN, PROTO_IN> &unpacked,
               Sequence<INTERNAL_OUT> &packed,
               const Alphabet &alphabet) {
@@ -129,8 +156,13 @@ namespace tidysq::internal {
             case 5:
                 pack5<INTERNAL_IN, PROTO_IN, INTERNAL_OUT, SIMPLE>(unpacked, packed, alphabet);
                 return;
+            case 6:
+                pack6<INTERNAL_IN, PROTO_IN, INTERNAL_OUT, SIMPLE>(unpacked, packed, alphabet);
+                return;
             default:
-                throw std::invalid_argument("\"alphabet\" has bad alphabet size");
+                throw std::invalid_argument(std::string("\"alphabet\" has invalid alphabet size - it is ") +
+                                              std::to_string(alphabet.alphabet_size()) +
+                                              " but it should be between 2 and 6 inclusive");
         }
     }
 }

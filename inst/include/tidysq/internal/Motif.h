@@ -2,6 +2,7 @@
 
 #include "tidysq/Alphabet.h"
 #include "tidysq/constants/ambiguous_maps.h"
+#include "tidysq/internal/obtain_alphabet.h"
 #include "tidysq/Sequence.h"
 #include "tidysq/ops/bite.h"
 
@@ -17,10 +18,43 @@ namespace tidysq::internal {
         bool until_end_ = false;
 
     private:
-        [[nodiscard]] inline std::list<unsigned short> match_value(const char &letter) {
+        inline void find_special_characters(const std::string &motif) {
+            for (auto it = motif.begin(); it != motif.end(); ++it) {
+                // In general, special handling of ^ and $ -- the only regex options implemented
+                if (*it == '^') {
+                    if (it == motif.begin()) {
+                        from_start_ = true;
+                        continue;
+                    } else throw std::invalid_argument(
+                            "'^' cannot appear anywhere other than at the beginning of motif");
+                }
+                if (*it == '$') {
+                    if (it == motif.end() - 1) {
+                        until_end_ = true;
+                        continue;
+                    } else throw std::invalid_argument(
+                            "'$' cannot appear anywhere other than at the end of motif");
+                }
+            }
+        }
+
+        [[nodiscard]] inline ProtoSequence<STD_IT, STRING_PT> to_proto(const std::string &motif) const {
+            LenSq start = 0;
+            LenSq length = motif.size();
+            if (from_start_) {
+                ++start;
+                --length;
+            }
+            if (until_end_) {
+                --length;
+            }
+            return ProtoSequence<STD_IT, STRING_PT>(motif.substr(start, length));
+        }
+
+        [[nodiscard]] inline std::list<unsigned short> match_value(const Letter &letter) {
             std::list<unsigned short> ret{};
-            std::list<char> meanings{};
-            std::unordered_map<ElementStringSimple, std::list<ElementStringSimple>> map{};
+            std::list<Letter> meanings{};
+            std::unordered_map<Letter, std::list<Letter>> map{};
 
             // Assigns mapping corresponding to sq class
             switch (alph_.type()) {
@@ -48,7 +82,7 @@ namespace tidysq::internal {
                 meanings.push_back(letter);
             }
 
-            // Translates each meaning (a char) to LetterValue (bit representation)
+            // Translates each meaning (a Letter) to LetterValue (bit representation)
             for (auto meaning : meanings) {
                 ret.push_back(alph_.match_value(meaning));
             }
@@ -58,25 +92,20 @@ namespace tidysq::internal {
     public:
         Motif(const std::string &motif, const Alphabet &alph) :
                 alph_(alph), sought_(motif) {
+            find_special_characters(motif);
+            ProtoSequence<STD_IT, STRING_PT> sequence = to_proto(motif);
+
             content_ = {};
-            for (auto it = motif.begin(); it != motif.end(); ++it) {
-                // In general, special handling of ^ and $ -- the only regex options implemented
-                if (*it == '^') {
-                    if (it == motif.begin()) {
-                        from_start_ = true;
-                        continue;
-                    } else
-                        throw std::invalid_argument(
-                                "'^' cannot appear anywhere other than at the beginning of motif");
+            if (alph.is_simple()) {
+                auto interpreter = sequence.template content_interpreter<true>(alph);
+                while (!interpreter.reached_end()) {
+                    content_.push_back(match_value(wrap_to_letter(interpreter.get_next_element())));
                 }
-                if (*it == '$') {
-                    if (it == motif.end() - 1) {
-                        until_end_ = true;
-                        continue;
-                    } else throw std::invalid_argument("'$' cannot appear anywhere other than at the end of motif");
+            } else {
+                auto interpreter = sequence.template content_interpreter<false>(alph);
+                while (!interpreter.reached_end()) {
+                    content_.push_back(match_value(wrap_to_letter(interpreter.get_next_element())));
                 }
-                // match_value returns a list of bit-packed meanings
-                content_.push_back(match_value(*it));
             }
         }
 

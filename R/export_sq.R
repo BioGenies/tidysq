@@ -9,7 +9,7 @@
 #'
 #' @template x
 #' @param export_format [\code{character(1)}]\cr
-#'  A string indicating desired class (with specified package for disambiguity).
+#'  A string indicating desired class (with specified package for clarity).
 #' @template name
 #' @template three-dots
 #'
@@ -93,8 +93,8 @@ export_sq.sq_ami_bsc <- function(x, export_format, name = NULL, ...) {
         lapply(unpack(x, "STRINGS"), seqinr::as.SeqFastaAA)
       } else {
         mapply(function(sequence, seq_name) {
-          `attr<-`(seqinr::as.SeqFastaAA(sequence), "name", seq_name)
-        }, unpack(x, "STRINGS"), name, SIMPLIFY = FALSE)
+          seqinr::as.SeqFastaAA(sequence, name = seq_name)
+        }, unpack(x, "STRINGS"), name, SIMPLIFY = FALSE, USE.NAMES = FALSE)
       }
     },
     {
@@ -129,8 +129,8 @@ export_sq.sq_dna_bsc <- function(x, export_format, name = NULL, ...) {
         lapply(unpack(x, "STRINGS"), seqinr::as.SeqFastadna)
       } else {
         mapply(function(sequence, seq_name) {
-          `attr<-`(seqinr::as.SeqFastadna(sequence), "name", seq_name)
-        }, unpack(x, "STRINGS"), name, SIMPLIFY = FALSE)
+          seqinr::as.SeqFastadna(sequence, name = seq_name)
+        }, unpack(x, "STRINGS"), name, SIMPLIFY = FALSE, USE.NAMES = FALSE)
       }
     },
     {
