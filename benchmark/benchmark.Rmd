@@ -10,8 +10,8 @@ knitr::opts_chunk$set(echo = FALSE)
 library(dplyr)
 library(ggplot2)
 
-package_colors <- c(ape = "#66c2a5", Biostrings = "#fc8d62", 
-            tidysq = "#8da0cb", seqinr = "#e78ac3")
+package_colors <- c(ape = "#ef798a", Biostrings = "#faa613", 
+            tidysq = "#688e26", seqinr = "#732c2c")
 
 melt_res <- read.csv("results.csv") %>% 
   group_by(package, sq_len, num_sq, type, file_size) %>% 
@@ -92,9 +92,12 @@ filter(melt_res, type == "read") %>%
   geom_line() +
   facet_wrap( ~ num_sq, scales = "free_y") +
   scale_color_manual(values = package_colors) +
-  ggtitle("read_fasta time") +
+  scale_x_continuous("Średnia długość sekwencji") +
+  scale_y_continuous("Czas odczytania") +
+  ggtitle("Czas odczytywania z pliku") +
   theme_bw() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom",
+        axis.text.x = element_text(angle = 90))
 
 ```
 

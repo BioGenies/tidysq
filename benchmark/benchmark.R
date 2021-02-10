@@ -10,13 +10,13 @@ set.seed(981099)
 ### reading fasta format benchmark
 
 generate_dna_ex <- function(n, len, alph) 
-  write_fasta(random_sq(n, len + round(rnorm(1:n, sd = 0.1*len), 0), "dna_bsc"), 
+  write_fasta(random_sq(n, len, "dna_bsc", 0.1*len), 
               paste0(1:n, alph), 
               paste0("benchmark/dna_ex_n", n, "_l", len, "_a", length(alph), ".fasta"))
 
 alphs <- list("dna_bsc")
-ns <- c(10, 1000, 10000)
-lens <- c(10, 1000, 10000)
+ns <- c(10, 100, 1000, 10000)
+lens <- c(10, 100, 1000, 10000)
 
 lapply(ns, function(n) {
   lapply(lens, function(len) {
@@ -41,7 +41,7 @@ f_char <- list(tidysq = function(x) as.character(x[["sq"]]),
                ape = function(x) as.character(x), 
                Biostrings = function(x) sapply(x, toString))
 
-results <- do.call(rbind, pblapply(1:20, function(dummy) {
+results <- do.call(rbind, pblapply(1:10, function(dummy) {
   do.call(rbind, lapply(ns, function(n) {
     do.call(rbind, lapply(lens, function(len) {
       do.call(rbind, lapply(alphs, function(alph) {
@@ -68,5 +68,9 @@ results <- do.call(rbind, pblapply(1:20, function(dummy) {
     }))
   }))
 }))
+
+results$file_size <- file.size(rep(unlist(lapply(sapply(ns, function(n) paste0("benchmark/dna_ex_n", n)), function(t) paste0(t, "_l", lens, "_a", length(alph), ".fasta"))), each = 12))
+
+
 
 write.csv(results, "benchmark/results.csv", row.names = FALSE)
