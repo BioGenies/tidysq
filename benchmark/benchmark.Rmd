@@ -10,8 +10,9 @@ knitr::opts_chunk$set(echo = FALSE)
 library(dplyr)
 library(ggplot2)
 
-package_colors <- c(ape = "#ef798a", Biostrings = "#faa613", 
-            tidysq = "#688e26", seqinr = "#732c2c")
+package_colors <- c(
+  ape = "#ef798a", Biostrings = "#faa613", tidysq = "#688e26",
+  seqinr = "#732c2c", bioseq = "#89c23a")
 
 melt_res <- read.csv("results.csv") %>% 
   group_by(package, sq_len, num_sq, type, file_size) %>% 

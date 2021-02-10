@@ -1,9 +1,9 @@
 library(dplyr)
 library(ggplot2)
 
-package_colors <- c(ape = "#ef798a", Biostrings = "#faa613", 
-                    `plik`= "#050413", seqinr = "#132c9c",
-                    tidysq = "#688e26")
+package_colors <- c(
+  ape = "#ef798a", Biostrings = "#faa613", tidysq = "#688e26",
+  seqinr = "#732c2c", bioseq = "#39a27a", `plik`= "#050413")
 
 results_fs <- results %>%
   group_by(alph_size, sq_len, num_sq) %>%
@@ -21,6 +21,7 @@ melt_res <- results %>%
   ungroup() %>% 
   mutate(num_sq = factor(num_sq, levels = sort(unique(num_sq)),
                          labels = paste0("Liczba sekwencji:\n", sort(unique(num_sq)))))
+
 
 filter(melt_res, type == "read") %>% 
   select(sq_len, obj_size, package, num_sq) %>%
@@ -41,7 +42,8 @@ filter(melt_res, type == "read") %>%
         legend.key.width = unit(1, "cm"),
         plot.title = element_text(hjust = 0.5)) +
   guides(linetype = "none",
-         color = guide_legend("Format danych", override.aes = list(linetype = c(1,1,2,1,1), shape = 0)))
+         color = guide_legend("Format danych", override.aes = list(linetype = c(1,1,2,1,1,1), shape = 0)))
+
 
 filter(melt_res, type == "read", package != "seqinr") %>% 
   select(sq_len, obj_size, package, num_sq) %>%
@@ -61,7 +63,7 @@ filter(melt_res, type == "read", package != "seqinr") %>%
         legend.key.width = unit(1, "cm"),
         plot.title = element_text(hjust = 0.5)) +
   guides(linetype = "none",
-         color = guide_legend("Format danych", override.aes = list(linetype = c(1,1,2,1), shape = 0)))
+         color = guide_legend("Format danych", override.aes = list(linetype = c(1,1,2,1,1), shape = 0)))
 
 
 filter(melt_res, type == "read") %>% 
@@ -79,6 +81,7 @@ filter(melt_res, type == "read") %>%
         legend.key.width = unit(1, "cm"),
         plot.title = element_text(hjust = 0.5))
 
+
 filter(melt_res, type == "char") %>% 
   ggplot(aes(x = sq_len, y = time_value, color = package)) +
   geom_point() +
@@ -93,4 +96,19 @@ filter(melt_res, type == "char") %>%
         legend.position = "bottom", 
         legend.key.width = unit(1, "cm"),
         plot.title = element_text(hjust = 0.5))
-  
+
+
+filter(melt_res, type == "tran") %>% 
+  ggplot(aes(x = sq_len, y = time_value, color = package)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap( ~ num_sq, labeller = label_both, scales = "free_y") +
+  scale_color_manual(values = package_colors) +
+  scale_x_continuous("Średnia długość sekwencji") +
+  scale_y_continuous("Czas translacji") +
+  ggtitle("Czas translacji kodonów") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90),
+        legend.position = "bottom", 
+        legend.key.width = unit(1, "cm"),
+        plot.title = element_text(hjust = 0.5))
