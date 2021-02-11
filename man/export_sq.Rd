@@ -22,8 +22,8 @@ Vector of sequence names. Must be of the same length as \code{sq} object.
 \description{
 Converts object of class \code{\link[=sq-class]{sq}} to a class
 from another package. Currently supported packages are \pkg{ape},
-\pkg{Bioconductor} and \pkg{seqinr}. For exact list of supported classes and
-resulting types, see details.
+\pkg{bioseq}, \pkg{Bioconductor} and \pkg{seqinr}. For exact list of
+supported classes and resulting types, see details.
 }
 \details{
 Currently supported formats are as follows (grouped by \code{sq} types):
@@ -31,6 +31,7 @@ Currently supported formats are as follows (grouped by \code{sq} types):
 \item \strong{ami}:
  \itemize{
  \item \code{"ape::AAbin"}
+ \item \code{"bioseq::bioseq_aa"}
  \item \code{"Biostrings::AAString"}
  \item \code{"Biostrings::AAStringSet"}
  \item \code{"seqinr::SeqFastaAA"}
@@ -38,12 +39,14 @@ Currently supported formats are as follows (grouped by \code{sq} types):
 \item \strong{dna}:
  \itemize{
  \item \code{"ape::DNAbin"}
+ \item \code{"bioseq::bioseq_dna"}
  \item \code{"Biostrings::DNAString"}
  \item \code{"Biostrings::DNAStringSet"}
  \item \code{"seqinr::SeqFastadna"}
  }
 \item \strong{rna}:
  \itemize{
+ \item \code{"bioseq::bioseq_rna"}
  \item \code{"Biostrings::RNAString"}
  \item \code{"Biostrings::RNAStringSet"}
  }
@@ -53,19 +56,22 @@ Currently supported formats are as follows (grouped by \code{sq} types):
 # DNA and amino acid sequences can be exported to most packages
 sq_ami <- sq(c("MVVGL", "LAVPP"), alphabet = "ami_bsc")
 export_sq(sq_ami, "ape::AAbin")
+export_sq(sq_ami, "bioseq::bioseq_aa")
 export_sq(sq_ami, "Biostrings::AAStringSet", c("one", "two"))
 export_sq(sq_ami, "seqinr::SeqFastaAA")
 
 sq_dna <- sq(c("TGATGAAGCGCA", "TTGATGGGAA"), alphabet = "dna_bsc")
 export_sq(sq_dna, "ape::DNAbin", name = c("one", "two"))
+export_sq(sq_dna, "bioseq::bioseq_dna")
 export_sq(sq_dna, "Biostrings::DNAStringSet")
 export_sq(sq_dna, "seqinr::SeqFastadna")
 
-# RNA sequences are limited to Biostrings
+# RNA sequences are limited to Biostrings and bioseq
 sq_rna <- sq(c("NUARYGCB", "", "DRKCNYBAU"), alphabet = "rna_ext")
+export_sq(sq_rna, "bioseq::bioseq_rna")
 export_sq(sq_rna, "Biostrings::RNAStringSet")
 
-# Biostrings accept single sequences as well
+# Biostrings can export single sequences to simple strings as well
 export_sq(sq_dna[1], "Biostrings::DNAString")
 
 }

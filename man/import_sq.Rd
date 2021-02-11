@@ -22,8 +22,8 @@ another column \code{name} with those names
 \description{
 Creates \code{\link[=sq-class]{sq}} object from object of class
 from another package. Currently supported packages are \pkg{ape},
-\pkg{Bioconductor} and \pkg{seqinr}. For exact list of supported classes and
-resulting types, see details.
+\pkg{bioseq}, \pkg{Bioconductor} and \pkg{seqinr}. For exact list of
+supported classes and resulting types, see details.
 }
 \details{
 Currently supported classes are as follows:
@@ -34,6 +34,12 @@ Currently supported classes are as follows:
  \item \code{DNAbin} - imported as \strong{dna_bsc}
  \item \code{alignment} - exact type is guessed within \code{\link{sq}}
   function
+ }
+\item \code{bioseq}:
+ \itemize{
+ \item \code{bioseq_aa} - imported as \strong{ami_ext}
+ \item \code{bioseq_dna} - imported as \strong{dna_ext}
+ \item \code{bioseq_rna} - imported as \strong{rna_ext}
  }
 \item \code{Biostrings}:
  \itemize{
@@ -68,6 +74,11 @@ Providing object of class other than specified will result in an error.
 library(ape)
 ape_dna <- as.DNAbin(list(one = c("C", "T", "C", "A"), two = c("T", "G", "A", "G", "G")))
 import_sq(ape_dna)
+
+# bioseq example
+library(bioseq)
+bioseq_rna <- new_rna(c(one = "ANBRY", two = "YUTUGGN"))
+import_sq(bioseq_rna)
 
 # Biostrings example
 library(Biostrings)

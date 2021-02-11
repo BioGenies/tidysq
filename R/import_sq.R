@@ -2,8 +2,8 @@
 #' 
 #' @description Creates \code{\link[=sq-class]{sq}} object from object of class
 #' from another package. Currently supported packages are \pkg{ape},
-#' \pkg{Bioconductor} and \pkg{seqinr}. For exact list of supported classes and
-#' resulting types, see details.
+#' \pkg{bioseq}, \pkg{Bioconductor} and \pkg{seqinr}. For exact list of
+#' supported classes and resulting types, see details.
 #' 
 #' @param object [\code{any(1)}]\cr
 #'  An object of one of supported classes.
@@ -24,6 +24,12 @@
 #'  \item \code{DNAbin} - imported as \strong{dna_bsc}
 #'  \item \code{alignment} - exact type is guessed within \code{\link{sq}}
 #'   function
+#'  }
+#' \item \code{bioseq}:
+#'  \itemize{
+#'  \item \code{bioseq_aa} - imported as \strong{ami_ext}
+#'  \item \code{bioseq_dna} - imported as \strong{dna_ext}
+#'  \item \code{bioseq_rna} - imported as \strong{rna_ext}
 #'  }
 #' \item \code{Biostrings}:
 #'  \itemize{
@@ -58,6 +64,11 @@
 #' library(ape)
 #' ape_dna <- as.DNAbin(list(one = c("C", "T", "C", "A"), two = c("T", "G", "A", "G", "G")))
 #' import_sq(ape_dna)
+#'
+#' # bioseq example
+#' library(bioseq)
+#' bioseq_rna <- new_rna(c(one = "ANBRY", two = "YUTUGGN"))
+#' import_sq(bioseq_rna)
 #'
 #' # Biostrings example
 #' library(Biostrings)
@@ -123,6 +134,24 @@ import_sq.DNAbin <- function(object, ...) {
 import_sq.alignment <- function(object, ...) {
   # From package `ape`
   bind_into_sqibble(sq(object[["seq"]], ...), object[["nam"]])
+}
+
+#' @export
+import_sq.bioseq_aa <- function(object, ...) {
+  # From package `bioseq`
+  bind_into_sqibble(sq(as.character(object), alphabet = "ami_ext"), names(object))
+}
+
+#' @export
+import_sq.bioseq_dna <- function(object, ...) {
+  # From package `bioseq`
+  bind_into_sqibble(sq(as.character(object), alphabet = "dna_ext"), names(object))
+}
+
+#' @export
+import_sq.bioseq_rna <- function(object, ...) {
+  # From package `bioseq`
+  bind_into_sqibble(sq(as.character(object), alphabet = "rna_ext"), names(object))
 }
 
 #' @export
