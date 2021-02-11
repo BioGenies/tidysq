@@ -54,6 +54,7 @@ Imports:
 Suggests: 
     AmyloGram (>= 1.0),
     ape (>= 5.3),
+    bioseq (>= 0.1.2),
     Biostrings (>= 2.52.0),
     covr,
     seqinr (>= 3.4-5),
