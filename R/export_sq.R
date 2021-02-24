@@ -4,8 +4,8 @@
 #' 
 #' @description Converts object of class \code{\link[=sq-class]{sq}} to a class
 #' from another package. Currently supported packages are \pkg{ape},
-#' \pkg{Bioconductor} and \pkg{seqinr}. For exact list of supported classes and
-#' resulting types, see details.
+#' \pkg{bioseq}, \pkg{Bioconductor} and \pkg{seqinr}. For exact list of
+#' supported classes and resulting types, see details.
 #'
 #' @template x
 #' @param export_format [\code{character(1)}]\cr
@@ -19,6 +19,7 @@
 #' \item \strong{ami}:
 #'  \itemize{
 #'  \item \code{"ape::AAbin"}
+#'  \item \code{"bioseq::bioseq_aa"}
 #'  \item \code{"Biostrings::AAString"}
 #'  \item \code{"Biostrings::AAStringSet"}
 #'  \item \code{"seqinr::SeqFastaAA"}
@@ -26,12 +27,14 @@
 #' \item \strong{dna}:
 #'  \itemize{
 #'  \item \code{"ape::DNAbin"}
+#'  \item \code{"bioseq::bioseq_dna"}
 #'  \item \code{"Biostrings::DNAString"}
 #'  \item \code{"Biostrings::DNAStringSet"}
 #'  \item \code{"seqinr::SeqFastadna"}
 #'  }
 #' \item \strong{rna}:
 #'  \itemize{
+#'  \item \code{"bioseq::bioseq_rna"}
 #'  \item \code{"Biostrings::RNAString"}
 #'  \item \code{"Biostrings::RNAStringSet"}
 #'  }
@@ -41,19 +44,22 @@
 #' # DNA and amino acid sequences can be exported to most packages
 #' sq_ami <- sq(c("MVVGL", "LAVPP"), alphabet = "ami_bsc")
 #' export_sq(sq_ami, "ape::AAbin")
+#' export_sq(sq_ami, "bioseq::bioseq_aa")
 #' export_sq(sq_ami, "Biostrings::AAStringSet", c("one", "two"))
 #' export_sq(sq_ami, "seqinr::SeqFastaAA")
 #'
 #' sq_dna <- sq(c("TGATGAAGCGCA", "TTGATGGGAA"), alphabet = "dna_bsc")
 #' export_sq(sq_dna, "ape::DNAbin", name = c("one", "two"))
+#' export_sq(sq_dna, "bioseq::bioseq_dna")
 #' export_sq(sq_dna, "Biostrings::DNAStringSet")
 #' export_sq(sq_dna, "seqinr::SeqFastadna")
 #'
-#' # RNA sequences are limited to Biostrings
+#' # RNA sequences are limited to Biostrings and bioseq
 #' sq_rna <- sq(c("NUARYGCB", "", "DRKCNYBAU"), alphabet = "rna_ext")
+#' export_sq(sq_rna, "bioseq::bioseq_rna")
 #' export_sq(sq_rna, "Biostrings::RNAStringSet")
 #'
-#' # Biostrings accept single sequences as well
+#' # Biostrings can export single sequences to simple strings as well
 #' export_sq(sq_dna[1], "Biostrings::DNAString")
 #'
 #' @family output_functions
@@ -76,6 +82,10 @@ export_sq.sq_ami_bsc <- function(x, export_format, name = NULL, ...) {
     `ape::AAbin` = {
       assert_package_installed("ape")
       ape::as.AAbin(setNames(lapply(unpack(x, "STRINGS"), `attributes<-`, NULL), name))
+    },
+    `bioseq::bioseq_aa` = {
+      assert_package_installed("bioseq")
+      bioseq::new_aa(setNames(as.character(x), name))
     },
     `Biostrings::AAString` = {
       assert_package_installed("Biostrings")
@@ -113,6 +123,10 @@ export_sq.sq_dna_bsc <- function(x, export_format, name = NULL, ...) {
       assert_package_installed("ape")
       ape::as.DNAbin(setNames(lapply(unpack(x, "STRINGS"), `attributes<-`, NULL), name))
     },
+    `bioseq::bioseq_dna` = {
+      assert_package_installed("bioseq")
+      bioseq::new_dna(setNames(as.character(x), name))
+    },
     `Biostrings::DNAString` = {
       assert_package_installed("Biostrings")
       if (vec_size(x) != 1)
@@ -145,6 +159,10 @@ export_sq.sq_dna_ext <- export_sq.sq_dna_bsc
 #' @export
 export_sq.sq_rna_bsc <- function(x, export_format, name = NULL, ...) {
   switch (export_format,
+    `bioseq::bioseq_rna` = {
+      assert_package_installed("bioseq")
+      bioseq::new_rna(setNames(as.character(x), name))
+    },
     `Biostrings::RNAString` = {
       assert_package_installed("Biostrings")
       if (vec_size(x) != 1)
