@@ -57,8 +57,9 @@ namespace tidysq {
                     type_(type) {};
 
             void operator()(const Sequence<INTERNAL_IN> &sequence_in, Sequence<INTERNAL_OUT> &sequence_out) override {
-                for (auto in_seq_iter = sequence_in.cbegin(alph_size_), out_seq_iter = sequence_out.begin(alph_size_);
-                        out_seq_iter != sequence_out.end(alph_size_) || in_seq_iter != sequence_in.cend(alph_size_);
+                auto in_seq_iter = sequence_in.cbegin(alph_size_);
+                auto out_seq_iter = sequence_out.begin(alph_size_);
+                for (;  out_seq_iter != sequence_out.end(alph_size_) || in_seq_iter != sequence_in.cend(alph_size_);
                         ++in_seq_iter, ++out_seq_iter) {
                     out_seq_iter.assign(internal::read_complement(type_, *in_seq_iter));
                 }
