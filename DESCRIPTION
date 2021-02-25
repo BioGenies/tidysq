@@ -1,8 +1,8 @@
 Package: tidysq
 Type: Package
-Title: Tidy processing and analysis of biological sequences
+Title: Tidy Processing and Analysis of Biological sequences
 Version: 1.0.0
-Date: 2020-12-10
+Date: 2021-02-25
 Authors@R: c(person("Dominik", "Rafacz", 
            email = "dominikrafacz@gmail.com",
            comment = c(ORCID = "0000-0003-0925-1909"),
@@ -62,10 +62,11 @@ Suggests:
     testthat (>= 2.1.0),
     withr (>= 2.2.0),
     knitr,
+    rmarkdown,
     purrr
 License: GPL (>= 2)
-URL: https://github.com/michbur/tidysq
-BugReports: https://github.com/michbur/tidysq/issues
+URL: https://github.com/BioGenies/tidysq
+BugReports: https://github.com/BioGenies/tidysq/issues
 SystemRequirements: GNU make,
                     C++17
 NeedsCompilation: no
