@@ -49,8 +49,7 @@ Imports:
     pillar (>= 1.4.2),
     Rcpp (>= 1.0.1),
     vctrs (>= 0.3.0),
-    tibble (>= 2.1.3),
-    lifecycle
+    tibble (>= 2.1.3)
 Suggests: 
     AmyloGram (>= 1.0),
     ape (>= 5.3),
@@ -76,5 +75,4 @@ Language: en-US
 RoxygenNote: 7.1.1
 LinkingTo: Rcpp,
            testthat
-RdMacros: lifecycle
 VignetteBuilder: knitr
