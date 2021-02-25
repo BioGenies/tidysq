@@ -3,7 +3,9 @@ paste <- function(...)
   UseMethod("paste")
 
 #' @export
-paste.default <- base::paste
+paste.default <- function(...) {
+  base::paste(...)
+}
 
 #' Paste sequences in string-like fashion
 #'
