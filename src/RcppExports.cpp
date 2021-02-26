@@ -34,6 +34,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPP_collapse
+Rcpp::List CPP_collapse(const Rcpp::List& x, const tidysq::Letter& NA_letter);
+RcppExport SEXP _tidysq_CPP_collapse(SEXP xSEXP, SEXP NA_letterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_collapse(x, NA_letter));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_complement
 Rcpp::List CPP_complement(const Rcpp::List& x, const tidysq::Letter& NA_letter);
 RcppExport SEXP _tidysq_CPP_complement(SEXP xSEXP, SEXP NA_letterSEXP) {
@@ -179,6 +191,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPP_paste
+Rcpp::List CPP_paste(const Rcpp::List& list_of_x, const tidysq::Letter& NA_letter);
+RcppExport SEXP _tidysq_CPP_paste(SEXP list_of_xSEXP, SEXP NA_letterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type list_of_x(list_of_xSEXP);
+    Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPP_paste(list_of_x, NA_letter));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_random_sq
 Rcpp::List CPP_random_sq(const int& n, const Rcpp::IntegerVector& len, const Rcpp::StringVector& alphabet, const bool& use_gap);
 RcppExport SEXP _tidysq_CPP_random_sq(SEXP nSEXP, SEXP lenSEXP, SEXP alphabetSEXP, SEXP use_gapSEXP) {
@@ -273,16 +297,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // CPP_translate
-Rcpp::List CPP_translate(const Rcpp::List& x, const int& table, const tidysq::Letter& NA_letter, const bool& interpret_as_stop);
-RcppExport SEXP _tidysq_CPP_translate(SEXP xSEXP, SEXP tableSEXP, SEXP NA_letterSEXP, SEXP interpret_as_stopSEXP) {
+Rcpp::List CPP_translate(const Rcpp::List& x, const int& table, const tidysq::Letter& NA_letter);
+RcppExport SEXP _tidysq_CPP_translate(SEXP xSEXP, SEXP tableSEXP, SEXP NA_letterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::List& >::type x(xSEXP);
     Rcpp::traits::input_parameter< const int& >::type table(tableSEXP);
     Rcpp::traits::input_parameter< const tidysq::Letter& >::type NA_letter(NA_letterSEXP);
-    Rcpp::traits::input_parameter< const bool& >::type interpret_as_stop(interpret_as_stopSEXP);
-    rcpp_result_gen = Rcpp::wrap(CPP_translate(x, table, NA_letter, interpret_as_stop));
+    rcpp_result_gen = Rcpp::wrap(CPP_translate(x, table, NA_letter));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -367,6 +390,7 @@ RcppExport SEXP run_testthat_tests();
 static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_apply_R_function", (DL_FUNC) &_tidysq_CPP_apply_R_function, 4},
     {"_tidysq_CPP_bite", (DL_FUNC) &_tidysq_CPP_bite, 4},
+    {"_tidysq_CPP_collapse", (DL_FUNC) &_tidysq_CPP_collapse, 2},
     {"_tidysq_CPP_complement", (DL_FUNC) &_tidysq_CPP_complement, 2},
     {"_tidysq_CPP_find_invalid_letters", (DL_FUNC) &_tidysq_CPP_find_invalid_letters, 3},
     {"_tidysq_CPP_find_motifs", (DL_FUNC) &_tidysq_CPP_find_motifs, 4},
@@ -378,6 +402,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_pack_INTS", (DL_FUNC) &_tidysq_CPP_pack_INTS, 4},
     {"_tidysq_CPP_pack_STRINGS", (DL_FUNC) &_tidysq_CPP_pack_STRINGS, 4},
     {"_tidysq_CPP_pack_STRING", (DL_FUNC) &_tidysq_CPP_pack_STRING, 4},
+    {"_tidysq_CPP_paste", (DL_FUNC) &_tidysq_CPP_paste, 2},
     {"_tidysq_CPP_random_sq", (DL_FUNC) &_tidysq_CPP_random_sq, 4},
     {"_tidysq_CPP_read_fasta", (DL_FUNC) &_tidysq_CPP_read_fasta, 4},
     {"_tidysq_CPP_sample_fasta", (DL_FUNC) &_tidysq_CPP_sample_fasta, 4},
@@ -385,7 +410,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_remove_ambiguous", (DL_FUNC) &_tidysq_CPP_remove_ambiguous, 3},
     {"_tidysq_CPP_reverse", (DL_FUNC) &_tidysq_CPP_reverse, 2},
     {"_tidysq_CPP_substitute_letters", (DL_FUNC) &_tidysq_CPP_substitute_letters, 3},
-    {"_tidysq_CPP_translate", (DL_FUNC) &_tidysq_CPP_translate, 4},
+    {"_tidysq_CPP_translate", (DL_FUNC) &_tidysq_CPP_translate, 3},
     {"_tidysq_CPP_typify", (DL_FUNC) &_tidysq_CPP_typify, 3},
     {"_tidysq_CPP_unpack_RAWS", (DL_FUNC) &_tidysq_CPP_unpack_RAWS, 2},
     {"_tidysq_CPP_unpack_INTS", (DL_FUNC) &_tidysq_CPP_unpack_INTS, 2},

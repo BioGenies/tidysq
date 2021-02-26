@@ -3,6 +3,7 @@
 #include "tidysq/ProtoSequence.h"
 #include "tidysq/ops/Operation.h"
 #include "tidysq/ops/pack.h"
+#include "tidysq/util/random.h"
 #include "tidysq/sqapply.h"
 
 namespace tidysq {
@@ -44,7 +45,7 @@ namespace tidysq {
             inline void operator() (const LenSq &length,
                                     Sequence<INTERNAL_OUT> &sequence) override {
                 for (auto it = sequence.begin(alphabet_.alphabet_size()); it != sequence.end(alphabet_.alphabet_size()); ++it) {
-                    it.assign(letter_values_[rand() % letter_values_.size()]);
+                    it.assign(letter_values_[util::random_value<INTERNAL_OUT>(alphabet_.size())]);
                 }
             }
 

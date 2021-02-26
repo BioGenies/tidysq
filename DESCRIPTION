@@ -1,8 +1,8 @@
 Package: tidysq
 Type: Package
-Title: Tidy processing and analysis of biological sequences
+Title: Tidy Processing and Analysis of Biological Sequences
 Version: 1.0.0
-Date: 2020-12-10
+Date: 2021-02-25
 Authors@R: c(person("Dominik", "Rafacz", 
            email = "dominikrafacz@gmail.com",
            comment = c(ORCID = "0000-0003-0925-1909"),
@@ -51,8 +51,8 @@ Imports:
     tibble (>= 2.1.3),
     vctrs (>= 0.3.0)
 Suggests: 
-    AmyloGram (>= 1.0),
     ape (>= 5.3),
+    bioseq (>= 0.1.2),
     Biostrings (>= 2.52.0),
     covr,
     knitr,
@@ -63,8 +63,8 @@ Suggests:
     testthat (>= 2.1.0),
     withr (>= 2.2.0)
 License: GPL (>= 2)
-URL: https://github.com/michbur/tidysq
-BugReports: https://github.com/michbur/tidysq/issues
+URL: https://github.com/BioGenies/tidysq
+BugReports: https://github.com/BioGenies/tidysq/issues
 SystemRequirements: GNU make,
                     C++17
 NeedsCompilation: no
@@ -74,5 +74,4 @@ Language: en-US
 RoxygenNote: 7.1.1
 LinkingTo: Rcpp,
            testthat
-RdMacros: lifecycle
 VignetteBuilder: knitr

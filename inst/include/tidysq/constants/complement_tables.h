@@ -3,14 +3,42 @@
 #include "tidysq/tidysq-typedefs.h"
 
 namespace tidysq::constants {
-    const internal::ComplementTable BSC_COMPLEMENT_TABLE = {
-            {0u, 3u}, {1u, 2u}, {2u, 1u}, {3u, 0u}
-    };
+    template<bool SIMPLE, LetterValue CODON>
+    inline const LetterValue COMPLEMENT = CODON;
 
-    const internal::ComplementTable EXT_COMPLEMENT_TABLE = {
-            {0u, 3u}, {1u, 2u}, {2u, 1u}, {3u, 0u},
-            {4u, 4u}, {5u, 5u}, {6u, 7u}, {7u, 6u}, {8u, 9u}, {9u, 8u},
-            {10u, 13u}, {11u, 12u}, {12u, 11u}, {13u, 10u},
-            {14u, 14u}
-    };
+    template<bool SIMPLE>
+    inline const LetterValue COMPLEMENT<SIMPLE, 0u> = 3u;
+
+    template<bool SIMPLE>
+    inline const LetterValue COMPLEMENT<SIMPLE, 1u> = 2u;
+
+    template<bool SIMPLE>
+    inline const LetterValue COMPLEMENT<SIMPLE, 2u> = 1u;
+
+    template<bool SIMPLE>
+    inline const LetterValue COMPLEMENT<SIMPLE, 3u> = 0u;
+
+    template<>
+    inline const LetterValue COMPLEMENT<false, 6u> = 7u;
+
+    template<>
+    inline const LetterValue COMPLEMENT<false, 7u> = 6u;
+
+    template<>
+    inline const LetterValue COMPLEMENT<false, 8u> = 9u;
+
+    template<>
+    inline const LetterValue COMPLEMENT<false, 9u> = 8u;
+
+    template<>
+    inline const LetterValue COMPLEMENT<false, 10u> = 13u;
+
+    template<>
+    inline const LetterValue COMPLEMENT<false, 11u> = 12u;
+
+    template<>
+    inline const LetterValue COMPLEMENT<false, 12u> = 11u;
+
+    template<>
+    inline const LetterValue COMPLEMENT<false, 13u> = 10u;
 }

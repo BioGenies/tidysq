@@ -36,6 +36,16 @@ test_that("using sd argument of random_sq() doesn't generate negative-length seq
   }
 })
 
+# SEED SAFETY ---
+test_that("generating random sequences with the same seed gives the same sequences", {
+  set.seed(6125)
+  sq_1 <- random_sq(10, 100, "ami_bsc")
+  sq_2 <- random_sq(5, 20, "dna_ext", sd = 5)
+  set.seed(6125)
+  expect_equal(random_sq(10, 100, "ami_bsc"), sq_1)
+  expect_equal(random_sq(5, 20, "dna_ext", sd = 5), sq_2)
+})
+
 # EDGE CASES ----
 test_that("random_sq() can generate 0 sequences", {
   expect_vector(random_sq(0, 13, "rna_ext"),

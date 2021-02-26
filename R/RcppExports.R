@@ -9,6 +9,10 @@ CPP_bite <- function(x, indices, NA_letter, on_warning) {
     .Call(`_tidysq_CPP_bite`, x, indices, NA_letter, on_warning)
 }
 
+CPP_collapse <- function(x, NA_letter) {
+    .Call(`_tidysq_CPP_collapse`, x, NA_letter)
+}
+
 CPP_complement <- function(x, NA_letter) {
     .Call(`_tidysq_CPP_complement`, x, NA_letter)
 }
@@ -53,6 +57,10 @@ CPP_pack_STRING <- function(proto, alphabet, NA_letter, ignore_case) {
     .Call(`_tidysq_CPP_pack_STRING`, proto, alphabet, NA_letter, ignore_case)
 }
 
+CPP_paste <- function(list_of_x, NA_letter) {
+    .Call(`_tidysq_CPP_paste`, list_of_x, NA_letter)
+}
+
 CPP_random_sq <- function(n, len, alphabet, use_gap) {
     .Call(`_tidysq_CPP_random_sq`, n, len, alphabet, use_gap)
 }
@@ -81,8 +89,8 @@ CPP_substitute_letters <- function(x, encoding, NA_letter) {
     .Call(`_tidysq_CPP_substitute_letters`, x, encoding, NA_letter)
 }
 
-CPP_translate <- function(x, table, NA_letter, interpret_as_stop) {
-    .Call(`_tidysq_CPP_translate`, x, table, NA_letter, interpret_as_stop)
+CPP_translate <- function(x, table, NA_letter) {
+    .Call(`_tidysq_CPP_translate`, x, table, NA_letter)
 }
 
 CPP_typify <- function(x, dest_type, NA_letter) {
