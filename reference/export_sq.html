@@ -42,8 +42,8 @@
 <meta property="og:title" content="Export sq objects into other formats — export_sq" />
 <meta property="og:description" content="Converts object of class sq to a class
 from another package. Currently supported packages are ape,
-Bioconductor and seqinr. For exact list of supported classes and
-resulting types, see details." />
+bioseq, Bioconductor and seqinr. For exact list of
+supported classes and resulting types, see details." />
 
 
 
@@ -108,7 +108,7 @@ resulting types, see details." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/michbur/tidysq/">
+  <a href="https://github.com/BioGenies/tidysq/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -127,15 +127,15 @@ resulting types, see details." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Export sq objects into other formats</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/export_sq.R'><code>R/export_sq.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/BioGenies/tidysq/blob/master/R/export_sq.R'><code>R/export_sq.R</code></a></small>
     <div class="hidden name"><code>export_sq.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Converts object of class <code><a href='sq-class.html'>sq</a></code> to a class
 from another package. Currently supported packages are <span class="pkg">ape</span>,
-<span class="pkg">Bioconductor</span> and <span class="pkg">seqinr</span>. For exact list of supported classes and
-resulting types, see details.</p>
+<span class="pkg">bioseq</span>, <span class="pkg">Bioconductor</span> and <span class="pkg">seqinr</span>. For exact list of
+supported classes and resulting types, see details.</p>
     </div>
 
     <pre class="usage"><span class='fu'>export_sq</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>export_format</span>, name <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -170,17 +170,20 @@ Vector of sequence names. Must be of the same length as <code>sq</code> object.
     <p>Currently supported formats are as follows (grouped by <code>sq</code> types):</p><ul>
 <li><p><strong>ami</strong>:</p><ul>
 <li><p><code>"ape::AAbin"</code></p></li>
+<li><p><code>"bioseq::bioseq_aa"</code></p></li>
 <li><p><code>"Biostrings::AAString"</code></p></li>
 <li><p><code>"Biostrings::AAStringSet"</code></p></li>
 <li><p><code>"seqinr::SeqFastaAA"</code></p></li>
 </ul></li>
 <li><p><strong>dna</strong>:</p><ul>
 <li><p><code>"ape::DNAbin"</code></p></li>
+<li><p><code>"bioseq::bioseq_dna"</code></p></li>
 <li><p><code>"Biostrings::DNAString"</code></p></li>
 <li><p><code>"Biostrings::DNAStringSet"</code></p></li>
 <li><p><code>"seqinr::SeqFastadna"</code></p></li>
 </ul></li>
 <li><p><strong>rna</strong>:</p><ul>
+<li><p><code>"bioseq::bioseq_rna"</code></p></li>
 <li><p><code>"Biostrings::RNAString"</code></p></li>
 <li><p><code>"Biostrings::RNAStringSet"</code></p></li>
 </ul></li>
@@ -202,7 +205,10 @@ Vector of sequence names. Must be of the same length as <code>sq</code> object.
 </div><div class='output co'>#&gt; 2 amino acid sequences in a list
 #&gt; 
 #&gt; All sequences of the same length: 5 
-#&gt; </div><div class='input'><span class='fu'>export_sq</span><span class='op'>(</span><span class='va'>sq_ami</span>, <span class='st'>"Biostrings::AAStringSet"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"one"</span>, <span class='st'>"two"</span><span class='op'>)</span><span class='op'>)</span>
+#&gt; </div><div class='input'><span class='fu'>export_sq</span><span class='op'>(</span><span class='va'>sq_ami</span>, <span class='st'>"bioseq::bioseq_aa"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'>AA vector of 2 sequences</span><span>
+#&gt; </span><span style='color: #949494;font-style: italic;'>&gt; </span><span>  </span><span style='color: #005FAF;font-weight: bold;'>M</span><span style='color: #0087FF;font-weight: bold;'>VV</span><span style='color: #FFAF5F;font-weight: bold;'>G</span><span style='color: #87AFD7;font-weight: bold;'>L</span><span>
+#&gt; </span><span style='color: #949494;font-style: italic;'>&gt; </span><span>  </span><span style='color: #87AFD7;font-weight: bold;'>L</span><span style='color: #0087D7;font-weight: bold;'>A</span><span style='color: #0087FF;font-weight: bold;'>V</span><span style='color: #D7D700;font-weight: bold;'>PP</span><span></div><div class='input'><span class='fu'>export_sq</span><span class='op'>(</span><span class='va'>sq_ami</span>, <span class='st'>"Biostrings::AAStringSet"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"one"</span>, <span class='st'>"two"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; AAStringSet object of length 2:
 #&gt;     width seq                                               names               
 #&gt; [1]     5 MVVGL                                             one
@@ -232,10 +238,13 @@ Vector of sequence names. Must be of the same length as <code>sq</code> object.
 #&gt; Base composition:
 #&gt;     a     c     g     t 
 #&gt; 0.318 0.091 0.364 0.227 
-#&gt; (Total: 22 bases)</div><div class='input'><span class='fu'>export_sq</span><span class='op'>(</span><span class='va'>sq_dna</span>, <span class='st'>"Biostrings::DNAStringSet"</span><span class='op'>)</span>
+#&gt; (Total: 22 bases)</div><div class='input'><span class='fu'>export_sq</span><span class='op'>(</span><span class='va'>sq_dna</span>, <span class='st'>"bioseq::bioseq_dna"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'>DNA vector of 2 sequences</span><span>
+#&gt; </span><span style='color: #949494;font-style: italic;'>&gt; </span><span>  </span><span style='color: #0000BB;font-weight: bold;'>T</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span style='color: #BB0000;font-weight: bold;'>A</span><span style='color: #0000BB;font-weight: bold;'>T</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span style='color: #BB0000;font-weight: bold;'>AA</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span style='color: #00BB00;font-weight: bold;'>C</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span style='color: #00BB00;font-weight: bold;'>C</span><span style='color: #BB0000;font-weight: bold;'>A</span><span>
+#&gt; </span><span style='color: #949494;font-style: italic;'>&gt; </span><span>  </span><span style='color: #0000BB;font-weight: bold;'>TT</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span style='color: #BB0000;font-weight: bold;'>A</span><span style='color: #0000BB;font-weight: bold;'>T</span><span style='color: #BBBB00;font-weight: bold;'>GGG</span><span style='color: #BB0000;font-weight: bold;'>AA</span><span></div><div class='input'><span class='fu'>export_sq</span><span class='op'>(</span><span class='va'>sq_dna</span>, <span class='st'>"Biostrings::DNAStringSet"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; DNAStringSet object of length 2:
 #&gt;     width seq
-#&gt; [1]    12 <span style='color: #000000;background-color: #FFD7AF;'>T</span><span style='color: #000000;background-color: #AFFFFF;'>G</span><span style='color: #000000;background-color: #FFAFAF;'>A</span><span style='color: #000000;background-color: #FFD7AF;'>T</span><span style='color: #000000;background-color: #AFFFFF;'>G</span><span style='color: #000000;background-color: #FFAFAF;'>AA</span><span style='color: #000000;background-color: #AFFFFF;'>G</span><span style='color: #000000;background-color: #AFFFAF;'>C</span><span style='color: #000000;background-color: #AFFFFF;'>G</span><span style='color: #000000;background-color: #AFFFAF;'>C</span><span style='color: #000000;background-color: #FFAFAF;'>A</span><span>
+#&gt; [1]    12 </span><span style='color: #000000;background-color: #FFD7AF;'>T</span><span style='color: #000000;background-color: #AFFFFF;'>G</span><span style='color: #000000;background-color: #FFAFAF;'>A</span><span style='color: #000000;background-color: #FFD7AF;'>T</span><span style='color: #000000;background-color: #AFFFFF;'>G</span><span style='color: #000000;background-color: #FFAFAF;'>AA</span><span style='color: #000000;background-color: #AFFFFF;'>G</span><span style='color: #000000;background-color: #AFFFAF;'>C</span><span style='color: #000000;background-color: #AFFFFF;'>G</span><span style='color: #000000;background-color: #AFFFAF;'>C</span><span style='color: #000000;background-color: #FFAFAF;'>A</span><span>
 #&gt; [2]    10 </span><span style='color: #000000;background-color: #FFD7AF;'>TT</span><span style='color: #000000;background-color: #AFFFFF;'>G</span><span style='color: #000000;background-color: #FFAFAF;'>A</span><span style='color: #000000;background-color: #FFD7AF;'>T</span><span style='color: #000000;background-color: #AFFFFF;'>GGG</span><span style='color: #000000;background-color: #FFAFAF;'>AA</span><span></div><div class='input'><span class='fu'>export_sq</span><span class='op'>(</span><span class='va'>sq_dna</span>, <span class='st'>"seqinr::SeqFastadna"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
 #&gt;  [1] "T" "G" "A" "T" "G" "A" "A" "G" "C" "G" "C" "A"
@@ -247,15 +256,19 @@ Vector of sequence names. Must be of the same length as <code>sq</code> object.
 #&gt; attr(,"class")
 #&gt; [1] "SeqFastadna"
 #&gt; </div><div class='input'>
-<span class='co'># RNA sequences are limited to Biostrings</span>
+<span class='co'># RNA sequences are limited to Biostrings and bioseq</span>
 <span class='va'>sq_rna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"NUARYGCB"</span>, <span class='st'>""</span>, <span class='st'>"DRKCNYBAU"</span><span class='op'>)</span>, alphabet <span class='op'>=</span> <span class='st'>"rna_ext"</span><span class='op'>)</span>
-<span class='fu'>export_sq</span><span class='op'>(</span><span class='va'>sq_rna</span>, <span class='st'>"Biostrings::RNAStringSet"</span><span class='op'>)</span>
+<span class='fu'>export_sq</span><span class='op'>(</span><span class='va'>sq_rna</span>, <span class='st'>"bioseq::bioseq_rna"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'>RNA vector of 3 sequences</span><span>
+#&gt; </span><span style='color: #949494;font-style: italic;'>&gt; </span><span>  N</span><span style='color: #0000BB;font-weight: bold;'>U</span><span style='color: #BB0000;font-weight: bold;'>A</span><span>RY</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span style='color: #00BB00;font-weight: bold;'>C</span><span>B
+#&gt; </span><span style='color: #949494;font-style: italic;'>&gt; </span><span>  
+#&gt; </span><span style='color: #949494;font-style: italic;'>&gt; </span><span>  DRK</span><span style='color: #00BB00;font-weight: bold;'>C</span><span>NYB</span><span style='color: #BB0000;font-weight: bold;'>A</span><span style='color: #0000BB;font-weight: bold;'>U</span><span></div><div class='input'><span class='fu'>export_sq</span><span class='op'>(</span><span class='va'>sq_rna</span>, <span class='st'>"Biostrings::RNAStringSet"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; RNAStringSet object of length 3:
 #&gt;     width seq
 #&gt; [1]     8 </span><span style='color: #EEEEEE;background-color: #B2B2B2;'>N</span><span style='color: #000000;background-color: #FFFFAF;'>U</span><span style='color: #000000;background-color: #FFAFAF;'>A</span><span style='color: #EEEEEE;background-color: #808080;'>RY</span><span style='color: #000000;background-color: #AFFFFF;'>G</span><span style='color: #000000;background-color: #AFFFAF;'>C</span><span style='color: #EEEEEE;background-color: #808080;'>B</span><span>
 #&gt; [2]     0 
 #&gt; [3]     9 </span><span style='color: #EEEEEE;background-color: #808080;'>DRK</span><span style='color: #000000;background-color: #AFFFAF;'>C</span><span style='color: #EEEEEE;background-color: #B2B2B2;'>N</span><span style='color: #EEEEEE;background-color: #808080;'>YB</span><span style='color: #000000;background-color: #FFAFAF;'>A</span><span style='color: #000000;background-color: #FFFFAF;'>U</span><span></div><div class='input'>
-<span class='co'># Biostrings accept single sequences as well</span>
+<span class='co'># Biostrings can export single sequences to simple strings as well</span>
 <span class='fu'>export_sq</span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='st'>"Biostrings::DNAString"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 12-letter DNAString object
 #&gt; seq: </span><span style='color: #000000;background-color: #FFD7AF;'>T</span><span style='color: #000000;background-color: #AFFFFF;'>G</span><span style='color: #000000;background-color: #FFAFAF;'>A</span><span style='color: #000000;background-color: #FFD7AF;'>T</span><span style='color: #000000;background-color: #AFFFFF;'>G</span><span style='color: #000000;background-color: #FFAFAF;'>AA</span><span style='color: #000000;background-color: #AFFFFF;'>G</span><span style='color: #000000;background-color: #AFFFAF;'>C</span><span style='color: #000000;background-color: #AFFFFF;'>G</span><span style='color: #000000;background-color: #AFFFAF;'>C</span><span style='color: #000000;background-color: #FFAFAF;'>A</span><span></div><div class='input'>

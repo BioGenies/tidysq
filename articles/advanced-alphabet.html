@@ -64,7 +64,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/michbur/tidysq/">
+  <a href="https://github.com/BioGenies/tidysq/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -85,7 +85,7 @@
       <h1 data-toc-skip>Advanced alphabet techniques</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/michbur/tidysq/blob/master/vignettes/advanced-alphabet.Rmd"><code>vignettes/advanced-alphabet.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/BioGenies/tidysq/blob/master/vignettes/advanced-alphabet.Rmd"><code>vignettes/advanced-alphabet.Rmd</code></a></small>
       <div class="hidden name"><code>advanced-alphabet.Rmd</code></div>
 
     </div>
@@ -93,7 +93,12 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/michbur/tidysq">tidysq</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/BioGenies/tidysq">tidysq</a></span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'tidysq'</span>
+<span class="co">#&gt; The following object is masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     paste</span></code></pre></div>
 <p>Sequences in <code>sq</code> objects are compressed to take up less storage space. To achieve that, <code>sq</code> objects store an <code>alphabet</code> attribute that serves as a dictionary of possible symbols. This attribute can be accessed by its namesake function:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sq_dna</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CTGAATGCAGT"</span>, <span class="st">"ATGCCGT"</span>, <span class="st">"CAGACCATT"</span><span class="op">)</span><span class="op">)</span>
