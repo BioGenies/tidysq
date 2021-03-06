@@ -60,6 +60,7 @@ Suggests:
     purrr,
     seqinr (>= 3.4-5),
     spelling,
+    rmarkdown,
     testthat (>= 2.1.0),
     withr (>= 2.2.0)
 License: GPL (>= 2)
