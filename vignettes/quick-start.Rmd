@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 `tidysq` package is meant to store and conduct operations on biological sequences. This vignette provides a guide to basic usage of `tidysq`, i.e. reading, manipulating and writing sequences to file.
 
-The package isn't released on CRAN yet, so it has to be installed with `install_github()` function from `devtools`.
+The most recent version of `tidysq` can be installed with `install_github()` function from `devtools`.
 
 ```{r setup}
 # devtools::install_github("BioGenies/tidysq")
