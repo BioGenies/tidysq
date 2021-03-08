@@ -1,0 +1,84 @@
+---
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+<!-- # dplyr <a href='https://biogenies.info/tidysq/'><img src='man/figures/logo.png' align="right" height="139" /></a> -->
+
+<!-- badges: start -->
+  [![Github Actions Build Status](https://github.com/BioGenies/tidysq/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/BioGenies/tidysq/actions)
+  [![codecov.io](https://codecov.io/github/BioGenies/tidysq/coverage.svg?branch=master)](https://codecov.io/github/BioGenies/tidysq?branch=master) 
+  [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
+## Overview
+
+`tidysq` contains tools for analysis and manipulation of biological sequences (including amino acid and nucleic acid -- e.g. RNA, DNA -- sequences). Two major features of this package are:
+
+- effective compression of sequence data, allowing to fit larger datasets in **R**,
+
+- compatibility with most of `tidyverse` universe, especially `dplyr` and `vctrs` packages, making analyses *tidier*.
+
+## Installation
+
+The easiest way to install `tidysq` package is to download its latest version from CRAN repository:
+
+```{r, eval=FALSE}
+install.packages("tidysq")
+```
+
+Alternatively, it is possible to download the development version directly from GitHub repository:
+
+```{r, eval=FALSE}
+# install.packages("devtools")
+devtools::install_github("BioGenies/tidysq")
+```
+
+## Example usage
+
+```{r, message=FALSE}
+library(tidysq)
+
+file <- system.file("examples", "example_aa.fasta", package = "tidysq")
+sqibble <- read_fasta(file)
+sqibble
+
+sq_ami <- sqibble$sq
+sq_ami
+
+# Subsequences can be extracted with bite()
+bite(sq_ami, 5:10)
+
+# There are also more traditional functions
+reverse(sq_ami)
+
+# tidysq integrates well with dplyr verbs
+library(dplyr)
+sqibble %>%
+  filter(sq %has% "VFF") %>%
+  mutate(length = get_sq_lengths(sq))
+
+# Finally, find_motifs returns a whole tibble of useful informations
+find_motifs(sqibble$sq, sqibble$name, "^VHX")
+```
+
+## Citation
+
+For citation type:
+
+```{r, eval=FALSE}
+citation("tidysq")
+```
+
+or use:
+
+Michal Burdukiewicz, Dominik Rafacz, Mateusz Bakala, Jadwiga Slowik, Weronika Puchala, Filip Pietluch, Katarzyna Sidorczuk, Stefan Roediger and Leon Eyrich Jessen (2021). tidysq: Tidy Processing and Analysis of Biological Sequences. R package version 1.1.0.
