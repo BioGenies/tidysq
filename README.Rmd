@@ -47,7 +47,9 @@ devtools::install_github("BioGenies/tidysq")
 
 ```{r, message=FALSE}
 library(tidysq)
+```
 
+```{r}
 file <- system.file("examples", "example_aa.fasta", package = "tidysq")
 sqibble <- read_fasta(file)
 sqibble
@@ -61,14 +63,18 @@ bite(sq_ami, 5:10)
 # There are also more traditional functions
 reverse(sq_ami)
 
-# tidysq integrates well with dplyr verbs
+# find_motifs() returns a whole tibble of useful informations
+find_motifs(sqibble$sq, sqibble$name, "^VHX")
+```
+
+An example of `dplyr` integration:
+
+```{r, message=FALSE}
 library(dplyr)
+# tidysq integrates well with dplyr verbs
 sqibble %>%
   filter(sq %has% "VFF") %>%
   mutate(length = get_sq_lengths(sq))
-
-# Finally, find_motifs returns a whole tibble of useful informations
-find_motifs(sqibble$sq, sqibble$name, "^VHX")
 ```
 
 ## Citation

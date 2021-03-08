@@ -43,7 +43,9 @@ devtools::install_github("BioGenies/tidysq")
 
 ``` r
 library(tidysq)
+```
 
+``` r
 file <- system.file("examples", "example_aa.fasta", package = "tidysq")
 sqibble <- read_fasta(file)
 sqibble
@@ -64,6 +66,7 @@ sqibble
 
 sq_ami <- sqibble$sq
 sq_ami
+#> basic amino acid sequences list:
 #>  [1] PGGGKVQIVYKPV                                                          <13>
 #>  [2] NLKHQPGGGKVQIVYKPVDLSKVTSKCGSLGNIHHKPGGGQVE                            <43>
 #>  [3] NLKHQPGGGKVQIVYKEVD                                                    <19>
@@ -74,11 +77,13 @@ sq_ami
 #>  [8] VHPQKLVFFAEDVGS                                                        <15>
 #>  [9] VHHPKLVFFAEDVGS                                                        <15>
 #> [10] VHHQPLVFFAEDVGS                                                        <15>
+#> printed 10 out of 421
 
 # Subsequences can be extracted with bite()
 bite(sq_ami, 5:10)
 #> Warning in CPP_bite(x, indices, NA_letter, on_warning): some sequences are
 #> subsetted with index bigger than length - NA introduced
+#> basic amino acid sequences list:
 #>  [1] KVQIVY                                                                  <6>
 #>  [2] QPGGGK                                                                  <6>
 #>  [3] QPGGGK                                                                  <6>
@@ -89,9 +94,11 @@ bite(sq_ami, 5:10)
 #>  [8] KLVFFA                                                                  <6>
 #>  [9] KLVFFA                                                                  <6>
 #> [10] PLVFFA                                                                  <6>
+#> printed 10 out of 421
 
 # There are also more traditional functions
 reverse(sq_ami)
+#> basic amino acid sequences list:
 #>  [1] VPKYVIQVKGGGP                                                          <13>
 #>  [2] EVQGGGPKHHINGLSGCKSTVKSLDVPKYVIQVKGGGPQHKLN                            <43>
 #>  [3] DVEKYVIQVKGGGPQHKLN                                                    <19>
@@ -102,9 +109,29 @@ reverse(sq_ami)
 #>  [8] SGVDEAFFVLKQPHV                                                        <15>
 #>  [9] SGVDEAFFVLKPHHV                                                        <15>
 #> [10] SGVDEAFFVLPQHHV                                                        <15>
+#> printed 10 out of 421
 
-# tidysq integrates well with dplyr verbs
+# find_motifs() returns a whole tibble of useful informations
+find_motifs(sqibble$sq, sqibble$name, "^VHX")
+#> # A tibble: 9 x 5
+#>   names                                found     sought start   end
+#>   <chr>                                <ami_bsc> <chr>  <int> <int>
+#> 1 AMY24|HABP2|Amyloid beta A4 peptide  VHP   <3> ^VHX       1     3
+#> 2 AMY25|HABP3|Amyloid beta A4 peptide  VHH   <3> ^VHX       1     3
+#> 3 AMY26|HABP4|Amyloid beta A4 peptide  VHH   <3> ^VHX       1     3
+#> 4 AMY34|HABP12|Amyloid beta A4 peptide VHH   <3> ^VHX       1     3
+#> 5 AMY35|HABP13|Amyloid beta A4 peptide VHH   <3> ^VHX       1     3
+#> 6 AMY36|HABP14|Amyloid beta A4 peptide VHH   <3> ^VHX       1     3
+#> 7 AMY38|HABP16|Amyloid beta A4 peptide VHH   <3> ^VHX       1     3
+#> 8 AMY43|AB5|Amyloid beta A4 peptide    VHH   <3> ^VHX       1     3
+#> 9 AMY195|86-95|Prion protein (human)   VHD   <3> ^VHX       1     3
+```
+
+An example of `dplyr` integration:
+
+``` r
 library(dplyr)
+# tidysq integrates well with dplyr verbs
 sqibble %>%
   filter(sq %has% "VFF") %>%
   mutate(length = get_sq_lengths(sq))
@@ -122,21 +149,6 @@ sqibble %>%
 #>  9 VHHQEKLVF <16> AMY36|HABP14|Amyloid beta A4 peptide     16
 #> 10 KKLVFFAED  <9> AMY37|HABP15|Amyloid beta A4 peptide      9
 #> # ... with 14 more rows
-
-# Finally, find_motifs returns a whole tibble of useful informations
-find_motifs(sqibble$sq, sqibble$name, "^VHX")
-#> # A tibble: 9 x 5
-#>   names                                found     sought start   end
-#>   <chr>                                <ami_bsc> <chr>  <int> <int>
-#> 1 AMY24|HABP2|Amyloid beta A4 peptide  VHP   <3> ^VHX       1     3
-#> 2 AMY25|HABP3|Amyloid beta A4 peptide  VHH   <3> ^VHX       1     3
-#> 3 AMY26|HABP4|Amyloid beta A4 peptide  VHH   <3> ^VHX       1     3
-#> 4 AMY34|HABP12|Amyloid beta A4 peptide VHH   <3> ^VHX       1     3
-#> 5 AMY35|HABP13|Amyloid beta A4 peptide VHH   <3> ^VHX       1     3
-#> 6 AMY36|HABP14|Amyloid beta A4 peptide VHH   <3> ^VHX       1     3
-#> 7 AMY38|HABP16|Amyloid beta A4 peptide VHH   <3> ^VHX       1     3
-#> 8 AMY43|AB5|Amyloid beta A4 peptide    VHH   <3> ^VHX       1     3
-#> 9 AMY195|86-95|Prion protein (human)   VHD   <3> ^VHX       1     3
 ```
 
 ## Citation
