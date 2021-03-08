@@ -1,5 +1,5 @@
 
-<!-- # dplyr <a href='https://biogenies.info/tidysq/'><img src='man/figures/logo.png' align="right" height="139" /></a> -->
+# tidysq <a href='https://biogenies.info/tidysq/'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -16,10 +16,10 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 sequences (including amino acid and nucleic acid – e.g. RNA, DNA –
 sequences). Two major features of this package are:
 
-  - effective compression of sequence data, allowing to fit larger
+-   effective compression of sequence data, allowing to fit larger
     datasets in **R**,
 
-  - compatibility with most of `tidyverse` universe, especially `dplyr`
+-   compatibility with most of `tidyverse` universe, especially `dplyr`
     and `vctrs` packages, making analyses *tidier*.
 
 ## Installation
@@ -62,7 +62,7 @@ sqibble
 #>  8 VHPQKLVFF <15> AMY24|HABP2|Amyloid beta A4 peptide
 #>  9 VHHPKLVFF <15> AMY25|HABP3|Amyloid beta A4 peptide
 #> 10 VHHQPLVFF <15> AMY26|HABP4|Amyloid beta A4 peptide
-#> # ... with 411 more rows
+#> # … with 411 more rows
 
 sq_ami <- sqibble$sq
 sq_ami
@@ -148,7 +148,7 @@ sqibble %>%
 #>  8 VHHQEKLVF <16> AMY35|HABP13|Amyloid beta A4 peptide     16
 #>  9 VHHQEKLVF <16> AMY36|HABP14|Amyloid beta A4 peptide     16
 #> 10 KKLVFFAED  <9> AMY37|HABP15|Amyloid beta A4 peptide      9
-#> # ... with 14 more rows
+#> # … with 14 more rows
 ```
 
 ## Citation
