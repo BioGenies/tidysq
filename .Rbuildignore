@@ -5,6 +5,7 @@
 docs
 .travis.yml
 ^_pkgdown\.yml$
+^codecov\.yml$
 ^docs$
 ^pkgdown$
 ^\.github$
