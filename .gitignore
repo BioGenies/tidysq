@@ -11,3 +11,5 @@ src/main.cpp
 cmake-build-debug/
 CMakeLists.txt
 inst/doc
+
+CRAN-RELEASE

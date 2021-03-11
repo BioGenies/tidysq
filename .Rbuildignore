@@ -11,3 +11,4 @@ docs
 ^\.github$
 ^CRAN-RELEASE$
 ^cran-comments.md$
+^README.Rmd$
