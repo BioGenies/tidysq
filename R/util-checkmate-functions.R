@@ -13,7 +13,7 @@ test_sq_type <- makeTestFunction(check_sq_type)
 expect_sq_type <- makeExpectationFunction(check_sq_type)
 
 check_package_installed <- function(package) {
-  if (!package %in% rownames(installed.packages()))
+  if (!requireNamespace(package, quietly = TRUE))
     paste0("you need to install '", package, "' package")
   else
     TRUE
