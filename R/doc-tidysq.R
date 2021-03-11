@@ -4,8 +4,7 @@
 #' biological sequences in a tidy way.
 #' @author Michal Burdukiewicz, Dominik Rafacz, Mateusz Bąkała, Leon Eyrich Jessen
 #' @docType package
-#' @importFrom stats na.omit rnorm setNames
-#' @importFrom utils download.file installed.packages
+#' @importFrom stats rnorm setNames
 #' @importFrom tibble as_tibble tibble
 #' @import checkmate
 #' @import vctrs
