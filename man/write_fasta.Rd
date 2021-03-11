@@ -30,6 +30,9 @@ A string that is used to interpret and display \code{NA} value in the
 context of \code{\link[=sq-class]{sq class}}. Default value equals to
 "\code{!}".}
 }
+\value{
+No value is returned.
+}
 \description{
 Writes \code{\link[=sq-class]{sq}} objects with their names to
 a fasta file.

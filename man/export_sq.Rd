@@ -19,6 +19,11 @@ Vector of sequence names. Must be of the same length as \code{sq} object.
 
 \item{...}{further arguments to be passed from or to other methods.}
 }
+\value{
+An object with the format specified in the parameter. To find 
+information about the detailed structure of this object, see documentation 
+of these objects.
+}
 \description{
 Converts object of class \code{\link[=sq-class]{sq}} to a class
 from another package. Currently supported packages are \pkg{ape},

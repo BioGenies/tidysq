@@ -68,6 +68,9 @@ pillar_shaft.encsq <- function(x, ...,
 #' @template NA_letter
 #' @template three-dots
 #' 
+#' @return An object that was passed as the first argument to the function.
+#' It is returned invisibly (equivalent of \code{invisible(x)})
+#' 
 #' @details
 #' \code{print} method is often called implicitly by calling variable name.
 #' Only explicit calling of this method allows its parameters to be changed.

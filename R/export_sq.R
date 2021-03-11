@@ -13,6 +13,10 @@
 #' @template name
 #' @template three-dots
 #'
+#' @return An object with the format specified in the parameter. To find 
+#' information about the detailed structure of this object, see documentation 
+#' of these objects.
+#'
 #' @details
 #' Currently supported formats are as follows (grouped by \code{sq} types):
 #' \itemize{

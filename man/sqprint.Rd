@@ -24,6 +24,10 @@ context of \code{\link[=sq-class]{sq class}}. Default value equals to
 
 \item{...}{further arguments to be passed from or to other methods.}
 }
+\value{
+An object that was passed as the first argument to the function.
+It is returned invisibly (equivalent of \code{invisible(x)})
+}
 \description{
 Prints input \code{\link[=sq-class]{sq}} object in a
 human-friendly form.

@@ -13,6 +13,8 @@
 #'  Maximum number of characters to put in each line of file. Must be positive.
 #' @template NA_letter
 #'
+#' @return No value is returned.
+#' 
 #' @details
 #' Whenever a name has more letters than \code{width} parameter, nothing
 #' happens, as only sequences are split to fit within designated space.
