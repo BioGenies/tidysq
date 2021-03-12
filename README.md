@@ -3,6 +3,7 @@
 
 <!-- badges: start -->
 
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tidysq)](https://cran.r-project.org/package=tidysq)
 [![Github Actions Build
 Status](https://github.com/BioGenies/tidysq/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/BioGenies/tidysq/actions)
 [![codecov.io](https://codecov.io/github/BioGenies/tidysq/coverage.svg?branch=master)](https://codecov.io/github/BioGenies/tidysq?branch=master)
