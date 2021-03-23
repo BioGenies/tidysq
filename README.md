@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tidysq)](https://cran.r-project.org/package=tidysq)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tidysq)](https://cran.r-project.org/package=tidysq)
 [![Github Actions Build
 Status](https://github.com/BioGenies/tidysq/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/BioGenies/tidysq/actions)
 [![codecov.io](https://codecov.io/github/BioGenies/tidysq/coverage.svg?branch=master)](https://codecov.io/github/BioGenies/tidysq?branch=master)
@@ -17,11 +17,18 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 sequences (including amino acid and nucleic acid – e.g. RNA, DNA –
 sequences). Two major features of this package are:
 
--   effective compression of sequence data, allowing to fit larger
+  - effective compression of sequence data, allowing to fit larger
     datasets in **R**,
 
--   compatibility with most of `tidyverse` universe, especially `dplyr`
+  - compatibility with most of `tidyverse` universe, especially `dplyr`
     and `vctrs` packages, making analyses *tidier*.
+
+## Getting started
+
+[Try our quick start
+vignette](http://biogenies.info/tidysq/articles/quick-start.html) or the
+[our exhaustive
+documentation](http://biogenies.info/tidysq/reference/index.html).
 
 ## Installation
 
