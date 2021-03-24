@@ -31,7 +31,7 @@ knitr::opts_chunk$set(
 
 ## Getting started
 
-[Try our quick start vignette](http://biogenies.info/tidysq/articles/quick-start.html) or the [our exhaustive documentation](http://biogenies.info/tidysq/reference/index.html).
+[Try our quick start vignette](http://biogenies.info/tidysq/articles/quick-start.html) or [our exhaustive documentation](http://biogenies.info/tidysq/reference/index.html).
 
 ## Installation
 

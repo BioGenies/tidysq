@@ -26,7 +26,7 @@ sequences). Two major features of this package are:
 ## Getting started
 
 [Try our quick start
-vignette](http://biogenies.info/tidysq/articles/quick-start.html) or the
+vignette](http://biogenies.info/tidysq/articles/quick-start.html) or
 [our exhaustive
 documentation](http://biogenies.info/tidysq/reference/index.html).
 
