@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tidy Processing and Analysis of Biological Sequences • tidysq</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -13,6 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Tidy Processing and Analysis of Biological Sequences">
 <meta property="og:description" content="A tidy approach to analysis of biological sequences. All processing and data-storage functions are heavily optimized to allow the fastest and most efficient data storage.">
+<meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -81,33 +88,162 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
+<div id="tidysq-" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#tidysq-" class="anchor"></a>tidysq <a href="https://biogenies.info/tidysq/"><img src="reference/figures/logo.png" align="right" height="139"></a>
+</h1></div>
+<!-- badges: start -->
 
-
-<div id="tidysq-package" class="section level2">
+<div id="overview" class="section level2">
 <h2 class="hasAnchor">
-<a href="#tidysq-package" class="anchor"></a>tidysq package</h2>
-<p>This package contains tools for analysis of biological sequences of amino acids (e.g., peptides, proteins) or nucleic acids (e.g., RNA, DNA). Through the efficient compression of the sequence data, <em>tidysq</em> allows studies of very large datasets in <strong>R</strong>.</p>
-<div id="installation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h3>
-<p>You can install the latest development version of the package using the <code>devtools</code> R package.</p>
-<pre><code><a href="https://rdrr.io/r/base/source.html">source("https://install-github.me/michbur/tidysq")</a></code></pre>
+<a href="#overview" class="anchor"></a>Overview</h2>
+<p><code>tidysq</code> contains tools for analysis and manipulation of biological sequences (including amino acid and nucleic acid – e.g. RNA, DNA – sequences). Two major features of this package are:</p>
+<ul>
+<li><p>effective compression of sequence data, allowing to fit larger datasets in <strong>R</strong>,</p></li>
+<li><p>compatibility with most of <code>tidyverse</code> universe, especially <code>dplyr</code> and <code>vctrs</code> packages, making analyses <em>tidier</em>.</p></li>
+</ul>
 </div>
+<div id="getting-started" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-started" class="anchor"></a>Getting started</h2>
+<p><a href="http://biogenies.info/tidysq/articles/quick-start.html">Try our quick start vignette</a> or <a href="http://biogenies.info/tidysq/reference/index.html">our exhaustive documentation</a>.</p>
+</div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>The easiest way to install <code>tidysq</code> package is to download its latest version from CRAN repository:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidysq"</span><span class="op">)</span></code></pre></div>
+<p>Alternatively, it is possible to download the development version directly from GitHub repository:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"BioGenies/tidysq"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="example-usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example-usage" class="anchor"></a>Example usage</h2>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/BioGenies/tidysq">tidysq</a></span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"example_aa.fasta"</span>, package <span class="op">=</span> <span class="st">"tidysq"</span><span class="op">)</span>
+<span class="va">sqibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_fasta.html">read_fasta</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>
+<span class="va">sqibble</span>
+<span class="co">#&gt; # A tibble: 421 x 2</span>
+<span class="co">#&gt;    sq             name                               </span>
+<span class="co">#&gt;    &lt;ami_bsc&gt;      &lt;chr&gt;                              </span>
+<span class="co">#&gt;  1 PGGGKVQIV &lt;13&gt; AMY1|K19|T-Protein (Tau)           </span>
+<span class="co">#&gt;  2 NLKHQPGGG &lt;43&gt; AMY9|K19Gluc41|T-Protein (Tau)     </span>
+<span class="co">#&gt;  3 NLKHQPGGG &lt;19&gt; AMY14|K19Gluc782|T-Protein (Tau)   </span>
+<span class="co">#&gt;  4 GKVQIVYK   &lt;8&gt; AMY17|PHF8|T-Protein (Tau)         </span>
+<span class="co">#&gt;  5 VQIVYK     &lt;6&gt; AMY18|PHF6|T-Protein (Tau)         </span>
+<span class="co">#&gt;  6 DAEFRHDSG &lt;40&gt; AMY22|Whole|Amyloid beta A4 peptide</span>
+<span class="co">#&gt;  7 VPHQKLVFF &lt;15&gt; AMY23|HABP1|Amyloid beta A4 peptide</span>
+<span class="co">#&gt;  8 VHPQKLVFF &lt;15&gt; AMY24|HABP2|Amyloid beta A4 peptide</span>
+<span class="co">#&gt;  9 VHHPKLVFF &lt;15&gt; AMY25|HABP3|Amyloid beta A4 peptide</span>
+<span class="co">#&gt; 10 VHHQPLVFF &lt;15&gt; AMY26|HABP4|Amyloid beta A4 peptide</span>
+<span class="co">#&gt; # … with 411 more rows</span>
+
+<span class="va">sq_ami</span> <span class="op">&lt;-</span> <span class="va">sqibble</span><span class="op">$</span><span class="va">sq</span>
+<span class="va">sq_ami</span>
+<span class="co">#&gt; basic amino acid sequences list:</span>
+<span class="co">#&gt;  [1] PGGGKVQIVYKPV                                                          &lt;13&gt;</span>
+<span class="co">#&gt;  [2] NLKHQPGGGKVQIVYKPVDLSKVTSKCGSLGNIHHKPGGGQVE                            &lt;43&gt;</span>
+<span class="co">#&gt;  [3] NLKHQPGGGKVQIVYKEVD                                                    &lt;19&gt;</span>
+<span class="co">#&gt;  [4] GKVQIVYK                                                                &lt;8&gt;</span>
+<span class="co">#&gt;  [5] VQIVYK                                                                  &lt;6&gt;</span>
+<span class="co">#&gt;  [6] DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVV                               &lt;40&gt;</span>
+<span class="co">#&gt;  [7] VPHQKLVFFAEDVGS                                                        &lt;15&gt;</span>
+<span class="co">#&gt;  [8] VHPQKLVFFAEDVGS                                                        &lt;15&gt;</span>
+<span class="co">#&gt;  [9] VHHPKLVFFAEDVGS                                                        &lt;15&gt;</span>
+<span class="co">#&gt; [10] VHHQPLVFFAEDVGS                                                        &lt;15&gt;</span>
+<span class="co">#&gt; printed 10 out of 421</span>
+
+<span class="co"># Subsequences can be extracted with bite()</span>
+<span class="fu"><a href="reference/bite.html">bite</a></span><span class="op">(</span><span class="va">sq_ami</span>, <span class="fl">5</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
+<span class="co">#&gt; Warning in CPP_bite(x, indices, NA_letter, on_warning): some sequences are</span>
+<span class="co">#&gt; subsetted with index bigger than length - NA introduced</span>
+<span class="co">#&gt; basic amino acid sequences list:</span>
+<span class="co">#&gt;  [1] KVQIVY                                                                  &lt;6&gt;</span>
+<span class="co">#&gt;  [2] QPGGGK                                                                  &lt;6&gt;</span>
+<span class="co">#&gt;  [3] QPGGGK                                                                  &lt;6&gt;</span>
+<span class="co">#&gt;  [4] IVYK!!                                                                  &lt;6&gt;</span>
+<span class="co">#&gt;  [5] YK!!!!                                                                  &lt;6&gt;</span>
+<span class="co">#&gt;  [6] RHDSGY                                                                  &lt;6&gt;</span>
+<span class="co">#&gt;  [7] KLVFFA                                                                  &lt;6&gt;</span>
+<span class="co">#&gt;  [8] KLVFFA                                                                  &lt;6&gt;</span>
+<span class="co">#&gt;  [9] KLVFFA                                                                  &lt;6&gt;</span>
+<span class="co">#&gt; [10] PLVFFA                                                                  &lt;6&gt;</span>
+<span class="co">#&gt; printed 10 out of 421</span>
+
+<span class="co"># There are also more traditional functions</span>
+<span class="fu"><a href="reference/reverse.html">reverse</a></span><span class="op">(</span><span class="va">sq_ami</span><span class="op">)</span>
+<span class="co">#&gt; basic amino acid sequences list:</span>
+<span class="co">#&gt;  [1] VPKYVIQVKGGGP                                                          &lt;13&gt;</span>
+<span class="co">#&gt;  [2] EVQGGGPKHHINGLSGCKSTVKSLDVPKYVIQVKGGGPQHKLN                            &lt;43&gt;</span>
+<span class="co">#&gt;  [3] DVEKYVIQVKGGGPQHKLN                                                    &lt;19&gt;</span>
+<span class="co">#&gt;  [4] KYVIQVKG                                                                &lt;8&gt;</span>
+<span class="co">#&gt;  [5] KYVIQV                                                                  &lt;6&gt;</span>
+<span class="co">#&gt;  [6] VVGGVMLGIIAGKNSGVDEAFFVLKQHHVEYGSDHRFEAD                               &lt;40&gt;</span>
+<span class="co">#&gt;  [7] SGVDEAFFVLKQHPV                                                        &lt;15&gt;</span>
+<span class="co">#&gt;  [8] SGVDEAFFVLKQPHV                                                        &lt;15&gt;</span>
+<span class="co">#&gt;  [9] SGVDEAFFVLKPHHV                                                        &lt;15&gt;</span>
+<span class="co">#&gt; [10] SGVDEAFFVLPQHHV                                                        &lt;15&gt;</span>
+<span class="co">#&gt; printed 10 out of 421</span>
+
+<span class="co"># find_motifs() returns a whole tibble of useful informations</span>
+<span class="fu"><a href="reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sqibble</span><span class="op">$</span><span class="va">sq</span>, <span class="va">sqibble</span><span class="op">$</span><span class="va">name</span>, <span class="st">"^VHX"</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 9 x 5</span>
+<span class="co">#&gt;   names                                found     sought start   end</span>
+<span class="co">#&gt;   &lt;chr&gt;                                &lt;ami_bsc&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1 AMY24|HABP2|Amyloid beta A4 peptide  VHP   &lt;3&gt; ^VHX       1     3</span>
+<span class="co">#&gt; 2 AMY25|HABP3|Amyloid beta A4 peptide  VHH   &lt;3&gt; ^VHX       1     3</span>
+<span class="co">#&gt; 3 AMY26|HABP4|Amyloid beta A4 peptide  VHH   &lt;3&gt; ^VHX       1     3</span>
+<span class="co">#&gt; 4 AMY34|HABP12|Amyloid beta A4 peptide VHH   &lt;3&gt; ^VHX       1     3</span>
+<span class="co">#&gt; 5 AMY35|HABP13|Amyloid beta A4 peptide VHH   &lt;3&gt; ^VHX       1     3</span>
+<span class="co">#&gt; 6 AMY36|HABP14|Amyloid beta A4 peptide VHH   &lt;3&gt; ^VHX       1     3</span>
+<span class="co">#&gt; 7 AMY38|HABP16|Amyloid beta A4 peptide VHH   &lt;3&gt; ^VHX       1     3</span>
+<span class="co">#&gt; 8 AMY43|AB5|Amyloid beta A4 peptide    VHH   &lt;3&gt; ^VHX       1     3</span>
+<span class="co">#&gt; 9 AMY195|86-95|Prion protein (human)   VHD   &lt;3&gt; ^VHX       1     3</span></code></pre></div>
+<p>An example of <code>dplyr</code> integration:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="co"># tidysq integrates well with dplyr verbs</span>
+<span class="va">sqibble</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sq</span> <span class="op">%has%</span> <span class="st">"VFF"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="reference/get_sq_lengths.html">get_sq_lengths</a></span><span class="op">(</span><span class="va">sq</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 24 x 3</span>
+<span class="co">#&gt;    sq             name                                 length</span>
+<span class="co">#&gt;    &lt;ami_bsc&gt;      &lt;chr&gt;                                 &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 DAEFRHDSG &lt;40&gt; AMY22|Whole|Amyloid beta A4 peptide      40</span>
+<span class="co">#&gt;  2 VPHQKLVFF &lt;15&gt; AMY23|HABP1|Amyloid beta A4 peptide      15</span>
+<span class="co">#&gt;  3 VHPQKLVFF &lt;15&gt; AMY24|HABP2|Amyloid beta A4 peptide      15</span>
+<span class="co">#&gt;  4 VHHPKLVFF &lt;15&gt; AMY25|HABP3|Amyloid beta A4 peptide      15</span>
+<span class="co">#&gt;  5 VHHQPLVFF &lt;15&gt; AMY26|HABP4|Amyloid beta A4 peptide      15</span>
+<span class="co">#&gt;  6 KKLVFFPED  &lt;9&gt; AMY32|HABP10|Amyloid beta A4 peptide      9</span>
+<span class="co">#&gt;  7 VHHQEKLVF &lt;16&gt; AMY34|HABP12|Amyloid beta A4 peptide     16</span>
+<span class="co">#&gt;  8 VHHQEKLVF &lt;16&gt; AMY35|HABP13|Amyloid beta A4 peptide     16</span>
+<span class="co">#&gt;  9 VHHQEKLVF &lt;16&gt; AMY36|HABP14|Amyloid beta A4 peptide     16</span>
+<span class="co">#&gt; 10 KKLVFFAED  &lt;9&gt; AMY37|HABP15|Amyloid beta A4 peptide      9</span>
+<span class="co">#&gt; # … with 14 more rows</span></code></pre></div>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>For citation type:</p>
-<pre><code><a href="https://rdrr.io/r/utils/citation.html">citation("tidysq")</a></code></pre>
-<p>or use: Michal Burdukiewicz, Dominik Rafacz, Mateusz Bakala, Jadwiga Slowik, Weronika Puchala, Filip Pietluch, Katarzyna Sidorczuk, Stefan Roediger and Leon Eyrich Jessen (2019). tidysq: N-Gram Analysis of Biological Sequences. R package version 1.0.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"tidysq"</span><span class="op">)</span></code></pre></div>
+<p>or use:</p>
+<p>Michal Burdukiewicz, Dominik Rafacz, Mateusz Bakala, Jadwiga Slowik, Weronika Puchala, Filip Pietluch, Katarzyna Sidorczuk, Stefan Roediger and Leon Eyrich Jessen (2021). tidysq: Tidy Processing and Analysis of Biological Sequences. R package version 1.1.0.</p>
 </div>
-
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=tidysq">https://​cloud.r-project.org/​package=tidysq</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/BioGenies/tidysq/">https://​github.com/​BioGenies/​tidysq/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/BioGenies/tidysq/issues">https://​github.com/​BioGenies/​tidysq/​issues</a>
@@ -133,6 +269,7 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=tidysq"><img src="http://www.r-pkg.org/badges/version/tidysq" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://github.com/BioGenies/tidysq/actions"><img src="https://github.com/BioGenies/tidysq/workflows/R-CMD-check-bioc/badge.svg" alt="Github Actions Build Status"></a></li>
 <li><a href="https://codecov.io/github/BioGenies/tidysq?branch=master"><img src="https://codecov.io/github/BioGenies/tidysq/coverage.svg?branch=master" alt="codecov.io"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
