@@ -31,14 +31,6 @@ namespace tidysq {
         ProtoSequence(const std::initializer_list<ElementType> &list) :
                 content_(ContentStorageType(list)) {};
 
-        ProtoSequence(const ProtoSequence &other) = default;
-
-        ProtoSequence(ProtoSequence &&other) noexcept = default;
-
-        ProtoSequence& operator=(const ProtoSequence &other) = default;
-
-        ProtoSequence& operator=(ProtoSequence &&other) noexcept = default;
-
         inline AccessType operator[](const LenSq index) {
             return content_[index];
         };

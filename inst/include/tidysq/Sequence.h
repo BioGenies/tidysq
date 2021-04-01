@@ -73,14 +73,6 @@ namespace tidysq {
         Sequence() :
                 Sequence(0, 0) {};
 
-        Sequence(const Sequence &other) = default;
-
-        Sequence(Sequence &&other) noexcept = default;
-
-        Sequence& operator=(const Sequence &other) = default;
-
-        Sequence& operator=(Sequence &&other) noexcept = default;
-
         inline LetterValue operator[](const std::pair<LenSq, AlphSize> &index) const {
             ElementPacked ret = 0xffu >> (8u - std::get<1>(index));
 
