@@ -38,21 +38,21 @@ test_that("complement() throws an error whenever passed object of class other th
 # NOTE: used as.character() because hypothetically one value might have
 #  multiple equivalent representations
 test_that("complement() returns correct complement value for complement-only characters", {
-  expect_equivalent(
+  expect_equal(
     as.character(complement(sq_dna)),
     as.character(sq_dna_compl)
   )
 })
 
 test_that("complement() returns correct complement value for complement-less characters", {
-  expect_equivalent(
+  expect_equal(
     as.character(complement(sq_rna)),
     as.character(sq_rna_compl)
   )
 })
 
 test_that("complement() returns correct complement value for ambiguous characters", {
-  expect_equivalent(
+  expect_equal(
     as.character(complement(sq_dna_2)),
     as.character(sq_dna_2_compl)
   )

@@ -75,11 +75,11 @@ test_that("letters in atp alphabet must contain at least one character each", {
 
 # NA WHEN ACTUAL ALPHABET MISMATCHES ----
 test_that("letters not in alphabet are loaded as NA's ", {
-  expect_equivalent(
+  expect_equal(
     as.character(sq(str_ami, "rna_bsc", NA_letter = "!"), NA_letter = "!"),
     c("!U!!A!!!!!", "U!!!!UC!U!!!!!", "!!A!")
   )
-  expect_equivalent(
+  expect_equal(
     as.character(sq(str_rna, "ami_bsc", NA_letter = "!"), NA_letter = "!"), 
     c("", "K!S-!VW-AWWWG", "YGHHH-", "-CRASH", "MND-K!!!V-MY-")
   )
@@ -92,11 +92,11 @@ test_that("type set as untyped when in safe mode and alphabet mismatches", {
     "Detected letters that do not match specified type!"
   )
   suppressWarnings({
-    expect_equivalent(
+    expect_equal(
       as.character(sq(str_ami, "rna_bsc", NA_letter = "!", safe_mode = TRUE)),
       str_ami
     )
-    expect_equivalent(
+    expect_equal(
       as.character(sq(str_rna, "ami_bsc", NA_letter = "!", safe_mode = TRUE)), 
       str_rna
     )
@@ -130,16 +130,16 @@ test_that("sq() correctly interpretes overlapping multicharacter letters", {
     list(c(1, 0, 2))
   )
   expect_equal(
-  unpack(sq("AX", alphabet = c("B", "AA", "X")), "INTS"),
-  list(c(3, 2))
+    unpack(sq("AX", alphabet = c("B", "AA", "X")), "INTS"),
+    list(c(3, 2))
   )
   expect_equal(
     unpack(sq("AAX", alphabet = c("B", "AA", "X")), "INTS"),
     list(c(1, 2))
   )
   expect_equal(
-   unpack(sq("AAAX", alphabet = c("B", "AA", "X")), "INTS"),
-   list(c(1, 3, 2))
+    unpack(sq("AAAX", alphabet = c("B", "AA", "X")), "INTS"),
+    list(c(1, 3, 2))
   )
   expect_equal(
     unpack(sq("AX", alphabet = c("A", "AAA", "X")), "INTS"),

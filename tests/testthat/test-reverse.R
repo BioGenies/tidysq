@@ -26,10 +26,10 @@ test_that("reverse() throws an error whenever passed object of class other that 
 
 # VALUE COMPUTATION ----
 test_that("reverse() returns correct value", {
-  expect_equivalent(as.character(reverse(sq_dna)),
-                    str_dna_rev)
-  expect_equivalent(as.character(reverse(sq_ami)),
-                    str_ami_rev)
+  expect_equal(as.character(reverse(sq_dna)),
+               str_dna_rev)
+  expect_equal(as.character(reverse(sq_ami)),
+               str_ami_rev)
 })
 
 # CANCELLING UPON DOUBLE USAGE ----

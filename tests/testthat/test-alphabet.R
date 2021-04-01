@@ -22,12 +22,10 @@ test_that("sq_alphabet object is a subclass of character vector", {
   expect_s3_class(alph_long, "character", exact = FALSE)
 })
 
-# NOTE: in testthat v.3 expect_equivalent will be deprecated
-#  and should be replaced with expect_equal(ignore_attr = TRUE)
 test_that("sq_alphabet object coerces to original character vector", {
-  expect_equivalent(as.character(alph_short), char_short)
-  expect_equivalent(as.character(alph_medium), char_medium)
-  expect_equivalent(as.character(alph_long), char_long)
+  expect_equal(as.character(alph_short), char_short, ignore_attr = TRUE)
+  expect_equal(as.character(alph_medium), char_medium, ignore_attr = TRUE)
+  expect_equal(as.character(alph_long), char_long, ignore_attr = TRUE)
 })
 
 # ALPHABET EXTRACTION ----
@@ -41,11 +39,11 @@ test_that("get_sq_alphabet() extracts an object of sq_alphabet class", {
 })
 
 test_that("get_sq_alphabet() extracts \"alphabet\" attribute", {
-  expect_reference(alphabet(sq_dna),
+  expect_identical(alphabet(sq_dna),
                    attr(sq_dna, "alphabet"))
-  expect_reference(alphabet(sq_ami),
+  expect_identical(alphabet(sq_ami),
                    attr(sq_ami, "alphabet"))
-  expect_reference(alphabet(sq_unt),
+  expect_identical(alphabet(sq_unt),
                    attr(sq_unt, "alphabet"))
 })
 

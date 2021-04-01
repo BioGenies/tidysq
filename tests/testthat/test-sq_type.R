@@ -33,16 +33,16 @@ test_that("`sq_type<-`() throws an error whenever passed object of class other t
 
 # CORRECT VALUE ON ACCESS ----
 test_that("sq_type() returns correct sq type", {
-  expect_equivalent(sq_type(sq_dna),
-                    "dna_bsc")
-  expect_equivalent(sq_type(sq_rna),
-                    "rna_ext")
-  expect_equivalent(sq_type(sq_ami),
-                    "ami_ext")
-  expect_equivalent(sq_type(sq_unt),
-                    "unt")
-  expect_equivalent(sq_type(sq_atp),
-                    "atp")
+  expect_equal(sq_type(sq_dna),
+               "dna_bsc")
+  expect_equal(sq_type(sq_rna),
+               "rna_ext")
+  expect_equal(sq_type(sq_ami),
+               "ami_ext")
+  expect_equal(sq_type(sq_unt),
+               "unt")
+  expect_equal(sq_type(sq_atp),
+               "atp")
 })
 
 # TYPIFY ON ASSIGN ----

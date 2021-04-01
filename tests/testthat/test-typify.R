@@ -24,7 +24,7 @@ test_that("typify() throws an error whenever passed object of class other that s
 
 # NO CHANGES IF ALREADY TARGET CLASS ----
 test_that("typify() returns unaltered sq when sq is already of target class", {
-  expect_reference(typify(sq_dna, "dna_bsc"), sq_dna)
+  expect_identical(typify(sq_dna, "dna_bsc"), sq_dna)
 })
 
 # FAIL WHEN OUT-OF-ALPHABET LETTERS ----

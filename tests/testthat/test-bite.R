@@ -36,22 +36,22 @@ test_that("bite() throws an error whenever passed object of class other that sq"
 
 # HANDLING INDICES INSIDE SEQUENCE ORIGINAL LENGTH ----
 test_that("bite() interprets positive indices correctly", {
-  expect_equivalent(as.character(bite(sq_unt, c(4, 2, 1))),
-                    c("VQP", "QDP", "IPS"))
-  expect_equivalent(as.character(bite(sq_dna, 4:7)),
-                    c("AGGG", "TTGC", "TTTA"))
+  expect_equal(as.character(bite(sq_unt, c(4, 2, 1))),
+               c("VQP", "QDP", "IPS"))
+  expect_equal(as.character(bite(sq_dna, 4:7)),
+               c("AGGG", "TTGC", "TTTA"))
 })
 
 test_that("bite() correctly interpretes '-1' index (unknown as '-0' in C++)", {
-  expect_equivalent(as.character(bite(sq_dna, -1)),
-                    c("TCAGGGCTAG", "GATTGC", "AGTTTA"))
+  expect_equal(as.character(bite(sq_dna, -1)),
+               c("TCAGGGCTAG", "GATTGC", "AGTTTA"))
 })
 
 test_that("bite() interprets negative indices correctly", {
-  expect_equivalent(as.character(bite(sq_unt, -6)),
-                    c("PQNVIFD", "PDOQX-FI", "SPBI--XXS"))
-  expect_equivalent(as.character(bite(sq_dna, -3:-7)),
-                    c("TTCTAG", "CG", "CA"))
+  expect_equal(as.character(bite(sq_unt, -6)),
+               c("PQNVIFD", "PDOQX-FI", "SPBI--XXS"))
+  expect_equal(as.character(bite(sq_dna, -3:-7)),
+               c("TTCTAG", "CG", "CA"))
 })
 
 # HANDLING INDICES OUT OF SEQUENCE ORIGINAL LENGTH ----
@@ -63,23 +63,23 @@ test_that("bite() raises a warning when indices reach outside original length", 
 
 test_that("bite() returns NA_letter for each index outside of original length", {
   suppressWarnings({
-    expect_equivalent(as.character(bite(sq_unt, 13:16)),
-                      rep(paste0(rep(NA_letter, 4), collapse = ""), vec_size(sq_unt)))
-    expect_equivalent(as.character(bite(sq_atp, 3:5)),
-                      paste0(c("mY", "mA", NA_letter),
-                             paste0(rep(NA_letter, 2), collapse = "")))
-    expect_equivalent(as.character(bite(sq_dna, c(16, 20, 13))),
-                      rep(paste0(rep(NA_letter, 3), collapse = ""), vec_size(sq_dna)))
+    expect_equal(as.character(bite(sq_unt, 13:16)),
+                 rep(paste0(rep(NA_letter, 4), collapse = ""), vec_size(sq_unt)))
+    expect_equal(as.character(bite(sq_atp, 3:5)),
+                 paste0(c("mY", "mA", NA_letter),
+                        paste0(rep(NA_letter, 2), collapse = "")))
+    expect_equal(as.character(bite(sq_dna, c(16, 20, 13))),
+                 rep(paste0(rep(NA_letter, 3), collapse = ""), vec_size(sq_dna)))
   })
 })
 
 test_that("bite() ignores negative indices outside of original length", {
-  expect_equivalent(as.character(bite(sq_unt, c(-6, -20))),
-                    c("PQNVIFD", "PDOQX-FI", "SPBI--XXS"))
-  expect_equivalent(as.character(bite(sq_dna, -15:-19)),
-                    c("TTCAGGGCTAG", "CGATTGC", "CAGTTTA"))
-  expect_equivalent(as.character(bite(sq_atp, c(-2, -5))),
-                    c("mAmY", "nbAmA", ""))
+  expect_equal(as.character(bite(sq_unt, c(-6, -20))),
+               c("PQNVIFD", "PDOQX-FI", "SPBI--XXS"))
+  expect_equal(as.character(bite(sq_dna, -15:-19)),
+               c("TTCAGGGCTAG", "CGATTGC", "CAGTTTA"))
+  expect_equal(as.character(bite(sq_atp, c(-2, -5))),
+               c("mAmY", "nbAmA", ""))
 })
 
 # CORNER/EDGE CASES ----

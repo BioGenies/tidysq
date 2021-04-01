@@ -29,8 +29,8 @@ test_that("find_invalid_letters() throws an error whenever passed object of clas
 
 # VALUE COMPUTATION
 test_that("is_empty_sq() correctly computes return value", {
-  expect_equivalent(is_empty_sq(sq_ami), c(TRUE, FALSE, FALSE))
-  expect_equivalent(is_empty_sq(sq_dna), c(TRUE, FALSE, FALSE, TRUE, FALSE))
-  expect_equivalent(is_empty_sq(sq_rna), c(FALSE, FALSE, FALSE))
-  expect_equivalent(is_empty_sq(sq_empty), logical())
+  expect_equal(is_empty_sq(sq_ami), c(TRUE, FALSE, FALSE))
+  expect_equal(is_empty_sq(sq_dna), c(TRUE, FALSE, FALSE, TRUE, FALSE))
+  expect_equal(is_empty_sq(sq_rna), c(FALSE, FALSE, FALSE))
+  expect_equal(is_empty_sq(sq_empty), logical())
 })

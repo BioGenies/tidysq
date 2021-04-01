@@ -37,17 +37,17 @@ test_that("translate() throws an error whenever passed object of class other tha
 
 # VALUE COMPUTATION ----
 test_that("translate() returns correct value", {
-  expect_equivalent(as.character(translate(sq_dna)),
-                    str_dna_translated)
-  expect_equivalent(as.character(translate(sq_rna)),
-                    str_rna_translated)
+  expect_equal(as.character(translate(sq_dna)),
+               str_dna_translated)
+  expect_equal(as.character(translate(sq_rna)),
+               str_rna_translated)
 })
 
 test_that("translate() correctly handles tables other than default 1", {
-  expect_equivalent(as.character(translate(sq_dna, 4)),
-                    str_dna_translated_4)
-  expect_equivalent(as.character(translate(sq_dna, 12)),
-                    str_dna_translated_12)
-  expect_equivalent(as.character(translate(sq_rna, 24)),
-                    str_rna_translated)
+  expect_equal(as.character(translate(sq_dna, 4)),
+               str_dna_translated_4)
+  expect_equal(as.character(translate(sq_dna, 12)),
+               str_dna_translated_12)
+  expect_equal(as.character(translate(sq_rna, 24)),
+               str_rna_translated)
 })

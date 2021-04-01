@@ -28,21 +28,21 @@ test_that("find_invalid_letters() throws an error whenever passed object of clas
 
 # VALUE COMPUTATION ----
 test_that("find_invalid_letters() correctly computes value", {
-  expect_equivalent(
+  expect_equal(
     find_invalid_letters(sq_1, "dna_ext"),
     list(c("E", "I", "O", "P", "Q", "U"), c("F", "J", "L"), c("X", "Z"))
   )
 })
 
 test_that("find_invalid_letters() consider NA part of alphabet", {
-  expect_equivalent(
+  expect_equal(
     find_invalid_letters(sq_2, "dna_bsc"),
     list(character(), character(), "X")
   )
 })
 
 test_that("find_invalid_letters() works for alphabet with multiple-character letters", {
-  expect_equivalent(
+  expect_equal(
     find_invalid_letters(sq_3, "ami_ext"),
     list(c("Are", "You"), c("Are", "You", "Who"), c("Yes", "We", "Can"))
   )

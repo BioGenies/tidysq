@@ -58,21 +58,21 @@ test_that("remove_na() throws an error whenever passed object of class other tha
 
 # VALUE COMPUTATION ----
 test_that("remove_na() with `by_letter = TRUE` returns correct value", {
-  expect_equivalent(as.character(remove_na(sq_ami, by_letter = TRUE)),
-                    as.character(sq_ami_2))
-  expect_equivalent(as.character(remove_na(sq_dna, by_letter = TRUE)),
-                    as.character(sq_dna_2))
-  expect_equivalent(as.character(remove_na(sq_rna, by_letter = TRUE)),
-                    as.character(sq_rna_2))
+  expect_equal(as.character(remove_na(sq_ami, by_letter = TRUE)),
+               as.character(sq_ami_2))
+  expect_equal(as.character(remove_na(sq_dna, by_letter = TRUE)),
+               as.character(sq_dna_2))
+  expect_equal(as.character(remove_na(sq_rna, by_letter = TRUE)),
+               as.character(sq_rna_2))
 })
 
 test_that("remove_na() with `by_letter = FALSE` returns correct value", {
-  expect_equivalent(as.character(remove_na(sq_ami, by_letter = FALSE)),
-                    as.character(sq_ami_3))
-  expect_equivalent(as.character(remove_na(sq_dna, by_letter = FALSE)),
-                    as.character(sq_dna_3))
-  expect_equivalent(as.character(remove_na(sq_rna, by_letter = FALSE)),
-                    as.character(sq_rna_3))
+  expect_equal(as.character(remove_na(sq_ami, by_letter = FALSE)),
+               as.character(sq_ami_3))
+  expect_equal(as.character(remove_na(sq_dna, by_letter = FALSE)),
+               as.character(sq_dna_3))
+  expect_equal(as.character(remove_na(sq_rna, by_letter = FALSE)),
+               as.character(sq_rna_3))
 })
 
 # NO EFFECT ON SEQUENCES WITHOUT NA'S ----

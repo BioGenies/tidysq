@@ -72,21 +72,21 @@ test_that("non-character objects are passed to import_sq()", {
 
 # CASTING TO CHARACTER ----
 test_that("applying as.character() returns original character vector", {
-  expect_equivalent(as.character(sq_dna_bsc), str_dna_bsc)
-  expect_equivalent(as.character(sq_dna_ext), str_dna_ext)
-  expect_equivalent(as.character(sq_rna_bsc), str_rna_bsc)
-  expect_equivalent(as.character(sq_rna_ext), str_rna_ext)
-  expect_equivalent(as.character(sq_ami_bsc), str_ami_bsc)
-  expect_equivalent(as.character(sq_ami_ext), str_ami_ext)
-  expect_equivalent(as.character(sq_unt), str_unt)
-  expect_equivalent(as.character(sq_atp), str_atp)
+  expect_equal(as.character(sq_dna_bsc), str_dna_bsc)
+  expect_equal(as.character(sq_dna_ext), str_dna_ext)
+  expect_equal(as.character(sq_rna_bsc), str_rna_bsc)
+  expect_equal(as.character(sq_rna_ext), str_rna_ext)
+  expect_equal(as.character(sq_ami_bsc), str_ami_bsc)
+  expect_equal(as.character(sq_ami_ext), str_ami_ext)
+  expect_equal(as.character(sq_unt), str_unt)
+  expect_equal(as.character(sq_atp), str_atp)
 })
 
 test_that("as.character() has NA_letter parameter with default value", {
   withr::local_options(list(tidysq_NA_letter = "!"))
-  expect_equivalent(as.character(sq_with_na), str_with_na_1)
-  expect_equivalent(as.character(sq_with_na, NA_letter = "?"), str_with_na_2)
-  expect_equivalent(as.character(sq_with_na, NA_letter = "<?>"), str_with_na_3)
+  expect_equal(as.character(sq_with_na), str_with_na_1)
+  expect_equal(as.character(sq_with_na, NA_letter = "?"), str_with_na_2)
+  expect_equal(as.character(sq_with_na, NA_letter = "<?>"), str_with_na_3)
 })
 
 test_that("vec_cast() to character works like as.character()", {

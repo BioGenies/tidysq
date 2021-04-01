@@ -66,11 +66,11 @@ test_that("encoding must be either numeric or character", {
 
 # CORRECT RETURN VALUE ----
 test_that("substitute_letters() correctly computes value", {
-  expect_equivalent(
+  expect_equal(
     as.character(substitute_letters(sq_dna, c(T = "B"))),
     str_dna
   )
-  expect_equivalent(
+  expect_equal(
     as.character(substitute_letters(sq_ami, c(P = "Q", O = "W", I = "E", U = "R", Y = "T", G = "V",
                                               L = "A", K = "S", J = "D", H = "F", M = "Z", N = "X", B = "C"))),
     str_ami
@@ -79,11 +79,11 @@ test_that("substitute_letters() correctly computes value", {
 
 # COERCING NUMERIC VECTORS TO CHARACTERS ----
 test_that("substitute_letters() coerces numeric encodings to string vectors", {
-  expect_equivalent(
+  expect_equal(
     as.character(substitute_letters(sq_dna, c(T = 6))),
     str_dna_num
   )
-  expect_equivalent(
+  expect_equal(
     as.character(substitute_letters(sq_ami, c(P = 11, V = 22, E = 33, X = 6, B = 7))),
     str_ami_num
   )
