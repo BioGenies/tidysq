@@ -28,12 +28,13 @@ test_that("using sd argument of random_sq() doesn't generate negative-length seq
   # Using local mock to ensure that rnorm generates some negative values
   # Will have to change it if random_sq() changes length generating function
   # This might suggest that we should extract this as a separate function
-  local_mock(rnorm = function(x, mean, sd) {
+  mockr::with_mock(rnorm = function(x, mean, sd) {
     seq(from = mean - 2*sd, to = mean + 2*sd, length.out = x)
-  })
-  for (sq in random_sq(25, 3, "dna_bsc", sd = 50)) {
-    expect_gte(attr(sq, "original_length"), 0)
-  }
+  }, {
+    for (sq in random_sq(25, 3, "dna_bsc", sd = 50)) {
+      expect_gte(attr(sq, "original_length"), 0)
+    }
+  }, .env = rlang::pkg_env("stats"))
 })
 
 # SEED SAFETY ---
