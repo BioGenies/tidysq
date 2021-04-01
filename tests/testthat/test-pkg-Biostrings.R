@@ -40,6 +40,22 @@ biostr_unt <- Biostrings::BStringSet(str_unt)
 biostr_unt_n <- Biostrings::BStringSet(setNames(str_unt, names_unt))
 biostr_1_unt <- Biostrings::BString(str_1_unt)
 
+expect_exported_biostrings_set_equal <- function(x, y) {
+  expect_true(all(x == y))
+  expect_equal(x@ranges, y@ranges)
+  expect_equal(x@elementType, y@elementType)
+  expect_equal(x@elementMetadata, y@elementMetadata)
+  expect_equal(x@metadata, y@metadata)
+}
+
+expect_exported_biostrings_item_equal <- function(x, y) {
+  expect_true(all(x == y))
+  expect_equal(x@offset, y@offset)
+  expect_equal(x@length, y@length)
+  expect_equal(x@elementMetadata, y@elementMetadata)
+  expect_equal(x@metadata, y@metadata)
+}
+
 # IMPORT ----
 test_that("correctly imports Biostrings::DNAStringSet", {
   expect_identical(import_sq(biostr_dna)[["sq"]],
@@ -102,36 +118,36 @@ test_that("correctly imports Biostrings::XStringSetList", {
 
 # EXPORT ----
 test_that("correctly exports sq object to Biostrings::DNAStringSet", {
-  expect_identical(export_sq(sq_dna, "Biostrings::DNAStringSet"),
-                   biostr_dna)
-  expect_identical(export_sq(sq_dna, "Biostrings::DNAStringSet", name = names_dna),
-                   biostr_dna_n)
+  expect_exported_biostrings_set_equal(export_sq(sq_dna, "Biostrings::DNAStringSet"),
+                                       biostr_dna)
+  expect_exported_biostrings_set_equal(export_sq(sq_dna, "Biostrings::DNAStringSet", name = names_dna),
+                                       biostr_dna_n)
 })
 test_that("correctly exports sq object to Biostrings::DNAString", {
-  expect_identical(export_sq(sq_1_dna, "Biostrings::DNAString"),
-                   biostr_1_dna)
+  expect_exported_biostrings_item_equal(export_sq(sq_1_dna, "Biostrings::DNAString"),
+                                        biostr_1_dna)
 })
 
 test_that("correctly exports sq object to Biostrings::RNAStringSet", {
-  expect_identical(export_sq(sq_rna, "Biostrings::RNAStringSet"),
-                   biostr_rna)
-  expect_identical(export_sq(sq_rna, "Biostrings::RNAStringSet", name = names_rna),
-                   biostr_rna_n)
+  expect_exported_biostrings_set_equal(export_sq(sq_rna, "Biostrings::RNAStringSet"),
+                                       biostr_rna)
+  expect_exported_biostrings_set_equal(export_sq(sq_rna, "Biostrings::RNAStringSet", name = names_rna),
+                                       biostr_rna_n)
 })
 test_that("correctly exports sq object to Biostrings::RNAString", {
-  expect_identical(export_sq(sq_1_rna, "Biostrings::RNAString"),
-                   biostr_1_rna)
+  expect_exported_biostrings_item_equal(export_sq(sq_1_rna, "Biostrings::RNAString"),
+                                        biostr_1_rna)
 })
 
 test_that("correctly exports sq object to Biostrings::AAStringSet", {
-  expect_identical(export_sq(sq_ami, "Biostrings::AAStringSet"),
-                   biostr_ami)
-  expect_identical(export_sq(sq_ami, "Biostrings::AAStringSet", name = names_ami),
-                   biostr_ami_n)
+  expect_exported_biostrings_set_equal(export_sq(sq_ami, "Biostrings::AAStringSet"),
+                                       biostr_ami)
+  expect_exported_biostrings_set_equal(export_sq(sq_ami, "Biostrings::AAStringSet", name = names_ami),
+                                       biostr_ami_n)
 })
 test_that("correctly exports sq object to Biostrings::AAString", {
-  expect_identical(export_sq(sq_1_ami, "Biostrings::AAString"),
-                   biostr_1_ami)
+  expect_exported_biostrings_item_equal(export_sq(sq_1_ami, "Biostrings::AAString"),
+                                        biostr_1_ami)
 })
 
 # EDGE CASES ----
