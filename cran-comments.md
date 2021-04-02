@@ -2,12 +2,11 @@
 * local R installation, R 4.0.4
 * ubuntu 16.04 (on travis-ci), R 4.0.4
 * win-builder (devel)
-https://github.com/BioGenies/tidysq/actions
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 notes
 
-* This is a new release.
+Updated tests to be compliant with testthat release 3. 
 
-The package contains a large amount of Cpp code which extends the building time. We weren't able to find any guidelines regarding the compilation time so we hope it is fine to submit the package as is.
+Removed explicit declarations of default move constructors, copy constructors, move assignment operators and copy assignment operators which may cause problems on some platforms.
