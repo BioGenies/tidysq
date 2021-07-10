@@ -33,7 +33,7 @@ namespace tidysq {
                     element_count += sq[0].get().original_length();
                 }
             } else {
-                for (LenSq i = 0; i < element_counts.size(); ++i) {
+                for (u_LenSq i = 0; i < element_counts.size(); ++i) {
                     element_counts[i] += sq[i].get().original_length();
                 }
             }

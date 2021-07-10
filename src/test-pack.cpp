@@ -47,7 +47,7 @@ template<>
 ProtoSequence<STD_IT, STRINGS_PT>
 create_proto_sequence_from_raws<STD_IT, STRINGS_PT>(const std::vector<ElementRaws> &raws, const Alphabet &alphabet) {
     std::vector<ElementStrings> strings(raws.size());
-    for (LenSq i = 0; i < raws.size(); i++) {
+    for (u_LenSq i = 0; i < raws.size(); i++) {
         strings[i] = util::match_letter<STRINGS_PT>(raws[i], alphabet);
     }
     return ProtoSequence<STD_IT, STRINGS_PT>(strings);
@@ -57,7 +57,7 @@ template<>
 ProtoSequence<RCPP_IT, STRINGS_PT>
 create_proto_sequence_from_raws<RCPP_IT, STRINGS_PT>(const std::vector<ElementRaws> &raws, const Alphabet &alphabet) {
     Rcpp::StringVector strings(raws.size());
-    for (LenSq i = 0; i < raws.size(); i++) {
+    for (u_LenSq i = 0; i < raws.size(); i++) {
         strings[i] = util::match_letter<STRINGS_PT>(raws[i], alphabet);
     }
     return ProtoSequence<RCPP_IT, STRINGS_PT>(strings);
@@ -67,7 +67,7 @@ template<>
 ProtoSequence<STD_IT, STRING_PT>
 create_proto_sequence_from_raws<STD_IT, STRING_PT>(const std::vector<ElementRaws> &raws, const Alphabet &alphabet) {
     std::string seq;
-    for (LenSq i = 0; i < raws.size(); i++) {
+    for (u_LenSq i = 0; i < raws.size(); i++) {
         seq += util::match_letter_multichar(raws[i], alphabet);
     }
     return ProtoSequence<STD_IT, STRING_PT>(seq);
@@ -77,7 +77,7 @@ template<>
 ProtoSequence<RCPP_IT, STRING_PT>
 create_proto_sequence_from_raws<RCPP_IT, STRING_PT>(const std::vector<ElementRaws> &raws, const Alphabet &alphabet) {
     std::string seq;
-    for (LenSq i = 0; i < raws.size(); i++) {
+    for (u_LenSq i = 0; i < raws.size(); i++) {
         seq += util::match_letter_multichar(raws[i], alphabet);
     }
     return ProtoSequence<RCPP_IT, STRING_PT>(seq);
@@ -86,7 +86,7 @@ create_proto_sequence_from_raws<RCPP_IT, STRING_PT>(const std::vector<ElementRaw
 template<typename INTERNAL, typename PROTO>
 ProtoSq<INTERNAL, PROTO> create_proto_sq_from_raws(const std::vector<std::vector<ElementRaws>> &raws, const Alphabet &alphabet) {
     ProtoSq<INTERNAL, PROTO> ret(raws.size(), alphabet);
-    for (LenSq i = 0; i < raws.size(); i++) {
+    for (u_LenSq i = 0; i < raws.size(); i++) {
         ret[i] = create_proto_sequence_from_raws<INTERNAL, PROTO>(raws[i], alphabet);
     }
     return ret;

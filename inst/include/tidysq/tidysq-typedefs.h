@@ -8,6 +8,7 @@
 
 namespace tidysq {
     typedef R_xlen_t                LenSq;
+    typedef unsigned long int       u_LenSq;          //max vector size for comparisons
     typedef unsigned char           ElementPacked;
     typedef unsigned char           ElementRaws;
     typedef unsigned short int      ElementInts;
