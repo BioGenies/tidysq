@@ -21,7 +21,7 @@ namespace tidysq {
             }
 
             void write_sequence_part(const std::string &content,
-                                     LenSq &written) {
+                                     u_LenSq &written) {
                 // if there is more to be written than content size, write only part of it
                 if (content.size() - written >= width_) {
                     stream_.write(content.data() + written, width_);
@@ -36,7 +36,7 @@ namespace tidysq {
             void write_sequence(LenSq i) {
                 ProtoSequence<STD_IT, STRING_PT> unpacked = unpack<INTERNAL, STD_IT, STRING_PT>(sq_[i], sq_.alphabet());
                 const std::string &content = unpacked.content();
-                LenSq written = 0;
+                u_LenSq written = 0;
 
                 while (written < content.size()) {
                     write_sequence_part(content, written);

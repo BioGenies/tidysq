@@ -10,7 +10,7 @@ namespace tidysq {
                        ops::OperationVectorToVector<VECTOR_IN, ELEMENT_IN, VECTOR_OUT, ELEMENT_OUT> &operation) {
         if (operation.may_return_early(vector_in)) return operation.return_early(vector_in);
         VECTOR_OUT ret = operation.initialize_vector_out(vector_in);
-        for (LenSq i = 0; i < vector_in.size(); i++) {
+        for (typeof(vector_in.size()) i = 0; i < vector_in.size(); i++) {
             ret[i] = operation(vector_in[i]);
         }
         return ret;

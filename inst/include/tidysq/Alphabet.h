@@ -48,7 +48,7 @@ namespace tidysq {
 
         static std::unordered_map<LetterValue, const Letter> prepare_value_to_letter(const std::vector<Letter> &letters) {
             std::unordered_map<LetterValue, const Letter> ret{};
-            for (int i = 0; i < letters.size(); i++) {
+            for (unsigned short i = 0; i < letters.size(); i++) {
                 if (letters[i].empty())
                     throw std::invalid_argument("each \"letter\" has to have at least one character!");
                 ret.insert({i, letters[i]});
