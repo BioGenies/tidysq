@@ -6,20 +6,15 @@ namespace tidysq {
     namespace ops {
         template<typename INTERNAL_IN, typename INTERNAL_OUT = INTERNAL_IN>
         class OperationRemoveAmbiguous : public OperationRemoveOnCondition<INTERNAL_IN, INTERNAL_OUT> {
-            bool early_return_;
-
             Alphabet match_dest_alph(const Alphabet &alphabet) {
                 switch (alphabet.type()) {
                     case AMI_BSC:
-                        early_return_ = true;
                     case AMI_EXT:
                         return Alphabet(AMI_BSC);
                     case DNA_BSC:
-                        early_return_ = true;
                     case DNA_EXT:
                         return Alphabet(DNA_BSC);
                     case RNA_BSC:
-                        early_return_ = true;
                     case RNA_EXT:
                         return Alphabet(RNA_BSC);
                     default:
@@ -28,9 +23,13 @@ namespace tidysq {
             }
 
             bool may_return_early(const Sq<INTERNAL_IN> &vector_in) override {
-                return early_return_;
+                SqType type = this->alph_.type();
+                return  type == AMI_BSC || type == DNA_BSC || type == RNA_BSC;
             }
 
+            Sq<INTERNAL_OUT> return_early(const Sq<INTERNAL_IN> &vector_in) {
+                return  vector_in;
+            }
 
 
         public:
@@ -44,8 +43,7 @@ namespace tidysq {
                                 this->OperationRemoveOnCondition<INTERNAL_IN, INTERNAL_OUT>::alph_[value]) ||
                                 this->OperationRemoveOnCondition<INTERNAL_IN, INTERNAL_OUT>::alph_.NA_value() == value;
                             },
-                            by_letter),
-                    early_return_(false) {};
+                            by_letter) {};
         };
     }
 
