@@ -81,7 +81,7 @@ sequences and returns a tibble with obtained data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
       </span>
     </div>
 
@@ -226,27 +226,27 @@ number of sequences and two columns:</p><ul>
 
 <span class='co'># In this case, these two calls are equivalent in result:</span>
 <span class='fu'>read_fasta</span><span class='op'>(</span><span class='va'>fasta_file</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Non-standard IUPAC symbols detected for DNA: 1549 characters were converted to N.</span></div><div class='output co'>#&gt; <span style='color: #949494;'>DNA vector of 421 sequences</span><span>
-#&gt; </span><span style='color: #949494;font-style: italic;'>AMY1|K19|T-Protei...</span><span>  N</span><span style='color: #BBBB00;font-weight: bold;'>GGG</span><span>KVNNVYKNV
-#&gt; </span><span style='color: #949494;font-style: italic;'>AMY9|K19Gluc41|T-...</span><span>  NNKHNN</span><span style='color: #BBBB00;font-weight: bold;'>GGG</span><span>KVNNVYKNVDNSKV</span><span style='color: #0000BB;font-weight: bold;'>T</span><span>SK</span><span style='color: #00BB00;font-weight: bold;'>C</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span>SN</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span>NNHHKN</span><span style='color: #BBBB00;font-weight: bold;'>GGG</span><span>NVN
-#&gt; </span><span style='color: #949494;font-style: italic;'>AMY14|K19Gluc782|...</span><span>  NNKHNN</span><span style='color: #BBBB00;font-weight: bold;'>GGG</span><span>KVNNVYKNVD
-#&gt; </span><span style='color: #949494;font-style: italic;'>AMY17|PHF8|T-Prot...</span><span>  </span><span style='color: #BBBB00;font-weight: bold;'>G</span><span>KVNNVYK
-#&gt; </span><span style='color: #949494;font-style: italic;'>AMY18|PHF6|T-Prot...</span><span>  VNNVYK
-#&gt; </span><span style='color: #949494;font-style: italic;'>AMY22|Whole|Amylo...</span><span>  D</span><span style='color: #BB0000;font-weight: bold;'>A</span><span>NNRHDS</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span>YNVHHNKNVNN</span><span style='color: #BB0000;font-weight: bold;'>A</span><span>NDV</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span>SNK</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span style='color: #BB0000;font-weight: bold;'>A</span><span>NN</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span>NMV</span><span style='color: #BBBB00;font-weight: bold;'>GG</span><span>VV
-#&gt; </span><span style='color: #949494;font-style: italic;'>AMY23|HABP1|Amylo...</span><span>  VNHNKNVNN</span><span style='color: #BB0000;font-weight: bold;'>A</span><span>NDV</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span>S
-#&gt; </span><span style='color: #949494;font-style: italic;'>AMY24|HABP2|Amylo...</span><span>  VHNNKNVNN</span><span style='color: #BB0000;font-weight: bold;'>A</span><span>NDV</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span>S
-#&gt; </span><span style='color: #949494;font-style: italic;'>AMY25|HABP3|Amylo...</span><span>  VHHNKNVNN</span><span style='color: #BB0000;font-weight: bold;'>A</span><span>NDV</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span>S
-#&gt; </span><span style='color: #949494;font-style: italic;'>AMY26|HABP4|Amylo...</span><span>  VHHNNNVNN</span><span style='color: #BB0000;font-weight: bold;'>A</span><span>NDV</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span>S
-#&gt; </span><span style='color: #949494;font-style: italic;'>AMY32|HABP10|Amyl...</span><span>  KKNVNNNND
-#&gt; </span><span style='color: #949494;font-style: italic;'>AMY34|HABP12|Amyl...</span><span>  VHHNNKNVNN</span><span style='color: #BB0000;font-weight: bold;'>A</span><span>NNV</span><span style='color: #BBBB00;font-weight: bold;'>G</span><span>S
-#&gt; </span><span style='color: #949494;'>... with 409 more sequences.</span><span></div><div class='input'><span class='fu'>read_fasta</span><span class='op'>(</span><span class='va'>fasta_file</span>, alphabet <span class='op'>=</span> <span class='st'>"ami_bsc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Non-standard IUPAC symbols detected for DNA: 1549 characters were converted to N.</span></div><div class='output co'>#&gt; <span style='color: #949494;'>DNA vector of 421 sequences</span>
+#&gt; <span style='color: #949494; font-style: italic;'>AMY1|K19|T-Protei...</span>  N<span style='color: #BBBB00; font-weight: bold;'>GGG</span>KVNNVYKNV
+#&gt; <span style='color: #949494; font-style: italic;'>AMY9|K19Gluc41|T-...</span>  NNKHNN<span style='color: #BBBB00; font-weight: bold;'>GGG</span>KVNNVYKNVDNSKV<span style='color: #0000BB; font-weight: bold;'>T</span>SK<span style='color: #00BB00; font-weight: bold;'>C</span><span style='color: #BBBB00; font-weight: bold;'>G</span>SN<span style='color: #BBBB00; font-weight: bold;'>G</span>NNHHKN<span style='color: #BBBB00; font-weight: bold;'>GGG</span>NVN
+#&gt; <span style='color: #949494; font-style: italic;'>AMY14|K19Gluc782|...</span>  NNKHNN<span style='color: #BBBB00; font-weight: bold;'>GGG</span>KVNNVYKNVD
+#&gt; <span style='color: #949494; font-style: italic;'>AMY17|PHF8|T-Prot...</span>  <span style='color: #BBBB00; font-weight: bold;'>G</span>KVNNVYK
+#&gt; <span style='color: #949494; font-style: italic;'>AMY18|PHF6|T-Prot...</span>  VNNVYK
+#&gt; <span style='color: #949494; font-style: italic;'>AMY22|Whole|Amylo...</span>  D<span style='color: #BB0000; font-weight: bold;'>A</span>NNRHDS<span style='color: #BBBB00; font-weight: bold;'>G</span>YNVHHNKNVNN<span style='color: #BB0000; font-weight: bold;'>A</span>NDV<span style='color: #BBBB00; font-weight: bold;'>G</span>SNK<span style='color: #BBBB00; font-weight: bold;'>G</span><span style='color: #BB0000; font-weight: bold;'>A</span>NN<span style='color: #BBBB00; font-weight: bold;'>G</span>NMV<span style='color: #BBBB00; font-weight: bold;'>GG</span>VV
+#&gt; <span style='color: #949494; font-style: italic;'>AMY23|HABP1|Amylo...</span>  VNHNKNVNN<span style='color: #BB0000; font-weight: bold;'>A</span>NDV<span style='color: #BBBB00; font-weight: bold;'>G</span>S
+#&gt; <span style='color: #949494; font-style: italic;'>AMY24|HABP2|Amylo...</span>  VHNNKNVNN<span style='color: #BB0000; font-weight: bold;'>A</span>NDV<span style='color: #BBBB00; font-weight: bold;'>G</span>S
+#&gt; <span style='color: #949494; font-style: italic;'>AMY25|HABP3|Amylo...</span>  VHHNKNVNN<span style='color: #BB0000; font-weight: bold;'>A</span>NDV<span style='color: #BBBB00; font-weight: bold;'>G</span>S
+#&gt; <span style='color: #949494; font-style: italic;'>AMY26|HABP4|Amylo...</span>  VHHNNNVNN<span style='color: #BB0000; font-weight: bold;'>A</span>NDV<span style='color: #BBBB00; font-weight: bold;'>G</span>S
+#&gt; <span style='color: #949494; font-style: italic;'>AMY32|HABP10|Amyl...</span>  KKNVNNNND
+#&gt; <span style='color: #949494; font-style: italic;'>AMY34|HABP12|Amyl...</span>  VHHNNKNVNN<span style='color: #BB0000; font-weight: bold;'>A</span>NNV<span style='color: #BBBB00; font-weight: bold;'>G</span>S
+#&gt; <span style='color: #949494;'>... with 409 more sequences.</span></div><div class='input'><span class='fu'>read_fasta</span><span class='op'>(</span><span class='va'>fasta_file</span>, alphabet <span class='op'>=</span> <span class='st'>"ami_bsc"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='error'>Error in read_fasta(fasta_file, alphabet = "ami_bsc"): unused argument (alphabet = "ami_bsc")</span></div><div class='input'>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># It's possible to read FASTA file from URL:</span>
 <span class='fu'>read_fasta</span><span class='op'>(</span><span class='st'>"https://www.uniprot.org/uniprot/P28307.fasta"</span><span class='op'>)</span>
 <span class='op'>}</span>
 
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

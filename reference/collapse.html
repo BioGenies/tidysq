@@ -81,7 +81,7 @@ type remains unchanged." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
       </span>
     </div>
 
@@ -194,14 +194,14 @@ This operation does not alter the type of the input object nor its alphabet.</p>
 
 <span class='co'># Collapsing sequences:</span>
 <span class='fu'>collapse</span><span class='op'>(</span><span class='va'>sq_ami</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>extended amino acid sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>MIAANYTWILTIAALGNIIYRAIENYERTGHLIMAYXXXIALN</span><span>                             </span><span style='color: #0000BB;'>&lt;43&gt;</span><span></div><div class='input'><span class='fu'>collapse</span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>extended DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGAGACCGAACGAN</span><span>                                                     </span><span style='color: #0000BB;'>&lt;19&gt;</span><span></div><div class='input'><span class='fu'>collapse</span><span class='op'>(</span><span class='va'>sq_unt</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGA?TGACGAGCTTATIAALGNIIYRAIE</span><span>                                      </span><span style='color: #0000BB;'>&lt;34&gt;</span><span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>extended amino acid sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>MIAANYTWILTIAALGNIIYRAIENYERTGHLIMAYXXXIALN</span>                             <span style='color: #0000BB;'>&lt;43&gt;</span></div><div class='input'><span class='fu'>collapse</span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>extended DNA sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>ATGCAGGAGACCGAACGAN</span>                                                     <span style='color: #0000BB;'>&lt;19&gt;</span></div><div class='input'><span class='fu'>collapse</span><span class='op'>(</span><span class='va'>sq_unt</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>ATGCAGGA?TGACGAGCTTATIAALGNIIYRAIE</span>                                      <span style='color: #0000BB;'>&lt;34&gt;</span></div><div class='input'>
 <span class='co'># Empty sq objects are collapsed as well (into empty string - ""):</span>
 <span class='va'>sq_empty</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>, alphabet <span class='op'>=</span> <span class='st'>"rna_bsc"</span><span class='op'>)</span>
 <span class='fu'>collapse</span><span class='op'>(</span><span class='va'>sq_empty</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>basic RNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span></div><div class='input'>
-</div></span></pre>
+</div><div class='output co'>#&gt; <span class='message'>basic RNA sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #555555;'>&lt;NULL&gt;</span>                                                                   <span style='color: #0000BB;'>&lt;0&gt;</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

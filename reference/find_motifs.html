@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
       </span>
     </div>
 
@@ -229,44 +229,44 @@ subsequences.</p>
 <span class='co'># Finding motif of two alanines followed by aspartic acid or asparagine</span>
 <span class='co'># ("AAB" motif matches "AAB", "AAD" and "AAN"):</span>
 <span class='fu'>find_motifs</span><span class='op'>(</span><span class='va'>sq_ami</span>, <span class='va'>sq_names</span>, <span class='st'>"AAB"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 5</span>
 #&gt;   names found     sought start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;ami_bsc&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> sq2   </span><span style='color: #00BB00;'>AAD</span><span>   </span><span style='color: #0000BB;'>&lt;3&gt;</span><span> AAB        9    11
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> sq3   </span><span style='color: #00BB00;'>AAN</span><span>   </span><span style='color: #0000BB;'>&lt;3&gt;</span><span> AAB        9    11</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;ami_bsc&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> sq2   <span style='color: #00BB00;'>AAD</span>   <span style='color: #0000BB;'>&lt;3&gt;</span> AAB        9    11
+#&gt; <span style='color: #BCBCBC;'>2</span> sq3   <span style='color: #00BB00;'>AAN</span>   <span style='color: #0000BB;'>&lt;3&gt;</span> AAB        9    11</div><div class='input'>
 <span class='co'># Finding "C" at fourth position:</span>
 <span class='fu'>find_motifs</span><span class='op'>(</span><span class='va'>sq_dna</span>, <span class='va'>sq_names</span>, <span class='st'>"^NNNC"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 5</span>
 #&gt;   names found     sought start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dna_bsc&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> sq1   </span><span style='color: #00BB00;'>ATGC</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span> ^NNNC      1     4
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> sq2   </span><span style='color: #00BB00;'>GACC</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span> ^NNNC      1     4
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> sq3   </span><span style='color: #00BB00;'>TGAC</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span> ^NNNC      1     4</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dna_bsc&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> sq1   <span style='color: #00BB00;'>ATGC</span>  <span style='color: #0000BB;'>&lt;4&gt;</span> ^NNNC      1     4
+#&gt; <span style='color: #BCBCBC;'>2</span> sq2   <span style='color: #00BB00;'>GACC</span>  <span style='color: #0000BB;'>&lt;4&gt;</span> ^NNNC      1     4
+#&gt; <span style='color: #BCBCBC;'>3</span> sq3   <span style='color: #00BB00;'>TGAC</span>  <span style='color: #0000BB;'>&lt;4&gt;</span> ^NNNC      1     4</div><div class='input'>
 <span class='co'># Finding motif "I" at second-to-last position:</span>
 <span class='fu'>find_motifs</span><span class='op'>(</span><span class='va'>sq_ami</span>, <span class='va'>sq_names</span>, <span class='st'>"IX$"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 5</span>
 #&gt;   names found     sought start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;ami_bsc&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> sq2   </span><span style='color: #00BB00;'>IL</span><span>    </span><span style='color: #0000BB;'>&lt;2&gt;</span><span> IX$       16    17
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> sq3   </span><span style='color: #00BB00;'>IK</span><span>    </span><span style='color: #0000BB;'>&lt;2&gt;</span><span> IX$       18    19</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;ami_bsc&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> sq2   <span style='color: #00BB00;'>IL</span>    <span style='color: #0000BB;'>&lt;2&gt;</span> IX$       16    17
+#&gt; <span style='color: #BCBCBC;'>2</span> sq3   <span style='color: #00BB00;'>IK</span>    <span style='color: #0000BB;'>&lt;2&gt;</span> IX$       18    19</div><div class='input'>
 <span class='co'># Finding multiple motifs:</span>
 <span class='fu'>find_motifs</span><span class='op'>(</span><span class='va'>sq_dna</span>, <span class='va'>sq_names</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"^ABN"</span>, <span class='st'>"ANCBY"</span>, <span class='st'>"BAN$"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 5</span>
 #&gt;   names found     sought start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dna_bsc&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> sq1   </span><span style='color: #00BB00;'>ATG</span><span>   </span><span style='color: #0000BB;'>&lt;3&gt;</span><span> ^ABN       1     3
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> sq2   </span><span style='color: #00BB00;'>ACCG</span><span style='color: #555555;'>!</span><span> </span><span style='color: #0000BB;'>&lt;5&gt;</span><span> ANCBY      2     6
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> sq3   </span><span style='color: #00BB00;'>AGCTT</span><span> </span><span style='color: #0000BB;'>&lt;5&gt;</span><span> ANCBY      6    10
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> sq2   </span><span style='color: #00BB00;'>GA</span><span style='color: #555555;'>!</span><span>   </span><span style='color: #0000BB;'>&lt;3&gt;</span><span> BAN$      11    13
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> sq3   </span><span style='color: #00BB00;'>TAG</span><span>   </span><span style='color: #0000BB;'>&lt;3&gt;</span><span> BAN$      10    12</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dna_bsc&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> sq1   <span style='color: #00BB00;'>ATG</span>   <span style='color: #0000BB;'>&lt;3&gt;</span> ^ABN       1     3
+#&gt; <span style='color: #BCBCBC;'>2</span> sq2   <span style='color: #00BB00;'>ACCG</span><span style='color: #555555;'>!</span> <span style='color: #0000BB;'>&lt;5&gt;</span> ANCBY      2     6
+#&gt; <span style='color: #BCBCBC;'>3</span> sq3   <span style='color: #00BB00;'>AGCTT</span> <span style='color: #0000BB;'>&lt;5&gt;</span> ANCBY      6    10
+#&gt; <span style='color: #BCBCBC;'>4</span> sq2   <span style='color: #00BB00;'>GA</span><span style='color: #555555;'>!</span>   <span style='color: #0000BB;'>&lt;3&gt;</span> BAN$      11    13
+#&gt; <span style='color: #BCBCBC;'>5</span> sq3   <span style='color: #00BB00;'>TAG</span>   <span style='color: #0000BB;'>&lt;3&gt;</span> BAN$      10    12</div><div class='input'>
 <span class='co'># Finding multicharacter motifs:</span>
 <span class='fu'>find_motifs</span><span class='op'>(</span><span class='va'>sq_atp</span>, <span class='va'>sq_names</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nsA"</span>, <span class='st'>"mYmY$"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 5</span>
 #&gt;   names found    sought start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;atp&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> sq2   </span><span style='color: #00BB00;'>nsA</span><span>  </span><span style='color: #0000BB;'>&lt;1&gt;</span><span> nsA        2     2
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> sq1   </span><span style='color: #00BB00;'>mYmY</span><span> </span><span style='color: #0000BB;'>&lt;2&gt;</span><span> mYmY$      2     3</div><div class='input'>
-</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;atp&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> sq2   <span style='color: #00BB00;'>nsA</span>  <span style='color: #0000BB;'>&lt;1&gt;</span> nsA        2     2
+#&gt; <span style='color: #BCBCBC;'>2</span> sq1   <span style='color: #00BB00;'>mYmY</span> <span style='color: #0000BB;'>&lt;2&gt;</span> mYmY$      2     3</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
