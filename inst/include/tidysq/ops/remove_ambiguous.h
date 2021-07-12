@@ -27,7 +27,7 @@ namespace tidysq {
                 return  type == AMI_BSC || type == DNA_BSC || type == RNA_BSC;
             }
 
-            Sq<INTERNAL_OUT> return_early(const Sq<INTERNAL_IN> &vector_in) {
+            Sq<INTERNAL_OUT> return_early(const Sq<INTERNAL_IN> &vector_in) override {
                 return  vector_in;
             }
 
