@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Obtain current state of tidysq options — get_tidysq_options • tidysq</title>
+<title>Changelog • tidysq</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,7 @@
 
 
 
-<meta property="og:title" content="Obtain current state of tidysq options — get_tidysq_options" />
-<meta property="og:description" content="Subsets all global options to display those related to
-tidysq package." />
+<meta property="og:title" content="Changelog" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -68,7 +66,7 @@ tidysq package." />
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -135,73 +133,95 @@ tidysq package." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Obtain current state of tidysq options</h1>
-    <small class="dont-index">Source: <a href='https://github.com/BioGenies/tidysq/blob/master/R/util-options.R'><code>R/util-options.R</code></a></small>
-    <div class="hidden name"><code>get_tidysq_options.Rd</code></div>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/BioGenies/tidysq/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    <p>Subsets all global options to display those related to
-<span class="pkg">tidysq</span> package.</p>
-    </div>
-
-    <pre class="usage"><span class='fu'>get_tidysq_options</span><span class='op'>(</span><span class='op'>)</span></pre>
-
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A <code>named list</code> with selected option
-values.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The user can display value of selected option by calling
-<code>getOptions(option_name)</code> and set its value with
-<code><a href='https://rdrr.io/r/base/options.html'>options(option_name = value)</a></code>, where <code>option_name</code> is an option
-name and <code>value</code> is a value to assign to an option.</p>
-<p>Full list of options included in <span class="pkg">tidysq</span> package is listed below:</p><ul>
-<li><p>tidysq_NA_letter [<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
- A letter to be used when printing, constructing or interpreting <code>NA</code>
- value. Defaults to <code>"!"</code>.</p></li>
-<li><p>tidysq_on_warning [<code>"silent" || "message" || "warning" || "error"</code>]<br />
- Determines the method of handling warning message. Setting <code>"error"</code>
- makes any warning throw an exception and stop execution of the code. The
- difference between <code>"message"</code> and <code>"warning"</code> is that while both
- display warning text to the console, only the latter registers it so that
- it can be accessed with a call to <code><a href='https://rdrr.io/r/base/warnings.html'>warnings()</a></code>. Lastly, <code>"silent"</code>
- setting causes any warnings to be completely ignored. Default value is
- <code>"warning"</code>.</p></li>
-<li><p>tidysq_pillar_max_width [codeinteger(1)]<br />
- Determines max width of a column of <code>sq</code> class within a
- <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code>. Default value is 15.</p></li>
-<li><p>tidysq_print_max_sequences [<code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code>]<br />
- Controls maximum number of sequences printed to console. If an <code>sq</code>
- object is longer than this value, then only first
- <code>tidysq_print_max_sequences</code> are printed, just like in any R vector.
- Default value is 10.</p></li>
-<li><p>tidysq_print_use_color [<code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>]<br />
- Determines whether coloring should be used to increase readability of text
- printed to console. While it is advised to keep this option turned on due
- to above concern, some environments may not support coloring and thus
- turning it off can be necessary. Defaults to <code>TRUE</code>.</p></li>
-<li><p>tidysq_safe_mode [<code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>]<br />
- Default value is <code>FALSE</code>. When turned on, safe mode guarantees that
- <code>NA</code> appears within a sequence if and only if input sequence contains
- value passed with <code>NA_letter</code>. This means that resulting type might be
- different to the one passed as argument, if there are letters in a sequence
- that does not appear in the original alphabet.</p></li>
+    <div id="tidysq-112" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.2">
+<a href="#tidysq-112" class="anchor"></a>tidysq 1.1.2<small> Unreleased </small>
+</h1>
+<div id="fixed" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fixed" class="anchor"></a>Fixed:</h2>
+<ul>
+<li>early return now works correctly for <code><a href="../reference/remove_ambiguous.html">remove_ambiguous()</a></code>
+</li>
+<li>ensured correct order of operations during sequence packing</li>
+<li>changed some values to <code>unsigned</code> wherever there was a mismatch</li>
 </ul>
-
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Functions that display sequence info:
-<code><a href='sqprint.html'>sqprint</a></code></p></div>
-
+</div>
+</div>
+    <div id="tidysq-111" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.1">
+<a href="#tidysq-111" class="anchor"></a>tidysq 1.1.1<small> Unreleased </small>
+</h1>
+<p>Updates for the CRAN god. Fixed <code><a href="../reference/random_sq.html">random_sq()</a></code> out-of-bounds possible problem, so there may be differences in sequences generated using the same seed in this and previous versions.</p>
+<div id="fixed-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fixed-1" class="anchor"></a>Fixed:</h2>
+<ul>
+<li>upper bound for <code><a href="../reference/random_sq.html">random_sq()</a></code> correctly ignores now "*" and “-” values while computing number of letters to draw from</li>
+<li>removed default move/copy constructors/assignment operators for <code>Sequence</code> and <code>ProtoSequence</code> classes</li>
+<li>lots of technical files cleanup</li>
+</ul>
+</div>
+</div>
+    <div id="tidysq-110" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.0">
+<a href="#tidysq-110" class="anchor"></a>tidysq 1.1.0<small> 2021-03-12 </small>
+</h1>
+<p>Expanded on v1.0.0, having implemented functions <code><a href="../reference/paste.html">paste()</a></code> and <code><a href="../reference/collapse.html">collapse()</a></code> that allow the user to connect multiple sequences into one. Also made some optimization within C++ using templates, speeding up <code><a href="../reference/translate.html">translate()</a></code> and <code><a href="../reference/complement.html">complement()</a></code> functions significantly. Lastly, added support for object from <code>bioseq</code> package.</p>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking changes:</h2>
+<ul>
+<li>dropped argument <code>interpret_as_stop</code> from <code><a href="../reference/translate.html">translate()</a></code> function, as it is not feasible to implement well-working translation rules for tables with ambiguous codons (27, 28 &amp; 31)</li>
+</ul>
+</div>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features:</h2>
+<ul>
+<li>implemented <code><a href="../reference/paste.html">paste()</a></code> (a method for <code>sq</code> class)</li>
+<li>implemented <code><a href="../reference/collapse.html">collapse()</a></code>
+</li>
+<li>added support for classes from <code>bioseq</code> package, i.e. <code>bioseq_aa</code>, <code>bioseq_dna</code> and <code>bioseq_rna</code>
+</li>
+</ul>
+</div>
+<div id="improved" class="section level2">
+<h2 class="hasAnchor">
+<a href="#improved" class="anchor"></a>Improved:</h2>
+<ul>
+<li>remade <code><a href="../reference/translate.html">translate()</a></code> to have codon tables created in compile time; this reduced execution time of <code><a href="../reference/translate.html">translate()</a></code> <strong>by 95%</strong>
+</li>
+<li>remade <code><a href="../reference/complement.html">complement()</a></code> to have tables created in compile time; this reduced execution time of <code><a href="../reference/complement.html">complement()</a></code> <strong>by 85%</strong>
+</li>
+</ul>
+</div>
+<div id="fixed-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fixed-2" class="anchor"></a>Fixed:</h2>
+<ul>
+<li>made <code><a href="../reference/random_sq.html">random_sq()</a></code> actually use <code>seed</code> parameter while generating sequences</li>
+</ul>
+</div>
+</div>
+    <div id="tidysq-100" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0">
+<a href="#tidysq-100" class="anchor"></a>tidysq 1.0.0<small> Unreleased </small>
+</h1>
+<p>Initial stable release.</p>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
 
 
