@@ -1,3 +1,7 @@
+# tidysq 1.1.2-1
+## Fixed:
+* adjusted declaration of function autoexported by `Rcpp` to match new `testthat` standards
+
 # tidysq 1.1.2
 ## Fixed:
 * early return now works correctly for `remove_ambiguous()`

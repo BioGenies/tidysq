@@ -1,7 +1,7 @@
 Package: tidysq
 Type: Package
 Title: Tidy Processing and Analysis of Biological Sequences
-Version: 1.1.2
+Version: 1.1.2-1
 Date: 2021-07-12
 Authors@R: c(person("Dominik", "Rafacz", 
            email = "dominikrafacz@gmail.com",
