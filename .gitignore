@@ -13,3 +13,5 @@ CMakeLists.txt
 inst/doc
 
 CRAN-RELEASE
+/doc/
+/Meta/

@@ -8,21 +8,36 @@
 
 <title>Function reference • tidysq</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,7 +45,10 @@
 
 
 
+
 <meta property="og:title" content="Function reference" />
+<meta property="og:image" content="/logo.png" />
+
 
 
 
@@ -44,9 +62,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -60,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2-1</span>
       </span>
     </div>
 
@@ -68,19 +87,36 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/advanced-alphabet.html">Advanced alphabet techniques</a>
+    </li>
+    <li>
+      <a href="../articles/quick-start.html">Quick Start</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/michbur/tidysq">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/BioGenies/tidysq/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -91,6 +127,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -114,54 +151,17 @@
           <p class="section-desc"></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
-          <p><code><a href="AAindex.html">AAindex</a></code> </p>
+          <p><code><a href="alphabet.html">alphabet()</a></code> </p>
         </td>
-        <td><p>Amino acids properties</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="BLOSUM50.html">BLOSUM50</a></code> </p>
-        </td>
-        <td><p>The BLOSUM50 matrix</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="BLOSUM50_enc.html">BLOSUM50_enc</a></code> </p>
-        </td>
-        <td><p>The BLOSUM50_enc matrix</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="BLOSUM50_pca.html">BLOSUM50_pca</a></code> </p>
-        </td>
-        <td><p>The BLOSUM50_pca matrix</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="BLOSUM62.html">BLOSUM62</a></code> </p>
-        </td>
-        <td><p>The BLOSUM62 matrix</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="BLOSUM62_enc.html">BLOSUM62_enc</a></code> </p>
-        </td>
-        <td><p>The BLOSUM62_enc matrix</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="BLOSUM62_pca.html">BLOSUM62_pca</a></code> </p>
-        </td>
-        <td><p>The BLOSUM62_pca matrix</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="aminoacids_df.html">aminoacids_df</a></code> </p>
-        </td>
-        <td><p>Amino acid abbreviations</p></td>
+        <td><p>Get alphabet of given sq object.</p></td>
       </tr><tr>
         
         <td>
@@ -183,63 +183,27 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="bg_freqs.html">bg_freqs</a></code> </p>
-        </td>
-        <td><p>Amino Acid Residue Background Frequencies</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="bite.html">bite()</a></code> </p>
         </td>
         <td><p>Subset sequences from sq objects</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="c.sq.html">c(<i>&lt;sq&gt;</i>)</a></code> </p>
+          <p><code><a href="collapse.html">collapse()</a></code> </p>
         </td>
-        <td><p>Concatenate sq objects</p></td>
+        <td><p>Collapse multiple sequences into one</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="clean.html">clean()</a></code> </p>
+          <p><code><a href="complement.html">complement()</a></code> </p>
         </td>
-        <td><p>Clean sequences containing ambiguous elements</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="complement.html">complement()</a></code> <code><a href="complement.html">complement_dna()</a></code> <code><a href="complement.html">complement_rna()</a></code> </p>
-        </td>
-        <td><p>Create complement sequence from nucsq object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="construct_sq.html">construct_sq()</a></code> <code><a href="construct_sq.html">construct_sq_ami()</a></code> <code><a href="construct_sq.html">construct_sq_nuc()</a></code> </p>
-        </td>
-        <td><p>Construct sq object from character vector</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="count_kmers.html">count_kmers()</a></code> </p>
-        </td>
-        <td><p>Count k-mers in sequences</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="encode.html">encode()</a></code> </p>
-        </td>
-        <td><p>Encode sequences as numeric values</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="encsq_to_list.html">encsq_to_list()</a></code> </p>
-        </td>
-        <td><p>Transform encoded sequence to a list</p></td>
+        <td><p>Create complement sequence from dnasq or rnasq object</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="equals-.sq.html">`==`(<i>&lt;sq&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Compare sq object</p></td>
+        <td><p>Compare sq objects</p></td>
       </tr><tr>
         
         <td>
@@ -249,15 +213,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="extract_kmers.html">extract_kmers()</a></code> </p>
+          <p><code><a href="find_invalid_letters.html">find_invalid_letters()</a></code> </p>
         </td>
-        <td><p>Extract k-mers from sequences</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fast-mode.html">fast-mode</a></code> </p>
-        </td>
-        <td><p>Make your operations faster</p></td>
+        <td><p>Find elements which are not suitable for specified type.</p></td>
       </tr><tr>
         
         <td>
@@ -267,27 +225,21 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="get_invalid_letters.html">get_invalid_letters()</a></code> </p>
-        </td>
-        <td><p>Find elements which are not suitable for specified type.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_sq_alphabet.html">get_sq_alphabet()</a></code> </p>
-        </td>
-        <td><p>Get alphabet of given sq object.</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="get_sq_lengths.html">get_sq_lengths()</a></code> </p>
         </td>
         <td><p>Get lengths of sequences in sq object</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="get_sq_type.html">get_sq_type()</a></code> </p>
+          <p><code><a href="get_standard_alphabet.html">get_standard_alphabet()</a></code> </p>
         </td>
-        <td><p>Get type of a sq object</p></td>
+        <td><p>Get standard alphabet for given type.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_tidysq_options.html">get_tidysq_options()</a></code> </p>
+        </td>
+        <td><p>Obtain current state of tidysq options</p></td>
       </tr><tr>
         
         <td>
@@ -303,27 +255,21 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="is.sq.html">is.sq()</a></code> <code><a href="is.sq.html">is.amisq()</a></code> <code><a href="is.sq.html">is.nucsq()</a></code> <code><a href="is.sq.html">is.untsq()</a></code> <code><a href="is.sq.html">is.atpsq()</a></code> <code><a href="is.sq.html">is.encsq()</a></code> </p>
+          <p><code><a href="is.sq.html">is.sq()</a></code> <code><a href="is.sq.html">is.sq_dna_bsc()</a></code> <code><a href="is.sq.html">is.sq_dna_ext()</a></code> <code><a href="is.sq.html">is.sq_dna()</a></code> <code><a href="is.sq.html">is.sq_rna_bsc()</a></code> <code><a href="is.sq.html">is.sq_rna_ext()</a></code> <code><a href="is.sq.html">is.sq_rna()</a></code> <code><a href="is.sq.html">is.sq_ami_bsc()</a></code> <code><a href="is.sq.html">is.sq_ami_ext()</a></code> <code><a href="is.sq.html">is.sq_ami()</a></code> <code><a href="is.sq.html">is.sq_unt()</a></code> <code><a href="is.sq.html">is.sq_atp()</a></code> </p>
         </td>
         <td><p>Check if object has specified type</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="is_null_sq.html">is_null_sq()</a></code> </p>
+          <p><code><a href="is_empty_sq.html">is_empty_sq()</a></code> </p>
         </td>
-        <td><p>Test if a sequence is empty</p></td>
+        <td><p>Test if sequence is empty</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="nucleotides_df.html">nucleotides_df</a></code> </p>
+          <p><code><a href="paste.html">paste(<i>&lt;sq&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Nucleotides abbreviations</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="print.sq.html">print(<i>&lt;sq&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Print sq object</p></td>
+        <td><p>Paste sequences in string-like fashion</p></td>
       </tr><tr>
         
         <td>
@@ -333,15 +279,21 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="read_fasta.html">read_fasta()</a></code> <code><a href="read_fasta.html">read_fasta_ami()</a></code> <code><a href="read_fasta.html">read_fasta_nuc()</a></code> </p>
+          <p><code><a href="read_fasta.html">read_fasta()</a></code> </p>
         </td>
         <td><p>Read a FASTA file</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="remove_ambiguous.html">remove_ambiguous()</a></code> </p>
+        </td>
+        <td><p>Remove sequences that contain ambiguous elements</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="remove_na.html">remove_na()</a></code> </p>
         </td>
-        <td><p>Remove sequences containing NA values</p></td>
+        <td><p>Remove sequences that contain NA values</p></td>
       </tr><tr>
         
         <td>
@@ -351,9 +303,21 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="sq.html">sq</a></code> </p>
+          <p><code><a href="sq-class.html">sq-class</a></code> </p>
         </td>
         <td><p>sq: class for keeping biological sequences tidy</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sq.html">sq()</a></code> </p>
+        </td>
+        <td><p>Construct sq object from character vector</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sq_type.html">sq_type()</a></code> <code><a href="sq_type.html">`sq_type&lt;-`()</a></code> </p>
+        </td>
+        <td><p>Get type of an sq object</p></td>
       </tr><tr>
         
         <td>
@@ -363,9 +327,21 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="sqextract.html">`[`(<i>&lt;sq&gt;</i>)</a></code> </p>
+          <p><code><a href="sqconcatenate.html">sqconcatenate</a></code> </p>
+        </td>
+        <td><p>Concatenate sq objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sqextract.html">sqextract</a></code> </p>
         </td>
         <td><p>Extract parts of a sq object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sqprint.html">sqprint</a></code> </p>
+        </td>
+        <td><p>Print sq object</p></td>
       </tr><tr>
         
         <td>
@@ -375,21 +351,21 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="tidysq-options.html">tidysq-options</a></code> </p>
-        </td>
-        <td><p>Set options of package</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="tidysq-package.html">tidysq-package</a></code> </p>
         </td>
         <td><p>tidysq: tidy analysis of biological sequences</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="translate.html">translate()</a></code> </p>
+        </td>
+        <td><p>Convert DNA or RNA into proteins using genetic code</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="typify.html">typify()</a></code> </p>
         </td>
-        <td><p>Set type of untyped and atypical sequences</p></td>
+        <td><p>Set type of an sq object</p></td>
       </tr><tr>
         
         <td>
@@ -401,27 +377,30 @@
     </table>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
-    </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by Michal Burdukiewicz, Dominik Rafacz.</p>
+  <p>Developed by Dominik Rafacz, Michal Burdukiewicz, Mateusz Bakala.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

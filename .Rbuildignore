@@ -13,3 +13,5 @@ docs
 ^cran-comments.md$
 ^README.Rmd$
 ^cran-comments\.md$
+^doc$
+^Meta$

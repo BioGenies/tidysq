@@ -8,21 +8,36 @@
 
 <title>Test sq object for presence of given motifs — %has% • tidysq</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +45,12 @@
 
 
 
-<meta property="og:title" content="Test sq object for presence of given motifs — %has%" />
 
-<meta property="og:description" content="Test if elements of a sq object contain given motifs" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Test sq object for presence of given motifs — %has%" />
+<meta property="og:description" content="Tests if elements of a sq object
+contain given motifs." />
+<meta property="og:image" content="/logo.png" />
+
 
 
 
@@ -47,9 +64,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -63,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2-1</span>
       </span>
     </div>
 
@@ -71,19 +89,36 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/advanced-alphabet.html">Advanced alphabet techniques</a>
+    </li>
+    <li>
+      <a href="../articles/quick-start.html">Quick Start</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/michbur/tidysq">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/BioGenies/tidysq/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -94,131 +129,133 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Test sq object for presence of given motifs</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/has.R'><code>R/has.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/BioGenies/tidysq/blob/master/R/has.R'><code>R/has.R</code></a></small>
     <div class="hidden name"><code>grapes-has-grapes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p>Test if elements of a <code><a href='sq.html'>sq</a></code> object contain given motifs</p>
-    
+    <p>Tests if elements of a <code><a href='sq-class.html'>sq</a></code> object
+contain given motifs.</p>
     </div>
 
-    <pre class="usage"><span class='no'>x</span> <span class='kw'>%has%</span> <span class='no'>y</span></pre>
-    
+    <pre class="usage"><span class='va'>x</span> <span class='op'>%has%</span> <span class='va'>y</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a <code><a href='sq.html'>sq</a></code> object to be tested.</p></td>
+      <td><p>[<code>sq</code>]<br />
+An object this function is applied to.</p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p>a <code>character</code> vector of motifs to be searched for.</p></td>
+      <td><p>[<code>character</code>]<br />
+Motifs to be searched for.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></code> vector of the same length as input <code>sq</code>, indicating 
-which elements contain all of given motifs</p>
-    
+    <p>A <code><a href='https://rdrr.io/r/base/logical.html'>logical</a></code> vector of the same length as input <code>sq</code>,
+indicating which elements contain all given motifs.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function allows testing if elements of a <code>sq</code> object contain 
-a given motif or motifs. It returns a <code>logical</code> for every element of the <code>sq</code> 
-object - <code>TRUE</code> if it contains the motif and <code>FALSE</code> otherwise. 
-In case of search for multiple motifs, <code>TRUE</code> will be returned only 
-for sequences that contain all of the given motifs.</p>
-<p>This function only indicates if a motif is present within a sequence, to 
-find all motifs and their positions within sequences use 
+    <p>This function allows testing if elements of a <code>sq</code> object contain the
+given motif or motifs. It returns a <code>logical</code> value for every element
+of the <code>sq</code> object - <code>TRUE</code> if tested sequence contains searched
+motif and <code>FALSE</code> otherwise. When multiple motifs are searched,
+<code>TRUE</code> will be returned only for sequences that contain all given
+motifs.</p>
+<p>This function only indicates if a motif is present within a sequence, to find
+all motifs and their positions within sequences use
 <code><a href='find_motifs.html'>find_motifs</a></code>.</p>
-    
-    <h2 class="hasAnchor" id="allowed-and-forbidden-letters-and-characters-details"><a class="anchor" href="#allowed-and-forbidden-letters-and-characters-details"></a>Allowed and forbidden letters and characters details</h2>
+    <h2 class="hasAnchor" id="motif-capabilities-and-restrictions"><a class="anchor" href="#motif-capabilities-and-restrictions"></a>Motif capabilities and restrictions</h2>
 
     
-    <p>Note if a sq object contains characters: ^$?=()\.|+*[] in its alphabet, 
-search for motifs cannot be performed and an error will be displayed (with 
-exception of sq objects of type ami - in their alphabet there is '*' letter 
-and it can be contained in sought motif). To search for motifs with those 
-characters, you have to replace them first using 
-<code><a href='substitute_letters.html'>substitute_letters</a></code>.</p>
-<p>In case of sq objects of type <strong>ami</strong> and <strong>nuc</strong>, motifs have to consist of 
-upper case letters from amino acid and nucleotide alphabet respectively. 
-Use of lower case letters will return an error. Two additional characters 
-are allowed: '^' and '$' indicating the beginning and the end of a sequence 
-respectively. Moreover, notice that '*' character may be used in amino acid 
-motifs, as it is a part of the amino acid alphabet. If a motif contains 
-ambiguous letters, all possible matches will be searched for, e.g., amino 
-acid motif "MAJ" (where "J" is an ambiguous letter indicating L or I) will 
-find motifs: "MAJ", "MAL" and "MAI".</p>
-<p>Detailed list of all letters corresponding to each ambiguous letter may be found at
-<code><a href='aminoacids_df.html'>aminoacids_df</a></code> and <code><a href='nucleotides_df.html'>nucleotides_df</a></code>.</p>
-    
+
+<p>There are more options than to simply create a motif that is a string
+representation of searched subsequence. For example, when using this function
+with any of standard types, i.e. <strong>ami</strong>, <strong>dna</strong> or <strong>rna</strong>,
+the user can create a motif with ambiguous letters. In this case the engine
+will try to match any of possible meanings of this letter. For example, take
+"B" from extended DNA alphabet. It means "not A", so it can be matched with
+"C", "G" and "T", but also "B", "Y" (either "C" or "T"), "K" (either "G" or
+"T") and "S" (either "C" or "G").</p>
+<p>Full list of ambiguous letters with their meaning can be found on IUPAC site.</p>
+<p>Motifs are also restricted in that the alphabets of <code>sq</code> objects on
+which search operations are conducted cannot contain "^" and "$" symbols.
+These two have a special meaning - they are used to indicate beginning and
+end of sequence respectively and can be used to limit the position of matched
+subsequences.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code> <code><a href='substitute_letters.html'>substitute_letters</a></code> <code><a href='find_motifs.html'>find_motifs</a></code></p></div>
-    
+    <div class='dont-index'><p>Functions interpreting sq in biological context:
+<code><a href='complement.html'>complement</a>()</code>,
+<code><a href='find_motifs.html'>find_motifs</a>()</code>,
+<code><a href='translate.html'>translate</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
-<span class='no'>sq_nuc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"CTGAATGCAGTACCGTAAT"</span>, <span class='st'>"ATGCCGTAAATGCCAT"</span>,
-                         <span class='st'>"CAGACCANNNATAG"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'nuc'</span>)
-<span class='no'>sq_ami</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"AGNTYIKFGGAYTI"</span>, <span class='st'>"MATEGILIAADGYTWIL"</span>,
-                         <span class='st'>"MIPADHICAANGIENAGIK"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'ami'</span>)
+<span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGCAGGA"</span>, <span class='st'>"GACCGNBAACGAN"</span>, <span class='st'>"TGACGAGCTTAG"</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span><span class='op'>)</span>
+<span class='va'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MIAANYTWIL"</span>,<span class='st'>"TIAALGNIIYRAIE"</span>, <span class='st'>"NYERTGHLI"</span>, <span class='st'>"MAYXXXIALN"</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='st'>"ami_ext"</span><span class='op'>)</span>
+<span class='va'>sq_atp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mAmYmY"</span>, <span class='st'>"nbAnsAmA"</span>, <span class='st'>""</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mA"</span>, <span class='st'>"mY"</span>, <span class='st'>"nbA"</span>, <span class='st'>"nsA"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'># Test if nucleotide sequences contain start codon 'ATG':</span>
-<span class='no'>sq_nuc</span> <span class='kw'>%has%</span> <span class='st'>'ATG'</span></div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'>
-<span class='co'># Test if nucleotide sequences begin with start codon 'ATG'</span>
-<span class='no'>sq_nuc</span> <span class='kw'>%has%</span> <span class='st'>'^ATG'</span></div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE</div><div class='input'>
-<span class='co'># Test if nucleotide sequences end with 'TAG' (one of the stop codons):</span>
-<span class='no'>sq_nuc</span> <span class='kw'>%has%</span> <span class='st'>'TAG$'</span></div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE</div><div class='input'>
+<span class='co'># Testing if DNA sequences contain motif "ATG":</span>
+<span class='va'>sq_dna</span> <span class='op'>%has%</span> <span class='st'>"ATG"</span>
+</div><div class='output co'>#&gt; [1]  TRUE FALSE FALSE</div><div class='input'>
+<span class='co'># Testing if DNA sequences begin with "ATG":</span>
+<span class='va'>sq_dna</span> <span class='op'>%has%</span> <span class='st'>"^ATG"</span>
+</div><div class='output co'>#&gt; [1]  TRUE FALSE FALSE</div><div class='input'>
+<span class='co'># Testing if DNA sequences end with "TAG" (one of the stop codons):</span>
+<span class='va'>sq_dna</span> <span class='op'>%has%</span> <span class='st'>"TAG$"</span>
+</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE</div><div class='input'>
 <span class='co'># Test if amino acid sequences contain motif of two alanines followed by</span>
-<span class='co'># aspartic acid or asparagine ('AAB' motif will match 'AAB', 'AAD' and 'AAN'):</span>
-<span class='no'>sq_ami</span> <span class='kw'>%has%</span> <span class='st'>'AAB'</span></div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE</div><div class='input'>
-<span class='co'># Test if amino acid sequences contain two motifs:</span>
-<span class='no'>sq_ami</span> <span class='kw'>%has%</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"AAXG"</span>, <span class='st'>"mat"</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE</div><div class='input'>
+<span class='co'># aspartic acid or asparagine ("AAB" motif matches "AAB", "AAD" and "AAN"):</span>
+<span class='va'>sq_ami</span> <span class='op'>%has%</span> <span class='st'>"AAB"</span>
+</div><div class='output co'>#&gt; [1]  TRUE FALSE FALSE FALSE</div><div class='input'>
+<span class='co'># Test if amino acid sequences contain both motifs:</span>
+<span class='va'>sq_ami</span> <span class='op'>%has%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"AAXG"</span>, <span class='st'>"MAT"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE FALSE</div><div class='input'>
+<span class='co'># Test for sequences with multicharacter alphabet:</span>
+<span class='va'>sq_atp</span> <span class='op'>%has%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nsA"</span>, <span class='st'>"mYmY$"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#allowed-and-forbidden-letters-and-characters-details">Allowed and forbidden letters and characters details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michal Burdukiewicz, Dominik Rafacz.</p>
+  <p>Developed by Dominik Rafacz, Michal Burdukiewicz, Mateusz Bakala.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

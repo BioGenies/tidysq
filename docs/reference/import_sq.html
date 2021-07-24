@@ -8,21 +8,36 @@
 
 <title>Import sq objects from other objects — import_sq • tidysq</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,13 +45,14 @@
 
 
 
-<meta property="og:title" content="Import sq objects from other objects — import_sq" />
 
-<meta property="og:description" content="Creates sq object from object of class from another package.
-Currently supported packages are ape with its formats (AAbin and DNAbin),
-Bioconductor (AAStringSet, DNAStringSet) and
-seqinr (SeqFastaAA, SeqFastadna)." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Import sq objects from other objects — import_sq" />
+<meta property="og:description" content="Creates sq object from object of class
+from another package. Currently supported packages are ape,
+bioseq, Bioconductor and seqinr. For exact list of
+supported classes and resulting types, see details." />
+<meta property="og:image" content="/logo.png" />
+
 
 
 
@@ -50,9 +66,10 @@ seqinr (SeqFastaAA, SeqFastadna)." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -66,7 +83,7 @@ seqinr (SeqFastaAA, SeqFastadna)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2-1</span>
       </span>
     </div>
 
@@ -74,19 +91,36 @@ seqinr (SeqFastaAA, SeqFastadna)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/advanced-alphabet.html">Advanced alphabet techniques</a>
+    </li>
+    <li>
+      <a href="../articles/quick-start.html">Quick Start</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/michbur/tidysq">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/BioGenies/tidysq/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -97,144 +131,198 @@ seqinr (SeqFastaAA, SeqFastadna)." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Import sq objects from other objects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/import_sq.R'><code>R/import_sq.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/BioGenies/tidysq/blob/master/R/import_sq.R'><code>R/import_sq.R</code></a></small>
     <div class="hidden name"><code>import_sq.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p>Creates <code><a href='sq.html'>sq object</a></code> from <code>object</code> of class from another package.
-Currently supported packages are <span class="pkg">ape</span> with its formats (<code>AAbin</code> and <code>DNAbin</code>),
-<span class="pkg">Bioconductor</span> (<code>AAStringSet</code>, <code>DNAStringSet</code>) and
-<span class="pkg">seqinr</span> (<code>SeqFastaAA</code>, <code>SeqFastadna</code>).</p>
-    
+    <p>Creates <code><a href='sq-class.html'>sq</a></code> object from object of class
+from another package. Currently supported packages are <span class="pkg">ape</span>,
+<span class="pkg">bioseq</span>, <span class="pkg">Bioconductor</span> and <span class="pkg">seqinr</span>. For exact list of
+supported classes and resulting types, see details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>import_sq</span>(<span class='no'>object</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>import_sq</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>- an object of one of classes: <code>AAbin</code>, <code>DNAbin</code>, <code>AAStringSet</code>, 
-<code>DNAStringSet</code>, <code>SeqFastaAA</code>, <code>SeqFastadna</code>.</p></td>
+      <td><p>[<code><a href='https://rdrr.io/r/base/any.html'>any(1)</a></code>]<br />
+An object of one of supported classes.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>further arguments to be passed from or to other methods.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> with <code>sq</code> column of <code><a href='sq.html'>sq</a></code> type 
-representing the same 
-sequences as given object; the object has a type corresponding to the input type; if given
-sequences had names, output tibble has also another column <code>name</code> with those names</p>
-    
+    <p>A <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> with <code>sq</code> column of
+<code><a href='sq-class.html'>sq</a></code> type representing the same sequences as given
+object; the object has a type corresponding to the input type; if given
+sequences have names, output <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> will also have
+another column <code>name</code> with those names</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Providing object of class other than specified will result in error.</p>
-    
+    <p>Currently supported classes are as follows:</p><ul>
+<li><p><code>ape</code>:</p><ul>
+<li><p><code>AAbin</code> - imported as <strong>ami_bsc</strong></p></li>
+<li><p><code>DNAbin</code> - imported as <strong>dna_bsc</strong></p></li>
+<li><p><code>alignment</code> - exact type is guessed within <code><a href='sq.html'>sq</a></code>
+  function</p></li>
+</ul></li>
+<li><p><code>bioseq</code>:</p><ul>
+<li><p><code>bioseq_aa</code> - imported as <strong>ami_ext</strong></p></li>
+<li><p><code>bioseq_dna</code> - imported as <strong>dna_ext</strong></p></li>
+<li><p><code>bioseq_rna</code> - imported as <strong>rna_ext</strong></p></li>
+</ul></li>
+<li><p><code>Biostrings</code>:</p><ul>
+<li><p><code>AAString</code> - imported as <strong>ami_ext</strong> with exactly one
+  sequence</p></li>
+<li><p><code>AAStringSet</code> - imported as <strong>ami_ext</strong></p></li>
+<li><p><code>DNAString</code> - imported as <strong>dna_ext</strong> with exactly one
+  sequence</p></li>
+<li><p><code>DNAStringSet</code> - imported as <strong>dna_ext</strong></p></li>
+<li><p><code>RNAString</code> - imported as <strong>rna_ext</strong> with exactly one
+  sequence</p></li>
+<li><p><code>RNAStringSet</code> - imported as <strong>rna_ext</strong></p></li>
+<li><p><code>BString</code> - imported as <strong>unt</strong> with exactly one
+  sequence</p></li>
+<li><p><code>BStringSet</code> - imported as <strong>unt</strong></p></li>
+<li><p><code>XStringSetList</code> - each element of a list can be imported as
+  a separate <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code>, resulting in a list of tibbles;
+  if passed argument <code>separate = FALSE</code>, these tibbles are bound into
+  one bigger tibble</p></li>
+</ul></li>
+<li><p><code>seqinr</code>:</p><ul>
+<li><p><code>SeqFastaAA</code> - imported as <strong>ami_bsc</strong></p></li>
+<li><p><code>SeqFastadna</code> - imported as <strong>dna_bsc</strong></p></li>
+</ul></li>
+</ul>
+
+<p>Providing object of class other than specified will result in an error.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='export_sq.html'>export_sq</a></code> <code><a href='sq.html'>sq</a></code></p></div>
-    
+    <div class='dont-index'><p><code><a href='sq-class.html'>sq class</a></code></p>
+<p>Functions from input module:
+<code><a href='random_sq.html'>random_sq</a>()</code>,
+<code><a href='read_fasta.html'>read_fasta</a>()</code>,
+<code><a href='sq.html'>sq</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## ape example</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ape</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+    <pre class="examples"><div class='input'><span class='co'># ape example</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://ape-package.ird.fr/'>ape</a></span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘ape’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:tidysq’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    complement</span></div><div class='input'><span class='no'>ape_nuc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/ape/topics/as.alignment'>as.DNAbin</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>one</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"C"</span>, <span class='st'>"T"</span>, <span class='st'>"C"</span>, <span class='st'>"A"</span>), <span class='kw'>two</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"T"</span>, <span class='st'>"G"</span>, <span class='st'>"A"</span>, <span class='st'>"G"</span>, <span class='st'>"G"</span>)))
-<span class='fu'>import_sq</span>(<span class='no'>ape_nuc</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span><span>
-#&gt;   name  sq        
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;(c)nuc&gt;</span><span>  
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> one   </span><span style='color: #00BB00;'>CTCA</span><span>   </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> two   </span><span style='color: #00BB00;'>TGAGG</span><span>  </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
-<span class='co'>## Biostrings example</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>Biostrings</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: BiocGenerics</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: parallel</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>    complement</span></div><div class='input'><span class='va'>ape_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ape/man/as.alignment.html'>as.DNAbin</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>one <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"C"</span>, <span class='st'>"T"</span>, <span class='st'>"C"</span>, <span class='st'>"A"</span><span class='op'>)</span>, two <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"T"</span>, <span class='st'>"G"</span>, <span class='st'>"A"</span>, <span class='st'>"G"</span>, <span class='st'>"G"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>import_sq</span><span class='op'>(</span><span class='va'>ape_dna</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span>
+#&gt;   name  sq       
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dna_bsc&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> one   <span style='color: #00BB00;'>CTCA</span>  <span style='color: #0000BB;'>&lt;4&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>2</span> two   <span style='color: #00BB00;'>TGAGG</span> <span style='color: #0000BB;'>&lt;5&gt;</span></div><div class='input'>
+<span class='co'># bioseq example</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://fkeck.github.io/bioseq/'>bioseq</a></span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘bioseq’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:tidysq’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    read_fasta, write_fasta</span></div><div class='input'><span class='va'>bioseq_rna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://fkeck.github.io/bioseq/reference/new_rna.html'>new_rna</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>one <span class='op'>=</span> <span class='st'>"ANBRY"</span>, two <span class='op'>=</span> <span class='st'>"YUTUGGN"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Non-standard IUPAC symbols detected for RNA: 1 characters were converted to N.</span></div><div class='input'><span class='fu'>import_sq</span><span class='op'>(</span><span class='va'>bioseq_rna</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span>
+#&gt;   name  sq         
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;rna_ext&gt;</span>  
+#&gt; <span style='color: #BCBCBC;'>1</span> one   <span style='color: #00BB00;'>ANBRY</span>   <span style='color: #0000BB;'>&lt;5&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>2</span> two   <span style='color: #00BB00;'>YUNUGGN</span> <span style='color: #0000BB;'>&lt;7&gt;</span></div><div class='input'>
+<span class='co'># Biostrings example</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://bioconductor.org/packages/Biostrings'>Biostrings</a></span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: BiocGenerics</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: parallel</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘BiocGenerics’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:parallel’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,</span>
 #&gt; <span class='message'>    clusterExport, clusterMap, parApply, parCapply, parLapply,</span>
-#&gt; <span class='message'>    parLapplyLB, parRapply, parSapply, parSapplyLB</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
+#&gt; <span class='message'>    parLapplyLB, parRapply, parSapply, parSapplyLB</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:tidysq’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    paste</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    IQR, mad, sd, var, xtabs</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    anyDuplicated, append, as.data.frame, basename, cbind, colMeans,</span>
-#&gt; <span class='message'>    colnames, colSums, dirname, do.call, duplicated, eval, evalq,</span>
-#&gt; <span class='message'>    Filter, Find, get, grep, grepl, intersect, is.unsorted, lapply,</span>
-#&gt; <span class='message'>    lengths, Map, mapply, match, mget, order, paste, pmax, pmax.int,</span>
-#&gt; <span class='message'>    pmin, pmin.int, Position, rank, rbind, Reduce, rowMeans, rownames,</span>
-#&gt; <span class='message'>    rowSums, sapply, setdiff, sort, table, tapply, union, unique,</span>
-#&gt; <span class='message'>    unsplit, which, which.max, which.min</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: S4Vectors</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: stats4</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘S4Vectors’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:base’:</span>
+#&gt; <span class='message'>    anyDuplicated, append, as.data.frame, basename, cbind, colnames,</span>
+#&gt; <span class='message'>    dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,</span>
+#&gt; <span class='message'>    grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,</span>
+#&gt; <span class='message'>    order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,</span>
+#&gt; <span class='message'>    rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,</span>
+#&gt; <span class='message'>    union, unique, unsplit, which.max, which.min</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: S4Vectors</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: stats4</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘S4Vectors’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    expand.grid</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: IRanges</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘IRanges’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:tidysq’:</span>
+#&gt; <span class='message'>    expand.grid, I, unname</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: IRanges</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘IRanges’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:tidysq’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    reverse</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: XVector</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>    collapse, reverse</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: XVector</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: GenomeInfoDb</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘Biostrings’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:ape’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    complement</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:tidysq’:</span>
+#&gt; <span class='message'>    complement</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:tidysq’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    complement</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:base’:</span>
+#&gt; <span class='message'>    alphabet, complement, translate</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    strsplit</span></div><div class='input'><span class='no'>Biostrings_nuc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/Biostrings/topics/XStringSet-class'>DNAStringSet</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>one</span> <span class='kw'>=</span> <span class='st'>"CTCA"</span>, <span class='kw'>two</span> <span class='kw'>=</span> <span class='st'>"TGAGG"</span>))
-<span class='fu'>import_sq</span>(<span class='no'>Biostrings_nuc</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 2</span><span>
-#&gt;   name  sq        
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;(c)nuc&gt;</span><span>  
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> one   </span><span style='color: #00BB00;'>CTCA</span><span>   </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> two   </span><span style='color: #00BB00;'>TGAGG</span><span>  </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
-<span class='co'>## seqinr example</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>seqinr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>    strsplit</span></div><div class='input'><span class='va'>Biostrings_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/XStringSet-class.html'>AAStringSet</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>one <span class='op'>=</span> <span class='st'>"FEAPQLIWY"</span>, two <span class='op'>=</span> <span class='st'>"EGITENAK"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>import_sq</span><span class='op'>(</span><span class='va'>Biostrings_ami</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span>
+#&gt;   name  sq           
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;ami_ext&gt;</span>    
+#&gt; <span style='color: #BCBCBC;'>1</span> one   <span style='color: #00BB00;'>FEAPQLIWY</span> <span style='color: #0000BB;'>&lt;9&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>2</span> two   <span style='color: #00BB00;'>EGITENAK</span>  <span style='color: #0000BB;'>&lt;8&gt;</span></div><div class='input'>
+<span class='co'># seqinr example</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://seqinr.r-forge.r-project.org/'>seqinr</a></span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘seqinr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:Biostrings’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    translate</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:ape’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    as.alignment, consensus</span></div><div class='input'><span class='no'>seqinr_nuc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/seqinr/topics/SeqFastadna'>as.SeqFastadna</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>one</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"C"</span>, <span class='st'>"T"</span>, <span class='st'>"C"</span>, <span class='st'>"A"</span>),
-                                  <span class='kw'>two</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"T"</span>, <span class='st'>"G"</span>, <span class='st'>"A"</span>, <span class='st'>"G"</span>, <span class='st'>"G"</span>)))
-<span class='fu'>import_sq</span>(<span class='no'>seqinr_nuc</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 1</span><span>
-#&gt;   sq        
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;(c)nuc&gt;</span><span>  
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> </span><span style='color: #00BB00;'>CTCA</span><span>   </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> </span><span style='color: #00BB00;'>TGAGG</span><span>  </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
-</div></span></pre>
+#&gt; <span class='message'>    as.alignment, consensus</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:tidysq’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    translate</span></div><div class='input'><span class='va'>seqinr_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/seqinr/man/SeqFastadna.html'>as.SeqFastadna</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"C"</span>, <span class='st'>"T"</span>, <span class='st'>"C"</span>, <span class='st'>"A"</span><span class='op'>)</span>, name <span class='op'>=</span> <span class='st'>"one"</span><span class='op'>)</span>
+<span class='fu'>import_sq</span><span class='op'>(</span><span class='va'>seqinr_dna</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span>
+#&gt;   name  sq       
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dna_bsc&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> one   <span style='color: #00BB00;'>CTCA</span>  <span style='color: #0000BB;'>&lt;4&gt;</span></div><div class='input'>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michal Burdukiewicz, Dominik Rafacz.</p>
+  <p>Developed by Dominik Rafacz, Michal Burdukiewicz, Mateusz Bakala.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

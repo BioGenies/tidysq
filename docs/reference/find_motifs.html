@@ -8,21 +8,36 @@
 
 <title>Find given motifs — find_motifs • tidysq</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,11 +45,11 @@
 
 
 
-<meta property="og:title" content="Find given motifs — find_motifs" />
 
-<meta property="og:description" content="Find all given motifs in all sequences and return their 
-positions." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Find given motifs — find_motifs" />
+<meta property="og:description" content="Finds all given motifs in sequences and returns their positions." />
+<meta property="og:image" content="/logo.png" />
+
 
 
 
@@ -48,9 +63,10 @@ positions." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -64,7 +80,7 @@ positions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2-1</span>
       </span>
     </div>
 
@@ -72,19 +88,36 @@ positions." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/advanced-alphabet.html">Advanced alphabet techniques</a>
+    </li>
+    <li>
+      <a href="../articles/quick-start.html">Quick Start</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/michbur/tidysq">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/BioGenies/tidysq/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -95,172 +128,173 @@ positions." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Find given motifs</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/find_motifs.R'><code>R/find_motifs.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/BioGenies/tidysq/blob/master/R/find_motifs.R'><code>R/find_motifs.R</code></a></small>
     <div class="hidden name"><code>find_motifs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p>Find all given motifs in all sequences and return their 
-positions.</p>
-    
+    <p>Finds all given motifs in sequences and returns their positions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>find_motifs</span>(<span class='no'>sq</span>, <span class='no'>name</span>, <span class='no'>motifs</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>find_motifs</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>name</span>, <span class='va'>motifs</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for sq</span>
+<span class='fu'>find_motifs</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>name</span>, <span class='va'>motifs</span>, <span class='va'>...</span>, NA_letter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_NA_letter"</span><span class='op'>)</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>sq</th>
-      <td><p>a <code><a href='sq.html'>sq</a></code> object.</p></td>
+      <th>x</th>
+      <td><p>[<code>sq</code>]<br />
+An object this function is applied to.</p></td>
     </tr>
     <tr>
       <th>name</th>
-      <td><p>a non-<code>NUL</code>L <code>character</code> vector without <code><a href='https://www.rdocumentation.org/packages/base/topics/NA'>NA</a></code> values, 
-containing names of the sequences in the sq. It has to be of the same length 
-as the <code>sq</code>.</p></td>
+      <td><p>[<code>character</code>]<br />
+Vector of sequence names. Must be of the same length as <code>sq</code> object.</p></td>
     </tr>
     <tr>
       <th>motifs</th>
-      <td><p>a <code>character</code> vector of motifs to be searched for.</p></td>
+      <td><p>[<code>character</code>]<br />
+Motifs to be searched for.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>further arguments to be passed from or to other methods.</p></td>
+    </tr>
+    <tr>
+      <th>NA_letter</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
+A string that is used to interpret and display <code>NA</code> value in the
+context of <code><a href='sq-class.html'>sq class</a></code>. Default value equals to
+"<code><a href='https://rdrr.io/r/base/Logic.html'>!</a></code>".</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> with number of rows the same as the length of 
-<code>sq</code> and
-following columns:</p>
-<dt>name</dt><dd><p>name of the sequence</p></dd>
- <dt>sq</dt><dd><p>sequence</p></dd>
+    <p>A <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> with following columns:</p>
+<dt>name</dt><dd><p>name of the sequence in which a motif was found</p></dd>
  <dt>sought</dt><dd><p>sought motif</p></dd>
- <dt>found</dt><dd><p>motif found in a sequence, may differ from sought if a motif
- contained ambiguous letters</p></dd>
- <dt>start</dt><dd><p>position of motif start</p></dd>
- <dt>end</dt><dd><p>position of motif end</p></dd>
+ <dt>found</dt><dd><p>found subsequence, may differ from sought if the motif
+  contained ambiguous letters</p></dd>
+ <dt>start</dt><dd><p>position of first element of found motif</p></dd>
+ <dt>end</dt><dd><p>position of last element of found motif</p></dd>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function allows search of a given motif or motifs in the <code>sq</code> 
-object. It returns all motifs found with their start and end positions 
-within a sequence.</p>
-    
-    <h2 class="hasAnchor" id="allowed-and-forbidden-letters-and-characters-details"><a class="anchor" href="#allowed-and-forbidden-letters-and-characters-details"></a>Allowed and forbidden letters and characters details</h2>
+    <p>This function allows search of a given motif or motifs in the <code>sq</code>
+object. It returns all motifs found with their start and end positions within
+a sequence.</p>
+    <h2 class="hasAnchor" id="motif-capabilities-and-restrictions"><a class="anchor" href="#motif-capabilities-and-restrictions"></a>Motif capabilities and restrictions</h2>
 
     
-    <p>Note if a sq object contains characters: ^$?=()\.|+*[] in its alphabet, 
-search for motifs cannot be performed and an error will be displayed (with 
-exception of sq objects of type ami - in their alphabet there is '*' letter 
-and it can be contained in sought motif). To search for motifs with those 
-characters, you have to replace them first using 
-<code><a href='substitute_letters.html'>substitute_letters</a></code>.</p>
-<p>If sq objects of type <strong>ami</strong> and <strong>nuc</strong>, motifs have to consist of 
-upper case letters from amino acid and nucleotide alphabet respectively. 
-Use of lower case letters will return an error. Two additional characters 
-are allowed: '^' and '$' indicating the beginning and the end of a sequence 
-respectively. Moreover, notice that '*' character may be used in amino acid 
-motifs, as it is a part of the amino acid alphabet. If a motif contains 
-ambiguous letters, all possible matches will be searched for. For example the 
-amino acid motif "MAJ" (where "J" is an ambiguous letter indicating L or I) will 
-find the motifs: "MAJ", "MAL" and "MAI".</p>
-<p>Detailed list of all letters corresponding to each ambiguous letter may be found at
-<code><a href='aminoacids_df.html'>aminoacids_df</a></code> and <code><a href='nucleotides_df.html'>nucleotides_df</a></code>.</p>
-    
+
+<p>There are more options than to simply create a motif that is a string
+representation of searched subsequence. For example, when using this function
+with any of standard types, i.e. <strong>ami</strong>, <strong>dna</strong> or <strong>rna</strong>,
+the user can create a motif with ambiguous letters. In this case the engine
+will try to match any of possible meanings of this letter. For example, take
+"B" from extended DNA alphabet. It means "not A", so it can be matched with
+"C", "G" and "T", but also "B", "Y" (either "C" or "T"), "K" (either "G" or
+"T") and "S" (either "C" or "G").</p>
+<p>Full list of ambiguous letters with their meaning can be found on IUPAC site.</p>
+<p>Motifs are also restricted in that the alphabets of <code>sq</code> objects on
+which search operations are conducted cannot contain "^" and "$" symbols.
+These two have a special meaning - they are used to indicate beginning and
+end of sequence respectively and can be used to limit the position of matched
+subsequences.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code> <code><a href='substitute_letters.html'>substitute_letters</a></code> <code><a href='grapes-has-grapes.html'>%has%</a></code></p></div>
-    
+    <div class='dont-index'><p>Functions interpreting sq in biological context:
+<code><a href='%has%.html'>%has%</a>()</code>,
+<code><a href='complement.html'>complement</a>()</code>,
+<code><a href='translate.html'>translate</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
-<span class='no'>sq_ami</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"AGNTYIKFGGAYTI"</span>, <span class='st'>"MATEGILIAADGYTWIL"</span>,
-                         <span class='st'>"MIPADHICAANGIENAGIK"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'ami'</span>)
-<span class='no'>sqtbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_fasta.html'>read_fasta</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tidysq"</span>, <span class='st'>"example_aa.fasta"</span>),
-                    <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"ami"</span>)
+<span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ATGCAGGA"</span>, <span class='st'>"GACCGNBAACGAN"</span>, <span class='st'>"TGACGAGCTTAG"</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span><span class='op'>)</span>
+<span class='va'>sq_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"AGNTYIKFGGAYTI"</span>, <span class='st'>"MATEGILIAADGYTWIL"</span>, <span class='st'>"MIPADHICAANGIENAGIK"</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='st'>"ami_bsc"</span><span class='op'>)</span>
+<span class='va'>sq_atp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mAmYmY"</span>, <span class='st'>"nbAnsAmA"</span>, <span class='st'>""</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mA"</span>, <span class='st'>"mY"</span>, <span class='st'>"nbA"</span>, <span class='st'>"nsA"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>sq_names</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sq1"</span>, <span class='st'>"sq2"</span>, <span class='st'>"sq3"</span><span class='op'>)</span>
 
-<span class='co'># Find motif of two alanines followed by aspartic acid or asparagine </span>
-<span class='co'># ('AAB' motif will match 'AAB', 'AAD' and 'AAN'):</span>
-<span class='fu'>find_motifs</span>(<span class='no'>sq_ami</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"sq1"</span>, <span class='st'>"sq2"</span>, <span class='st'>"sq3"</span>), <span class='st'>"AAB"</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 6</span><span>
-#&gt;   name  sq                       sought found    start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;(c)ami&gt;</span><span>                 </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;(c)ami&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> sq2   </span><span style='color: #00BB00;'>MATEGILIAADGYTWIL</span><span>   </span><span style='color: #0000BB;'>&lt;17&gt;</span><span> AAB    </span><span style='color: #00BB00;'>AAD</span><span>  </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     9    11
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> sq3   </span><span style='color: #00BB00;'>MIPADHICAANGIEN</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;19&gt;</span><span> AAB    </span><span style='color: #00BB00;'>AAN</span><span>  </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     9    11</div><div class='input'>
-<span class='co'># Find motif 'VHH' at the beginning of sequences:</span>
-<span class='fu'>find_motifs</span>(<span class='no'>sqtbl</span><span class='kw'>[[</span><span class='st'>"sq"</span>]], <span class='no'>sqtbl</span><span class='kw'>[[</span><span class='st'>"name"</span>]], <span class='st'>"^VHH"</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 7 x 6</span><span>
-#&gt;   name                           sq                  sought found    start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                          </span><span style='color: #949494;font-style: italic;'>&lt;(c)ami&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;(c)ami&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> AMY25|HABP3|Amyloid beta A4 p… </span><span style='color: #00BB00;'>VHHPKLVFFA</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;15&gt;</span><span> ^VHH   </span><span style='color: #00BB00;'>VHH</span><span>  </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     1     3
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> AMY26|HABP4|Amyloid beta A4 p… </span><span style='color: #00BB00;'>VHHQPLVFFA</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;15&gt;</span><span> ^VHH   </span><span style='color: #00BB00;'>VHH</span><span>  </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     1     3
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> AMY34|HABP12|Amyloid beta A4 … </span><span style='color: #00BB00;'>VHHQEKLVFF</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;16&gt;</span><span> ^VHH   </span><span style='color: #00BB00;'>VHH</span><span>  </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     1     3
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> AMY35|HABP13|Amyloid beta A4 … </span><span style='color: #00BB00;'>VHHQEKLVFF</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;16&gt;</span><span> ^VHH   </span><span style='color: #00BB00;'>VHH</span><span>  </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     1     3
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> AMY36|HABP14|Amyloid beta A4 … </span><span style='color: #00BB00;'>VHHQEKLVFF</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;16&gt;</span><span> ^VHH   </span><span style='color: #00BB00;'>VHH</span><span>  </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     1     3
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> AMY38|HABP16|Amyloid beta A4 … </span><span style='color: #00BB00;'>VHHQKLVFFA</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;15&gt;</span><span> ^VHH   </span><span style='color: #00BB00;'>VHH</span><span>  </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     1     3
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span> AMY43|AB5|Amyloid beta A4 pep… </span><span style='color: #00BB00;'>VHHQKLVFFAEDV</span><span>  </span><span style='color: #0000BB;'>&lt;13&gt;</span><span> ^VHH   </span><span style='color: #00BB00;'>VHH</span><span>  </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     1     3</div><div class='input'>
-<span class='co'># Find motif 'DPGS' at the end of sequences:</span>
-<span class='fu'>find_motifs</span>(<span class='no'>sqtbl</span><span class='kw'>[[</span><span class='st'>"sq"</span>]], <span class='no'>sqtbl</span><span class='kw'>[[</span><span class='st'>"name"</span>]], <span class='st'>"DPGS$"</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 6</span><span>
-#&gt;   name                          sq                  sought found     start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                         </span><span style='color: #949494;font-style: italic;'>&lt;(c)ami&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;(c)ami&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> AMY35|HABP13|Amyloid beta A4… </span><span style='color: #00BB00;'>VHHQEKLVFF</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;16&gt;</span><span> DPGS$  </span><span style='color: #00BB00;'>DPGS</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>    13    16</div><div class='input'>
-<span class='co'># Find multiple motifs:</span>
-<span class='fu'>find_motifs</span>(<span class='no'>sqtbl</span><span class='kw'>[[</span><span class='st'>"sq"</span>]], <span class='no'>sqtbl</span><span class='kw'>[[</span><span class='st'>"name"</span>]], <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"^LIV"</span>, <span class='st'>"XXKK"</span>, <span class='st'>"EN$"</span>))</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 14 x 6</span><span>
-#&gt;    name                         sq                  sought found     start   end
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                        </span><span style='color: #949494;font-style: italic;'>&lt;(c)ami&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;(c)ami&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> AMY835|Untitled|De novo      </span><span style='color: #00BB00;'>LIVAAD</span><span>          </span><span style='color: #0000BB;'>&lt;6&gt;</span><span> ^LIV   </span><span style='color: #00BB00;'>LIV</span><span>   </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     1     3
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> AMY836|Untitled|De novo      </span><span style='color: #00BB00;'>LIVAGD</span><span>          </span><span style='color: #0000BB;'>&lt;6&gt;</span><span> ^LIV   </span><span style='color: #00BB00;'>LIV</span><span>   </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     1     3
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> AMY837|Untitled|De novo      </span><span style='color: #00BB00;'>LIVAGE</span><span>          </span><span style='color: #0000BB;'>&lt;6&gt;</span><span> ^LIV   </span><span style='color: #00BB00;'>LIV</span><span>   </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     1     3
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> AMY838|Untitled|De novo      </span><span style='color: #00BB00;'>LIVAGK</span><span>          </span><span style='color: #0000BB;'>&lt;6&gt;</span><span> ^LIV   </span><span style='color: #00BB00;'>LIV</span><span>   </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     1     3
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> AMY839|Untitled|De novo      </span><span style='color: #00BB00;'>LIVAGS</span><span>          </span><span style='color: #0000BB;'>&lt;6&gt;</span><span> ^LIV   </span><span style='color: #00BB00;'>LIV</span><span>   </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     1     3
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> AMY840|Untitled|De novo      </span><span style='color: #00BB00;'>LIVAGT</span><span>          </span><span style='color: #0000BB;'>&lt;6&gt;</span><span> ^LIV   </span><span style='color: #00BB00;'>LIV</span><span>   </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>     1     3
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> AMY95|C helix|Myohemerithrin </span><span style='color: #00BB00;'>EVVPHKKMHK</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;19&gt;</span><span> XXKK   </span><span style='color: #00BB00;'>PHKK</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>     4     7
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> AMY176|PL B1 114-138 pH 2.4… </span><span style='color: #00BB00;'>KGTFEKATSE</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;25&gt;</span><span> XXKK   </span><span style='color: #00BB00;'>TLKK</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>    17    20
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> AMY456|Untitled|Lysozyme (h… </span><span style='color: #00BB00;'>GSTDYGILQI</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;53&gt;</span><span> XXKK   </span><span style='color: #00BB00;'>CAKK</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>    46    49
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> AMY464|Untitled|Alpha synuc… </span><span style='color: #00BB00;'>GKTKEGVLYV</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;79&gt;</span><span> XXKK   </span><span style='color: #00BB00;'>FVKK</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>    64    67
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> AMY1382|Untitled|ABri        </span><span style='color: #00BB00;'>EASNCFAIRH</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;34&gt;</span><span> XXKK   </span><span style='color: #00BB00;'>TVKK</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>    25    28
-#&gt; </span><span style='color: #BCBCBC;'>12</span><span> AMY1383|A helix|Myohemerith… </span><span style='color: #00BB00;'>AM-YEQLDEE</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;24&gt;</span><span> XXKK   </span><span style='color: #00BB00;'>EHKK</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>    10    13
-#&gt; </span><span style='color: #BCBCBC;'>13</span><span> AMY392|Untitled|Insulin      </span><span style='color: #00BB00;'>LYQLEN</span><span>          </span><span style='color: #0000BB;'>&lt;6&gt;</span><span> EN$    </span><span style='color: #00BB00;'>EN</span><span>    </span><span style='color: #0000BB;'>&lt;2&gt;</span><span>     5     6
-#&gt; </span><span style='color: #BCBCBC;'>14</span><span> AMY1382|Untitled|ABri        </span><span style='color: #00BB00;'>EASNCFAIRH</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;34&gt;</span><span> EN$    </span><span style='color: #00BB00;'>EN</span><span>    </span><span style='color: #0000BB;'>&lt;2&gt;</span><span>    33    34</div><div class='input'>
-</div></span></pre>
+<span class='co'># Finding motif of two alanines followed by aspartic acid or asparagine</span>
+<span class='co'># ("AAB" motif matches "AAB", "AAD" and "AAN"):</span>
+<span class='fu'>find_motifs</span><span class='op'>(</span><span class='va'>sq_ami</span>, <span class='va'>sq_names</span>, <span class='st'>"AAB"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 5</span>
+#&gt;   names found     sought start   end
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;ami_bsc&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> sq2   <span style='color: #00BB00;'>AAD</span>   <span style='color: #0000BB;'>&lt;3&gt;</span> AAB        9    11
+#&gt; <span style='color: #BCBCBC;'>2</span> sq3   <span style='color: #00BB00;'>AAN</span>   <span style='color: #0000BB;'>&lt;3&gt;</span> AAB        9    11</div><div class='input'>
+<span class='co'># Finding "C" at fourth position:</span>
+<span class='fu'>find_motifs</span><span class='op'>(</span><span class='va'>sq_dna</span>, <span class='va'>sq_names</span>, <span class='st'>"^NNNC"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 5</span>
+#&gt;   names found     sought start   end
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dna_bsc&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> sq1   <span style='color: #00BB00;'>ATGC</span>  <span style='color: #0000BB;'>&lt;4&gt;</span> ^NNNC      1     4
+#&gt; <span style='color: #BCBCBC;'>2</span> sq2   <span style='color: #00BB00;'>GACC</span>  <span style='color: #0000BB;'>&lt;4&gt;</span> ^NNNC      1     4
+#&gt; <span style='color: #BCBCBC;'>3</span> sq3   <span style='color: #00BB00;'>TGAC</span>  <span style='color: #0000BB;'>&lt;4&gt;</span> ^NNNC      1     4</div><div class='input'>
+<span class='co'># Finding motif "I" at second-to-last position:</span>
+<span class='fu'>find_motifs</span><span class='op'>(</span><span class='va'>sq_ami</span>, <span class='va'>sq_names</span>, <span class='st'>"IX$"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 5</span>
+#&gt;   names found     sought start   end
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;ami_bsc&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> sq2   <span style='color: #00BB00;'>IL</span>    <span style='color: #0000BB;'>&lt;2&gt;</span> IX$       16    17
+#&gt; <span style='color: #BCBCBC;'>2</span> sq3   <span style='color: #00BB00;'>IK</span>    <span style='color: #0000BB;'>&lt;2&gt;</span> IX$       18    19</div><div class='input'>
+<span class='co'># Finding multiple motifs:</span>
+<span class='fu'>find_motifs</span><span class='op'>(</span><span class='va'>sq_dna</span>, <span class='va'>sq_names</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"^ABN"</span>, <span class='st'>"ANCBY"</span>, <span class='st'>"BAN$"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 5</span>
+#&gt;   names found     sought start   end
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dna_bsc&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> sq1   <span style='color: #00BB00;'>ATG</span>   <span style='color: #0000BB;'>&lt;3&gt;</span> ^ABN       1     3
+#&gt; <span style='color: #BCBCBC;'>2</span> sq2   <span style='color: #00BB00;'>ACCG</span><span style='color: #555555;'>!</span> <span style='color: #0000BB;'>&lt;5&gt;</span> ANCBY      2     6
+#&gt; <span style='color: #BCBCBC;'>3</span> sq3   <span style='color: #00BB00;'>AGCTT</span> <span style='color: #0000BB;'>&lt;5&gt;</span> ANCBY      6    10
+#&gt; <span style='color: #BCBCBC;'>4</span> sq2   <span style='color: #00BB00;'>GA</span><span style='color: #555555;'>!</span>   <span style='color: #0000BB;'>&lt;3&gt;</span> BAN$      11    13
+#&gt; <span style='color: #BCBCBC;'>5</span> sq3   <span style='color: #00BB00;'>TAG</span>   <span style='color: #0000BB;'>&lt;3&gt;</span> BAN$      10    12</div><div class='input'>
+<span class='co'># Finding multicharacter motifs:</span>
+<span class='fu'>find_motifs</span><span class='op'>(</span><span class='va'>sq_atp</span>, <span class='va'>sq_names</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nsA"</span>, <span class='st'>"mYmY$"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 5</span>
+#&gt;   names found    sought start   end
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;atp&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> sq2   <span style='color: #00BB00;'>nsA</span>  <span style='color: #0000BB;'>&lt;1&gt;</span> nsA        2     2
+#&gt; <span style='color: #BCBCBC;'>2</span> sq1   <span style='color: #00BB00;'>mYmY</span> <span style='color: #0000BB;'>&lt;2&gt;</span> mYmY$      2     3</div><div class='input'>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#allowed-and-forbidden-letters-and-characters-details">Allowed and forbidden letters and characters details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michal Burdukiewicz, Dominik Rafacz.</p>
+  <p>Developed by Dominik Rafacz, Michal Burdukiewicz, Mateusz Bakala.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

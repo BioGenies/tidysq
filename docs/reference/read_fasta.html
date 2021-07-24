@@ -8,21 +8,36 @@
 
 <title>Read a FASTA file — read_fasta • tidysq</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,12 +45,12 @@
 
 
 
-<meta property="og:title" content="Read a FASTA file — read_fasta" />
 
-<meta property="og:description" content="Reads a FASTA file of nucleotides or amino acids file and returns
-a tibble with number of rows corresponding to the number of sequences 
-and two columns: 'name' and 'sq' giving the name of the sequence and the sequence itself." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Read a FASTA file — read_fasta" />
+<meta property="og:description" content="Reads a FASTA file that contains nucleotide or amino acid
+sequences and returns a tibble with obtained data." />
+<meta property="og:image" content="/logo.png" />
+
 
 
 
@@ -49,9 +64,10 @@ and two columns: 'name' and 'sq' giving the name of the sequence and the sequenc
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +81,7 @@ and two columns: 'name' and 'sq' giving the name of the sequence and the sequenc
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2-1</span>
       </span>
     </div>
 
@@ -73,19 +89,36 @@ and two columns: 'name' and 'sq' giving the name of the sequence and the sequenc
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/advanced-alphabet.html">Advanced alphabet techniques</a>
+    </li>
+    <li>
+      <a href="../articles/quick-start.html">Quick Start</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/michbur/tidysq">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/BioGenies/tidysq/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -96,139 +129,152 @@ and two columns: 'name' and 'sq' giving the name of the sequence and the sequenc
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Read a FASTA file</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/fasta.R'><code>R/fasta.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/BioGenies/tidysq/blob/master/R/read_fasta.R'><code>R/read_fasta.R</code></a></small>
     <div class="hidden name"><code>read_fasta.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p>Reads a FASTA file of nucleotides or amino acids file and returns
-a <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> with number of rows corresponding to the number of sequences 
-and two columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.</p>
-    
+    <p>Reads a FASTA file that contains nucleotide or amino acid
+sequences and returns a <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> with obtained data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_fasta</span>(<span class='no'>file</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>is_clean</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>non_standard</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>read_fasta</span><span class='op'>(</span>
+  <span class='va'>file_name</span>,
+  alphabet <span class='op'>=</span> <span class='cn'>NULL</span>,
+  NA_letter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_NA_letter"</span><span class='op'>)</span>,
+  safe_mode <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_safe_mode"</span><span class='op'>)</span>,
+  on_warning <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"tidysq_on_warning"</span><span class='op'>)</span>,
+  ignore_case <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
-<span class='fu'>read_fasta_ami</span>(<span class='no'>file</span>, <span class='kw'>is_clean</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-
-<span class='fu'>read_fasta_nuc</span>(<span class='no'>file</span>, <span class='kw'>is_clean</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>file</th>
-      <td><p>a <code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></code> string indicating path to file or url.</p></td>
+      <th>file_name</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
+Absolute path to file or url to read from.</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p>a <code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></code> string indicating type of <code>sq</code> object that
-is going to be constructed; supported values are "ami" for amino acid sequences,
-"nuc" for nucleotide sequences, "unt" for and <code>NULL</code> for type guessing (see details)</p></td>
+      <th>alphabet</th>
+      <td><p>[<code>character</code>]<br />
+If provided value is a single string, it will be interpreted as type (see
+details). If provided value has length greater than one, it will be treated
+as atypical alphabet for <code>sq</code> object and <code>sq</code> type will be
+<code>atp</code>. If provided value is <code>NULL</code>, type
+guessing will be performed (see details).</p></td>
     </tr>
     <tr>
-      <th>is_clean</th>
-      <td><p>a <code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></code> value indicating if sequences are clean.
-or in other words - they don't contain ambiguous values; supported values are <code>TRUE</code> 
-for clean sequences, <code>FALSE</code> for unclean sequences and <code>NULL</code> for auto detecting
-(see details).</p></td>
+      <th>NA_letter</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>]<br />
+A string that is used to interpret and display <code>NA</code> value in the
+context of <code><a href='sq-class.html'>sq class</a></code>. Default value equals to
+"<code><a href='https://rdrr.io/r/base/Logic.html'>!</a></code>".</p></td>
     </tr>
     <tr>
-      <th>non_standard</th>
-      <td><p>a <code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></code> vector indicating non-standard letters
-contained in sequences. If <code>NULL</code>, sequences will not be searched for non-standard letters
-of length more than one. Each element of this parameter should be at least two characters 
-long.</p></td>
+      <th>safe_mode</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>]<br />
+Default value is <code>FALSE</code>. When turned on, safe mode guarantees that
+<code>NA</code> appears within a sequence if and only if input sequence contains
+value passed with <code>NA_letter</code>. This means that resulting type might be
+different to the one passed as argument, if there are letters in a sequence
+that does not appear in the original alphabet.</p></td>
+    </tr>
+    <tr>
+      <th>on_warning</th>
+      <td><p>[<code>"silent" || "message" || "warning" || "error"</code>]<br />
+Determines the method of handling warning message. Default value is
+<code>"warning"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>ignore_case</th>
+      <td><p>[<code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>]<br />
+If turned on, lowercase letters are turned into respective uppercase ones
+and interpreted as such. If not, either <code>sq</code> object must be of type
+<strong>unt</strong> or all lowercase letters are interpreted as <code>NA</code> values.
+Default value is <code>FALSE</code>. Ignoring case does not work with <strong>atp</strong>
+alphabets.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> with number of rows corresponding to the number of sequences 
-and two columns: 'name' and 'sq' giving the name of the sequence and the sequence itself.</p>
-    
+    <p>A <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> with number of rows equal to the
+number of sequences and two columns:</p><ul>
+<li><p>namespecifies name of a sequence, used in functions like
+ <code><a href='find_motifs.html'>find_motifs</a></code></p></li>
+<li><p>sqcontains extracted sequence itself</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>All rules of creating sq objects are the same as in <code><a href='construct_sq.html'>construct_sq</a></code>.</p>
-<p>Functions <code>read_fasta_ami</code> and <code>read_fasta_nuc</code> are wrappers around 
-<code>read_fasta</code> with specified <code>type</code> parameter - accordingly "ami" or "nuc". You
-can also pass "is_clean" parameter to those functions, but you cannot pass "non_standard".</p>
-    
+    <p>All rules of creating <code>sq</code> objects are the same as in <code><a href='sq.html'>sq</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/base/topics/readLines'>readLines</a></code> <code><a href='construct_sq.html'>construct_sq</a></code></p></div>
-    
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></code></p>
+<p>Functions from input module:
+<code><a href='import_sq.html'>import_sq</a>()</code>,
+<code><a href='random_sq.html'>random_sq</a>()</code>,
+<code><a href='sq.html'>sq</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>fasta_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"tidysq"</span>,
-                     <span class='st'>"sample_fasta/sample_ami.fasta"</span>)
-<span class='fu'>read_fasta</span>(<span class='no'>fasta_file</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 100 x 2</span><span>
-#&gt;    name          sq                      
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;ami&gt;</span><span>                   
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> sample_ami 1  </span><span style='color: #00BB00;'>KWOVPFWSAZFBTPS</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;29&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> sample_ami 2  </span><span style='color: #00BB00;'>EDAJZOIFQLVTAYV</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;32&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> sample_ami 3  </span><span style='color: #00BB00;'>GXAYZJKAEOMETFG</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> sample_ami 4  </span><span style='color: #00BB00;'>CCTKOSTJAEDGMIK</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;27&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> sample_ami 5  </span><span style='color: #00BB00;'>DCRTRZJWBHRPHXH</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;30&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> sample_ami 6  </span><span style='color: #00BB00;'>PSQLECWRPRGQZFP</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;29&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> sample_ami 7  </span><span style='color: #00BB00;'>DKWLELEWMYCWQJY</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> sample_ami 8  </span><span style='color: #00BB00;'>LLBOMGZSKZIEXDP</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> sample_ami 9  </span><span style='color: #00BB00;'>KAZBIBGOMLLDYHH</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;25&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> sample_ami 10 </span><span style='color: #00BB00;'>FZFTAMEOKKIMZUF</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
-#&gt; </span><span style='color: #949494;'># … with 90 more rows</span><span></div><div class='input'><span class='fu'>read_fasta_ami</span>(<span class='no'>fasta_file</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 100 x 2</span><span>
-#&gt;    name          sq                      
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;ami&gt;</span><span>                   
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> sample_ami 1  </span><span style='color: #00BB00;'>KWOVPFWSAZFBTPS</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;29&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> sample_ami 2  </span><span style='color: #00BB00;'>EDAJZOIFQLVTAYV</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;32&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> sample_ami 3  </span><span style='color: #00BB00;'>GXAYZJKAEOMETFG</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> sample_ami 4  </span><span style='color: #00BB00;'>CCTKOSTJAEDGMIK</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;27&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> sample_ami 5  </span><span style='color: #00BB00;'>DCRTRZJWBHRPHXH</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;30&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> sample_ami 6  </span><span style='color: #00BB00;'>PSQLECWRPRGQZFP</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;29&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> sample_ami 7  </span><span style='color: #00BB00;'>DKWLELEWMYCWQJY</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> sample_ami 8  </span><span style='color: #00BB00;'>LLBOMGZSKZIEXDP</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> sample_ami 9  </span><span style='color: #00BB00;'>KAZBIBGOMLLDYHH</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;25&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> sample_ami 10 </span><span style='color: #00BB00;'>FZFTAMEOKKIMZUF</span><span style='color: #555555;'>...</span><span>  </span><span style='color: #0000BB;'>&lt;28&gt;</span><span>
-#&gt; </span><span style='color: #949494;'># … with 90 more rows</span><span></div></span><span class='co'># NOT RUN {</span>
-<span class='fu'>read_fasta</span>(<span class='st'>"https://www.uniprot.org/uniprot/P28307.fasta"</span>)
-<span class='co'># }</span></pre>
+    <pre class="examples"><div class='input'><span class='va'>fasta_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span>package <span class='op'>=</span> <span class='st'>"tidysq"</span>, <span class='st'>"examples/example_aa.fasta"</span><span class='op'>)</span>
+
+<span class='co'># In this case, these two calls are equivalent in result:</span>
+<span class='fu'>read_fasta</span><span class='op'>(</span><span class='va'>fasta_file</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Non-standard IUPAC symbols detected for DNA: 1549 characters were converted to N.</span></div><div class='output co'>#&gt; <span style='color: #949494;'>DNA vector of 421 sequences</span>
+#&gt; <span style='color: #949494; font-style: italic;'>AMY1|K19|T-Protei...</span>  N<span style='color: #BBBB00; font-weight: bold;'>GGG</span>KVNNVYKNV
+#&gt; <span style='color: #949494; font-style: italic;'>AMY9|K19Gluc41|T-...</span>  NNKHNN<span style='color: #BBBB00; font-weight: bold;'>GGG</span>KVNNVYKNVDNSKV<span style='color: #0000BB; font-weight: bold;'>T</span>SK<span style='color: #00BB00; font-weight: bold;'>C</span><span style='color: #BBBB00; font-weight: bold;'>G</span>SN<span style='color: #BBBB00; font-weight: bold;'>G</span>NNHHKN<span style='color: #BBBB00; font-weight: bold;'>GGG</span>NVN
+#&gt; <span style='color: #949494; font-style: italic;'>AMY14|K19Gluc782|...</span>  NNKHNN<span style='color: #BBBB00; font-weight: bold;'>GGG</span>KVNNVYKNVD
+#&gt; <span style='color: #949494; font-style: italic;'>AMY17|PHF8|T-Prot...</span>  <span style='color: #BBBB00; font-weight: bold;'>G</span>KVNNVYK
+#&gt; <span style='color: #949494; font-style: italic;'>AMY18|PHF6|T-Prot...</span>  VNNVYK
+#&gt; <span style='color: #949494; font-style: italic;'>AMY22|Whole|Amylo...</span>  D<span style='color: #BB0000; font-weight: bold;'>A</span>NNRHDS<span style='color: #BBBB00; font-weight: bold;'>G</span>YNVHHNKNVNN<span style='color: #BB0000; font-weight: bold;'>A</span>NDV<span style='color: #BBBB00; font-weight: bold;'>G</span>SNK<span style='color: #BBBB00; font-weight: bold;'>G</span><span style='color: #BB0000; font-weight: bold;'>A</span>NN<span style='color: #BBBB00; font-weight: bold;'>G</span>NMV<span style='color: #BBBB00; font-weight: bold;'>GG</span>VV
+#&gt; <span style='color: #949494; font-style: italic;'>AMY23|HABP1|Amylo...</span>  VNHNKNVNN<span style='color: #BB0000; font-weight: bold;'>A</span>NDV<span style='color: #BBBB00; font-weight: bold;'>G</span>S
+#&gt; <span style='color: #949494; font-style: italic;'>AMY24|HABP2|Amylo...</span>  VHNNKNVNN<span style='color: #BB0000; font-weight: bold;'>A</span>NDV<span style='color: #BBBB00; font-weight: bold;'>G</span>S
+#&gt; <span style='color: #949494; font-style: italic;'>AMY25|HABP3|Amylo...</span>  VHHNKNVNN<span style='color: #BB0000; font-weight: bold;'>A</span>NDV<span style='color: #BBBB00; font-weight: bold;'>G</span>S
+#&gt; <span style='color: #949494; font-style: italic;'>AMY26|HABP4|Amylo...</span>  VHHNNNVNN<span style='color: #BB0000; font-weight: bold;'>A</span>NDV<span style='color: #BBBB00; font-weight: bold;'>G</span>S
+#&gt; <span style='color: #949494; font-style: italic;'>AMY32|HABP10|Amyl...</span>  KKNVNNNND
+#&gt; <span style='color: #949494; font-style: italic;'>AMY34|HABP12|Amyl...</span>  VHHNNKNVNN<span style='color: #BB0000; font-weight: bold;'>A</span>NNV<span style='color: #BBBB00; font-weight: bold;'>G</span>S
+#&gt; <span style='color: #949494;'>... with 409 more sequences.</span></div><div class='input'><span class='fu'>read_fasta</span><span class='op'>(</span><span class='va'>fasta_file</span>, alphabet <span class='op'>=</span> <span class='st'>"ami_bsc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in read_fasta(fasta_file, alphabet = "ami_bsc"): unused argument (alphabet = "ami_bsc")</span></div><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'># It's possible to read FASTA file from URL:</span>
+<span class='fu'>read_fasta</span><span class='op'>(</span><span class='st'>"https://www.uniprot.org/uniprot/P28307.fasta"</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michal Burdukiewicz, Dominik Rafacz.</p>
+  <p>Developed by Dominik Rafacz, Michal Burdukiewicz, Mateusz Bakala.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

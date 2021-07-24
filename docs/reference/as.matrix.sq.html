@@ -8,21 +8,36 @@
 
 <title>Convert sq object into matrix — as.matrix.sq • tidysq</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,11 +45,13 @@
 
 
 
-<meta property="og:title" content="Convert sq object into matrix — as.matrix.sq" />
 
-<meta property="og:description" content="Coerce sequences from a sq object to a 
-matrix, in which rows correspond to sequences and columns to positions" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Convert sq object into matrix — as.matrix.sq" />
+<meta property="og:description" content="Coerces sequences from a sq object to
+a matrix, in which rows correspond to sequences and columns to
+positions." />
+<meta property="og:image" content="/logo.png" />
+
 
 
 
@@ -48,9 +65,10 @@ matrix, in which rows correspond to sequences and columns to positions" />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -64,7 +82,7 @@ matrix, in which rows correspond to sequences and columns to positions" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2-1</span>
       </span>
     </div>
 
@@ -72,19 +90,36 @@ matrix, in which rows correspond to sequences and columns to positions" />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/advanced-alphabet.html">Advanced alphabet techniques</a>
+    </li>
+    <li>
+      <a href="../articles/quick-start.html">Quick Start</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/michbur/tidysq">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/BioGenies/tidysq/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -95,117 +130,112 @@ matrix, in which rows correspond to sequences and columns to positions" />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Convert sq object into matrix</h1>
-    <small class="dont-index">Source: <a href='https://github.com/michbur/tidysq/blob/master/R/methods_sq.R'><code>R/methods_sq.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/BioGenies/tidysq/blob/master/R/util-methods.R'><code>R/util-methods.R</code></a></small>
     <div class="hidden name"><code>as.matrix.sq.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p>Coerce sequences from a <code><a href='sq.html'>sq</a></code> object to a 
-<code><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></code>, in which rows correspond to sequences and columns to positions</p>
-    
+    <p>Coerces sequences from a <code><a href='sq-class.html'>sq</a></code> object to
+a <code><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></code>, in which rows correspond to sequences and columns to
+positions.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for sq</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a <code><a href='sq.html'>sq</a></code> object to be converted.</p></td>
+      <td><p>[<code>sq</code>]<br />
+An object this function is applied to.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>further arguments to be passed from or to other methods.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></code> with number of rows the same as number of sequences
-and number of columns corresponding to the length of the longest sequence
-in the converted sq object. Matrix is either character (if type of <code>sq</code> is
-<strong>ami</strong>, <strong>nuc</strong>, <strong>atp</strong> or <strong>unt</strong>) or numeric (if type
-is <strong>enc</strong>).</p>
-    
+    <p>A <code><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></code> with number of rows the same as number of
+sequences and number of columns corresponding to the length of the longest
+sequence in the converted sq object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This method for class <code>sq</code> allows converting sequences from
-the sq object into a matrix. Each row corresponds to the separate sequence
-from the sq object, whereas each column indicates a single position within 
-a sequence. Dimensions of matrix are determined by the number of sequences 
-(rows) and the length of the longest sequence (columns). If a length of
-sequence is smaller than the length of the longest sequence, the remaining
-columns will be filled with <code><a href='https://www.rdocumentation.org/packages/base/topics/NA'>NA</a></code>. All attributes of the input <code>sq</code> are lost 
-during the conversion to matrix.</p>
-    
+    <p>This method for class <code>sq</code> allows converting sequences from the
+<code>sq</code> object into a matrix. Each row corresponds to the separate sequence
+from the <code>sq</code> object, whereas each column indicates a single position
+within a sequence. Dimensions of matrix are determined by the number of
+sequences (rows) and the length of the longest sequence (columns). If length
+of a sequence is smaller than the length of the longest sequence, the
+remaining columns are filled with <code>NA</code>. All attributes of the input
+<code>sq</code> are lost during the conversion to matrix.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='sq.html'>sq</a></code></p></div>
-    
+    <div class='dont-index'><p>Functions from output module:
+<code><a href='as.character.sq.html'>as.character.sq</a>()</code>,
+<code><a href='as.sq.html'>as.sq</a>()</code>,
+<code><a href='export_sq.html'>export_sq</a>()</code>,
+<code><a href='write_fasta.html'>write_fasta</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Creating objects to work on:</span>
-<span class='no'>sq_same_len</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"CGATAGACA"</span>, <span class='st'>"TGACAAAAC"</span>, <span class='st'>"GTGACCGTA"</span>),
-                            <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'nuc'</span>)
-<span class='no'>sq_diff_len</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='construct_sq.html'>construct_sq</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"CTGAATGCAGTACCGTAAT"</span>, <span class='st'>"ATGCCGTAAATGCCAT"</span>,
-                              <span class='st'>"CAGACCANNNATAG"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'nuc'</span>)
+<span class='va'>sq_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CGATAGACA"</span>, <span class='st'>"TGACAAAAC"</span>, <span class='st'>"GTGACCGTA"</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='st'>"dna_bsc"</span><span class='op'>)</span>
+<span class='va'>sq_rna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sq.html'>sq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CUGAAUGCAGUACCGUAAU"</span>, <span class='st'>"AUGCCGUAAAUGCCAU"</span>, <span class='st'>"CAGACCANNNAUAG"</span><span class='op'>)</span>,
+             alphabet <span class='op'>=</span> <span class='st'>"rna_ext"</span><span class='op'>)</span>
 
-<span class='co'># Converting sq object containing sequences of the same lengths to matrix:</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>sq_same_len</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
+<span class='co'># Sequences of the same lengths can be converted easily:</span>
+<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
 #&gt; [1,] "C"  "G"  "A"  "T"  "A"  "G"  "A"  "C"  "A" 
 #&gt; [2,] "T"  "G"  "A"  "C"  "A"  "A"  "A"  "A"  "C" 
 #&gt; [3,] "G"  "T"  "G"  "A"  "C"  "C"  "G"  "T"  "A" </div><div class='input'>
-<span class='co'># Converting sq object containing sequences of different lengths to </span>
-<span class='co'># matrix - NA introduced:</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>sq_diff_len</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]
-#&gt; [1,] "C"  "T"  "G"  "A"  "A"  "T"  "G"  "C"  "A"  "G"   "T"   "A"   "C"   "C"  
-#&gt; [2,] "A"  "T"  "G"  "C"  "C"  "G"  "T"  "A"  "A"  "A"   "T"   "G"   "C"   "C"  
-#&gt; [3,] "C"  "A"  "G"  "A"  "C"  "C"  "A"  "N"  "N"  "N"   "A"   "T"   "A"   "G"  
+<span class='co'># Sequences that differ in length are filled with NA to the maximum length:</span>
+<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>sq_rna</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]
+#&gt; [1,] "C"  "U"  "G"  "A"  "A"  "U"  "G"  "C"  "A"  "G"   "U"   "A"   "C"   "C"  
+#&gt; [2,] "A"  "U"  "G"  "C"  "C"  "G"  "U"  "A"  "A"  "A"   "U"   "G"   "C"   "C"  
+#&gt; [3,] "C"  "A"  "G"  "A"  "C"  "C"  "A"  "N"  "N"  "N"   "A"   "U"   "A"   "G"  
 #&gt;      [,15] [,16] [,17] [,18] [,19]
-#&gt; [1,] "G"   "T"   "A"   "A"   "T"  
-#&gt; [2,] "A"   "T"   NA    NA    NA   
+#&gt; [1,] "G"   "U"   "A"   "A"   "U"  
+#&gt; [2,] "A"   "U"   NA    NA    NA   
 #&gt; [3,] NA    NA    NA    NA    NA   </div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by Michal Burdukiewicz, Dominik Rafacz.</p>
+  <p>Developed by Dominik Rafacz, Michal Burdukiewicz, Mateusz Bakala.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
