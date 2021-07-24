@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2-1</span>
       </span>
     </div>
 
@@ -137,13 +137,25 @@
       <small>Source: <a href='https://github.com/BioGenies/tidysq/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="tidysq-112" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.2">
-<a href="#tidysq-112" class="anchor"></a>tidysq 1.1.2<small> Unreleased </small>
+    <div id="tidysq-112-1" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.2-1">
+<a href="#tidysq-112-1" class="anchor"></a>tidysq 1.1.2-1<small> Unreleased </small>
 </h1>
 <div id="fixed" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fixed" class="anchor"></a>Fixed:</h2>
+<ul>
+<li>adjusted declaration of function autoexported by <code>Rcpp</code> to match new <code>testthat</code> standards</li>
+</ul>
+</div>
+</div>
+    <div id="tidysq-112" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.2">
+<a href="#tidysq-112" class="anchor"></a>tidysq 1.1.2<small> Unreleased </small>
+</h1>
+<div id="fixed-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fixed-1" class="anchor"></a>Fixed:</h2>
 <ul>
 <li>early return now works correctly for <code><a href="../reference/remove_ambiguous.html">remove_ambiguous()</a></code>
 </li>
@@ -157,9 +169,9 @@
 <a href="#tidysq-111" class="anchor"></a>tidysq 1.1.1<small> Unreleased </small>
 </h1>
 <p>Updates for the CRAN god. Fixed <code><a href="../reference/random_sq.html">random_sq()</a></code> out-of-bounds possible problem, so there may be differences in sequences generated using the same seed in this and previous versions.</p>
-<div id="fixed-1" class="section level2">
+<div id="fixed-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fixed-1" class="anchor"></a>Fixed:</h2>
+<a href="#fixed-2" class="anchor"></a>Fixed:</h2>
 <ul>
 <li>upper bound for <code><a href="../reference/random_sq.html">random_sq()</a></code> correctly ignores now "*" and “-” values while computing number of letters to draw from</li>
 <li>removed default move/copy constructors/assignment operators for <code>Sequence</code> and <code>ProtoSequence</code> classes</li>
@@ -200,9 +212,9 @@
 </li>
 </ul>
 </div>
-<div id="fixed-2" class="section level2">
+<div id="fixed-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fixed-2" class="anchor"></a>Fixed:</h2>
+<a href="#fixed-3" class="anchor"></a>Fixed:</h2>
 <ul>
 <li>made <code><a href="../reference/random_sq.html">random_sq()</a></code> actually use <code>seed</code> parameter while generating sequences</li>
 </ul>
