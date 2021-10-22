@@ -227,11 +227,11 @@ another column <code>name</code> with those names</p>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    complement</span></div><div class='input'><span class='va'>ape_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ape/man/as.alignment.html'>as.DNAbin</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>one <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"C"</span>, <span class='st'>"T"</span>, <span class='st'>"C"</span>, <span class='st'>"A"</span><span class='op'>)</span>, two <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"T"</span>, <span class='st'>"G"</span>, <span class='st'>"A"</span>, <span class='st'>"G"</span>, <span class='st'>"G"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>import_sq</span><span class='op'>(</span><span class='va'>ape_dna</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 2</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 2</span><span>
 #&gt;   name  sq       
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dna_bsc&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> one   <span style='color: #00BB00;'>CTCA</span>  <span style='color: #0000BB;'>&lt;4&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>2</span> two   <span style='color: #00BB00;'>TGAGG</span> <span style='color: #0000BB;'>&lt;5&gt;</span></div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dna_bsc&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> one   </span><span style='color: #00BB00;'>CTCA</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> two   </span><span style='color: #00BB00;'>TGAGG</span><span> </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
 <span class='co'># bioseq example</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://fkeck.github.io/bioseq/'>bioseq</a></span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
@@ -239,11 +239,11 @@ another column <code>name</code> with those names</p>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    read_fasta, write_fasta</span></div><div class='input'><span class='va'>bioseq_rna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://fkeck.github.io/bioseq/reference/new_rna.html'>new_rna</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>one <span class='op'>=</span> <span class='st'>"ANBRY"</span>, two <span class='op'>=</span> <span class='st'>"YUTUGGN"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Non-standard IUPAC symbols detected for RNA: 1 characters were converted to N.</span></div><div class='input'><span class='fu'>import_sq</span><span class='op'>(</span><span class='va'>bioseq_rna</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 2</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 2</span><span>
 #&gt;   name  sq         
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;rna_ext&gt;</span>  
-#&gt; <span style='color: #BCBCBC;'>1</span> one   <span style='color: #00BB00;'>ANBRY</span>   <span style='color: #0000BB;'>&lt;5&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>2</span> two   <span style='color: #00BB00;'>YUNUGGN</span> <span style='color: #0000BB;'>&lt;7&gt;</span></div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;rna_ext&gt;</span><span>  
+#&gt; </span><span style='color: #555555;'>1</span><span> one   </span><span style='color: #00BB00;'>ANBRY</span><span>   </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> two   </span><span style='color: #00BB00;'>YUNUGGN</span><span> </span><span style='color: #0000BB;'>&lt;7&gt;</span><span></div><div class='input'>
 <span class='co'># Biostrings example</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://bioconductor.org/packages/Biostrings'>Biostrings</a></span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Loading required package: BiocGenerics</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: parallel</span></div><div class='output co'>#&gt; <span class='message'></span>
@@ -277,11 +277,11 @@ another column <code>name</code> with those names</p>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    strsplit</span></div><div class='input'><span class='va'>Biostrings_ami</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/XStringSet-class.html'>AAStringSet</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>one <span class='op'>=</span> <span class='st'>"FEAPQLIWY"</span>, two <span class='op'>=</span> <span class='st'>"EGITENAK"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>import_sq</span><span class='op'>(</span><span class='va'>Biostrings_ami</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 2</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 2</span><span>
 #&gt;   name  sq           
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;ami_ext&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'>1</span> one   <span style='color: #00BB00;'>FEAPQLIWY</span> <span style='color: #0000BB;'>&lt;9&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>2</span> two   <span style='color: #00BB00;'>EGITENAK</span>  <span style='color: #0000BB;'>&lt;8&gt;</span></div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;ami_ext&gt;</span><span>    
+#&gt; </span><span style='color: #555555;'>1</span><span> one   </span><span style='color: #00BB00;'>FEAPQLIWY</span><span> </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> two   </span><span style='color: #00BB00;'>EGITENAK</span><span>  </span><span style='color: #0000BB;'>&lt;8&gt;</span><span></div><div class='input'>
 <span class='co'># seqinr example</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://seqinr.r-forge.r-project.org/'>seqinr</a></span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
@@ -293,11 +293,11 @@ another column <code>name</code> with those names</p>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    translate</span></div><div class='input'><span class='va'>seqinr_dna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/seqinr/man/SeqFastadna.html'>as.SeqFastadna</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"C"</span>, <span class='st'>"T"</span>, <span class='st'>"C"</span>, <span class='st'>"A"</span><span class='op'>)</span>, name <span class='op'>=</span> <span class='st'>"one"</span><span class='op'>)</span>
 <span class='fu'>import_sq</span><span class='op'>(</span><span class='va'>seqinr_dna</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 2</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 2</span><span>
 #&gt;   name  sq       
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dna_bsc&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> one   <span style='color: #00BB00;'>CTCA</span>  <span style='color: #0000BB;'>&lt;4&gt;</span></div><div class='input'>
-</div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dna_bsc&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> one   </span><span style='color: #00BB00;'>CTCA</span><span>  </span><span style='color: #0000BB;'>&lt;4&gt;</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

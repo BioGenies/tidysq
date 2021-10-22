@@ -219,30 +219,30 @@ retaining only unambiguous letters (if opposite is true).</p>
 
 <span class='co'># Removing whole sequences with ambiguous elements:</span>
 <span class='fu'>remove_ambiguous</span><span class='op'>(</span><span class='va'>sq_ami</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>basic amino acid sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>MIAANYTWIL</span>                                                              <span style='color: #0000BB;'>&lt;10&gt;</span>
-#&gt; [2] <span style='color: #00BB00;'>TIAALGNIIYRAIE</span>                                                          <span style='color: #0000BB;'>&lt;14&gt;</span>
-#&gt; [3] <span style='color: #00BB00;'>NYERTGHLI</span>                                                                <span style='color: #0000BB;'>&lt;9&gt;</span>
-#&gt; [4] <span style='color: #555555;'>&lt;NULL&gt;</span>                                                                   <span style='color: #0000BB;'>&lt;0&gt;</span></div><div class='input'><span class='fu'>remove_ambiguous</span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>ATGCAGGA</span>                                                                 <span style='color: #0000BB;'>&lt;8&gt;</span>
-#&gt; [2] <span style='color: #555555;'>&lt;NULL&gt;</span>                                                                   <span style='color: #0000BB;'>&lt;0&gt;</span>
-#&gt; [3] <span style='color: #00BB00;'>TGACGAGCTTA</span>                                                             <span style='color: #0000BB;'>&lt;11&gt;</span>
-#&gt; [4] <span style='color: #555555;'>&lt;NULL&gt;</span>                                                                   <span style='color: #0000BB;'>&lt;0&gt;</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>basic amino acid sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>MIAANYTWIL</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TIAALGNIIYRAIE</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>NYERTGHLI</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt; [4] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span></div><div class='input'><span class='fu'>remove_ambiguous</span><span class='op'>(</span><span class='va'>sq_dna</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt; [2] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TGACGAGCTTA</span><span>                                                             </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
+#&gt; [4] </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;0&gt;</span><span></div><div class='input'>
 <span class='co'># Removing ambiguous elements from sequences:</span>
 <span class='fu'>remove_ambiguous</span><span class='op'>(</span><span class='va'>sq_ami</span>, by_letter <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>basic amino acid sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>MIAANYTWIL</span>                                                              <span style='color: #0000BB;'>&lt;10&gt;</span>
-#&gt; [2] <span style='color: #00BB00;'>TIAALGNIIYRAIE</span>                                                          <span style='color: #0000BB;'>&lt;14&gt;</span>
-#&gt; [3] <span style='color: #00BB00;'>NYERTGHLI</span>                                                                <span style='color: #0000BB;'>&lt;9&gt;</span>
-#&gt; [4] <span style='color: #00BB00;'>MAYIALN</span>                                                                  <span style='color: #0000BB;'>&lt;7&gt;</span></div><div class='input'><span class='fu'>remove_ambiguous</span><span class='op'>(</span><span class='va'>sq_dna</span>, by_letter <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>ATGCAGGA</span>                                                                 <span style='color: #0000BB;'>&lt;8&gt;</span>
-#&gt; [2] <span style='color: #00BB00;'>GACCGAACGA</span>                                                              <span style='color: #0000BB;'>&lt;10&gt;</span>
-#&gt; [3] <span style='color: #00BB00;'>TGACGAGCTTA</span>                                                             <span style='color: #0000BB;'>&lt;11&gt;</span>
-#&gt; [4] <span style='color: #00BB00;'>ACTAGC</span>                                                                   <span style='color: #0000BB;'>&lt;6&gt;</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>basic amino acid sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>MIAANYTWIL</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TIAALGNIIYRAIE</span><span>                                                          </span><span style='color: #0000BB;'>&lt;14&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>NYERTGHLI</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>MAYIALN</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span></div><div class='input'><span class='fu'>remove_ambiguous</span><span class='op'>(</span><span class='va'>sq_dna</span>, by_letter <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGCAGGA</span><span>                                                                 </span><span style='color: #0000BB;'>&lt;8&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>GACCGAACGA</span><span>                                                              </span><span style='color: #0000BB;'>&lt;10&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TGACGAGCTTA</span><span>                                                             </span><span style='color: #0000BB;'>&lt;11&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>ACTAGC</span><span>                                                                   </span><span style='color: #0000BB;'>&lt;6&gt;</span><span></div><div class='input'>
 <span class='co'># Analysis of the result</span>
 <span class='va'>sq_clean</span> <span class='op'>&lt;-</span> <span class='fu'>remove_ambiguous</span><span class='op'>(</span><span class='va'>sq_ami</span><span class='op'>)</span>
 <span class='fu'><a href='is_empty_sq.html'>is_empty_sq</a></span><span class='op'>(</span><span class='va'>sq_clean</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] FALSE FALSE FALSE  TRUE</div><div class='input'><span class='fu'><a href='sq_type.html'>sq_type</a></span><span class='op'>(</span><span class='va'>sq_clean</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "ami_bsc"</div><div class='input'>
-</div></pre>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

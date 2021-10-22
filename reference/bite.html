@@ -227,27 +227,27 @@ indices, because there is no good interpretation possible for that.</p>
 
 <span class='co'># Extracting first five letters:</span>
 <span class='fu'>bite</span><span class='op'>(</span><span class='va'>sq_dna</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>ATGCA</span>                                                                    <span style='color: #0000BB;'>&lt;5&gt;</span>
-#&gt; [2] <span style='color: #00BB00;'>GACCG</span>                                                                    <span style='color: #0000BB;'>&lt;5&gt;</span>
-#&gt; [3] <span style='color: #00BB00;'>TGACG</span>                                                                    <span style='color: #0000BB;'>&lt;5&gt;</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>ATGCA</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>GACCG</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>TGACG</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
 <span class='co'># If a sequence is shorter than 5, then NA is introduced:</span>
 <span class='fu'>bite</span><span class='op'>(</span><span class='va'>sq_unt</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: some sequences are subsetted with index bigger than length - NA introduced</span></div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>ATGCA</span>                                                                    <span style='color: #0000BB;'>&lt;5&gt;</span>
-#&gt; [2] <span style='color: #00BB00;'>TGACG</span>                                                                    <span style='color: #0000BB;'>&lt;5&gt;</span>
-#&gt; [3] <span style='color: #555555;'>!!!!!</span>                                                                    <span style='color: #0000BB;'>&lt;5&gt;</span>
-#&gt; [4] <span style='color: #00BB00;'>TIAAL</span>                                                                    <span style='color: #0000BB;'>&lt;5&gt;</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: some sequences are subsetted with index bigger than length - NA introduced</span></div><div class='output co'>#&gt; <span class='message'>unt (unspecified type) sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATGCA</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>TGACG</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [3] </span><span style='color: #555555;'>!!!!!</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>TIAAL</span><span>                                                                    </span><span style='color: #0000BB;'>&lt;5&gt;</span><span></div><div class='input'>
 <span class='co'># Selecting fourth, seventh and fourth again letter:</span>
 <span class='fu'>bite</span><span class='op'>(</span><span class='va'>sq_ami</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>7</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>extended amino acid sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>ATA</span>                                                                      <span style='color: #0000BB;'>&lt;3&gt;</span>
-#&gt; [2] <span style='color: #00BB00;'>ANA</span>                                                                      <span style='color: #0000BB;'>&lt;3&gt;</span>
-#&gt; [3] <span style='color: #00BB00;'>RHR</span>                                                                      <span style='color: #0000BB;'>&lt;3&gt;</span>
-#&gt; [4] <span style='color: #00BB00;'>XIX</span>                                                                      <span style='color: #0000BB;'>&lt;3&gt;</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>extended amino acid sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>ATA</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>ANA</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>RHR</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;3&gt;</span><span>
+#&gt; [4] </span><span style='color: #00BB00;'>XIX</span><span>                                                                      </span><span style='color: #0000BB;'>&lt;3&gt;</span><span></div><div class='input'>
 <span class='co'># Selecting all letters except first four:</span>
 <span class='fu'>bite</span><span class='op'>(</span><span class='va'>sq_dna</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>:</span><span class='op'>-</span><span class='fl'>4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] <span style='color: #00BB00;'>AGGA</span>                                                                     <span style='color: #0000BB;'>&lt;4&gt;</span>
-#&gt; [2] <span style='color: #00BB00;'>G</span><span style='color: #555555;'>!!</span><span style='color: #00BB00;'>AACGA</span><span style='color: #555555;'>!</span>                                                                <span style='color: #0000BB;'>&lt;9&gt;</span>
-#&gt; [3] <span style='color: #00BB00;'>GAGCTTA</span>                                                                  <span style='color: #0000BB;'>&lt;7&gt;</span></div><div class='input'>
-</div></pre>
+</div><div class='output co'>#&gt; <span class='message'>basic DNA sequences list:</span></div><div class='output co'>#&gt; [1] </span><span style='color: #00BB00;'>AGGA</span><span>                                                                     </span><span style='color: #0000BB;'>&lt;4&gt;</span><span>
+#&gt; [2] </span><span style='color: #00BB00;'>G</span><span style='color: #555555;'>!!</span><span style='color: #00BB00;'>AACGA</span><span style='color: #555555;'>!</span><span>                                                                </span><span style='color: #0000BB;'>&lt;9&gt;</span><span>
+#&gt; [3] </span><span style='color: #00BB00;'>GAGCTTA</span><span>                                                                  </span><span style='color: #0000BB;'>&lt;7&gt;</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

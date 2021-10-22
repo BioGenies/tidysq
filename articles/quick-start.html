@@ -89,7 +89,7 @@
 
       
 
-      </header><script src="quick-start_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><script src="quick-start_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Quick Start</h1>
@@ -216,7 +216,7 @@
 <p>It says nothing about motif placement within sequence nor it exact form, however. In this case, there is <code><a href="../reference/find_motifs.html">find_motifs()</a></code> function that returns a whole <code>tibble</code> (from <code>tibble</code> package; basically improved version of <code>data.frame</code>) with various info about found motifs. Important thing to note here is that the second argument is a character vector of sequence names to avoid embedding potentially long sequences in resulting <code>tibble</code> potentially many times:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sq_dna</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"seq1"</span>, <span class="st">"seq2"</span>, <span class="st">"rev1"</span>, <span class="st">"rev2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ATC"</span>, <span class="st">"TAG"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 4 × 5</span>
+<span class="co">#&gt; # A tibble: 4 x 5</span>
 <span class="co">#&gt;   names found     sought start   end</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;dna_bsc&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1 rev1  ATC   &lt;3&gt; ATC        7     9</span>
@@ -226,7 +226,7 @@
 <p>There are ambiguous DNA bases in IUPAC codes and these can be used in motifs. One of them is <code>"N"</code> — its meaning is "any of <code>A</code>, <code>C</code>, <code>G</code> or <code>T</code>:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sq_dna</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"seq1"</span>, <span class="st">"seq2"</span>, <span class="st">"rev1"</span>, <span class="st">"rev2"</span><span class="op">)</span>, <span class="st">"GNCC"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 7 × 5</span>
+<span class="co">#&gt; # A tibble: 7 x 5</span>
 <span class="co">#&gt;   names found     sought start   end</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;dna_bsc&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1 seq1  GGCC  &lt;4&gt; GNCC       3     6</span>
@@ -240,7 +240,7 @@
 <p>Two additional characters are reserved because of their special meaning in motifs. <code>"^"</code> means that this motif must be found at the start of a sequence, while <code>"$"</code> means the same, but with the end instead. They can be mixed with ambiguous letters, of course:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sq_dna</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"seq1"</span>, <span class="st">"seq2"</span>, <span class="st">"rev1"</span>, <span class="st">"rev2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"^TAG"</span>, <span class="st">"ATN$"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 5</span>
+<span class="co">#&gt; # A tibble: 3 x 5</span>
 <span class="co">#&gt;   names found     sought start   end</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;dna_bsc&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1 seq1  TAG   &lt;3&gt; ^TAG       1     3</span>
