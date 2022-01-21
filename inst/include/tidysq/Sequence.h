@@ -17,17 +17,21 @@ namespace tidysq {
 
     private:
         template<bool CONST>
-        class GenericSequenceIterator : public std::iterator<std::bidirectional_iterator_tag, ElementPacked> {
+        class GenericSequenceIterator {
         public:
-            typedef std::conditional_t<CONST, const Sequence &, Sequence &> SequenceReference;
+            using iterator_category = std::bidirectional_iterator_tag;
+            using value_type = std::conditional_t<CONST, const Sequence, Sequence>;
+            using difference_type = LenSq;
+            using pointer = std::conditional_t<CONST, const Sequence*, Sequence*>;
+            using reference = std::conditional_t<CONST, const Sequence &, Sequence &>;
         protected:
-            SequenceReference sequence_;
+            reference sequence_;
             const AlphSize alph_size_;
             LenSq pointer_;
 
         public:
-            GenericSequenceIterator(SequenceReference sequence, const AlphSize &alph_size, const LenSq pointer);
-            GenericSequenceIterator(SequenceReference sequence, const AlphSize &alph_size);
+            GenericSequenceIterator(reference sequence, const AlphSize &alph_size, LenSq pointer);
+            GenericSequenceIterator(reference sequence, const AlphSize &alph_size);
             GenericSequenceIterator(const GenericSequenceIterator<false> &other);
 
             GenericSequenceIterator& operator++();
@@ -156,7 +160,7 @@ namespace tidysq {
     template<typename INTERNAL>
     template<bool CONST>
     inline Sequence<INTERNAL>::GenericSequenceIterator<CONST>::GenericSequenceIterator(
-            SequenceReference sequence, const AlphSize &alph_size, const LenSq pointer) :
+            reference sequence, const AlphSize &alph_size, const LenSq pointer) :
             sequence_(sequence),
             alph_size_(alph_size),
             pointer_(pointer) {}
@@ -164,7 +168,7 @@ namespace tidysq {
     template<typename INTERNAL>
     template<bool CONST>
     inline Sequence<INTERNAL>::GenericSequenceIterator<CONST>::GenericSequenceIterator(
-            SequenceReference sequence, const AlphSize &alph_size) :
+            reference sequence, const AlphSize &alph_size) :
             GenericSequenceIterator(sequence, alph_size, 0) {}
 
 
