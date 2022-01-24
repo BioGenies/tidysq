@@ -1,3 +1,7 @@
+# tidysq 1.1.2-2
+## Fixed:
+* replaced deprecated use of `iterator`
+
 # tidysq 1.1.2-1
 ## Fixed:
 * adjusted declaration of function autoexported by `Rcpp` to match new `testthat` standards
