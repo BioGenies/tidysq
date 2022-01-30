@@ -10,5 +10,5 @@ The \code{tidysq} package is a toolbox for the analysis of
 biological sequences in a tidy way.
 }
 \author{
-Michal Burdukiewicz, Dominik Rafacz, Mateusz Bąkała, Leon Eyrich Jessen
+Michal Burdukiewicz, Dominik Rafacz, Laura Bąkała, Leon Eyrich Jessen
 }

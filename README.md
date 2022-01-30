@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tidysq)](https://cran.r-project.org/package=tidysq)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tidysq)](https://cran.r-project.org/package=tidysq)
 [![Github Actions Build
 Status](https://github.com/BioGenies/tidysq/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/BioGenies/tidysq/actions)
 [![codecov.io](https://codecov.io/github/BioGenies/tidysq/coverage.svg?branch=master)](https://codecov.io/github/BioGenies/tidysq?branch=master)
@@ -17,10 +17,10 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 sequences (including amino acid and nucleic acid – e.g. RNA, DNA –
 sequences). Two major features of this package are:
 
-  - effective compression of sequence data, allowing to fit larger
+-   effective compression of sequence data, allowing to fit larger
     datasets in **R**,
 
-  - compatibility with most of `tidyverse` universe, especially `dplyr`
+-   compatibility with most of `tidyverse` universe, especially `dplyr`
     and `vctrs` packages, making analyses *tidier*.
 
 ## Getting started
@@ -57,7 +57,7 @@ library(tidysq)
 file <- system.file("examples", "example_aa.fasta", package = "tidysq")
 sqibble <- read_fasta(file)
 sqibble
-#> # A tibble: 421 x 2
+#> # A tibble: 421 × 2
 #>    sq             name                               
 #>    <ami_bsc>      <chr>                              
 #>  1 PGGGKVQIV <13> AMY1|K19|T-Protein (Tau)           
@@ -121,7 +121,7 @@ reverse(sq_ami)
 
 # find_motifs() returns a whole tibble of useful informations
 find_motifs(sqibble$sq, sqibble$name, "^VHX")
-#> # A tibble: 9 x 5
+#> # A tibble: 9 × 5
 #>   names                                found     sought start   end
 #>   <chr>                                <ami_bsc> <chr>  <int> <int>
 #> 1 AMY24|HABP2|Amyloid beta A4 peptide  VHP   <3> ^VHX       1     3
@@ -143,7 +143,7 @@ library(dplyr)
 sqibble %>%
   filter(sq %has% "VFF") %>%
   mutate(length = get_sq_lengths(sq))
-#> # A tibble: 24 x 3
+#> # A tibble: 24 × 3
 #>    sq             name                                 length
 #>    <ami_bsc>      <chr>                                 <dbl>
 #>  1 DAEFRHDSG <40> AMY22|Whole|Amyloid beta A4 peptide      40
@@ -169,7 +169,7 @@ citation("tidysq")
 
 or use:
 
-Michal Burdukiewicz, Dominik Rafacz, Mateusz Bakala, Jadwiga Slowik,
+Michal Burdukiewicz, Dominik Rafacz, Laura Bakala, Jadwiga Slowik,
 Weronika Puchala, Filip Pietluch, Katarzyna Sidorczuk, Stefan Roediger
 and Leon Eyrich Jessen (2021). tidysq: Tidy Processing and Analysis of
-Biological Sequences. R package version 1.1.0.
+Biological Sequences. R package version 1.1.3.

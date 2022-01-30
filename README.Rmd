@@ -92,4 +92,4 @@ citation("tidysq")
 
 or use:
 
-Michal Burdukiewicz, Dominik Rafacz, Mateusz Bakala, Jadwiga Slowik, Weronika Puchala, Filip Pietluch, Katarzyna Sidorczuk, Stefan Roediger and Leon Eyrich Jessen (2021). tidysq: Tidy Processing and Analysis of Biological Sequences. R package version 1.1.0.
+Michal Burdukiewicz, Dominik Rafacz, Laura Bakala, Jadwiga Slowik, Weronika Puchala, Filip Pietluch, Katarzyna Sidorczuk, Stefan Roediger and Leon Eyrich Jessen (2021). tidysq: Tidy Processing and Analysis of Biological Sequences. R package version 1.1.3.
