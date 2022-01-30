@@ -18,3 +18,4 @@ docs
 ^\.idea$
 ^src/main\.cpp$
 ^src/CMakeLists\.txt$
+^src/cmake-build-debug$
