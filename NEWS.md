@@ -1,4 +1,4 @@
-# tidysq 1.1.2-2
+# tidysq 1.1.3
 ## Fixed:
 * replaced deprecated use of `iterator`
 
