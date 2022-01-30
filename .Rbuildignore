@@ -15,3 +15,6 @@ docs
 ^cran-comments\.md$
 ^doc$
 ^Meta$
+^\.idea$
+^src/main\.cpp$
+^src/CMakeLists\.txt$
