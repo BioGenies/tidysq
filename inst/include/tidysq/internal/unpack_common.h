@@ -237,3 +237,50 @@ namespace tidysq::internal {
         }
     }
 }
+
+
+
+namespace tidysq::alt::internal {
+    template<typename ITER_CONST_IN, typename ITER_OUT>
+    void unpack_octet_5(ITER_CONST_IN &it_in, ITER_OUT &it_out) {
+        LetterValue v1, v2;
+
+        v1 = *it_in;
+        ++it_in;
+        v2 = *it_in;
+        ++it_in;
+
+        *it_out = v1 & 31u;
+        ++it_out;
+
+        *it_out = ((v1 >> 5u) & 7u) | ((v2 << 3u) & 31u);
+        ++it_out;
+
+        *it_out = (v2 >> 2u) & 31;
+        ++it_out;
+
+        v1 = *it_in;
+        ++it_in;
+
+        *it_out = ((v2 >> 7u) & 1u) | ((v1 << 1u) & 31u);
+        ++it_out;
+
+        v2 = *it_in;
+        ++it_in;
+
+        *it_out = ((v1 >> 4u) & 15) | ((v2 << 4u) & 31);
+        ++it_out;
+
+        *it_out = (v2 >> 1u) & 31u;
+        ++it_out;
+
+        v1 = *it_in;
+        ++it_in;
+
+        *it_out = ((v2 >> 6u) & 3u) | ((v1 << 2u) & 31u);
+        ++it_out;
+
+        *it_out = (v1 >> 3u) & 31u;
+        ++it_out;
+    }
+}
