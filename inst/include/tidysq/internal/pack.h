@@ -169,6 +169,7 @@ namespace tidysq::internal {
 #define ALIGN_RLL(reg_num_a, shift_a, reg_num_b, shift_b, reg_num_c, shift_c) \
     *it_out = (v##reg_num_a >> shift_a##u) | (v##reg_num_b << shift_b##u) | (v##reg_num_c << shift_c##u); \
     ++it_out;
+
 namespace tidysq::alt::internal {
     template<typename ITER_CONST_IN, typename ITER_OUT>
     void pack_octet_5(ITER_CONST_IN &it_in, ITER_OUT &it_out) {
