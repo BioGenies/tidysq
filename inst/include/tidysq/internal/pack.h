@@ -157,45 +157,39 @@ namespace tidysq::internal {
     }
 }
 
+#define FETCH(reg_num) \
+    v##reg_num = *it_in;\
+    ++it_in;
+#define ALIGN_0L(reg_num_a, reg_num_b, shift_b) \
+    *it_out = v##reg_num_a | (v##reg_num_b << shift_b##u); \
+    ++it_out;
+#define ALIGN_RL(reg_num_a, shift_a, reg_num_b, shift_b) \
+    *it_out = (v##reg_num_a >> shift_a##u) | (v##reg_num_b << shift_b##u); \
+    ++it_out;
+#define ALIGN_RLL(reg_num_a, shift_a, reg_num_b, shift_b, reg_num_c, shift_c) \
+    *it_out = (v##reg_num_a >> shift_a##u) | (v##reg_num_b << shift_b##u) | (v##reg_num_c << shift_c##u); \
+    ++it_out;
 namespace tidysq::alt::internal {
     template<typename ITER_CONST_IN, typename ITER_OUT>
     void pack_octet_5(ITER_CONST_IN &it_in, ITER_OUT &it_out) {
         LetterValue v1, v2, v3;
-        
-        v1 = *it_in;
-        ++it_in;
-        v2 = *it_in;
-        ++it_in;
-
-        *it_out = v1 | (v2 << 5u) ;
-        ++it_out;
-
-        v1 = *it_in;
-        ++it_in;
-        v3 = *it_in;
-        ++it_in;
-
-        *it_out = (v2 >> 3u) | (v1 << 2u) | (v3 << 7u);
-        ++it_out;
-
-        v1 = *it_in;
-        ++it_in;
-
-        *it_out = (v3 >> 1u) | (v1 << 4u) ;
-        ++it_out;
-
-        v2 = *it_in;
-        ++it_in;
-        v3 = *it_in;
-        ++it_in;
-
-        *it_out = (v1 >> 4u) | (v2 << 1u) | (v3 << 6u) ;
-        ++it_out;
-
-        v1 = *it_in;
-        ++it_in;
-
-        *it_out  = (v3 >> 2u) | (v1 << 3u);
-        ++it_out;
+        FETCH(1)
+        FETCH(2)
+        ALIGN_0L(1, 2, 5)
+        FETCH(1)
+        FETCH(3)
+        ALIGN_RLL(2, 3, 1, 2, 3, 7)
+        FETCH(1)
+        ALIGN_RL(3, 1, 1, 4)
+        FETCH(2)
+        FETCH(3)
+        ALIGN_RLL(1, 4, 2, 1, 3, 6)
+        FETCH(1)
+        ALIGN_RL(3, 2, 1, 3)
     }
 }
+
+#undef FETCH
+#undef ALIGN_0L
+#undef ALIGN_RL
+#undef ALIGN_RLL
