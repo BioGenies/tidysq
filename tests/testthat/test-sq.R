@@ -1,3 +1,5 @@
+skip("Not reimplemented yet.")
+
 # SETUP ----
 str_dna <- c("TACTGGGCATG", "CAGGTCGGA", "TAGTAGTCCG", "", "ACGGT")
 str_dna_ic <- c("TaCTggGcAtg", "cAggTCgGA", "tAGTAgtCCG", "", "acgGT")

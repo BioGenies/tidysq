@@ -1,3 +1,5 @@
+skip("Not reimplemented yet.")
+
 # SETUP ----
 char_atp <- c("mA", "mY", "nbA", "nsA")
 

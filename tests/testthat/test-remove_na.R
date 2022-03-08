@@ -1,3 +1,5 @@
+skip("Not reimplemented yet.")
+
 # SETUP ----
 suppressWarnings({
   sq_ami <- bite(sq(c("MIAANYTWIL", "", "TIAALGNIIYRAIE", "NYERTGHLI", "MAYXXXIALN"),

@@ -1,3 +1,5 @@
+skip("Not reimplemented yet.")
+
 # SETUP ----
 sq_dna <- sq(c("ACTGTC", "CGCGTTA"), alphabet = "dna_bsc")
 sq_ami <- sq(c("APOPNIQEV", "CSVMIBF"), alphabet = "ami_ext")

@@ -1,6 +1,6 @@
 #include <Rcpp.h>
 
-#include "tidysq.h"
+#include "tidysq/internal/pack.h"
 
 using namespace tidysq;
 

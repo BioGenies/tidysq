@@ -1,3 +1,5 @@
+skip("Not reimplemented yet.")
+
 # SETUP ----
 NA_letter <- getOption("tidysq_NA_letter")
 

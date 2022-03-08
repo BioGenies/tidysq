@@ -1,3 +1,5 @@
+skip("Not reimplemented yet.")
+
 # CORRECT PROTOTYPE OF RETURNED VALUE ----
 test_that("random_sq() returns an object of sq class", {
   expect_vector(random_sq(4, 7, "dna_bsc"),

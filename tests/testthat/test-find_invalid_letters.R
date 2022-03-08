@@ -1,3 +1,5 @@
+skip("Not reimplemented yet.")
+
 # SETUP ----
 sq_1 <- sq(c("QWERTYUIOP", "ASDF-GHJKL", "ZXCV-BNM"), alphabet = "unt")
 sq_2 <- sq(c("", "CAGTGT", "CGGCTATXT"), alphabet = LETTERS)

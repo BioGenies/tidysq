@@ -1,3 +1,5 @@
+skip("Not reimplemented yet.")
+
 # SETUP ----
 sq_unt <- sq(c("PQNVIXFD", "PDOQXN-FI", "SPBI-F-XXS"), alphabet = "unt")
 sq_atp <- sq(c("mAmYmY", "nbAnsAmA", ""),

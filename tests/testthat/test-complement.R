@@ -1,3 +1,5 @@
+skip("Not reimplemented yet.")
+
 # SETUP ----
 sq_dna <- sq(c("ATCTTGAAG", "CATATGCGCTA", "ACGTGTCGA", ""),
              alphabet = "dna_bsc")

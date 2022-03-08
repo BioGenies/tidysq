@@ -1,3 +1,5 @@
+skip("Not reimplemented yet.")
+
 # SETUP ----
 sq_ami <- sq(c("AGNTYIKFGGAYTIB", "MATEGILIAADGYTWIL", "MIPADHICAANGIENAGIK"),
              alphabet = "ami_ext")
