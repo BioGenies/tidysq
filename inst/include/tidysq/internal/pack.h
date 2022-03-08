@@ -156,3 +156,11 @@ namespace tidysq::internal {
         }
     }
 }
+
+namespace tidysq::v2::internal {
+    template<BitIndex LEN, typename ITER_CONST_IN, typename ITER_OUT>
+    void pack_3(ITER_CONST_IN &it_in, ITER_OUT &it_out);
+
+    template<BitIndex LEN, typename ITER_CONST_IN, typename ITER_OUT>
+    void pack_5(ITER_CONST_IN &it_in, ITER_OUT &it_out);
+}

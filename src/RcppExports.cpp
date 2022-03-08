@@ -375,6 +375,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPP_test_v2
+std::vector<unsigned char> CPP_test_v2();
+RcppExport SEXP _tidysq_CPP_test_v2() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(CPP_test_v2());
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPP_write_fasta
 void CPP_write_fasta(const Rcpp::List& x, const std::vector<std::string>& names, const std::string& file, const int& width, const tidysq::Letter& NA_value);
 RcppExport SEXP _tidysq_CPP_write_fasta(SEXP xSEXP, SEXP namesSEXP, SEXP fileSEXP, SEXP widthSEXP, SEXP NA_valueSEXP) {
@@ -390,7 +400,7 @@ BEGIN_RCPP
 END_RCPP
 }
 
-RcppExport SEXP run_testthat_tests(SEXP use_xml_sxp);
+RcppExport SEXP run_testthat_tests();
 
 static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_apply_R_function", (DL_FUNC) &_tidysq_CPP_apply_R_function, 4},
@@ -421,6 +431,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tidysq_CPP_unpack_INTS", (DL_FUNC) &_tidysq_CPP_unpack_INTS, 2},
     {"_tidysq_CPP_unpack_STRINGS", (DL_FUNC) &_tidysq_CPP_unpack_STRINGS, 2},
     {"_tidysq_CPP_unpack_STRING", (DL_FUNC) &_tidysq_CPP_unpack_STRING, 2},
+    {"_tidysq_CPP_test_v2", (DL_FUNC) &_tidysq_CPP_test_v2, 0},
     {"_tidysq_CPP_write_fasta", (DL_FUNC) &_tidysq_CPP_write_fasta, 5},
     {"run_testthat_tests", (DL_FUNC) &run_testthat_tests, 0},
     {NULL, NULL, 0}

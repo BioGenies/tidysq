@@ -1,0 +1,9 @@
+#undef FETCH
+#undef FETCH_OR_ZERO
+#undef FETCH_OR_RETURN
+#undef ALIGN_AND_TRIM_1
+#undef ALIGN_AND_TRIM_1_OR_RETURN
+#undef ALIGN_AND_TRIM_2
+#undef ALIGN_2
+#undef ALIGN_3
+#undef ALIGN_4

@@ -20,6 +20,13 @@ namespace tidysq {
     typedef std::string             Letter;
     typedef char                    SimpleLetter;
 
+    using LetterVal = unsigned char;
+    using AlphLen = size_t;
+    using BitShift = unsigned char;
+    using BitIndex = unsigned char;
+    using ElemPacked = unsigned char;
+
+
     template<typename INTERNAL, typename PROTO>
     class ProtoSequence;
 

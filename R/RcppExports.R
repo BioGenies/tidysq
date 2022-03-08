@@ -113,6 +113,10 @@ CPP_unpack_STRING <- function(sq, NA_letter) {
     .Call(`_tidysq_CPP_unpack_STRING`, sq, NA_letter)
 }
 
+CPP_test_v2 <- function() {
+    .Call(`_tidysq_CPP_test_v2`)
+}
+
 CPP_write_fasta <- function(x, names, file, width, NA_value) {
     invisible(.Call(`_tidysq_CPP_write_fasta`, x, names, file, width, NA_value))
 }
