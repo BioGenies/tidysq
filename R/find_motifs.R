@@ -8,10 +8,8 @@
 #' @template name
 #' @param motifs [\code{character}]\cr
 #'  Motifs to be searched for.
-#' @param .sq [\code{character(1)}]\cr
-#'  Name of a column that stores sequences.
-#' @param .name [\code{character(1)}]\cr
-#'  Name of a column that stores names (unique identifiers).
+#' @template dot-sq
+#' @template dot-name
 #' @template NA_letter
 #' @template three-dots
 #' 

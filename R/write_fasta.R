@@ -9,6 +9,8 @@
 #' @template name
 #' @param file [\code{character(1)}]\cr
 #'  Absolute path to file to write to.
+#' @template dot-sq
+#' @template dot-name
 #' @param width [\code{integer(1)}]\cr
 #'  Maximum number of characters to put in each line of file. Must be positive.
 #' @template NA_letter

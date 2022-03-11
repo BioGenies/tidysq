@@ -2,12 +2,25 @@
 % Please edit documentation in R/write_fasta.R
 \name{write_fasta}
 \alias{write_fasta}
+\alias{write_fasta.sq}
+\alias{write_fasta.data.frame}
 \title{Save sq to fasta file}
 \usage{
-write_fasta(
+write_fasta(x, ...)
+
+\method{write_fasta}{sq}(
   x,
   name,
   file,
+  width = 80,
+  NA_letter = getOption("tidysq_NA_letter")
+)
+
+\method{write_fasta}{data.frame}(
+  x,
+  file,
+  .sq = "sq",
+  .name = "name",
   width = 80,
   NA_letter = getOption("tidysq_NA_letter")
 )
@@ -29,6 +42,12 @@ Maximum number of characters to put in each line of file. Must be positive.}
 A string that is used to interpret and display \code{NA} value in the
 context of \code{\link[=sq-class]{sq class}}. Default value equals to
 "\code{!}".}
+
+\item{.sq}{[\code{character(1)}]\cr
+Name of a column that stores sequences.}
+
+\item{.name}{[\code{character(1)}]\cr
+Name of a column that stores names (unique identifiers).}
 }
 \value{
 No value is returned.
