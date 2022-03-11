@@ -17,6 +17,28 @@ names_5 <- c("Monza", "Imola", "Mugello", "Pescara", "Modena")
 names_4 <- c("gara", "zara", "zarete", "dira")
 names_3 <- c("naiz", "haiz", "da")
 
+df_dna_bsc <- tibble::tibble(
+  sq = sq_dna_bsc,
+  name = names_5
+)
+
+df_dna_ext <- tibble::tibble(
+  id = names_5,
+  sequence = sq_dna_ext
+)
+
+df_ami_bsc <- tibble::tibble(
+  sq = sq_ami_bsc,
+  id = LETTERS[seq_len(4)],
+  name = names_4
+)
+
+df_rna_ext <- tibble::tibble(
+  id = names_5,
+  sequence = sq_rna_ext,
+  name = letters[seq_len(5)]
+)
+
 N_interpretations <- c("A", "C", "G", "T", "K", "R", "Y", "W", "S", "M", "B", "D", "H", "V", "N")
 
 # ERROR FOR NON-SQ OBJECTS ----
@@ -216,4 +238,42 @@ test_that("index columns can be used to retrieve found subsequence from original
       found
     )
   })
+})
+
+# DATA.FRAME INPUT ----
+test_that("data.frame columns are extracted and passed to find_motifs.sq()", {
+  expect_identical(
+    find_motifs(df_dna_bsc, "TAG", .sq = "sq", .name = "name"),
+    find_motifs(sq_dna_bsc, names_5, "TAG")
+  )
+})
+
+test_that("by default 'sq' and 'name' columns are extracted", {
+  expect_identical(
+    find_motifs(df_dna_bsc, "TAG"),
+    find_motifs(sq_dna_bsc, names_5, "TAG")
+  )
+  expect_identical(
+    find_motifs(df_ami_bsc, c("XAI", "CX")),
+    find_motifs(sq_ami_bsc, names_4, c("XAI", "CX"))
+  )
+})
+
+test_that("it is possible to use different columns than default ones", {
+  expect_identical(
+    find_motifs(df_rna_ext, "AU", .sq = "sequence", .name = "id"),
+    find_motifs(sq_rna_ext, names_5, "AU")
+  )
+  expect_identical(
+    find_motifs(df_dna_ext, "NND$", .sq = "sequence", .name = "id"),
+    find_motifs(sq_dna_ext, names_5, "NND$")
+  )
+})
+
+test_that(".sq and .name must be single strings", {
+  expect_error(find_motifs(df_dna_ext, "NND$", .sq = LETTERS, .name = letters))
+  expect_error(find_motifs(df_dna_ext, "NND$", .sq = 5, .name = "id"))
+  expect_error(find_motifs(df_dna_ext, "NND$", .name = list()))
+  expect_error(find_motifs(df_dna_ext, "NND$", .sq = NA_character_))
+  expect_error(find_motifs(df_dna_ext, "NND$", .sq = NULL))
 })
