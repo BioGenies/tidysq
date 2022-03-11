@@ -14,6 +14,7 @@
 #' @param width [\code{integer(1)}]\cr
 #'  Maximum number of characters to put in each line of file. Must be positive.
 #' @template NA_letter
+#' @template three-dots
 #'
 #' @return No value is returned.
 #' 
@@ -27,7 +28,7 @@
 #'              alphabet = "dna_bsc")
 #' write_fasta(sq_dna,
 #'             c("bat", "cat", "rat", "elephant_swallowed_by_A_snake"),
-#'             "~/fasta_rubbish/example.fasta")
+#'             tempfile())
 #' }
 #' 
 #' # It can be a part of tidyverse pipeline:
@@ -35,7 +36,7 @@
 #' fasta_file <- system.file(package = "tidysq", "examples/example_aa.fasta")
 #' read_fasta(fasta_file) %>%
 #'   mutate(name = toupper(name)) %>%
-#'   write_fasta("~/fasta_rubbish/other.fasta")
+#'   write_fasta(tempfile())
 #'
 #' @family output_functions
 #' @export
@@ -51,7 +52,8 @@ write_fasta.default <- function(x, ...)
 #' @export
 write_fasta.sq <- function(x, name, file,
                            width = 80,
-                           NA_letter = getOption("tidysq_NA_letter")) {
+                           NA_letter = getOption("tidysq_NA_letter"),
+                           ...) {
   assert_character(name, len = vec_size(x), any.missing = FALSE)
   assert_string(file)
   assert_count(width, positive = TRUE)
@@ -66,7 +68,8 @@ write_fasta.data.frame <- function(x, file,
                                    .sq = "sq",
                                    .name = "name",
                                    width = 80,
-                                   NA_letter = getOption("tidysq_NA_letter")) {
+                                   NA_letter = getOption("tidysq_NA_letter"),
+                                   ...) {
   assert_string(.sq, min.chars = 1)
   assert_string(.name, min.chars = 1)
   assert_subset(c(.sq, .name), colnames(x))

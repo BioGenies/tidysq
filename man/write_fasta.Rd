@@ -13,7 +13,8 @@ write_fasta(x, ...)
   name,
   file,
   width = 80,
-  NA_letter = getOption("tidysq_NA_letter")
+  NA_letter = getOption("tidysq_NA_letter"),
+  ...
 )
 
 \method{write_fasta}{data.frame}(
@@ -22,12 +23,15 @@ write_fasta(x, ...)
   .sq = "sq",
   .name = "name",
   width = 80,
-  NA_letter = getOption("tidysq_NA_letter")
+  NA_letter = getOption("tidysq_NA_letter"),
+  ...
 )
 }
 \arguments{
 \item{x}{[\code{sq}]\cr
 An object this function is applied to.}
+
+\item{...}{further arguments to be passed from or to other methods.}
 
 \item{name}{[\code{character}]\cr
 Vector of sequence names. Must be of the same length as \code{sq} object.}
@@ -66,7 +70,7 @@ sq_dna <- sq(c("ACTGCTG", "CTTAGA", "CCCT", "CTGAATGT"),
              alphabet = "dna_bsc")
 write_fasta(sq_dna,
             c("bat", "cat", "rat", "elephant_swallowed_by_A_snake"),
-            "~/fasta_rubbish/example.fasta")
+            tempfile())
 }
 
 # It can be a part of tidyverse pipeline:
@@ -74,7 +78,7 @@ library(dplyr)
 fasta_file <- system.file(package = "tidysq", "examples/example_aa.fasta")
 read_fasta(fasta_file) \%>\%
   mutate(name = toupper(name)) \%>\%
-  write_fasta("~/fasta_rubbish/other.fasta")
+  write_fasta(tempfile())
 
 }
 \seealso{
