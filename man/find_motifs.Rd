@@ -3,15 +3,27 @@
 \name{find_motifs}
 \alias{find_motifs}
 \alias{find_motifs.sq}
+\alias{find_motifs.data.frame}
 \title{Find given motifs}
 \usage{
-find_motifs(x, name, motifs, ...)
+find_motifs(x, ...)
 
 \method{find_motifs}{sq}(x, name, motifs, ..., NA_letter = getOption("tidysq_NA_letter"))
+
+\method{find_motifs}{data.frame}(
+  x,
+  motifs,
+  ...,
+  .sq = "sq",
+  .name = "name",
+  NA_letter = getOption("tidysq_NA_letter")
+)
 }
 \arguments{
 \item{x}{[\code{sq}]\cr
 An object this function is applied to.}
+
+\item{...}{further arguments to be passed from or to other methods.}
 
 \item{name}{[\code{character}]\cr
 Vector of sequence names. Must be of the same length as \code{sq} object.}
@@ -19,12 +31,16 @@ Vector of sequence names. Must be of the same length as \code{sq} object.}
 \item{motifs}{[\code{character}]\cr
 Motifs to be searched for.}
 
-\item{...}{further arguments to be passed from or to other methods.}
-
 \item{NA_letter}{[\code{character(1)}]\cr
 A string that is used to interpret and display \code{NA} value in the
 context of \code{\link[=sq-class]{sq class}}. Default value equals to
 "\code{!}".}
+
+\item{.sq}{[\code{character(1)}]\cr
+Name of a column that stores sequences.}
+
+\item{.name}{[\code{character(1)}]\cr
+Name of a column that stores names (unique identifiers).}
 }
 \value{
 A \code{\link[tibble]{tibble}} with following columns:
@@ -88,6 +104,13 @@ find_motifs(sq_dna, sq_names, c("^ABN", "ANCBY", "BAN$"))
 
 # Finding multicharacter motifs:
 find_motifs(sq_atp, sq_names, c("nsA", "mYmY$"))
+
+# It can be a part of tidyverse pipeline:
+library(dplyr)
+fasta_file <- system.file(package = "tidysq", "examples/example_aa.fasta")
+read_fasta(fasta_file) \%>\%
+  mutate(name = toupper(name)) \%>\%
+  find_motifs("TXG")
 
 }
 \seealso{

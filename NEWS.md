@@ -1,3 +1,7 @@
+# tidysq 1.1.4
+## New features:
+* `write_fasta()` and `find_motifs()` accept `data.frame` arguments now; sequences and their names are taken from specified two columns
+
 # tidysq 1.1.3
 ## Fixed:
 * replaced deprecated use of `iterator`
