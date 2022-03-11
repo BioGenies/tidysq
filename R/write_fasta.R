@@ -30,14 +30,37 @@
 #'
 #' @family output_functions
 #' @export
-write_fasta <- function(x, name, file,
-                        width = 80,
-                        NA_letter = getOption("tidysq_NA_letter")) {
-  assert_class(x, "sq")
+write_fasta <- function(x, ...) {
+  UseMethod("write_fasta")
+}
+
+#' @export
+write_fasta.default <- function(x, ...)
+  stop("method 'write_fasta' isn't implemented for this type of object")
+
+#' @rdname write_fasta
+#' @export
+write_fasta.sq <- function(x, name, file,
+                           width = 80,
+                           NA_letter = getOption("tidysq_NA_letter")) {
   assert_character(name, len = vec_size(x), any.missing = FALSE)
   assert_string(file)
   assert_count(width, positive = TRUE)
   assert_string(NA_letter, min.chars = 1)
   
   CPP_write_fasta(x, name, file, width, NA_letter)
+}
+
+#' @rdname write_fasta
+#' @export
+write_fasta.data.frame <- function(x, file,
+                                   .sq = "sq",
+                                   .name = "name",
+                                   width = 80,
+                                   NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(.sq, min.chars = 1)
+  assert_string(.name, min.chars = 1)
+  assert_subset(c(.sq, .name), colnames(x))
+  
+  write_fasta(x[[.sq]], x[[.name]], file, width = width, NA_letter = NA_letter)
 }
