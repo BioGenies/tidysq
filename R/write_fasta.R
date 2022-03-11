@@ -29,6 +29,13 @@
 #'             c("bat", "cat", "rat", "elephant_swallowed_by_A_snake"),
 #'             "~/fasta_rubbish/example.fasta")
 #' }
+#' 
+#' # It can be a part of tidyverse pipeline:
+#' library(dplyr)
+#' fasta_file <- system.file(package = "tidysq", "examples/example_aa.fasta")
+#' read_fasta(fasta_file) %>%
+#'   mutate(name = toupper(name)) %>%
+#'   write_fasta("~/fasta_rubbish/other.fasta")
 #'
 #' @family output_functions
 #' @export
