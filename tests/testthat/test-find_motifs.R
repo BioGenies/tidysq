@@ -270,10 +270,11 @@ test_that("it is possible to use different columns than default ones", {
   )
 })
 
-test_that(".sq and .name must be single strings", {
+test_that(".sq and .name must be single, non-empty strings", {
   expect_error(find_motifs(df_dna_ext, "NND$", .sq = LETTERS, .name = letters))
   expect_error(find_motifs(df_dna_ext, "NND$", .sq = 5, .name = "id"))
   expect_error(find_motifs(df_dna_ext, "NND$", .name = list()))
   expect_error(find_motifs(df_dna_ext, "NND$", .sq = NA_character_))
   expect_error(find_motifs(df_dna_ext, "NND$", .sq = NULL))
+  expect_error(find_motifs(df_dna_ext, "NND$", .name = ""))
 })
