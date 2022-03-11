@@ -55,6 +55,13 @@
 #'
 #' # Finding multicharacter motifs:
 #' find_motifs(sq_atp, sq_names, c("nsA", "mYmY$"))
+#' 
+#' # It can be a part of tidyverse pipeline:
+#' library(dplyr)
+#' fasta_file <- system.file(package = "tidysq", "examples/example_aa.fasta")
+#' read_fasta(fasta_file) %>%
+#'   mutate(name = toupper(name)) %>%
+#'   find_motifs("TXG")
 #'
 #' @family bio_functions
 #' @export
