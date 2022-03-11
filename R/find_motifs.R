@@ -8,6 +8,10 @@
 #' @template name
 #' @param motifs [\code{character}]\cr
 #'  Motifs to be searched for.
+#' @param .sq [\code{character(1)}]\cr
+#'  Name of a column that stores sequences.
+#' @param .name [\code{character(1)}]\cr
+#'  Name of a column that stores names (unique identifiers).
 #' @template NA_letter
 #' @template three-dots
 #' 
@@ -54,15 +58,12 @@
 #'
 #' @family bio_functions
 #' @export
-find_motifs <- function(x, name, motifs, ...) {
-  assert_character(name, len = vec_size(x), unique = TRUE)
-  assert_character(motifs, any.missing = FALSE)
-  
+find_motifs <- function(x, ...) {
   UseMethod("find_motifs")
 }
 
 #' @export
-find_motifs.default <- function(x, name, motifs, ...)
+find_motifs.default <- function(x, ...)
   stop("method 'find_motifs' isn't implemented for this type of object")
 
 #' @rdname find_motifs
@@ -70,9 +71,25 @@ find_motifs.default <- function(x, name, motifs, ...)
 #' @importFrom tibble as_tibble
 find_motifs.sq <- function(x, name, motifs, ...,
                            NA_letter = getOption("tidysq_NA_letter")) {
+  assert_character(name, len = vec_size(x), unique = TRUE)
+  assert_character(motifs, any.missing = FALSE)
   assert_string(NA_letter, min.chars = 1)
   assert_alph_no_special_chars(alphabet(x))
   
   ret <- CPP_find_motifs(x, name, motifs, NA_letter)
   as_tibble(ret)
+}
+
+#' @rdname find_motifs
+#' @export
+#' @importFrom tibble as_tibble
+find_motifs.data.frame <- function(x, motifs, ...,
+                                   .sq = "sq",
+                                   .name = "name",
+                                   NA_letter = getOption("tidysq_NA_letter")) {
+  assert_string(.sq, min.chars = 1)
+  assert_string(.name, min.chars = 1)
+  assert_subset(c(.sq, .name), colnames(x))
+  
+  find_motifs(x[[.sq]], x[[.name]], motifs, ..., NA_letter = NA_letter)
 }
