@@ -139,3 +139,42 @@ test_that("write_fasta() keeps line width", {
     expect_true(all(nchar(readLines(fasta_out)) <= 80))
   })
 })
+
+# WRITE DATA.FRAME ----
+test_that("data.frame columns are extracted and passed to write_fasta.sq()", {
+  fasta_out_df <- withr::local_tempfile()
+  write_fasta(read_fasta(fasta_file_dna_bsc, "dna_bsc"), fasta_out_df)
+  
+  fasta_out_sq <- withr::local_tempfile()
+  write_fasta(sq(str_dna_bsc, "dna_bsc"), name[1:3], fasta_out_sq)
+  
+  expect_equal(
+    read_fasta(fasta_out_df),
+    read_fasta(fasta_out_sq)
+  )
+})
+
+test_that("used data.frame columns can be specified", {
+  fasta_out_df <- withr::local_tempfile()
+  df_sq <- read_fasta(fasta_file_dna_bsc, "dna_bsc")
+  df_sq[["name_upper"]] <- toupper(df_sq[["name"]])
+  write_fasta(df_sq, fasta_out_df, .sq = "sq", .name = "name_upper")
+  
+  fasta_out_sq <- withr::local_tempfile()
+  write_fasta(sq(str_dna_bsc, "dna_bsc"), toupper(name[1:3]), fasta_out_sq)
+  
+  expect_equal(
+    read_fasta(fasta_out_df),
+    read_fasta(fasta_out_sq)
+  )
+})
+
+test_that("data.frame method properly passes 'width' parameter", {
+  withr::with_tempfile("fasta_out", {
+    write_fasta(
+      data.frame(sq = long_sq, name = name[1]),
+      fasta_out, width = 80
+    )
+    expect_true(all(nchar(readLines(fasta_out)) <= 80))
+  })
+})
