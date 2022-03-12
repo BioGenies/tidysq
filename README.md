@@ -120,19 +120,19 @@ reverse(sq_ami)
 #> printed 10 out of 421
 
 # find_motifs() returns a whole tibble of useful informations
-find_motifs(sqibble$sq, sqibble$name, "^VHX")
+find_motifs(sqibble, "^VHX")
 #> # A tibble: 9 × 5
 #>   names                                found     sought start   end
 #>   <chr>                                <ami_bsc> <chr>  <int> <int>
-#> 1 AMY24|HABP2|Amyloid beta A4 peptide  VHP   <3> ^VHX       1     3
-#> 2 AMY25|HABP3|Amyloid beta A4 peptide  VHH   <3> ^VHX       1     3
-#> 3 AMY26|HABP4|Amyloid beta A4 peptide  VHH   <3> ^VHX       1     3
-#> 4 AMY34|HABP12|Amyloid beta A4 peptide VHH   <3> ^VHX       1     3
-#> 5 AMY35|HABP13|Amyloid beta A4 peptide VHH   <3> ^VHX       1     3
-#> 6 AMY36|HABP14|Amyloid beta A4 peptide VHH   <3> ^VHX       1     3
-#> 7 AMY38|HABP16|Amyloid beta A4 peptide VHH   <3> ^VHX       1     3
-#> 8 AMY43|AB5|Amyloid beta A4 peptide    VHH   <3> ^VHX       1     3
-#> 9 AMY195|86-95|Prion protein (human)   VHD   <3> ^VHX       1     3
+#> 1 AMY24|HABP2|Amyloid beta A4 peptide  VHP <3>   ^VHX       1     3
+#> 2 AMY25|HABP3|Amyloid beta A4 peptide  VHH <3>   ^VHX       1     3
+#> 3 AMY26|HABP4|Amyloid beta A4 peptide  VHH <3>   ^VHX       1     3
+#> 4 AMY34|HABP12|Amyloid beta A4 peptide VHH <3>   ^VHX       1     3
+#> 5 AMY35|HABP13|Amyloid beta A4 peptide VHH <3>   ^VHX       1     3
+#> 6 AMY36|HABP14|Amyloid beta A4 peptide VHH <3>   ^VHX       1     3
+#> 7 AMY38|HABP16|Amyloid beta A4 peptide VHH <3>   ^VHX       1     3
+#> 8 AMY43|AB5|Amyloid beta A4 peptide    VHH <3>   ^VHX       1     3
+#> 9 AMY195|86-95|Prion protein (human)   VHD <3>   ^VHX       1     3
 ```
 
 An example of `dplyr` integration:
