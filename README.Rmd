@@ -69,7 +69,7 @@ bite(sq_ami, 5:10)
 reverse(sq_ami)
 
 # find_motifs() returns a whole tibble of useful informations
-find_motifs(sqibble$sq, sqibble$name, "^VHX")
+find_motifs(sqibble, "^VHX")
 ```
 
 An example of `dplyr` integration:

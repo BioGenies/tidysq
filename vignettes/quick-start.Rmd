@@ -112,10 +112,20 @@ It says nothing about motif placement within sequence nor it exact form, however
 find_motifs(sq_dna, c("seq1", "seq2", "rev1", "rev2"), c("ATC", "TAG"))
 ```
 
+You can also provide this function with a `data.frame` (or, what we recommend, `tibble`) containing one column called `sq`, containing the sequences and the other colum `name` containing the names.
+
+```{r sqibble_find_motifs}
+sqibble <- tibble::tibble(sq = sq_dna, 
+                          name = c("seq1", "seq2", "rev1", "rev2"))
+
+# does the same as the call from previous chunk of code
+find_motifs(sqibble, c("ATC", "TAG"))
+```
+
 There are ambiguous DNA bases in IUPAC codes and these can be used in motifs. One of them is `"N"` --- its meaning is "any of `A`, `C`, `G` or `T`:
 
 ```{r sq_find_motifs_amb}
-find_motifs(sq_dna, c("seq1", "seq2", "rev1", "rev2"), "GNCC")
+find_motifs(sqibble, "GNCC")
 ```
 
 This example displays the difference between `"sought"` and `"found"` columns. The former contains the string representation of motif that the user was looking for, while the latter contains a `tidysq`-encoded sequence with an "instance" of motif.
@@ -123,15 +133,18 @@ This example displays the difference between `"sought"` and `"found"` columns. T
 Two additional characters are reserved because of their special meaning in motifs. `"^"` means that this motif must be found at the start of a sequence, while `"$"` means the same, but with the end instead. They can be mixed with ambiguous letters, of course:
 
 ```{r sq_find_motifs_start_end}
-find_motifs(sq_dna, c("seq1", "seq2", "rev1", "rev2"), c("^TAG", "ATN$"))
+find_motifs(sqibble, c("^TAG", "ATN$"))
 ```
 
 ## Exporting sq objects
 
-After doing computations the user might wish to save their sequences for future use. One of the most popular formats for storing biological sequences is FASTA. `tidysq` allows the user to write sequences to FASTA file with `write_fasta()` function. Important thing to remember here is that it has to be passed `name` parameter, analogous to that present in `find_motifs()`:
+After doing computations the user might wish to save their sequences for future use. One of the most popular formats for storing biological sequences is FASTA. `tidysq` allows the user to write sequences to FASTA file with `write_fasta()` function. Important thing to remember here that the arguments for the function are analogous to those used in `find_motifs()` -- either `sq` object and a vector of names or a `tibble` with columns of sequences and names:
 
 ```{r write_fasta, eval=FALSE}
 write_fasta(sq_dna,
             c("seq1", "seq2", "rev1", "rev2"),
+            "just_your_ordinary_fasta_file.fasta")
+# or
+write_fasta(sqibble,
             "just_your_ordinary_fasta_file.fasta")
 ```
