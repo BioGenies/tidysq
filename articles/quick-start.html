@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,23 +40,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -74,7 +70,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/BioGenies/tidysq/">
+  <a href="https://github.com/BioGenies/tidysq/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -89,13 +85,13 @@
 
       
 
-      </header><script src="quick-start_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Quick Start</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/BioGenies/tidysq/blob/master/vignettes/quick-start.Rmd"><code>vignettes/quick-start.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/BioGenies/tidysq/blob/HEAD/vignettes/quick-start.Rmd" class="external-link"><code>vignettes/quick-start.Rmd</code></a></small>
       <div class="hidden name"><code>quick-start.Rmd</code></div>
 
     </div>
@@ -106,168 +102,168 @@
 <p>The most recent version of <code>tidysq</code> can be installed with <code>install_github()</code> function from <code>devtools</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># devtools::install_github("BioGenies/tidysq")</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/BioGenies/tidysq">tidysq</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/BioGenies/tidysq" class="external-link">tidysq</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'tidysq'</span>
 <span class="co">#&gt; The following object is masked from 'package:base':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     paste</span></code></pre></div>
-<div id="sequence-creation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#sequence-creation" class="anchor"></a>Sequence creation</h2>
-<p>Biological sequences can be and often are represented as strings – sequences of letters. For example, a DNA sequence can take the form of <code>"TAGGCCCTAGACCTG"</code>, where <code>A</code> means adenine, <code>C</code> – cytosine, <code>G</code> – guanine and <code>T</code> – thymine. Exact IUPAC recommendations for one-letter codes can be found <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC341218/">here</a>.</p>
+<div class="section level2">
+<h2 id="sequence-creation">Sequence creation<a class="anchor" aria-label="anchor" href="#sequence-creation"></a>
+</h2>
+<p>Biological sequences can be and often are represented as strings – sequences of letters. For example, a DNA sequence can take the form of <code>"TAGGCCCTAGACCTG"</code>, where <code>A</code> means adenine, <code>C</code> – cytosine, <code>G</code> – guanine and <code>T</code> – thymine. Exact IUPAC recommendations for one-letter codes can be found <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC341218/" class="external-link">here</a>.</p>
 <p>Within <code>tidysq</code> package sequence data is stored in <code>sq</code> objects, that is, vectors of biological sequences. They can be created from string vectors as above:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sq_dna</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"TAGGCCCTAGACCTG"</span>, <span class="st">"TAGGCCCTGGGCATG"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">sq_dna</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TAGGCCCTAGACCTG"</span>, <span class="st">"TAGGCCCTGGGCATG"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">sq_dna</span>
 <span class="co">#&gt; basic DNA sequences list:</span>
-<span class="co">#&gt; [1] TAGGCCCTAGACCTG                                                         &lt;15&gt;</span>
-<span class="co">#&gt; [2] TAGGCCCTGGGCATG                                                         &lt;15&gt;</span></code></pre></div>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">TAGGCCCTAGACCTG</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">TAGGCCCTGGGCATG</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span></code></pre></div>
 <p>There are several thing to note. First, each sequence is an element of <code>sq</code> object. Many operations are vectorized — they are applied to all sequences of a vector — and <code>sq</code> objects are no different in this regard. Second, the first line of output says: <code>basic DNA sequences list</code>. This means that all sequences of this object are of DNA type and do not use ambiguous letters (more about that in “Advanced alphabet techniques” vignette).</p>
 </div>
-<div id="subsetting-sequences" class="section level2">
-<h2 class="hasAnchor">
-<a href="#subsetting-sequences" class="anchor"></a>Subsetting sequences</h2>
+<div class="section level2">
+<h2 id="subsetting-sequences">Subsetting sequences<a class="anchor" aria-label="anchor" href="#subsetting-sequences"></a>
+</h2>
 <p>Manipulating sequence objects is an integral part of <code>tidysq</code>. <code>sq</code> objects can be easily subsetted using usual R syntax:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sq_dna</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
 <span class="co">#&gt; basic DNA sequences list:</span>
-<span class="co">#&gt; [1] TAGGCCCTAGACCTG                                                         &lt;15&gt;</span></code></pre></div>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">TAGGCCCTAGACCTG</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span></code></pre></div>
 <p>Extracting subsequences is a bit more complicated than that — because it uses designated function <code><a href="../reference/bite.html">bite()</a></code>. Its syntax, however, closely resembles that of base R — indexing starts with one and negative indices are interpreted as “anything except that”. It returns an <code>sq</code> object with all sequences subsetted:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/bite.html">bite</a></span><span class="op">(</span><span class="va">sq_dna</span>, <span class="fl">5</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; basic DNA sequences list:</span>
-<span class="co">#&gt; [1] CCCTAG                                                                   &lt;6&gt;</span>
-<span class="co">#&gt; [2] CCCTGG                                                                   &lt;6&gt;</span>
-<span class="fu"><a href="../reference/bite.html">bite</a></span><span class="op">(</span><span class="va">sq_dna</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">9</span>, <span class="op">-</span><span class="fl">11</span>, <span class="op">-</span><span class="fl">13</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">CCCTAG</span>                                                                   <span style="color: #0000BB;">&lt;6&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">CCCTGG</span>                                                                   <span style="color: #0000BB;">&lt;6&gt;</span></span>
+<span class="fu"><a href="../reference/bite.html">bite</a></span><span class="op">(</span><span class="va">sq_dna</span>, <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">9</span>, <span class="op">-</span><span class="fl">11</span>, <span class="op">-</span><span class="fl">13</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; basic DNA sequences list:</span>
-<span class="co">#&gt; [1] TAGGCCCTGCTG                                                            &lt;12&gt;</span>
-<span class="co">#&gt; [2] TAGGCCCTGCTG                                                            &lt;12&gt;</span></code></pre></div>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">TAGGCCCTGCTG</span>                                                            <span style="color: #0000BB;">&lt;12&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">TAGGCCCTGCTG</span>                                                            <span style="color: #0000BB;">&lt;12&gt;</span></span></code></pre></div>
 <p>It’s possible to reverse sequences using this function:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Don't do it like that!</span>
 <span class="fu"><a href="../reference/bite.html">bite</a></span><span class="op">(</span><span class="va">sq_dna</span>, <span class="fl">15</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt; basic DNA sequences list:</span>
-<span class="co">#&gt; [1] GTCCAGATCCCGGAT                                                         &lt;15&gt;</span>
-<span class="co">#&gt; [2] GTACGGGTCCCGGAT                                                         &lt;15&gt;</span></code></pre></div>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">GTCCAGATCCCGGAT</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">GTACGGGTCCCGGAT</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span></code></pre></div>
 <p>However, this usage is strongly discouraged, because it’s both ineffective and works badly with sequences of different lengths. Instead, there is a designated function <code><a href="../reference/reverse.html">reverse()</a></code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/reverse.html">reverse</a></span><span class="op">(</span><span class="va">sq_dna</span><span class="op">)</span>
 <span class="co">#&gt; basic DNA sequences list:</span>
-<span class="co">#&gt; [1] GTCCAGATCCCGGAT                                                         &lt;15&gt;</span>
-<span class="co">#&gt; [2] GTACGGGTCCCGGAT                                                         &lt;15&gt;</span></code></pre></div>
-<p>Note that it is very different to base <code><a href="https://rdrr.io/r/base/rev.html">rev()</a></code>, which reverses only the order of sequences, not letters:</p>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">GTCCAGATCCCGGAT</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">GTACGGGTCCCGGAT</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span></code></pre></div>
+<p>Note that it is very different to base <code><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">rev()</a></code>, which reverses only the order of sequences, not letters:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="va">sq_dna</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">sq_dna</span><span class="op">)</span>
 <span class="co">#&gt; basic DNA sequences list:</span>
-<span class="co">#&gt; [1] TAGGCCCTGGGCATG                                                         &lt;15&gt;</span>
-<span class="co">#&gt; [2] TAGGCCCTAGACCTG                                                         &lt;15&gt;</span></code></pre></div>
-<p>We can combine two or more <code>sq</code> objects using base <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function:</p>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">TAGGCCCTGGGCATG</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">TAGGCCCTAGACCTG</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span></code></pre></div>
+<p>We can combine two or more <code>sq</code> objects using base <code><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c()</a></code> function:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sq_dna</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">sq_dna</span>, <span class="fu"><a href="../reference/reverse.html">reverse</a></span><span class="op">(</span><span class="va">sq_dna</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">sq_dna</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="va">sq_dna</span>, <span class="fu"><a href="../reference/reverse.html">reverse</a></span><span class="op">(</span><span class="va">sq_dna</span><span class="op">)</span><span class="op">)</span>
 <span class="va">sq_dna</span>
 <span class="co">#&gt; basic DNA sequences list:</span>
-<span class="co">#&gt; [1] TAGGCCCTAGACCTG                                                         &lt;15&gt;</span>
-<span class="co">#&gt; [2] TAGGCCCTGGGCATG                                                         &lt;15&gt;</span>
-<span class="co">#&gt; [3] GTCCAGATCCCGGAT                                                         &lt;15&gt;</span>
-<span class="co">#&gt; [4] GTACGGGTCCCGGAT                                                         &lt;15&gt;</span></code></pre></div>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">TAGGCCCTAGACCTG</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">TAGGCCCTGGGCATG</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span>
+<span class="co">#&gt; [3] <span style="color: #00BB00;">GTCCAGATCCCGGAT</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span>
+<span class="co">#&gt; [4] <span style="color: #00BB00;">GTACGGGTCCCGGAT</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span></code></pre></div>
 </div>
-<div id="biological-interpretation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#biological-interpretation" class="anchor"></a>Biological interpretation</h2>
-<p><code>tidysq</code> offers two functions specific to DNA/RNA sequences, namely <code><a href="../reference/complement.html">complement()</a></code> and <code><a href="../reference/translate.html">translate()</a></code>. The former creates sequences with complementary bases, that is, replaces <code>A</code> with <code>T</code>, <code>C</code> with <code>G</code> and <em>vice versa</em>. The latter translates input to amino acid sequences using <a href="https://en.wikipedia.org/wiki/DNA_and_RNA_codon_tables">the translation table with three-letter codons</a>.</p>
+<div class="section level2">
+<h2 id="biological-interpretation">Biological interpretation<a class="anchor" aria-label="anchor" href="#biological-interpretation"></a>
+</h2>
+<p><code>tidysq</code> offers two functions specific to DNA/RNA sequences, namely <code><a href="../reference/complement.html">complement()</a></code> and <code><a href="../reference/translate.html">translate()</a></code>. The former creates sequences with complementary bases, that is, replaces <code>A</code> with <code>T</code>, <code>C</code> with <code>G</code> and <em>vice versa</em>. The latter translates input to amino acid sequences using <a href="https://en.wikipedia.org/wiki/DNA_and_RNA_codon_tables" class="external-link">the translation table with three-letter codons</a>.</p>
 <p>These functions can be called as shown below:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/complement.html">complement</a></span><span class="op">(</span><span class="va">sq_dna</span><span class="op">)</span>
 <span class="co">#&gt; basic DNA sequences list:</span>
-<span class="co">#&gt; [1] ATCCGGGATCTGGAC                                                         &lt;15&gt;</span>
-<span class="co">#&gt; [2] ATCCGGGACCCGTAC                                                         &lt;15&gt;</span>
-<span class="co">#&gt; [3] CAGGTCTAGGGCCTA                                                         &lt;15&gt;</span>
-<span class="co">#&gt; [4] CATGCCCAGGGCCTA                                                         &lt;15&gt;</span>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">ATCCGGGATCTGGAC</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">ATCCGGGACCCGTAC</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span>
+<span class="co">#&gt; [3] <span style="color: #00BB00;">CAGGTCTAGGGCCTA</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span>
+<span class="co">#&gt; [4] <span style="color: #00BB00;">CATGCCCAGGGCCTA</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span>
 <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="va">sq_dna</span><span class="op">)</span>
 <span class="co">#&gt; basic amino acid sequences list:</span>
-<span class="co">#&gt; [1] *ALDL                                                                    &lt;5&gt;</span>
-<span class="co">#&gt; [2] *ALGM                                                                    &lt;5&gt;</span>
-<span class="co">#&gt; [3] VQIPD                                                                    &lt;5&gt;</span>
-<span class="co">#&gt; [4] VRVPD                                                                    &lt;5&gt;</span></code></pre></div>
-<p>One noteworthy feature here is that translation can be done with any genetic code table of those listed <a href="https://en.wikipedia.org/wiki/List_of_genetic_codes">on this Wikipedia page</a>:</p>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">*ALDL</span>                                                                    <span style="color: #0000BB;">&lt;5&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">*ALGM</span>                                                                    <span style="color: #0000BB;">&lt;5&gt;</span></span>
+<span class="co">#&gt; [3] <span style="color: #00BB00;">VQIPD</span>                                                                    <span style="color: #0000BB;">&lt;5&gt;</span></span>
+<span class="co">#&gt; [4] <span style="color: #00BB00;">VRVPD</span>                                                                    <span style="color: #0000BB;">&lt;5&gt;</span></span></code></pre></div>
+<p>One noteworthy feature here is that translation can be done with any genetic code table of those listed <a href="https://en.wikipedia.org/wiki/List_of_genetic_codes" class="external-link">on this Wikipedia page</a>:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="va">sq_dna</span>, table <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>
 <span class="co">#&gt; basic amino acid sequences list:</span>
-<span class="co">#&gt; [1] QALDL                                                                    &lt;5&gt;</span>
-<span class="co">#&gt; [2] QALGM                                                                    &lt;5&gt;</span>
-<span class="co">#&gt; [3] VQIPD                                                                    &lt;5&gt;</span>
-<span class="co">#&gt; [4] VRVPD                                                                    &lt;5&gt;</span></code></pre></div>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">QALDL</span>                                                                    <span style="color: #0000BB;">&lt;5&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">QALGM</span>                                                                    <span style="color: #0000BB;">&lt;5&gt;</span></span>
+<span class="co">#&gt; [3] <span style="color: #00BB00;">VQIPD</span>                                                                    <span style="color: #0000BB;">&lt;5&gt;</span></span>
+<span class="co">#&gt; [4] <span style="color: #00BB00;">VRVPD</span>                                                                    <span style="color: #0000BB;">&lt;5&gt;</span></span></code></pre></div>
 </div>
-<div id="finding-motifs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#finding-motifs" class="anchor"></a>Finding motifs</h2>
+<div class="section level2">
+<h2 id="finding-motifs">Finding motifs<a class="anchor" aria-label="anchor" href="#finding-motifs"></a>
+</h2>
 <p>Motifs are short subsequences. These are often searched for in biological sequences. <code>tidysq</code> has two distinct functions that allow the user to perform such search.</p>
-<p>One of them is a <code><a href="../reference/%has%.html">%has%</a></code> operator that takes <code>sq</code> object and character vector as parameters respectively. It returns a logical vector of the same length as <code>sq</code> object, where each element says whether all motifs passed as strings were found in given sequence:</p>
+<p>One of them is a <code>%has%</code> operator that takes <code>sq</code> object and character vector as parameters respectively. It returns a logical vector of the same length as <code>sq</code> object, where each element says whether all motifs passed as strings were found in given sequence:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sq_dna</span> <span class="op">%has%</span> <span class="st">"ATC"</span>
+<code class="sourceCode R"><span class="va">sq_dna</span> <span class="op"><a href="../reference/grapes-has-grapes.html">%has%</a></span> <span class="st">"ATC"</span>
 <span class="co">#&gt; [1] FALSE FALSE  TRUE FALSE</span>
 <span class="co"># It can be used to subset sq</span>
-<span class="va">sq_dna</span><span class="op">[</span><span class="va">sq_dna</span> <span class="op">%has%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"AG"</span>, <span class="st">"CC"</span><span class="op">)</span><span class="op">]</span>
+<span class="va">sq_dna</span><span class="op">[</span><span class="va">sq_dna</span> <span class="op"><a href="../reference/grapes-has-grapes.html">%has%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AG"</span>, <span class="st">"CC"</span><span class="op">)</span><span class="op">]</span>
 <span class="co">#&gt; basic DNA sequences list:</span>
-<span class="co">#&gt; [1] TAGGCCCTAGACCTG                                                         &lt;15&gt;</span>
-<span class="co">#&gt; [2] TAGGCCCTGGGCATG                                                         &lt;15&gt;</span>
-<span class="co">#&gt; [3] GTCCAGATCCCGGAT                                                         &lt;15&gt;</span></code></pre></div>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">TAGGCCCTAGACCTG</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">TAGGCCCTGGGCATG</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span>
+<span class="co">#&gt; [3] <span style="color: #00BB00;">GTCCAGATCCCGGAT</span>                                                         <span style="color: #0000BB;">&lt;15&gt;</span></span></code></pre></div>
 <p>It says nothing about motif placement within sequence nor it exact form, however. In this case, there is <code><a href="../reference/find_motifs.html">find_motifs()</a></code> function that returns a whole <code>tibble</code> (from <code>tibble</code> package; basically improved version of <code>data.frame</code>) with various info about found motifs. Important thing to note here is that the second argument is a character vector of sequence names to avoid embedding potentially long sequences in resulting <code>tibble</code> potentially many times:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sq_dna</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"seq1"</span>, <span class="st">"seq2"</span>, <span class="st">"rev1"</span>, <span class="st">"rev2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ATC"</span>, <span class="st">"TAG"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 4 x 5</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sq_dna</span>, <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"seq1"</span>, <span class="st">"seq2"</span>, <span class="st">"rev1"</span>, <span class="st">"rev2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ATC"</span>, <span class="st">"TAG"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 5</span></span>
 <span class="co">#&gt;   names found     sought start   end</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;dna_bsc&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1 rev1  ATC   &lt;3&gt; ATC        7     9</span>
-<span class="co">#&gt; 2 seq1  TAG   &lt;3&gt; TAG        1     3</span>
-<span class="co">#&gt; 3 seq1  TAG   &lt;3&gt; TAG        8    10</span>
-<span class="co">#&gt; 4 seq2  TAG   &lt;3&gt; TAG        1     3</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dna_bsc&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> rev1  <span style="color: #00BB00;">ATC</span> <span style="color: #0000BB;">&lt;3&gt;</span>   ATC        7     9</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> seq1  <span style="color: #00BB00;">TAG</span> <span style="color: #0000BB;">&lt;3&gt;</span>   TAG        1     3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> seq1  <span style="color: #00BB00;">TAG</span> <span style="color: #0000BB;">&lt;3&gt;</span>   TAG        8    10</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> seq2  <span style="color: #00BB00;">TAG</span> <span style="color: #0000BB;">&lt;3&gt;</span>   TAG        1     3</span></code></pre></div>
 <p>You can also provide this function with a <code>data.frame</code> (or, what we recommend, <code>tibble</code>) containing one column called <code>sq</code>, containing the sequences and the other colum <code>name</code> containing the names.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sqibble</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>sq <span class="op">=</span> <span class="va">sq_dna</span>, 
-                          name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"seq1"</span>, <span class="st">"seq2"</span>, <span class="st">"rev1"</span>, <span class="st">"rev2"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">sqibble</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>sq <span class="op">=</span> <span class="va">sq_dna</span>, 
+                          name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"seq1"</span>, <span class="st">"seq2"</span>, <span class="st">"rev1"</span>, <span class="st">"rev2"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># does the same as the call from previous chunk of code</span>
-<span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sqibble</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ATC"</span>, <span class="st">"TAG"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 4 x 5</span>
+<span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sqibble</span>, <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ATC"</span>, <span class="st">"TAG"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 5</span></span>
 <span class="co">#&gt;   names found     sought start   end</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;dna_bsc&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1 rev1  ATC   &lt;3&gt; ATC        7     9</span>
-<span class="co">#&gt; 2 seq1  TAG   &lt;3&gt; TAG        1     3</span>
-<span class="co">#&gt; 3 seq1  TAG   &lt;3&gt; TAG        8    10</span>
-<span class="co">#&gt; 4 seq2  TAG   &lt;3&gt; TAG        1     3</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dna_bsc&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> rev1  <span style="color: #00BB00;">ATC</span> <span style="color: #0000BB;">&lt;3&gt;</span>   ATC        7     9</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> seq1  <span style="color: #00BB00;">TAG</span> <span style="color: #0000BB;">&lt;3&gt;</span>   TAG        1     3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> seq1  <span style="color: #00BB00;">TAG</span> <span style="color: #0000BB;">&lt;3&gt;</span>   TAG        8    10</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> seq2  <span style="color: #00BB00;">TAG</span> <span style="color: #0000BB;">&lt;3&gt;</span>   TAG        1     3</span></code></pre></div>
 <p>There are ambiguous DNA bases in IUPAC codes and these can be used in motifs. One of them is <code>"N"</code> — its meaning is "any of <code>A</code>, <code>C</code>, <code>G</code> or <code>T</code>:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sqibble</span>, <span class="st">"GNCC"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 7 x 5</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 5</span></span>
 <span class="co">#&gt;   names found     sought start   end</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;dna_bsc&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1 seq1  GGCC  &lt;4&gt; GNCC       3     6</span>
-<span class="co">#&gt; 2 seq1  GCCC  &lt;4&gt; GNCC       4     7</span>
-<span class="co">#&gt; 3 seq1  GACC  &lt;4&gt; GNCC      10    13</span>
-<span class="co">#&gt; 4 seq2  GGCC  &lt;4&gt; GNCC       3     6</span>
-<span class="co">#&gt; 5 seq2  GCCC  &lt;4&gt; GNCC       4     7</span>
-<span class="co">#&gt; 6 rev1  GTCC  &lt;4&gt; GNCC       1     4</span>
-<span class="co">#&gt; 7 rev2  GTCC  &lt;4&gt; GNCC       7    10</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dna_bsc&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> seq1  <span style="color: #00BB00;">GGCC</span> <span style="color: #0000BB;">&lt;4&gt;</span>  GNCC       3     6</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> seq1  <span style="color: #00BB00;">GCCC</span> <span style="color: #0000BB;">&lt;4&gt;</span>  GNCC       4     7</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> seq1  <span style="color: #00BB00;">GACC</span> <span style="color: #0000BB;">&lt;4&gt;</span>  GNCC      10    13</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> seq2  <span style="color: #00BB00;">GGCC</span> <span style="color: #0000BB;">&lt;4&gt;</span>  GNCC       3     6</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> seq2  <span style="color: #00BB00;">GCCC</span> <span style="color: #0000BB;">&lt;4&gt;</span>  GNCC       4     7</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> rev1  <span style="color: #00BB00;">GTCC</span> <span style="color: #0000BB;">&lt;4&gt;</span>  GNCC       1     4</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">7</span> rev2  <span style="color: #00BB00;">GTCC</span> <span style="color: #0000BB;">&lt;4&gt;</span>  GNCC       7    10</span></code></pre></div>
 <p>This example displays the difference between <code>"sought"</code> and <code>"found"</code> columns. The former contains the string representation of motif that the user was looking for, while the latter contains a <code>tidysq</code>-encoded sequence with an “instance” of motif.</p>
 <p>Two additional characters are reserved because of their special meaning in motifs. <code>"^"</code> means that this motif must be found at the start of a sequence, while <code>"$"</code> means the same, but with the end instead. They can be mixed with ambiguous letters, of course:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sqibble</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"^TAG"</span>, <span class="st">"ATN$"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 x 5</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sqibble</span>, <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"^TAG"</span>, <span class="st">"ATN$"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 5</span></span>
 <span class="co">#&gt;   names found     sought start   end</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;dna_bsc&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1 seq1  TAG   &lt;3&gt; ^TAG       1     3</span>
-<span class="co">#&gt; 2 seq2  TAG   &lt;3&gt; ^TAG       1     3</span>
-<span class="co">#&gt; 3 seq2  ATG   &lt;3&gt; ATN$      13    15</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dna_bsc&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> seq1  <span style="color: #00BB00;">TAG</span> <span style="color: #0000BB;">&lt;3&gt;</span>   ^TAG       1     3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> seq2  <span style="color: #00BB00;">TAG</span> <span style="color: #0000BB;">&lt;3&gt;</span>   ^TAG       1     3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> seq2  <span style="color: #00BB00;">ATG</span> <span style="color: #0000BB;">&lt;3&gt;</span>   ATN$      13    15</span></code></pre></div>
 </div>
-<div id="exporting-sq-objects" class="section level2">
-<h2 class="hasAnchor">
-<a href="#exporting-sq-objects" class="anchor"></a>Exporting sq objects</h2>
+<div class="section level2">
+<h2 id="exporting-sq-objects">Exporting sq objects<a class="anchor" aria-label="anchor" href="#exporting-sq-objects"></a>
+</h2>
 <p>After doing computations the user might wish to save their sequences for future use. One of the most popular formats for storing biological sequences is FASTA. <code>tidysq</code> allows the user to write sequences to FASTA file with <code><a href="../reference/write_fasta.html">write_fasta()</a></code> function. Important thing to remember here that the arguments for the function are analogous to those used in <code><a href="../reference/find_motifs.html">find_motifs()</a></code> – either <code>sq</code> object and a vector of names or a <code>tibble</code> with columns of sequences and names:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/write_fasta.html">write_fasta</a></span><span class="op">(</span><span class="va">sq_dna</span>,
-            <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"seq1"</span>, <span class="st">"seq2"</span>, <span class="st">"rev1"</span>, <span class="st">"rev2"</span><span class="op">)</span>,
+            <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"seq1"</span>, <span class="st">"seq2"</span>, <span class="st">"rev1"</span>, <span class="st">"rev2"</span><span class="op">)</span>,
             <span class="st">"just_your_ordinary_fasta_file.fasta"</span><span class="op">)</span>
 <span class="co"># or</span>
 <span class="fu"><a href="../reference/write_fasta.html">write_fasta</a></span><span class="op">(</span><span class="va">sqibble</span>,
@@ -286,11 +282,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Dominik Rafacz, Michal Burdukiewicz, Laura Bakala.</p>
+  <p></p>
+<p>Developed by Dominik Rafacz, Michal Burdukiewicz, Laura Bakala.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -298,6 +296,8 @@
 
   
 
+
+  
 
   </body>
 </html>

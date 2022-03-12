@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,23 +40,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -74,7 +70,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/BioGenies/tidysq/">
+  <a href="https://github.com/BioGenies/tidysq/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -89,13 +85,13 @@
 
       
 
-      </header><script src="advanced-alphabet_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Advanced alphabet techniques</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/BioGenies/tidysq/blob/master/vignettes/advanced-alphabet.Rmd"><code>vignettes/advanced-alphabet.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/BioGenies/tidysq/blob/HEAD/vignettes/advanced-alphabet.Rmd" class="external-link"><code>vignettes/advanced-alphabet.Rmd</code></a></small>
       <div class="hidden name"><code>advanced-alphabet.Rmd</code></div>
 
     </div>
@@ -103,7 +99,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/BioGenies/tidysq">tidysq</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/BioGenies/tidysq" class="external-link">tidysq</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'tidysq'</span>
 <span class="co">#&gt; The following object is masked from 'package:base':</span>
@@ -111,25 +107,25 @@
 <span class="co">#&gt;     paste</span></code></pre></div>
 <p>Sequences in <code>sq</code> objects are compressed to take up less storage space. To achieve that, <code>sq</code> objects store an <code>alphabet</code> attribute that serves as a dictionary of possible symbols. This attribute can be accessed by its namesake function:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sq_dna</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CTGAATGCAGT"</span>, <span class="st">"ATGCCGT"</span>, <span class="st">"CAGACCATT"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">sq_dna</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CTGAATGCAGT"</span>, <span class="st">"ATGCCGT"</span>, <span class="st">"CAGACCATT"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/alphabet.html">alphabet</a></span><span class="op">(</span><span class="va">sq_dna</span><span class="op">)</span>
 <span class="co">#&gt; &lt;tidysq alphabet[5]&gt;</span>
 <span class="co">#&gt; [1] A C G T -</span></code></pre></div>
 <p>It is strongly discouraged to manually assign different alphabet, as it may result in undesirable behavior.</p>
-<div id="standard-alphabets" class="section level2">
-<h2 class="hasAnchor">
-<a href="#standard-alphabets" class="anchor"></a>Standard alphabets</h2>
+<div class="section level2">
+<h2 id="standard-alphabets">Standard alphabets<a class="anchor" aria-label="anchor" href="#standard-alphabets"></a>
+</h2>
 <p>Alphabets can be divided into standard and non-standard types. Both these groups have similar behavior, but standard alphabets have additional functionalities available due to their biological interpretation.</p>
 <p>Standard alphabets can be subdivided into basic and extended alphabets, both groups closely linked. For every standard alphabet there exists a type such that if an <code>sq</code> object has this type, then its <code>alphabet</code> attribute has this alphabet as value.</p>
-<div id="basic-alphabets" class="section level3">
-<h3 class="hasAnchor">
-<a href="#basic-alphabets" class="anchor"></a>Basic alphabets</h3>
+<div class="section level3">
+<h3 id="basic-alphabets">Basic alphabets<a class="anchor" aria-label="anchor" href="#basic-alphabets"></a>
+</h3>
 <p>There are three predefined basic alphabets — for DNA, RNA and amino acid sequences. They consist of all letter codes used for bases of given type, as well as gap letter “-” and (in amino acid case) stop letter “*”. Alphabets are stored as character vectors with added <code>sq_alphabet</code> class for additional methods. For instance, amino acid alphabet contains following letters: A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y, -, *.</p>
 <p>Basic DNA/RNA alphabet is necessary for <code><a href="../reference/translate.html">translate()</a></code> operation.</p>
 </div>
-<div id="extended-alphabets" class="section level3">
-<h3 class="hasAnchor">
-<a href="#extended-alphabets" class="anchor"></a>Extended alphabets</h3>
+<div class="section level3">
+<h3 id="extended-alphabets">Extended alphabets<a class="anchor" aria-label="anchor" href="#extended-alphabets"></a>
+</h3>
 <p>For each basic alphabet there is an extended counterpart. These three extended alphabets contain all letters from the respective basic ones and, additionally, ambiguous letters (that is, letters that mean “X-or-Y-or-Z base”, where X, Y and Z are chosen from corresponding base alphabet).</p>
 <p>Both basic and extended alphabets can be acquired using <code><a href="../reference/get_standard_alphabet.html">get_standard_alphabet()</a></code> function. It uses type interpreting not to force the user to remember exact type name (although using consistent naming is beneficial to code readability):</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -143,96 +139,96 @@
 <span class="co">#&gt; &lt;tidysq alphabet[16]&gt;</span>
 <span class="co">#&gt;  [1] A C G T W S M K R Y B D H V N -</span></code></pre></div>
 </div>
-<div id="removing-ambiguous-elements" class="section level3">
-<h3 class="hasAnchor">
-<a href="#removing-ambiguous-elements" class="anchor"></a>Removing ambiguous elements</h3>
+<div class="section level3">
+<h3 id="removing-ambiguous-elements">Removing ambiguous elements<a class="anchor" aria-label="anchor" href="#removing-ambiguous-elements"></a>
+</h3>
 <p>When an <code>sq</code> object has an extended type, it can be converted to the basic one by utilizing <code><a href="../reference/remove_ambiguous.html">remove_ambiguous()</a></code> function. It works by removing either sequences where an ambiguous element is present or just this element, depending on <code>by_letter</code> parameter value. In the example below <code>N</code> is such an element:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sq_rna</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"UCGGNNCAGNN"</span>, <span class="st">"AUUCGGUGA"</span>, <span class="st">"CNCUUANNNCNU"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">sq_rna</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UCGGNNCAGNN"</span>, <span class="st">"AUUCGGUGA"</span>, <span class="st">"CNCUUANNNCNU"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">sq_rna</span>
 <span class="co">#&gt; extended RNA sequences list:</span>
-<span class="co">#&gt; [1] UCGGNNCAGNN                                                             &lt;11&gt;</span>
-<span class="co">#&gt; [2] AUUCGGUGA                                                                &lt;9&gt;</span>
-<span class="co">#&gt; [3] CNCUUANNNCNU                                                            &lt;12&gt;</span>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">UCGGNNCAGNN</span>                                                             <span style="color: #0000BB;">&lt;11&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">AUUCGGUGA</span>                                                                <span style="color: #0000BB;">&lt;9&gt;</span></span>
+<span class="co">#&gt; [3] <span style="color: #00BB00;">CNCUUANNNCNU</span>                                                            <span style="color: #0000BB;">&lt;12&gt;</span></span>
 <span class="fu"><a href="../reference/remove_ambiguous.html">remove_ambiguous</a></span><span class="op">(</span><span class="va">sq_rna</span><span class="op">)</span>
 <span class="co">#&gt; basic RNA sequences list:</span>
-<span class="co">#&gt; [1] &lt;NULL&gt;                                                                   &lt;0&gt;</span>
-<span class="co">#&gt; [2] AUUCGGUGA                                                                &lt;9&gt;</span>
-<span class="co">#&gt; [3] &lt;NULL&gt;                                                                   &lt;0&gt;</span>
+<span class="co">#&gt; [1] <span style="color: #555555;">&lt;NULL&gt;</span>                                                                   <span style="color: #0000BB;">&lt;0&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">AUUCGGUGA</span>                                                                <span style="color: #0000BB;">&lt;9&gt;</span></span>
+<span class="co">#&gt; [3] <span style="color: #555555;">&lt;NULL&gt;</span>                                                                   <span style="color: #0000BB;">&lt;0&gt;</span></span>
 <span class="fu"><a href="../reference/remove_ambiguous.html">remove_ambiguous</a></span><span class="op">(</span><span class="va">sq_rna</span>, by_letter <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; basic RNA sequences list:</span>
-<span class="co">#&gt; [1] UCGGCAG                                                                  &lt;7&gt;</span>
-<span class="co">#&gt; [2] AUUCGGUGA                                                                &lt;9&gt;</span>
-<span class="co">#&gt; [3] CCUUACU                                                                  &lt;7&gt;</span></code></pre></div>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">UCGGCAG</span>                                                                  <span style="color: #0000BB;">&lt;7&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">AUUCGGUGA</span>                                                                <span style="color: #0000BB;">&lt;9&gt;</span></span>
+<span class="co">#&gt; [3] <span style="color: #00BB00;">CCUUACU</span>                                                                  <span style="color: #0000BB;">&lt;7&gt;</span></span></code></pre></div>
 <p>Should the user wish to keep the original lengths of sequences unchanged, it’s more appropriate to use <code><a href="../reference/substitute_letters.html">substitute_letters()</a></code> function instead. The most obvious replacement is “-” gap letter, present in all standard alphabets:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/substitute_letters.html">substitute_letters</a></span><span class="op">(</span><span class="va">sq_rna</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>N <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/substitute_letters.html">substitute_letters</a></span><span class="op">(</span><span class="va">sq_rna</span>, <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span>N <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; atp (atypical alphabet) sequences list:</span>
-<span class="co">#&gt; [1] UCGG--CAG--                                                             &lt;11&gt;</span>
-<span class="co">#&gt; [2] AUUCGGUGA                                                                &lt;9&gt;</span>
-<span class="co">#&gt; [3] C-CUUA---C-U                                                            &lt;12&gt;</span></code></pre></div>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">UCGG--CAG--</span>                                                             <span style="color: #0000BB;">&lt;11&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">AUUCGGUGA</span>                                                                <span style="color: #0000BB;">&lt;9&gt;</span></span>
+<span class="co">#&gt; [3] <span style="color: #00BB00;">C-CUUA---C-U</span>                                                            <span style="color: #0000BB;">&lt;12&gt;</span></span></code></pre></div>
 <p>Notice, however, that returned object has <code>atp</code> alphabet instead. More on handling that in <a href="#type_manipulation">chapter about changing sq types</a>.</p>
 </div>
 </div>
-<div id="non-standard-alphabets" class="section level2">
-<h2 class="hasAnchor">
-<a href="#non-standard-alphabets" class="anchor"></a>Non-standard alphabets</h2>
+<div class="section level2">
+<h2 id="non-standard-alphabets">Non-standard alphabets<a class="anchor" aria-label="anchor" href="#non-standard-alphabets"></a>
+</h2>
 <p>Non-standard alphabet group consists of two types: untyped (<code>unt</code>) and atypical (<code>atp</code>). The former is a result of not specifying alphabet and being unable to find a standard alphabet that would contain all letters appearing in sequences. The latter, on the other hand, is used whenever the user specifies used alphabet explicitly. The difference can be best shown with calls to constructing <code><a href="../reference/sq.html">sq()</a></code> function:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"PFN&amp;I&amp;VO*&amp;P"</span>, <span class="st">"&amp;IO*&amp;PVO"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PFN&amp;I&amp;VO*&amp;P"</span>, <span class="st">"&amp;IO*&amp;PVO"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; unt (unspecified type) sequences list:</span>
-<span class="co">#&gt; [1] PFN&amp;I&amp;VO*&amp;P                                                             &lt;11&gt;</span>
-<span class="co">#&gt; [2] &amp;IO*&amp;PVO                                                                 &lt;8&gt;</span>
-<span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"PFN&amp;I&amp;VO*&amp;P"</span>, <span class="st">"&amp;IO*&amp;PVO"</span><span class="op">)</span>,
-   alphabet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"I"</span>, <span class="st">"N"</span>, <span class="st">"O"</span>, <span class="st">"P"</span>, <span class="st">"V"</span>, <span class="st">"&amp;"</span>, <span class="st">"*"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">PFN&amp;I&amp;VO*&amp;P</span>                                                             <span style="color: #0000BB;">&lt;11&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">&amp;IO*&amp;PVO</span>                                                                 <span style="color: #0000BB;">&lt;8&gt;</span></span>
+<span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PFN&amp;I&amp;VO*&amp;P"</span>, <span class="st">"&amp;IO*&amp;PVO"</span><span class="op">)</span>,
+   alphabet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"I"</span>, <span class="st">"N"</span>, <span class="st">"O"</span>, <span class="st">"P"</span>, <span class="st">"V"</span>, <span class="st">"&amp;"</span>, <span class="st">"*"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; atp (atypical alphabet) sequences list:</span>
-<span class="co">#&gt; [1] PFN&amp;I&amp;VO*&amp;P                                                             &lt;11&gt;</span>
-<span class="co">#&gt; [2] &amp;IO*&amp;PVO                                                                 &lt;8&gt;</span></code></pre></div>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">PFN&amp;I&amp;VO*&amp;P</span>                                                             <span style="color: #0000BB;">&lt;11&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">&amp;IO*&amp;PVO</span>                                                                 <span style="color: #0000BB;">&lt;8&gt;</span></span></code></pre></div>
 <p>Obviously, as with standard alphabets, atypical ones can also contain more letters than actually appear:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"PFN&amp;I&amp;VO*&amp;P"</span>, <span class="st">"&amp;IO*&amp;PVO"</span><span class="op">)</span>,
-   alphabet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"E"</span>, <span class="st">"F"</span>, <span class="st">"I"</span>, <span class="st">"N"</span>, <span class="st">"O"</span>, <span class="st">"P"</span>, <span class="st">"Q"</span>, <span class="st">"V"</span>, <span class="st">"&amp;"</span>, <span class="st">"*"</span>, <span class="st">":"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PFN&amp;I&amp;VO*&amp;P"</span>, <span class="st">"&amp;IO*&amp;PVO"</span><span class="op">)</span>,
+   alphabet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"E"</span>, <span class="st">"F"</span>, <span class="st">"I"</span>, <span class="st">"N"</span>, <span class="st">"O"</span>, <span class="st">"P"</span>, <span class="st">"Q"</span>, <span class="st">"V"</span>, <span class="st">"&amp;"</span>, <span class="st">"*"</span>, <span class="st">":"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; atp (atypical alphabet) sequences list:</span>
-<span class="co">#&gt; [1] PFN&amp;I&amp;VO*&amp;P                                                             &lt;11&gt;</span>
-<span class="co">#&gt; [2] &amp;IO*&amp;PVO                                                                 &lt;8&gt;</span></code></pre></div>
-<div id="multicharacter-alphabets" class="section level3">
-<h3 class="hasAnchor">
-<a href="#multicharacter-alphabets" class="anchor"></a>Multicharacter alphabets</h3>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">PFN&amp;I&amp;VO*&amp;P</span>                                                             <span style="color: #0000BB;">&lt;11&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">&amp;IO*&amp;PVO</span>                                                                 <span style="color: #0000BB;">&lt;8&gt;</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="multicharacter-alphabets">Multicharacter alphabets<a class="anchor" aria-label="anchor" href="#multicharacter-alphabets"></a>
+</h3>
 <p>The main usage of atypical alphabets is to allow the user to handle data with multicharacter letters. For example sometimes amino acid sequences are described using three-character codes. These can be handled as shown below (although with specifying all, not only a handful of codes):</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sq_multichar</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"TyrGlyArgArgAsp"</span>, <span class="st">"AspGlyArgGly"</span>, <span class="st">"CysGluGlyTyrProArg"</span><span class="op">)</span>,
-                   alphabet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Arg"</span>, <span class="st">"Asp"</span>, <span class="st">"Cys"</span>, <span class="st">"Glu"</span>, <span class="st">"Gly"</span>, <span class="st">"Pro"</span>, <span class="st">"Tyr"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">sq_multichar</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TyrGlyArgArgAsp"</span>, <span class="st">"AspGlyArgGly"</span>, <span class="st">"CysGluGlyTyrProArg"</span><span class="op">)</span>,
+                   alphabet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Arg"</span>, <span class="st">"Asp"</span>, <span class="st">"Cys"</span>, <span class="st">"Glu"</span>, <span class="st">"Gly"</span>, <span class="st">"Pro"</span>, <span class="st">"Tyr"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">sq_multichar</span>
 <span class="co">#&gt; atp (atypical alphabet) sequences list:</span>
-<span class="co">#&gt; [1] Tyr Gly Arg Arg Asp                                                      &lt;5&gt;</span>
-<span class="co">#&gt; [2] Asp Gly Arg Gly                                                          &lt;4&gt;</span>
-<span class="co">#&gt; [3] Cys Glu Gly Tyr Pro Arg                                                  &lt;6&gt;</span></code></pre></div>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">Tyr</span> <span style="color: #00BB00;">Gly</span> <span style="color: #00BB00;">Arg</span> <span style="color: #00BB00;">Arg</span> <span style="color: #00BB00;">Asp</span>                                                      <span style="color: #0000BB;">&lt;5&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">Asp</span> <span style="color: #00BB00;">Gly</span> <span style="color: #00BB00;">Arg</span> <span style="color: #00BB00;">Gly</span>                                                          <span style="color: #0000BB;">&lt;4&gt;</span></span>
+<span class="co">#&gt; [3] <span style="color: #00BB00;">Cys</span> <span style="color: #00BB00;">Glu</span> <span style="color: #00BB00;">Gly</span> <span style="color: #00BB00;">Tyr</span> <span style="color: #00BB00;">Pro</span> <span style="color: #00BB00;">Arg</span>                                                  <span style="color: #0000BB;">&lt;6&gt;</span></span></code></pre></div>
 <p>These letters are treated as a whole, meaning that they are indivisible. It can be observed during letter replacement operation:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/substitute_letters.html">substitute_letters</a></span><span class="op">(</span><span class="va">sq_multichar</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>Arg <span class="op">=</span> <span class="st">"X"</span>, Glu <span class="op">=</span> <span class="st">"His"</span>, Pro <span class="op">=</span> <span class="st">"X"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/substitute_letters.html">substitute_letters</a></span><span class="op">(</span><span class="va">sq_multichar</span>, <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span>Arg <span class="op">=</span> <span class="st">"X"</span>, Glu <span class="op">=</span> <span class="st">"His"</span>, Pro <span class="op">=</span> <span class="st">"X"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; atp (atypical alphabet) sequences list:</span>
-<span class="co">#&gt; [1] Tyr Gly X X Asp                                                          &lt;5&gt;</span>
-<span class="co">#&gt; [2] Asp Gly X Gly                                                            &lt;4&gt;</span>
-<span class="co">#&gt; [3] Cys His Gly Tyr X X                                                      &lt;6&gt;</span></code></pre></div>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">Tyr</span> <span style="color: #00BB00;">Gly</span> <span style="color: #00BB00;">X</span> <span style="color: #00BB00;">X</span> <span style="color: #00BB00;">Asp</span>                                                          <span style="color: #0000BB;">&lt;5&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">Asp</span> <span style="color: #00BB00;">Gly</span> <span style="color: #00BB00;">X</span> <span style="color: #00BB00;">Gly</span>                                                            <span style="color: #0000BB;">&lt;4&gt;</span></span>
+<span class="co">#&gt; [3] <span style="color: #00BB00;">Cys</span> <span style="color: #00BB00;">His</span> <span style="color: #00BB00;">Gly</span> <span style="color: #00BB00;">Tyr</span> <span style="color: #00BB00;">X</span> <span style="color: #00BB00;">X</span>                                                      <span style="color: #0000BB;">&lt;6&gt;</span></span></code></pre></div>
 </div>
 </div>
-<div id="type_manipulation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#type_manipulation" class="anchor"></a>Type manipulation</h2>
+<div class="section level2">
+<h2 id="type_manipulation">Type manipulation<a class="anchor" aria-label="anchor" href="#type_manipulation"></a>
+</h2>
 <p>As shown in previous chapters, <code><a href="../reference/substitute_letters.html">substitute_letters()</a></code> return an <code>sq</code> object of atp type. If a type isn’t satisfying, then the user can utilize <code><a href="../reference/typify.html">typify()</a></code> function that creates new <code>sq</code> object with desired type (backticks are necessary, when the substituted letter isn’t a valid variable name):</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sq_unt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"UCGG&amp;&amp;CAG&amp;&amp;"</span>, <span class="st">"AUUCGGUGA"</span>, <span class="st">"C&amp;CUUA&amp;&amp;&amp;C&amp;U"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">sq_sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/substitute_letters.html">substitute_letters</a></span><span class="op">(</span><span class="va">sq_unt</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>`&amp;` <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">sq_unt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sq.html">sq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UCGG&amp;&amp;CAG&amp;&amp;"</span>, <span class="st">"AUUCGGUGA"</span>, <span class="st">"C&amp;CUUA&amp;&amp;&amp;C&amp;U"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">sq_sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/substitute_letters.html">substitute_letters</a></span><span class="op">(</span><span class="va">sq_unt</span>, <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">c</a></span><span class="op">(</span>`&amp;` <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">sq_sub</span>
 <span class="co">#&gt; atp (atypical alphabet) sequences list:</span>
-<span class="co">#&gt; [1] UCGG--CAG--                                                             &lt;11&gt;</span>
-<span class="co">#&gt; [2] AUUCGGUGA                                                                &lt;9&gt;</span>
-<span class="co">#&gt; [3] C-CUUA---C-U                                                            &lt;12&gt;</span>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">UCGG--CAG--</span>                                                             <span style="color: #0000BB;">&lt;11&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">AUUCGGUGA</span>                                                                <span style="color: #0000BB;">&lt;9&gt;</span></span>
+<span class="co">#&gt; [3] <span style="color: #00BB00;">C-CUUA---C-U</span>                                                            <span style="color: #0000BB;">&lt;12&gt;</span></span>
 <span class="fu"><a href="../reference/typify.html">typify</a></span><span class="op">(</span><span class="va">sq_sub</span>, <span class="st">"rna_bsc"</span><span class="op">)</span>
 <span class="co">#&gt; basic RNA sequences list:</span>
-<span class="co">#&gt; [1] UCGG--CAG--                                                             &lt;11&gt;</span>
-<span class="co">#&gt; [2] AUUCGGUGA                                                                &lt;9&gt;</span>
-<span class="co">#&gt; [3] C-CUUA---C-U                                                            &lt;12&gt;</span></code></pre></div>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">UCGG--CAG--</span>                                                             <span style="color: #0000BB;">&lt;11&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">AUUCGGUGA</span>                                                                <span style="color: #0000BB;">&lt;9&gt;</span></span>
+<span class="co">#&gt; [3] <span style="color: #00BB00;">C-CUUA---C-U</span>                                                            <span style="color: #0000BB;">&lt;12&gt;</span></span></code></pre></div>
 <p>However, one should note that there is a requirement for <code><a href="../reference/typify.html">typify()</a></code> to work — typified <code>sq</code> object must not contain any letters not in the target alphabet. For instance, following call won’t work:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/typify.html">typify</a></span><span class="op">(</span><span class="va">sq_sub</span>, <span class="st">"dna_bsc"</span><span class="op">)</span>
@@ -250,12 +246,12 @@
 <span class="co">#&gt; [1] "U"</span></code></pre></div>
 <p>However, all invalid letters within an alphabet have to be substituted before passing it to <code><a href="../reference/typify.html">typify()</a></code>. A more complicated call that replaces all ambiguous letters with “-” gap letter can be constructed as follows:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ambiguous_letters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">ambiguous_letters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">setdiff</a></span><span class="op">(</span>
   <span class="fu"><a href="../reference/get_standard_alphabet.html">get_standard_alphabet</a></span><span class="op">(</span><span class="st">"rna_ext"</span><span class="op">)</span>,
   <span class="fu"><a href="../reference/get_standard_alphabet.html">get_standard_alphabet</a></span><span class="op">(</span><span class="st">"rna_bsc"</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="va">encoding</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">ambiguous_letters</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">encoding</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">ambiguous_letters</span>
+<span class="va">encoding</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"-"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ambiguous_letters</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">encoding</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">ambiguous_letters</span>
 <span class="va">encoding</span>
 <span class="co">#&gt;   W   S   M   K   R   Y   B   D   H   V   N </span>
 <span class="co">#&gt; "-" "-" "-" "-" "-" "-" "-" "-" "-" "-" "-"</span>
@@ -263,9 +259,9 @@
 <span class="va">sq_rna_sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/substitute_letters.html">substitute_letters</a></span><span class="op">(</span><span class="va">sq_rna</span>, <span class="va">encoding</span><span class="op">)</span>
 <span class="fu"><a href="../reference/typify.html">typify</a></span><span class="op">(</span><span class="va">sq_rna_sub</span>, <span class="st">"rna_bsc"</span><span class="op">)</span>
 <span class="co">#&gt; atp (atypical alphabet) sequences list:</span>
-<span class="co">#&gt; [1] UCGG--CAG--                                                             &lt;11&gt;</span>
-<span class="co">#&gt; [2] AUUCGGUGA                                                                &lt;9&gt;</span>
-<span class="co">#&gt; [3] C-CUUA---C-U                                                            &lt;12&gt;</span></code></pre></div>
+<span class="co">#&gt; [1] <span style="color: #00BB00;">UCGG--CAG--</span>                                                             <span style="color: #0000BB;">&lt;11&gt;</span></span>
+<span class="co">#&gt; [2] <span style="color: #00BB00;">AUUCGGUGA</span>                                                                <span style="color: #0000BB;">&lt;9&gt;</span></span>
+<span class="co">#&gt; [3] <span style="color: #00BB00;">C-CUUA---C-U</span>                                                            <span style="color: #0000BB;">&lt;12&gt;</span></span></code></pre></div>
 </div>
   </div>
 
@@ -280,11 +276,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Dominik Rafacz, Michal Burdukiewicz, Laura Bakala.</p>
+  <p></p>
+<p>Developed by Dominik Rafacz, Michal Burdukiewicz, Laura Bakala.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -292,6 +290,8 @@
 
   
 
+
+  
 
   </body>
 </html>
