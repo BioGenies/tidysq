@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -223,9 +223,23 @@
 <span class="co">#&gt; 2 seq1  TAG   &lt;3&gt; TAG        1     3</span>
 <span class="co">#&gt; 3 seq1  TAG   &lt;3&gt; TAG        8    10</span>
 <span class="co">#&gt; 4 seq2  TAG   &lt;3&gt; TAG        1     3</span></code></pre></div>
-<p>There are ambiguous DNA bases in IUPAC codes and these can be used in motifs. One of them is <code>"N"</code> — its meaning is "any of <code>A</code>, <code>C</code>, <code>G</code> or <code>T</code>:</p>
+<p>You can also provide this function with a <code>data.frame</code> (or, what we recommend, <code>tibble</code>) containing one column called <code>sq</code>, containing the sequences and the other colum <code>name</code> containing the names.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sq_dna</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"seq1"</span>, <span class="st">"seq2"</span>, <span class="st">"rev1"</span>, <span class="st">"rev2"</span><span class="op">)</span>, <span class="st">"GNCC"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">sqibble</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>sq <span class="op">=</span> <span class="va">sq_dna</span>, 
+                          name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"seq1"</span>, <span class="st">"seq2"</span>, <span class="st">"rev1"</span>, <span class="st">"rev2"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># does the same as the call from previous chunk of code</span>
+<span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sqibble</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ATC"</span>, <span class="st">"TAG"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 4 x 5</span>
+<span class="co">#&gt;   names found     sought start   end</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;dna_bsc&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1 rev1  ATC   &lt;3&gt; ATC        7     9</span>
+<span class="co">#&gt; 2 seq1  TAG   &lt;3&gt; TAG        1     3</span>
+<span class="co">#&gt; 3 seq1  TAG   &lt;3&gt; TAG        8    10</span>
+<span class="co">#&gt; 4 seq2  TAG   &lt;3&gt; TAG        1     3</span></code></pre></div>
+<p>There are ambiguous DNA bases in IUPAC codes and these can be used in motifs. One of them is <code>"N"</code> — its meaning is "any of <code>A</code>, <code>C</code>, <code>G</code> or <code>T</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sqibble</span>, <span class="st">"GNCC"</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 7 x 5</span>
 <span class="co">#&gt;   names found     sought start   end</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;dna_bsc&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span>
@@ -238,8 +252,8 @@
 <span class="co">#&gt; 7 rev2  GTCC  &lt;4&gt; GNCC       7    10</span></code></pre></div>
 <p>This example displays the difference between <code>"sought"</code> and <code>"found"</code> columns. The former contains the string representation of motif that the user was looking for, while the latter contains a <code>tidysq</code>-encoded sequence with an “instance” of motif.</p>
 <p>Two additional characters are reserved because of their special meaning in motifs. <code>"^"</code> means that this motif must be found at the start of a sequence, while <code>"$"</code> means the same, but with the end instead. They can be mixed with ambiguous letters, of course:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sq_dna</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"seq1"</span>, <span class="st">"seq2"</span>, <span class="st">"rev1"</span>, <span class="st">"rev2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"^TAG"</span>, <span class="st">"ATN$"</span><span class="op">)</span><span class="op">)</span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sqibble</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"^TAG"</span>, <span class="st">"ATN$"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 3 x 5</span>
 <span class="co">#&gt;   names found     sought start   end</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;dna_bsc&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span>
@@ -250,10 +264,13 @@
 <div id="exporting-sq-objects" class="section level2">
 <h2 class="hasAnchor">
 <a href="#exporting-sq-objects" class="anchor"></a>Exporting sq objects</h2>
-<p>After doing computations the user might wish to save their sequences for future use. One of the most popular formats for storing biological sequences is FASTA. <code>tidysq</code> allows the user to write sequences to FASTA file with <code><a href="../reference/write_fasta.html">write_fasta()</a></code> function. Important thing to remember here is that it has to be passed <code>name</code> parameter, analogous to that present in <code><a href="../reference/find_motifs.html">find_motifs()</a></code>:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<p>After doing computations the user might wish to save their sequences for future use. One of the most popular formats for storing biological sequences is FASTA. <code>tidysq</code> allows the user to write sequences to FASTA file with <code><a href="../reference/write_fasta.html">write_fasta()</a></code> function. Important thing to remember here that the arguments for the function are analogous to those used in <code><a href="../reference/find_motifs.html">find_motifs()</a></code> – either <code>sq</code> object and a vector of names or a <code>tibble</code> with columns of sequences and names:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/write_fasta.html">write_fasta</a></span><span class="op">(</span><span class="va">sq_dna</span>,
             <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"seq1"</span>, <span class="st">"seq2"</span>, <span class="st">"rev1"</span>, <span class="st">"rev2"</span><span class="op">)</span>,
+            <span class="st">"just_your_ordinary_fasta_file.fasta"</span><span class="op">)</span>
+<span class="co"># or</span>
+<span class="fu"><a href="../reference/write_fasta.html">write_fasta</a></span><span class="op">(</span><span class="va">sqibble</span>,
             <span class="st">"just_your_ordinary_fasta_file.fasta"</span><span class="op">)</span></code></pre></div>
 </div>
   </div>

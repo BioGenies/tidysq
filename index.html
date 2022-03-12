@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tidysq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -194,19 +194,19 @@
 <span class="co">#&gt; printed 10 out of 421</span>
 
 <span class="co"># find_motifs() returns a whole tibble of useful informations</span>
-<span class="fu"><a href="reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sqibble</span><span class="op">$</span><span class="va">sq</span>, <span class="va">sqibble</span><span class="op">$</span><span class="va">name</span>, <span class="st">"^VHX"</span><span class="op">)</span>
+<span class="fu"><a href="reference/find_motifs.html">find_motifs</a></span><span class="op">(</span><span class="va">sqibble</span>, <span class="st">"^VHX"</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 9 × 5</span>
 <span class="co">#&gt;   names                                found     sought start   end</span>
 <span class="co">#&gt;   &lt;chr&gt;                                &lt;ami_bsc&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1 AMY24|HABP2|Amyloid beta A4 peptide  VHP   &lt;3&gt; ^VHX       1     3</span>
-<span class="co">#&gt; 2 AMY25|HABP3|Amyloid beta A4 peptide  VHH   &lt;3&gt; ^VHX       1     3</span>
-<span class="co">#&gt; 3 AMY26|HABP4|Amyloid beta A4 peptide  VHH   &lt;3&gt; ^VHX       1     3</span>
-<span class="co">#&gt; 4 AMY34|HABP12|Amyloid beta A4 peptide VHH   &lt;3&gt; ^VHX       1     3</span>
-<span class="co">#&gt; 5 AMY35|HABP13|Amyloid beta A4 peptide VHH   &lt;3&gt; ^VHX       1     3</span>
-<span class="co">#&gt; 6 AMY36|HABP14|Amyloid beta A4 peptide VHH   &lt;3&gt; ^VHX       1     3</span>
-<span class="co">#&gt; 7 AMY38|HABP16|Amyloid beta A4 peptide VHH   &lt;3&gt; ^VHX       1     3</span>
-<span class="co">#&gt; 8 AMY43|AB5|Amyloid beta A4 peptide    VHH   &lt;3&gt; ^VHX       1     3</span>
-<span class="co">#&gt; 9 AMY195|86-95|Prion protein (human)   VHD   &lt;3&gt; ^VHX       1     3</span></code></pre></div>
+<span class="co">#&gt; 1 AMY24|HABP2|Amyloid beta A4 peptide  VHP &lt;3&gt;   ^VHX       1     3</span>
+<span class="co">#&gt; 2 AMY25|HABP3|Amyloid beta A4 peptide  VHH &lt;3&gt;   ^VHX       1     3</span>
+<span class="co">#&gt; 3 AMY26|HABP4|Amyloid beta A4 peptide  VHH &lt;3&gt;   ^VHX       1     3</span>
+<span class="co">#&gt; 4 AMY34|HABP12|Amyloid beta A4 peptide VHH &lt;3&gt;   ^VHX       1     3</span>
+<span class="co">#&gt; 5 AMY35|HABP13|Amyloid beta A4 peptide VHH &lt;3&gt;   ^VHX       1     3</span>
+<span class="co">#&gt; 6 AMY36|HABP14|Amyloid beta A4 peptide VHH &lt;3&gt;   ^VHX       1     3</span>
+<span class="co">#&gt; 7 AMY38|HABP16|Amyloid beta A4 peptide VHH &lt;3&gt;   ^VHX       1     3</span>
+<span class="co">#&gt; 8 AMY43|AB5|Amyloid beta A4 peptide    VHH &lt;3&gt;   ^VHX       1     3</span>
+<span class="co">#&gt; 9 AMY195|86-95|Prion protein (human)   VHD &lt;3&gt;   ^VHX       1     3</span></code></pre></div>
 <p>An example of <code>dplyr</code> integration:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
