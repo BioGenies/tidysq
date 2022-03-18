@@ -1,6 +1,7 @@
 # tidysq 1.2.0
 ## New features:
 * `write_fasta()` and `find_motifs()` accept `data.frame` arguments now; sequences and their names are taken from specified two columns
+* more descriptive error messages for non-existing generics that print out classes of the first parameter
 
 ## Fixed-ish:
 * return to autoexported `Rcpp` catch declaration

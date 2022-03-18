@@ -38,7 +38,11 @@ sq_type <- function(x, ...)
 
 #' @export
 sq_type.default <- function(x, ...)
-  stop("cannot determine sq_type of this type of object", call. = FALSE)
+  stop_no_method(
+    sq_type, x,
+    msg = function(cls) paste0("cannot determine sq type of object of classes <",
+                               paste0(class(x), collapse = ", "), ">")
+  )
 
 #' @rdname sq_type
 #' @export
@@ -52,7 +56,11 @@ sq_type.sq <- function(x, ...)
 
 #' @export
 `sq_type<-.default` <- function(x, value)
-  stop("cannot change sq_type of this type of object", call. = FALSE)
+  stop_no_method(
+    `sq_type<-`, x,
+    msg = function(cls) paste0("cannot change sq type of object of classes <",
+                               paste0(class(x), collapse = ", "), ">")
+  )
 
 #' @rdname sq_type
 #' @export

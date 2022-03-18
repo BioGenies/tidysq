@@ -43,6 +43,15 @@
 #' @seealso \code{\link[=sq-class]{sq class}}
 #' @export
 is_empty_sq <- function(x) {
-  assert_class(x, "sq")
+  UseMethod("is_empty_sq")
+}
+
+#' @export
+is_empty_sq.default <- function(x)
+  stop_no_method(is_empty_sq, x)
+
+#' @rdname is_empty_sq
+#' @export
+is_empty_sq.sq <- function(x) {
   get_sq_lengths(x) == 0
 }

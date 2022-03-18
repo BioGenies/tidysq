@@ -16,11 +16,7 @@ test_that("typify() returns an sq object of desired type", {
 })
 
 # ERROR FOR NON-SQ OBJECTS ----
-test_that("typify() throws an error whenever passed object of class other that sq", {
-  expect_error(typify(1:7, "dna_bsc"))
-  expect_error(typify(LETTERS, "rna_bsc"))
-  expect_error(typify(list(mean, sum, sd), "ami_ext"))
-})
+test_sq_only(typify, "dna_bsc")
 
 # NO CHANGES IF ALREADY TARGET CLASS ----
 test_that("typify() returns unaltered sq when sq is already of target class", {

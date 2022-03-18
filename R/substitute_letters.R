@@ -61,7 +61,7 @@ substitute_letters <- function(x, encoding, ...)
 
 #' @export
 substitute_letters.default <- function(x, encoding, ...)
-  stop("cannot substitute letters in this type of object", call. = FALSE)
+  stop_no_method(substitute_letters, x)
 
 #' @rdname substitute_letters
 #' @export

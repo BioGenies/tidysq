@@ -32,10 +32,9 @@ test_that("remove_ambiguous() returns an sq object with _bsc class", {
 })
 
 # ERROR FOR NON-STANDARD SQ OBJECTS ----
-test_that("remove_ambiguous() throws an error whenever passed object of class other that standard sq classes", {
-  expect_error(remove_ambiguous(1:7))
-  expect_error(remove_ambiguous(LETTERS))
-  expect_error(remove_ambiguous(list(mean, sum, sd)))
+test_sq_only(remove_ambiguous)
+
+test_that("only standard (DNA/RNA/amino acid) sequences are accepted", {
   expect_error(remove_ambiguous(sq(c(")R#)#!Vawr9fy", "*V)RUgBa^%#!b]"))))
   expect_error(remove_ambiguous(sq(c("accmsce", "auprcacc"), alphabet = c("auprc", "acc", "msce"))))
 })

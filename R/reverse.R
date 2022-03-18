@@ -33,7 +33,7 @@ reverse <- function(x, ...)
 
 #' @export
 reverse.default <- function(x, ...)
-  stop("'reverse' isn't implemented for this type of object; maybe you wanted to use 'rev'?", call. = FALSE)
+  stop_no_method(reverse, x, msg_append = "maybe you wanted to use rev()?")
 
 #' @rdname reverse
 #' @export

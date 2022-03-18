@@ -78,7 +78,7 @@ export_sq <- function(x, export_format, name = NULL, ...) {
 
 #' @export
 export_sq.default <- function(x, export_format, name = NULL, ...)
-  stop("export_sq() function cannot export objects of this class", call. = FALSE)
+  stop_no_method(export_sq, x)
 
 #' @export
 export_sq.sq_ami_bsc <- function(x, export_format, name = NULL, ...) {

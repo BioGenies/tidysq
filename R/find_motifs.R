@@ -69,7 +69,7 @@ find_motifs <- function(x, ...) {
 
 #' @export
 find_motifs.default <- function(x, ...)
-  stop("method 'find_motifs' isn't implemented for this type of object")
+  stop_no_method(find_motifs, x)
 
 #' @rdname find_motifs
 #' @export

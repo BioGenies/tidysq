@@ -18,11 +18,7 @@ test_that("reverse() preserves all attributes of original vector", {
 })
 
 # ERROR FOR NON-SQ OBJECTS ----
-test_that("reverse() throws an error whenever passed object of class other that sq", {
-  expect_error(reverse(1:7))
-  expect_error(reverse(LETTERS))
-  expect_error(reverse(list(mean, sum, sd)))
-})
+test_sq_only(reverse)
 
 # VALUE COMPUTATION ----
 test_that("reverse() returns correct value", {

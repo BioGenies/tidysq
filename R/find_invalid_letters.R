@@ -42,7 +42,7 @@ find_invalid_letters <- function(x, dest_type, ...)
 
 #' @export
 find_invalid_letters.default <- function(x, dest_type, ...)
-  stop("method 'find_invalid_letters' isn't implemented for this type of object", call. = FALSE)
+  stop_no_method(find_invalid_letters, x)
 
 #' @rdname find_invalid_letters
 #' @export

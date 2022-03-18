@@ -50,11 +50,7 @@ test_that("remove_na() with `by_letter = FALSE` preserves all attributes of orig
 })
 
 # ERROR FOR NON-SQ OBJECTS ----
-test_that("remove_na() throws an error whenever passed object of class other that sq", {
-  expect_error(remove_na(1:7))
-  expect_error(remove_na(LETTERS))
-  expect_error(remove_na(list(mean, sum, sd)))
-})
+test_sq_only(remove_na)
 
 # VALUE COMPUTATION ----
 test_that("remove_na() with `by_letter = TRUE` returns correct value", {

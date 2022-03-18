@@ -35,11 +35,7 @@ test_that("collapse() returns sequence vector of length 1", {
 })
 
 # ERROR FOR NON-SQ OBJECTS ----
-test_that("collapse() throws an error whenever passed object of class other that sq", {
-  expect_error(collapse(1:7))
-  expect_error(collapse(LETTERS))
-  expect_error(collapse(list(mean, sum, sd)))
-})
+test_sq_only(collapse)
 
 # VALUE COMPUTATION ----
 test_that("collapse() returns sequence equal to all collapsed sequences", {

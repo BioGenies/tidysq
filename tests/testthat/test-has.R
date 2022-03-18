@@ -29,11 +29,7 @@ test_that("%has% returns a logical vector", {
 })
 
 # ERROR FOR NON-SQ OBJECTS ----
-test_that("%has% throws an error whenever passed object of class other that sq", {
-  expect_error(7:2 %has% "ATC")
-  expect_error(LETTERS %has% "H")
-  expect_error(list(mean, sum, sd) %has% c("ALFA", "BUICK", "ROMEO"))
-})
+test_sq_only(`%has%`, "C")
 
 # VALUE COMPUTATION FOR SINGLE MOTIFS ----
 test_that("%has% works correctly for basic letters", {

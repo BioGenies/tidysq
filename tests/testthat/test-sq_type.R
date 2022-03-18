@@ -19,11 +19,7 @@ test_that("sq_type() returns valid sq type", {
 })
 
 # ERROR FOR NON-SQ OBJECTS ----
-test_that("sq_type() throws an error whenever passed object of class other that sq", {
-  expect_error(sq_type(1:7))
-  expect_error(sq_type(LETTERS))
-  expect_error(sq_type(list(mean, sum, sd)))
-})
+test_sq_only(sq_type)
 
 test_that("`sq_type<-`() throws an error whenever passed object of class other that sq", {
   expect_error(sq_type(1:7) <- "ami_bsc")

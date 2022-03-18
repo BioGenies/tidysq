@@ -62,7 +62,11 @@
 
 #' @export
 `%has%.default` <- function(x, y)
-  stop("operator '%has%' is not overloaded for this type of objects")
+  stop_no_method(
+    `%has%`, x,
+    msg = function(cls) paste0("operator '%has%' is not overloaded for object of classes <",
+                               paste0(class(x), collapse = ", "), ">")
+  )
 
 #' @export
 `%has%.sq` <- function(x, y) {

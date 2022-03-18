@@ -20,11 +20,7 @@ test_that("each element of find_invalid_letters() is a character vector", {
 })
 
 # ERROR FOR NON-SQ OBJECTS ----
-test_that("find_invalid_letters() throws an error whenever passed object of class other that sq", {
-  expect_error(find_invalid_letters(1:7, "dna_bsc"))
-  expect_error(find_invalid_letters(LETTERS, "ami_ext"))
-  expect_error(find_invalid_letters(list(mean, sum, sd), "rna_ext"))
-})
+test_sq_only(find_invalid_letters, dest_type = "dna_bsc")
 
 # VALUE COMPUTATION ----
 test_that("find_invalid_letters() correctly computes value", {
