@@ -41,16 +41,6 @@ df_rna_ext <- tibble::tibble(
 
 N_interpretations <- c("A", "C", "G", "T", "K", "R", "Y", "W", "S", "M", "B", "D", "H", "V", "N")
 
-# ERROR FOR NON-SQ OBJECTS ----
-test_that("x must be an sq or data.frame object", {
-  expect_error(find_motifs(1:5, names_5, "ACC"),
-               "method 'find_motifs' isn't implemented for this type of object")
-  expect_error(find_motifs(LETTERS, letters, "H"),
-               "method 'find_motifs' isn't implemented for this type of object")
-  expect_error(find_motifs(list(mean, sum, sd), names_3, "mean"),
-               "method 'find_motifs' isn't implemented for this type of object")
-})
-
 # CORRECT PROTOTYPE OF RETURNED VALUE ----
 test_that("find_motifs() returns a tibble with columns specified in docs", {
   expect_vector(find_motifs(sq_dna_bsc, names_5, "TAG"),
@@ -88,6 +78,8 @@ test_that("find_motifs() returns a tibble with columns specified in docs", {
 })
 
 # ARGUMENT PREREQUISITES ----
+test_sq_only(find_motifs, motifs = "H", .data.frame_ok = TRUE)
+
 test_that("name argument must contain unique elements", {
   # There would be a test that the same code works with unique names, but
   # it would involve creating separate expectation and we don't have to do that,
