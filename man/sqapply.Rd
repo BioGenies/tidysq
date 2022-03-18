@@ -2,9 +2,12 @@
 % Please edit documentation in R/sqapply.R
 \name{sqapply}
 \alias{sqapply}
+\alias{sqapply.sq}
 \title{Apply function to each sequence}
 \usage{
-sqapply(
+sqapply(x, fun, ...)
+
+\method{sqapply}{sq}(
   x,
   fun,
   ...,

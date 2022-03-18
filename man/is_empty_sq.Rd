@@ -2,9 +2,12 @@
 % Please edit documentation in R/is_empty_sq.R
 \name{is_empty_sq}
 \alias{is_empty_sq}
+\alias{is_empty_sq.sq}
 \title{Test if sequence is empty}
 \usage{
 is_empty_sq(x)
+
+\method{is_empty_sq}{sq}(x)
 }
 \arguments{
 \item{x}{[\code{sq}]\cr
