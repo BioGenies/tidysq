@@ -47,7 +47,7 @@ complement <- function(x, ...)
 
 #' @export
 complement.default <- function(x, ...)
-  stop("method 'complement' isn't implemented for this type of object", call. = FALSE)
+  stop_no_method(complement, x)
 
 #' @rdname complement
 #' @export

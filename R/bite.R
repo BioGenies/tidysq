@@ -62,7 +62,7 @@ bite <- function(x, indices, ...)
 
 #' @export
 bite.default <- function(x, indices, ...)
-  stop("method 'bite()' isn't implemented for this type of object", call. = FALSE)
+  stop_no_method(bite, x)
 
 #' @rdname bite
 #' @export
