@@ -61,7 +61,7 @@ remove_ambiguous <- function(x, by_letter = FALSE, ...) {
 
 #' @export
 remove_ambiguous.default <- function(x, by_letter = FALSE, ...)
-  stop("ambiguous letters are not defined in the context of this class", call. = FALSE)
+  stop_no_method(remove_ambiguous, x)
 
 #' @rdname remove_ambiguous
 #' @export

@@ -49,7 +49,7 @@ translate <- function(x, table = 1, ...) {
 
 #' @export
 translate.default <- function(x, table = 1, ...)
-  stop("cannot translate something that is neither basic DNA nor RNA sequence", call. = FALSE)
+  stop_no_method(translate, x)
 
 #' @rdname translate
 #' @export

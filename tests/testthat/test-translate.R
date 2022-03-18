@@ -27,12 +27,13 @@ test_that("translate() returns clean amino acid sq object", {
 })
 
 # ERROR FOR NON-DNA/RNA OBJECTS ----
-test_that("translate() throws an error whenever passed object of class other that sq_dna/sq_rna", {
-  expect_error(translate(19:8))
-  expect_error(translate(list(mean, sum, sd)))
-  expect_error(translate(LETTERS))
+test_sq_only(translate)
+
+test_that("only DNA and RNA sequences are accepted", {
   expect_error(translate(sq(character(), "ami_bsc")))
-  expect_error(translate(sq(c("accmsce", "auprcacc"), alphabet = c("auprc", "acc", "msce"))))
+  expect_error(translate(
+    sq(c("accmsce", "auprcacc"), alphabet = c("auprc", "acc", "msce"))
+  ))
 })
 
 # VALUE COMPUTATION ----

@@ -52,11 +52,7 @@ test_that("substitute_letters() keep original_lengths unchanged", {
 })
 
 # ARGUMENT PREREQUISITES ----
-test_that("substitute_letters() throws an error whenever passed object of class other that sq", {
-  expect_error(substitute_letters(1:7, c(S = "H")))
-  expect_error(substitute_letters(LETTERS, c(S = "SH", H = "HS")))
-  expect_error(substitute_letters(list(mean, sum, sd), c(`mean` = "Aix")))
-})
+test_sq_only(substitute_letters, encoding = c(S = "H"))
 
 test_that("encoding must be either numeric or character", {
   expect_error(substitute_letters(sq_dna, c(A = TRUE, T = FALSE)),

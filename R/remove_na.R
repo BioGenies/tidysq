@@ -66,7 +66,7 @@ remove_na <- function(x, by_letter = FALSE, ...) {
 
 #' @export
 remove_na.default <- function(x, by_letter = FALSE, ...)
-  stop("'remove_na' isn't implemented for this type of object", call. = FALSE)
+  stop_no_method(remove_na, x)
 
 #' @rdname remove_na
 #' @export

@@ -21,11 +21,7 @@ test_that("is_empty_sq() returns logical vector", {
 })
 
 # ERROR FOR NON-SQ OBJECTS ----
-test_that("find_invalid_letters() throws an error whenever passed object of class other that sq", {
-  expect_error(is_empty_sq(1:7))
-  expect_error(is_empty_sq(LETTERS))
-  expect_error(is_empty_sq(list(mean, sum, sd)))
-})
+test_sq_only(is_empty_sq)
 
 # VALUE COMPUTATION
 test_that("is_empty_sq() correctly computes return value", {

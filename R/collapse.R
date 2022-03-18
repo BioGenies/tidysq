@@ -39,7 +39,7 @@ collapse <- function(x, ...)
 
 #' @export
 collapse.default <- function(x, ...)
-  stop("method 'collapse' isn't implemented for this type of object", call. = FALSE)
+  stop_no_method(collapse, x)
 
 #' @rdname collapse
 #' @export

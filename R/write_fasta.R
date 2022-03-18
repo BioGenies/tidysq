@@ -46,7 +46,7 @@ write_fasta <- function(x, ...) {
 
 #' @export
 write_fasta.default <- function(x, ...)
-  stop("method 'write_fasta' isn't implemented for this type of object")
+  stop_no_method(write_fasta, x)
 
 #' @rdname write_fasta
 #' @export

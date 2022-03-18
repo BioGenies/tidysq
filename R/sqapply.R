@@ -33,10 +33,19 @@
 #' 
 #' @seealso \code{\link[=sq-class]{sq}} \code{\link[base]{lapply}}
 #' @export
-sqapply <- function(x, fun, ...,
-                    single_string = FALSE, 
-                    NA_letter = getOption("tidysq_NA_letter")) {
-  assert_class(x, "sq")
+sqapply <- function(x, fun, ...) {
+  UseMethod("sqapply")
+}
+
+#' @export
+sqapply.default <- function(x, fun, ...)
+  stop_no_method(sqapply, x)
+
+#' @rdname sqapply
+#' @export
+sqapply.sq <- function(x, fun, ...,
+                       single_string = FALSE, 
+                       NA_letter = getOption("tidysq_NA_letter")) {
   assert_function(fun)
   assert_flag(single_string)
   assert_string(NA_letter, min.chars = 1)

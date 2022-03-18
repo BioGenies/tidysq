@@ -50,7 +50,7 @@ typify <- function(x, dest_type, ...) {
 
 #' @export
 typify.default <- function(x, dest_type, ...)
-  stop("'typify' isn't implemented for this type of object", call. = FALSE)
+  stop_no_method(typify, x)
 
 #' @rdname typify
 #' @export
