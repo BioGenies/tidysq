@@ -26,12 +26,13 @@ test_that("complement() preserves all attributes of original vector", {
 })
 
 # ERROR FOR NON-DNA/RNA OBJECTS ----
-test_that("complement() throws an error whenever passed object of class other that sq_dna/sq_rna", {
-  expect_error(complement(19:8))
-  expect_error(complement(list(mean, sum, sd)))
-  expect_error(complement(LETTERS))
+test_sq_only(complement)
+
+test_that("only DNA and RNA sequences are accepted", {
   expect_error(complement(sq(character(), "ami_bsc")))
-  expect_error(complement(sq(c("accmsce", "auprcacc"), alphabet = c("auprc", "acc", "msce"))))
+  expect_error(complement(
+    sq(c("accmsce", "auprcacc"), alphabet = c("auprc", "acc", "msce"))
+  ))
 })
 
 # VALUE COMPUTATION ----

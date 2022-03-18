@@ -7,10 +7,9 @@ sq_ami <- sq(c("OUTLANDISH", "UNSTRUCTURIZED", "FEAR"),
              alphabet = "ami_ext")
 
 # ERROR FOR NON-STANDARD SQ OBJECTS ----
-test_that("export_sq() throws an error whenever passed object of class other that standard sq classes", {
-  expect_error(export_sq(1:7, "Biostrings::DNAStringSet"))
-  expect_error(export_sq(LETTERS, "Biostrings::DNAStringSet"))
-  expect_error(export_sq(list(mean, sum, sd), "Biostrings::DNAStringSet"))
+test_sq_only(export_sq, export_format = "Biostrings::DNAStringSet")
+
+test_that("only standard (DNA/RNA/amino acid) sequences are accepted", {
   expect_error(export_sq(sq(c(")R#)#!Vawr9fy", "*V)RUgBa^%#!b]")),
                          "Biostrings::DNAStringSet"))
   expect_error(export_sq(sq(c("accmsce", "auprcacc"), alphabet = c("auprc", "acc", "msce")),

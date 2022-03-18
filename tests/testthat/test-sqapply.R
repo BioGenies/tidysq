@@ -6,11 +6,7 @@ fun_1 <- function(sequence) sequence[1]
 fun_2 <- function(sequence) sum(sequence == "A")
 
 # ERROR FOR NON-SQ OBJECTS ----
-test_that("sqapply() throws an error whenever passed object of class other that sq", {
-  expect_error(sqapply(1:7, fun_1))
-  expect_error(sqapply(LETTERS, fun_2))
-  expect_error(sqapply(list(mean, sum, sd), fun_1))
-})
+test_sq_only(sqapply, fun = fun_1)
 
 # TYPE CORRECTNESS
 test_that("sqapply() returns list", {
