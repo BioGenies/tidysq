@@ -109,16 +109,16 @@ namespace tidysq::constants {
     inline const LetterValue CODON<TABLE, 3u, 2u, 3u> = 1u;
 
     template<int TABLE>
-    inline const LetterValue CODON<TABLE, 3u, 3u, 0u> = 4u;
+    inline const LetterValue CODON<TABLE, 3u, 3u, 0u> = 9u;
 
     template<int TABLE>
-    inline const LetterValue CODON<TABLE, 3u, 3u, 1u> = 9u;
+    inline const LetterValue CODON<TABLE, 3u, 3u, 1u> = 4u;
 
     template<int TABLE>
-    inline const LetterValue CODON<TABLE, 3u, 3u, 2u> = 4u;
+    inline const LetterValue CODON<TABLE, 3u, 3u, 2u> = 9u;
 
     template<int TABLE>
-    inline const LetterValue CODON<TABLE, 3u, 3u, 3u> = 9u;
+    inline const LetterValue CODON<TABLE, 3u, 3u, 3u> = 4u;
 
 
     template<>

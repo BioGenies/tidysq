@@ -65,7 +65,7 @@ namespace tidysq {
 
         inline bool operator==(const ProtoSq<INTERNAL, PROTO> &other) const {
            if ((alphabet_ != other.alphabet_) || (content_.size() != other.content_.size())) return false;
-           for (typeof(content_.size()) i = 0; i < content_.size(); i++) {
+           for (LenSq i = 0; i < content_.size(); i++) {
                if ((*this)[i] != other[i]) return false;
            }
            return true;
