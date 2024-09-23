@@ -75,7 +75,7 @@ NeedsCompilation: no
 Repository: CRAN
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.2
 LinkingTo: Rcpp,
            testthat
 VignetteBuilder: knitr

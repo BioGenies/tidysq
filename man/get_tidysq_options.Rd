@@ -34,7 +34,7 @@ Full list of options included in \pkg{tidysq} package is listed below:
  it can be accessed with a call to \code{warnings()}. Lastly, \code{"silent"}
  setting causes any warnings to be completely ignored. Default value is
  \code{"warning"}.
-\item tidysq_pillar_max_width [code{integer(1)}]\cr
+\item tidysq_pillar_max_width [\code{integer(1)}]\cr
  Determines max width of a column of \code{sq} class within a
  \code{\link[tibble]{tibble}}. Default value is 15.
 \item tidysq_print_max_sequences [\code{integer(1)}]\cr
