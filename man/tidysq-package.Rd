@@ -6,7 +6,7 @@
 \alias{tidysq}
 \title{tidysq: tidy analysis of biological sequences}
 \description{
-The \code{tidysq} package is a toolbox for the analysis of 
+The \code{tidysq} package is a toolbox for the analysis of
 biological sequences in a tidy way.
 }
 \seealso{
