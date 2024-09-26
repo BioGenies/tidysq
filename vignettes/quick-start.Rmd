@@ -112,7 +112,7 @@ It says nothing about motif placement within sequence nor it exact form, however
 find_motifs(sq_dna, c("seq1", "seq2", "rev1", "rev2"), c("ATC", "TAG"))
 ```
 
-You can also provide this function with a `data.frame` (or, what we recommend, `tibble`) containing one column called `sq`, containing the sequences and the other colum `name` containing the names.
+You can also provide this function with a `data.frame` (or, what we recommend, `tibble`) containing one column called `sq`, containing the sequences and the other column `name` containing the names.
 
 ```{r sqibble_find_motifs}
 sqibble <- tibble::tibble(sq = sq_dna, 
