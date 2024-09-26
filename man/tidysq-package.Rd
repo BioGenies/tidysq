@@ -6,8 +6,16 @@
 \alias{tidysq}
 \title{tidysq: tidy analysis of biological sequences}
 \description{
-The \code{tidysq} package is a toolbox for the analysis of 
+The \code{tidysq} package is a toolbox for the analysis of
 biological sequences in a tidy way.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/BioGenies/tidysq}
+  \item Report bugs at \url{https://github.com/BioGenies/tidysq/issues}
+}
+
 }
 \author{
 Michal Burdukiewicz, Dominik Rafacz, Laura Bąkała, Leon Eyrich Jessen

@@ -51,9 +51,8 @@ alphabets.}
 A \code{\link[tibble]{tibble}} with number of rows equal to the
 number of sequences and two columns:
 \itemize{
-\item{name}{specifies name of a sequence, used in functions like
- \code{\link{find_motifs}}}
-\item{sq}{contains extracted sequence itself}
+\item `name` -- specifies name of a sequence, used in functions like \code{\link{find_motifs}}
+\item `sq` -- specifies name of a sequence, used in functions like \code{\link{find_motifs}}
 }
 }
 \description{

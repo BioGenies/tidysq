@@ -1,12 +1,12 @@
 #' Get alphabet of given sq object.
-#' 
+#'
 #' @description Returns \code{alphabet} attribute of an object.
-#' 
+#'
 #' @param x [\code{sq}]\cr
 #'  An object to extract alphabet from.
-#'  
+#'
 #' @return A character vector of letters of the alphabet.
-#' 
+#'
 #' @details
 #' Each \code{sq} object have an \strong{alphabet} associated with it. Alphabet
 #' is a set of possible \strong{letters} that can appear in sequences contained
@@ -119,7 +119,7 @@ get_standard_alphabet <- function(type) {
 }
 
 # Scans ProtoSq object to determine alphabet (understood as unique encountered letters).
-obtain_alphabet <- function(x, sample_size = 4096, 
+obtain_alphabet <- function(x, sample_size = 4096,
                             NA_letter = getOption("tidysq_NA_letter"),
                             ignore_case = FALSE) {
   CPP_obtain_alphabet(x, sample_size, NA_letter, ignore_case)
@@ -133,6 +133,7 @@ guess_standard_alphabet <- function(alph,
 
 # utility methods ----
 
+#' @export
 `[.sq_alphabet` <- function(x, i,
                             NA_letter = getOption("tidysq_NA_letter")) {
   ret <- vec_data(x)[i]

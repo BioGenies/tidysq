@@ -1,7 +1,7 @@
 Package: tidysq
 Type: Package
 Title: Tidy Processing and Analysis of Biological Sequences
-Version: 1.2.0
+Version: 1.2.1
 Date: 2022-01-29
 Authors@R: c(person("Dominik", "Rafacz", 
            email = "dominikrafacz@gmail.com",
@@ -75,7 +75,7 @@ NeedsCompilation: no
 Repository: CRAN
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.2
 LinkingTo: Rcpp,
            testthat
 VignetteBuilder: knitr

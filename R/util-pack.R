@@ -4,12 +4,14 @@ pack <- function(x, alphabet,
   UseMethod("pack")
 }
 
+#' @export
 pack.character <- function(x, alphabet,
                            NA_letter = getOption("tidysq_NA_letter"),
                            ignore_case = FALSE) {
   CPP_pack_STRING(x, alphabet, NA_letter, ignore_case)
 }
 
+#' @export
 pack.list <- function(x, alphabet,
                       NA_letter = getOption("tidysq_NA_letter"),
                       ignore_case = FALSE) {
