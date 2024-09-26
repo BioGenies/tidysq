@@ -27,7 +27,7 @@ test_that("substitute_letters() returns an object with trimmed alphabet attribut
   expect_setequal(
     alphabet(substitute_letters(sq_ami, c(P = "Q", O = "W", I = "E", U = "R", Y = "T", G = "V",
                                           L = "A", K = "S", J = "D", H = "F", M = "Z", N = "X", B = "C"))),
-    setdiff(alphabet(sq_ami), c("P", "O", "I", "U", "Y", "G", "L", "K", "J", "H", "M", "N", "B"))
+    setdiff(as.character(alphabet(sq_ami)), c("P", "O", "I", "U", "Y", "G", "L", "K", "J", "H", "M", "N", "B"))
   )
 })
 
