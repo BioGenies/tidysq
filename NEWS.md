@@ -1,3 +1,9 @@
+# tidysq 1.2.1
+
+## Fixed:
+* fixed incorrect codons
+* add explicit casting of alphabet during construction of sequence prototype (fixes issues with new implementation of `union()`) 
+
 # tidysq 1.2.0
 ## New features:
 * `write_fasta()` and `find_motifs()` accept `data.frame` arguments now; sequences and their names are taken from specified two columns
