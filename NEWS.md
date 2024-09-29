@@ -9,8 +9,8 @@
 * `write_fasta()` and `find_motifs()` accept `data.frame` arguments now; sequences and their names are taken from specified two columns
 * more descriptive error messages for non-existing generics that print out classes of the first parameter
 
-## Fixed-ish:
-* return to autoexported `Rcpp` catch declaration
+## Fixed:
+* return to automatically exported `Rcpp` catch declaration
 
 ## Quality of code stuff:
 * added tests and adjusted vignettes for the changes

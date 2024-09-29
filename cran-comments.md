@@ -1,11 +1,6 @@
-## Test environments
-* local R installation, R 4.1.0
-* ubuntu 16.04 (on travis-ci), R 4.1.0
-* win-builder (devel)
-
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 notes
 
 * This is a resubmission.
-* Fixed the problem with deprecated usage of iterator
+* Fixed issues related to new implementations of set operations on R-devel

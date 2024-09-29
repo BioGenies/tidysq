@@ -25,7 +25,7 @@ library(tidysq)
 
 ## Sequence creation
 
-Biological sequences can be and often are represented as strings -- sequences of letters. For example, a DNA sequence can take the form of `"TAGGCCCTAGACCTG"`, where `A` means adenine, `C` -- cytosine, `G` -- guanine and `T` -- thymine. Exact IUPAC recommendations for one-letter codes can be found [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC341218/).
+Biological sequences can be and often are represented as strings -- sequences of letters. For example, a DNA sequence can take the form of `"TAGGCCCTAGACCTG"`, where `A` means adenine, `C` -- cytosine, `G` -- guanine and `T` -- thymine. Exact IUPAC recommendations for one-letter codes can be found in *Cornish-Bowden A. Nomenclature for incompletely specified bases in nucleic acid sequences: recommendations 1984. Nucleic Acids Res. 1985 May 10;13(9):3021-30. doi: 10.1093/nar/13.9.3021. PMID: 2582368; PMCID: PMC341218*.
 
 Within `tidysq` package sequence data is stored in `sq` objects, that is, vectors of biological sequences. They can be created from string vectors as above:
 
@@ -112,7 +112,7 @@ It says nothing about motif placement within sequence nor it exact form, however
 find_motifs(sq_dna, c("seq1", "seq2", "rev1", "rev2"), c("ATC", "TAG"))
 ```
 
-You can also provide this function with a `data.frame` (or, what we recommend, `tibble`) containing one column called `sq`, containing the sequences and the other colum `name` containing the names.
+You can also provide this function with a `data.frame` (or, what we recommend, `tibble`) containing one column called `sq`, containing the sequences and the other column `name` containing the names.
 
 ```{r sqibble_find_motifs}
 sqibble <- tibble::tibble(sq = sq_dna, 
