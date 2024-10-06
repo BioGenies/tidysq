@@ -1,20 +1,20 @@
 #' Import sq objects from other objects
-#' 
+#'
 #' @description Creates \code{\link[=sq-class]{sq}} object from object of class
 #' from another package. Currently supported packages are \pkg{ape},
 #' \pkg{bioseq}, \pkg{Bioconductor} and \pkg{seqinr}. For exact list of
 #' supported classes and resulting types, see details.
-#' 
+#'
 #' @param object [\code{any(1)}]\cr
 #'  An object of one of supported classes.
 #' @template three-dots
-#' 
+#'
 #' @return A \code{\link[tibble]{tibble}} with \code{sq} column of
 #' \code{\link[=sq-class]{sq}} type representing the same sequences as given
 #' object; the object has a type corresponding to the input type; if given
 #' sequences have names, output \code{\link[tibble]{tibble}} will also have
 #' another column \code{name} with those names
-#' 
+#'
 #' @details
 #' Currently supported classes are as follows:
 #' \itemize{
@@ -59,22 +59,25 @@
 #'
 #' Providing object of class other than specified will result in an error.
 #'
-#' @examples
+#' @examplesIf require("ape", quietly = TRUE)
 #' # ape example
 #' library(ape)
 #' ape_dna <- as.DNAbin(list(one = c("C", "T", "C", "A"), two = c("T", "G", "A", "G", "G")))
 #' import_sq(ape_dna)
 #'
+#' @examplesIf require("bioseq", quietly = TRUE)
 #' # bioseq example
 #' library(bioseq)
 #' bioseq_rna <- new_rna(c(one = "ANBRY", two = "YUTUGGN"))
 #' import_sq(bioseq_rna)
 #'
+#' @examplesIf require("Biostrings", quietly = TRUE)
 #' # Biostrings example
 #' library(Biostrings)
 #' Biostrings_ami <- AAStringSet(c(one = "FEAPQLIWY", two = "EGITENAK"))
 #' import_sq(Biostrings_ami)
 #'
+#' @examplesIf require("seqinr", quietly = TRUE)
 #' # seqinr example
 #' library(seqinr)
 #' seqinr_dna <- as.SeqFastadna(c("C", "T", "C", "A"), name = "one")
@@ -246,6 +249,6 @@ import_sq.list <- function(object, separate = TRUE, ...) {
 bind_into_sqibble <- function(x, name = NULL) {
   if (is.null(name))
     tibble(sq = x)
-  else 
+  else
     tibble(name = name, sq = x)
 }

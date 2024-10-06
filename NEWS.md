@@ -3,6 +3,7 @@
 ## Fixed:
 * fixed incorrect codons
 * add explicit casting of alphabet during construction of sequence prototype (fixes issues with new implementation of `union()`) 
+* add skips for tests that use not available packages from "Suggests"
 
 # tidysq 1.2.0
 ## New features:

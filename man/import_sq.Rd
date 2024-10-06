@@ -70,26 +70,30 @@ Currently supported classes are as follows:
 Providing object of class other than specified will result in an error.
 }
 \examples{
+\dontshow{if (require("ape", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # ape example
 library(ape)
 ape_dna <- as.DNAbin(list(one = c("C", "T", "C", "A"), two = c("T", "G", "A", "G", "G")))
 import_sq(ape_dna)
-
+\dontshow{\}) # examplesIf}
+\dontshow{if (require("bioseq", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # bioseq example
 library(bioseq)
 bioseq_rna <- new_rna(c(one = "ANBRY", two = "YUTUGGN"))
 import_sq(bioseq_rna)
-
+\dontshow{\}) # examplesIf}
+\dontshow{if (require("Biostrings", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Biostrings example
 library(Biostrings)
 Biostrings_ami <- AAStringSet(c(one = "FEAPQLIWY", two = "EGITENAK"))
 import_sq(Biostrings_ami)
-
+\dontshow{\}) # examplesIf}
+\dontshow{if (require("seqinr", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # seqinr example
 library(seqinr)
 seqinr_dna <- as.SeqFastadna(c("C", "T", "C", "A"), name = "one")
 import_sq(seqinr_dna)
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=sq-class]{sq class}}

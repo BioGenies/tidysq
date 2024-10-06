@@ -1,7 +1,7 @@
 #' Export sq objects into other formats
 #'
 #' @templateVar name_null_ok TRUE
-#' 
+#'
 #' @description Converts object of class \code{\link[=sq-class]{sq}} to a class
 #' from another package. Currently supported packages are \pkg{ape},
 #' \pkg{bioseq}, \pkg{Bioconductor} and \pkg{seqinr}. For exact list of
@@ -13,8 +13,8 @@
 #' @template name
 #' @template three-dots
 #'
-#' @return An object with the format specified in the parameter. To find 
-#' information about the detailed structure of this object, see documentation 
+#' @return An object with the format specified in the parameter. To find
+#' information about the detailed structure of this object, see documentation
 #' of these objects.
 #'
 #' @details
@@ -44,7 +44,7 @@
 #'  }
 #' }
 #'
-#' @examples
+#' @examplesIf all(c(require("Biostrings", quietly = TRUE), require("ape", quietly = TRUE), require("bioseq", quietly = TRUE), require("seqinr", quietly = TRUE)))
 #' # DNA and amino acid sequences can be exported to most packages
 #' sq_ami <- sq(c("MVVGL", "LAVPP"), alphabet = "ami_bsc")
 #' export_sq(sq_ami, "ape::AAbin")
@@ -72,7 +72,7 @@
 export_sq <- function(x, export_format, name = NULL, ...) {
   assert_string(export_format)
   assert_character(name, len = vec_size(x), null.ok = TRUE)
-  
+
   UseMethod("export_sq")
 }
 

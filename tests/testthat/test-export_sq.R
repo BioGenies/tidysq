@@ -1,3 +1,5 @@
+skip_if_not_installed("Biostrings")
+
 # SETUP ----
 sq_dna <- sq(c("TACTGGGCATG", "CAGGTCGGA", "TAGTAGTCCG", "", "ACGGT"),
              alphabet = "dna_bsc")
