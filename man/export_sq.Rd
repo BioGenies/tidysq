@@ -20,8 +20,8 @@ Vector of sequence names. Must be of the same length as \code{sq} object.
 \item{...}{further arguments to be passed from or to other methods.}
 }
 \value{
-An object with the format specified in the parameter. To find 
-information about the detailed structure of this object, see documentation 
+An object with the format specified in the parameter. To find
+information about the detailed structure of this object, see documentation
 of these objects.
 }
 \description{
@@ -58,6 +58,7 @@ Currently supported formats are as follows (grouped by \code{sq} types):
 }
 }
 \examples{
+\dontshow{if (all(c(require("Biostrings", quietly = TRUE), require("ape", quietly = TRUE), require("bioseq", quietly = TRUE), require("seqinr", quietly = TRUE)))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # DNA and amino acid sequences can be exported to most packages
 sq_ami <- sq(c("MVVGL", "LAVPP"), alphabet = "ami_bsc")
 export_sq(sq_ami, "ape::AAbin")
@@ -78,7 +79,7 @@ export_sq(sq_rna, "Biostrings::RNAStringSet")
 
 # Biostrings can export single sequences to simple strings as well
 export_sq(sq_dna[1], "Biostrings::DNAString")
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=sq-class]{sq class}}

@@ -1,7 +1,7 @@
 #' Save sq to fasta file
 #'
 #' @templateVar name_null_ok FALSE
-#' 
+#'
 #' @description Writes \code{\link[=sq-class]{sq}} objects with their names to
 #' a fasta file.
 #'
@@ -17,7 +17,7 @@
 #' @template three-dots
 #'
 #' @return No value is returned.
-#' 
+#'
 #' @details
 #' Whenever a name has more letters than \code{width} parameter, nothing
 #' happens, as only sequences are split to fit within designated space.
@@ -30,7 +30,7 @@
 #'             c("bat", "cat", "rat", "elephant_swallowed_by_A_snake"),
 #'             tempfile())
 #' }
-#' 
+#'
 #' # It can be a part of tidyverse pipeline:
 #' library(dplyr)
 #' fasta_file <- system.file(package = "tidysq", "examples/example_aa.fasta")
@@ -58,7 +58,7 @@ write_fasta.sq <- function(x, name, file,
   assert_string(file)
   assert_count(width, positive = TRUE)
   assert_string(NA_letter, min.chars = 1)
-  
+
   CPP_write_fasta(x, name, file, width, NA_letter)
 }
 
@@ -73,6 +73,6 @@ write_fasta.data.frame <- function(x, file,
   assert_string(.sq, min.chars = 1)
   assert_string(.name, min.chars = 1)
   assert_subset(c(.sq, .name), colnames(x))
-  
+
   write_fasta(x[[.sq]], x[[.name]], file, width = width, NA_letter = NA_letter)
 }

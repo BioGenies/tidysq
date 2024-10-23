@@ -25,6 +25,7 @@ test_that("random_sq() doesn't accept \"unt\" as type", {
 
 # LENGTH SAFETY ----
 test_that("using sd argument of random_sq() doesn't generate negative-length sequences", {
+  skip_if_not_installed("mockr")
   # Using local mock to ensure that rnorm generates some negative values
   # Will have to change it if random_sq() changes length generating function
   # This might suggest that we should extract this as a separate function

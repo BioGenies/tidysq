@@ -1,3 +1,5 @@
+skip_if_not_installed("Biostrings")
+
 # SETUP ----
 str_dna <- c("TACTGGGCATG", "CAGGTCGGA", "TAGTAGTCCG", "", "ACGGT")
 str_1_dna <- "TCYYCAHGGCHA"

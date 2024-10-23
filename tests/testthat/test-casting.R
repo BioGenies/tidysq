@@ -44,14 +44,6 @@ str_with_na_1 <- c("!A!T!!TC!", "", "AT!C!G!!", "", "!!A!!T!")
 str_with_na_2 <- c("?A?T??TC?", "", "AT?C?G??", "", "??A??T?")
 str_with_na_3 <- c("<?>A<?>T<?><?>TC<?>", "", "AT<?>C<?>G<?><?>", "", "<?><?>A<?><?>T<?>")
 
-# added because of Biostrings warning
-suppressWarnings({
-  biostr_dna_bsc <- Biostrings::DNAStringSet(str_dna_bsc)
-})
-
-seqinr_ami_bsc <- lapply(str_ami_bsc, function(x)
-  seqinr::as.SeqFastaAA(seqinr::s2c(x)))
-
 # CASTING TO SQ ----
 test_that("character vector is casted to sq with as.sq()", {
   expect_identical(as.sq(str_rna_bsc),
@@ -62,11 +54,25 @@ test_that("character vector is casted to sq with as.sq()", {
                    sq(str_atp))
 })
 
-test_that("non-character objects are passed to import_sq()", {
+test_that("Biostrings objects are passed to import_sq()", {
+  skip_if_not_installed("Biostrings")
+  # suppression because of Biostrings warning
+  suppressWarnings({
+    biostr_dna_bsc <- Biostrings::DNAStringSet(str_dna_bsc)
+  })
   expect_identical(as.sq(biostr_dna_bsc),
                    import_sq(biostr_dna_bsc))
+})
+
+test_that("seqinr objects are passed to import_sq()", {
+  skip_if_not_installed("seqinr")
+  seqinr_ami_bsc <- lapply(str_ami_bsc, function(x)
+    seqinr::as.SeqFastaAA(seqinr::s2c(x)))
   expect_identical(as.sq(seqinr_ami_bsc),
                    import_sq(seqinr_ami_bsc))
+})
+
+test_that("Non-importable objects in import_sq() throw an error", {
   expect_error(as.sq(function(x, y) x + y))
 })
 

@@ -1,9 +1,9 @@
 #' Find given motifs
 #'
 #' @templateVar name_null_ok FALSE
-#' 
+#'
 #' @description Finds all given motifs in sequences and returns their positions.
-#' 
+#'
 #' @template x
 #' @template name
 #' @param motifs [\code{character}]\cr
@@ -12,7 +12,7 @@
 #' @template dot-name
 #' @template NA_letter
 #' @template three-dots
-#' 
+#'
 #' @return A \code{\link[tibble]{tibble}} with following columns:
 #'  \item{name}{name of the sequence in which a motif was found}
 #'  \item{sought}{sought motif}
@@ -20,12 +20,12 @@
 #'   contained ambiguous letters}
 #'  \item{start}{position of first element of found motif}
 #'  \item{end}{position of last element of found motif}
-#' 
+#'
 #' @details
 #' This function allows search of a given motif or motifs in the \code{sq}
 #' object. It returns all motifs found with their start and end positions within
 #' a sequence.
-#' 
+#'
 #' @template motif_details
 #'
 #' @examples
@@ -53,7 +53,7 @@
 #'
 #' # Finding multicharacter motifs:
 #' find_motifs(sq_atp, sq_names, c("nsA", "mYmY$"))
-#' 
+#'
 #' # It can be a part of tidyverse pipeline:
 #' library(dplyr)
 #' fasta_file <- system.file(package = "tidysq", "examples/example_aa.fasta")
@@ -80,7 +80,7 @@ find_motifs.sq <- function(x, name, motifs, ...,
   assert_character(motifs, any.missing = FALSE)
   assert_string(NA_letter, min.chars = 1)
   assert_alph_no_special_chars(alphabet(x))
-  
+
   ret <- CPP_find_motifs(x, name, motifs, NA_letter)
   as_tibble(ret)
 }
@@ -95,6 +95,6 @@ find_motifs.data.frame <- function(x, motifs, ...,
   assert_string(.sq, min.chars = 1)
   assert_string(.name, min.chars = 1)
   assert_subset(c(.sq, .name), colnames(x))
-  
+
   find_motifs(x[[.sq]], x[[.name]], motifs, ..., NA_letter = NA_letter)
 }

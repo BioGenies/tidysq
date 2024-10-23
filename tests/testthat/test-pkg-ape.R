@@ -1,3 +1,5 @@
+skip_if_not_installed("ape")
+
 # SETUP ----
 str_dna <- c("TACTGGGCATG", "CAGGTCGGA", "TAGTAGTCCG", "", "ACGGT")
 str_ami <- c("REGENERATED", "TECHNICAL", "FEAT")

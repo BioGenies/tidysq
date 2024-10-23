@@ -164,6 +164,7 @@ test_that("'found' column can handle both special characters and ambiguous lette
 
 # INDEX COLUMNS ----
 test_that("'start' and 'end' columns have values between 1 and length(sequence)", {
+  skip_if_not_installed("purrr")
   sqibble_1 <- find_motifs(sq_dna_bsc, names_5, "TAG")
   sqibble_1[["found_length"]] <- get_sq_lengths(sqibble_1[["found"]])
   purrr::pwalk(sqibble_1, function(names, sought, found, start, end, found_length) {
@@ -206,6 +207,7 @@ test_that("'start' and 'end' columns have values between 1 and length(sequence)"
 })
 
 test_that("index columns can be used to retrieve found subsequence from original sequence", {
+  skip_if_not_installed("purrr")
   purrr::pwalk(find_motifs(sq_dna_bsc, names_5, "TAG"), function(names, sought, found, start, end) {
     expect_identical(
       bite(sq_dna_bsc[which(names == names_5)], start:end)[[1]],
