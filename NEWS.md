@@ -1,3 +1,8 @@
+# tidysq 1.2.2
+
+## Fixed:
+* Using unsigned LenSq in loops. 
+
 # tidysq 1.2.1
 
 ## Fixed:

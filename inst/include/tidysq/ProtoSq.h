@@ -65,7 +65,7 @@ namespace tidysq {
 
         inline bool operator==(const ProtoSq<INTERNAL, PROTO> &other) const {
            if ((alphabet_ != other.alphabet_) || (content_.size() != other.content_.size())) return false;
-           for (LenSq i = 0; i < content_.size(); i++) {
+           for (u_LenSq i = 0; i < content_.size(); i++) {
                if ((*this)[i] != other[i]) return false;
            }
            return true;
@@ -83,7 +83,7 @@ namespace tidysq {
     template<>
     inline bool ProtoSq<RCPP_IT, STRING_PT>::operator==(const ProtoSq<RCPP_IT, STRING_PT> &other) const {
         if ((alphabet_ != other.alphabet_) || (content_.size() != other.content_.size())) return false;
-        for (LenSq i = 0; i < content_.size(); i++) {
+        for (u_LenSq i = 0; i < content_.size(); i++) {
             if ((*this)[i] != other[i]) return false;
         }
         return true;
