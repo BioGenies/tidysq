@@ -137,7 +137,11 @@ guess_standard_alphabet <- function(alph,
 `[.sq_alphabet` <- function(x, i,
                             NA_letter = getOption("tidysq_NA_letter")) {
   ret <- vec_data(x)[i]
-  ret[i == (2 ^ size(x) - 1)] <- NA_letter
+  # a special case -- when subsetting alphabet with numeric values,
+  #   at index of NA letter the value of NA letter is returned
+  if (is.numeric(i)) {
+    ret[i == (2 ^ size(x) - 1)] <- NA_letter
+  }
   ret
 }
 
