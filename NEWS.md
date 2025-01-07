@@ -1,3 +1,8 @@
+# tidysq 1.2.3
+
+## Fixed:
+* Adjusted inner workings of alphabet subsetting in case of non-numeric parameter (fixes #99).
+
 # tidysq 1.2.2
 
 ## Fixed:
